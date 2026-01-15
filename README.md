@@ -1,7 +1,7 @@
 # Padrao Labs para Agents de desenvolvimento
 
 A ideia aqui é ter um agent de desenvolvimento que respeite os padrões Labs, de maneira a desenvolver uma solução qualquer sem perder os padrões do Labs. 
-
+Renomeie o arquivo AGENTS.md para o nome de arquivo usado na sua IDE (tabela abaixo)
 
 ## Como usar?
 | Ferramenta / IDE | Nome do Arquivo | Localização | Descrição |
