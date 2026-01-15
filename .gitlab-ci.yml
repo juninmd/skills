@@ -1,0 +1,9 @@
+image: python:3.12-bullseye
+
+stages:
+  - report
+
+include:
+  - project: 'luizalabs/ci-knife'
+    ref: 'master'
+    file: 'templates/report-security.yaml'
