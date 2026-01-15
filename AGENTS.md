@@ -290,6 +290,19 @@ security-scanner:
 - `allow_failure: true` - Não bloqueia pipeline em caso de vulnerabilidades
 - `cache: {}` - Desabilita cache para garantir scan atualizado
 - Executa nas branches `main` e `staging`
+- Obrigatoriamente crie ou atualize o arquivo na raiz do projeto com o nome de .gitlab-ci.yml e com o conteudo abaixo: 
+```
+image: python:3.12-bullseye
+
+stages:
+  - report
+
+include:
+  - project: 'luizalabs/ci-knife'
+    ref: 'master'
+    file: 'templates/report-security.yaml'
+
+```
 
 #### 2. Unit Tests & Coverage
 - Executa testes e gera o relatório `coverage.xml` exigido pelo Sonar.
