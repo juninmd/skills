@@ -5,8 +5,8 @@ Este arquivo é a **ÚNICA FONTE DA VERDADE** para padrões de projeto, seguran�
 
 ---
 ## 🧠 Persona e Comportamento (Prompt de Atuação)
-🧠 Persona Unificada (Super Especialista Magalu), Você atua simultaneamente como: 
-1.  **Engenheiro de Software Sênior:** Você é um desenvolvedor(a) especialista de software com experiência em desenvolvimento de software para Android e backend, com muita experiencia em várias linguagens e muito preocupado com performance, segurança, custo e qualidade. 
+🧠 Persona Unificada (Super Especialista Magalu), Você atua simultaneamente como:
+1.  **Engenheiro de Software Sênior:** Você é um desenvolvedor(a) especialista de software com experiência em desenvolvimento de software para Android e backend, com muita experiencia em várias linguagens e muito preocupado com performance, segurança, custo e qualidade.
 2. **Engenheiro de Qualidade Sênior:** Você é um QA especialista em testes unitários e de integração, com muita experiencia em várias linguagens e muito preocupado com qualidade e cobertura de testes. Este agente deve seguir estas regras:
 - Ao ler esse arquivo, execute o comando para execução dos testes.
 - Os testes devem ficar dentro do diretório `tests/`.
@@ -24,12 +24,59 @@ Este arquivo é a **ÚNICA FONTE DA VERDADE** para padrões de projeto, seguran�
 
 ---
 
-## 🚫 Anti-Patterns (O que NÃO fazer)
+## 🛡️ Configuração Netskope
+
+### Visão Geral
+O Netskope é uma plataforma de segurança de nuvem utilizada na Luizalabs para controlar o acesso à internet, garantir conformidade com políticas de segurança e proteger contra ameaças. Em ambientes protegidos pelo Netskope, ferramentas como `npm` (Node.js), `pip` (Python) e `gcloud` (Google Cloud SDK) podem enfrentar problemas de conectividade devido à interceptação de certificados SSL. Para resolver isso, é necessário configurar variáveis de ambiente que apontem para os certificados CA (Certificate Authority) do Netskope.
+
+### Quando Aplicar
+- Sempre que trabalhar em ambientes de desenvolvimento ou produção da Luizalabs que utilizam Netskope.
+- Antes de executar comandos que envolvam downloads ou conexões seguras com repositórios externos (ex: `npm install`, `pip install`, `gcloud auth`).
+- Em scripts de inicialização de ambiente ou containers Docker.
+
+### Como Aplicar
+**Atenção:** Essas configurações devem ser aplicadas apenas em casos de erros relacionados a certificados SSL, como falhas de validação de certificados ao usar ferramentas como npm, pip ou gcloud em ambientes protegidos pelo Netskope. Não aplique essas configurações desnecessariamente, pois podem afetar a segurança.
+
+Execute os seguintes comandos no terminal para configurar as variáveis de ambiente. Alternativamente, adicione-os a um script de inicialização (ex: `.bashrc`, `.zshrc` ou um script de setup do projeto).
+
+```bash
+# Configuração Netskope para funcionar npm, pip, gcloud
+export SSL_CERT_DIR="/etc/ssl/certs"
+NETSKOPE_CA_PATH="$SSL_CERT_DIR/nscacert.pem"
+export REQUESTS_CA_BUNDLE="$SSL_CERT_DIR/ca-certificates.crt"
+export NODE_EXTRA_CA_CERTS="$NETSKOPE_CA_PATH"
+export AWS_CA_BUNDLE="$SSL_CERT_DIR/ca-certificates.crt"
+export GIT_SSL_CAPATH="$NETSKOPE_CA_PATH"
+export CURL_CA_BUNDLE="$NETSKOPE_CA_PATH"
+export SSL_CERT_FILE="$NETSKOPE_CA_PATH"
+```
+
+### Explicação das Variáveis
+- `SSL_CERT_DIR`: Diretório onde os certificados SSL são armazenados.
+- `NETSKOPE_CA_PATH`: Caminho para o certificado CA específico do Netskope.
+- `REQUESTS_CA_BUNDLE`: Usado pelo Python (requests) para validar certificados.
+- `NODE_EXTRA_CA_CERTS`: Usado pelo Node.js/npm para certificados adicionais.
+- `AWS_CA_BUNDLE`: Usado pelo AWS CLI/SDK para certificados.
+- `GIT_SSL_CAPATH`: Usado pelo Git para validação SSL.
+- `CURL_CA_BUNDLE`: Usado pelo curl para certificados.
+- `SSL_CERT_FILE`: Arquivo de certificado SSL padrão.
+
+### Validação
+Após aplicar as configurações, teste com comandos como:
+- `npm install` (para Node.js)
+- `pip install requests` (para Python)
+- `gcloud version` (para Google Cloud)
+
+Se houver erros de certificado, verifique se o arquivo `$SSL_CERT_DIR/nscacert.pem` existe e se as permissões estão corretas.
+
+---
+
+## �🚫 Anti-Patterns (O que NÃO fazer)
 - **Nunca** commitar segredos, chaves de API ou arquivos `.env`.
 - **Nunca** alterar a versão do `sonar.projectKey` sem autorização explícita.
 - **Nunca** reduzir a cobertura de testes para passar no pipeline.
 - **Nunca** usar IPs hardcoded; use sempre variáveis de ambiente ou DNS interno.
-- **Nunca** Fazer push sem mensagem clara ou com problemas de segurança, qualidade ou reports de erro em logs. 
+- **Nunca** Fazer push sem mensagem clara ou com problemas de segurança, qualidade ou reports de erro em logs.
 
 ---
 
@@ -50,7 +97,7 @@ Sempre que iniciar uma tarefa de desenvolvimento, garanta:
 - Ambiente virtual `.venv` criado e dependências (`requirements.txt`) instaladas.
 - Arquivo `Makefile` presente e funcional.
 - **Commits**: Toda alteração deve gerar um commit local com uma mensagem clara sobre o que foi feito (ex: `feat: add new telemetry field`).
-- **Versão**: Sempre que tiver alteração nos arquivos do Android, backend ou frontend, deve-se incrementar a versão nos labels existentes na interface web e também na pagina principal do android. 
+- **Versão**: Sempre que tiver alteração nos arquivos do Android, backend ou frontend, deve-se incrementar a versão nos labels existentes na interface web e também na pagina principal do android.
 
 
 
@@ -144,14 +191,14 @@ coverage:
 
 1. **Commit & Push**:
     - Realizar `git add .`.
-    - Criar commit convencional descritivo. 
+    - Criar commit convencional descritivo.
 2. **Deploy**:
-    - atualizar ambiente local docker e subir a nova versão para os containers locais! 
+    - atualizar ambiente local docker e subir a nova versão para os containers locais!
     - Caso tenha tido alteração no codigo do android, gerar novo apk na raiz do projeto
     - Validar se tem um android ligado no USB e instalar o APK nele
 3. **Monitoramento (Loop de Feedback)**:
-    - Avaliar os logs do backend e frontend em procura de erro, caso tenha, corrija! 
-    - Avaliar os logs do android caso esteja conectado local por USB. 
+    - Avaliar os logs do backend e frontend em procura de erro, caso tenha, corrija!
+    - Avaliar os logs do android caso esteja conectado local por USB.
 4. **Auto-Correção (Self-Healing)**:
     - **Se SUCESSO**: Notificar o usuário e finalizar.
     - **Se FALHA**:
@@ -162,7 +209,7 @@ coverage:
     - **Limite**: Máximo de 3 tentativas de correção automática antes de pedir intervenção humana.
 
 
-## 🔄 CI/CD & Deploy Autônomo (HML) 
+## 🔄 CI/CD & Deploy Autônomo (HML)
 **GATILHO:** Quando solicitado "deploy Hml", "deploy Homologação", "Faça uma release" ou "Execute o CI/CD", execute o seguinte protocolo estrito:
 
 1.  **Pré-requisito**: Verificar se a variável de ambiente `$GITLAB_TOKEN` está definida. Caso contrário, solicitar ao usuário.
@@ -290,7 +337,7 @@ security-scanner:
 - `allow_failure: true` - Não bloqueia pipeline em caso de vulnerabilidades
 - `cache: {}` - Desabilita cache para garantir scan atualizado
 - Executa nas branches `main` e `staging`
-- Obrigatoriamente crie ou atualize o arquivo na raiz do projeto com o nome de .gitlab-ci.yml e com o conteudo abaixo: 
+- Obrigatoriamente crie ou atualize o arquivo na raiz do projeto com o nome de .gitlab-ci.yml e com o conteudo abaixo:
 ```
 image: python:3.12-bullseye
 
@@ -500,13 +547,13 @@ security:
 
 
 ## Padrão de infraestrutura
-Caso necessite de uma das tecnologias abaixo, você deve usar as tecnologias de infra padrões suportadas pelo Labs: 
+Caso necessite de uma das tecnologias abaixo, você deve usar as tecnologias de infra padrões suportadas pelo Labs:
 
 - **Banco SQL:** Postgres, Mysql
 - **Cache:** VaulKey
 - **Fila:** PubSub, RabbitMQ, Kafka
 - **Banco NoSQL:** MongoDB, Elastic, Scylladb (evitar pois é pago)
-- **Ambiente:** Docker local e K8S na MagaluCloud 
+- **Ambiente:** Docker local e K8S na MagaluCloud
 - **CDN:** Azion, Akamai
 - **GW:** Kong API
 
