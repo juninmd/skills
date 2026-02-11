@@ -11,6 +11,9 @@ include:
 
 pages:
   stage: deploy
+  environment:
+    name: pages
+    url: https://luizalabs.pages.luizalabs.com/padrao-labs-agents/
   script:
     - npm ci
     - npm run docs:build
