@@ -1,9 +1,27 @@
-image: python:3.12-bullseye
+image: node:20-slim
 
 stages:
   - report
+  - deploy
 
 include:
   - project: 'luizalabs/ci-knife'
     ref: 'master'
     file: 'templates/report-security.yaml'
+
+pages:
+  stage: deploy
+  script:
+    - npm ci
+    - npm run docs:build
+    - mkdir -p public
+    - cp -rf docs/.vitepress/dist/* public/
+  artifacts:
+    paths:
+      - public
+  only:
+    - main
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - .npm/

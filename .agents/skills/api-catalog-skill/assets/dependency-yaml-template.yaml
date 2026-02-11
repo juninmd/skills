@@ -1,0 +1,22 @@
+# Dependency YAML Template
+
+```yaml
+owner: {SQUAD} # ex: ops-automacao
+tribe: {TRIBE} # ex: operacao
+vertical: operacoes
+application:
+  description: {DESCRIPTION}
+  name: {APP_NAME}
+  languages: Python
+  fortify_id: {APPNAME}
+security:
+  url_homolog: https://{APPNAME}-staging.ipet.sh
+  url_prod: https://{APPNAME}.ipet.sh
+  businessRisk: Low # Low, Medium, High, Critical
+  public: Internal # Internal ou External
+  accessibility: 'Yes' # 'Yes' ou 'No'
+  waf: 'No' # 'Yes' ou 'No'
+  qradar: 'No' # 'Yes' ou 'No'
+  authentication: Google OAuth
+  administration: Self-portal
+```

@@ -1,38 +1,130 @@
-# Padrao Labs para Agents de desenvolvimento
+# 🤖 Luizalabs Agents & Skills Catalog
 
-A ideia aqui é ter um agent de desenvolvimento que respeite os padrões Labs, de maneira a desenvolver uma solução qualquer sem perder os padrões do Labs. 
+A complete documentation and discovery platform for Luizalabs development standards, AI agent configurations, skills, rules, hooks, and workflows.
 
+## 📚 What's Included
 
-## Como usar?
-Renomeie o arquivo AGENTS.md para o nome de arquivo usado na sua IDE (tabela abaixo)
+- **70+ Skills** - Reusable development capabilities and patterns
+- **Agents** - AI configurations for GitHub Copilot, Cursor, Antigravity, Gemini, and more
+- **Rules** - Development standards, security guidelines, best practices
+- **Hooks** - Pre-commit automation and Git patterns
+- **Workflows** - CI/CD pipelines and deployment automation
 
-| Ferramenta / IDE | Nome do Arquivo | Localização | Descrição |
-| :--- | :--- | :--- | :--- |
-| **Google Antigravity** | `AGENTS.md` | Raiz `/` | Contexto padrão para o ambiente Antigravity/Gemini. |
-| **Cursor** | `.cursorrules` | Raiz `/` | **(Padrão de Indústria)** Define regras de sistema lidas antes de qualquer prompt. |
-| **Windsurf** (Codeium) | `.windsurfrules` | Raiz `/` | Define o comportamento dos "Cascades" e contexto do agente. |
-| **GitHub Copilot (VS Code / Visual Studio)** | `copilot-instructions.md` | `.github/` | Instruções persistentes para o chat e autocompletion do Copilot. |
-| **Roo Code** / **Cline** | `.clinerules` | Raiz `/` | Essencial para loops agênticos autônomos (uso de ferramentas/terminal). |
-| **Aider** (CLI) | `CONVENTIONS.md` | Raiz `/` | Usado para ditar convenções de código em refatorações via terminal. |
+## 🚀 Quick Start
 
+### View Documentation Locally
 
-## Estratégia "Master Agent" (Compatibilidade Universal)
-Para garantir que seu projeto seja entendido por qualquer IA que interaja com ele, recomenda-se a seguinte estrutura de arquivos:
-
-```text
-meu-projeto/
-├── AGENTS.md                  # Para Antigravity/Gemini
-├── .cursorrules               # Para Cursor (e fallback geral)
-├── .github/
-│   └── copilot-instructions.md # Para usuários de VS Code/Copilot
-├── src/
-└── ... 
+```bash
+npm install
+npm run docs:dev
 ```
 
-## Contribuição
-Fique à vontade para contribuir! Vamos deixar isto o mais fiel possível as regras Magalu!
+Open http://localhost:5173
 
-## Backlog 
-- Linguagens e framework padrão 
-- GMUD 
+### Use in Your Project
 
+**GitHub Copilot (VS Code):**
+```bash
+mkdir -p .github
+curl https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/agents.md -o agents.md
+curl https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/agents.md -o .github/copilot-instructions.md
+```
+
+**Antigravity / Gemini:**
+```bash
+curl https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/agents.md -o AGENTS.md
+```
+
+**Cursor:**
+```bash
+curl https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/agents.md -o .cursorrules
+```
+
+## 📋 Tool Integration Matrix
+
+| Tool | File | Location |
+|------|------|----------|
+| GitHub Copilot | `copilot-instructions.md` | `.github/` |
+| Antigravity | `AGENTS.md` | Root `/` |
+| Gemini CLI | `agents.md` + `.gemini.json` | Root `/` |
+| Cursor | `.cursorrules` | Root `/` |
+| Windsurf | `.windsurfrules` | Root `/` |
+| Cline/Roo Code | `.clinerules` | Root `/` |
+
+## 🏗️ Architecture
+
+```
+.agents/              ← Source of truth (READ-ONLY)
+├── agents/
+├── skills/           (70+ items)
+├── rules/
+├── hooks/
+└── workflows/
+
+docs/                 ← VitePress docs site
+├── .vitepress/       (Config + components)
+├── integration/      (Setup guides)
+└── [auto-generated]
+
+scripts/
+└── loader.js         (Dynamic catalog generator)
+```
+
+## 🔄 How It Works
+
+The loader dynamically:
+1. Scans `.agents/` directory
+2. Extracts metadata from markdown files
+3. Generates VitePress docs WITHOUT duplicating files
+4. Creates searchable catalog (catalog.json)
+5. Maintains single source of truth
+
+### Commands
+
+```bash
+npm run docs:dev          # Dev with watch
+npm run docs:build        # Production build
+npm run docs:preview      # Preview production
+npm run generate:index    # Regenerate catalog
+```
+
+## 🔍 Features
+
+✨ **Full-Text Search** - Search across all content  
+🏷️ **Filter by Category** - Agents, Skills, Rules, etc  
+📱 **Responsive Design** - Mobile-friendly  
+🔗 **Zero Duplication** - Single source of truth  
+📊 **JSON API** - Programmatic access via catalog.json  
+🎨 **Modern UI** - Vue 3 + VitePress  
+
+## 📖 Integration Guides
+
+- [GitHub Copilot Setup](docs/integration/copilot.md)
+- [Antigravity / Gemini](docs/integration/antigravity.md)
+- [Gemini CLI](docs/integration/gemini.md)
+
+## 🛠️ Development
+
+**Requirements:**
+- Node.js 18+
+- npm or pnpm
+
+**Setup:**
+```bash
+npm install
+npm run docs:dev
+```
+
+## 🤝 Contributing
+
+- Changes go ONLY to `.agents/` folder
+- Run `npm run generate:index` before committing
+- Do NOT edit generated files in `docs/`
+
+## 📄 License
+
+Part of Luizalabs · Magalu
+
+---
+
+**Status:** Active | Last Updated: Feb 2025 | Made with ❤️ by Luizalabs

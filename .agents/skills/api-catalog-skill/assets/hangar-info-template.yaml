@@ -1,0 +1,31 @@
+# Hangar Info (Backstage) Template
+
+```yaml
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: {APPNAME}
+  description: {DESCRIPTION}
+  links: []
+  annotations:
+    security/business-risk: Low # Low, Medium, High, Critical
+    security/public: Internal # Internal ou External
+    security/accessibility: 'Yes' # 'Yes' ou 'No'
+    security/waf: 'No' # 'Yes' ou 'No'
+    security/qradar: 'No' # 'Yes' ou 'No'
+    security/authentication: Google OAuth # Autenticação Utilizada
+    security/administration: Self-portal
+    project/service.tier: OTHERS
+    backstage.io/techdocs-ref: dir:./
+  tags:
+    - Python
+    # Adicionar outras tags relevantes (FastAPI, Django, etc)
+spec:
+  type: service
+  lifecycle: production
+  definition:
+    $text: ''
+  owner: group:{TRIBE}-{SQUAD} # ex: group:tribe-operacao-ops-automacao
+  system: {SYSTEM} # ex: conde-telemetry
+  dependsOn: []
+```

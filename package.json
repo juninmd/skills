@@ -1,0 +1,22 @@
+{
+  "name": "padrao-labs-agents-docs",
+  "version": "1.0.0",
+  "description": "VitePress documentation for Luizalabs Agents, Skills, Rules, and Workflows",
+  "type": "module",
+  "scripts": {
+    "docs:dev": "node scripts/loader.js && vitepress dev docs",
+    "docs:build": "node scripts/loader.js && vitepress build docs",
+    "docs:preview": "vitepress preview docs",
+    "generate:index": "node scripts/loader.js"
+  },
+  "dependencies": {
+    "vitepress": "^1.5.0",
+    "vue": "^3.4.0",
+    "minisearch": "^6.2.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.0",
+    "vite": "^5.0.0",
+    "chokidar": "^3.6.0"
+  }
+}
