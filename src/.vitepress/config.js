@@ -39,7 +39,7 @@ export default defineConfig({
     sidebar: sidebar,
 
     socialLinks: [
-      { icon: 'github', link: 'https://gitlab.luizalabs.com/padrao-labs-agents' },
+      { icon: 'github', link: 'https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents' },
       { icon: 'twitter', link: 'https://twitter.com/luizalabs' }
     ],
 

@@ -11,9 +11,9 @@ const DOCS_DIR = path.join(ROOT, 'docs');
 
 const CATEGORIES = ['agents', 'skills', 'rules', 'hooks', 'workflows'];
 // Base URLs for GitLab
-const REPO_BASE_URL = 'https://gitlab.luizalabs.com/padrao-labs-agents/tree/main/.agents';
-const RAW_BASE_URL = 'https://gitlab.luizalabs.com/padrao-labs-agents/-/raw/main/.agents';
-const EDIT_BASE_URL = 'https://gitlab.luizalabs.com/padrao-labs-agents/-/edit/main/.agents';
+const REPO_BASE_URL = 'https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/tree/main/.agents';
+const RAW_BASE_URL = 'https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/-/raw/main/.agents';
+const EDIT_BASE_URL = 'https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/-/edit/main/.agents';
 
 function formatTitle(name) {
   return name
@@ -357,6 +357,15 @@ function generateCategoryIndexes(catalog) {
       let pageContent = `---
 title: ${JSON.stringify(item.title)}
 description: ${JSON.stringify(item.description || '')}
+skillId: ${JSON.stringify(item.id)}
+category: ${JSON.stringify(category)}
+installCmd: ${JSON.stringify(item.installCmd || '')}
+repoUrl: ${JSON.stringify(item.repoUrl || '')}
+editUrl: ${JSON.stringify(item.editUrl || '')}
+rawUrl: ${JSON.stringify(item.rawUrl || '')}
+files: ${JSON.stringify(item.files || [])}
+relatedFiles: ${JSON.stringify(item.relatedFiles || [])}
+parameters: ${JSON.stringify(item.parameters || [])}
 ---\n\n`;
 
       // Generate content wrapper

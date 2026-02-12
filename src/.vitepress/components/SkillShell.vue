@@ -1,6 +1,6 @@
 <template>
-  <aside class="skill-sidebar">
-    <div class="sidebar-block">
+  <aside class="skill-sidebar" v-if="hasContent">
+    <div class="sidebar-block" v-if="installCmd">
       <h3>🚀 Installation</h3>
       <div class="install-container">
         <code class="install-code">{{ installCmd }}</code>
@@ -96,12 +96,13 @@
 
 <script setup>
 import { ref, computed } from 'vue';
+import { useRoute, useData } from 'vitepress';
 
 const props = defineProps({
   files: { type: Array, default: () => [] },
   relatedFiles: { type: Array, default: () => [] },
   parameters: { type: Array, default: () => [] },
-  skillId: { type: String, required: true },
+  skillId: { type: String, default: '' },
   installCmd: { type: String, default: '' },
   sourcePath: { type: String, default: '' },
   genPath: { type: String, default: '' },
@@ -111,6 +112,20 @@ const props = defineProps({
   category: { type: String, default: 'skills' }
 });
 
+const route = useRoute();
+const { frontmatter } = useData();
+
+// Read data from frontmatter or props (props take precedence for backward compatibility)
+const skillId = computed(() => props.skillId || frontmatter.value?.skillId || '');
+const installCmd = computed(() => props.installCmd || frontmatter.value?.installCmd || '');
+const repoUrl = computed(() => props.repoUrl || frontmatter.value?.repoUrl || '');
+const editUrl = computed(() => props.editUrl || frontmatter.value?.editUrl || '');
+const rawUrl = computed(() => props.rawUrl || frontmatter.value?.rawUrl || '');
+const files = computed(() => props.files?.length ? props.files : (frontmatter.value?.files || []));
+const relatedFiles = computed(() => props.relatedFiles?.length ? props.relatedFiles : (frontmatter.value?.relatedFiles || []));
+const parameters = computed(() => props.parameters?.length ? props.parameters : (frontmatter.value?.parameters || []));
+const category = computed(() => props.category || frontmatter.value?.category || 'skills');
+
 const copied = ref(false);
 const showModal = ref(false);
 const viewMode = ref('preview'); // 'preview' or 'markdown'
@@ -119,21 +134,34 @@ const rawMarkdown = ref('');
 const loadingRaw = ref(false);
 const rawCopied = ref(false);
 
+// Only display sidebar if there is actual content to show
+const hasContent = computed(() => {
+  return (
+    !!installCmd.value ||
+    (parameters.value && parameters.value.length > 0) ||
+    (relatedFiles.value && relatedFiles.value.length > 0) ||
+    (files.value && files.value.length > 0) ||
+    !!repoUrl.value ||
+    !!editUrl.value ||
+    !!rawUrl.value
+  );
+});
+
 function getRelatedFileUrl(f) {
-  return `/.agents-${props.category}/${f}`;
+  return `/.agents-${category.value}/${f}`;
 }
 
-const resourceFiles = computed(() => props.files.filter(f => f.startsWith('resources/')));
-const coreFiles = computed(() => props.files.filter(f => !f.startsWith('resources/') && !f.startsWith('scripts/')));
+const resourceFiles = computed(() => files.value.filter(f => f.startsWith('resources/')));
+const coreFiles = computed(() => files.value.filter(f => !f.startsWith('resources/') && !f.startsWith('scripts/')));
 
 function getFileUrl(f) {
-  return props.category === 'skills'
-    ? `/.agents-${props.category}/${props.skillId}/${f}`
-    : `/.agents-${props.category}/${f}`;
+  return category.value === 'skills'
+    ? `/.agents-${category.value}/${skillId.value}/${f}`
+    : `/.agents-${category.value}/${f}`;
 }
 
 function copy() {
-  navigator.clipboard.writeText(props.installCmd || '');
+  navigator.clipboard.writeText(installCmd.value || '');
   copied.value = true;
   setTimeout(() => { copied.value = false; }, 2000);
 }
@@ -142,7 +170,7 @@ function openModal() {
   showModal.value = true;
   // Attempt to get rendered HTML from the page's rendered slot
   try {
-    const el = document.querySelector(`.skill-content-area[data-skill="${props.skillId}"]`);
+    const el = document.querySelector(`.skill-content-area[data-skill="${skillId.value}"]`);
     if (el) {
       renderedHtml.value = el.innerHTML;
     }
