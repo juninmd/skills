@@ -10,6 +10,7 @@
         :related-files="skill.relatedFiles"
         :parameters="skill.parameters"
         :install-cmd="installCmd"
+        :install-cmds="skill.installCmds"
         :source-path="sourcePath"
         :gen-path="genPath"
         :repo-url="skill.repoUrl"

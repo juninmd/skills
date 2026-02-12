@@ -20,79 +20,60 @@ Use the [Search](/search.md.md) page to find specific skills, patterns, or rules
 
 ## ⚡ 5-Minute Setup
 
-### If You Use GitHub Copilot
-
-```bash
-# 1. Go to your project directory
+<InstallTabs 
+  copilot="# 1. Go to your project directory
 cd your-project
 
 # 2. Create .github folder if it doesn't exist
 mkdir -p .github
 
 # 3. Download standards
-curl -L https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/agents/index.md \
-  -o agents.md
-
-curl -L https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/agents/index.md \
-  -o .github/copilot-instructions.md
+curl -L https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/agents/index.md -o agents.md
+curl -L https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/agents/index.md -o .github/copilot-instructions.md
 
 # 4. Commit
 git add agents.md .github/copilot-instructions.md
-git commit -m "docs: add luizalabs development standards"
+git commit -m 'docs: add luizalabs development standards'
 
-# 5. Restart VS Code
-# That's it! Copilot now has context about your standards
-```
-
-### If You Use Antigravity (Google)
-
-```bash
-# 1. Go to your project directory
+# 5. Restart VS Code"
+  antigravity="# 1. Go to your project directory
 cd your-project
 
 # 2. Download standards as AGENTS.md
-curl -L https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/agents/index.md \
-  -o AGENTS.md
+curl -L https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/agents/index.md -o AGENTS.md
 
 # 3. Commit
 git add AGENTS.md
-git commit -m "docs: add luizalabs development standards"
+git commit -m 'docs: add luizalabs development standards'
 
-# 4. Done! Antigravity will auto-discover AGENTS.md
-```
-
-### If You Use Gemini CLI
-
-```bash
-# 1. Go to your project directory
+# 4. Done!"
+  gemini="# 1. Go to your project directory
 cd your-project
 
 # 2. Download agents.md
-curl -L https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/agents/index.md \
-  -o agents.md
+curl -L https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/agents/index.md -o agents.md
 
 # 3. Create .gemini.json
 cat > .gemini.json << 'EOF'
 {
-  "projectId": "your-gcp-project",
-  "context": {
-    "files": ["agents.md"],
-    "systemPrompt": "Follow the patterns defined in agents.md"
+  &quot;projectId&quot;: &quot;your-gcp-project&quot;,
+  &quot;context&quot;: {
+    &quot;files&quot;: [&quot;agents.md&quot;],
+    &quot;systemPrompt&quot;: &quot;Follow the patterns defined in agents.md&quot;
   },
-  "generation": {
-    "model": "gemini-2.0-flash",
-    "temperature": 0.7
+  &quot;generation&quot;: {
+    &quot;model&quot;: &quot;gemini-2.0-flash&quot;,
+    &quot;temperature&quot;: 0.7
   }
 }
 EOF
 
 # 4. Commit
 git add agents.md .gemini.json
-git commit -m "docs: add luizalabs development standards"
+git commit -m 'docs: add luizalabs development standards'
 
-# 5. Start using!
-gemini generate code --task "Your task here"
-```
+# 5. Start using!"
+/>
 
 ## 📚 What's in the Catalog
 

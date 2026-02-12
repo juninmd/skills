@@ -10,8 +10,18 @@
     <!-- Installation Command -->
     <div class="card-installation" v-if="installCmd">
       <div class="install-label">Installation Command</div>
+
+      <!-- Platform Tabs -->
+      <div v-if="availablePlatforms.length > 0" class="install-tabs-container">
+        <button v-for="platform in availablePlatforms" :key="platform"
+                :class="['install-tab', { active: activeInstallTab === platform }]"
+                @click="activeInstallTab = platform">
+          {{ platformLabels[platform] }}
+        </button>
+      </div>
+
       <div class="install-container">
-        <code class="install-code">{{ installCmd }}</code>
+        <code class="install-code">{{ currentInstallCmd }}</code>
         <button class="copy-btn" @click="copyInstall" :title="copied ? 'Copied!' : 'Copy to clipboard'">
           <span v-if="copied">✓</span>
           <span v-else>Copy</span>
@@ -118,6 +128,7 @@ const props = defineProps({
   parameters: { type: Array, default: () => [] },
   skillId: { type: String, default: '' },
   installCmd: { type: String, default: '' },
+  installCmds: { type: Object, default: () => ({}) },
   sourcePath: { type: String, default: '' },
   genPath: { type: String, default: '' },
   repoUrl: { type: String, default: '' },
@@ -132,6 +143,14 @@ const { frontmatter } = useData();
 // Read data from frontmatter or props (props take precedence for backward compatibility)
 const skillId = computed(() => props.skillId || frontmatter.value?.skillId || '');
 const installCmd = computed(() => props.installCmd || frontmatter.value?.installCmd || '');
+const installCmds = computed(() => {
+  const fromProps = props.installCmds;
+  const fromFrontmatter = frontmatter.value?.installCmds;
+
+  if (fromProps && Object.keys(fromProps).length > 0) return fromProps;
+  if (fromFrontmatter && (typeof fromFrontmatter === 'object' || typeof fromFrontmatter === 'string')) return fromFrontmatter;
+  return {};
+});
 const repoUrl = computed(() => props.repoUrl || frontmatter.value?.repoUrl || '');
 const editUrl = computed(() => props.editUrl || frontmatter.value?.editUrl || '');
 const rawUrl = computed(() => props.rawUrl || frontmatter.value?.rawUrl || '');
@@ -147,6 +166,38 @@ const renderedHtml = ref('');
 const rawMarkdown = ref('');
 const loadingRaw = ref(false);
 const rawCopied = ref(false);
+const activeInstallTab = ref('gemini');
+
+const platformLabels = {
+  gemini: '✨ Gemini CLI',
+  copilot: '🤖 GitHub Copilot',
+  antigravity: '⚙️ Google Antigravity'
+};
+
+// Parse installCmds - handle both object and string formats
+const parsedInstallCmds = computed(() => {
+  const cmds = installCmds.value;
+  if (typeof cmds === 'string') {
+    try {
+      return JSON.parse(cmds);
+    } catch (e) {
+      console.warn('Failed to parse installCmds:', e);
+      return {};
+    }
+  }
+  return cmds || {};
+});
+
+const availablePlatforms = computed(() => {
+  const platforms = Object.keys(parsedInstallCmds.value);
+  return platforms.length > 0 ? platforms : ['gemini'];
+});
+
+const currentInstallCmd = computed(() => {
+  if (!activeInstallTab.value) activeInstallTab.value = availablePlatforms.value[0] || 'gemini';
+  const cmd = parsedInstallCmds.value?.[activeInstallTab.value] || installCmd.value;
+  return cmd;
+});
 
 // Only display sidebar if there is actual content to show
 const hasContent = computed(() => {
@@ -175,7 +226,7 @@ function getFileUrl(f) {
 }
 
 function copyInstall() {
-  navigator.clipboard.writeText(installCmd.value || '');
+  navigator.clipboard.writeText(currentInstallCmd.value || '');
   copied.value = true;
   setTimeout(() => { copied.value = false; }, 2000);
 }
@@ -268,6 +319,39 @@ function copyRaw() {
   color: var(--vp-c-text-2);
   letter-spacing: 0.05em;
   margin-bottom: 0.35rem;
+}
+
+.install-tabs-container {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.6rem;
+  border-bottom: 1px solid var(--vp-c-divider);
+  padding-bottom: 0.35rem;
+}
+
+.install-tab {
+  padding: 0.4rem 0.85rem;
+  background: transparent;
+  border: 1px solid var(--vp-c-divider);
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
+  color: var(--vp-c-text-2);
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.install-tab:hover {
+  background: var(--vp-c-bg-mute);
+  color: var(--vp-c-text-1);
+}
+
+.install-tab.active {
+  background: var(--vp-c-brand);
+  color: white;
+  border-color: var(--vp-c-brand);
 }
 
 .install-container {

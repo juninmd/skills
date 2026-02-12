@@ -20,15 +20,19 @@ npm install -g @google/gemini-cli
 
 Você pode instalar todas as skills da Luizalabs diretamente do repositório oficial:
 
-```bash
-gemini skills install git@gitlab.luizalabs.com:luizalabs/padrao-labs-agents.git
-```
+<InstallTabs 
+  gemini="gemini skills install git@gitlab.luizalabs.com:luizalabs/padrao-labs-agents.git"
+  copilot="copilot skills install git@gitlab.luizalabs.com:luizalabs/padrao-labs-agents.git"
+  antigravity="antigravity skills install git@gitlab.luizalabs.com:luizalabs/padrao-labs-agents.git"
+/>
 
 Para instalar apenas uma skill específica (ex: Git):
 
-```bash
-gemini skills install git@gitlab.luizalabs.com:luizalabs/padrao-labs-agents.git --path .agents/skills/git-skill
-```
+<InstallTabs 
+  gemini="gemini skills install git@gitlab.luizalabs.com:luizalabs/padrao-labs-agents.git --path .agents/skills/git-skill"
+  copilot="copilot skills install git@gitlab.luizalabs.com:luizalabs/padrao-labs-agents.git --path .agents/skills/git-skill"
+  antigravity="antigravity skills install git@gitlab.luizalabs.com:luizalabs/padrao-labs-agents.git --path .agents/skills/git-skill"
+/>
 
 ### 3. Instalação Local (Para Desenvolvimento)
 

@@ -15,6 +15,37 @@ const REPO_BASE_URL = 'https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents
 const RAW_BASE_URL = 'https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/-/raw/main/.agents';
 const EDIT_BASE_URL = 'https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/-/edit/main/.agents';
 
+function generateInstallCommands(category, item, isDirectory = false) {
+  const commands = {};
+  const gitRepoUrl = 'https://github.com/luizalabs/padrao-labs-agents';
+  const gitRepoHttpUrl = 'https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents';
+  const itemName = isDirectory ? item : path.basename(item, path.extname(item));
+  const itemPath = isDirectory ? item : path.basename(item);
+
+  // GEMINI command
+  if (isDirectory) {
+    commands.gemini = `gemini skills install ${gitRepoUrl} --path .agents/${category}/${item}`;
+  } else {
+    commands.gemini = `gemini rules add ${gitRepoUrl} --path .agents/${category}/${itemPath}`;
+  }
+
+  // COPILOT command
+  if (isDirectory) {
+    commands.copilot = `copilot skills install ${gitRepoUrl} --path .agents/${category}/${item}`;
+  } else {
+    commands.copilot = `copilot rules add ${gitRepoUrl} --path .agents/${category}/${itemPath}`;
+  }
+
+  // ANTIGRAVITY command
+  if (isDirectory) {
+    commands.antigravity = `antigravity skills install ${gitRepoUrl} --path .agents/${category}/${item}`;
+  } else {
+    commands.antigravity = `antigravity rules add ${gitRepoUrl} --path .agents/${category}/${itemPath}`;
+  }
+
+  return commands;
+}
+
 function formatTitle(name) {
   return name
     .replace(/\.[^/.]+$/, "") // remove extension
@@ -44,6 +75,7 @@ function scanAgentsDirectory() {
       let files = [];
       let repoUrl = '';
       let installCmd = '';
+      let installCmds = {};
       let isScript = false;
       let editUrl = '';
       let rawUrl = '';
@@ -58,7 +90,8 @@ function scanAgentsDirectory() {
          repoUrl = `${REPO_BASE_URL}/${category}/${item}`;
          editUrl = `${EDIT_BASE_URL}/${category}/${item}/${markdownFile}`;
          rawUrl = `${RAW_BASE_URL}/${category}/${item}/${markdownFile}`;
-         installCmd = `gemini skills install https://github.com/luizalabs/padrao-labs-agents --path .agents/${category}/${item}`;
+         installCmds = generateInstallCommands(category, item, true);
+         installCmd = installCmds.gemini;
 
          // Files list (all except .git, recursive for some folders)
          const getFiles = (dir, base = '') => {
@@ -94,7 +127,8 @@ function scanAgentsDirectory() {
          repoUrl = `${REPO_BASE_URL}/${category}/${item}`;
          editUrl = `${EDIT_BASE_URL}/${category}/${item}`;
          rawUrl = `${RAW_BASE_URL}/${category}/${item}`;
-         installCmd = `curl -L ${RAW_BASE_URL}/${category}/${item} -o ${item}`;
+         installCmds = generateInstallCommands(category, item, false);
+         installCmd = installCmds.gemini;
          files = [item];
 
          const content = fs.readFileSync(markdownPath, 'utf-8');
@@ -110,7 +144,8 @@ function scanAgentsDirectory() {
          repoUrl = `${REPO_BASE_URL}/${category}/${item}`;
          editUrl = `${EDIT_BASE_URL}/${category}/${item}`;
          rawUrl = `${RAW_BASE_URL}/${category}/${item}`;
-         installCmd = `curl -L ${RAW_BASE_URL}/${category}/${item} -o ${item} && chmod +x ${item}`;
+         installCmds = generateInstallCommands(category, item, false);
+         installCmd = installCmds.gemini;
          files = [item];
          isScript = true;
 
@@ -160,6 +195,7 @@ function scanAgentsDirectory() {
         editUrl,
         rawUrl,
         installCmd,
+        installCmds,
         isScript
       });
     }
@@ -360,6 +396,7 @@ description: ${JSON.stringify(item.description || '')}
 skillId: ${JSON.stringify(item.id)}
 category: ${JSON.stringify(category)}
 installCmd: ${JSON.stringify(item.installCmd || '')}
+installCmds: ${JSON.stringify(item.installCmds || {})}
 repoUrl: ${JSON.stringify(item.repoUrl || '')}
 editUrl: ${JSON.stringify(item.editUrl || '')}
 rawUrl: ${JSON.stringify(item.rawUrl || '')}
