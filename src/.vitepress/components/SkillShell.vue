@@ -222,7 +222,7 @@ function copyRaw() {
 /* Main Card Container */
 .skill-card {
   width: 100%;
-  margin: 2rem 0;
+  margin: 1.5rem 0;
   background: var(--vp-c-bg-soft);
   border: 1px solid var(--vp-c-divider);
   border-radius: 8px;
@@ -238,7 +238,7 @@ function copyRaw() {
 /* Card Header */
 .card-header {
   background: linear-gradient(135deg, var(--vp-c-brand) 0%, rgba(var(--vp-c-brand-rgb), 0.8) 100%);
-  padding: 1rem 1.5rem;
+  padding: 0.75rem 1rem;
   border-bottom: 1px solid var(--vp-c-divider);
 }
 
@@ -250,38 +250,38 @@ function copyRaw() {
 
 .card-title {
   margin: 0;
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 600;
   color: white;
 }
 
 /* Installation Section */
 .card-installation {
-  padding: 1.25rem;
+  padding: 0.875rem;
   border-bottom: 1px solid var(--vp-c-divider);
 }
 
 .install-label {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
   color: var(--vp-c-text-2);
   letter-spacing: 0.05em;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.35rem;
 }
 
 .install-container {
   display: flex;
   gap: 0.5rem;
   background: var(--vp-c-bg);
-  padding: 0.75rem;
+  padding: 0.625rem;
   border: 1px solid var(--vp-c-divider);
   border-radius: 6px;
   align-items: center;
 }
 
 .install-code {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-family: var(--vp-font-family-mono);
   color: var(--vp-c-text-1);
   overflow-x: auto;
@@ -289,18 +289,18 @@ function copyRaw() {
   flex: 1;
   min-width: 100px;
   user-select: all;
-  padding: 0.25rem;
+  padding: 0.15rem;
 }
 
 .copy-btn {
-  padding: 0.4rem 0.75rem;
+  padding: 0.35rem 0.65rem;
   background: var(--vp-c-brand);
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   font-weight: 500;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   flex-shrink: 0;
   transition: all 0.2s ease;
 }
@@ -323,7 +323,7 @@ function copyRaw() {
 }
 
 .content-section {
-  padding: 1.25rem;
+  padding: 0.875rem;
   border-right: 1px solid var(--vp-c-divider);
 }
 
@@ -332,8 +332,8 @@ function copyRaw() {
 }
 
 .section-title {
-  margin: 0 0 1rem 0;
-  font-size: 0.9rem;
+  margin: 0 0 0.75rem 0;
+  font-size: 0.8rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -353,8 +353,8 @@ function copyRaw() {
 .file-item {
   display: flex;
   align-items: center;
-  padding: 0.4rem 0;
-  font-size: 0.85rem;
+  padding: 0.3rem 0;
+  font-size: 0.8rem;
   color: var(--vp-c-text-1);
 }
 
@@ -403,14 +403,14 @@ function copyRaw() {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 0.6rem;
-  padding: 0.6rem 0.8rem;
+  gap: 0.5rem;
+  padding: 0.5rem 0.7rem;
   background: var(--vp-c-bg);
   border: 1px solid var(--vp-c-divider);
   border-radius: 5px;
   color: var(--vp-c-text-1);
   text-decoration: none;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -458,10 +458,10 @@ function copyRaw() {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 1rem 1.25rem;
+  padding: 0.75rem 1rem;
   user-select: none;
   font-weight: 500;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: var(--vp-c-text-2);
   transition: background 0.2s ease;
 }
@@ -481,18 +481,18 @@ function copyRaw() {
 }
 
 .params-wrapper {
-  padding: 0 1.25rem 1.25rem;
+  padding: 0 1rem 1rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 0.75rem;
 }
 
 .param-item {
-  padding: 0.75rem;
+  padding: 0.6rem;
   background: var(--vp-c-bg);
   border: 1px solid var(--vp-c-divider);
   border-radius: 5px;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
 }
 
 .param-name {

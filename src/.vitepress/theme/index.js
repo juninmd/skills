@@ -13,7 +13,7 @@ export default {
   extends: DefaultTheme,
   Layout: () => {
     return h(DefaultTheme.Layout, null, {
-      'doc-top': () => h(SkillShell)
+      'doc-after': () => h(SkillShell)
     });
   },
   enhanceApp({ app }) {
