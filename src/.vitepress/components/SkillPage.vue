@@ -4,6 +4,26 @@
 
     <template v-else-if="skill">
       <!-- Metadados da Skill -->
+      <SkillShell
+        :skill-id="skillId"
+        :files="skill.files"
+        :related-files="skill.relatedFiles"
+        :parameters="skill.parameters"
+        :install-cmd="installCmd"
+        :source-path="sourcePath"
+        :gen-path="genPath"
+        :repo-url="skill.repoUrl"
+        :edit-url="skill.editUrl"
+        :raw-url="skill.rawUrl"
+        :category="category"
+      />
+
+      <!-- VSCode Link for Agents -->
+      <div v-if="category === 'agents'" class="vscode-link">
+        <a :href="`vscode://GitHub.Copilot-Chat/chat?agent=${skillId.replace(/_/g, '-')}&prompt=`" target="_blank" class="vscode-button">
+          Executar Agente no VSCode
+        </a>
+      </div>
 
       <!-- Conteúdo Markdown Renderizado pelo VitePress -->
       <div class="skill-content-area" :data-skill="skillId">
@@ -19,7 +39,6 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue';
-import SkillShell from './SkillShell.vue';
 
 const props = defineProps({
   skillId: {

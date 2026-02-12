@@ -11,9 +11,9 @@ const DOCS_DIR = path.join(ROOT, 'docs');
 
 const CATEGORIES = ['agents', 'skills', 'rules', 'hooks', 'workflows'];
 // Base URLs for GitLab
-const REPO_BASE_URL = 'https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/tree/main/.agents';
-const RAW_BASE_URL = 'https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/-/raw/main/.agents';
-const EDIT_BASE_URL = 'https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/-/edit/main/.agents';
+const REPO_BASE_URL = 'https://gitlab.luizalabs.com/padrao-labs-agents/tree/main/.agents';
+const RAW_BASE_URL = 'https://gitlab.luizalabs.com/padrao-labs-agents/-/raw/main/.agents';
+const EDIT_BASE_URL = 'https://gitlab.luizalabs.com/padrao-labs-agents/-/edit/main/.agents';
 
 function formatTitle(name) {
   return name
@@ -246,9 +246,24 @@ function extractParameters(content) {
   return parameters;
 }
 
-function cleanMarkdownContent(raw) {
+function cleanMarkdownContent(raw, itemId, category) {
   let out = String(raw);
   out = out.replace(/^\uFEFF/, '');
+  // For agents, keep code blocks as is to avoid JSX parsing issues
+  if (category === 'agents') {
+    // Remove Frontmatter
+    out = out.replace(/^---\n([\s\S]*?)\n---\n?/, '');
+    // Add the VSCode link after the title
+    const lines = out.split('\n');
+    const titleIndex = lines.findIndex(line => line.startsWith('# '));
+    if (titleIndex !== -1) {
+      const agentName = itemId.replace(/_/g, '-');
+      const link = `[Executar Agente no VSCode](vscode://GitHub.Copilot-Chat/chat?agent=${agentName}&prompt=)`;
+      lines.splice(titleIndex + 1, 0, '', link, '');
+      out = lines.join('\n');
+    }
+    return out.trim();
+  }
   // Remove fenced code blocks wrapping the file content if present
   out = out.replace(/```[\w-]*\n([\s\S]*?)\n```/g, '$1');
   // Remove Frontmatter
@@ -342,8 +357,6 @@ function generateCategoryIndexes(catalog) {
       let pageContent = `---
 title: ${JSON.stringify(item.title)}
 description: ${JSON.stringify(item.description || '')}
-itemId: ${JSON.stringify(item.id)}
-category: ${JSON.stringify(category)}
 ---\n\n`;
 
       // Generate content wrapper
@@ -351,7 +364,7 @@ category: ${JSON.stringify(category)}
       if (category === 'skills' || (item.path.endsWith('.md') && !item.isScript)) {
         // Clean markdown content for cleaner display
         const raw = fs.readFileSync(item.path, 'utf8');
-        const cleaned = cleanMarkdownContent(raw);
+        const cleaned = cleanMarkdownContent(raw, item.id, category);
 
         // Save cleaned content
         const genDir = path.join(DOCS_DIR, '.generated-skills', item.id);
@@ -361,16 +374,15 @@ category: ${JSON.stringify(category)}
         fs.writeFileSync(genFilePath, cleaned, 'utf8');
         const genIncludePath = `/.generated-skills/${item.id}/${markdownFile}`;
         // Open SkillPage with gen-path pointing to cleaned generated markdown
-        pageContent += `<SkillPage skill-id="${item.id}" source-path="${finalSymPath}" gen-path="${genIncludePath}" category="${category}">\n\n`;
+        // pageContent += `<SkillPage skill-id='${item.id}' source-path='${finalSymPath}' gen-path='${genIncludePath}' category='${category}' />\n\n`;
 
-        pageContent += `<!-- @include: @${genIncludePath} -->\n\n`;
+        pageContent += cleaned + '\n\n';
       } else {
         // Scripts or other files: include directly as code block
         pageContent += `<SkillPage skill-id="${item.id}" source-path="${finalSymPath}" category="${category}">\n\n`;
-        pageContent += `<<< @${finalSymPath}\n`;
+        pageContent += `<<< @${finalSymPath}\n\n`;
+        pageContent += `</SkillPage>\n`;
       }
-
-      pageContent += `</SkillPage>\n`;
 
       const pagePath = path.join(itemDocsPath, 'index.md');
       fs.writeFileSync(pagePath, pageContent);
@@ -395,6 +407,34 @@ function generateSidebarConfig(catalog) {
   console.log('✅ Sidebar config gerado');
 }
 
+function copySrcToDocs() {
+  const srcPath = path.join(ROOT, 'src');
+  if (!fs.existsSync(srcPath)) {
+    console.log('⚠️  Pasta src não encontrada, pulando cópia');
+    return;
+  }
+
+  const copyRecursive = (src, dest) => {
+    const stat = fs.statSync(src);
+    if (stat.isDirectory()) {
+      if (!fs.existsSync(dest)) {
+        fs.mkdirSync(dest, { recursive: true });
+      }
+      const files = fs.readdirSync(src);
+      for (const file of files) {
+        const srcFile = path.join(src, file);
+        const destFile = path.join(dest, file);
+        copyRecursive(srcFile, destFile);
+      }
+    } else {
+      fs.copyFileSync(src, dest);
+    }
+  };
+
+  copyRecursive(srcPath, DOCS_DIR);
+  console.log('✅ Arquivos de src copiados para docs');
+}
+
 async function main() {
   console.log('🔄 Escaneando .agents...\n');
   const catalog = scanAgentsDirectory();
@@ -412,6 +452,7 @@ async function main() {
   generateCatalogJson(catalog);
   generateCategoryIndexes(catalog);
   generateSidebarConfig(catalog);
+  copySrcToDocs();
 
   console.log('\n✅ Loader completo!\n');
 }

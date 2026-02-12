@@ -4,10 +4,10 @@
   "description": "VitePress documentation for Luizalabs Agents, Skills, Rules, and Workflows",
   "type": "module",
   "scripts": {
-    "docs:dev": "node scripts/loader.js && vitepress dev docs",
-    "docs:build": "node scripts/loader.js && vitepress build docs",
+    "docs:dev": "node src/loader.js && vitepress dev docs",
+    "docs:build": "node src/loader.js && vitepress build docs",
     "docs:preview": "vitepress preview docs",
-    "generate:index": "node scripts/loader.js"
+    "generate:index": "node src/loader.js"
   },
   "dependencies": {
     "vitepress": "^1.5.0",

@@ -1,36 +1,40 @@
-# Code Auditor Skill
+---
+name: code-auditor
+description: Execução de análise estática (linting), verificação de estilo e detecção de code smells em Python e JS/TS.
+---
 
-## Description
-This skill enables the agent to perform comprehensive static analysis on source code to identify potential security vulnerabilities, code quality issues, and adherence to best practices. It leverages various tools and techniques to ensure code robustness and maintainability.
+# Code Auditor & Linter
 
-## Workflow
+Esta skill padroniza a análise estática de código para garantir qualidade e segurança antes do code review.
 
-### 1. Plan & Scope
-- **Identify Target:** Determine the directory or specific files to audit.
-- **Understand Context:** Recognize the programming language(s) and framework(s) used.
-- **Select Tools:** Choose appropriate static analysis tools (e.g., `pylint`, `eslint`, `bandit`, `grep`) based on the context.
+## Instructions
+1.  **Context Detection:** Identifique a linguagem (Python vs Node) e use a ferramenta apropriada.
+    *   **Python:** Use `ruff` (linter + formatter) e `mypy` (type checking).
+    *   **Node.js/TS:** Use `eslint` e `prettier`.
+2.  **Fix First:** Execute ferramentas com flag de auto-fix antes de reportar erros.
+    *   **Reasoning:** Automatizar correções triviais (espaçamento, imports) economiza tempo de revisão humana.
+3.  **Security Scan:** Utilize `bandit` (Python) ou `npm audit` (Node) para vulnerabilidades conhecidas em dependências.
+    *   **Verification:** O output deve ser "No issues found" ou similar.
+4.  **Complexity Check:** Monitore a Complexidade Ciclomática. Funções com complexidade > 10 devem ser refatoradas.
 
-### 2. Configure & Prepare
-- **Check Configuration:** Look for existing configuration files (e.g., `.pylintrc`, `.eslintrc`) to respect project standards.
-- **Install Dependencies:** If necessary and permitted, install required linters or security scanners in a virtual environment.
+## Common Tasks
+### Python
+*   **Lint & Fix:** `ruff check --fix .`
+*   **Format:** `ruff format .`
+*   **Type Check:** `mypy .`
+*   **Security:** `bandit -r . -c "bandit.yaml"`
 
-### 3. Execute Analysis
-- **Run Tools:** Execute the selected tools on the target code.
-- **Search Patterns:** Use `grep` or `ripgrep` to search for known bad patterns (e.g., hardcoded secrets, `eval()`, SQL injection risks).
-- **Capture Output:** Save the output of the tools for analysis.
+### Node.js / TypeScript
+*   **Lint & Fix:** `npm run lint -- --fix` (ou `eslint . --fix`)
+*   **Format:** `npm run format` (ou `prettier --write .`)
+*   **Security:** `npm audit` (ou `pnpm audit`)
 
-### 4. Analyze & Verify
-- **Review Findings:** Examine the tool output, filtering out false positives based on code context.
-- **Prioritize:** Focus on critical security vulnerabilities and major bugs first.
-- **Verify:** Manually verify high-severity issues to confirm they are genuine risks.
+## Examples
+### Refactoring Trigger
+Se o linter reportar:
+`C901 'process_data' is too complex (15)`
+**Ação:** Quebre a função `process_data` em sub-funções menores (`_validate_input`, `_transform_data`, `_save_result`).
 
-### 5. Report & Recommend
-- **Document Issues:** Create a report detailing the findings, including file paths, line numbers, and issue descriptions.
-- **Suggest Fixes:** Provide actionable recommendations or code snippets to resolve the identified issues.
-- **Rate Severity:** Classify issues by severity (Critical, High, Medium, Low) to guide prioritization.
-
-## Best Practices
-- **Context Awareness:** Always consider the specific context of the code to avoid flagging legitimate uses as errors.
-- **Incremental Audits:** For large codebases, audit one module or directory at a time.
-- **Security First:** Prioritize security vulnerabilities (e.g., injection flaws, broken authentication) over style issues.
-- **Actionable Feedback:** Ensure that every reported issue includes a clear explanation and a path to resolution.
+## Troubleshooting
+- **Config Conflicts:** Se `prettier` e `eslint` conflitarem, garanta que `eslint-config-prettier` está instalado e configurado como último extends no `.eslintrc`.
+- **Ignore Files:** Respeite sempre `.gitignore`, `.eslintignore` e `.ruffignore` para evitar analisar arquivos gerados/builds.

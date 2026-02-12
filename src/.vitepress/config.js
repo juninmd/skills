@@ -25,6 +25,7 @@ export default defineConfig({
       { text: 'Regras', link: '/rules/' },
       { text: 'Hooks', link: '/hooks/' },
       { text: 'Workflows', link: '/workflows/' },
+      { text: 'Instruções de Deploy', link: '/deploy/' },
       {
         text: 'Integração',
         items: [

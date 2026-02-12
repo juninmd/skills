@@ -1,12 +1,44 @@
 ---
 name: docker-containers
-description: Build e gerenciamento de containers isolados e imagens Docker.
+description: Criação e otimização de imagens Docker seguras, leves e prontas para produção (Multistage, Non-Root).
 ---
 
-# Container Management (Docker)
+# Docker Containers
 
-Esta skill auxilia no ciclo de vida de containers locais e builds de imagens.
+Esta skill padroniza a criação de imagens para garantir segurança e eficiência no registry.
 
 ## Instructions
-- Use `docker ps -a` para gerenciar o estado dos containers.
-- Limpe imagens órfãs periodicamente.
+1.  **Security (Non-Root):** NUNCA rode a aplicação como root.
+    *   **Instruction:** Adicione `USER node` ou `USER app` no final do Dockerfile.
+    *   **Reasoning:** Minimiza superfície de ataque em caso de RCE.
+2.  **Multistage Builds:** Use estágios de build para descartar ferramentas desnecessárias na imagem final.
+    *   **Stage 1:** `FROM node:20 AS builder` (Instala deps, compila TS).
+    *   **Stage 2:** `FROM node:20-alpine` (Copia apenas `dist/` e `node_modules/prod`).
+3.  **Linting:** Valide o Dockerfile com `hadolint`.
+    *   **Common Errors:** `DL3003` (Use `WORKDIR`), `DL3018` (Pin versions in apk add).
+4.  **Healthcheck:** Sempre defina um `HEALTHCHECK` no Dockerfile ou no K8s Probe.
+    *   `HEALTHCHECK --interval=30s CMD curl -f http://localhost:8080/health || exit 1`
+
+## Verification
+*   **Check User:** `docker run --rm <image> whoami` (Deve retornar != root).
+*   **Check Size:** Compare imagem base vs final. Multistage deve reduzir em >60%.
+*   **Scan Vulnerabilities:** Use `trivy image <image>` antes do push.
+
+## Example: Secure Node.js Dockerfile
+```dockerfile
+# Build Stage
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+# Runtime Stage
+FROM node:20-alpine
+WORKDIR /app
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/node_modules ./node_modules
+USER node
+CMD ["node", "dist/main.js"]
+```

@@ -1,0 +1,11 @@
+apiVersion: v2
+name: code-quality
+type: application
+version: 1.92.2
+dependencies:
+  - name: base-webapp
+    version: 1.3.2
+    repository: https://chartmuseum.luizalabs.com
+annotations:
+  rollback_version: 1.91.0
+  previous_commit: 2a8d7286c6c4783d97d1f5288f21d4f2226c1f84

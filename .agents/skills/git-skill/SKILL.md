@@ -1,16 +1,29 @@
 ---
 name: git-vc
-description: Gestão de repositórios, versionamento e fluxos de trabalho colaborativos com Git.
+description: Gestão de repositórios, versionamento e fluxos de trabalho colaborativos com Git seguindo o padrão Sênior Luizalabs.
 ---
 
-# Version Control (Git)
+# Version Control (Git) Sênior
 
-Esta skill orienta o agente em operações de versionamento e sincronização.
+Esta skill padroniza o fluxo de desenvolvimento, garantindo um histórico limpo, linear e rastreável.
 
 ## Instructions
-- Use `git status` para auditoria frequente.
-- Siga o padrão de Commits Convencionais.
-- Sempre sincronize (`pull`) antes de iniciar novas tarefas.
+1.  **Conventional Commits:** Todas as mensagens de commit DEVEM seguir o padrão [Conventional Commits](https://www.conventionalcommits.org/).
+    *   **Format:** `<type>(<scope>): <description>`
+    *   **Types:** `feat` (nova feature), `fix` (correção de bug), `docs` (documentação), `style` (formatação), `refactor` (sem mudança funcional), `test` (testes), `chore` (build/deps), `ci` (pipelines).
+    *   **Example:** `feat(checkout): add payment validation logic`
+2.  **Linear History:** Prefira `git rebase` a `git merge` para atualizar sua branch com a `main`.
+    *   **Reasoning:** Facilita `git bisect` e code review.
+3.  **Pre-Push Checklist:** Antes de enviar código (`git push`):
+    *   Execute linters (`npm run lint` / `ruff check`).
+    *   Rode os testes unitários (`npm test` / `pytest`).
+    *   Verifique se não há secrets (`git diff`).
 
-## Resources
-- Ver `references/REFERENCE.md` para comandos de recuperação e resolução de conflitos.
+## Common Tasks
+*   **Start Feature:** `git checkout -b feat/my-new-feature`
+*   **Sync with Main:** `git fetch origin && git rebase origin/main`
+*   **Amend Last Commit:** `git commit --amend --no-edit` (Use apenas se não tiver feito push).
+*   **Undo Last Commit (Keep Changes):** `git reset --soft HEAD~1`
+
+## Troubleshooting
+*   **Conflict:** Se houver conflito no rebase, resolva os arquivos, use `git add <file>` e `git rebase --continue`. NUNCA use `git rebase --skip` a menos que saiba exatamente o que está fazendo.

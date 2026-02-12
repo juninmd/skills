@@ -165,7 +165,16 @@ coverage:
 - name: MYSQL_PASSWORD
   value: gcp:secretmanager:projects/{project_id}/secrets/{secret_name}/versions/{version}
 ```
+- **Acesso ao GCP:** O acesso aos projetos deve ser solicitado via https://papagali.ipet.sh/card/create/team/CLOUD/request/59. Importante selecionar o tipo de acesso como Magalu Desenvolvedor.
 - **APK (Android)**: O build do arquivo APK deve ser realizado **LOCALMENTE**.
+
+## Configuração de DNS
+
+Ao atribuir no host no `values.yaml` o seguinte domínio: `.mgc-hml.mglu.io`
+
+Os DNS são criados automaticamente apontando para o IP do Ingress Controller.
+
+Exemplo: Documentação
 
 ## Premissas básicas para o app
 - O app deve ser containerizado e ter um arquivo Dockerfile.
@@ -179,7 +188,27 @@ coverage:
 - O app deve ter um arquivo de configuração que possa ser gerenciado pelo Google Secret Manager, esse arquivo fica em um repositório próprio para a integração com o ArgoCD.
 - O app deve ter um arquivo de configuração para o SonarQube chamado `sonar.properties`.
 - O app deve ter um arquivo `.gitignore` na raiz, ignorando arquivos sensíveis como `.env` e artefatos gerados (`__pycache__`, `coverage.xml`).
+- Definir nomes de sistemas não é um problema, desde que seja utilizado internamente, não seja um nome complexo, lembrando que usuários externos não podem acessar sistemas com nomes fictícios, ou em inglês, precisa ser acessível. É sugerido que no nome utilize sufixos como -api, -worker, -cron, -frontend, assim fica mais fácil identificar a natureza do sistema.
 - O app deve ter um arquivo `hangar-info.yaml` na raiz, contendo as informações do serviço (padrão Backstage).
+- O controle de versão, com ênfase no Git, é a base para uma colaboração efetiva, permitindo rastreamento e reversão eficazes de alterações. Sempre fazer commits e push ao fim do dia, não reter código na máquina, pois hds podem corromper, máquinas podem ser roubadas, enfim, tudo pode acontecer. Faça commits semânticos.
+- Sempre trabalhe com branches, evite fazer commits diretamente na master, principalmente no caso de W.I.P (Work in Progress). Sempre mantenha uma versão estável antes de realizar o merge para a branch principal do projeto (master/main). É recomendável seguir práticas do git flow para gerenciamento.
+- Lembre-se de que antes de realizar um merge, valide se seu código está funcionando, crie testes unitários, verifique se a cobertura do seu código se manteve ou aumentou de preferência. (nunca reduzir). Descreva as suas alterações para que outros colaboradores possam entender as regras de negócio que podem ser afetadas com suas alterações. Lembre-se que a aprovação é com ao menos duas pessoas. (Você não conta). Não faça merge requests enormes, com muitas alterações, isso dificulta a análise de código.
+- Design docs: A criação do documento é essencial para o sucesso arquitetural do sistema, com ele em mãos outros devs podem se integrar com mais facilidade, entendendo quais seriam os requisitos do sistema. Além de servir como referência para outros projetos, fica fácil entender mesmo com eventuais mudanças na arquitetura. Envolva seu TechLead na construção e aprovação da mesma.
+- Para toda implementação de um app, deverá ser gerada a GMUD. Ela é um documento vivo onde preenchemos algumas informações como o changelog, o link do app no gitlab, como foram feitos os testes, link do sonar, link do fortify ..etc. A geração dessa GMUD deverá ser feita no pipeline da aplicação via ci-knife. Repositório Documentação
+  - Não esqueça de adicionar as variáveis de ambiente: GMUD_RISK: Baixo, GMUD_TESTS: Testes unitários e testes integrados, GMUD_UNAVAILABILITY: Não
+- Foi criado um repositório no GitLab, onde as solicitações de mudanças no ambiente de produção devem ser preenchidas como issues, de acordo com um dos templates. As solicitações (issues) no projeto seguem um fluxo em um painel kanban. Para apps novos, não esquecer de informar a label: Projeto_Novo. Dois TechLeads de outras tribos devem aprovar sua GMUD para que você possa realizar o processo de deploy do seu app.
+- A aprovação de GMUD automática garante maior velocidade no rollout das aplicações. Só é liberada a solicitação GMUD automática quando temos a primeira GMUD aprovada manualmente. A aprovação passa a ser realizada pelo Bot "Pio The Pope". Temos alguns critérios para conseguir esse fato nas GMUDS seguintes.
+  - Nenhuma issue crítica no Snyk;
+  - Cobertura de testes igual ou acima de 90% no Sonar;
+  - Menos do que 3% de duplicidade de código no Sonar;
+  - A em maintainability no Sonar;
+  - A em reliability no Sonar;
+  - A em security no Sonar;
+  - A em security review no Sonar;
+- Deploy automatizado via CI utilizando o template ou comandos para deploy / rollback (argocd, gcs ou scripts) do CI-Knife;
+- Rollback automatizado via CI utilizando o template ou comandos para deploy / rollback (argocd, gcs ou scripts) do CI-Knife;
+- owner, tribe, vertical e fortify_id preenchidos corretamente no dependency.yaml;
+- sonar.projectKey preenchido corretamente no sonar-project.properties na raíz do repositório;
 
 
 
@@ -585,3 +614,34 @@ Baseado no GitLab Remote Playbook e Stanford WFH Research (2025):
 - **Comunicação Assíncrona Eficiente:** Commits descritivos e mensagens claras eliminam a necessidade de reuniões desnecessárias. O agente deve garantir que qualquer pessoa que leia o histórico do Git entenda o "porquê" da mudança.
 - **Preservação do Flow:** O agente deve resolver problemas técnicos complexos de forma autônoma (Self-Healing no CI/CD) até o limite de segurança, permitindo que a squad mantenha o foco criativo.
 - **Cultura de Feedback:** Logs de erro claros e reports de cobertura precisos são o feedback necessário para a evolução rápida do produto.
+
+---
+
+## 🤖 Boas Práticas com GitHub Copilot
+Baseado nas dicas oficiais do GitHub Copilot (https://code.visualstudio.com/docs/copilot/copilot-tips-and-tricks), integre estas práticas para maximizar a eficiência:
+
+### 1. Escreva Prompts Eficazes
+- **Seja Específico:** Indique linguagem, frameworks, bibliotecas e comportamento esperado. Inclua exemplos de entrada e saída.
+- **Quebre Tarefas Complexas:** Divida em passos menores e bem definidos.
+- **Inclua Verificação:** Adicione casos de teste ou critérios de aceitação para que o Copilot verifique seu próprio trabalho.
+- **Itere:** Refine prompts com follow-ups em vez de reescrever tudo.
+
+### 2. Forneça Contexto Adequado
+- Use `#codebase` para buscar no workspace.
+- Referencie arquivos específicos com `#<file>`.
+- Adicione problemas, testes ou logs para contexto relevante.
+
+### 3. Planeje Antes de Implementar
+- Explore o código existente antes de mudanças.
+- Use o agente Plan para estruturar implementações complexas.
+- Implemente, teste e revise iterativamente.
+
+### 4. Gerencie Sessões e Contexto
+- Inicie novas sessões para tarefas não relacionadas.
+- Remova histórico irrelevante para evitar poluição de contexto.
+- Use subagentes para investigações isoladas.
+
+### 5. Customize com Primitivos Reutilizáveis
+- Este arquivo (AGENTS.md) serve como custom instructions para o projeto.
+- Skills específicas são definidas em `.agents/skills/*/SKILL.md` com descrições claras de quando usar.
+- Mantenha instruções concisas e focadas em regras não cobertas por linters/formatters.

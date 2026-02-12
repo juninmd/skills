@@ -622,25 +622,25 @@ input, textarea, select {
 :deep(.aside-container),
 .aside-container {
   overflow: visible !important;
-  width: 540px !important;
+  width: 360px !important;
   max-width: none !important;
 }
 
 :deep(.aside-content),
 .aside-content {
-  width: 540px !important;
+  width: 360px !important;
   max-width: none !important;
 }
 
 :deep(.VPDocAside),
 .VPDocAside {
-  width: 540px !important;
-  min-width: 540px !important;
+  width: 360px !important;
+  min-width: 300px !important;
 }
 
 :deep(.aside),
 .aside {
-  width: 540px !important;
+  width: 360px !important;
   max-width: none !important;
 }
 
@@ -648,17 +648,26 @@ input, textarea, select {
 @media (min-width: 1440px) {
   :deep(.VPContent.has-sidebar),
   .VPContent.has-sidebar {
-    padding-right: 580px !important;
+    padding-right: 420px !important;
   }
 
   :deep(.VPDoc.has-aside .content),
   .VPDoc.has-aside .content {
-    max-width: 800px !important;
+    max-width: 900px !important;
   }
 }
 
 :deep(.VPDocAsideOutline),
 .VPDocAsideOutline {
-  display: none !important; /* Hide default TOC to prioritize our SkillShell */
+  display: block !important;
+  margin-top: 0.5rem;
+}
+
+/* Ensure aside elements stack correctly and don't overlap */
+:deep(.VPDocAside),
+.VPDocAside {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
