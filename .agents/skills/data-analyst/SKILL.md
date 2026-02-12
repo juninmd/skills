@@ -1,30 +1,35 @@
-# Data Analyst Skill
+---
+name: data-analyst
+description: Análise e processamento de dados (CSV, JSON, SQL) usando Python (Pandas) e ferramentas de CLI (csvkit, jq).
+---
 
-## Description
-This skill enables the agent to process, analyze, and visualize data from various sources (CSV, JSON, SQL). It covers data cleaning, exploratory data analysis (EDA), statistical modeling, and generating charts.
+# Data Analyst
 
-## Workflow
+Esta skill permite a exploração rápida e profunda de datasets para extração de insights.
 
-### 1. Data Ingestion & Cleaning
-- Load data from files or databases (e.g., using `pandas`).
-- Handle missing values (imputation or removal).
-- Convert data types and filter irrelevant records.
+## Instructions
+1.  **Quick Look (CLI First):** Antes de abrir um notebook, inspecione o arquivo no terminal.
+    *   **CSV:** Use `csvlook` (formatado) ou `csvstat` (estatísticas).
+    *   **JSON:** Use `jq` para filtrar e formatar.
+2.  **Exploratory Data Analysis (EDA):** Use Python para análises complexas.
+    *   **Load:** `df = pd.read_csv('data.csv', parse_dates=['date'])`
+    *   **Profile:** Gere relatórios automáticos com `sweetviz` ou `ydata-profiling`.
+3.  **Data Cleaning:** Trate valores nulos e duplicatas antes da análise.
+    *   **Drop:** `df.dropna()` ou `df.fillna(0)`.
+    *   **Deduplicate:** `df.drop_duplicates()`.
 
-### 2. Exploratory Data Analysis (EDA)
-- Calculate summary statistics (mean, median, std dev).
-- Identify correlations and trends.
-- Detect outliers and anomalies.
+## Common Tasks
+### CLI Tools
+*   **Preview CSV:** `head -n 5 data.csv | csvlook`
+*   **Stats CSV:** `csvstat data.csv` (Média, Mediana, Nulls).
+*   **Filter JSON:** `cat data.json | jq '.[] | select(.status == "active")'`
 
-### 3. Visualization
-- Generate charts (bar, line, scatter, histogram) to visualize patterns (e.g., using `matplotlib`, `seaborn`).
-- Create interactive dashboards if required.
-
-### 4. Interpretation
-- Summarize findings in plain language.
-- Answer specific business questions based on the data.
-- Provide recommendations based on insights.
+### Python (Pandas)
+*   **Group By:** `df.groupby('category')['value'].sum()`
+*   **Pivot Table:** `df.pivot_table(index='date', columns='region', values='sales')`
+*   **Export:** `df.to_csv('output.csv', index=False)`
 
 ## Best Practices
-- **Reproducibility:** Use scripts (e.g., Jupyter notebooks, Python scripts) to ensure analysis can be repeated.
-- **Data Privacy:** Anonymize sensitive personal data before analysis.
-- **Clarity:** Ensure visualizations are easy to understand with clear labels and legends.
+- **Reproducibility:** Use Jupyter Notebooks ou scripts Python versionados, nunca Excel manual.
+- **Privacy:** Remova PII (CPF, Email, Telefone) antes de compartilhar análises.
+- **Visuals:** Use gráficos simples (Barra, Linha) com títulos e eixos claros (`matplotlib`, `seaborn`).

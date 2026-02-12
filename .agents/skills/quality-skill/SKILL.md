@@ -16,16 +16,35 @@ Esta skill padroniza a estratégia de testes e validação de software.
 3.  **Validation:** Valide schemas de entrada/saída (API Contracts).
     *   **Tools:** Zod (TS), Pydantic (Python).
 
+## Testing Automation
+
+### 1. Unit Test Generation (Shift-Left)
+**Gatilho:** "gere testes para esta função".
+- **Analyze:** Identifique parâmetros, retornos e exceções.
+- **Cases:** Defina Happy Path, Edge Cases (null, empty) e Error Cases.
+- **Tools:**
+    - **Python:** `pytest`, `unittest`.
+    - **JS/TS:** `jest`, `vitest`, `mocha`.
+- **Best Practice:** Mantenha testes isolados (Mock dependencies).
+
+### 2. E2E Automation (User Journey)
+**Gatilho:** "automatize o fluxo de checkout".
+- **Plan:** Mapeie a jornada crítica do usuário.
+- **Locators:** Use atributos estáveis (`data-testid`, `aria-label`) em vez de seletores CSS frágeis.
+- **Tools:**
+    - **Web:** `playwright`, `cypress`.
+    - **Mobile:** `appium`, `detox`.
+- **Best Practice:** Limpe o estado (reset db/cookies) entre testes.
+
 ## Common Capabilities
 
 ### 1. Generate Unit Tests
-**Gatilho:** "crie testes unitários para esta função".
-- **Ação:** Escrever testes cobrindo happy path e edge cases.
-- **Output:** Arquivo `.spec.ts` ou `test_*.py`.
+**Action:** Escrever testes cobrindo happy path e edge cases.
+**Output:** Arquivo `.spec.ts` ou `test_*.py` seguindo convenções do framework.
 
 ### 2. Generate E2E Scenarios
-**Gatilho:** "teste o fluxo de login".
-- **Ação:** Criar script Playwright/Cypress simulando usuário.
+**Action:** Criar script Playwright/Cypress simulando usuário real.
+**Output:** Teste funcional completo com validações visuais.
 
 ### 3. Generate Test Dataset (Specific: Datalake)
 **Gatilho:** "massa de dados", "csv produtos".

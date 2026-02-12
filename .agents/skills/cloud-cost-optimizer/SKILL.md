@@ -1,33 +1,37 @@
-# Cloud Cost Optimizer Skill (FinOps)
+---
+name: cloud-cost-optimizer
+description: Otimização de custos de nuvem (FinOps) usando Infracost, AWS Cost Explorer e GCP Billing.
+---
 
-## Description
-This skill focuses on managing and optimizing cloud spending across various providers (AWS, Azure, GCP). It involves implementing FinOps practices, analyzing usage patterns, identifying waste, and recommending cost-saving strategies such as reserved instances, spot instances, and rightsizing resources.
+# Cloud Cost Optimizer (FinOps)
 
-## Workflow
+Esta skill foca na redução de desperdícios e previsão de custos de infraestrutura.
 
-### 1. Cost Visibility & Allocation
-- Tag resources effectively for granular cost tracking.
-- Set up budgets and alerts for spending thresholds.
-- Analyze cost reports to understand spending trends.
+## Instructions
+1.  **Shift-Left Cost:** Estime custos antes do deploy.
+    *   **Tool:** Use `infracost` em Pull Requests de Terraform.
+    *   **Command:** `infracost breakdown --path .`
+2.  **Tagging Strategy:** Recursos sem tags são invisíveis para o financeiro.
+    *   **Mandatory Tags:** `CostCenter`, `Environment` (prod/dev), `Owner` (squad).
+3.  **Rightsizing:** Identifique recursos ociosos.
+    *   **Compute:** CPU < 10% por 1 semana = Candidato a downgrade.
+    *   **Storage:** Volumes EBS/PD desconectados devem ser deletados ou snapshotados.
+4.  **Spot Instances:** Use Spot para workloads tolerantes a falhas (ex: Batch jobs, CI runners).
 
-### 2. Waste Identification
-- Identify idle or underutilized resources (e.g., EC2 instances, RDS databases).
-- Detect unattached storage volumes and obsolete snapshots.
-- Find unused elastic IP addresses and load balancers.
+## Common Tasks
+### AWS
+*   **Check Monthly Cost:** `aws ce get-cost-and-usage --time-period Start=2023-10-01,End=2023-11-01 --granularity MONTHLY --metrics "BlendedCost"`
+*   **List Unused IPs:** `aws ec2 describe-addresses --filters "Name=association-id,Values=null"`
 
-### 3. Optimization Strategies
-- **Rightsizing:** Match instance types and sizes to workload performance requirements.
-- **Pricing Models:** Evaluate Reserved Instances (RIs) or Savings Plans for predictable workloads.
-- **Spot Instances:** Leverage spot instances for fault-tolerant, stateless applications.
-- **Storage Tiering:** Move infrequently accessed data to lower-cost storage classes (e.g., S3 Glacier).
+### GCP
+*   **Check Billing:** `gcloud beta billing accounts list`
+*   **Estimate Resource:** Use a Calculadora de Preços do GCP para estimativas manuais complexas.
 
-### 4. Governance & Automation
-- Implement policies to prevent unauthorized resource provisioning.
-- Automate shutdown schedules for non-production environments (e.g., dev/test) during off-hours.
-- Use tools like AWS Cost Explorer, Azure Cost Management, or third-party solutions.
+### Kubernetes
+*   **OpenCost:** Instale o OpenCost para visibilidade de custos por Pod/Namespace.
+*   **Query:** `kubectl cost namespace --show-all-resources`
 
 ## Best Practices
-- **Collaborative Culture:** Foster collaboration between finance, engineering, and business teams.
-- **Continuous Optimization:** Treat cost optimization as an ongoing process, not a one-time event.
-- **Data-Driven Decisions:** Base decisions on accurate usage data and performance metrics.
-- **Accountability:** Assign ownership of costs to specific teams or projects.
+- **Budgets:** Configure alertas de orçamento (AWS Budgets / GCP Budgets) em 50%, 80% e 100%.
+- **Lifecycle Policies:** Configure S3 Lifecycle para mover objetos antigos para Glacier.
+- **Cleanup:** Scripts automáticos para deletar ambientes de dev às 20h (Cloud Scheduler).

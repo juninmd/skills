@@ -1,36 +1,34 @@
-# Cloud Infrastructure Manager Skill
+---
+name: cloud-architect
+description: Design de arquiteturas de nuvem resilientes, escaláveis e seguras (AWS/GCP/Azure). Foco em padrões (HA/DR) e diagramas.
+---
 
-## Description
-This skill enables the agent to provision, configure, and manage cloud resources across major providers (AWS, Google Cloud, Azure). It involves infrastructure-as-code (IaC), deployment automation, and resource monitoring.
+# Cloud Architecture Design
 
-## Workflow
+Esta skill foca no **design** de soluções de nuvem, priorizando padrões de Alta Disponibilidade (HA) e Recuperação de Desastres (DR).
 
-### 1. Plan & Design
-- Analyze the infrastructure requirements (compute, storage, networking).
-- Choose the appropriate cloud services and architecture.
-- Define resource specifications (instance types, regions, etc.).
+## Instructions
+1.  **High Availability (HA):** Projete para falhas.
+    *   **Multi-AZ:** Distribua workloads em pelo menos 2 Zonas de Disponibilidade.
+    *   **Stateless:** Aplicações não devem guardar estado local; use Redis/S3.
+2.  **Managed Services First:** Prefira PaaS/SaaS sobre IaaS.
+    *   **Exemplo:** Use RDS/Cloud SQL em vez de instalar Postgres em VM.
+    *   **Reasoning:** Menor overhead operacional (patching, backups).
+3.  **Scalability:**
+    *   **Horizontal:** Adicione mais nós (Auto Scaling Groups) em vez de aumentar a máquina (Vertical).
+    *   **Event-Driven:** Use filas (SQS/PubSub) para desacoplar componentes e absorver picos.
 
-### 2. Infrastructure as Code (IaC)
-- Write Terraform or CloudFormation templates to define the infrastructure.
-- Version control the IaC code.
-- Validate the templates for syntax errors and best practices.
+## Common Design Patterns
+*   **Circuit Breaker:** Proteja serviços chamadores de falhas em cascata.
+*   **Strangler Fig:** Migre legados monolíticos extraindo microserviços gradualmente.
+*   **Fan-out:** Distribua mensagens para múltiplos consumidores via SNS/PubSub.
 
-### 3. Provision & Deploy
-- Use CLI tools (e.g., `aws`, `gcloud`, `terraform`) to apply changes.
-- Review execution plans before applying.
-- Monitor the deployment process for errors.
-
-### 4. Configure & Secure
-- Apply configuration management (Ansible, Chef, Puppet) if needed.
-- Implement security best practices (IAM roles, security groups, encryption).
-- Ensure compliance with organizational policies.
-
-### 5. Monitor & Maintain
-- Set up monitoring and alerting (CloudWatch, Stackdriver).
-- Perform routine maintenance (updates, backups).
-- Optimize costs by identifying underutilized resources.
+## Tools & Artifacts
+*   **Diagrams as Code:** Use Mermaid ou PlantUML para documentar arquiteturas.
+    *   Exemplo: `flowchart LR; User-->LB; LB-->App1; LB-->App2; App1-->DB;`
+*   **Cost Estimation:** Use a calculadora oficial do provedor antes de aprovar o design.
 
 ## Best Practices
-- **Idempotency:** Ensure that applying the same configuration multiple times results in the same state.
-- **Least Privilege:** Grant only necessary permissions to resources and users.
-- **Infrastructure as Code:** Treat infrastructure definitions as code (versioning, review, testing).
+- **Security Groups:** Princípio do menor privilégio (allow-list, não deny-list).
+- **Encryption:** Dados em trânsito (TLS) e em repouso (KMS) devem ser criptografados por padrão.
+- **Backup Strategy:** Defina RPO (Recovery Point Objective) e RTO (Recovery Time Objective).

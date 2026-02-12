@@ -1,39 +1,32 @@
-# Cyber Incident Responder Skill
+---
+name: cyber-incident-responder
+description: Investigação forense e resposta a incidentes de segurança (IR) seguindo NIST SP 800-61.
+---
 
-## Role
-You are a Cyber Incident Responder AI Agent. Your mission is to manage cybersecurity incidents effectively, minimizing impact and enhancing security posture by adhering to NIST SP 800-61 and SANS guidelines.
+# Cyber Incident Responder
 
-## Capabilities
-- **Incident Analysis:** Analyze logs, network traffic, and system artifacts to identify security incidents.
-- **Triage & Prioritization:** Assess the severity and impact of incidents to prioritize response efforts.
-- **Containment Strategies:** Recommend and execute containment measures (isolation, blocking).
-- **Eradication & Recovery:** Identify root causes, remove threats, and restore systems.
-- **Forensics Support:** Assist in gathering and preserving digital evidence.
-- **Reporting:** Generate detailed incident reports and post-incident reviews.
+Esta skill foca na contenção e erradicação de ameaças ativas.
 
 ## Instructions
+1.  **Isolation (Containment):** Isole o host comprometido da rede.
+    *   **K8s:** Cordon e drain do nó, ou delete o pod suspeito.
+    *   **VM:** Aplique Security Group "Deny All" exceto sua origem.
+2.  **Forensics (Identification):** Colete evidências voláteis primeiro (RAM -> Network -> Disk).
+    *   **Process:** Identifique processos estranhos (`ps aux --sort=-%cpu`).
+    *   **Network:** Identifique conexões ativas (`ss -tunlp`).
+    *   **Files:** Busque arquivos modificados recentemente (`find / -mtime -1`).
+3.  **Log Analysis:**
+    *   Busque padrões de ataque (SQLi, XSS, RCE) nos logs de acesso.
+    *   Exemplo: `grep -E "UNION SELECT|/etc/passwd" access.log`
 
-### Phase 1: Preparation
-- Review current incident response plans and playbooks.
-- Ensure access to necessary tools (SIEM, EDR, log collectors).
-- Verify contact lists and communication channels.
+## Common Tasks
+*   **Check Open Ports:** `netstat -tuln` ou `ss -tuln`
+*   **Check Active Connections:** `lsof -i -P -n | grep LISTEN`
+*   **Analyze Auth Logs:**
+    *   `grep "Failed password" /var/log/auth.log | awk '{print $11}' | sort | uniq -c | sort -nr` (Top IPs brute-force).
+*   **Check Crontab:** `crontab -l` e `ls /etc/cron.*` (Persistência de malware).
 
-### Phase 2: Identification (Detection & Analysis)
-- Monitor alerts and logs for anomalies.
-- Correlate data to confirm incidents.
-- **Command:** `analyze-logs <logfile>` - Parse and summarize log files for suspicious patterns.
-- **Command:** `check-threat-intel <ioc>` - Query threat intelligence sources for IP/Domain/Hash.
-
-### Phase 3: Containment, Eradication, & Recovery
-- **Containment:** Isolate affected systems. Block malicious IPs.
-- **Eradication:** Remove malware, patch vulnerabilities, reset credentials.
-- **Recovery:** Restore from clean backups, verify system integrity.
-
-### Phase 4: Post-Incident Activity
-- Conduct a "Lessons Learned" meeting.
-- Update policies and procedures based on findings.
-- accurate retention of evidence.
-
-## Commands
-- `analyze-logs`: Analyze a log file for common attack patterns (SQLi, XSS, Brute Force).
-- `generate-report`: Create a markdown incident report based on findings.
+## Best Practices
+- **Chain of Custody:** Preserve logs originais; trabalhe em cópias.
+- **Reference:** Consulte a `triage-skill` para o protocolo inicial de triagem.
+- **Post-Mortem:** Documente tudo para o relatório final (RCA).

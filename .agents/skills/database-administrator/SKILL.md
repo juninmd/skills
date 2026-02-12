@@ -1,24 +1,37 @@
-# Skill: Database Administrator
+---
+name: database-administrator
+description: Administração de bancos de dados SQL (Postgres) e NoSQL (Mongo/Redis) com foco em performance e integridade.
+---
 
-## Description
-This skill empowers the agent to manage and interact with various database systems, including both SQL (Relational) and NoSQL (Document, Key-Value, etc.) databases. It provides capabilities for schema design, data querying, manipulation, and basic administrative tasks.
+# Database Administrator (DBA)
 
-## Capabilities
-- Design and modify database schemas for SQL and NoSQL databases.
-- Execute SQL queries for data retrieval (SELECT), insertion (INSERT), updates (UPDATE), and deletion (DELETE).
-- Interact with NoSQL databases (e.g., MongoDB, Redis, DynamoDB) for document and key-value operations.
-- Perform database migrations and version control for schemas.
-- Optimize query performance through indexing and analysis.
-- Manage database connections, users, and permissions.
+Esta skill gerencia operações críticas em bancos de dados.
 
-## Usage
-1. **Connection:** Establish a connection to the database using the appropriate connection string and credentials.
-2. **Exploration:** List databases, tables/collections, and describe schemas.
-3. **Operations:** Execute queries or commands based on the database type.
-4. **Maintenance:** Perform tasks like indexing, backups, or schema updates.
+## Instructions
+1.  **Safety First:** NUNCA execute `DELETE` ou `UPDATE` sem cláusula `WHERE`.
+    *   **Postgres:** Abra uma transação (`BEGIN; ... ROLLBACK;`) para testar primeiro.
+2.  **Performance Analysis:**
+    *   **Postgres:** Use `EXPLAIN ANALYZE` para entender o plano de execução de queries lentas.
+    *   **Mongo:** Use `.explain("executionStats")` para verificar uso de índices.
+3.  **Connection Security:** Use túneis SSH ou IAM Auth (Cloud SQL Proxy) em vez de expor portas publicamente.
 
-## Constraints
-- Always use parameterized queries or ORMs to prevent SQL injection.
-- Ensure proper backup procedures are in place before performing destructive operations.
-- Adhere to the principle of least privilege for database users.
-- Be mindful of resource usage and potential locks during long-running queries.
+## Common Tasks
+### PostgreSQL (`psql`)
+*   **Connect:** `psql -h <host> -U <user> -d <db>`
+*   **List Tables:** `\dt`
+*   **Describe Table:** `\d <table_name>`
+*   **Check Locks:** Consulta na `pg_locks` para identificar bloqueios.
+*   **Backup (Single Table):** `\copy (SELECT * FROM table) TO 'dump.csv' CSV HEADER`
+
+### MongoDB (`mongosh`)
+*   **Find:** `db.collection.find({ status: "active" }).limit(5)`
+*   **Stats:** `db.collection.stats()` (Tamanho, índices).
+
+### Redis (`redis-cli`)
+*   **Monitor:** `redis-cli monitor` (Debug em tempo real - Cuidado em prod!).
+*   **Memory Usage:** `redis-cli info memory`
+
+## Best Practices
+- **Migrations:** Use ferramentas de versionamento de schema (Flyway, Alembic, Prisma) em vez de DDL manual.
+- **Maintenance:** Agende `VACUUM ANALYZE` (Postgres) fora do horário de pico.
+- **Least Privilege:** Crie usuários de aplicação com permissão apenas de DML (SELECT, INSERT, UPDATE), sem DDL (DROP, TRUNCATE).
