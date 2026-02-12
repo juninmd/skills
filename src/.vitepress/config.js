@@ -29,6 +29,8 @@ export default defineConfig({
       {
         text: 'Integração',
         items: [
+          { text: 'Conceitos Básicos', link: '/agentic-concepts' },
+          { text: 'Arquitetura Agêntica', link: '/agentic-architecture' },
           { text: 'GitHub Copilot', link: '/integration/copilot' },
           { text: 'Antigravity', link: '/integration/antigravity' },
           { text: 'Gemini CLI', link: '/integration/gemini' }
