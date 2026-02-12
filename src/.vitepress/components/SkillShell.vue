@@ -1,72 +1,107 @@
 <template>
   <div class="skill-card" v-if="hasContent">
-    <!-- Installation Row -->
-    <div class="card-section installation-section" v-if="installCmd">
-      <h3>🚀 Installation</h3>
+    <!-- Card Header -->
+    <div class="card-header" v-if="installCmd || (repoUrl || editUrl || rawUrl)">
+      <div class="header-left">
+        <h3 class="card-title">🚀 Quick Start</h3>
+      </div>
+    </div>
+
+    <!-- Installation Command -->
+    <div class="card-installation" v-if="installCmd">
+      <div class="install-label">Installation Command</div>
       <div class="install-container">
         <code class="install-code">{{ installCmd }}</code>
-        <button class="copy-btn" @click="copy" :class="{ copied }">
-          {{ copied ? '✅' : '📋' }}
+        <button class="copy-btn" @click="copyInstall" :title="copied ? 'Copied!' : 'Copy to clipboard'">
+          <span v-if="copied">✓</span>
+          <span v-else>Copy</span>
         </button>
       </div>
     </div>
 
-    <!-- Two-Column Row: Folder Files + Action Buttons -->
-    <div class="card-row" v-if="(files && files.length) || repoUrl || editUrl || rawUrl">
-      <!-- Folder Files Column -->
-      <div class="card-section files-section" v-if="files && files.length">
-        <h3>📁 Folder Files</h3>
+    <!-- Main Content Grid -->
+    <div class="card-content">
+      <!-- Files Section -->
+      <div class="content-section files-section" v-if="files && files.length">
+        <h4 class="section-title">📁 Folder Files</h4>
         <ul class="file-list">
-          <li v-for="f in files" :key="f" class="file-item">
+          <li v-for="f in files.slice(0, 8)" :key="f" class="file-item">
             <a :href="getFileUrl(f)" target="_blank" class="file-link">
-              <span class="file-icon">{{ getFileIcon(f) }}</span> {{ f }}
+              <span class="file-icon">{{ getFileIcon(f) }}</span>
+              <span class="file-name">{{ f }}</span>
             </a>
+          </li>
+          <li v-if="files.length > 8" class="file-item more-items">
+            <span class="file-icon">+</span>
+            <span class="file-name">{{ files.length - 8 }} more</span>
           </li>
         </ul>
       </div>
 
-      <!-- Action Buttons Column -->
-      <div class="card-section actions-section" v-if="repoUrl || editUrl || rawUrl">
-        <h3>🔗 Links</h3>
+      <!-- Links Section -->
+      <div class="content-section links-section" v-if="repoUrl || editUrl || rawUrl">
+        <h4 class="section-title">🔗 Resources</h4>
         <div class="action-buttons">
-          <a v-if="repoUrl" class="action-link secondary" :href="repoUrl" target="_blank">
-            🔍 View Code
+          <a v-if="repoUrl" class="action-link" :href="repoUrl" target="_blank">
+            <span class="link-icon">📂</span>
+            <span class="link-text">View Code</span>
           </a>
           <a v-if="editUrl" class="action-link primary" :href="editUrl" target="_blank">
-            📝 Edit in GitLab
+            <span class="link-icon">✏️</span>
+            <span class="link-text">Edit</span>
           </a>
-          <a v-if="rawUrl" class="action-link subtle" :href="rawUrl" target="_blank">
-            📄 Raw Markdown
+          <a v-if="rawUrl" class="action-link" :href="rawUrl" target="_blank">
+            <span class="link-icon">📄</span>
+            <span class="link-text">Raw</span>
           </a>
-          <button class="action-link subtle" @click="openModal">
-            📑 Copy & Preview
+          <button class="action-link preview-btn" @click="openModal" :title="'View and copy content'">
+            <span class="link-icon">👁️</span>
+            <span class="link-text">Preview</span>
           </button>
         </div>
       </div>
     </div>
+
+    <!-- Footer with Optional Content -->
+    <div class="card-footer" v-if="parameters && parameters.length > 0">
+      <details class="footer-details">
+        <summary class="footer-summary">
+          <span class="summary-icon">▶</span>
+          📋 Parameters ({{ parameters.length }})
+        </summary>
+        <div class="params-wrapper">
+          <div v-for="p in parameters" :key="p.name" class="param-item">
+            <span class="param-name">`{{ p.name }}`</span>
+            <span v-if="p.required" class="param-badge">Required</span>
+            <div class="param-info">{{ p.type }} - {{ p.description }}</div>
+          </div>
+        </div>
+      </details>
+    </div>
   </div>
 
-  <div v-if="showModal" class="source-modal" @keydown.esc="closeModal" tabindex="-1">
+  <!-- Preview Modal -->
+  <div v-if="showModal" class="source-modal" @keydown.esc="closeModal">
     <div class="modal-backdrop" @click="closeModal"></div>
     <div class="modal-content">
       <div class="modal-header">
-        <h3>Source: {{ skillId }}</h3>
-        <div class="modal-actions">
+        <h3>📋 {{ skillId }}</h3>
+        <div class="modal-tabs">
           <button :class="{active: viewMode==='preview'}" @click="viewMode='preview'">Preview</button>
           <button :class="{active: viewMode==='markdown'}" @click="viewMode='markdown'">Markdown</button>
-          <button @click="closeModal">Close</button>
         </div>
+        <button class="modal-close" @click="closeModal">✕</button>
       </div>
       <div class="modal-body">
-        <div v-if="viewMode==='preview'">
+        <div v-if="viewMode==='preview'" class="preview-content">
           <div v-html="renderedHtml" class="rendered-preview"></div>
-          <div v-if="!renderedHtml" class="empty-note">Preview not available.</div>
+          <div v-if="!renderedHtml" class="empty-state">Preview not available</div>
         </div>
-        <div v-else>
-          <div class="markdown-actions">
-            <button @click="copyRaw">{{ rawCopied ? 'Copied' : 'Copy Markdown' }}</button>
-          </div>
-          <pre class="raw-markdown"><code>{{ loadingRaw ? 'Loading...' : rawMarkdown }}</code></pre>
+        <div v-else class="markdown-content">
+          <button class="copy-markdown-btn" @click="copyRaw">
+            {{ rawCopied ? '✓ Copied' : '📋 Copy Markdown' }}
+          </button>
+          <pre class="raw-markdown"><code>{{ loadingRaw ? '⏳ Loading...' : rawMarkdown }}</code></pre>
         </div>
       </div>
     </div>
@@ -139,10 +174,14 @@ function getFileUrl(f) {
     : `/.agents-${category.value}/${f}`;
 }
 
-function copy() {
+function copyInstall() {
   navigator.clipboard.writeText(installCmd.value || '');
   copied.value = true;
   setTimeout(() => { copied.value = false; }, 2000);
+}
+
+function copy() {
+  copyInstall();
 }
 
 function openModal() {
@@ -180,123 +219,166 @@ function copyRaw() {
 </script>
 
 <style scoped>
+/* Main Card Container */
 .skill-card {
   width: 100%;
-  max-width: 900px;
-  margin: 1.5rem 0;
-  padding: 1.5rem;
+  margin: 2rem 0;
   background: var(--vp-c-bg-soft);
   border: 1px solid var(--vp-c-divider);
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.2s ease;
 }
 
-.card-section {
-  padding: 0;
-  background: transparent;
-  border: none;
-  border-radius: 0;
+.skill-card:hover {
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
 }
 
-.card-section h3 {
-  margin: 0 0 0.75rem 0;
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--vp-c-text-2);
-  border: none;
-}
-
-.installation-section {
-  display: block;
-  padding-bottom: 1rem;
+/* Card Header */
+.card-header {
+  background: linear-gradient(135deg, var(--vp-c-brand) 0%, rgba(var(--vp-c-brand-rgb), 0.8) 100%);
+  padding: 1rem 1.5rem;
   border-bottom: 1px solid var(--vp-c-divider);
 }
 
-.card-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-@media (max-width: 768px) {
-  .skill-card {
-    max-width: 100%;
-  }
-  
-  .card-row {
-    grid-template-columns: 1fr;
-  }
+.card-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
 }
 
+/* Installation Section */
+.card-installation {
+  padding: 1.25rem;
+  border-bottom: 1px solid var(--vp-c-divider);
+}
+
+.install-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--vp-c-text-2);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
 
 .install-container {
   display: flex;
   gap: 0.5rem;
-  background: var(--vp-c-bg-soft);
-  padding: 0.5rem;
-  border-radius: 6px;
+  background: var(--vp-c-bg);
+  padding: 0.75rem;
   border: 1px solid var(--vp-c-divider);
+  border-radius: 6px;
   align-items: center;
-  flex-wrap: wrap;
 }
 
 .install-code {
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   font-family: var(--vp-font-family-mono);
+  color: var(--vp-c-text-1);
   overflow-x: auto;
   white-space: nowrap;
   flex: 1;
-  min-width: 150px;
-  color: var(--vp-c-text-1);
+  min-width: 100px;
+  user-select: all;
+  padding: 0.25rem;
 }
 
 .copy-btn {
-  padding: 0.4rem 0.5rem;
-  background: var(--vp-c-bg-soft);
+  padding: 0.4rem 0.75rem;
+  background: var(--vp-c-brand);
+  color: white;
+  border: none;
   border-radius: 4px;
-  border: 1px solid var(--vp-c-divider);
   cursor: pointer;
-  transition: all 0.2s;
-  font-size: 0.8rem;
+  font-weight: 500;
+  font-size: 0.75rem;
   flex-shrink: 0;
+  transition: all 0.2s ease;
 }
 
 .copy-btn:hover {
-  background: var(--vp-c-divider);
+  background: var(--vp-c-brand-dark);
+  transform: translateY(-1px);
 }
 
+.copy-btn:active {
+  transform: translateY(0);
+}
+
+/* Content Grid */
+.card-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  padding: 0;
+}
+
+.content-section {
+  padding: 1.25rem;
+  border-right: 1px solid var(--vp-c-divider);
+}
+
+.content-section:last-child {
+  border-right: none;
+}
+
+.section-title {
+  margin: 0 0 1rem 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--vp-c-text-2);
+}
+
+/* File List */
 .file-list {
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
-  max-height: 300px;
-  overflow-y: auto;
+  gap: 0.5rem;
 }
 
 .file-item {
-  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  padding: 0.4rem 0;
+  font-size: 0.85rem;
+  color: var(--vp-c-text-1);
+}
+
+.file-item.more-items {
+  color: var(--vp-c-text-2);
+  font-style: italic;
+  cursor: default;
+}
+
+.file-icon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  width: 1.2rem;
+  text-align: center;
 }
 
 .file-link {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.85rem;
   color: var(--vp-c-brand);
   text-decoration: none;
-  transition: color 0.2s;
-  padding: 0.25rem 0;
-}
-
-.file-link.resource {
-  color: var(--vp-c-text-1);
-  font-weight: 500;
+  transition: color 0.2s ease;
+  flex: 1;
 }
 
 .file-link:hover {
@@ -304,49 +386,104 @@ function copyRaw() {
   text-decoration: underline;
 }
 
+.file-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Action Buttons */
 .action-buttons {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.6rem;
 }
 
 .action-link {
-  display: block;
-  text-align: center;
-  padding: 0.5rem 0.75rem;
-  border-radius: 6px;
-  font-weight: 600;
-  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.6rem;
+  padding: 0.6rem 0.8rem;
+  background: var(--vp-c-bg);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 5px;
+  color: var(--vp-c-text-1);
   text-decoration: none;
-  transition: all 0.2s;
+  font-size: 0.85rem;
+  font-weight: 500;
   cursor: pointer;
-  width: 100%;
-  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.action-link:hover {
+  background: var(--vp-c-bg-mute);
+  border-color: var(--vp-c-brand);
+  color: var(--vp-c-brand);
 }
 
 .action-link.primary {
   background: var(--vp-c-brand);
   color: white;
+  border-color: var(--vp-c-brand);
 }
-.action-link.primary:hover { background: var(--vp-c-brand-dark); }
 
-.action-link.secondary {
-  background: var(--vp-c-bg);
-  border-color: var(--vp-c-divider);
-  color: var(--vp-c-text-1);
+.action-link.primary:hover {
+  background: var(--vp-c-brand-dark);
+  border-color: var(--vp-c-brand-dark);
 }
-.action-link.secondary:hover { border-color: var(--vp-c-brand); color: var(--vp-c-brand); }
 
-.action-link.subtle {
-  background: transparent;
-  color: var(--vp-c-text-2);
-  font-weight: 500;
+.link-icon {
+  display: inline-block;
+  width: 1rem;
+  text-align: center;
 }
-.action-link.subtle:hover { color: var(--vp-c-brand); }
 
-.params-list {
+.link-text {
+  flex: 1;
+}
+
+/* Footer */
+.card-footer {
+  border-top: 1px solid var(--vp-c-divider);
+  padding: 0;
+}
+
+.footer-details {
+  cursor: pointer;
+  width: 100%;
+}
+
+.footer-summary {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 1.25rem;
+  user-select: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--vp-c-text-2);
+  transition: background 0.2s ease;
+}
+
+.footer-summary:hover {
+  background: var(--vp-c-bg-soft);
+}
+
+.summary-icon {
+  display: inline-block;
+  transition: transform 0.2s ease;
+  font-size: 0.7rem;
+}
+
+.footer-details[open] .summary-icon {
+  transform: rotate(90deg);
+}
+
+.params-wrapper {
+  padding: 0 1.25rem 1.25rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1rem;
 }
 
@@ -354,57 +491,197 @@ function copyRaw() {
   padding: 0.75rem;
   background: var(--vp-c-bg);
   border: 1px solid var(--vp-c-divider);
-  border-radius: 8px;
-  font-size: 0.85rem;
-}
-
-.param-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.25rem;
+  border-radius: 5px;
+  font-size: 0.8rem;
 }
 
 .param-name {
+  display: inline-block;
   font-family: var(--vp-font-family-mono);
   font-weight: 600;
   color: var(--vp-c-brand);
+  margin-bottom: 0.25rem;
 }
 
 .param-badge {
-  font-size: 0.7rem;
-  padding: 1px 6px;
-  border-radius: 4px;
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0.2rem 0.5rem;
+  background: var(--vp-c-danger-soft);
+  color: var(--vp-c-danger);
+  border-radius: 3px;
+  font-size: 0.65rem;
   font-weight: 700;
   text-transform: uppercase;
 }
 
-.param-badge.required {
-  background: var(--vp-c-danger);
-  color: white;
-}
-
-.param-type {
-  font-size: 0.75rem;
-  color: var(--vp-c-text-3);
-  margin-bottom: 0.5rem;
-  font-style: italic;
-}
-
-.param-desc {
-  line-height: 1.4;
+.param-info {
+  margin-top: 0.4rem;
   color: var(--vp-c-text-2);
+  line-height: 1.4;
 }
 
-/* Modal styles */
-.source-modal { position: fixed; inset:0; display:flex; align-items:center; justify-content:center; z-index:9999; }
-.source-modal .modal-backdrop { position:absolute; inset:0; background: rgba(2,6,23,0.6); }
-.source-modal .modal-content { position:relative; background:var(--vp-c-bg); border:1px solid var(--vp-c-divider); border-radius:10px; max-width:1000px; width:92%; max-height:80vh; overflow:auto; padding:1rem; }
-.modal-header { display:flex; justify-content:space-between; align-items:center; gap:1rem; }
-.modal-actions button { margin-left:0.5rem; }
-.modal-body { margin-top:1rem; }
-.rendered-preview { padding: 1rem; background: var(--vp-c-bg-soft); border-radius:8px; }
-.raw-markdown { white-space:pre-wrap; max-height:60vh; overflow:auto; background:var(--vp-c-bg-soft); padding:1rem; border-radius:8px; }
-.markdown-actions { margin-bottom:0.5rem; }
-.view-source-btn { width:100%; padding:0.6rem; border-radius:8px; border:1px solid var(--vp-c-divider); background:transparent; font-weight:700; cursor:pointer; }
+/* Modal */
+.source-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+.modal-content {
+  position: relative;
+  background: var(--vp-c-bg);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
+  max-width: 900px;
+  width: 90vw;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem;
+  border-bottom: 1px solid var(--vp-c-divider);
+  flex-shrink: 0;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--vp-c-text-1);
+}
+
+.modal-tabs {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.modal-tabs button {
+  padding: 0.4rem 0.8rem;
+  background: transparent;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  color: var(--vp-c-text-2);
+  transition: all 0.2s;
+}
+
+.modal-tabs button.active {
+  background: var(--vp-c-brand);
+  color: white;
+  border-color: var(--vp-c-brand);
+}
+
+.modal-close {
+  background: transparent;
+  border: none;
+  color: var(--vp-c-text-2);
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: 0;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  transition: color 0.2s;
+}
+
+.modal-close:hover {
+  color: var(--vp-c-text-1);
+}
+
+.modal-body {
+  overflow: auto;
+  flex: 1;
+  padding: 1.25rem;
+}
+
+.preview-content,
+.markdown-content {
+  min-height: 200px;
+}
+
+.empty-state {
+  padding: 2rem;
+  text-align: center;
+  color: var(--vp-c-text-3);
+}
+
+.rendered-preview {
+  background: var(--vp-c-bg-soft);
+  border-radius: 6px;
+  padding: 1rem;
+  line-height: 1.6;
+}
+
+.raw-markdown {
+  background: var(--vp-c-bg-muted);
+  border-radius: 6px;
+  padding: 1rem;
+  overflow: auto;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.copy-markdown-btn {
+  padding: 0.5rem 0.8rem;
+  background: var(--vp-c-brand);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  transition: all 0.2s;
+}
+
+.copy-markdown-btn:hover {
+  background: var(--vp-c-brand-dark);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .card-content {
+    grid-template-columns: 1fr;
+  }
+
+  .content-section {
+    border-right: none;
+    border-bottom: 1px solid var(--vp-c-divider);
+  }
+
+  .content-section:last-child {
+    border-bottom: none;
+  }
+
+  .modal-content {
+    width: 95vw;
+    max-height: 90vh;
+  }
+
+  .params-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
 </style>
