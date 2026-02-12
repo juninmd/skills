@@ -202,19 +202,23 @@ function copyRaw() {
 
 <style scoped>
 .skill-sidebar {
-  float: right;
-  width: 300px;
-  margin-left: 2rem;
+  width: 100%;
+  margin: 2rem 0;
   padding: 1.5rem;
   background: var(--vp-c-bg-soft);
   border: 1px solid var(--vp-c-divider);
   border-radius: 12px;
-  position: sticky;
-  top: 6rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
 }
 
 .sidebar-block {
-  margin-bottom: 2rem;
+  margin-bottom: 0;
+  padding: 1rem;
+  background: var(--vp-c-bg);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
 }
 
 .sidebar-block:last-child {
@@ -233,11 +237,12 @@ function copyRaw() {
 .install-container {
   display: flex;
   gap: 0.5rem;
-  background: var(--vp-c-bg);
+  background: var(--vp-c-bg-soft);
   padding: 0.5rem;
   border-radius: 6px;
   border: 1px solid var(--vp-c-divider);
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .install-code {
@@ -246,6 +251,7 @@ function copyRaw() {
   overflow-x: auto;
   white-space: nowrap;
   flex: 1;
+  min-width: 150px;
 }
 
 .copy-btn {
@@ -394,15 +400,4 @@ function copyRaw() {
 .raw-markdown { white-space:pre-wrap; max-height:60vh; overflow:auto; background:var(--vp-c-bg-soft); padding:1rem; border-radius:8px; }
 .markdown-actions { margin-bottom:0.5rem; }
 .view-source-btn { width:100%; padding:0.6rem; border-radius:8px; border:1px solid var(--vp-c-divider); background:transparent; font-weight:700; cursor:pointer; }
-
-
-@media (max-width: 1024px) {
-  .skill-sidebar {
-    float: none;
-    width: 100%;
-    margin-left: 0;
-    margin-bottom: 2rem;
-    position: static;
-  }
-}
 </style>

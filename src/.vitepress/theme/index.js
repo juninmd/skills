@@ -13,7 +13,7 @@ export default {
   extends: DefaultTheme,
   Layout: () => {
     return h(DefaultTheme.Layout, null, {
-      'aside-outline-before': () => h(SkillShell)
+      'doc-top': () => h(SkillShell)
     });
   },
   enhanceApp({ app }) {
