@@ -12,19 +12,27 @@ description: This skill enables the agent to perform security-related tasks, suc
 - When ensuring compliance with security standards
 
 ## Instructions
-- Identify potential security vulnerabilities in code, configurations, or systems.
-- Run security scans and analyze results.
-- Provide recommendations for fixing identified issues.
-- Implement security controls and best practices.
-- Set up monitoring for security events.
-- Ensure compliance with security standards.
+1.  **Dependency Scanning (SCA):** Verifique vulnerabilidades em bibliotecas.
+    *   **Node.js:** `npm audit` ou `pnpm audit`.
+    *   **Python:** `uv pip audit` ou `pip-audit`.
+    *   **Containers:** `trivy image <image>`.
+2.  **Static Analysis (SAST):** Encontre bugs de segurança no código fonte.
+    *   **Tool:** Use `semgrep` ou `sonar-scanner` para buscar padrões inseguros (SQL Injection, XSS).
+    *   **Command:** `semgrep --config=p/security-audit .`
+3.  **Secret Detection:** Nunca commite credenciais.
+    *   **Pre-commit:** Use `gitleaks detect` ou `git-secrets` antes de enviar código.
+    *   **Remediation:** Se vazar, rotacione a credencial imediatamente.
+4.  **Container Security:** Valide Dockerfiles e imagens.
+    *   **Linting:** `hadolint Dockerfile`.
+    *   **Scanning:** `trivy fs .` (sistema de arquivos) ou `trivy image` (final).
 
 ## Examples
-- "Scan this codebase for SQL injection vulnerabilities"
-- "Review this authentication code for security flaws"
-- "Implement OWASP top 10 best practices in this app"
+- "Run `trivy image my-app:latest` to check for CVEs."
+- "Audit dependencies with `npm audit --audit-level=high`."
+- "Scan codebase for secrets using `gitleaks detect -v`."
+- "Review Python code for security flaws with `bandit -r .`."
 
 ## Resources
-- Follow the principle of least privilege.
-- Regularly update dependencies and systems.
-- Use secure coding practices.
+- **OWASP Top 10:** Referência para riscos web comuns.
+- **Principle of Least Privilege:** Garanta que containers e processos rodem com permissões mínimas.
+- **Regular Updates:** Mantenha dependências atualizadas para corrigir CVEs conhecidos.

@@ -20,61 +20,78 @@ Use the [Search](/search.md.md) page to find specific skills, patterns, or rules
 
 ## ⚡ 5-Minute Setup
 
-<InstallTabs 
-  copilot="# 1. Go to your project directory
+<InstallTabs
+  copilot="# 1. Install VS Code (if not already installed)
+# Download from: https://code.visualstudio.com/download
+# Or via package manager:
+# Ubuntu/Debian: sudo apt install code
+# macOS: brew install --cask visual-studio-code
+# Windows: Download installer from website
+
+# 2. Install GitHub Copilot extension in VS Code
+# Open VS Code → Extensions → Search 'GitHub Copilot' → Install
+
+# 3. Go to your project directory
 cd your-project
 
-# 2. Create .github folder if it doesn't exist
+# 4. Create .github folder if it doesn't exist
 mkdir -p .github
 
-# 3. Download standards
+# 5. Download standards
 curl -L https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/agents/index.md -o agents.md
 curl -L https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/agents/index.md -o .github/copilot-instructions.md
 
-# 4. Commit
+# 6. Commit
 git add agents.md .github/copilot-instructions.md
 git commit -m 'docs: add luizalabs development standards'
 
-# 5. Restart VS Code"
-  antigravity="# 1. Go to your project directory
+# 7. Restart VS Code"
+  antigravity="# 1. Access Antigravity
+# Antigravity is Google's internal AI-first IDE
+# Access requires Google internal network/credentials
+# Visit: https://antigravity.google.com (internal link)
+
+# 2. Go to your project directory
 cd your-project
 
-# 2. Download standards as AGENTS.md
+# 3. Download standards as AGENTS.md
 curl -L https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/agents/index.md -o AGENTS.md
 
-# 3. Commit
+# 4. Commit
 git add AGENTS.md
 git commit -m 'docs: add luizalabs development standards'
 
-# 4. Done!"
-  gemini="# 1. Go to your project directory
-cd your-project
+# 5. Done!
+# Antigravity will automatically detect AGENTS.md"
+  gemini="# Configuração para Gemini CLI
+Automação avançada via linha de comando.
 
-# 2. Download agents.md
-curl -L https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/agents/index.md -o agents.md
+1. Passo 1: Instalar Expertise do Catálogo
 
-# 3. Create .gemini.json
-cat > .gemini.json << 'EOF'
-{
-  &quot;projectId&quot;: &quot;your-gcp-project&quot;,
-  &quot;context&quot;: {
-    &quot;files&quot;: [&quot;agents.md&quot;],
-    &quot;systemPrompt&quot;: &quot;Follow the patterns defined in agents.md&quot;
-  },
-  &quot;generation&quot;: {
-    &quot;model&quot;: &quot;gemini-2.0-flash&quot;,
-    &quot;temperature&quot;: 0.7
-  }
-}
-EOF
+Você pode instalar skills específicas diretamente no seu ambiente Gemini usando a URL do repositório.
 
-# 4. Commit
-git add agents.md .gemini.json
-git commit -m 'docs: add luizalabs development standards'
+```
+gemini skills install git@gitlab.luizalabs.com:luizalabs/padrao-labs-agents.git --path .agents/skills/git-skill
+```
 
-# 5. Start using!"
+2. Passo 2: Instalar Versão Local (Dev)
+
+Para contribuir ou usar uma versão local do catálogo, aponte para o diretório local. Use `--scope workspace` para limitar ao projeto atual.
+
+```
+gemini skills install /path/to/padrao-labs-agents --scope workspace
+```
+
+3. Passo 3: Verificar Instalação
+
+Liste todas as skills descobertas para verificar se foram instaladas corretamente.
+
+```
+gemini skills list
+```
+
+[Ver Guia Completo →](/integration/gemini.md)"
 />
-
 ## 📚 What's in the Catalog
 
 ### Skills (70+)

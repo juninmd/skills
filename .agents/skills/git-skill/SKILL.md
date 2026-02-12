@@ -19,11 +19,17 @@ Esta skill padroniza o fluxo de desenvolvimento, garantindo um histórico limpo,
     *   Rode os testes unitários (`npm test` / `pytest`).
     *   Verifique se não há secrets (`git diff`).
 
+4.  **Merge Requests (MR/PR):**
+    *   **Strategy:** Prefira "Squash and Merge" para features pequenas (1 commit na main). Para features complexas, garanta que cada commit na branch seja atômico e buildável.
+    *   **Description:** Descreva O QUE mudou e POR QUE mudou. Linke a issue/ticket (Jira/GitLab).
+    *   **Review:** NUNCA aprove seu próprio PR. Code Review é obrigatório.
+
 ## Common Tasks
 *   **Start Feature:** `git checkout -b feat/my-new-feature`
 *   **Sync with Main:** `git fetch origin && git rebase origin/main`
 *   **Amend Last Commit:** `git commit --amend --no-edit` (Use apenas se não tiver feito push).
 *   **Undo Last Commit (Keep Changes):** `git reset --soft HEAD~1`
+*   **Push Feature:** `git push -u origin feat/my-new-feature`
 
 ## Troubleshooting
 *   **Conflict:** Se houver conflito no rebase, resolva os arquivos, use `git add <file>` e `git rebase --continue`. NUNCA use `git rebase --skip` a menos que saiba exatamente o que está fazendo.

@@ -1,29 +1,41 @@
 ---
 name: node-dev
-description: Gerenciamento de pacotes e scripts do ecossistema Node.js/TypeScript. Use para instalar dependências, rodar scripts npm/pnpm e gerenciar versões.
+description: Gerenciamento de pacotes e scripts do ecossistema Node.js/TypeScript. Prioriza pnpm, mas suporta npm para projetos legados.
 ---
 
 # Node.js Development
 
-Esta skill foca na gestão eficiente de dependências e automação de builds JS/TS usando `pnpm`.
+Esta skill foca na gestão eficiente de dependências e automação de builds JS/TS, padronizando o uso de `pnpm` para projetos novos e migrações.
 
 ## Instructions
-1.  **Package Manager:** Utilize EXCLUSIVAMENTE `pnpm` para gerenciamento de dependências.
-    *   **Reasoning:** `pnpm` é mais rápido, eficiente em disco (symlinks) e previne "phantom dependencies" comuns no npm/yarn.
-    *   **Verification:** Verifique a presença de `pnpm-lock.yaml`. Se encontrar `package-lock.json` ou `yarn.lock`, migre para `pnpm import` e remova os antigos.
-2.  **Tool Execution:** Use `pnpm dlx` (equivalente ao `npx`) para ferramentas de linha de comando temporárias.
-3.  **Scripts:** Execute scripts definidos no `package.json` via `pnpm run <script>`.
+1.  **Package Manager Strategy:**
+    *   **Standard:** Use `pnpm` para novos projetos. É mais rápido e eficiente em disco.
+    *   **Legacy:** Se encontrar `package-lock.json`, use `npm` para manter consistência, mas planeje a migração.
+    *   **Verification:** Verifique a raiz do projeto.
+        *   `pnpm-lock.yaml` → Use `pnpm`.
+        *   `package-lock.json` → Use `npm` (e considere migrar).
+2.  **Tool Execution:**
+    *   **pnpm:** Use `pnpm dlx` para ferramentas temporárias.
+    *   **npm:** Use `npx`.
+3.  **Scripts:** Execute scripts via `pnpm run <script>` ou `npm run <script>`.
 
 ## Common Tasks
-*   **Install Dependencies:** `pnpm install` (Instalação limpa baseada no lockfile).
-*   **Add Package:** `pnpm add <package_name>` (Ex: `pnpm add lodash`).
-*   **Add Dev Dependency:** `pnpm add -D <package_name>` (Ex: `pnpm add -D typescript`).
-*   **Run Tests:** `pnpm test` (ou `pnpm run test`).
-*   **Build Project:** `pnpm build`.
+*   **Install Dependencies:**
+    *   `pnpm install` (Ideal)
+    *   `npm ci` (Para builds reprodutíveis com npm)
+*   **Add Package:**
+    *   `pnpm add <package>`
+    *   `npm install <package>`
+*   **Run Tests:** `pnpm test` ou `npm test`.
+*   **Migration (npm → pnpm):**
+    *   Rodar: `pnpm import` (Gera pnpm-lock.yaml a partir do package-lock.json).
+    *   Rodar: `rm package-lock.json` e `rm -rf node_modules`.
+    *   Rodar: `pnpm install`.
 
 ## Troubleshooting
-*   **Erro `EACCES` ou Permissão:** Nunca use `sudo` com pnpm. Corrija as permissões do diretório global ou use um gerenciador de versão (nvm/volta).
-*   **Erro de Certificado/SSL:** Se estiver na rede corporativa (Netskope), configure o cafile: `npm config set cafile /path/to/cert.pem` (ou use a skill `netskope-config`).
+*   **Erro `EACCES`:** Nunca use `sudo` para instalar pacotes globais. Use nvm/volta.
+*   **Phantom Dependencies:** Se um pacote funciona mas não está no `package.json`, o `npm` pode estar "vazando" dependências (hoisting). O `pnpm` corrige isso por padrão, o que pode quebrar imports indevidos após a migração.
+*   **Certificados (Netskope):** `npm config set cafile /path/to/cert.pem` funciona para ambos (o pnpm lê a config do npm).
 
 ## Resources
-- `assets/FORMS.md` contém o checklist obrigatório para adicionar novas dependências (Segurança/Licença).
+- `assets/FORMS.md`: Checklist para novas dependências (Segurança/Licença).
