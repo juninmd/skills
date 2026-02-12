@@ -1,6 +1,7 @@
 <template>
-  <aside class="skill-sidebar" v-if="hasContent">
-    <div class="sidebar-block" v-if="installCmd">
+  <div class="skill-card" v-if="hasContent">
+    <!-- Installation Row -->
+    <div class="card-section installation-section" v-if="installCmd">
       <h3>🚀 Installation</h3>
       <div class="install-container">
         <code class="install-code">{{ installCmd }}</code>
@@ -10,62 +11,40 @@
       </div>
     </div>
 
-    <!-- Parameters Block -->
-    <div class="sidebar-block" v-if="parameters && parameters.length">
-      <h3>📋 Parameters</h3>
-      <div class="params-list">
-        <div v-for="p in parameters" :key="p.name" class="param-item">
-          <div class="param-header">
-            <span class="param-name">`{{ p.name }}`</span>
-            <span v-if="p.required" class="param-badge required">Required</span>
-          </div>
-          <div class="param-type">{{ p.type }}</div>
-          <div class="param-desc">{{ p.description }}</div>
+    <!-- Two-Column Row: Folder Files + Action Buttons -->
+    <div class="card-row" v-if="(files && files.length) || repoUrl || editUrl || rawUrl">
+      <!-- Folder Files Column -->
+      <div class="card-section files-section" v-if="files && files.length">
+        <h3>📁 Folder Files</h3>
+        <ul class="file-list">
+          <li v-for="f in files" :key="f" class="file-item">
+            <a :href="getFileUrl(f)" target="_blank" class="file-link">
+              <span class="file-icon">{{ getFileIcon(f) }}</span> {{ f }}
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Action Buttons Column -->
+      <div class="card-section actions-section" v-if="repoUrl || editUrl || rawUrl">
+        <h3>🔗 Links</h3>
+        <div class="action-buttons">
+          <a v-if="repoUrl" class="action-link secondary" :href="repoUrl" target="_blank">
+            🔍 View Code
+          </a>
+          <a v-if="editUrl" class="action-link primary" :href="editUrl" target="_blank">
+            📝 Edit in GitLab
+          </a>
+          <a v-if="rawUrl" class="action-link subtle" :href="rawUrl" target="_blank">
+            📄 Raw Markdown
+          </a>
+          <button class="action-link subtle" @click="openModal">
+            📑 Copy & Preview
+          </button>
         </div>
       </div>
     </div>
-
-    <!-- Related Files (Siblings) -->
-    <div class="sidebar-block" v-if="relatedFiles && relatedFiles.length">
-      <h3>🔗 Related Files</h3>
-      <ul class="file-list">
-        <li v-for="f in relatedFiles" :key="f" class="file-item">
-          <a :href="getRelatedFileUrl(f)" target="_blank" class="file-link">
-            <span class="file-icon">📄</span> {{ f }}
-          </a>
-        </li>
-      </ul>
-    </div>
-
-    <!-- Folder Files (Full Listing) -->
-    <div class="sidebar-block" v-if="files && files.length">
-      <h3>📁 Folder Files</h3>
-      <ul class="file-list">
-        <li v-for="f in files" :key="f" class="file-item">
-          <a :href="getFileUrl(f)" target="_blank" class="file-link">
-            <span class="file-icon">{{ getFileIcon(f) }}</span> {{ f }}
-          </a>
-        </li>
-      </ul>
-    </div>
-
-    <div class="sidebar-block" v-if="repoUrl || editUrl || rawUrl">
-      <div class="action-buttons">
-        <a v-if="repoUrl" class="action-link secondary" :href="repoUrl" target="_blank">
-          🔍 View Code
-        </a>
-        <a v-if="editUrl" class="action-link primary" :href="editUrl" target="_blank">
-          📝 Edit in GitLab
-        </a>
-        <a v-if="rawUrl" class="action-link subtle" :href="rawUrl" target="_blank">
-          📄 Raw Markdown
-        </a>
-        <button class="action-link subtle" @click="openModal">
-          📑 Copy & Preview
-        </button>
-      </div>
-    </div>
-  </aside>
+  </div>
 
   <div v-if="showModal" class="source-modal" @keydown.esc="closeModal" tabindex="-1">
     <div class="modal-backdrop" @click="closeModal"></div>
@@ -201,38 +180,57 @@ function copyRaw() {
 </script>
 
 <style scoped>
-.skill-sidebar {
+.skill-card {
   width: 100%;
-  margin: 2rem 0;
+  max-width: 900px;
+  margin: 1.5rem 0;
   padding: 1.5rem;
   background: var(--vp-c-bg-soft);
   border: 1px solid var(--vp-c-divider);
   border-radius: 12px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-.sidebar-block {
-  margin-bottom: 0;
-  padding: 1rem;
-  background: var(--vp-c-bg);
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 8px;
+.card-section {
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
 }
 
-.sidebar-block:last-child {
-  margin-bottom: 0;
-}
-
-.sidebar-block h3 {
-  margin: 0 0 1rem 0;
+.card-section h3 {
+  margin: 0 0 0.75rem 0;
   font-size: 0.9rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--vp-c-text-2);
   border: none;
 }
+
+.installation-section {
+  display: block;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--vp-c-divider);
+}
+
+.card-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .skill-card {
+    max-width: 100%;
+  }
+  
+  .card-row {
+    grid-template-columns: 1fr;
+  }
+}
+
 
 .install-container {
   display: flex;
@@ -246,21 +244,24 @@ function copyRaw() {
 }
 
 .install-code {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-family: var(--vp-font-family-mono);
   overflow-x: auto;
   white-space: nowrap;
   flex: 1;
   min-width: 150px;
+  color: var(--vp-c-text-1);
 }
 
 .copy-btn {
-  padding: 0.25rem 0.5rem;
+  padding: 0.4rem 0.5rem;
   background: var(--vp-c-bg-soft);
   border-radius: 4px;
   border: 1px solid var(--vp-c-divider);
   cursor: pointer;
   transition: all 0.2s;
+  font-size: 0.8rem;
+  flex-shrink: 0;
 }
 
 .copy-btn:hover {
@@ -271,20 +272,26 @@ function copyRaw() {
   list-style: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  max-height: 300px;
+  overflow-y: auto;
 }
 
 .file-item {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0;
 }
 
 .file-link {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: var(--vp-c-brand);
   text-decoration: none;
   transition: color 0.2s;
+  padding: 0.25rem 0;
 }
 
 .file-link.resource {
@@ -300,16 +307,16 @@ function copyRaw() {
 .action-buttons {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.5rem;
 }
 
 .action-link {
   display: block;
   text-align: center;
-  padding: 0.6rem 0.8rem;
-  border-radius: 8px;
-  font-weight: 700;
-  font-size: 0.85rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.8rem;
   text-decoration: none;
   transition: all 0.2s;
   cursor: pointer;
