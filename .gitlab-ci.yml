@@ -59,8 +59,6 @@ create_release:
   stage: tag
   image: $CIKNIFE_IMAGE
   allow_failure: false
-  dependencies:
-    - test
   script:
     - ci-knife create-release -n -w
   only:
