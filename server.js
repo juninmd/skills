@@ -31,9 +31,6 @@ const server = http.createServer((req, res) => {
   // Remove query string e decode URL
   let filePath = decodeURIComponent(req.url.split('?')[0]);
 
-  // Logging para debug
-  console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
-
   // Tenta primeiro no dist
   let fullPath = path.join(DIST_DIR, filePath);
 
