@@ -25,11 +25,9 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-# Instala http-server globalmente
-RUN npm install -g http-server@14.1.1
-
-# Copia os arquivos buildados
-COPY --from=0 /app/docs/.vitepress/dist ./dist
+# Copia apenas o server.js e os arquivos buildados (super leve!)
+COPY --from=0 /app/server.js ./
+COPY --from=0 /app/docs/.vitepress/dist ./docs/.vitepress/dist
 
 # Cria usuário não-root para segurança
 RUN addgroup -g 1001 -S nodejs && \
@@ -40,5 +38,5 @@ USER nodejs
 
 EXPOSE 5000
 
-# Usa o executável direto (não npm/pnpm)
-CMD ["http-server", "dist", "-p", "5000", "-c-1", "--gzip", "-a", "0.0.0.0"]
+# Executa com Node puro (sem dependências externas!)
+CMD ["node", "server.js"]

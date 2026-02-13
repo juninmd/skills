@@ -10,10 +10,9 @@
     "generate:index": "node src/loader.js",
     "lint:md": "markdownlint '**/*.md' --ignore node_modules --ignore docs",
     "lint:md:fix": "markdownlint '**/*.md' --ignore node_modules --ignore docs --fix",
-    "start": "http-server docs/.vitepress/dist -p 5000 -c-1 --gzip"
+    "start": "node server.js"
   },
   "dependencies": {
-    "http-server": "^14.1.1",
     "minisearch": "^6.2.0",
     "vitepress": "^1.5.0",
     "vitepress-mermaid-preview": "^0.1.1",
