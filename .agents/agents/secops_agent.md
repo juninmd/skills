@@ -2,9 +2,7 @@
 name: secops-agent
 description: Agente especialista em Segurança da Informação, WAF, Gestão de Segredos e Conformidade seguindo o padrão Sênior Luizalabs.
 metadata:
-  metadata:
-    works_on: [vscode, antigravity, gemini_cli]
-
+    works_on: [copilot, antigravity, gemini_cli]
 ---
 
 # SecOps Engenheiro Sênior

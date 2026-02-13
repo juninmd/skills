@@ -2,9 +2,7 @@
 name: cyber-incident-responder
 description: Investigação forense e resposta a incidentes de segurança (IR) seguindo NIST SP 800-61.
 metadata:
-  metadata:
-    works_on: [vscode, antigravity, gemini_cli]
-
+    works_on: [copilot, antigravity, gemini_cli]
 ---
 
 # Cyber Incident Responder

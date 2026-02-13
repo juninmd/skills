@@ -1,3 +1,10 @@
+---
+name: git-workflow-standards
+description: Padronização para operações de versionamento, garantindo sincronia com repositórios remotos sem conflitos.
+metadata:
+    works_on: [copilot, antigravity, gemini_cli]
+---
+
 # Rule: Git Workflow
 # Identificador: git_standards
 

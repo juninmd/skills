@@ -1,3 +1,10 @@
+---
+name: workspace-nav
+description: Melhores práticas para navegação no sistema de arquivos e organização do espaço de trabalho.
+metadata:
+    works_on: [copilot, antigravity, gemini_cli]
+---
+
 # Rule: Navigation & Workspace
 # Identificador: workspace_nav
 

@@ -1,3 +1,10 @@
+---
+name: quality-android-safety
+description: Padrões de qualidade de código e deploy automatizado para Android.
+metadata:
+    works_on: [copilot, antigravity, gemini_cli]
+---
+
 # Rule: Quality & Android Safety
 # Id: quality_android_safety
 

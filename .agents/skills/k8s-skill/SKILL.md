@@ -2,9 +2,7 @@
 name: k8s-ops
 description: Operação e Troubleshooting avançado em Kubernetes (Magalu Cloud / GCP).
 metadata:
-  metadata:
-    works_on: [vscode, antigravity, gemini_cli]
-
+    works_on: [copilot, antigravity, gemini_cli]
 ---
 
 # Kubernetes Operations

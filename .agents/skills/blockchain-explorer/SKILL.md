@@ -2,9 +2,7 @@
 name: blockchain-explorer
 description: This skill enables the agent to interact with blockchain networks, query smart contracts, analyze transactions, and manage wallets.
 metadata:
-  metadata:
-    works_on: [vscode, antigravity, gemini_cli]
-
+    works_on: [copilot, antigravity, gemini_cli]
 ---
 
 # Blockchain Explorer

@@ -2,9 +2,7 @@
 name: ci-knife-ops
 description: O canivete suíço oficial de CI/CD do Luizalabs para deploys, releases, validações e segurança seguindo o padrão Sênior.
 metadata:
-  metadata:
-    works_on: [vscode, antigravity, gemini_cli]
-
+    works_on: [copilot, antigravity, gemini_cli]
 ---
 
 # CI Knife Operations Sênior

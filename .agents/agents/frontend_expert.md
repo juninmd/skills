@@ -2,9 +2,7 @@
 name: frontend-expert
 description: Especialista em Interface (UI), Experiência do Usuário - UX, Acessibilidade e Componentes React/Vue.
 metadata:
-  metadata:
-    works_on: [vscode, antigravity, gemini_cli]
-
+    works_on: [copilot, antigravity, gemini_cli]
 ---
 
 # Frontend Expert (UI/UX)

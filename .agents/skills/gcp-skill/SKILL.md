@@ -2,9 +2,7 @@
 name: gcp-cloud
 description: Operações em Google Cloud Platform e Magalu Cloud com foco em segurança (IAM), identidade federada e Serverless (Cloud Run).
 metadata:
-  metadata:
-    works_on: [vscode, antigravity, gemini_cli]
-
+    works_on: [copilot, antigravity, gemini_cli]
 ---
 
 # Google Cloud Platform (GCP) Sênior

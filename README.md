@@ -59,6 +59,7 @@ curl https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/agents.
 After cloning this repository, you can install individual items locally:
 
 **Skills:**
+
 ```bash
 # GitHub Copilot (VS Code)
 mkdir -p ~/.copilot/skills && cp -r .agents/skills/<skill-name> ~/.copilot/skills/
@@ -71,6 +72,7 @@ mkdir -p ~/.gemini/skills && cp -r .agents/skills/<skill-name> ~/.gemini/skills/
 ```
 
 **Rules:**
+
 ```bash
 # GitHub Copilot (VS Code)
 mkdir -p ~/.copilot/rules && cp -r .agents/rules/<rule-name> ~/.copilot/rules/
@@ -82,6 +84,7 @@ mkdir -p ~/.gemini/antigravity/rules && cp -r .agents/rules/<rule-name> ~/.gemin
 ```
 
 **Workflows:**
+
 ```bash
 # GitHub Copilot (VS Code)
 mkdir -p ~/.copilot/workflows && cp -r .agents/workflows/<workflow-name> ~/.copilot/workflows/
@@ -93,7 +96,7 @@ mkdir -p ~/.gemini/antigravity/workflows && cp -r .agents/workflows/<workflow-na
 ```
 
 **Hooks (Gemini CLI only):**
-Configure in `~/.gemini/settings.json` - see https://geminicli.com/docs/hooks/
+Configure in `~/.gemini/settings.json` - see <https://geminicli.com/docs/hooks/>
 
 ## 🏗️ Architecture
 

@@ -2,9 +2,7 @@
 name: python-dev
 description: Gerenciamento de ambientes virtuais e dependências Python de alta performance. Use para instalar pacotes, criar venvs e gerenciar requirements.
 metadata:
-  metadata:
-    works_on: [vscode, antigravity, gemini_cli]
-
+    works_on: [copilot, antigravity, gemini_cli]
 ---
 
 # Python Development

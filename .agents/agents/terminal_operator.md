@@ -2,9 +2,7 @@
 name: terminal-operator
 description: Agente especialista em execução de comandos shell, orquestração de infraestrutura (K8s, Git, Docker) e protocolos Luizalabs seguindo o padrão Sênior.
 metadata:
-  metadata:
-    works_on: [vscode, antigravity, gemini_cli]
-
+    works_on: [copilot, antigravity, gemini_cli]
 ---
 
 # Terminal Operator Sênior (DevOps)

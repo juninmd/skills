@@ -1,3 +1,10 @@
+---
+name: shell-safety
+description: Diretrizes de segurança para execução de comandos shell.
+metadata:
+    works_on: [copilot, antigravity, gemini_cli]
+---
+
 # Global Rules: Shell Safety
 # Identificador: shell_safety
 

@@ -1,3 +1,10 @@
+---
+name: scripting-patterns
+description: Padrões de automação shell (loops, condições).
+metadata:
+    works_on: [copilot, antigravity, gemini_cli]
+---
+
 # Rule: Shell Scripting Patterns
 # Id: scripting_patterns
 # Description: Padrões de automação shell (loops, condições).

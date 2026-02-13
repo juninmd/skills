@@ -2,9 +2,7 @@
 name: api-integrator
 description: This skill enables the agent to interact with external REST and GraphQL APIs. Use this when integrating with third-party APIs, fetching data from external services, or automating API interactions.
 metadata:
-  metadata:
-    works_on: [vscode, antigravity, gemini_cli]
-
+    works_on: [copilot, antigravity, gemini_cli]
 ---
 
 # API Integrator

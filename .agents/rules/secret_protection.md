@@ -1,3 +1,10 @@
+---
+name: secret-protection
+description: Proteção de segredos e prevenção de vazamento de credenciais no código.
+metadata:
+    works_on: [copilot, antigravity, gemini_cli]
+---
+
 # Rule: Secret Leak Prevention
 # Id: secret_protection
 # Priority: CRITICAL

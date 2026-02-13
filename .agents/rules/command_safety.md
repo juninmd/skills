@@ -1,3 +1,10 @@
+---
+name: command-safety
+description: Regras críticas de segurança para execução de comandos destrutivos.
+metadata:
+    works_on: [copilot, antigravity, gemini_cli]
+---
+
 # Rule: Command Safety
 # Priority: CRITICAL
 # Description: Prevenção de perda de dados e comandos perigosos.

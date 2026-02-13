@@ -1,10 +1,8 @@
 ---
-name: docker-containers
+name: docker-skill
 description: Criação e otimização de imagens Docker seguras, leves e prontas para produção (Multistage, Non-Root).
 metadata:
-  metadata:
-    works_on: [vscode, antigravity, gemini_cli]
-
+    works_on: [copilot, antigravity, gemini_cli]
 ---
 
 # Docker Containers

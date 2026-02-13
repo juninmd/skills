@@ -2,9 +2,7 @@
 name: security-skill
 description: This skill enables the agent to perform security-related tasks, such as vulnerability scanning, security audits, and implementing security best practices. Use this when conducting security reviews, scanning for vulnerabilities, or implementing secure coding practices.
 metadata:
-  metadata:
-    works_on: [vscode, antigravity, gemini_cli]
-
+    works_on: [copilot, antigravity, gemini_cli]
 ---
 
 # Security

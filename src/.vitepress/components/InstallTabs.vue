@@ -1,8 +1,8 @@
 <template>
   <div class="install-tabs">
     <div class="tabs-header">
-      <button 
-        v-for="platform in availablePlatforms" 
+      <button
+        v-for="platform in availablePlatforms"
         :key="platform.id"
         @click="activeTab = platform.id"
         :class="['tab-btn', { active: activeTab === platform.id }]"
@@ -12,7 +12,17 @@
     </div>
     <div class="tabs-content">
       <div class="code-container">
-        <pre class="code-text"><code>{{ currentCommand }}</code></pre>
+        <div class="code-wrapper">
+          <slot v-if="activeTab === 'gemini'" name="gemini">
+            <pre class="code-text"><code>{{ props.gemini }}</code></pre>
+          </slot>
+          <slot v-else-if="activeTab === 'copilot'" name="copilot">
+            <pre class="code-text"><code>{{ props.copilot }}</code></pre>
+          </slot>
+          <slot v-else-if="activeTab === 'antigravity'" name="antigravity">
+            <pre class="code-text"><code>{{ props.antigravity }}</code></pre>
+          </slot>
+        </div>
         <button class="copy-btn" @click="copyCommand" :title="copied ? 'Copiado!' : 'Copiar'">
           {{ copied ? '✓' : 'Copiar' }}
         </button>
@@ -22,7 +32,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, useSlots } from 'vue';
 
 const props = defineProps({
   gemini: { type: String, default: '' },
@@ -30,6 +40,7 @@ const props = defineProps({
   antigravity: { type: String, default: '' }
 });
 
+const slots = useSlots();
 const activeTab = ref('gemini');
 const copied = ref(false);
 
@@ -40,12 +51,27 @@ const platforms = [
 ];
 
 const availablePlatforms = computed(() => {
-  return platforms.filter(p => !!props[p.id]);
+  return platforms.filter(p => !!props[p.id] || !!slots[p.id]);
 });
 
 const currentCommand = computed(() => {
+  // Try to extract text from slot or fallback to prop
+  if (slots[activeTab.value]) {
+    const slotContent = slots[activeTab.value]();
+    // Extract text from VNode
+    return extractTextFromVNode(slotContent);
+  }
   return props[activeTab.value] || 'Nenhum comando disponível';
 });
+
+function extractTextFromVNode(vnodes) {
+  if (!vnodes) return '';
+  return vnodes.map(vnode => {
+    if (typeof vnode.children === 'string') return vnode.children;
+    if (Array.isArray(vnode.children)) return extractTextFromVNode(vnode.children);
+    return vnode.children?.default?.() || '';
+  }).join('\n').trim();
+}
 
 function copyCommand() {
   navigator.clipboard.writeText(currentCommand.value);
@@ -109,6 +135,16 @@ function copyCommand() {
   padding: 0.75rem 1rem;
   border-radius: 6px;
   border: 1px solid var(--vp-c-divider);
+}
+
+.code-wrapper {
+  flex: 1;
+  overflow-x: auto;
+}
+
+.code-wrapper pre {
+  margin: 0;
+  padding: 0;
 }
 
 .code-text {

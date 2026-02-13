@@ -1,3 +1,10 @@
+---
+name: luizalabs-culture
+description: Cultura de desenvolvimento Luizalabs - Melhores práticas e padrões de qualidade.
+metadata:
+    works_on: [copilot, antigravity, gemini_cli]
+---
+
 # Rule: Luizalabs Culture (Mão na Massa & Atitude de Dono)
 # Id: luizalabs_culture
 

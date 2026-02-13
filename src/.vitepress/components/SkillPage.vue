@@ -3,6 +3,9 @@
     <div v-if="loading" class="loading">Loading skill details...</div>
 
     <template v-else-if="skill">
+      <!-- Content Header (metadados visuais) para todos os tipos -->
+      <AgentHeader v-if="hasMetadata" />
+
       <!-- VSCode Link for Agents -->
       <div v-if="category === 'agents'" class="vscode-section">
         <div class="vscode-card">
@@ -39,6 +42,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import { useData } from 'vitepress';
+import AgentHeader from './AgentHeader.vue';
 
 const props = defineProps({
   skillId: {
@@ -66,6 +70,10 @@ const skillId = computed(() => props.skillId || frontmatter.value?.skillId || ''
 const category = computed(() => props.category || frontmatter.value?.category || 'skills');
 const sourcePath = computed(() => props.sourcePath || frontmatter.value?.sourcePath || '');
 const genPath = computed(() => props.genPath || frontmatter.value?.genPath || '');
+
+const hasMetadata = computed(() => {
+  return !!(frontmatter.value?.metadata && frontmatter.value.metadata.works_on);
+});
 
 const skill = ref(null);
 const loading = ref(true);

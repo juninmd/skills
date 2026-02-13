@@ -2,9 +2,7 @@
 name: project-scaffolding
 description: Padronização de estrutura de projetos (Makefile, Dockerfile, README, Sonar, Hangar) seguindo o protocolo Sênior Luizalabs.
 metadata:
-  metadata:
-    works_on: [vscode, antigravity, gemini_cli]
-
+    works_on: [copilot, antigravity, gemini_cli]
 ---
 
 # Project Scaffolding Sênior

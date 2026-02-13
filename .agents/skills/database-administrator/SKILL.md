@@ -2,9 +2,7 @@
 name: database-administrator
 description: Administração de bancos de dados SQL (Postgres) e NoSQL (Mongo/Redis) com foco em performance e integridade.
 metadata:
-  metadata:
-    works_on: [vscode, antigravity, gemini_cli]
-
+    works_on: [copilot, antigravity, gemini_cli]
 ---
 
 # Database Administrator (DBA)

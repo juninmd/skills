@@ -2,9 +2,7 @@
 name: tooling-developer
 description: Desenvolvimento de ferramentas CLI, scripts de automação e utilitários internos com foco em robustez, logs e testes.
 metadata:
-  metadata:
-    works_on: [vscode, antigravity, gemini_cli]
-
+    works_on: [copilot, antigravity, gemini_cli]
 ---
 
 # Tooling Developer

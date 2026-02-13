@@ -1,3 +1,10 @@
+---
+name: gemini-hooks-readme
+description: Documentação de instalação e uso dos hooks do Gemini CLI.
+metadata:
+    works_on: [gemini_cli]
+---
+
 # Gemini CLI Hooks
 
 Este diretório contém hooks personalizados para estender e proteger seu fluxo de trabalho no terminal. Eles seguem as melhores práticas da documentação oficial do Gemini CLI.

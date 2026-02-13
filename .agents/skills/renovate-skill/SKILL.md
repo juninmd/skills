@@ -2,9 +2,7 @@
 name: renovate-ops
 description: Automação segura de atualização de dependências (npm, pip, docker) com auto-merge em patches não-quebrantes.
 metadata:
-  metadata:
-    works_on: [vscode, antigravity, gemini_cli]
-
+    works_on: [copilot, antigravity, gemini_cli]
 ---
 
 # Renovate Operations (Dependency Bot)

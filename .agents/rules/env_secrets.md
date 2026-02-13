@@ -1,3 +1,10 @@
+---
+name: env-secrets
+description: Protocolo para gerenciamento de variáveis de ambiente e proteção de informações sensíveis.
+metadata:
+    works_on: [copilot, antigravity, gemini_cli]
+---
+
 # Rule: Environment & Secrets
 # Identificador: env_secrets
 

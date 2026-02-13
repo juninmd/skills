@@ -2,9 +2,7 @@
 name: env-security
 description: Proteção de segredos e gestão rigorosa de arquivos .env e .gitignore para evitar vazamentos.
 metadata:
-  metadata:
-    works_on: [vscode, antigravity, gemini_cli]
-
+    works_on: [copilot, antigravity, gemini_cli]
 ---
 
 # Environment Security

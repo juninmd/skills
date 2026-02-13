@@ -38,7 +38,7 @@ Para instalar apenas uma skill específica (ex: Git):
 
 Se você clonou este repositório e quer usar as skills locais:
 
-#### Para Skills (Copilot, Antigravity, Gemini):
+#### Para Skills (Copilot, Antigravity, Gemini)
 
 ```bash
 # Copiar skill específica para VSCode Copilot
@@ -51,7 +51,7 @@ mkdir -p ~/.gemini/antigravity/skills && cp -r .agents/skills/git-skill ~/.gemin
 mkdir -p ~/.gemini/skills && cp -r .agents/skills/git-skill ~/.gemini/skills/
 ```
 
-#### Para Rules:
+#### Para Rules
 
 ```bash
 # Copiar rule para VSCode Copilot
@@ -63,7 +63,7 @@ mkdir -p ~/.gemini/antigravity/rules && cp -r .agents/rules/<rule-name> ~/.gemin
 # Gemini CLI: Não suporta rules
 ```
 
-#### Para Workflows:
+#### Para Workflows
 
 ```bash
 # Copiar workflow para VSCode Copilot
@@ -75,7 +75,7 @@ mkdir -p ~/.gemini/antigravity/workflows && cp -r .agents/workflows/<workflow-na
 # Gemini CLI: Não suporta workflows
 ```
 
-#### Para Hooks (apenas Gemini CLI):
+#### Para Hooks (apenas Gemini CLI)
 
 Configure hooks no arquivo `~/.gemini/settings.json`. Exemplo:
 
@@ -99,7 +99,7 @@ Configure hooks no arquivo `~/.gemini/settings.json`. Exemplo:
 }
 ```
 
-Veja a documentação completa: https://geminicli.com/docs/hooks/
+Veja a documentação completa: <https://geminicli.com/docs/hooks/>
 
 ## 🚀 Como Usar
 

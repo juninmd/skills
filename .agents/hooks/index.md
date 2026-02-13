@@ -1,3 +1,10 @@
+---
+name: gemini-cli-hooks
+description: Hooks personalizados para estender e proteger o fluxo de trabalho no Gemini CLI.
+metadata:
+    works_on: [gemini_cli]
+---
+
 # Gemini CLI Hooks
 
 > **⚠️ Importante:** Os hooks descritos e contidos neste diretório são exclusivos para uso com o **Gemini CLI**. Eles não funcionam em outros ambientes como VSCode, Antigravity ou terminais padrão sem a ferramenta Gemini instalada e configurada.

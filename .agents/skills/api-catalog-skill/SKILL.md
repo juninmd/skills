@@ -2,9 +2,7 @@
 name: api-catalog
 description: Catalogação de APIs no Backstage utilizando dependency.yaml e OpenAPI specs.
 metadata:
-  metadata:
-    works_on: [vscode, antigravity, gemini_cli]
-
+    works_on: [copilot, antigravity, gemini_cli]
 ---
 
 # API Catalog Operations

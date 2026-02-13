@@ -1,3 +1,10 @@
+---
+name: shell-automation
+description: Padronização para a criação e execução de scripts de automação rápida no terminal (one-liners).
+metadata:
+    works_on: [copilot, antigravity, gemini_cli]
+---
+
 # Rule: Automation Standards
 # Identificador: shell_automation
 

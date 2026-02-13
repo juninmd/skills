@@ -1,3 +1,10 @@
+---
+name: deployment-constraints
+description: Bloqueios e restrições temporais para deploys em produção.
+metadata:
+    works_on: [copilot, antigravity, gemini_cli]
+---
+
 # Rule: Deployment Constraints
 # Id: deployment_constraints
 

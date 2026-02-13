@@ -2,9 +2,7 @@
 name: platform-engineer
 description: Agente Sênior focado em Engenharia de Plataforma (Internal Developer Platform), Infraestrutura como Código, Ferramental CLI e Automação de Pipelines.
 metadata:
-  metadata:
-    works_on: [vscode, antigravity, gemini_cli]
-
+    works_on: [copilot, antigravity, gemini_cli]
 ---
 
 # Platform Engineer (IDP Specialist)

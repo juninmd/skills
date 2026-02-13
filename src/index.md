@@ -29,65 +29,68 @@ hero:
 </div>
 
 <script type="module">
-function initCopyButton() {
-  const copyBtn = document.querySelector('.copy-clone-btn');
-  const cloneCmd = document.querySelector('.clone-command');
+// Only run on client-side (not during SSR)
+if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+  function initCopyButton() {
+    const copyBtn = document.querySelector('.copy-clone-btn');
+    const cloneCmd = document.querySelector('.clone-command');
 
-  if (!copyBtn || !cloneCmd) {
-    console.warn('Elementos de cópia não encontrados');
-    return;
+    if (!copyBtn || !cloneCmd) {
+      console.warn('Elementos de cópia não encontrados');
+      return;
+    }
+
+    copyBtn.addEventListener('mouseover', function() {
+      this.style.background = 'var(--vp-c-brand-dark)';
+      this.style.transform = 'translateY(-2px)';
+      this.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+    });
+
+    copyBtn.addEventListener('mouseout', function() {
+      this.style.background = 'var(--vp-c-brand)';
+      this.style.transform = 'translateY(0)';
+      this.style.boxShadow = 'none';
+    });
+
+    copyBtn.addEventListener('click', async function(e) {
+      e.preventDefault();
+      const cmd = cloneCmd.textContent.trim();
+      const icon = this.querySelector('.copy-icon');
+      const text = this.querySelector('.copy-text');
+
+      try {
+        await navigator.clipboard.writeText(cmd);
+        icon.textContent = '✅';
+        text.textContent = 'Copiado!';
+        this.style.background = '#10b981';
+
+        setTimeout(() => {
+          icon.textContent = '📋';
+          text.textContent = 'Copiar';
+          this.style.background = 'var(--vp-c-brand)';
+        }, 2000);
+      } catch (err) {
+        console.error('Erro ao copiar:', err);
+        icon.textContent = '❌';
+        text.textContent = 'Erro';
+        setTimeout(() => {
+          icon.textContent = '📋';
+          text.textContent = 'Copiar';
+        }, 2000);
+      }
+    });
   }
 
-  copyBtn.addEventListener('mouseover', function() {
-    this.style.background = 'var(--vp-c-brand-dark)';
-    this.style.transform = 'translateY(-2px)';
-    this.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
-  });
+  // Tentar inicializar imediatamente
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCopyButton);
+  } else {
+    initCopyButton();
+  }
 
-  copyBtn.addEventListener('mouseout', function() {
-    this.style.background = 'var(--vp-c-brand)';
-    this.style.transform = 'translateY(0)';
-    this.style.boxShadow = 'none';
-  });
-
-  copyBtn.addEventListener('click', async function(e) {
-    e.preventDefault();
-    const cmd = cloneCmd.textContent.trim();
-    const icon = this.querySelector('.copy-icon');
-    const text = this.querySelector('.copy-text');
-
-    try {
-      await navigator.clipboard.writeText(cmd);
-      icon.textContent = '✅';
-      text.textContent = 'Copiado!';
-      this.style.background = '#10b981';
-
-      setTimeout(() => {
-        icon.textContent = '📋';
-        text.textContent = 'Copiar';
-        this.style.background = 'var(--vp-c-brand)';
-      }, 2000);
-    } catch (err) {
-      console.error('Erro ao copiar:', err);
-      icon.textContent = '❌';
-      text.textContent = 'Erro';
-      setTimeout(() => {
-        icon.textContent = '📋';
-        text.textContent = 'Copiar';
-      }, 2000);
-    }
-  });
+  // Também tenta após um pequeno delay para componentes lazy-loaded
+  setTimeout(initCopyButton, 100);
 }
-
-// Tentar inicializar imediatamente
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initCopyButton);
-} else {
-  initCopyButton();
-}
-
-// Também tenta após um pequeno delay para componentes lazy-loaded
-setTimeout(initCopyButton, 100);
 </script>
 
 <CategoryCards />

@@ -2,9 +2,7 @@
 name: shell-core
 description: Operações fundamentais de sistema e segurança no terminal Linux/Unix.
 metadata:
-  metadata:
-    works_on: [vscode, antigravity, gemini_cli]
-
+    works_on: [copilot, antigravity, gemini_cli]
 ---
 
 # Shell Core & Safety

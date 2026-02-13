@@ -2,9 +2,7 @@
 name: triage-recon
 description: Investigação de incidentes, triagem de alertas e mapeamento de recursos cloud com rigor forense (DNS/Logs/Impact).
 metadata:
-  metadata:
-    works_on: [vscode, antigravity, gemini_cli]
-
+    works_on: [copilot, antigravity, gemini_cli]
 ---
 
 # Triage & Reconnaissance (Incident Response)

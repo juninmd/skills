@@ -41,7 +41,7 @@ function generateInstallCommands(category, item, isDirectory = false) {
   }
   // HOOKS (apenas Gemini CLI)
   else if (category === 'hooks') {
-    commands.gemini = `echo 'Configure hooks in ~/.gemini/settings.json - see https://geminicli.com/docs/hooks/'`;
+    commands.gemini = 'Configure hooks: ~/.gemini/settings.json (see https://geminicli.com/docs/hooks/)';
     // Copilot e Antigravity não suportam hooks diretamente
   }
   // AGENTS (mantém como está)
@@ -78,6 +78,7 @@ function scanAgentsDirectory() {
       let itemId = '';
       let title = '';
       let description = '';
+      let metadata = {};
       let tags = [];
       let markdownPath = '';
       let files = [];
@@ -125,6 +126,7 @@ function scanAgentsDirectory() {
          title = meta.title;
          description = meta.description;
          tags = meta.tags;
+         metadata = meta.metadata;
       }
       // --- Case 2: Markdown File (Agents, Rules) ---
       else if (stat.isFile() && item.endsWith('.md')) {
@@ -144,6 +146,7 @@ function scanAgentsDirectory() {
          title = meta.title;
          description = meta.description;
          tags = meta.tags;
+         metadata = meta.metadata;
       }
       // --- Case 3: Scripts (Hooks) ---
       else if (stat.isFile() && (item.endsWith('.py') || item.endsWith('.sh') || item.endsWith('.js'))) {
@@ -194,6 +197,7 @@ function scanAgentsDirectory() {
         title: title || formatTitle(itemId),
         description: description,
         tags: tags,
+        metadata: metadata,
         file: path.relative(AGENTS_DIR, markdownPath),
         path: markdownPath,
         files,
@@ -226,6 +230,7 @@ function extractMetadata(content, itemId, category) {
   let title = itemId;
   let description = '';
   let tags = [];
+  let metadata = {};
 
   // Parse YAML frontmatter simple
   const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
@@ -233,6 +238,21 @@ function extractMetadata(content, itemId, category) {
     const yaml = frontmatterMatch[1];
     const nameMatch = yaml.match(/name:\s*(.+)/);
     const descMatch = yaml.match(/description:\s*(.+)/);
+
+    // Extract metadata block (simplified parser)
+    const metadataMatch = yaml.match(/metadata:\s*\n([\s\S]*?)(?=\n\w+:|$)/);
+    if (metadataMatch) {
+      const metaBlock = metadataMatch[1];
+      // Extract works_on array
+      const worksOnMatch = metaBlock.match(/works_on:\s*\[(.*?)\]/);
+      if (worksOnMatch) {
+        const worksOn = worksOnMatch[1].split(',').map(s => s.trim().replace(/['"]/g, ''));
+        metadata.works_on = worksOn;
+        metadata.name = (nameMatch && nameMatch[1].trim()) || title;
+        metadata.description = (descMatch && descMatch[1].trim()) || description;
+      }
+    }
+
     if (nameMatch) title = nameMatch[1].trim();
     if (descMatch) description = descMatch[1].trim();
   }
@@ -253,7 +273,7 @@ function extractMetadata(content, itemId, category) {
   const tagsMatch = content.match(/tags?:\s*\[(.*?)\]/i);
   if (tagsMatch) tags = tagsMatch[1].split(',').map(t => t.trim());
 
-  return { title, description, tags };
+  return { title, description, tags, metadata };
 }
 
 function extractParameters(content) {
@@ -297,7 +317,7 @@ function cleanMarkdownContent(raw, itemId, category) {
   if (category === 'agents') {
     // Remove Frontmatter
     out = out.replace(/^---\n([\s\S]*?)\n---\n?/, '');
-    return out.trim();
+    return out;
   }
   // Remove fenced code blocks (3 or more backticks) wrapping the file content if present
   out = out.replace(/`{3,}[\w-]*\n([\s\S]*?)\n`{3,}/g, '$1');
@@ -396,9 +416,9 @@ function generateCategoryIndexes(catalog) {
       const fmBase = {
         title: item.title,
         description: item.description || '',
+        metadata: item.metadata || {},
         skillId: item.id,
         category: category,
-        installCmd: item.installCmd || '',
         installCmds: item.installCmds || {},
         repoUrl: item.repoUrl || '',
         editUrl: item.editUrl || '',
@@ -413,16 +433,13 @@ function generateCategoryIndexes(catalog) {
       if (category === 'skills' || (item.path.endsWith('.md') && !item.isScript)) {
         // Clean markdown content for cleaner display
         const raw = fs.readFileSync(item.path, 'utf8');
-        let cleaned = cleanMarkdownContent(raw, item.id, category);
-        // Remove accidental outer code-fence wrappers that some source files include
-        cleaned = cleaned.replace(/^\s*`{3,}[\w-]*\n/, '').replace(/\n`{3,}\s*$/, '').trim();
+        const cleanedContent = cleanMarkdownContent(raw, item.id, category);
 
-        // Save cleaned content
         const genDir = path.join(DOCS_DIR, '.generated-skills', item.id);
         if (!fs.existsSync(genDir)) fs.mkdirSync(genDir, { recursive: true });
 
         const genFilePath = path.join(genDir, markdownFile);
-        fs.writeFileSync(genFilePath, cleaned, 'utf8');
+        fs.writeFileSync(genFilePath, raw, 'utf8');
         const genIncludePath = `/.generated-skills/${item.id}/${markdownFile}`;
 
         // Build frontmatter now that we know genIncludePath and finalSymPath
@@ -436,7 +453,13 @@ function generateCategoryIndexes(catalog) {
           if (typeof v === 'object' && v !== null && !Array.isArray(v)) {
             pageContent += `${k}:\n`;
             for (const [subk, subv] of Object.entries(v)) {
-              pageContent += `  ${subk}: '${subv}'\n`;
+              if (Array.isArray(subv)) {
+                pageContent += `  ${subk}: ${JSON.stringify(subv)}\n`;
+              } else if (typeof subv === 'string') {
+                pageContent += `  ${subk}: '${subv}'\n`;
+              } else {
+                pageContent += `  ${subk}: ${JSON.stringify(subv)}\n`;
+              }
             }
           } else {
             pageContent += `${k}: ${JSON.stringify(v)}\n`;
@@ -447,7 +470,7 @@ function generateCategoryIndexes(catalog) {
         // Emit SkillPage component WITHOUT inlined attribute concatenation; the component
         // will read props from frontmatter. Place cleaned markdown inside the component slot.
         pageContent += `<SkillPage>\n\n`;
-        pageContent += cleaned + '\n\n';
+        pageContent += cleanedContent + '\n\n';
         pageContent += `</SkillPage>\n`;
       } else {
         // Scripts or other files: include directly as code block
@@ -461,9 +484,7 @@ function generateCategoryIndexes(catalog) {
           if (typeof v === 'object' && v !== null && !Array.isArray(v)) {
             pageContent += `${k}:\n`;
             for (const [subk, subv] of Object.entries(v)) {
-              // Use double quotes if value contains single quotes, otherwise single quotes
-              const quote = subv && typeof subv === 'string' && subv.includes("'") ? '"' : "'";
-              pageContent += `  ${subk}: ${quote}${subv}${quote}\n`;
+              pageContent += `  ${subk}: "${subv}"\n`;
             }
           } else {
             pageContent += `${k}: ${JSON.stringify(v)}\n`;
