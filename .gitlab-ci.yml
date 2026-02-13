@@ -78,8 +78,6 @@ deploy_argo:
   only:
     - tags
   when: always
-  dependencies:
-    - test
   tags:
     - global-docker-tls
 
