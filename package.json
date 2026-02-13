@@ -8,11 +8,14 @@
     "docs:build": "node src/loader.js && vitepress build docs",
     "docs:preview": "vitepress preview docs",
     "generate:index": "node src/loader.js",
-    "lint:md": "markdownlint '**/*.md' --ignore node_modules --ignore docs"
+    "lint:md": "markdownlint '**/*.md' --ignore node_modules --ignore docs",
+    "serve": "http-server public -p 8080 -c-1 --gzip"
   },
   "dependencies": {
+    "http-server": "^14.1.1",
     "minisearch": "^6.2.0",
     "vitepress": "^1.5.0",
+    "vitepress-mermaid-preview": "^0.1.1",
     "vue": "^3.4.0"
   },
   "devDependencies": {

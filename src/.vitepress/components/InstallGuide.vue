@@ -1,53 +1,32 @@
 <template>
   <div id="quick-install" class="install-container">
-    <h2 class="section-title">Escolha sua Plataforma</h2>
+    <h2 class="section-title">Compatível com</h2>
 
-    <div class="platform-tabs">
-      <button
-        v-for="platform in platforms"
-        :key="platform.id"
-        @click="activeTab = platform.id"
-        :class="['tab-btn', { active: activeTab === platform.id }]"
-      >
-        <span class="icon">{{ platform.icon }}</span> {{ platform.name }}
-      </button>
-    </div>
-
-    <div class="install-content">
-      <div v-for="platform in platforms" :key="platform.id">
-        <div v-if="activeTab === platform.id" class="install-panel">
-          <div class="code-block">
-            <pre><code>{{ platform.command }}</code></pre>
-          </div>
-        </div>
+    <div class="platform-badges">
+      <div v-for="platform in platforms" :key="platform.id" class="badge">
+        <span class="icon">{{ platform.icon }}</span>
+        <span class="name">{{ platform.name }}</span>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
-
-const activeTab = ref('gemini');
-
 const platforms = [
   {
     id: 'gemini',
     name: 'Gemini CLI',
-    icon: '✨',
-    command: 'npm install -g @google/gemini-cli'
+    icon: '✨'
   },
   {
     id: 'antigravity',
     name: 'Google Antigravity',
-    icon: '🛸',
-    command: 'curl -L https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/agents.md -o AGENTS.md'
+    icon: '🛸'
   },
   {
     id: 'copilot',
     name: 'VS Code Copilot',
-    icon: '👩‍💻',
-    command: 'mkdir -p .github && curl -L https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/agents.md -o .github/copilot-instructions.md'
+    icon: '👩‍💻'
   }
 ];
 </script>
@@ -55,76 +34,47 @@ const platforms = [
 <style scoped>
 .install-container {
   margin-top: 4rem;
+  text-align: center;
+  padding: 2rem;
+  background: var(--vp-c-bg-soft);
+  border-radius: 12px;
+  border: 1px solid var(--vp-c-divider);
 }
 
 .section-title {
-  text-align: center;
   margin-bottom: 2rem;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 700;
   border: none;
 }
 
-.platform-tabs {
+.platform-badges {
   display: flex;
   justify-content: center;
-  gap: 1rem;
-  margin-bottom: 2rem;
+  gap: 2rem;
   flex-wrap: wrap;
 }
 
-.tab-btn {
-  padding: 0.75rem 1.5rem;
-  border: 1px solid var(--vp-c-divider);
-  background: var(--vp-c-bg);
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.2s;
+.badge {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  color: var(--vp-c-text-1);
-}
-
-.tab-btn:hover {
-  border-color: var(--vp-c-brand);
-  transform: translateY(-2px);
-}
-
-.tab-btn.active {
-  background: var(--vp-c-brand);
-  color: white;
-  border-color: var(--vp-c-brand);
-}
-
-.install-panel {
-  background: var(--vp-c-bg-soft);
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 12px;
-  padding: 1.5rem;
-  max-width: 800px;
-  margin: 0 auto;
-  animation: fadeIn 0.3s ease-in-out;
-}
-
-.code-block {
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
   background: var(--vp-c-bg);
   border: 1px solid var(--vp-c-divider);
-  border-radius: 6px;
-  padding: 1.25rem;
-  position: relative;
-  overflow-x: auto;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--vp-c-text-1);
+  transition: transform 0.2s;
 }
 
-.code-block pre {
-  margin: 0;
-  padding: 0;
+.badge:hover {
+  transform: translateY(-2px);
+  border-color: var(--vp-c-brand);
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+.icon {
+  font-size: 1.5rem;
 }
 </style>

@@ -1,5 +1,6 @@
 import { defineConfig } from 'vitepress';
 import { sidebar } from './sidebar.js';
+import { vitepressMermaidPreview } from 'vitepress-mermaid-preview';
 
 export default defineConfig({
   title: 'Luizalabs Catalog',
@@ -41,20 +42,20 @@ export default defineConfig({
     sidebar: sidebar,
 
     socialLinks: [
-      { icon: 'github', link: 'https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents' },
-      { icon: 'twitter', link: 'https://twitter.com/luizalabs' }
+      { icon: 'gitlab', link: 'https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents' },
     ],
-
-    footer: {
-      message: 'Released under the MIT License.',
-      copyright: 'Copyright © 2024-2025 Luizalabs · Magalu'
-    }
   },
 
   markdown: {
     theme: {
       light: 'github-light',
       dark: 'github-dark'
-    }
-  }
+    },
+    config: (md) => {
+      vitepressMermaidPreview(md, {
+        showToolbar: true,
+      });
+    },
+  },
+
 });

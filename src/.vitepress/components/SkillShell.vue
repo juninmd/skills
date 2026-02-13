@@ -7,28 +7,6 @@
       </div>
     </div>
 
-    <!-- Installation Command -->
-    <div class="card-installation" v-if="installCmd">
-      <div class="install-label">Installation Command</div>
-
-      <!-- Platform Tabs -->
-      <div v-if="availablePlatforms.length > 0" class="install-tabs-container">
-        <button v-for="platform in availablePlatforms" :key="platform"
-                :class="['install-tab', { active: activeInstallTab === platform }]"
-                @click="activeInstallTab = platform">
-          {{ platformLabels[platform] }}
-        </button>
-      </div>
-
-      <div class="install-container">
-        <code class="install-code">{{ currentInstallCmd }}</code>
-        <button class="copy-btn" @click="copyInstall" :title="copied ? 'Copied!' : 'Copy to clipboard'">
-          <span v-if="copied">✓</span>
-          <span v-else>Copy</span>
-        </button>
-      </div>
-    </div>
-
     <!-- Main Content Grid -->
     <div class="card-content">
       <!-- Files Section -->
@@ -273,12 +251,9 @@ function copyRaw() {
 /* Main Card Container */
 .skill-card {
   width: 100%;
-  margin: 1.5rem 0;
-  background: var(--vp-c-bg-soft);
+  background: #1e293b63;
   border: 1px solid var(--vp-c-divider);
-  border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
   transition: box-shadow 0.2s ease;
 }
 
@@ -289,7 +264,6 @@ function copyRaw() {
 /* Card Header */
 .card-header {
   background: linear-gradient(135deg, var(--vp-c-brand) 0%, rgba(var(--vp-c-brand-rgb), 0.8) 100%);
-  padding: 0.75rem 1rem;
   border-bottom: 1px solid var(--vp-c-divider);
 }
 
@@ -400,9 +374,6 @@ function copyRaw() {
 
 /* Content Grid */
 .card-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0;
   padding: 0;
 }
 

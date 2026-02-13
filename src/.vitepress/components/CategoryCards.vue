@@ -1,7 +1,7 @@
 <template>
   <div class="category-section">
     <h2 class="text-center">Explore o Catálogo</h2>
-    
+      <p style="text-align: center; color: var(--vp-c-text-2); margin-bottom: 2.5rem;">Navegue por Agentes, Skills, Regras, Hooks e Workflows</p>
     <div class="grid grid-cols-3 gap-lg">
       <a v-for="cat in categories" :key="cat.title" :href="cat.link" class="card p-lg text-decoration-none">
         <div class="card-icon">{{ cat.icon }}</div>

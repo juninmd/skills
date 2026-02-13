@@ -21,7 +21,7 @@ RUN npm run generate:index
 RUN npm run docs:build
 
 # Servidor HTTP simples para servir arquivos
-FROM node:18-alpine
+FROM node:20-alpine
 RUN npm install -g http-server
 
 WORKDIR /app

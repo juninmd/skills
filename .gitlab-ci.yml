@@ -2,29 +2,134 @@ image: node:20-slim
 
 stages:
   - report
+  - install
   - deploy
+  - tag
+  - rollback
 
 include:
   - project: 'luizalabs/ci-knife'
     ref: 'master'
     file: 'templates/report-security.yaml'
 
-pages:
-  stage: deploy
-  environment:
-    name: pages
-    url: https://luizalabs.pages.luizalabs.com/padrao-labs-agents/
+variables:
+  TZ: "/usr/share/zoneinfo/America/Sao_Paulo"
+  DOCKER_REPO: gcr.io/magalu-cicd/tribe-ipet/padrao-labs-agents
+  ARGOCD_SERVER: argocd-ipet.ipet.sh
+  ARGOCD_NAMESPACE: cicd/tribe-ipet
+  ARGOCD_BRANCH: master
+  DEPLOY_TAG: ${CI_COMMIT_SHORT_SHA}
+
+stages:
+  - install
+  - deploy
+  - tag
+  - rollback
+
+commitlint:
+  stage: install
+  image: $CIKNIFE_IMAGE
+  script: ci-knife commitlint
+  only:
+    - merge_requests
+  when: always
+
+build_frontend:
+  stage: install
+  image: node:lts-slim
+  cache:
+    key:
+      files:
+        - frontend/pnpm-lock.yaml
+      prefix: pnpm-v2
+    paths:
+      - frontend/node_modules/
   script:
-    - npm ci
-    - npm run docs:build
+    - cd frontend
+    - npm install -g pnpm@8.6.2
+    - pnpm install --frozen-lockfile
+    - pnpm run docs:build
     - mkdir -p public
     - cp -rf docs/.vitepress/dist/* public/
   artifacts:
     paths:
-      - public
+      - docs/
+      - public/
+    expire_in: 1 day
   only:
-    - main
-  cache:
-    key: ${CI_COMMIT_REF_SLUG}
-    paths:
-      - .npm/
+    - merge_requests
+    - master
+    - branches
+
+create_release:
+  stage: tag
+  image: $CIKNIFE_IMAGE
+  allow_failure: false
+  dependencies:
+    - test
+  script:
+    - ci-knife create-release -n -w
+  only:
+    - master
+    - branches
+  except:
+    changes:
+      - CHANGELOG.md
+
+deploy_argo:
+  image: $CIKNIFE_IMAGE
+  stage: deploy
+  allow_failure: true
+  services:
+    - docker:26-dind
+  script: ci-knife argocd-deploy --no-msg --docker-image
+  only:
+    - tags
+  when: always
+  dependencies:
+    - test
+  tags:
+    - global-docker-tls
+
+rollback_argo_production:
+  image: $CIKNIFE_IMAGE
+  stage: rollback
+  services:
+    - docker:26-dind
+  script: ci-knife argocd-rollback --no-msg
+  only:
+    refs:
+      - tags
+  when: manual
+  dependencies:
+    - deploy_argo
+  tags:
+    - global-docker-tls
+
+security_gate:
+  stage: install
+  image: $CIKNIFE_IMAGE
+  script:
+    - ci-knife security-scanner
+  only:
+    - master
+    - branches
+  except:
+    changes:
+      - CHANGELOG.md
+  allow_failure: true
+
+sonar:
+  stage: install
+  image: $CIKNIFE_IMAGE
+  script:
+    - ci-knife sonar-scanner
+  variables:
+    SONAR_URL: $SONAR_URL
+    SONAR_ANALYSIS_MODE: publish
+    SONAR_TOKEN: $SONAR_TOKEN
+  only:
+    - tags
+  except:
+    changes:
+      - CHANGELOG.md

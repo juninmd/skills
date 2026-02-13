@@ -494,8 +494,12 @@ function generateSidebarConfig(catalog) {
       }))
     }];
   }
+  const vitepressDir = path.join(DOCS_DIR, '.vitepress');
+  if (!fs.existsSync(vitepressDir)) {
+    fs.mkdirSync(vitepressDir, { recursive: true });
+  }
   const configContent = `export const sidebar = ${JSON.stringify(sidebar, null, 2)};`;
-  fs.writeFileSync(path.join(DOCS_DIR, '.vitepress/sidebar.js'), configContent);
+  fs.writeFileSync(path.join(vitepressDir, 'sidebar.js'), configContent);
   console.log('✅ Sidebar config gerado');
 }
 
