@@ -22,13 +22,23 @@ RUN npm run docs:build
 
 # Servidor HTTP simples para servir arquivos
 FROM node:20-alpine
-RUN npm install -g http-server
 
 WORKDIR /app
+
+# Instala http-server globalmente
+RUN npm install -g http-server@14.1.1
 
 # Copia os arquivos buildados
 COPY --from=0 /app/docs/.vitepress/dist ./dist
 
-EXPOSE 8080
+# Cria usuário não-root para segurança
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S nodejs -u 1001 && \
+    chown -R nodejs:nodejs /app
 
-CMD ["http-server", "dist", "-p", "8080", "-c-1", "--gzip"]
+USER nodejs
+
+EXPOSE 5000
+
+# Usa o executável direto (não npm/pnpm)
+CMD ["http-server", "dist", "-p", "5000", "-c-1", "--gzip", "-a", "0.0.0.0"]
