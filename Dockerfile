@@ -1,42 +1,17 @@
-FROM node:18-alpine
+FROM node:lts-alpine
 
 WORKDIR /app
 
-# Instala make para Makefile
-RUN apk add --no-cache make
+COPY . /app
 
-# Copia package files
-COPY package*.json ./
+RUN mkdir -p /app/application/files
 
-# Instala dependências
-RUN npm ci
+ARG NODE_ENV=production
+ENV NODE_ENV $NODE_ENV
 
-# Copia o resto do projeto
-COPY . .
+RUN npm install -g pnpm \
+    && pnpm config set store-dir .pnpm-store \
+    && pnpm install \
+    && pnpm docs:build
 
-# Roda o loader para gerar documentação
-RUN npm run generate:index
-
-# Build para produção
-RUN npm run docs:build
-
-# Servidor HTTP simples para servir arquivos
-FROM node:20-alpine
-
-WORKDIR /app
-
-# Copia apenas o server.js e os arquivos buildados (super leve!)
-COPY --from=0 /app/server.js ./
-COPY --from=0 /app/docs/.vitepress/dist ./docs/.vitepress/dist
-
-# Cria usuário não-root para segurança
-RUN addgroup -g 1001 -S nodejs && \
-    adduser -S nodejs -u 1001 && \
-    chown -R nodejs:nodejs /app
-
-USER nodejs
-
-EXPOSE 5000
-
-# Executa com Node puro (sem dependências externas!)
-CMD ["node", "server.js"]
+CMD ["sh", "-c", "node server.js"]
