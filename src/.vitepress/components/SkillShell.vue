@@ -42,10 +42,6 @@
             <span class="link-icon">📄</span>
             <span class="link-text">Raw</span>
           </a>
-          <button class="action-link preview-btn" @click="openModal" :title="'View and copy content'">
-            <span class="link-icon">👁️</span>
-            <span class="link-text">Preview</span>
-          </button>
         </div>
       </div>
     </div>
@@ -68,32 +64,6 @@
     </div>
   </div>
 
-  <!-- Preview Modal -->
-  <div v-if="showModal" class="source-modal" @keydown.esc="closeModal">
-    <div class="modal-backdrop" @click="closeModal"></div>
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3>📋 {{ skillId }}</h3>
-        <div class="modal-tabs">
-          <button :class="{active: viewMode==='preview'}" @click="viewMode='preview'">Preview</button>
-          <button :class="{active: viewMode==='markdown'}" @click="viewMode='markdown'">Markdown</button>
-        </div>
-        <button class="modal-close" @click="closeModal">✕</button>
-      </div>
-      <div class="modal-body">
-        <div v-if="viewMode==='preview'" class="preview-content">
-          <div v-html="renderedHtml" class="rendered-preview"></div>
-          <div v-if="!renderedHtml" class="empty-state">Preview not available</div>
-        </div>
-        <div v-else class="markdown-content">
-          <button class="copy-markdown-btn" @click="copyRaw">
-            {{ rawCopied ? '✓ Copied' : '📋 Copy Markdown' }}
-          </button>
-          <pre class="raw-markdown"><code>{{ loadingRaw ? '⏳ Loading...' : rawMarkdown }}</code></pre>
-        </div>
-      </div>
-    </div>
-  </div>
 </template>
 
 <script setup>
@@ -139,7 +109,6 @@ const category = computed(() => props.category || frontmatter.value?.category ||
 
 const copied = ref(false);
 const showModal = ref(false);
-const viewMode = ref('preview'); // 'preview' or 'markdown'
 const renderedHtml = ref('');
 const rawMarkdown = ref('');
 const loadingRaw = ref(false);
@@ -670,45 +639,10 @@ function copyRaw() {
   padding: 1.25rem;
 }
 
-.preview-content,
-.markdown-content {
-  min-height: 200px;
-}
-
 .empty-state {
   padding: 2rem;
   text-align: center;
   color: var(--vp-c-text-3);
-}
-
-.rendered-preview {
-  background: var(--vp-c-bg-soft);
-  border-radius: 6px;
-  padding: 1rem;
-  line-height: 1.6;
-}
-
-.raw-markdown {
-  background: var(--vp-c-bg-muted);
-  border-radius: 6px;
-  padding: 1rem;
-  overflow: auto;
-  font-size: 0.8rem;
-  line-height: 1.5;
-  margin: 0;
-}
-
-.copy-markdown-btn {
-  padding: 0.5rem 0.8rem;
-  background: var(--vp-c-brand);
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.8rem;
-  font-weight: 500;
-  margin-bottom: 1rem;
-  transition: all 0.2s;
 }
 
 .copy-markdown-btn:hover {
