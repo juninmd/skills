@@ -178,6 +178,36 @@ hero:
   </div>
 </div>
 
+<div class="container info-section fade-in">
+  <div class="info-grid reverse">
+    <div class="info-visual">
+      <div class="visual-item">
+        <div class="visual-icon">👤</div>
+        <div>
+          <strong>Fluxos de Trabalho</strong>
+          <p class="text-sm text-muted">Automatize sequências complexas de tarefas.</p>
+        </div>
+      </div>
+      <div class="visual-item">
+        <div class="visual-icon">⚙️</div>
+        <div>
+          <strong>Orquestração</strong>
+          <p class="text-sm text-muted">Coordene múltiplas ferramentas e agentes.</p>
+        </div>
+      </div>
+    </div>
+    <div class="info-content">
+      <h2>O que são Workflows?</h2>
+      <p>
+        <strong>Workflows</strong> são sequências automatizadas de tarefas que combinam múltiplas skills, regras e agentes para resolver problemas complexos de forma coordenada.
+      </p>
+      <p>
+        Diferentemente de uma skill individual, um workflow orquestra uma série de passos interdependentes, como analisar código, executar testes, fazer deploy e monitorar resultados - tudo em uma sequência lógica e automatizada.
+      </p>
+    </div>
+  </div>
+</div>
+
 <div class="container">
   <InstallGuide />
 </div>

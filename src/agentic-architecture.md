@@ -15,12 +15,12 @@ Para compreender a magnitude e a mecânica desta transformação, especialmente 
 
 Para fins didáticos e analíticos, este relatório utilizará a Analogia da Corporação Digital para elucidar cada conceito técnico antes de aprofundar-se nas especificidades de implementação de cada software:
 
-*   **Agente (Agent):** Atua como um colaborador sênior ou um gerente de projeto. Ele é a entidade principal com quem o usuário interage. O agente possui memória, contexto e a capacidade de orquestrar tarefas.
-*   **Sub-agente (Sub-agent):** Funciona como um especialista terceirizado ou um consultor. Quando o Agente principal identifica uma tarefa que foge à sua alçada direta ou que requer isolamento de contexto (para não "poluir" a memória principal), ele delega a função a um sub-agente.
-*   **Habilidade (Skill):** Representa o "treinamento técnico" ou "manual de procedimentos". Uma Skill é um pacote de conhecimento que ensina ao agente como executar uma ferramenta específica ou realizar um processo que não estava em seu treinamento original.
-*   **Fluxo de Trabalho (Workflow):** Constitui um "procedimento operacional padrão" (SOP). Diferente da habilidade, que é uma capacidade, o workflow é uma sequência obrigatória e ordenada de passos para garantir consistência em processos repetitivos.
-*   **Regra (Rule):** Equivale às "políticas da empresa". São diretrizes passivas e constantes que governam o comportamento do agente, como normas de segurança, estilo de código ou restrições de linguagem.
-*   **Gancho (Hook):** Atua como o departamento de "Compliance" ou "Auditoria". São scripts automatizados que interceptam a ação do agente em momentos críticos (antes de ler um arquivo, antes de enviar um comando) para validar, modificar ou bloquear a ação com base em critérios de segurança.
+* **Agente (Agent):** Atua como um colaborador sênior ou um gerente de projeto. Ele é a entidade principal com quem o usuário interage. O agente possui memória, contexto e a capacidade de orquestrar tarefas.
+* **Sub-agente (Sub-agent):** Funciona como um especialista terceirizado ou um consultor. Quando o Agente principal identifica uma tarefa que foge à sua alçada direta ou que requer isolamento de contexto (para não "poluir" a memória principal), ele delega a função a um sub-agente.
+* **Habilidade (Skill):** Representa o "treinamento técnico" ou "manual de procedimentos". Uma Skill é um pacote de conhecimento que ensina ao agente como executar uma ferramenta específica ou realizar um processo que não estava em seu treinamento original.
+* **Fluxo de Trabalho (Workflow):** Constitui um "procedimento operacional padrão" (SOP). Diferente da habilidade, que é uma capacidade, o workflow é uma sequência obrigatória e ordenada de passos para garantir consistência em processos repetitivos.
+* **Regra (Rule):** Equivale às "políticas da empresa". São diretrizes passivas e constantes que governam o comportamento do agente, como normas de segurança, estilo de código ou restrições de linguagem.
+* **Gancho (Hook):** Atua como o departamento de "Compliance" ou "Auditoria". São scripts automatizados que interceptam a ação do agente em momentos críticos (antes de ler um arquivo, antes de enviar um comando) para validar, modificar ou bloquear a ação com base em critérios de segurança.
 
 A análise subsequente detalha exaustivamente a configuração e aplicação destes conceitos, visando capacitar o leitor a implementar uma governança agêntica robusta e eficiente.
 
@@ -36,9 +36,9 @@ No ecossistema VS Code, o "Agente" é a interface conversacional principal, aces
 
 Para um usuário iniciar a interação agêntica no VS Code, o procedimento envolve a invocação direta do agente padrão. O comando `@copilot` sinaliza ao sistema que a intenção do usuário é interagir com a inteligência artificial contextualizada no projeto, e não apenas realizar uma busca simples.
 
-1.  **Invocação:** O usuário acessa o painel de chat (atalho `Ctrl+Alt+I` ou `Cmd+Alt+I` no macOS) e digita `@copilot`.
-2.  **Contextualização Explícita:** Embora o agente tente inferir o contexto, a precisão aumenta drasticamente com referências explícitas. O usuário pode utilizar variáveis de chat como `#file:nome-do-arquivo.ts` ou `#selection` para focar a atenção do agente.
-3.  **Comandos de Barra (Slash Commands):** O agente responde a comandos predefinidos que funcionam como atalhos para intenções complexas. Por exemplo, `/tests` instrui o agente a não apenas "olhar" o código, mas a adotar a persona de um engenheiro de QA e gerar suítes de teste compatíveis com o framework detectado no projeto.
+1. **Invocação:** O usuário acessa o painel de chat (atalho `Ctrl+Alt+I` ou `Cmd+Alt+I` no macOS) e digita `@copilot`.
+2. **Contextualização Explícita:** Embora o agente tente inferir o contexto, a precisão aumenta drasticamente com referências explícitas. O usuário pode utilizar variáveis de chat como `#file:nome-do-arquivo.ts` ou `#selection` para focar a atenção do agente.
+3. **Comandos de Barra (Slash Commands):** O agente responde a comandos predefinidos que funcionam como atalhos para intenções complexas. Por exemplo, `/tests` instrui o agente a não apenas "olhar" o código, mas a adotar a persona de um engenheiro de QA e gerar suítes de teste compatíveis com o framework detectado no projeto.
 
 A análise do comportamento do `@copilot` sugere uma tendência de "progressiva revelação de contexto". O agente não carrega todo o repositório na memória (o que seria custoso e lento), mas utiliza um índice semântico para recuperar trechos relevantes à medida que a conversa evolui.
 
@@ -52,15 +52,16 @@ O sub-agente atua como um processo efêmero e isolado. Ele é instanciado para r
 
 Para utilizar sub-agentes de forma eficaz, o usuário deve adotar uma postura de "gerente", delegando a execução ao invés de solicitar colaboração direta.
 
-1.  **Habilitação da Ferramenta:** É necessário verificar nas configurações do Copilot ou no arquivo de definição de agente personalizado se a ferramenta `runSubagent` está ativa. Em versões recentes (Insiders), isso pode ser configurado via UI ou JSON.
-2.  **Estruturação do Prompt de Delegação:** O comando não é apenas um botão; é uma instrução semântica. O usuário deve instruir o agente principal a delegar.
-3.  **Exemplo de Comando:** " `@copilot` Analise a arquitetura de banco de dados atual. Utilize `#runSubagent` para investigar potenciais gargalos de performance nas tabelas de 'pedidos' e retorne apenas um relatório de recomendações."
+1. **Habilitação da Ferramenta:** É necessário verificar nas configurações do Copilot ou no arquivo de definição de agente personalizado se a ferramenta `runSubagent` está ativa. Em versões recentes (Insiders), isso pode ser configurado via UI ou JSON.
+2. **Estruturação do Prompt de Delegação:** O comando não é apenas um botão; é uma instrução semântica. O usuário deve instruir o agente principal a delegar.
+3. **Exemplo de Comando:** " `@copilot` Analise a arquitetura de banco de dados atual. Utilize `#runSubagent` para investigar potenciais gargalos de performance nas tabelas de 'pedidos' e retorne apenas um relatório de recomendações."
 
 **Mecânica de Execução:**
-*   O Agente Principal recebe o comando e reconhece a necessidade de isolamento.
-*   Um Sub-agente é instanciado em background. Este sub-agente recebe apenas o contexto necessário (as tabelas de 'pedidos') e a instrução de análise.
-*   O Sub-agente pode realizar múltiplas etapas de raciocínio ("Chain of Thought") sem poluir o chat principal.
-*   O resultado final (o relatório) é injetado na conversa principal, e a memória temporária do sub-agente é descartada.
+
+* O Agente Principal recebe o comando e reconhece a necessidade de isolamento.
+* Um Sub-agente é instanciado em background. Este sub-agente recebe apenas o contexto necessário (as tabelas de 'pedidos') e a instrução de análise.
+* O Sub-agente pode realizar múltiplas etapas de raciocínio ("Chain of Thought") sem poluir o chat principal.
+* O resultado final (o relatório) é injetado na conversa principal, e a memória temporária do sub-agente é descartada.
 
 A utilização de sub-agentes permite fluxos de trabalho paralelos, onde múltiplos sub-agentes podem teoricamente ser disparados para analisar diferentes partes do código simultaneamente, convergindo para uma solução unificada.
 
@@ -74,9 +75,9 @@ O Copilot adota um padrão aberto para definição de skills, baseado em estrutu
 
 A implementação de uma Skill exige rigor na estrutura de arquivos, pois o VS Code utiliza a presença de determinados caminhos para indexar automaticamente as capacidades disponíveis.
 
-1.  **Diretório Raiz:** O sistema busca skills prioritariamente na pasta `.github/skills` localizada na raiz do espaço de trabalho (Workspace). Também são suportados caminhos globais no perfil do usuário (`~/.copilot/skills`).
-2.  **Isolamento de Habilidade:** Cada habilidade deve residir em seu próprio subdiretório. Por exemplo, uma habilidade para migração de banco de dados deve estar em `.github/skills/db-migration`.
-3.  **O Manifesto `SKILL.md`:** Este é o arquivo nuclear da habilidade. Ele combina metadados (YAML Frontmatter) com instruções procedimentais (Markdown).
+1. **Diretório Raiz:** O sistema busca skills prioritariamente na pasta `.github/skills` localizada na raiz do espaço de trabalho (Workspace). Também são suportados caminhos globais no perfil do usuário (`~/.copilot/skills`).
+2. **Isolamento de Habilidade:** Cada habilidade deve residir em seu próprio subdiretório. Por exemplo, uma habilidade para migração de banco de dados deve estar em `.github/skills/db-migration`.
+3. **O Manifesto `SKILL.md`:** Este é o arquivo nuclear da habilidade. Ele combina metadados (YAML Frontmatter) com instruções procedimentais (Markdown).
 
 **Exemplo Detalhado de Configuração (`SKILL.md`):**
 
@@ -104,10 +105,11 @@ Para realizar a auditoria, execute os seguintes passos sequenciais:
 
 **Integração com o Usuário Leigo:**
 A beleza deste sistema reside na abstração. O usuário final não precisa conhecer o arquivo `SKILL.md`.
-*   O usuário digita: " `@copilot`, verifique se a minha nova API de usuários está segura."
-*   O mecanismo de orquestração do Copilot analisa a intenção ("verificar segurança", "API") e cruza com as descrições das skills indexadas.
-*   Ao encontrar `auditoria-seguranca-api`, o sistema carrega o "manual" (o conteúdo Markdown) para o contexto do agente.
-*   O agente executa passo a passo as instruções definidas pelo especialista que criou a skill, garantindo que a auditoria siga o padrão corporativo.
+
+* O usuário digita: " `@copilot`, verifique se a minha nova API de usuários está segura."
+* O mecanismo de orquestração do Copilot analisa a intenção ("verificar segurança", "API") e cruza com as descrições das skills indexadas.
+* Ao encontrar `auditoria-seguranca-api`, o sistema carrega o "manual" (o conteúdo Markdown) para o contexto do agente.
+* O agente executa passo a passo as instruções definidas pelo especialista que criou a skill, garantindo que a auditoria siga o padrão corporativo.
 
 ### 2.4 Rules (Regras): Governança via `.instructions.md`
 
@@ -117,18 +119,18 @@ Diferente das Skills, que são acionadas sob demanda, as Rules (Regras) são dir
 
 O Copilot respeita uma hierarquia de arquivos de instrução para aplicar regras:
 
-1.  **Regras Globais do Repositório (`.github/copilot-instructions.md`):**
+1. **Regras Globais do Repositório (`.github/copilot-instructions.md`):**
     Este arquivo aplica-se a todas as interações dentro do projeto. É o local ideal para definir a linguagem padrão (ex: "Responda sempre em Português"), stack tecnológica (ex: "Use React com TypeScript") e normas de segurança globais.
 
-2.  **Regras Específicas de Caminho (`.github/instructions/*.instructions.md`):**
+2. **Regras Específicas de Caminho (`.github/instructions/*.instructions.md`):**
     Permitem granularidade. Pode-se criar um arquivo `database.instructions.md` e configurá-lo para ser ativado apenas quando o usuário estiver editando arquivos `.sql` ou dentro da pasta `/database`.
 
 **Passo a Passo para Configuração de Regras:**
 
 Para um leigo, a criação de regras é análoga a escrever um documento de texto simples, mas com impacto profundo no comportamento da IA.
 
-1.  Crie o arquivo `.github/copilot-instructions.md` na raiz do projeto.
-2.  Redija as regras em linguagem natural, utilizando marcadores para clareza. A IA interpreta melhor instruções positivas ("Faça X") e negativas ("Nunca faça Y") quando claramente delimitadas.
+1. Crie o arquivo `.github/copilot-instructions.md` na raiz do projeto.
+2. Redija as regras em linguagem natural, utilizando marcadores para clareza. A IA interpreta melhor instruções positivas ("Faça X") e negativas ("Nunca faça Y") quando claramente delimitadas.
 
 **Exemplo de Conteúdo de Regras:**
 
@@ -163,9 +165,9 @@ Os ganchos são configurados em arquivos JSON, tipicamente localizados em `.gith
 
 Objetivo: Garantir que todo código gerado pelo Copilot passe pelo formatador padrão do projeto (Prettier).
 
-1.  Crie o arquivo `.github/hooks/format-hook.json`.
-2.  Defina o gatilho `PostToolUse` com um filtro (matcher) para operações de escrita de arquivo.
-3.  Especifique o comando de terminal.
+1. Crie o arquivo `.github/hooks/format-hook.json`.
+2. Defina o gatilho `PostToolUse` com um filtro (matcher) para operações de escrita de arquivo.
+3. Especifique o comando de terminal.
 
 ```json
 {
@@ -205,20 +207,20 @@ A plataforma distingue fundamentalmente dois modos de operação para os agentes
 
 **Passo a Passo para o Usuário:**
 
-1.  No Agent Manager, clique em "New Task".
-2.  Selecione o modo "Planning".
-3.  Digite um objetivo de alto nível, por exemplo: "Crie uma página de aterrissagem (landing page) para o produto X, com formulário de captura de e-mail e integração mockada."
-4.  O Agente inicia o processo de "Pensamento", que resulta na criação de Artefatos.
+1. No Agent Manager, clique em "New Task".
+2. Selecione o modo "Planning".
+3. Digite um objetivo de alto nível, por exemplo: "Crie uma página de aterrissagem (landing page) para o produto X, com formulário de captura de e-mail e integração mockada."
+4. O Agente inicia o processo de "Pensamento", que resulta na criação de Artefatos.
 
 ### 3.2 Artifacts (Artefatos): O Mecanismo de Confiança
 
 A grande inovação do Antigravity para mitigar a alucinação de IA e a falta de transparência é o sistema de Artefatos. Artefatos são objetos tangíveis e interativos gerados pelo agente para comunicar seu entendimento e progresso.
 
-1.  **Task List (Lista de Tarefas):** O agente decompõe o pedido em passos lógicos. O usuário pode reordenar ou deletar passos.
-2.  **Implementation Plan (Plano de Implementação):** Um documento técnico detalhado (em Markdown) descrevendo como ele pretende resolver o problema.
-    *   *Insight de Uso:* O usuário pode tratar este plano como um Google Doc. Selecionando um trecho do texto do plano, é possível adicionar um comentário ("Não use esta biblioteca, use aquela"). O agente lê o comentário e revisa o plano antes de escrever qualquer código. Isso economiza tempo de reescrita de código (refatoração).
-3.  **Walkthrough (Passo a Passo Final):** Após a conclusão, o agente gera um relatório com o que foi feito, incluindo instruções de como testar.
-4.  **Browser Recordings (Gravações do Navegador):** Provas visuais de que o código funciona (detalhado na seção de sub-agentes).
+1. **Task List (Lista de Tarefas):** O agente decompõe o pedido em passos lógicos. O usuário pode reordenar ou deletar passos.
+2. **Implementation Plan (Plano de Implementação):** Um documento técnico detalhado (em Markdown) descrevendo como ele pretende resolver o problema.
+    * *Insight de Uso:* O usuário pode tratar este plano como um Google Doc. Selecionando um trecho do texto do plano, é possível adicionar um comentário ("Não use esta biblioteca, use aquela"). O agente lê o comentário e revisa o plano antes de escrever qualquer código. Isso economiza tempo de reescrita de código (refatoração).
+3. **Walkthrough (Passo a Passo Final):** Após a conclusão, o agente gera um relatório com o que foi feito, incluindo instruções de como testar.
+4. **Browser Recordings (Gravações do Navegador):** Provas visuais de que o código funciona (detalhado na seção de sub-agentes).
 
 ### 3.3 Sub-agentes de Navegador
 
@@ -226,19 +228,19 @@ O Antigravity possui sub-agentes especializados, sendo o mais notável o **Brows
 
 **Cenário de Uso Passo a Passo:**
 
-1.  O usuário solicita: "Ajuste o alinhamento do botão na página de login, ele está descentralizado."
-2.  O Agente Principal identifica que precisa "ver" a página. Ele aciona o Sub-agente de Navegador.
-3.  O Sub-agente inicia o servidor local da aplicação, abre o Chrome em modo "headless" (ou visível), navega até a URL local e tira um screenshot ou inspeciona o DOM (Document Object Model).
-4.  Com base na análise visual/estrutural, o agente corrige o CSS.
-5.  O Sub-agente recarrega a página e tira um novo screenshot para confirmar a correção.
-6.  O resultado é apresentado ao usuário como um Artefato de comparação "Antes/Depois".
+1. O usuário solicita: "Ajuste o alinhamento do botão na página de login, ele está descentralizado."
+2. O Agente Principal identifica que precisa "ver" a página. Ele aciona o Sub-agente de Navegador.
+3. O Sub-agente inicia o servidor local da aplicação, abre o Chrome em modo "headless" (ou visível), navega até a URL local e tira um screenshot ou inspeciona o DOM (Document Object Model).
+4. Com base na análise visual/estrutural, o agente corrige o CSS.
+5. O Sub-agente recarrega a página e tira um novo screenshot para confirmar a correção.
+6. O resultado é apresentado ao usuário como um Artefato de comparação "Antes/Depois".
 
 ### 3.4 Skills e Knowledge Items: Aprendizado Contínuo
 
 O gerenciamento de memória no Antigravity é tratado através de Knowledge Items (Itens de Conhecimento) e Skills.
 
-*   **Knowledge Items:** São fragmentos de informação que o agente decide salvar proativamente. Se o usuário corrige o agente repetidamente sobre um padrão de nomeclatura, o agente pode sugerir: "Devo salvar isso como uma preferência do projeto?". Se aprovado, torna-se um Knowledge Item persistente.
-*   **Skills:** Seguem uma lógica de detecção semântica. Ao contrário do VS Code, onde o usuário muitas vezes precisa estar ciente das skills, o Antigravity monitora a conversa. Se o contexto sugere a necessidade de uma habilidade específica (ex: "Migração de Banco de Dados"), o sistema carrega a skill correspondente da pasta `.antigravity/skills` automaticamente.
+* **Knowledge Items:** São fragmentos de informação que o agente decide salvar proativamente. Se o usuário corrige o agente repetidamente sobre um padrão de nomeclatura, o agente pode sugerir: "Devo salvar isso como uma preferência do projeto?". Se aprovado, torna-se um Knowledge Item persistente.
+* **Skills:** Seguem uma lógica de detecção semântica. Ao contrário do VS Code, onde o usuário muitas vezes precisa estar ciente das skills, o Antigravity monitora a conversa. Se o contexto sugere a necessidade de uma habilidade específica (ex: "Migração de Banco de Dados"), o sistema carrega a skill correspondente da pasta `.antigravity/skills` automaticamente.
 
 ### 3.5 Rules e Workflows
 
@@ -246,16 +248,18 @@ A configuração de regras e fluxos no Antigravity é centralizada na pasta `.ag
 
 **Rules (`.agent/rules/`)**
 Arquivos Markdown que atuam como "guardrails" (barreiras de proteção).
-*   *Implementação:* Basta criar um arquivo `.agent/rules/no-console-log.md` com o texto "Não permita console.log em código de produção". O agente injeta essa restrição em seu prompt de sistema.
+
+* *Implementação:* Basta criar um arquivo `.agent/rules/no-console-log.md` com o texto "Não permita console.log em código de produção". O agente injeta essa restrição em seu prompt de sistema.
 
 **Workflows (`.agent/workflows/`)**
 Workflows são scripts de alto nível que orquestram ações sequenciais.
-*   *Estrutura:* Um arquivo Markdown descrevendo passos.
-*   *Exemplo:* `deploy-staging.workflow.md`.
-    1.  Rodar Testes.
-    2.  Compilar Assets.
-    3.  Enviar para Bucket.
-*   *Execução:* O usuário digita `/deploy-staging` no chat. O agente assume o controle e executa os passos rigorosamente, parando apenas se encontrar um erro crítico, oferecendo ao usuário a opção de intervir ou corrigir.
+
+* *Estrutura:* Um arquivo Markdown descrevendo passos.
+* *Exemplo:* `deploy-staging.workflow.md`.
+    1. Rodar Testes.
+    2. Compilar Assets.
+    3. Enviar para Bucket.
+* *Execução:* O usuário digita `/deploy-staging` no chat. O agente assume o controle e executa os passos rigorosamente, parando apenas se encontrar um erro crítico, oferecendo ao usuário a opção de intervir ou corrigir.
 
 ---
 
@@ -278,14 +282,15 @@ Os Hooks no Gemini CLI são, sem dúvida, o recurso mais poderoso para ambientes
 Um Hook é um executável (script bash, python, node, binário compilado) que o Gemini CLI chama em eventos específicos. O script recebe dados do evento via entrada padrão (stdin) em formato JSON, processa a lógica, e deve retornar uma decisão via saída padrão (stdout) também em JSON estrito.
 
 **Eventos Críticos:**
-*   `BeforeAgent`: Disparado antes do prompt do usuário ser processado pelo LLM. Ideal para injeção de contexto.
-*   `BeforeTool`: Disparado antes da execução de uma ferramenta. Ideal para validação de segurança.
+
+* `BeforeAgent`: Disparado antes do prompt do usuário ser processado pelo LLM. Ideal para injeção de contexto.
+* `BeforeTool`: Disparado antes da execução de uma ferramenta. Ideal para validação de segurança.
 
 **Estudo de Caso Passo a Passo: Hook de "Secret Scanner" (Bloqueio de Credenciais)**
 
 O objetivo é criar um mecanismo de defesa que impeça o agente de acidentalmente commitar chaves de API ou senhas em arquivos de texto.
 
-1.  **Criação do Script de Hook:**
+1. **Criação do Script de Hook:**
     O usuário (ou administrador do sistema) cria um script em `.gemini/hooks/scan-secrets.sh`.
 
     ```bash
@@ -311,7 +316,7 @@ O objetivo é criar um mecanismo de defesa que impeça o agente de acidentalment
     fi
     ```
 
-2.  **Registro do Hook na Configuração:**
+2. **Registro do Hook na Configuração:**
     No arquivo `.gemini/settings.json`, o hook é vinculado ao evento de escrita de arquivo.
 
     ```json
@@ -334,8 +339,8 @@ Se o usuário pedir: "Crie um arquivo .env com a chave sk-proj-12345", o agente 
 
 No ambiente CLI, as Skills são gerenciadas de forma explícita. Isso dá controle total ao operador sobre quais capacidades estão ativas.
 
-*   **Comando `/skills link <caminho>`:** Importa uma pasta de skills (contendo `SKILL.md` e scripts auxiliares) para a sessão atual.
-*   **Ativação:** Quando o agente identifica que precisa usar uma skill (ex: "AWS Deploy"), ele não executa imediatamente. Ele solicita uma "Ativação de Skill". O terminal exibe um prompt:
+* **Comando `/skills link <caminho>`:** Importa uma pasta de skills (contendo `SKILL.md` e scripts auxiliares) para a sessão atual.
+* **Ativação:** Quando o agente identifica que precisa usar uma skill (ex: "AWS Deploy"), ele não executa imediatamente. Ele solicita uma "Ativação de Skill". O terminal exibe um prompt:
     `Agent wants to activate skill: AWS-DEPLOY. Allow? [y/N]`
 
 Esta etapa de confirmação é crucial em ambientes de terminal onde ações podem ser destrutivas (como deletar recursos na nuvem).
@@ -344,15 +349,15 @@ Esta etapa de confirmação é crucial em ambientes de terminal onde ações pod
 
 Para superar a limitação de execução serial (um comando por vez), o Gemini CLI utiliza extensões que introduzem conceitos de sub-agentes e paralelismo.
 
-*   **Jules (O Agente Assíncrono):**
+* **Jules (O Agente Assíncrono):**
     A extensão Jules permite delegar tarefas que demoram ("long-running tasks") sem bloquear o terminal.
-    *   *Uso:* `/jules` Atualize todas as dependências npm e rode os testes.
-    *   *Mecânica:* O terminal libera o prompt imediatamente para o usuário continuar trabalhando. O Jules cria uma sessão "filha" (fork), executa a atualização (que pode levar minutos), roda os testes, e envia uma notificação no terminal principal quando terminar ou se encontrar erros.
+  * *Uso:* `/jules` Atualize todas as dependências npm e rode os testes.
+  * *Mecânica:* O terminal libera o prompt imediatamente para o usuário continuar trabalhando. O Jules cria uma sessão "filha" (fork), executa a atualização (que pode levar minutos), roda os testes, e envia uma notificação no terminal principal quando terminar ou se encontrar erros.
 
-*   **Maestro (O Orquestrador de Times):**
+* **Maestro (O Orquestrador de Times):**
     O Maestro implementa uma arquitetura de multi-agentes hierárquica.
-    *   *Uso:* `/maestro.orchestrate` "Desenvolva uma API de Clientes".
-    *   *Mecânica:* O Maestro não escreve código. Ele atua como Arquiteto. Ele cria um plano e delega partes para "sub-agentes virtuais" (Coder, Tester, Designer). Ele gerencia o estado do projeto em arquivos YAML, garantindo que o Agente de Testes só comece a trabalhar depois que o Agente de Código terminar.
+  * *Uso:* `/maestro.orchestrate` "Desenvolva uma API de Clientes".
+  * *Mecânica:* O Maestro não escreve código. Ele atua como Arquiteto. Ele cria um plano e delega partes para "sub-agentes virtuais" (Coder, Tester, Designer). Ele gerencia o estado do projeto em arquivos YAML, garantindo que o Agente de Testes só comece a trabalhar depois que o Agente de Código terminar.
 
 ---
 
@@ -373,8 +378,8 @@ A seleção da plataforma adequada depende não apenas da preferência pessoal, 
 
 **Recomendações de Adoção**
 
-*   **Para Equipes de Desenvolvimento Ágil (Foco em Velocidade):** O **GitHub Copilot no VS Code** é a escolha lógica. A integração com o fluxo de Git existente e a baixa fricção para começar (basta instalar a extensão) permitem ganhos de produtividade imediatos sem alterar radicalmente a forma de trabalhar. O uso de `copilot-instructions.md` é suficiente para garantir consistência de código.
-*   **Para Arquitetos de Solução e Tech Leads (Foco em Design):** O **Google Antigravity** brilha. A capacidade de operar em "Planning Mode" e revisar Planos de Implementação antes de uma linha de código ser escrita força uma disciplina de engenharia que reduz retrabalho. Os Artefatos servem como documentação viva do projeto.
-*   **Para DevOps, SRE e Engenharia de Plataforma (Foco em Infraestrutura):** O **Google Gemini CLI** é insuperável. A capacidade de criar Hooks de segurança complexos que bloqueiam fisicamente ações perigosas no terminal, somada à orquestração via scripts, permite construir pipelines de automação agêntica robustos que podem rodar até mesmo em servidores CI/CD (Integração Contínua/Entrega Contínua).
+* **Para Equipes de Desenvolvimento Ágil (Foco em Velocidade):** O **GitHub Copilot no VS Code** é a escolha lógica. A integração com o fluxo de Git existente e a baixa fricção para começar (basta instalar a extensão) permitem ganhos de produtividade imediatos sem alterar radicalmente a forma de trabalhar. O uso de `copilot-instructions.md` é suficiente para garantir consistência de código.
+* **Para Arquitetos de Solução e Tech Leads (Foco em Design):** O **Google Antigravity** brilha. A capacidade de operar em "Planning Mode" e revisar Planos de Implementação antes de uma linha de código ser escrita força uma disciplina de engenharia que reduz retrabalho. Os Artefatos servem como documentação viva do projeto.
+* **Para DevOps, SRE e Engenharia de Plataforma (Foco em Infraestrutura):** O **Google Gemini CLI** é insuperável. A capacidade de criar Hooks de segurança complexos que bloqueiam fisicamente ações perigosas no terminal, somada à orquestração via scripts, permite construir pipelines de automação agêntica robustos que podem rodar até mesmo em servidores CI/CD (Integração Contínua/Entrega Contínua).
 
 Em conclusão, a "Engenharia Agêntica" não é sobre substituir o desenvolvedor, mas sobre elevar seu nível de abstração. O desenvolvedor deixa de ser um escritor de sintaxe para se tornar um orquestrador de inteligência, definindo as Regras, treinando as Habilidades e supervisionando os Agentes através de Ganchos e Artefatos. O domínio destas três ferramentas e seus conceitos subjacentes constitui a nova literacia fundamental para a próxima década de desenvolvimento de software.

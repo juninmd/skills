@@ -2,7 +2,7 @@
   <div class="install-tabs">
     <div class="tabs-header">
       <button 
-        v-for="platform in platforms" 
+        v-for="platform in availablePlatforms" 
         :key="platform.id"
         @click="activeTab = platform.id"
         :class="['tab-btn', { active: activeTab === platform.id }]"
@@ -39,8 +39,12 @@ const platforms = [
   { id: 'antigravity', name: 'Google Antigravity', icon: '⚙️' }
 ];
 
+const availablePlatforms = computed(() => {
+  return platforms.filter(p => !!props[p.id]);
+});
+
 const currentCommand = computed(() => {
-  return props[activeTab.value] || props.gemini || 'Nenhum comando disponível';
+  return props[activeTab.value] || 'Nenhum comando disponível';
 });
 
 function copyCommand() {

@@ -17,30 +17,38 @@ const EDIT_BASE_URL = 'https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents
 
 function generateInstallCommands(category, item, isDirectory = false) {
   const commands = {};
-  const gitRepoUrl = 'https://github.com/luizalabs/padrao-labs-agents';
   const gitRepoHttpUrl = 'https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents';
   const itemName = isDirectory ? item : path.basename(item, path.extname(item));
   const itemPath = isDirectory ? item : path.basename(item);
 
-  // GEMINI command
-  if (isDirectory) {
-    commands.gemini = `gemini skills install ${gitRepoUrl} --path .agents/${category}/${item}`;
-  } else {
-    commands.gemini = `gemini rules add ${gitRepoUrl} --path .agents/${category}/${itemPath}`;
+  // SKILLS
+  if (category === 'skills') {
+    commands.gemini = `mkdir -p ~/.gemini/skills && cp -r .agents/skills/${item} ~/.gemini/skills/`;
+    commands.copilot = `mkdir -p ~/.copilot/skills && cp -r .agents/skills/${item} ~/.copilot/skills/`;
+    commands.antigravity = `mkdir -p ~/.gemini/antigravity/skills && cp -r .agents/skills/${item} ~/.gemini/antigravity/skills/`;
   }
-
-  // COPILOT command
-  if (isDirectory) {
-    commands.copilot = `copilot skills install ${gitRepoUrl} --path .agents/${category}/${item}`;
-  } else {
-    commands.copilot = `copilot rules add ${gitRepoUrl} --path .agents/${category}/${itemPath}`;
+  // RULES
+  else if (category === 'rules') {
+    commands.copilot = `mkdir -p ~/.copilot/rules && cp -r .agents/rules/${item} ~/.copilot/rules/`;
+    commands.antigravity = `mkdir -p ~/.gemini/antigravity/rules && cp -r .agents/rules/${item} ~/.gemini/antigravity/rules/`;
+    // Gemini CLI: sem suporte para rules
   }
-
-  // ANTIGRAVITY command
-  if (isDirectory) {
-    commands.antigravity = `antigravity skills install ${gitRepoUrl} --path .agents/${category}/${item}`;
-  } else {
-    commands.antigravity = `antigravity rules add ${gitRepoUrl} --path .agents/${category}/${itemPath}`;
+  // WORKFLOWS
+  else if (category === 'workflows') {
+    commands.copilot = `mkdir -p ~/.copilot/workflows && cp -r .agents/workflows/${item} ~/.copilot/workflows/`;
+    commands.antigravity = `mkdir -p ~/.gemini/antigravity/workflows && cp -r .agents/workflows/${item} ~/.gemini/antigravity/workflows/`;
+    // Gemini CLI: sem suporte para workflows
+  }
+  // HOOKS (apenas Gemini CLI)
+  else if (category === 'hooks') {
+    commands.gemini = `echo 'Configure hooks in ~/.gemini/settings.json - see https://geminicli.com/docs/hooks/'`;
+    // Copilot e Antigravity não suportam hooks diretamente
+  }
+  // AGENTS (mantém como está)
+  else if (category === 'agents') {
+    commands.gemini = `gemini rules add ${gitRepoHttpUrl} --path .agents/agents/${itemPath}`;
+    commands.copilot = `copilot rules add ${gitRepoHttpUrl} --path .agents/agents/${itemPath}`;
+    commands.antigravity = `antigravity rules add ${gitRepoHttpUrl} --path .agents/agents/${itemPath}`;
   }
 
   return commands;
@@ -289,19 +297,10 @@ function cleanMarkdownContent(raw, itemId, category) {
   if (category === 'agents') {
     // Remove Frontmatter
     out = out.replace(/^---\n([\s\S]*?)\n---\n?/, '');
-    // Add the VSCode link after the title
-    const lines = out.split('\n');
-    const titleIndex = lines.findIndex(line => line.startsWith('# '));
-    if (titleIndex !== -1) {
-      const agentName = itemId.replace(/_/g, '-');
-      const link = `[Executar Agente no VSCode](vscode://GitHub.Copilot-Chat/chat?agent=${agentName}&prompt=)`;
-      lines.splice(titleIndex + 1, 0, '', link, '');
-      out = lines.join('\n');
-    }
     return out.trim();
   }
-  // Remove fenced code blocks wrapping the file content if present
-  out = out.replace(/```[\w-]*\n([\s\S]*?)\n```/g, '$1');
+  // Remove fenced code blocks (3 or more backticks) wrapping the file content if present
+  out = out.replace(/`{3,}[\w-]*\n([\s\S]*?)\n`{3,}/g, '$1');
   // Remove Frontmatter
   out = out.replace(/^---\n([\s\S]*?)\n---\n?/, '');
   return out.trim();
@@ -337,7 +336,9 @@ function generateCatalogJson(catalog) {
     catalogWithLinks[category] = items.map(item => ({
       ...item,
       url: `/${category}/${item.id}/`,
-      sourceFile: `/.agents-${category}/${item.id}/${path.basename(item.path)}`
+      sourceFile: category === 'skills'
+        ? `/.agents-${category}/${item.id}/${path.basename(item.path)}`
+        : `/.agents-${category}/${path.basename(item.path)}`
     }));
   }
 
@@ -390,27 +391,31 @@ function generateCategoryIndexes(catalog) {
           finalSymPath = `/.agents-${category}/${markdownFile}`;
       }
 
-      let pageContent = `---
-title: ${JSON.stringify(item.title)}
-description: ${JSON.stringify(item.description || '')}
-skillId: ${JSON.stringify(item.id)}
-category: ${JSON.stringify(category)}
-installCmd: ${JSON.stringify(item.installCmd || '')}
-installCmds: ${JSON.stringify(item.installCmds || {})}
-repoUrl: ${JSON.stringify(item.repoUrl || '')}
-editUrl: ${JSON.stringify(item.editUrl || '')}
-rawUrl: ${JSON.stringify(item.rawUrl || '')}
-files: ${JSON.stringify(item.files || [])}
-relatedFiles: ${JSON.stringify(item.relatedFiles || [])}
-parameters: ${JSON.stringify(item.parameters || [])}
----\n\n`;
+      // We'll build the frontmatter later (after gen paths are known)
+      let pageContent = '';
+      const fmBase = {
+        title: item.title,
+        description: item.description || '',
+        skillId: item.id,
+        category: category,
+        installCmd: item.installCmd || '',
+        installCmds: item.installCmds || {},
+        repoUrl: item.repoUrl || '',
+        editUrl: item.editUrl || '',
+        rawUrl: item.rawUrl || '',
+        files: item.files || [],
+        relatedFiles: item.relatedFiles || [],
+        parameters: item.parameters || []
+      };
 
       // Generate content wrapper
 
       if (category === 'skills' || (item.path.endsWith('.md') && !item.isScript)) {
         // Clean markdown content for cleaner display
         const raw = fs.readFileSync(item.path, 'utf8');
-        const cleaned = cleanMarkdownContent(raw, item.id, category);
+        let cleaned = cleanMarkdownContent(raw, item.id, category);
+        // Remove accidental outer code-fence wrappers that some source files include
+        cleaned = cleaned.replace(/^\s*`{3,}[\w-]*\n/, '').replace(/\n`{3,}\s*$/, '').trim();
 
         // Save cleaned content
         const genDir = path.join(DOCS_DIR, '.generated-skills', item.id);
@@ -419,13 +424,54 @@ parameters: ${JSON.stringify(item.parameters || [])}
         const genFilePath = path.join(genDir, markdownFile);
         fs.writeFileSync(genFilePath, cleaned, 'utf8');
         const genIncludePath = `/.generated-skills/${item.id}/${markdownFile}`;
-        // Open SkillPage with gen-path pointing to cleaned generated markdown
-        // pageContent += `<SkillPage skill-id='${item.id}' source-path='${finalSymPath}' gen-path='${genIncludePath}' category='${category}' />\n\n`;
 
+        // Build frontmatter now that we know genIncludePath and finalSymPath
+        const frontmatter = Object.assign({}, fmBase, {
+          genPath: genIncludePath,
+          sourcePath: finalSymPath
+        });
+
+        pageContent += '---\n';
+        for (const [k, v] of Object.entries(frontmatter)) {
+          if (typeof v === 'object' && v !== null && !Array.isArray(v)) {
+            pageContent += `${k}:\n`;
+            for (const [subk, subv] of Object.entries(v)) {
+              pageContent += `  ${subk}: '${subv}'\n`;
+            }
+          } else {
+            pageContent += `${k}: ${JSON.stringify(v)}\n`;
+          }
+        }
+        pageContent += '---\n\n';
+
+        // Emit SkillPage component WITHOUT inlined attribute concatenation; the component
+        // will read props from frontmatter. Place cleaned markdown inside the component slot.
+        pageContent += `<SkillPage>\n\n`;
         pageContent += cleaned + '\n\n';
+        pageContent += `</SkillPage>\n`;
       } else {
         // Scripts or other files: include directly as code block
-        pageContent += `<SkillPage skill-id="${item.id}" source-path="${finalSymPath}" category="${category}">\n\n`;
+        const frontmatter = Object.assign({}, fmBase, {
+          genPath: '',
+          sourcePath: finalSymPath
+        });
+
+        pageContent += '---\n';
+        for (const [k, v] of Object.entries(frontmatter)) {
+          if (typeof v === 'object' && v !== null && !Array.isArray(v)) {
+            pageContent += `${k}:\n`;
+            for (const [subk, subv] of Object.entries(v)) {
+              // Use double quotes if value contains single quotes, otherwise single quotes
+              const quote = subv && typeof subv === 'string' && subv.includes("'") ? '"' : "'";
+              pageContent += `  ${subk}: ${quote}${subv}${quote}\n`;
+            }
+          } else {
+            pageContent += `${k}: ${JSON.stringify(v)}\n`;
+          }
+        }
+        pageContent += '---\n\n';
+
+        pageContent += `<SkillPage>\n\n`;
         pageContent += `<<< @${finalSymPath}\n\n`;
         pageContent += `</SkillPage>\n`;
       }

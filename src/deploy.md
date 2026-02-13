@@ -2,7 +2,7 @@
 
 ## ArgoCD de Homologação
 
-URL: https://argocd-mke-operacoes-hml.ipet.sh
+URL: <https://argocd-mke-operacoes-hml.ipet.sh>
 
 ## Configuração de DNS
 

@@ -1,6 +1,10 @@
 ---
 name: org-legacy
 description: Navegação em estruturas organizacionais e busca em bases de conhecimento históricas (Confluence, Mapa Labs).
+metadata:
+  metadata:
+    works_on: [vscode, antigravity, gemini_cli]
+
 ---
 
 # Organizational & Legacy Knowledge

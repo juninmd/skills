@@ -1,6 +1,27 @@
 # Gemini CLI Hooks
 
+> **⚠️ Importante:** Os hooks descritos e contidos neste diretório são exclusivos para uso com o **Gemini CLI**. Eles não funcionam em outros ambientes como VSCode, Antigravity ou terminais padrão sem a ferramenta Gemini instalada e configurada.
+
 Este diretório contém hooks personalizados para estender e proteger seu fluxo de trabalho no terminal. Eles seguem as melhores práticas da documentação oficial do Gemini CLI.
+
+## Documentação Oficial
+
+Para aprofundar seu conhecimento sobre como criar, configurar e manter hooks no Gemini CLI, consulte as referências oficiais:
+
+- [Visão Geral de Hooks](https://geminicli.com/docs/hooks/)
+- [Escrevendo Hooks](https://geminicli.com/docs/hooks/writing-hooks/)
+- [Melhores Práticas](https://geminicli.com/docs/hooks/best-practices/)
+- [Referência Completa](https://geminicli.com/docs/hooks/reference/)
+
+## Conceitos Chave
+
+Hooks permitem interceptar e customizar o comportamento do Gemini CLI em pontos específicos do loop do agente. Eles funcionam de forma síncrona, ou seja, o CLI aguarda a execução do hook antes de prosseguir.
+
+Principais usos incluem:
+- **Segurança:** Validar comandos perigosos antes da execução.
+- **Contexto:** Injetar informações do ambiente (git, k8s) no prompt.
+- **Compliance:** Garantir que regras do projeto sejam seguidas.
+- **Logging:** Registrar interações para auditoria.
 
 ## Hooks Implementados
 

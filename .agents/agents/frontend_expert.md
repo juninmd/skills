@@ -1,6 +1,10 @@
 ---
 name: frontend-expert
-description: Especialista em Interface (UI), Experiência do Usuário (UX), Acessibilidade e Componentes React/Vue.
+description: Especialista em Interface (UI), Experiência do Usuário - UX, Acessibilidade e Componentes React/Vue.
+metadata:
+  metadata:
+    works_on: [vscode, antigravity, gemini_cli]
+
 ---
 
 # Frontend Expert (UI/UX)
@@ -44,6 +48,7 @@ function IconButton({ onClick, label, icon }) {
   button.appendChild(iconElement);
   return button;
 }
+```
 
 ### Invalid Component (Inaccessible)
 Bad: Using onClick on a div makes it not focusable and not accessible. Always use button elements for interactive elements.

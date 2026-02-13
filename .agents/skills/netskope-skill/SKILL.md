@@ -1,6 +1,10 @@
 ---
 name: netskope-config
 description: Configurações de certificados SSL/CA para garantir conectividade em ambientes protegidos pelo Netskope na Luizalabs.
+metadata:
+  metadata:
+    works_on: [vscode, antigravity, gemini_cli]
+
 ---
 
 # Netskope Configuration

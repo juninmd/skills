@@ -1,6 +1,10 @@
 ---
 name: git-vc
 description: Gestão de repositórios, versionamento e fluxos de trabalho colaborativos com Git seguindo o padrão Sênior Luizalabs.
+metadata:
+  metadata:
+    works_on: [vscode, antigravity, gemini_cli]
+
 ---
 
 # Version Control (Git) Sênior

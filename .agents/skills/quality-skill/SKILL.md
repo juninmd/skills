@@ -1,6 +1,10 @@
 ---
 name: quality-ops
 description: Ferramentas e práticas para Garantia de Qualidade (QA), Testes Automatizados e Geração de Massa de Dados.
+metadata:
+  metadata:
+    works_on: [vscode, antigravity, gemini_cli]
+
 ---
 
 # Quality Operations

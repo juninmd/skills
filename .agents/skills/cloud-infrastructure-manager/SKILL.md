@@ -1,6 +1,10 @@
 ---
 name: cloud-architect
 description: Design de arquiteturas de nuvem resilientes, escaláveis e seguras (AWS/GCP/Azure). Foco em padrões (HA/DR) e diagramas.
+metadata:
+  metadata:
+    works_on: [vscode, antigravity, gemini_cli]
+
 ---
 
 # Cloud Architecture Design

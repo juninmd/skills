@@ -1,6 +1,10 @@
 ---
 name: network-tools
 description: Testes de conectividade, inspeção de headers HTTP e resolução de DNS.
+metadata:
+  metadata:
+    works_on: [vscode, antigravity, gemini_cli]
+
 ---
 
 # Network & Diagnostics

@@ -1,6 +1,10 @@
 ---
 name: rabbitmq-diagnose
 description: Diagnóstico de saúde de filas RabbitMQ, consumidores e Dead Letter Queues (DLQ).
+metadata:
+  metadata:
+    works_on: [vscode, antigravity, gemini_cli]
+
 ---
 
 # Diagnose RabbitMQ Health

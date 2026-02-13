@@ -19,11 +19,12 @@ npm install
 npm run docs:dev
 ```
 
-Open http://localhost:5173
+Open <http://localhost:5173>
 
 ### Use in Your Project
 
 **GitHub Copilot (VS Code):**
+
 ```bash
 mkdir -p .github
 curl https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/agents.md -o agents.md
@@ -31,11 +32,13 @@ curl https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/agents.
 ```
 
 **Antigravity / Gemini:**
+
 ```bash
 curl https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/agents.md -o AGENTS.md
 ```
 
 **Cursor:**
+
 ```bash
 curl https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/agents.md -o .cursorrules
 ```
@@ -50,6 +53,47 @@ curl https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/agents.
 | Cursor | `.cursorrules` | Root `/` |
 | Windsurf | `.windsurfrules` | Root `/` |
 | Cline/Roo Code | `.clinerules` | Root `/` |
+
+### Install Individual Skills Locally
+
+After cloning this repository, you can install individual items locally:
+
+**Skills:**
+```bash
+# GitHub Copilot (VS Code)
+mkdir -p ~/.copilot/skills && cp -r .agents/skills/<skill-name> ~/.copilot/skills/
+
+# Antigravity
+mkdir -p ~/.gemini/antigravity/skills && cp -r .agents/skills/<skill-name> ~/.gemini/antigravity/skills/
+
+# Gemini CLI
+mkdir -p ~/.gemini/skills && cp -r .agents/skills/<skill-name> ~/.gemini/skills/
+```
+
+**Rules:**
+```bash
+# GitHub Copilot (VS Code)
+mkdir -p ~/.copilot/rules && cp -r .agents/rules/<rule-name> ~/.copilot/rules/
+
+# Antigravity
+mkdir -p ~/.gemini/antigravity/rules && cp -r .agents/rules/<rule-name> ~/.gemini/antigravity/rules/
+
+# Gemini CLI: Not supported
+```
+
+**Workflows:**
+```bash
+# GitHub Copilot (VS Code)
+mkdir -p ~/.copilot/workflows && cp -r .agents/workflows/<workflow-name> ~/.copilot/workflows/
+
+# Antigravity
+mkdir -p ~/.gemini/antigravity/workflows && cp -r .agents/workflows/<workflow-name> ~/.gemini/antigravity/workflows/
+
+# Gemini CLI: Not supported
+```
+
+**Hooks (Gemini CLI only):**
+Configure in `~/.gemini/settings.json` - see https://geminicli.com/docs/hooks/
 
 ## 🏗️ Architecture
 
@@ -73,6 +117,7 @@ scripts/
 ## 🔄 How It Works
 
 The loader dynamically:
+
 1. Scans `.agents/` directory
 2. Extracts metadata from markdown files
 3. Generates VitePress docs WITHOUT duplicating files
@@ -90,12 +135,12 @@ npm run generate:index    # Regenerate catalog
 
 ## 🔍 Features
 
-✨ **Full-Text Search** - Search across all content  
-🏷️ **Filter by Category** - Agents, Skills, Rules, etc  
-📱 **Responsive Design** - Mobile-friendly  
-🔗 **Zero Duplication** - Single source of truth  
-📊 **JSON API** - Programmatic access via catalog.json  
-🎨 **Modern UI** - Vue 3 + VitePress  
+✨ **Full-Text Search** - Search across all content
+🏷️ **Filter by Category** - Agents, Skills, Rules, etc
+📱 **Responsive Design** - Mobile-friendly
+🔗 **Zero Duplication** - Single source of truth
+📊 **JSON API** - Programmatic access via catalog.json
+🎨 **Modern UI** - Vue 3 + VitePress
 
 ## 📖 Integration Guides
 
@@ -106,10 +151,12 @@ npm run generate:index    # Regenerate catalog
 ## 🛠️ Development
 
 **Requirements:**
+
 - Node.js 18+
 - npm or pnpm
 
 **Setup:**
+
 ```bash
 npm install
 npm run docs:dev

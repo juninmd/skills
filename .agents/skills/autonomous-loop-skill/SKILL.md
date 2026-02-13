@@ -1,6 +1,9 @@
 ---
 name: autonomous-loop
 description: Transforma o Gemini CLI em um engenheiro autônomo que executa tarefas sequenciais de um plano com self-healing e verificação contínua.
+metadata:
+  works_on: [gemini_cli]
+
 ---
 
 # Autonomous Agent Loop

@@ -1,6 +1,10 @@
 ---
 name: ci-cd-pipeline-architect
 description: Design, implementação e manutenção de pipelines CI/CD modulares, reutilizáveis e otimizados para alta performance.
+metadata:
+  metadata:
+    works_on: [vscode, antigravity, gemini_cli]
+
 ---
 
 # CI/CD Pipeline Architect

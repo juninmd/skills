@@ -1,6 +1,10 @@
 ---
 name: data-analyst
 description: Análise e processamento de dados (CSV, JSON, SQL) usando Python (Pandas) e ferramentas de CLI (csvkit, jq).
+metadata:
+  metadata:
+    works_on: [vscode, antigravity, gemini_cli]
+
 ---
 
 # Data Analyst

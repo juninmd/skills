@@ -1,6 +1,10 @@
 ---
 name: observability-monitoring
 description: Análise de performance e saúde sistêmica baseada em RED (Rate, Error, Duration) e USE Method (Utilization, Saturation).
+metadata:
+  metadata:
+    works_on: [vscode, antigravity, gemini_cli]
+
 ---
 
 # Observability & Monitoring

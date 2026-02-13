@@ -1,6 +1,10 @@
 ---
 name: code-auditor
 description: Execução de análise estática (linting), verificação de estilo e detecção de code smells em Python e JS/TS.
+metadata:
+  metadata:
+    works_on: [vscode, antigravity, gemini_cli]
+
 ---
 
 # Code Auditor & Linter

@@ -1,6 +1,10 @@
 ---
 name: audio-processing-specialist
 description: This skill enables the agent to process, analyze, and generate audio.
+metadata:
+  metadata:
+    works_on: [vscode, antigravity, gemini_cli]
+
 ---
 
 # Audio Processing Specialist

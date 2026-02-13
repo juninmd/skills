@@ -1,6 +1,10 @@
 ---
 name: mobile-engineer
 description: Especialista em Desenvolvimento Mobile Cross-Platform (React Native / Android / iOS) e publicação nas lojas.
+metadata:
+  metadata:
+    works_on: [vscode, antigravity, gemini_cli]
+
 ---
 
 # Mobile Engineer Sênior

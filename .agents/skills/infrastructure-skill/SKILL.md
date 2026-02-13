@@ -1,6 +1,10 @@
 ---
 name: infrastructure-ops
 description: Operações avançadas de infraestrutura (RDP fix, K8s clean, DNS, Traffic Shifting).
+metadata:
+  metadata:
+    works_on: [vscode, antigravity, gemini_cli]
+
 ---
 
 # Infrastructure Operations

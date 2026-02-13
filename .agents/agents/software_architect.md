@@ -1,6 +1,10 @@
 ---
 name: software-architect
 description: Agente Sênior responsável por Arquitetura de Software, Design Patterns, Refatoração e Débito Técnico.
+metadata:
+  metadata:
+    works_on: [vscode, antigravity, gemini_cli]
+
 ---
 
 # Software Architect (Tech Lead)

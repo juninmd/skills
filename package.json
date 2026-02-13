@@ -7,16 +7,18 @@
     "docs:dev": "node src/loader.js && vitepress dev docs",
     "docs:build": "node src/loader.js && vitepress build docs",
     "docs:preview": "vitepress preview docs",
-    "generate:index": "node src/loader.js"
+    "generate:index": "node src/loader.js",
+    "lint:md": "markdownlint '**/*.md' --ignore node_modules --ignore docs"
   },
   "dependencies": {
+    "minisearch": "^6.2.0",
     "vitepress": "^1.5.0",
-    "vue": "^3.4.0",
-    "minisearch": "^6.2.0"
+    "vue": "^3.4.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.0",
-    "vite": "^5.0.0",
-    "chokidar": "^3.6.0"
+    "chokidar": "^3.6.0",
+    "markdownlint-cli": "^0.47.0",
+    "vite": "^5.0.0"
   }
 }

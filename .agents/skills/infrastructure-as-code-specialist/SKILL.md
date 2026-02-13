@@ -1,6 +1,10 @@
 ---
 name: infrastructure-as-code-specialist
 description: Provisionamento de infraestrutura como código (Terraform/Pulumi/Ansible) com foco em modularidade, testes e segurança.
+metadata:
+  metadata:
+    works_on: [vscode, antigravity, gemini_cli]
+
 ---
 
 # Infrastructure as Code (IaC) Specialist
