@@ -20,12 +20,6 @@ variables:
   ARGOCD_BRANCH: master
   DEPLOY_TAG: ${CI_COMMIT_SHORT_SHA}
 
-stages:
-  - install
-  - deploy
-  - tag
-  - rollback
-
 commitlint:
   stage: install
   image: $CIKNIFE_IMAGE
@@ -45,7 +39,6 @@ build_frontend:
     paths:
       - frontend/node_modules/
   script:
-    - cd frontend
     - npm install -g pnpm@8.6.2
     - pnpm install --frozen-lockfile
     - pnpm run docs:build
@@ -65,8 +58,6 @@ create_release:
   stage: tag
   image: $CIKNIFE_IMAGE
   allow_failure: false
-  dependencies:
-    - test
   script:
     - ci-knife create-release -n -w
   only:
@@ -86,8 +77,6 @@ deploy_argo:
   only:
     - tags
   when: always
-  dependencies:
-    - test
   tags:
     - global-docker-tls
 
