@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.0.0...v1.0.1) (2026-02-13)
+
+
+### Bug Fixes
+
+* deployment with correct server file and build command ([9a94f49](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/9a94f49))
+
 # 1.0.0 (2026-02-13)
 
 
