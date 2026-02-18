@@ -15,6 +15,24 @@ export default defineConfig({
     ['link', { rel: 'icon', href: '/favicon.svg' }]
   ],
 
+  // Vite build optimizations
+  vite: {
+    build: {
+      chunkSizeWarningLimit: 1000,
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            'vendor-vue': ['vue', 'vue-router'],
+            'vendor-search': ['minisearch'],
+          },
+        },
+      },
+    },
+    optimizeDeps: {
+      include: ['vue', 'minisearch'],
+    },
+  },
+
   themeConfig: {
     logo: '/logo.png',
     siteTitle: 'Luizalabs Catalog',

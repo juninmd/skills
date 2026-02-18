@@ -313,14 +313,14 @@ function extractParameters(content) {
 function cleanMarkdownContent(raw, itemId, category) {
   let out = String(raw);
   out = out.replace(/^\uFEFF/, '');
-  // For agents, keep code blocks as is to avoid JSX parsing issues
-  if (category === 'agents') {
+  // For agents and skills, keep code blocks as is to avoid JSX parsing issues
+  if (category === 'agents' || category === 'skills') {
     // Remove Frontmatter
     out = out.replace(/^---\n([\s\S]*?)\n---\n?/, '');
     return out;
   }
-  // Remove fenced code blocks (3 or more backticks) wrapping the file content if present
-  out = out.replace(/`{3,}[\w-]*\n([\s\S]*?)\n`{3,}/g, '$1');
+  // For other categories, remove wrapping code fences (without g flag to avoid removing internal code blocks)
+  out = out.replace(/^`{3,}[\w-]*\n([\s\S]*)\n`{3,}$/, '$1');
   // Remove Frontmatter
   out = out.replace(/^---\n([\s\S]*?)\n---\n?/, '');
   return out.trim();

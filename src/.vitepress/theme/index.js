@@ -1,15 +1,19 @@
-import { h } from 'vue';
+import { h, defineAsyncComponent } from 'vue';
 import DefaultTheme from 'vitepress/theme';
-import SearchBox from '../components/SearchBox.vue';
-import CategoryGrid from '../components/CategoryGrid.vue';
-import CategoryCards from '../components/CategoryCards.vue';
-import CategoryLayout from '../components/CategoryLayout.vue';
-import SkillPage from '../components/SkillPage.vue';
-import SkillShell from '../components/SkillShell.vue';
-import InstallTabs from '../components/InstallTabs.vue';
 import './stitch.css';
 import { initComponent } from 'vitepress-mermaid-preview/component';
 import 'vitepress-mermaid-preview/dist/index.css';
+
+// Lazy load components for better performance
+const SearchBox = defineAsyncComponent(() => import('../components/SearchBox.vue'));
+const CategoryGrid = defineAsyncComponent(() => import('../components/CategoryGrid.vue'));
+const CategoryCards = defineAsyncComponent(() => import('../components/CategoryCards.vue'));
+const CategoryLayout = defineAsyncComponent(() => import('../components/CategoryLayout.vue'));
+const SkillPage = defineAsyncComponent(() => import('../components/SkillPage.vue'));
+const InstallTabs = defineAsyncComponent(() => import('../components/InstallTabs.vue'));
+
+// SkillShell is used in layout, keep it eagerly loaded
+import SkillShell from '../components/SkillShell.vue';
 
 export default {
   extends: DefaultTheme,

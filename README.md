@@ -21,7 +21,32 @@ npm run docs:dev
 
 Open <http://localhost:5173>
 
+### 🏗️ Contribute with Spec-Driven Development
+
+Build new skills, agents, and rules using **Specification-Driven Development (SDD)** - a methodology where specifications become your primary artifact.
+
+**Quickstart**:
+1. Read the constitution: `cat .specify/memory/constitution.md`
+2. Review the guide: `cat .specify/SPEC-DRIVEN-DEV-GUIDE.md`
+3. Copy spec template: `cp .specify/templates/spec-template.md .specify/specs/[feature]/spec.md`
+4. Use AI agent commands: `/speckit.specify`, `/speckit.plan`, `/speckit.tasks`
+5. Follow the spec → plan → tasks → implement → validate workflow
+
+**Key Commands** (in Claude Code, GitHub Copilot, or supported AI agents):
+```
+/speckit.constitution  # Establish project principles
+/speckit.specify       # Define requirements and user scenarios
+/speckit.clarify       # Address ambiguities
+/speckit.plan          # Create technical design
+/speckit.tasks         # Break into actionable tasks
+/speckit.implement     # Execute individual task
+/speckit.checklist     # Validate completion
+```
+
+See `.specify/commands/slash-commands-guide.md` for complete command reference.
+
 ### Use in Your Project
+
 
 **GitHub Copilot (VS Code):**
 
@@ -43,7 +68,41 @@ curl https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/agents.
 curl https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/agents.md -o .cursorrules
 ```
 
+## 🧪 Testing
+
+Run automated tests for skills, components, and utilities:
+
+```bash
+pnpm test          # Run tests in watch mode
+pnpm test:run      # Run tests once (CI mode)
+pnpm test:ui       # Open test UI in browser
+pnpm test:coverage # Generate coverage report
+```
+
+**Test Coverage**: 34 tests covering utility functions and Vue components:
+- CLI utilities (logger, platform path resolution)
+- Vue components (SearchBox, CategoryGrid)
+- Integration tests for platform compatibility
+
+Target coverage: **> 80%** for all new code.
+
+## ⚡ Performance Optimizations
+
+The documentation site uses several optimizations for fast loading:
+
+- **Lazy Loading**: Vue components load on-demand using `defineAsyncComponent`
+- **Code Splitting**: Vite automatically splits vendor code (Vue, MiniSearch) into separate chunks
+- **Component Splitting**: Heavy components (SearchBox, InstallTabs) load only when needed
+- **Optimized Dependencies**: Pre-bundled for faster module resolution
+
+Build metrics:
+- Initial page load: Optimized with lazy component boundaries
+- Bundle size: Reduced from ~9.5MB to ~5-6MB with splitting
+- Search performance: Client-side MiniSearch for instant results
+
 ## 📦 CLI - Instalacao Global via NPX
+
+
 
 Instale todas as skills, agents, rules, hooks e workflows globalmente com um unico comando:
 

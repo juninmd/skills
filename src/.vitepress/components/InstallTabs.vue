@@ -23,8 +23,8 @@
             <pre class="code-text"><code>{{ props.antigravity }}</code></pre>
           </slot>
         </div>
-        <button class="copy-btn" @click="copyCommand" :title="copied ? 'Copiado!' : 'Copiar'">
-          {{ copied ? '✓' : 'Copiar' }}
+        <button class="copy-btn" :class="{ copied }" @click="copyCommand" :title="copied ? 'Copiado!' : 'Copiar'">
+          {{ copied ? '✓ Copiado' : '📋 Copiar' }}
         </button>
       </div>
     </div>
@@ -82,49 +82,144 @@ function copyCommand() {
 
 <style scoped>
 .install-tabs {
-  margin: 1.5rem 0;
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 8px;
+  margin: 2rem 0;
+  border: 2px solid var(--vp-c-divider);
+  border-radius: 16px;
   overflow: hidden;
-  background: var(--vp-c-bg-soft);
+  background: linear-gradient(
+    135deg,
+    rgba(var(--vp-c-bg-rgb), 0.95) 0%,
+    rgba(var(--vp-c-bg-rgb), 1) 100%
+  );
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .tabs-header {
   display: flex;
-  background: var(--vp-c-bg-mute);
-  border-bottom: 1px solid var(--vp-c-divider);
+  background: linear-gradient(
+    180deg,
+    var(--vp-c-bg-muted) 0%,
+    var(--vp-c-bg-soft) 100%
+  );
+  border-bottom: 2px solid var(--vp-c-divider);
   overflow-x: auto;
+  scrollbar-width: thin;
+  position: relative;
+}
+
+.tabs-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--vp-c-brand) 0%,
+    var(--vp-c-brand-light) 100%
+  );
+  width: var(--tab-width, 33.33%);
+  transform: translateX(var(--tab-offset, 0));
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .tab-btn {
-  padding: 0.6rem 1.2rem;
+  flex: 1;
+  padding: 1rem 1.5rem;
   border: none;
   background: transparent;
   cursor: pointer;
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   font-weight: 600;
   color: var(--vp-c-text-2);
-  transition: all 0.2s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  border-right: 1px solid var(--vp-c-divider);
+  justify-content: center;
+  gap: 0.6rem;
   white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+}
+
+.tab-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(var(--vp-c-brand-rgb), 0.05) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tab-btn:hover::before {
+  opacity: 1;
 }
 
 .tab-btn:hover {
   color: var(--vp-c-text-1);
-  background: var(--vp-c-bg-soft);
+  background: rgba(var(--vp-c-bg-rgb), 0.5);
 }
 
 .tab-btn.active {
   color: var(--vp-c-brand);
-  background: var(--vp-c-bg-soft);
-  box-shadow: inset 0 -2px 0 var(--vp-c-brand);
+  background: rgba(var(--vp-c-brand-rgb), 0.08);
+  position: relative;
+}
+
+.tab-btn.active .icon {
+  animation: bounceIcon 0.6s ease-out;
+}
+
+@keyframes bounceIcon {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+.icon {
+  font-size: 1.2rem;
+  line-height: 1;
+  filter: grayscale(0.3);
+  transition: all 0.3s;
+}
+
+.tab-btn:hover .icon,
+.tab-btn.active .icon {
+  filter: grayscale(0);
 }
 
 .tabs-content {
-  padding: 1rem;
+  padding: 1.5rem;
+  animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .code-container {
@@ -132,9 +227,26 @@ function copyCommand() {
   align-items: flex-start;
   gap: 1rem;
   background: var(--vp-c-bg);
-  padding: 0.75rem 1rem;
-  border-radius: 6px;
-  border: 1px solid var(--vp-c-divider);
+  padding: 1.25rem 1.5rem;
+  border-radius: 12px;
+  border: 2px solid var(--vp-c-divider);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.code-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--vp-c-brand) 0%,
+    var(--vp-c-brand-light) 100%
+  );
 }
 
 .code-wrapper {
@@ -152,8 +264,8 @@ function copyCommand() {
   margin: 0;
   padding: 0;
   font-family: var(--vp-font-family-mono);
-  font-size: 0.85rem;
-  line-height: 1.5;
+  font-size: 0.9rem;
+  line-height: 1.6;
   overflow-x: auto;
   white-space: pre-wrap;
   word-break: break-all;
@@ -163,23 +275,97 @@ function copyCommand() {
   background: transparent;
   padding: 0;
   color: var(--vp-c-text-1);
+  font-weight: 500;
 }
 
 .copy-btn {
-  background: var(--vp-c-brand);
+  background: linear-gradient(
+    135deg,
+    var(--vp-c-brand) 0%,
+    var(--vp-c-brand-light) 100%
+  );
   color: white;
   border: none;
-  border-radius: 4px;
-  padding: 0.4rem 0.8rem;
-  font-size: 0.8rem;
-  font-weight: 600;
+  border-radius: 8px;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.85rem;
+  font-weight: 700;
   cursor: pointer;
-  transition: opacity 0.2s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   flex-shrink: 0;
   margin-top: 2px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(var(--vp-c-brand-rgb), 0.3);
+}
+
+.copy-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 100%
+  );
+  transform: translateX(-100%);
+  transition: transform 0.6s;
+}
+
+.copy-btn:hover::before {
+  transform: translateX(100%);
 }
 
 .copy-btn:hover {
-  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(var(--vp-c-brand-rgb), 0.4);
+}
+
+.copy-btn:active {
+  transform: translateY(0);
+}
+
+.copy-btn.copied {
+  background: linear-gradient(
+    135deg,
+    var(--vp-c-success) 0%,
+    #059669 100%
+  );
+  animation: successPulse 0.4s ease-out;
+}
+
+@keyframes successPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .tabs-header {
+    overflow-x: auto;
+  }
+
+  .tab-btn {
+    padding: 0.875rem 1.25rem;
+    font-size: 0.875rem;
+  }
+
+  .tabs-content {
+    padding: 1.25rem;
+  }
+
+  .code-container {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .copy-btn {
+    width: 100%;
+  }
 }
 </style>

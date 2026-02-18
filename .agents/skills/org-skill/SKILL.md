@@ -91,9 +91,9 @@ Luizalabs
 
 **Páginas importantes**:
 - `/display/TECH/Tech+Home` - Estrutura de tecnologia
-- `/display/<TRIBO>/Home` - Home de cada tribo (ex: `/display/ABACKOFFICE/Home`)
-- `/display/<TRIBO>/Runbooks` - Runbooks da tribo
-- `/display/<TRIBO>/ADRs` - Architectural Decision Records
+- `/display/`<TRIBO>`/Home` - Home de cada tribo (ex: `/display/ABACKOFFICE/Home`)
+- `/display/`<TRIBO>`/Runbooks` - Runbooks da tribo
+- `/display/`<TRIBO>`/ADRs` - Architectural Decision Records
 
 **Busca no Confluence**:
 - Use a busca global (ícone de lupa)
@@ -174,7 +174,7 @@ kubectl get all -A | grep code-quality
 kubectl get deployments -n default
 
 # Ver logs de um pod
-kubectl logs -n default <pod-name> --tail=100 -f
+kubectl logs -n default `<pod-name>` --tail=100 -f
 ```
 
 #### Magamundi (Infraestrutura Legada)
@@ -215,16 +215,16 @@ Magamundi é o portal de recursos legados (VMs, bare metal, serviços on-prem).
    - Diagramas de arquitetura
 
 3. **Backstage TechDocs**
-   - https://backstage.luizalabs.com/catalog/default/component/<service-name>/docs
+   - https://backstage.luizalabs.com/catalog/default/component/`<service-name>`/docs
    - Documentação gerada automaticamente do repo
 
 4. **Confluence da tribo**
-   - https://confluence.luizalabs.com/display/<TRIBO>/Runbooks
-   - Busque por: `<service-name> runbook`
+   - https://confluence.luizalabs.com/display/`<TRIBO>`/Runbooks
+   - Busque por: "`<service-name>` runbook"
 
 5. **Grafana Dashboards e Alerts**
    - https://grafana.luizalabs.com
-   - Busque por: `<service-name>`
+   - Busque por: "`<service-name>`"
    - Verifique "alert descriptions" para troubleshooting
 
 #### Runbooks típicos
@@ -251,7 +251,7 @@ ADRs documentam decisões arquiteturais importantes.
 
 **Onde encontrar**:
 - `/docs/adr/` no repositório
-- Confluence: `/display/<TRIBO>/ADRs`
+- Confluence: `/display/`<TRIBO>`/ADRs`
 
 **Formato típico**:
 ```markdown
@@ -292,7 +292,7 @@ PostgreSQL 14 no Cloud SQL.
 
 ### Preciso falar com especialista em uma tecnologia
 1. Confluence: `/display/TECH/Especialistas`
-2. Slack: `#ask-<technology>` (ex: `#ask-kubernetes`, `#ask-argocd`)
+2. Slack: `#ask-`<technology>` (ex: `#ask-kubernetes`, `#ask-argocd`)
 3. Mapa Labs: veja o campo "Tech Lead" do serviço relacionado
 
 ### Runbook está desatualizado
