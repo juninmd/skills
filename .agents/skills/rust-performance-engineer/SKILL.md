@@ -1,3 +1,10 @@
+---
+name: rust-performance-engineer
+description: Optimize Rust code performance through profiling, memory analysis, and advanced low-level techniques
+metadata:
+    works_on: [copilot, antigravity, gemini_cli]
+---
+
 # Skill: Rust Performance Engineer
 
 ## Description

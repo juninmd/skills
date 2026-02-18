@@ -1,3 +1,10 @@
+---
+name: mathematical-modeler
+description: Formulate and solve mathematical models including optimization problems, statistical simulations, and differential equations
+metadata:
+    works_on: [copilot, antigravity, gemini_cli]
+---
+
 # Mathematical Modeler Skill
 
 ## Description

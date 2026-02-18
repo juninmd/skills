@@ -1,3 +1,10 @@
+---
+name: performance-optimizer
+description: Analyze applications for performance bottlenecks and implement optimizations through profiling and testing
+metadata:
+    works_on: [copilot, antigravity, gemini_cli]
+---
+
 # Performance Optimizer Skill
 
 ## Description

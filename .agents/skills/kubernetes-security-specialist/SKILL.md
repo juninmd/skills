@@ -1,3 +1,10 @@
+---
+name: kubernetes-security-specialist
+description: Secure Kubernetes clusters with RBAC management, configuration auditing, network policies, and runtime security
+metadata:
+    works_on: [copilot, antigravity, gemini_cli]
+---
+
 # Kubernetes Security Specialist Skill
 
 ## Description

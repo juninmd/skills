@@ -1,3 +1,10 @@
+---
+name: web-researcher
+description: Perform comprehensive web research through search engines, content fetching, and information synthesis
+metadata:
+    works_on: [copilot, antigravity, gemini_cli]
+---
+
 # Web Researcher Skill
 
 ## Description

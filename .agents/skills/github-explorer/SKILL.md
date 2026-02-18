@@ -1,3 +1,10 @@
+---
+name: github-explorer
+description: Search, explore, and analyze GitHub repositories including file contents and project metadata
+metadata:
+    works_on: [copilot, antigravity, gemini_cli]
+---
+
 # Skill: GitHub Explorer
 
 ## Description

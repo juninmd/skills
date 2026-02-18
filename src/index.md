@@ -4,7 +4,7 @@ layout: home
 hero:
   name: "Catálogo Luizalabs"
   text: "Central de Agentes e Skills de IA"
-  tagline: "O catálogo oficial de capacidades para Google Gemini, Antigravity e GitHub Copilot."
+  tagline: "O catálogo oficial de capacidades para Google Gemini, Antigravity, GitHub Copilot, Claude, Cursor, Windsurf e Cline."
   image:
     src: /logo.png
     alt: Catálogo Luizalabs
@@ -18,9 +18,9 @@ hero:
 ---
 
 <div style="margin-bottom: 2.5rem;">
-  <h3 style="margin-top: 0; margin-bottom: 1.5rem; font-size: 1.3rem; color: var(--vp-c-brand); font-weight: 600;">Clone o repositório para começar</h3>
+  <h3 style="margin-top: 0; margin-bottom: 1.5rem; font-size: 1.3rem; color: var(--vp-c-brand); font-weight: 600;">Instale via NPX para começar</h3>
   <div style="display: flex; align-items: center; gap: 0.75rem; background: linear-gradient(135deg, rgba(100, 200, 254, 0.08) 0%, rgba(100, 150, 254, 0.04) 100%); padding: 1.5rem; border-radius: 12px; border: 2px solid var(--vp-c-brand); position: relative;">
-    <code class="clone-command" style="background: transparent; padding: 0; font-size: 1rem; font-weight: 500; color: var(--vp-c-text-1); flex: 1; font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; user-select: all;">git clone git@gitlab.luizalabs.com:luizalabs/padrao-labs-agents.git</code>
+    <code class="clone-command" style="background: transparent; padding: 0; font-size: 1rem; font-weight: 500; color: var(--vp-c-text-1); flex: 1; font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; user-select: all;">npx @luizalabs/padrao-labs-agents install</code>
     <button class="copy-clone-btn" style="background: var(--vp-c-brand); color: white; border: none; padding: 0.75rem 1.25rem; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.95rem; transition: all 0.3s ease; white-space: nowrap; display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0;">
       <span class="copy-icon">📋</span>
       <span class="copy-text">Copiar</span>
@@ -94,6 +94,46 @@ if (typeof window !== 'undefined' && typeof document !== 'undefined') {
 </script>
 
 <CategoryCards />
+
+<div class="container info-section fade-in" style="margin-bottom: 3rem; border-left: 4px solid #6366f1; padding-left: 1.5rem;">
+  <div class="info-grid">
+    <div class="info-content">
+      <h2>Instalacao Global via CLI</h2>
+      <p>
+        Instale todas as skills, agents, rules, hooks e workflows globalmente nas suas ferramentas de IA com um unico comando. O CLI detecta automaticamente quais ferramentas estao instaladas.
+      </p>
+      <div style="background: var(--vp-c-bg-soft); padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+        <code style="font-size: 0.95rem;">npx @luizalabs/padrao-labs-agents install</code>
+      </div>
+      <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--vp-c-text-2);">
+        Outros comandos: <code>init</code> (padroniza repo), <code>cron</code> (auto-update diario), <code>update</code> (atualiza para latest)
+      </p>
+    </div>
+    <div class="info-visual">
+      <div class="visual-item">
+        <div class="visual-icon">📦</div>
+        <div>
+          <strong>7 Ferramentas</strong>
+          <p class="text-sm text-muted">Copilot, Gemini, Antigravity, Claude, Cursor, Windsurf, Cline</p>
+        </div>
+      </div>
+      <div class="visual-item">
+        <div class="visual-icon">🔄</div>
+        <div>
+          <strong>Auto-Update</strong>
+          <p class="text-sm text-muted">Cron diario mantém tudo na versao mais recente.</p>
+        </div>
+      </div>
+      <div class="visual-item">
+        <div class="visual-icon">🚀</div>
+        <div>
+          <strong>Init de Repositorio</strong>
+          <p class="text-sm text-muted">Gera dependency.yaml, sonar, hangar-info e gitlab-ci.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="container info-section fade-in" style="margin-bottom: 3rem; border-left: 4px solid var(--vp-c-brand); padding-left: 1.5rem;">
   <div class="info-grid">

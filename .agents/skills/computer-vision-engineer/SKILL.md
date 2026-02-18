@@ -1,3 +1,10 @@
+---
+name: computer-vision-engineer
+description: Process and analyze images and videos using object detection, classification, facial recognition, and OCR
+metadata:
+    works_on: [copilot, antigravity, gemini_cli]
+---
+
 # Computer Vision Engineer Skill
 
 ## Description

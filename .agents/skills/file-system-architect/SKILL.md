@@ -1,3 +1,10 @@
+---
+name: file-system-architect
+description: Manage, organize, and optimize complex project directory structures and file organization patterns
+metadata:
+    works_on: [copilot, antigravity, gemini_cli]
+---
+
 # Skill: File System Architect
 
 ## Description

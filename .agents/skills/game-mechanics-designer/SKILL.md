@@ -1,3 +1,10 @@
+---
+name: game-mechanics-designer
+description: Design and implement game logic, physics systems, state machines, and AI behaviors for games
+metadata:
+    works_on: [copilot, antigravity, gemini_cli]
+---
+
 # Game Mechanics Designer Skill
 
 ## Description

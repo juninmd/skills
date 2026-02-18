@@ -1,0 +1,34 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: {{appName}}
+  description: {{appDescription}}
+  links:
+    - url: {{urlProd}}
+      title: URL Prod
+      icon: article
+      type: url-prod
+    - url: https://argocd-mgc-ops-comercial.ipet.sh/applications/argocd/{{appName}}
+      title: Argo CD Prod
+      icon: article
+      type: url-argocd-prod
+  annotations:
+    security/business-risk: {{businessRisk}}
+    security/public: {{public}}
+    security/accessibility: No
+    security/waf: No
+    security/qradar: No
+    security/authentication: 'Not apply'
+    security/administration: 'Not apply'
+    gitlab.com/project-slug: '{{gitlabProjectSlug}}'
+    sonarqube.org/project-key: '{{sonarProjectKey}}'
+    argocd/app-name: {{appName}}
+    project/service.tier: OTHERS
+    backstage.io/techdocs-ref: dir:./
+  tags:
+    - {{tags}}
+spec:
+  type: service
+  lifecycle: production
+  owner: 'group:{{ownerGroupId}}'
+  dependsOn: []

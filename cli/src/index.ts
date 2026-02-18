@@ -1,0 +1,103 @@
+#!/usr/bin/env node
+
+import { parseArgs } from 'node:util';
+import { install } from './commands/install.js';
+import { update } from './commands/update.js';
+import { init } from './commands/init.js';
+import { cron } from './commands/cron.js';
+import { log } from './utils/logger.js';
+
+const VERSION = '1.0.0';
+
+const HELP = `
+padrao-labs-agents - CLI para instalar skills, agents, rules e workflows Luizalabs
+
+Comandos:
+  install     Instala skills globalmente para ferramentas de IA detectadas
+  update      Atualiza para a versao mais recente publicada
+  init        Inicializa repositorio com arquivos padrao (dependency.yaml, sonar, etc.)
+  cron        Configura auto-update diario via crontab
+
+Opcoes:
+  -h, --help      Mostra esta ajuda
+  -v, --version   Mostra a versao
+  -t, --tools     Ferramentas alvo (separadas por virgula): copilot,gemini,antigravity,claude,cursor,windsurf,cline
+  -f, --force     Sobrescreve arquivos existentes
+  --dry-run       Simula execucao sem alterar arquivos
+  --verbose       Mostra detalhes da execucao
+  --remove        (cron) Remove o cron de auto-update
+
+Exemplos:
+  npx @luizalabs/padrao-labs-agents install
+  npx @luizalabs/padrao-labs-agents install --tools copilot,gemini
+  npx @luizalabs/padrao-labs-agents init
+  npx @luizalabs/padrao-labs-agents cron
+  npx @luizalabs/padrao-labs-agents update
+`;
+
+async function main(): Promise<void> {
+  const { positionals, values } = parseArgs({
+    allowPositionals: true,
+    options: {
+      help: { type: 'boolean', short: 'h', default: false },
+      version: { type: 'boolean', short: 'v', default: false },
+      tools: { type: 'string', short: 't' },
+      force: { type: 'boolean', short: 'f', default: false },
+      'dry-run': { type: 'boolean', default: false },
+      verbose: { type: 'boolean', default: false },
+      remove: { type: 'boolean', default: false },
+    },
+  });
+
+  if (values.version) {
+    console.log(VERSION);
+    return;
+  }
+
+  if (values.help || positionals.length === 0) {
+    console.log(HELP);
+    return;
+  }
+
+  const command = positionals[0];
+  const toolsList = values.tools ? values.tools.split(',').map(t => t.trim()) : undefined;
+
+  try {
+    switch (command) {
+      case 'install':
+        await install({
+          tools: toolsList,
+          force: values.force as boolean,
+          dryRun: values['dry-run'] as boolean,
+          verbose: values.verbose as boolean,
+        });
+        break;
+
+      case 'update':
+        await update();
+        break;
+
+      case 'init':
+        await init({
+          force: values.force as boolean,
+        });
+        break;
+
+      case 'cron':
+        await cron({
+          remove: values.remove as boolean,
+        });
+        break;
+
+      default:
+        log.error(`Comando desconhecido: ${command}`);
+        console.log(HELP);
+        process.exit(1);
+    }
+  } catch (err) {
+    log.error(`Erro: ${err instanceof Error ? err.message : String(err)}`);
+    process.exit(1);
+  }
+}
+
+main();

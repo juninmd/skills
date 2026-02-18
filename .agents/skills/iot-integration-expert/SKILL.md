@@ -1,3 +1,10 @@
+---
+name: iot-integration-expert
+description: Interact with IoT devices, manage MQTT brokers, and process sensor data using protocols like MQTT, CoAP, and HTTP
+metadata:
+    works_on: [copilot, antigravity, gemini_cli]
+---
+
 # IoT Integration Expert Skill
 
 ## Description

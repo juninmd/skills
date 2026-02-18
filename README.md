@@ -43,7 +43,39 @@ curl https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/agents.
 curl https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/agents.md -o .cursorrules
 ```
 
-## 📋 Tool Integration Matrix
+## 📦 CLI - Instalacao Global via NPX
+
+Instale todas as skills, agents, rules, hooks e workflows globalmente com um unico comando:
+
+```bash
+npx @luizalabs/padrao-labs-agents install
+```
+
+### Comandos Disponiveis
+
+```bash
+npx @luizalabs/padrao-labs-agents install                     # Instala globalmente (auto-detecta ferramentas)
+npx @luizalabs/padrao-labs-agents install --tools copilot,gemini  # Instala apenas para ferramentas especificas
+npx @luizalabs/padrao-labs-agents init                        # Inicializa repo com dependency.yaml, sonar, hangar-info, gitlab-ci
+npx @luizalabs/padrao-labs-agents cron                        # Configura auto-update diario (seg-sex 9h)
+npx @luizalabs/padrao-labs-agents update                      # Atualiza para a versao mais recente
+```
+
+### Mapa de Instalacao Global por Ferramenta
+
+| Ferramenta | Diretorio Global | agents | skills | rules | workflows | hooks | agents.md |
+|---|---|---|---|---|---|---|---|
+| **Copilot** | `~/.copilot/` | ✅ | ✅ | ✅ | ✅ | - | - |
+| **Gemini CLI** | `~/.gemini/` | - | ✅ | - | - | ✅ | - |
+| **Antigravity** | `~/.gemini/antigravity/` | ✅ | ✅ | ✅ | ✅ | - | ✅ AGENTS.md |
+| **Claude** | `~/.claude/` | - | ✅ | ✅ | - | - | ✅ CLAUDE.md |
+| **Cursor** | `~/.cursor/` | - | - | ✅ concatenado | - | - | - |
+| **Windsurf** | `~/.windsurf/` | - | - | ✅ concatenado | - | - | - |
+| **Cline** | `~/.cline/` | - | ✅ | ✅ | - | - | - |
+
+> O CLI detecta automaticamente quais ferramentas estao instaladas no sistema e instala apenas para essas.
+
+## 📋 Tool Integration Matrix (por projeto)
 
 | Tool | File | Location |
 |------|------|----------|
@@ -53,50 +85,6 @@ curl https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/agents.
 | Cursor | `.cursorrules` | Root `/` |
 | Windsurf | `.windsurfrules` | Root `/` |
 | Cline/Roo Code | `.clinerules` | Root `/` |
-
-### Install Individual Skills Locally
-
-After cloning this repository, you can install individual items locally:
-
-**Skills:**
-
-```bash
-# GitHub Copilot (VS Code)
-mkdir -p ~/.copilot/skills && cp -r .agents/skills/<skill-name> ~/.copilot/skills/
-
-# Antigravity
-mkdir -p ~/.gemini/antigravity/skills && cp -r .agents/skills/<skill-name> ~/.gemini/antigravity/skills/
-
-# Gemini CLI
-mkdir -p ~/.gemini/skills && cp -r .agents/skills/<skill-name> ~/.gemini/skills/
-```
-
-**Rules:**
-
-```bash
-# GitHub Copilot (VS Code)
-mkdir -p ~/.copilot/rules && cp -r .agents/rules/<rule-name> ~/.copilot/rules/
-
-# Antigravity
-mkdir -p ~/.gemini/antigravity/rules && cp -r .agents/rules/<rule-name> ~/.gemini/antigravity/rules/
-
-# Gemini CLI: Not supported
-```
-
-**Workflows:**
-
-```bash
-# GitHub Copilot (VS Code)
-mkdir -p ~/.copilot/workflows && cp -r .agents/workflows/<workflow-name> ~/.copilot/workflows/
-
-# Antigravity
-mkdir -p ~/.gemini/antigravity/workflows && cp -r .agents/workflows/<workflow-name> ~/.gemini/antigravity/workflows/
-
-# Gemini CLI: Not supported
-```
-
-**Hooks (Gemini CLI only):**
-Configure in `~/.gemini/settings.json` - see <https://geminicli.com/docs/hooks/>
 
 ## 🏗️ Architecture
 

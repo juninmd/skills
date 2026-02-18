@@ -1,0 +1,113 @@
+image: node:20-slim
+
+stages:
+  - report
+  - install
+  - deploy
+  - tag
+  - rollback
+
+include:
+  - project: 'luizalabs/ci-knife'
+    ref: 'master'
+    file: 'templates/report-security.yaml'
+
+variables:
+  TZ: "/usr/share/zoneinfo/America/Sao_Paulo"
+  DOCKER_REPO: {{dockerRepo}}
+  ARGOCD_SERVER: {{argocdServer}}
+  ARGOCD_NAMESPACE: {{argocdNamespace}}
+  ARGOCD_BRANCH: master
+  DEPLOY_TAG: ${CI_COMMIT_SHORT_SHA}
+
+commitlint:
+  stage: install
+  image: $CIKNIFE_IMAGE
+  script: ci-knife commitlint
+  only:
+    - merge_requests
+  when: always
+
+build:
+  stage: install
+  image: node:lts-slim
+  script:
+    - npm install
+    - npm run build
+  artifacts:
+    paths:
+      - dist/
+    expire_in: 1 day
+  only:
+    - merge_requests
+    - master
+    - branches
+
+create_release:
+  stage: tag
+  image: $CIKNIFE_IMAGE
+  allow_failure: false
+  script:
+    - ci-knife create-release -n -w
+  only:
+    - master
+    - branches
+  except:
+    changes:
+      - CHANGELOG.md
+
+deploy_argo:
+  image: $CIKNIFE_IMAGE
+  stage: deploy
+  allow_failure: true
+  services:
+    - docker:26-dind
+  script: ci-knife argocd-deploy --no-msg --docker-image
+  only:
+    - tags
+  when: always
+  tags:
+    - global-docker-tls
+
+rollback_argo_production:
+  image: $CIKNIFE_IMAGE
+  stage: rollback
+  services:
+    - docker:26-dind
+  script: ci-knife argocd-rollback --no-msg
+  only:
+    refs:
+      - tags
+  when: manual
+  dependencies:
+    - deploy_argo
+  tags:
+    - global-docker-tls
+
+security_gate:
+  stage: install
+  image: $CIKNIFE_IMAGE
+  script:
+    - ci-knife security-scanner
+  only:
+    - master
+    - branches
+  except:
+    changes:
+      - CHANGELOG.md
+  allow_failure: true
+
+sonar:
+  stage: install
+  image: $CIKNIFE_IMAGE
+  script:
+    - ci-knife sonar-scanner
+  variables:
+    SONAR_URL: $SONAR_URL
+    SONAR_ANALYSIS_MODE: publish
+    SONAR_TOKEN: $SONAR_TOKEN
+  only:
+    - tags
+  except:
+    changes:
+      - CHANGELOG.md

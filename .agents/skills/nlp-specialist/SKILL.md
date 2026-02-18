@@ -1,3 +1,10 @@
+---
+name: nlp-specialist
+description: Process and analyze natural language text for sentiment analysis, NER, summarization, and translation
+metadata:
+    works_on: [copilot, antigravity, gemini_cli]
+---
+
 # NLP Specialist Skill
 
 ## Description

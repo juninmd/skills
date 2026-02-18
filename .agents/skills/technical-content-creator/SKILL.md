@@ -1,3 +1,10 @@
+---
+name: technical-content-creator
+description: Produce high-quality technical documentation, tutorials, blog posts, and release notes
+metadata:
+    works_on: [copilot, antigravity, gemini_cli]
+---
+
 # Technical Content Creator Skill
 
 ## Description

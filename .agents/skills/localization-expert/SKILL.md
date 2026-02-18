@@ -1,3 +1,10 @@
+---
+name: localization-expert
+description: Manage application internationalization and localization including string extraction, translation files, and locale-specific formatting
+metadata:
+    works_on: [copilot, antigravity, gemini_cli]
+---
+
 # Localization Expert Skill
 
 ## Description

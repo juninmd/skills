@@ -11,15 +11,13 @@ def log_command_execution(command, duration, exit_code):
     with open(LOG_FILE, "a") as f:
         timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
         status = "SUCCESS" if exit_code == 0 else "FAILURE"
-        f.write(f"[{timestamp}] CMD: '{command}' | DURATION: {duration:.2f}s | STATUS: {status}
-")
+        f.write(f"[{timestamp}] CMD: '{command}' | DURATION: {duration:.2f}s | STATUS: {status}\n")
 
 def check_failed_command(command, exit_code):
     """Suggests diagnostic actions if a command fails."""
     if exit_code != 0:
-        print(f"
-\033[31m[HOOK ALERT] Command failed with exit code {exit_code}.\033[0m")
-        
+        print(f"\n\033[31m[HOOK ALERT] Command failed with exit code {exit_code}.\033[0m")
+
         # Specific suggestions based on command type
         if "git" in command:
             print("Tip: Run 'git status' to check for conflicts or unstaged changes.")
@@ -32,7 +30,7 @@ def main():
     # Expects arguments: command string, exit code, duration (in seconds)
     # Note: Gemini CLI passes these via environment variables or arguments differently depending on version.
     # This is a template based on standard hook practices.
-    
+
     # Simulating simple argument parsing for demonstration
     if len(sys.argv) < 4:
         # If not enough args, assume running standalone or different context

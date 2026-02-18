@@ -122,3 +122,17 @@ sonar:
   except:
     changes:
       - CHANGELOG.md
+
+publish_cli:
+  stage: deploy
+  image: node:20-slim
+  script:
+    - cd cli
+    - npm install
+    - npm run build
+    - npm run bundle-agents
+    - echo "//nexus.luizalabs.com/repository/npm-private/:_authToken=${NPM_AUTH_TOKEN}" >> .npmrc
+    - npm publish --access restricted
+  only:
+    - tags
+  when: manual

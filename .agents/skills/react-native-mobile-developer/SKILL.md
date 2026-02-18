@@ -1,3 +1,10 @@
+---
+name: react-native-mobile-developer
+description: Develop cross-platform mobile applications using React Native for iOS and Android
+metadata:
+    works_on: [copilot, antigravity, gemini_cli]
+---
+
 # React Native Mobile Developer Skill
 
 ## Description

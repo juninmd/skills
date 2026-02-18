@@ -1,3 +1,10 @@
+---
+name: prompt-engineering-specialist
+description: Design, optimize, and evaluate prompts for LLMs using advanced techniques like Few-Shot and Chain-of-Thought
+metadata:
+    works_on: [copilot, antigravity, gemini_cli]
+---
+
 # Prompt Engineering Specialist
 
 ## Description

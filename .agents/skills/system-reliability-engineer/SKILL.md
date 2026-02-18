@@ -1,3 +1,10 @@
+---
+name: system-reliability-engineer
+description: Ensure system reliability, scalability, and observability through monitoring, alerting, and incident response
+metadata:
+    works_on: [copilot, antigravity, gemini_cli]
+---
+
 # System Reliability Engineer Skill
 
 ## Description

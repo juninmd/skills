@@ -1,3 +1,10 @@
+---
+name: ui-ux-component-developer
+description: Design, implement, and document reusable, accessible frontend UI components for web applications
+metadata:
+    works_on: [copilot, antigravity, gemini_cli]
+---
+
 # UI/UX Component Developer Skill
 
 ## Description

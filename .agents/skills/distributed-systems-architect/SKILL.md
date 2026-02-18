@@ -1,3 +1,10 @@
+---
+name: distributed-systems-architect
+description: Design, analyze, and optimize distributed systems with microservices architecture and message queue communication
+metadata:
+    works_on: [copilot, antigravity, gemini_cli]
+---
+
 # Distributed Systems Architect Skill
 
 ## Description

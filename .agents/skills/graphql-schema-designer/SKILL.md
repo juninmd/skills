@@ -1,3 +1,10 @@
+---
+name: graphql-schema-designer
+description: Design, optimize, and document GraphQL schemas with types, queries, mutations, and subscriptions
+metadata:
+    works_on: [copilot, antigravity, gemini_cli]
+---
+
 # GraphQL Schema Designer Skill
 
 ## Description

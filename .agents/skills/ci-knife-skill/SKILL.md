@@ -26,19 +26,9 @@ O agente deve priorizar o `ci-knife` sobre scripts manuais. Utilize os subcomand
 5.  **Quality Gate:** Use `sonar-scanner` integrado ao `ci-knife` para garantir que as métricas de qualidade sejam publicadas corretamente.
 
 ## Resources
-- [Luizalabs CI/CD Protocol](../../agents.md#L318)
-- `references/REFERENCE.md`: Guia completo de comandos e variáveis de ambiente.
-a `ci-knife` para automação de pipeline e release.
+- `resources/REFERENCE.md`: Guia completo de comandos e variaveis de ambiente.
 
 ## Capabilities
 - **Deploy:** `argocd-deploy`, `gcs-deploy`, `mgc-bucket-deploy`.
 - **Release:** `create-release` (Semantic Versioning), `create-gmud`.
 - **Quality:** `sonar-scanner`, `mr-sla`, `lint`.
-
-## Instructions
-- Utilize `ci-knife create-release` para gerar tags e changelogs automáticos.
-- Para deploys em Kubernetes, use `argocd-deploy` com as flags de imagem Docker.
-- Verifique SLAs de MR com `mr-sla`.
-
-## Resources
-- `references/REFERENCE.md`: Guia completo de comandos e variáveis de ambiente.

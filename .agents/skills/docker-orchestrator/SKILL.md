@@ -1,3 +1,10 @@
+---
+name: docker-orchestrator
+description: Manage containerized applications using Docker and Docker Compose for lifecycle, networking, and orchestration
+metadata:
+    works_on: [copilot, antigravity, gemini_cli]
+---
+
 # Docker Orchestrator Skill
 
 ## Description

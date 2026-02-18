@@ -1,0 +1,29 @@
+{
+  "name": "@luizalabs/padrao-labs-agents",
+  "version": "1.0.0",
+  "description": "CLI para instalar skills, agents, rules, hooks e workflows do padrao Luizalabs globalmente",
+  "type": "module",
+  "bin": {
+    "padrao-labs-agents": "./dist/index.js"
+  },
+  "files": [
+    "dist/",
+    "templates/",
+    "agents-bundle/"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "bundle-agents": "node scripts/bundle-agents.mjs",
+    "prepublishOnly": "npm run build && npm run bundle-agents"
+  },
+  "engines": {
+    "node": ">=18.3.0"
+  },
+  "publishConfig": {
+    "registry": "https://nexus.luizalabs.com/repository/npm-private/"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "@types/node": "^20.0.0"
+  }
+}

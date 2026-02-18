@@ -1,3 +1,10 @@
+---
+name: mlops-engineer
+description: Manage the lifecycle of machine learning models from deployment to monitoring and retraining
+metadata:
+    works_on: [copilot, antigravity, gemini_cli]
+---
+
 # MLOps Engineer Skill
 
 ## Description
