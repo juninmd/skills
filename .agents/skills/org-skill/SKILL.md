@@ -50,10 +50,9 @@ curl -s "https://mapa-labs.luizalabs.com/api/v1/services?gitlab_project=luizalab
 Catálogo técnico interno baseado no Spotify Backstage.
 
 **Acessar**:
-- URL: https://backstage.luizalabs.com
-- Busque por `kind: Component` ou `kind: API`
-
-**Informações disponíveis**:
+- `/display/{TRIBO}/Home` - Home de cada tribo (ex: `/display/ABACKOFFICE/Home`)
+- `/display/{TRIBO}/Runbooks` - Runbooks da tribo
+- `/display/{TRIBO}/ADRs` - Architectural Decision Records
 - Arquivos `catalog-info.yaml` no repositório
 - Owner Group ID (ex: `group:62bcb2215ebf58b18f19c0d5`)
 - APIs expostas (OpenAPI/Swagger)
@@ -75,39 +74,27 @@ curl -s "https://backstage.luizalabs.com/api/catalog/entities?filter=kind=Group"
   jq '.[] | select(.metadata.uid=="62bcb2215ebf58b18f19c0d5")'
 ```
 
-### Navegando a Estrutura Organizacional
+   - https://backstage.luizalabs.com/catalog/default/component/{service-name}/docs
 
 #### Hierarquia da Luizalabs
-```
-Luizalabs
 ├── Verticais (ex: Operações, Comercial, Tecnologia)
 │   └── Tribos (ex: Aliança Backoffice, Fulfillment)
 │       └── Squads (ex: Code Quality, Shipping)
 │           └── Engenheiros e POs
 ```
 
-#### Confluence - Estrutura de Times
-**URL Base**: https://confluence.luizalabs.com
-
-**Páginas importantes**:
 - `/display/TECH/Tech+Home` - Estrutura de tecnologia
-- `/display/`<TRIBO>`/Home` - Home de cada tribo (ex: `/display/ABACKOFFICE/Home`)
-- `/display/`<TRIBO>`/Runbooks` - Runbooks da tribo
-- `/display/`<TRIBO>`/ADRs` - Architectural Decision Records
+- `/display/\Tribo\`/Home` - Home de cada tribo (ex: /display/ABACKOFFICE/Home)
+- `/display/\Tribo\`/Runbooks` - Runbooks da tribo
+- `/display/\Tribo\`/ADRs` - Architectural Decision Records
 
 **Busca no Confluence**:
 - Use a busca global (ícone de lupa)
 - Filtros úteis:
   - `space:TECH` - apenas espaço de Tecnologia
   - `type:page` - apenas páginas (não comentários)
-  - `label:runbook` - páginas marcadas como runbook
-
-**Especialistas por tecnologia**:
 Vá para: `/display/TECH/Especialistas` e procure por:
 - Kubernetes - [buscar no Confluence]
-- ArgoCD - [buscar no Confluence]
-- Node.js - [buscar no Confluence]
-- Python - [buscar no Confluence]
 
 ### Localizando Recursos de Infraestrutura
 
@@ -115,18 +102,8 @@ Vá para: `/display/TECH/Especialistas` e procure por:
 
 **Projetos GCP por ambiente**:
 ```bash
-# Listar projetos
-gcloud projects list --filter="name:*code-quality*"
-
 # Projeto típico de HML
 luizalabs-code-quality-hml
-
-# Projeto típico de PRD
-luizalabs-code-quality-prd
-```
-
-**Recursos comuns**:
-```bash
 # Cloud Run services
 gcloud run services list --project=luizalabs-code-quality-prd
 
@@ -215,16 +192,16 @@ Magamundi é o portal de recursos legados (VMs, bare metal, serviços on-prem).
    - Diagramas de arquitetura
 
 3. **Backstage TechDocs**
-   - https://backstage.luizalabs.com/catalog/default/component/`<service-name>`/docs
+   - https://backstage.luizalabs.com/catalog/default/component/`service-name`/docs
    - Documentação gerada automaticamente do repo
 
 4. **Confluence da tribo**
-   - https://confluence.luizalabs.com/display/`<TRIBO>`/Runbooks
-   - Busque por: "`<service-name>` runbook"
+   - https://confluence.luizalabs.com/display/Tribo`/Runbooks
+   - Busque por: "`service-name` runbook"
 
 5. **Grafana Dashboards e Alerts**
    - https://grafana.luizalabs.com
-   - Busque por: "`<service-name>`"
+   - Busque por: "`service-name`"
    - Verifique "alert descriptions" para troubleshooting
 
 #### Runbooks típicos
@@ -251,7 +228,7 @@ ADRs documentam decisões arquiteturais importantes.
 
 **Onde encontrar**:
 - `/docs/adr/` no repositório
-- Confluence: `/display/`<TRIBO>`/ADRs`
+- Confluence: `/display/\Tribo\`/ADRs`
 
 **Formato típico**:
 ```markdown
@@ -292,7 +269,7 @@ PostgreSQL 14 no Cloud SQL.
 
 ### Preciso falar com especialista em uma tecnologia
 1. Confluence: `/display/TECH/Especialistas`
-2. Slack: `#ask-`<technology>` (ex: `#ask-kubernetes`, `#ask-argocd`)
+2. Slack: `#ask-<technology>` (ex: `#ask-kubernetes`, `#ask-argocd`)
 3. Mapa Labs: veja o campo "Tech Lead" do serviço relacionado
 
 ### Runbook está desatualizado

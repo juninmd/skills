@@ -2,20 +2,17 @@
 
 ## [1.0.1](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.0.0...v1.0.1) (2026-02-13)
 
-
 ### Bug Fixes
 
 * deployment with correct server file and build command ([9a94f49](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/9a94f49))
 
 # 1.0.0 (2026-02-13)
 
-
 ### Bug Fixes
 
 * ci ([fa1a82c](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/fa1a82c))
 * pages ([f86a264](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/f86a264))
 * update Dockerfile and package.json for consistent HTTP server configuration ([7443a3d](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/7443a3d))
-
 
 ### Code Refactoring
 
@@ -26,11 +23,9 @@
 * remove unused dependencies from pnpm-lock.yaml ([e0028df](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/e0028df))
 * replace http-server with custom Node.js server for serving documentation ([5904768](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/5904768))
 
-
 ### Continuous Integration
 
 * add security report pipeline ([5e81aae](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/5e81aae))
-
 
 ### Documentation
 
@@ -38,7 +33,6 @@
 * update agents md with magalu dev culture ([7527269](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/7527269))
 * update AGENTS.md with Netskope configuration and guidelines ([015f91d](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/015f91d))
 * update installation instructions and enhance setup guide for VS Code and Gemini ([ec85f3f](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/ec85f3f))
-
 
 ### Features
 
@@ -48,7 +42,6 @@
 * implement installation command tabs for multiple platforms in SkillShell and update documentation ([a0a8a97](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/a0a8a97))
 * improve ([e3dd00e](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/e3dd00e))
 * redesign SkillShell component with GitHub theme and improved UX ([75d2ee0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/75d2ee0))
-
 
 ### Improvements
 

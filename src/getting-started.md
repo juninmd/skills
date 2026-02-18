@@ -27,6 +27,7 @@ node --version
 Se aparecer algo como `v20.x.x` ou `v22.x.x`, esta tudo certo!
 
 ::: tip Como abrir o Terminal?
+
 - **Windows:** Pressione `Win + R`, digite `cmd` e pressione Enter. Ou procure por "Prompt de Comando" no Menu Iniciar.
 - **Mac:** Pressione `Cmd + Espaco`, digite `Terminal` e pressione Enter.
 - **Linux:** Pressione `Ctrl + Alt + T`.
@@ -43,6 +44,7 @@ npx @luizalabs/padrao-labs-agents install
 ```
 
 **O que esse comando faz:**
+
 - Detecta automaticamente quais ferramentas de IA voce tem instaladas (Copilot, Claude, Gemini, etc.)
 - Copia todos os agents, skills, rules, hooks e workflows para os diretorios corretos de cada ferramenta
 - Nao altera nenhum arquivo existente do seu projeto

@@ -4,9 +4,11 @@ Guia para utilizar os padroes de desenvolvimento da Luizalabs no Google Antigrav
 
 ::: tip Instalacao Automatica (Recomendada)
 A forma mais facil de instalar todas as skills, rules e workflows e usar nosso CLI automatico. Basta ter o [Node.js](https://nodejs.org) instalado e rodar:
+
 ```bash
 npx @luizalabs/padrao-labs-agents install
 ```
+
 Veja o guia completo em [Primeiros Passos](/getting-started).
 :::
 
