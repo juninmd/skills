@@ -7,11 +7,6 @@ stages:
   - tag
   - rollback
 
-include:
-  - project: 'luizalabs/ci-knife'
-    ref: 'master'
-    file: 'templates/report-security.yaml'
-
 variables:
   TZ: "/usr/share/zoneinfo/America/Sao_Paulo"
   DOCKER_REPO: gcr.io/magalu-cicd/tribe-ipet/padrao-labs-agents
@@ -96,7 +91,7 @@ rollback_argo_production:
     - global-docker-tls
 
 security_gate:
-  stage: install
+  stage: report
   image: $CIKNIFE_IMAGE
   script:
     - ci-knife security-scanner
