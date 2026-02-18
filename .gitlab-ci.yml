@@ -46,7 +46,7 @@ build_frontend:
     expire_in: 1 day
   only:
     - merge_requests
-    - master
+    - main
     - branches
 
 create_release:
@@ -56,8 +56,7 @@ create_release:
   script:
     - ci-knife create-release -n -w
   only:
-    - master
-    - branches
+    - main
   except:
     changes:
       - CHANGELOG.md
@@ -96,7 +95,6 @@ security_gate:
   script:
     - ci-knife security-scanner
   only:
-    - master
     - branches
   except:
     changes:
