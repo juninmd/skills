@@ -1,5 +1,22 @@
 # Changelog
 
+# [1.1.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.0.1...v1.1.0) (2026-02-18)
+
+
+### Features
+
+* enhance CategoryLayout and loader with improved titles and loading messages ([187ec08](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/187ec08))
+* force deploy ([695f569](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/695f569))
+* npx publish CLI to npm on tag release ([42cb1a1](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/42cb1a1))
+* tests ([9db1a49](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/9db1a49))
+* update documentation and improve installation instructions across multiple files ([f7a4dfc](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/f7a4dfc))
+* update navigation and documentation for improved onboarding experience ([01f1d69](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/01f1d69))
+
+
+### Improvements
+
+* deploy ([383bcb0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/383bcb0))
+
 ## [1.0.1](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.0.0...v1.0.1) (2026-02-13)
 
 ### Bug Fixes
