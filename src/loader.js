@@ -62,6 +62,95 @@ function formatTitle(name) {
     .join(' ');
 }
 
+const TITLE_ACRONYMS = {
+  ai: 'IA',
+  api: 'API',
+  ci: 'CI',
+  cd: 'CD',
+  cli: 'CLI',
+  devops: 'DevOps',
+  qa: 'QA',
+  ui: 'UI',
+  ux: 'UX',
+  seo: 'SEO',
+  iot: 'IoT',
+  mcp: 'MCP',
+  sdk: 'SDK',
+  k8s: 'K8s',
+  llm: 'LLM',
+  gcp: 'GCP',
+  aws: 'AWS'
+};
+
+const TITLE_STOP_WORDS = new Set(['de', 'da', 'do', 'das', 'dos', 'e', 'em', 'para', 'com']);
+const TITLE_CATEGORY_SUFFIXES = new Set(['skill', 'skills', 'rule', 'rules', 'workflow', 'workflows', 'agent', 'agents', 'hook', 'hooks']);
+
+function isSlugLikeTitle(value) {
+  if (!value) return true;
+  const trimmed = value.trim();
+  if (!trimmed) return true;
+  return /^[a-z0-9]+([_-][a-z0-9]+)+$/.test(trimmed) || /^[a-z0-9-_.]+$/.test(trimmed);
+}
+
+function normalizeTitleToken(word, index) {
+  const clean = word.trim();
+  if (!clean) return '';
+
+  const lower = clean.toLowerCase();
+  if (TITLE_ACRONYMS[lower]) {
+    return TITLE_ACRONYMS[lower];
+  }
+
+  if (TITLE_STOP_WORDS.has(lower) && index > 0) {
+    return lower;
+  }
+
+  if (/^[A-Z0-9]{2,}$/.test(clean)) {
+    return clean;
+  }
+
+  return lower.charAt(0).toUpperCase() + lower.slice(1);
+}
+
+function normalizeItemTitle(rawTitle, itemId, category) {
+  const fallback = (itemId || '').replace(/\.[^/.]+$/, '').trim();
+  let source = (rawTitle || '').trim();
+
+  if (!source) source = fallback;
+
+  source = source
+    .replace(/^\s*(skill|rule|workflow|agent|hook)\s*:\s*/i, '')
+    .replace(/\.[^/.]+$/, '')
+    .trim();
+
+  source = source.replace(/\s+(skill|skills|rule|rules|workflow|workflows|agent|agents|hook|hooks)$/i, '').trim();
+
+  const shouldTransform = isSlugLikeTitle(source) || source.toLowerCase() === fallback.toLowerCase();
+
+  if (!shouldTransform) {
+    return source;
+  }
+
+  let words = source
+    .replace(/[_-]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .split(' ')
+    .filter(Boolean);
+
+  while (words.length > 1) {
+    const lastWord = words[words.length - 1].toLowerCase();
+    if (TITLE_CATEGORY_SUFFIXES.has(lastWord) && (category !== 'skills' || lastWord !== 'skills')) {
+      words.pop();
+      continue;
+    }
+    break;
+  }
+
+  const normalizedWords = words.map((word, index) => normalizeTitleToken(word, index)).filter(Boolean);
+  return normalizedWords.join(' ') || formatTitle(fallback);
+}
+
 function scanAgentsDirectory() {
   const catalog = {};
   for (const category of CATEGORIES) {
@@ -123,7 +212,7 @@ function scanAgentsDirectory() {
 
          const content = fs.readFileSync(markdownPath, 'utf-8');
          const meta = extractMetadata(content, itemId, category);
-         title = meta.title;
+         title = normalizeItemTitle(meta.title, itemId, category);
          description = meta.description;
          tags = meta.tags;
          metadata = meta.metadata;
@@ -143,7 +232,7 @@ function scanAgentsDirectory() {
 
          const content = fs.readFileSync(markdownPath, 'utf-8');
          const meta = extractMetadata(content, itemId, category);
-         title = meta.title;
+         title = normalizeItemTitle(meta.title, itemId, category);
          description = meta.description;
          tags = meta.tags;
          metadata = meta.metadata;
@@ -160,7 +249,7 @@ function scanAgentsDirectory() {
          files = [item];
          isScript = true;
 
-         title = formatTitle(item);
+         title = normalizeItemTitle(item, itemId, category);
          description = `Automation script: ${item}`;
          tags = ['script', path.extname(item).substring(1)];
       }
@@ -194,7 +283,7 @@ function scanAgentsDirectory() {
       catalog[category].push({
         id: itemId,
         name: itemId,
-        title: title || formatTitle(itemId),
+        title: normalizeItemTitle(title, itemId, category),
         description: description,
         tags: tags,
         metadata: metadata,
@@ -505,10 +594,18 @@ function generateCategoryIndexes(catalog) {
 }
 
 function generateSidebarConfig(catalog) {
+  const categoryTitles = {
+    agents: 'Agentes',
+    skills: 'Skills (Capacidades)',
+    rules: 'Regras',
+    hooks: 'Hooks (Automações)',
+    workflows: 'Workflows (Fluxos)'
+  };
+
   const sidebar = {};
   for (const [category, items] of Object.entries(catalog)) {
     sidebar[`/${category}/`] = [{
-      text: category.toUpperCase(),
+      text: categoryTitles[category] || category.toUpperCase(),
       items: items.map(item => ({
         text: item.title,
         link: `/${category}/${item.id}/`

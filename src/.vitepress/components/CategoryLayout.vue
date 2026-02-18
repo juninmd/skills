@@ -1,9 +1,9 @@
 <template>
   <div class="category-layout">
     <h1>{{ title }}</h1>
-    <p class="subtitle">Browse all {{ category }} and their documentation.</p>
-    
-    <div v-if="loading" class="loading">Loading catalog...</div>
+    <p class="subtitle">{{ subtitle }}</p>
+
+    <div v-if="loading" class="loading">Carregando catálogo...</div>
     <CategoryGrid v-else :items="items" :category="category" />
   </div>
 </template>
@@ -21,8 +21,20 @@ const props = defineProps({
 const items = ref([]);
 const loading = ref(true);
 
+const categoryLabels = {
+  agents: 'Agentes',
+  skills: 'Skills (Capacidades)',
+  rules: 'Regras',
+  hooks: 'Hooks (Automações)',
+  workflows: 'Workflows (Fluxos)'
+};
+
 const title = computed(() => {
-  return props.category.charAt(0).toUpperCase() + props.category.slice(1);
+  return categoryLabels[props.category] || props.category.charAt(0).toUpperCase() + props.category.slice(1);
+});
+
+const subtitle = computed(() => {
+  return `Veja todos os ${title.value.toLowerCase()} com descrição simples e instruções de uso.`;
 });
 
 onMounted(async () => {
