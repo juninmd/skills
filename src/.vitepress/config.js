@@ -20,18 +20,24 @@ export default defineConfig({
     siteTitle: 'Luizalabs Catalog',
 
     nav: [
-      { text: 'Início', link: '/' },
-      { text: 'Agentes', link: '/agents/' },
-      { text: 'Skills', link: '/skills/' },
-      { text: 'Regras', link: '/rules/' },
-      { text: 'Hooks', link: '/hooks/' },
-      { text: 'Workflows', link: '/workflows/' },
-      { text: 'Instruções de Deploy', link: '/deploy/' },
+      { text: 'Inicio', link: '/' },
+      { text: 'Primeiros Passos', link: '/getting-started' },
       {
-        text: 'Integração',
+        text: 'Catalogo',
         items: [
-          { text: 'Conceitos Básicos', link: '/agentic-concepts' },
-          { text: 'Arquitetura Agêntica', link: '/agentic-architecture' },
+          { text: 'Agentes', link: '/agents/' },
+          { text: 'Skills', link: '/skills/' },
+          { text: 'Regras', link: '/rules/' },
+          { text: 'Hooks', link: '/hooks/' },
+          { text: 'Workflows', link: '/workflows/' }
+        ]
+      },
+      { text: 'Deploy', link: '/deploy/' },
+      {
+        text: 'Guias',
+        items: [
+          { text: 'Conceitos Basicos', link: '/agentic-concepts' },
+          { text: 'Arquitetura Agentica', link: '/agentic-architecture' },
           { text: 'GitHub Copilot', link: '/integration/copilot' },
           { text: 'Antigravity', link: '/integration/antigravity' },
           { text: 'Gemini CLI', link: '/integration/gemini' }

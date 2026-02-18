@@ -1,5 +1,5 @@
 ---
-name: env-security
+name: env-security-skill
 description: Proteção de segredos e gestão rigorosa de arquivos .env e .gitignore para evitar vazamentos.
 metadata:
     works_on: [copilot, antigravity, gemini_cli]

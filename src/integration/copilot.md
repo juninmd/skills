@@ -1,8 +1,16 @@
-# Integração com GitHub Copilot
+# Integracao com GitHub Copilot
 
-Guia para configurar os padrões da Luizalabs no GitHub Copilot (VS Code e Visual Studio).
+Guia para configurar os padroes da Luizalabs no GitHub Copilot (VS Code e Visual Studio).
 
-## Configuração no VS Code
+::: tip Instalacao Automatica (Recomendada)
+A forma mais facil de instalar todas as skills e rules e usar nosso CLI automatico. Basta ter o [Node.js](https://nodejs.org) instalado e rodar:
+```bash
+npx @luizalabs/padrao-labs-agents install
+```
+Veja o guia completo em [Primeiros Passos](/getting-started).
+:::
+
+## Configuracao Manual no VS Code
 
 O GitHub Copilot agora suporta instruções personalizadas através de arquivos na pasta `.github`.
 

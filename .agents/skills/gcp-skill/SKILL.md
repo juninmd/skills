@@ -1,5 +1,5 @@
 ---
-name: gcp-cloud
+name: gcp-skill
 description: Operações em Google Cloud Platform e Magalu Cloud com foco em segurança (IAM), identidade federada e Serverless (Cloud Run).
 metadata:
     works_on: [copilot, antigravity, gemini_cli]

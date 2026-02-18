@@ -7,7 +7,7 @@ metadata:
 
 # Padrao Labs para Agents de desenvolvimento
 
-A ideia aqui é ter um agent de desenvolvimento que respeite os padrões Labs, de maneira a desenvolver uma solução qualquer sem perder os padrões do Labs. 
+A ideia aqui é ter um agent de desenvolvimento que respeite os padrões Labs, de maneira a desenvolver uma solução qualquer sem perder os padrões do Labs.
 
 
 ## Como usar?
@@ -33,13 +33,8 @@ meu-projeto/
 ├── .github/
 │   └── copilot-instructions.md # Para usuários de VS Code/Copilot
 ├── src/
-└── ... 
+└── ...
 ```
 
 ## Contribuição
 Fique à vontade para contribuir! Vamos deixar isto o mais fiel possível as regras Magalu!
-
-## Backlog 
-- Linguagens e framework padrão 
-- GMUD 
-

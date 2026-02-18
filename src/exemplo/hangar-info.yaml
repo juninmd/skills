@@ -4,7 +4,7 @@ metadata:
   name: code-quality
   description: Bot de atendimento de cards da aliança backoffice
   links:
-    - url: http://code-quality-mgc.luizalabs.com/
+    - url: https://code-quality-mgc.luizalabs.com/
       title: URL Prod
       icon: article
       type: url-prod

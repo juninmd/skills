@@ -33,7 +33,8 @@ export async function cron(options: CronOptions): Promise<void> {
       .join('\n')
       .trim();
 
-    execSync(`echo "${filtered}" | crontab -`, { stdio: 'pipe' });
+    // Usa input option para evitar shell injection
+    execSync('crontab -', { input: filtered + '\n', encoding: 'utf-8', stdio: 'pipe' });
     log.success('Cron de auto-update removido.');
     return;
   }
@@ -51,7 +52,8 @@ export async function cron(options: CronOptions): Promise<void> {
   const newEntry = `${CRON_SCHEDULE} ${CRON_COMMAND} >> ${logFile} 2>&1 ${CRON_MARKER}`;
   const newCrontab = existing.trimEnd() + '\n' + newEntry + '\n';
 
-  execSync(`echo "${newCrontab}" | crontab -`, { stdio: 'pipe' });
+  // Usa input option para evitar shell injection
+  execSync('crontab -', { input: newCrontab, encoding: 'utf-8', stdio: 'pipe' });
 
   log.success('Cron de auto-update configurado!');
   log.table([

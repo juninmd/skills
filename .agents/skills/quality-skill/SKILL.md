@@ -1,5 +1,5 @@
 ---
-name: quality-ops
+name: quality-skill
 description: Ferramentas e práticas para Garantia de Qualidade (QA), Testes Automatizados e Geração de Massa de Dados.
 metadata:
     works_on: [copilot, antigravity, gemini_cli]

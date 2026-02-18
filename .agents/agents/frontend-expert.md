@@ -34,22 +34,32 @@ Você é um **Engenheiro de Frontend Sênior** na Luizalabs, focado em criar int
 
 ## Examples
 ### Valid Component (React w/ A11y)
-```javascript
+```jsx
 function IconButton({ onClick, label, icon }) {
-  const button = document.createElement("button");
-  button.onclick = onClick;
-  button.setAttribute("aria-label", label); // Critical for screen readers
-  button.className = "p-2 rounded hover:bg-gray-100 focus:ring-2";
-  const iconElement = document.createElement("i");
-  iconElement.className = icon;
-  iconElement.setAttribute("aria-hidden", "true"); // Hide decorative icon
-  button.appendChild(iconElement);
-  return button;
+  return (
+    <button
+      onClick={onClick}
+      aria-label={label}
+      className="p-2 rounded hover:bg-gray-100 focus:ring-2 focus:outline-none"
+    >
+      <i className={icon} aria-hidden="true" />
+    </button>
+  );
 }
 ```
 
 ### Invalid Component (Inaccessible)
-Bad: Using onClick on a div makes it not focusable and not accessible. Always use button elements for interactive elements.
+```jsx
+// Bad: Using onClick on a div makes it not focusable and not accessible
+function BadIconButton({ onClick, icon }) {
+  return (
+    <div onClick={onClick} className="p-2 rounded">
+      <i className={icon} />
+    </div>
+  );
+}
+```
+**Why it's bad**: Non-semantic elements (div/span) with click handlers are invisible to screen readers and cannot be keyboard-navigated. Always use `<button>` for interactive elements.
 
 ## Scenario: Performance Fix
 Se o LCP (Largest Contentful Paint) estiver > 2.5s:

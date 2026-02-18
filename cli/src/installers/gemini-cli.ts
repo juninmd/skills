@@ -45,43 +45,71 @@ export class GeminiCliInstaller extends BaseInstaller {
       }
     }
 
-    // Adiciona configuracao de hooks se nao existir
-    if (!settings.hooks) {
-      settings.hooks = {
-        BeforeTool: [
-          {
-            matcher: 'write_file|replace|shell',
-            hooks: [
-              {
-                name: 'padrao-labs-pre-command',
-                type: 'command',
-                command: join(this.targetDir, 'hooks', 'pre-command.py'),
-                timeout: 5000,
-              },
-            ],
-          },
-        ],
-        AfterTool: [
-          {
-            matcher: '*',
-            hooks: [
-              {
-                name: 'padrao-labs-post-command',
-                type: 'command',
-                command: join(this.targetDir, 'hooks', 'post-command.py'),
-                timeout: 5000,
-              },
-            ],
-          },
-        ],
-      };
+    // Define hooks do padrao-labs
+    const padraoLabsHooks = {
+      BeforeTool: [
+        {
+          matcher: 'write_file|replace|shell',
+          hooks: [
+            {
+              name: 'padrao-labs-pre-command',
+              type: 'command',
+              command: join(this.targetDir, 'hooks', 'pre-command.py'),
+              timeout: 5000,
+            },
+          ],
+        },
+      ],
+      AfterTool: [
+        {
+          matcher: '*',
+          hooks: [
+            {
+              name: 'padrao-labs-post-command',
+              type: 'command',
+              command: join(this.targetDir, 'hooks', 'post-command.py'),
+              timeout: 5000,
+            },
+          ],
+        },
+      ],
+    };
 
-      await ensureDir(this.targetDir);
-      await writeFile(settingsPath, JSON.stringify(settings, null, 2), 'utf-8');
+    // Faz merge inteligente: preserva hooks existentes e adiciona/atualiza os do padrao-labs
+    if (!settings.hooks || typeof settings.hooks !== 'object') {
+      settings.hooks = padraoLabsHooks;
+    } else {
+      const existingHooks = settings.hooks as Record<string, unknown[]>;
 
-      if (this.options.verbose) {
-        log.detail('Hooks configurados em settings.json');
+      // Merge BeforeTool hooks
+      if (!Array.isArray(existingHooks.BeforeTool)) {
+        existingHooks.BeforeTool = padraoLabsHooks.BeforeTool;
+      } else {
+        // Remove hooks do padrao-labs existentes e adiciona as versões atualizadas
+        existingHooks.BeforeTool = existingHooks.BeforeTool.filter((item: unknown) => {
+          const hookItem = item as { hooks?: { name?: string }[] };
+          return !hookItem.hooks?.some(h => h.name?.startsWith('padrao-labs-'));
+        });
+        existingHooks.BeforeTool.push(...padraoLabsHooks.BeforeTool);
       }
+
+      // Merge AfterTool hooks
+      if (!Array.isArray(existingHooks.AfterTool)) {
+        existingHooks.AfterTool = padraoLabsHooks.AfterTool;
+      } else {
+        existingHooks.AfterTool = existingHooks.AfterTool.filter((item: unknown) => {
+          const hookItem = item as { hooks?: { name?: string }[] };
+          return !hookItem.hooks?.some(h => h.name?.startsWith('padrao-labs-'));
+        });
+        existingHooks.AfterTool.push(...padraoLabsHooks.AfterTool);
+      }
+    }
+
+    await ensureDir(this.targetDir);
+    await writeFile(settingsPath, JSON.stringify(settings, null, 2), 'utf-8');
+
+    if (this.options.verbose) {
+      log.detail('Hooks configurados em settings.json (merge com hooks existentes)');
     }
   }
 }

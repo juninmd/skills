@@ -10,6 +10,9 @@ hero:
     alt: Catálogo Luizalabs
   actions:
     - theme: brand
+      text: Primeiros Passos
+      link: "/getting-started"
+    - theme: brand
       text: Acessar Agents
       link: "/agents/"
     - theme: alt
@@ -17,8 +20,21 @@ hero:
       link: "/skills/"
 ---
 
+<div style="margin-bottom: 1.5rem; background: linear-gradient(135deg, rgba(255, 200, 50, 0.12) 0%, rgba(255, 150, 50, 0.06) 100%); padding: 1.25rem 1.5rem; border-radius: 12px; border: 1px solid rgba(255, 180, 50, 0.3);">
+  <p style="margin: 0; font-size: 0.95rem; color: var(--vp-c-text-1);">
+    <strong>Requisito:</strong> Voce precisa ter o <strong>Node.js</strong> (versao 18 ou superior) instalado no seu computador.
+    O Node.js e um programa gratuito que permite executar ferramentas como o <code>npx</code> usado abaixo.
+  </p>
+  <p style="margin: 0.75rem 0 0 0; font-size: 0.9rem;">
+    <strong>Como instalar o Node.js:</strong> Acesse <a href="https://nodejs.org" target="_blank" rel="noopener">nodejs.org</a>, baixe a versao <strong>LTS</strong> (recomendada) e siga o instalador. Apos a instalacao, abra o terminal e digite <code>node --version</code> para confirmar.
+  </p>
+</div>
+
 <div style="margin-bottom: 2.5rem;">
-  <h3 style="margin-top: 0; margin-bottom: 1.5rem; font-size: 1.3rem; color: var(--vp-c-brand); font-weight: 600;">Instale via NPX para começar</h3>
+  <h3 style="margin-top: 0; margin-bottom: 1.5rem; font-size: 1.3rem; color: var(--vp-c-brand); font-weight: 600;">Instale via NPX para comecar</h3>
+  <p style="margin-bottom: 1rem; font-size: 0.95rem; color: var(--vp-c-text-2);">
+    Cole o comando abaixo no seu terminal (Prompt de Comando, PowerShell ou Terminal do Mac/Linux) e pressione Enter:
+  </p>
   <div style="display: flex; align-items: center; gap: 0.75rem; background: linear-gradient(135deg, rgba(100, 200, 254, 0.08) 0%, rgba(100, 150, 254, 0.04) 100%); padding: 1.5rem; border-radius: 12px; border: 2px solid var(--vp-c-brand); position: relative;">
     <code class="clone-command" style="background: transparent; padding: 0; font-size: 1rem; font-weight: 500; color: var(--vp-c-text-1); flex: 1; font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; user-select: all;">npx @luizalabs/padrao-labs-agents install</code>
     <button class="copy-clone-btn" style="background: var(--vp-c-brand); color: white; border: none; padding: 0.75rem 1.25rem; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.95rem; transition: all 0.3s ease; white-space: nowrap; display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0;">
@@ -106,7 +122,8 @@ if (typeof window !== 'undefined' && typeof document !== 'undefined') {
         <code style="font-size: 0.95rem;">npx @luizalabs/padrao-labs-agents install</code>
       </div>
       <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--vp-c-text-2);">
-        Outros comandos: <code>init</code> (padroniza repo), <code>cron</code> (auto-update diario), <code>update</code> (atualiza para latest)
+        Outros comandos: <code>init</code> (padroniza repo), <code>cron</code> (auto-update diario), <code>update</code> (atualiza para latest).
+        Veja o guia completo em <a href="/getting-started">Primeiros Passos</a>.
       </p>
     </div>
     <div class="info-visual">

@@ -1,8 +1,14 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { execSync } from 'node:child_process';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { getManifestDir, getManifestPath } from './platform.js';
 import { ensureDir, fileExists } from './fs.js';
 import type { Manifest } from '../types.js';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const CLI_DIR = join(__dirname, '..', '..');
+const PACKAGE_JSON_PATH = join(CLI_DIR, 'package.json');
 
 export async function readManifest(): Promise<Manifest | null> {
   const manifestPath = getManifestPath();
@@ -36,7 +42,12 @@ export function getLatestVersion(registry?: string): string | null {
   }
 }
 
-export function getCurrentPackageVersion(): string {
-  // This is set at build time from package.json
-  return '1.0.0';
+export async function getCurrentPackageVersion(): Promise<string> {
+  try {
+    const content = await readFile(PACKAGE_JSON_PATH, 'utf-8');
+    const pkg = JSON.parse(content);
+    return pkg.version || '1.0.0';
+  } catch {
+    return '1.0.0';
+  }
 }

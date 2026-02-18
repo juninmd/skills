@@ -1,8 +1,16 @@
-# Integração com Google Antigravity
+# Integracao com Google Antigravity
 
-Guia para utilizar os padrões de desenvolvimento da Luizalabs no Google Antigravity (IDE interna do Google).
+Guia para utilizar os padroes de desenvolvimento da Luizalabs no Google Antigravity (IDE interna do Google).
 
-## Instalação
+::: tip Instalacao Automatica (Recomendada)
+A forma mais facil de instalar todas as skills, rules e workflows e usar nosso CLI automatico. Basta ter o [Node.js](https://nodejs.org) instalado e rodar:
+```bash
+npx @luizalabs/padrao-labs-agents install
+```
+Veja o guia completo em [Primeiros Passos](/getting-started).
+:::
+
+## Instalacao Manual
 
 O Antigravity é um IDE "Agent-First" que lê automaticamente arquivos de contexto para guiar a IA. O arquivo padrão para regras de comportamento é o `AGENTS.md`.
 

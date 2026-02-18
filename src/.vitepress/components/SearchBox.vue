@@ -59,7 +59,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 import MiniSearch from 'minisearch';
 
 const searchQuery = ref('');
@@ -98,6 +98,11 @@ onMounted(async () => {
   } catch (error) {
     console.error('Erro ao carregar catálogo:', error);
   }
+});
+
+// Reage a mudanças no filtro de categoria
+watch(selectedCategory, () => {
+  performSearch();
 });
 
 function performSearch() {

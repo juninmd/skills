@@ -1,12 +1,20 @@
-# Integração com Gemini CLI
+# Integracao com Gemini CLI
 
-Guia para utilizar o catálogo de Skills da Luizalabs com a interface de linha de comando do Gemini.
+Guia para utilizar o catalogo de Skills da Luizalabs com a interface de linha de comando do Gemini.
 
-## O que é o Gemini CLI?
+## O que e o Gemini CLI?
 
-O Gemini CLI é uma ferramenta de automação que permite executar tarefas complexas, gerenciar arquivos e interagir com seu sistema operacional usando linguagem natural. Ele pode ser estendido através de **Skills**.
+O Gemini CLI e uma ferramenta de automacao que permite executar tarefas complexas, gerenciar arquivos e interagir com seu sistema operacional usando linguagem natural. Ele pode ser estendido atraves de **Skills**.
 
-## Instalação
+::: tip Instalacao Automatica (Recomendada)
+A forma mais facil de instalar todas as skills e usar nosso CLI automatico. Basta ter o [Node.js](https://nodejs.org) instalado e rodar:
+```bash
+npx @luizalabs/padrao-labs-agents install
+```
+Veja o guia completo em [Primeiros Passos](/getting-started).
+:::
+
+## Instalacao Manual
 
 ### 1. Instale o Gemini CLI
 

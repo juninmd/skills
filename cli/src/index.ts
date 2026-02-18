@@ -6,8 +6,7 @@ import { update } from './commands/update.js';
 import { init } from './commands/init.js';
 import { cron } from './commands/cron.js';
 import { log } from './utils/logger.js';
-
-const VERSION = '1.0.0';
+import { getCurrentPackageVersion } from './utils/version.js';
 
 const HELP = `
 padrao-labs-agents - CLI para instalar skills, agents, rules e workflows Luizalabs
@@ -50,7 +49,8 @@ async function main(): Promise<void> {
   });
 
   if (values.version) {
-    console.log(VERSION);
+    const version = await getCurrentPackageVersion();
+    console.log(version);
     return;
   }
 
