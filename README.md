@@ -224,5 +224,3 @@ npm run docs:dev
 Part of Luizalabs · Magalu
 
 ---
-
-**Status:** Active | Last Updated: Feb 2026 | Made with ❤️ by Luizalabs
