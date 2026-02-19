@@ -208,8 +208,8 @@ Exemplo: Documentação
 - O app deve ter um arquivo `.gitignore` na raiz, ignorando arquivos sensíveis como `.env` e artefatos gerados (`__pycache__`, `coverage.xml`).
 - Definir nomes de sistemas não é um problema, desde que seja utilizado internamente, não seja um nome complexo, lembrando que usuários externos não podem acessar sistemas com nomes fictícios, ou em inglês, precisa ser acessível. É sugerido que no nome utilize sufixos como -api, -worker, -cron, -frontend, assim fica mais fácil identificar a natureza do sistema.
 - O app deve ter um arquivo `hangar-info.yaml` na raiz, contendo as informações do serviço (padrão Backstage).
-- O controle de versão, com ênfase no Git, é a base para uma colaboração efetiva, permitindo rastreamento e reversão eficazes de alterações. Sempre fazer commits e push ao fim do dia, não reter código na máquina, pois hds podem corromper, máquinas podem ser roubadas, enfim, tudo pode acontecer. Faça commits semânticos.
-- Sempre trabalhe com branches, evite fazer commits diretamente na master, principalmente no caso de W.I.P (Work in Progress). Sempre mantenha uma versão estável antes de realizar o merge para a branch principal do projeto (master/main). É recomendável seguir práticas do git flow para gerenciamento.
+- O controle de versão, com ênfase no Git, é a base para uma colaboração efetiva, permitindo rastreamento e reversão eficazes de alterações. Sempre fazer commits semânticos e push ao fim do dia, não reter código na máquina, pois hds podem corromper, máquinas podem ser roubadas, enfim, tudo pode acontecer, mas solicite ao usuário antes a permissão.
+- Sempre trabalhe com branches, evite fazer commits diretamente na master/main, principalmente no caso de W.I.P (Work in Progress). Sempre mantenha uma versão estável antes de realizar o merge para a branch principal do projeto (master/main). É recomendável seguir práticas do git flow para gerenciamento, pergunte ao usuário antes de realizar qualquer ação.
 - Lembre-se de que antes de realizar um merge, valide se seu código está funcionando, crie testes unitários, verifique se a cobertura do seu código se manteve ou aumentou de preferência. (nunca reduzir). Descreva as suas alterações para que outros colaboradores possam entender as regras de negócio que podem ser afetadas com suas alterações. Lembre-se que a aprovação é com ao menos duas pessoas. (Você não conta). Não faça merge requests enormes, com muitas alterações, isso dificulta a análise de código.
 - Design docs: A criação do documento é essencial para o sucesso arquitetural do sistema, com ele em mãos outros devs podem se integrar com mais facilidade, entendendo quais seriam os requisitos do sistema. Além de servir como referência para outros projetos, fica fácil entender mesmo com eventuais mudanças na arquitetura. Envolva seu TechLead na construção e aprovação da mesma.
 - Para toda implementação de um app, deverá ser gerada a GMUD. Ela é um documento vivo onde preenchemos algumas informações como o changelog, o link do app no gitlab, como foram feitos os testes, link do sonar, link do fortify ..etc. A geração dessa GMUD deverá ser feita no pipeline da aplicação via ci-knife. Repositório Documentação
@@ -577,27 +577,28 @@ Todos os jobs estão configurados com cache, artifacts e tratamento adequado de 
 
 - Verifique a existência de um arquivo `dependency.yaml` na raiz do projeto.
 - Este arquivo é utilizado para documentar dependências e informações de segurança do serviço.
+- Squad, tribe e vertical sempre em lowercase e sem acentos, sem espaços, utilizando _ para separar palavras (ex: ops_automacao, operacao, operacoes).
 - Caso não exista, crie-o seguindo o modelo abaixo:
 
 ```yaml
-owner: {SQUAD} # ex: ops-automacao
+owner: {SQUAD} # ex: ops_automacao
 tribe: {TRIBE} # ex: operacao
-vertical: operacoes
+vertical: {VERTICAL} # ex: operacoes
 application:
   description: {DESCRIPTION}
   name: {APP_NAME}
-  languages: Python
+  languages: {Python, Java, etc}
   fortify_id: {APPNAME}
 security:
-  url_homolog: https://{APPNAME}-staging.ipet.sh
-  url_prod: https://{APPNAME}.ipet.sh
+  url_homolog: {DNS}
+  url_prod: {DNS}
   businessRisk: Low # Low, Medium, High, Critical
   public: Internal # Internal ou External
   accessibility: 'Yes' # 'Yes' ou 'No'
   waf: 'No' # 'Yes' ou 'No'
   qradar: 'No' # 'Yes' ou 'No'
-  authentication: Google OAuth
-  administration: Self-portal
+  authentication: {AUTHENTICATION_METHOD} # Ex: Google OAuth, Basic Auth, etc
+  administration: {ADMINISTRATION_METHOD} # Ex: Self-portal, Manual, etc
 ```
 
 ## Padrão de infraestrutura

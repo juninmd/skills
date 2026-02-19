@@ -5,7 +5,7 @@
 ### Features
 
 * **migrate Bash scripts to Node.js**: Convert spec automation scripts from Bash to Node.js for cross-platform compatibility
-  - Consolidated `validate-spec.sh` and `spec-status.sh` into single `check-spec.mjs` 
+  - Consolidated `validate-spec.sh` and `spec-status.sh` into single `check-spec.mjs`
   - Added `pnpm spec:validate`, `pnpm spec:status`, `pnpm spec:check` commands
   - Updated Makefile targets for consistency
   - Backward compatible: all original commands still work via Makefile
