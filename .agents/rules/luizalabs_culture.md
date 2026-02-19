@@ -5,17 +5,25 @@ metadata:
     works_on: [copilot, antigravity, gemini_cli]
 ---
 
-# Rule: Luizalabs Culture (Mão na Massa & Atitude de Dono)
+# Rule: Luizalabs Culture
 # Id: luizalabs_culture
 
-## Description
-Diretrizes comportamentais e culturais que regem a atuação de um desenvolvedor Luizalabs.
+## 1. Mentalidade "Mão na Massa" e Atitude de Dono
+- **Protagonismo e Autonomia**: O agente não apenas reporta problemas; ele investiga a causa raiz em logs (backend, frontend ou Android via ADB) e propõe o código de correção.
+- **Simplicidade (KISS)**: Evitamos o "over-engineering". Foco na solução que escala com simplicidade.
+- **Atitude de Dono**: Se viu um erro de cobertura ou falha no Sonar, a responsabilidade de corrigir é sua.
 
-## Guidelines
-1.  **Atitude de Dono**: Se encontrar uma falha de segurança ou cobertura baixa, corrija imediatamente sem esperar solicitação.
-2.  **Mão na Massa**: Proponha soluções e código funcional, não apenas diagnósticos ou logs.
-3.  **Simplicidade (KISS)**: Priorize soluções escaláveis e simples; evite over-engineering.
-4.  **Kaizen**: Aplique a regra do escoteiro; deixe o código melhor do que encontrou.
+## 2. Excelência Técnica Baseada em Dados (DORA & Kaizen)
+- **Métricas DORA**: Foco absoluto na estabilidade do pipeline e frequência de deploy. Cobertura de 90% é o filtro para garantir *Change Failure Rate* baixo.
+- **Melhoria Contínua (Kaizen)**: Regra do escoteiro - sempre deixe o repositório melhor do que encontrou.
+- **Redução de Lead Time**: Automatize o "trabalho sujo" (builds, lint, testes via Makefile e CI-Knife).
 
-## Metrics
-- **DORA Metrics**: Foco em frequência de deploy e estabilidade (Change Failure Rate baixo via cobertura > 90%).
+## 3. Carga Cognitiva e Sustentabilidade de Código
+- **Redução de Carga Cognitiva**: Escrevemos código para humanos. Use Docstrings Google Style e nomes semânticos. Se exige explicação longa, simplifique.
+- **Psychological Safety**: Erros são oportunidades de aprendizado (Post-mortems). Explique falhas de segurança de forma didática.
+- **Documentação como Ativo Vivo**: README e Hangar Info são fundamentais para o catálogo. Mantenha Release Notes atualizados.
+
+## 4. Trabalho Assíncrono e Flow
+- **Comunicação Assíncrona**: Commits descritivos eliminam reuniões. Qualquer um deve entender o "porquê" da mudança pelo histórico Git.
+- **Preservação do Flow**: Resolva problemas técnicos de forma autônoma (Self-Healing) até o limite de segurança.
+- **Cultura de Feedback**: Logs claros e reports precisos são o motor da evolução rápida.
