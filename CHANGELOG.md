@@ -1,14 +1,13 @@
 # Changelog
 
-## [Unreleased]
+# [1.2.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.1.1...v1.2.0) (2026-02-19)
+
 
 ### Features
 
-* **migrate Bash scripts to Node.js**: Convert spec automation scripts from Bash to Node.js for cross-platform compatibility
-  - Consolidated `validate-spec.sh` and `spec-status.sh` into single `check-spec.mjs`
-  - Added `pnpm spec:validate`, `pnpm spec:status`, `pnpm spec:check` commands
-  - Updated Makefile targets for consistency
-  - Backward compatible: all original commands still work via Makefile
+* agente dd ([1c6edbe](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/1c6edbe))
+
+# [1.2.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.1.1...v1.2.0) (2026-02-19)
 
 ## [1.1.1](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.1.0...v1.1.1) (2026-02-18)
 
