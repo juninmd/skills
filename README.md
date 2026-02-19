@@ -23,29 +23,37 @@ Open <http://localhost:5173>
 
 ### 🏗️ Contribute with Spec-Driven Development
 
-Build new skills, agents, and rules using **Specification-Driven Development (SDD)** - a methodology where specifications become your primary artifact.
+Build new skills, agents, and rules using **Specification-Driven Development (SDD)** — a methodology where specifications become your primary artifact. Works with **any AI agent** (Antigravity, Gemini, Copilot, Claude, Cursor, etc.).
 
 **Quickstart**:
 
 1. Read the constitution: `cat .specify/memory/constitution.md`
-2. Review the guide: `cat .specify/SPEC-DRIVEN-DEV-GUIDE.md`
-3. Copy spec template: `cp .specify/templates/spec-template.md .specify/specs/[feature]/spec.md`
-4. Use AI agent commands: `/speckit.specify`, `/speckit.plan`, `/speckit.tasks`
+2. Create your feature spec: `pnpm spec:init my-feature`
+3. Fill in `.specify/specs/my-feature/spec.md`
+4. Ask your AI agent: `Follow the workflow in .agents/workflows/sdd-new-feature.md`
 5. Follow the spec → plan → tasks → implement → validate workflow
 
-**Key Commands** (in Claude Code, GitHub Copilot, or supported AI agents):
+**Spec Commands** (migrated from Bash to Node.js):
 
-```
-/speckit.constitution  # Establish project principles
-/speckit.specify       # Define requirements and user scenarios
-/speckit.clarify       # Address ambiguities
-/speckit.plan          # Create technical design
-/speckit.tasks         # Break into actionable tasks
-/speckit.implement     # Execute individual task
-/speckit.checklist     # Validate completion
-```
+| Bash (old) | npm/pnpm (new) | Makefile | Description |
+|-----------|---|----------|---|
+| `bash .specify/scripts/init-spec.sh <name>` | `pnpm spec:init <name>` | `make spec-init FEATURE=<name>` | Scaffold new feature spec |
+| `bash .specify/scripts/validate-spec.sh` | `pnpm spec:validate` | `make spec-validate` | Validate all specs |
+| `bash .specify/scripts/validate-spec.sh <name>` | `pnpm spec:validate <name>` | `make spec-validate FEATURE=<name>` | Validate specific spec |
+| `bash .specify/scripts/spec-status.sh` | `pnpm spec:status` | `make spec-status` | Show specs status dashboard |
+| N/A | `pnpm spec:check` | `make spec-check` | Validate + show status (combined) |
 
-See `.specify/commands/slash-commands-guide.md` for complete command reference.
+**All three original scripts are now consolidated into a single Node.js implementation** (`check-spec.mjs`) for better maintainability and cross-platform compatibility.
+
+**Agent Workflows** (in `.agents/workflows/`):
+
+| Workflow | Description |
+|----------|-------------|
+| `sdd-new-feature.md` | Complete flow to create a new feature |
+| `sdd-validate.md` | Pre-merge validation with checklist |
+| `sdd-review.md` | Spec/plan review against constitution |
+
+See [SPEC-DRIVEN-DEV-GUIDE.md](.specify/SPEC-DRIVEN-DEV-GUIDE.md) for the complete guide.
 
 ### Use in Your Project
 

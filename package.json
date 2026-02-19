@@ -18,7 +18,11 @@
     "test": "vitest",
     "test:run": "vitest run",
     "test:ui": "vitest --ui",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "spec:init": "node .specify/scripts/init-spec.mjs",
+    "spec:validate": "node .specify/scripts/check-spec.mjs",
+    "spec:status": "node .specify/scripts/check-spec.mjs",
+    "spec:check": "node .specify/scripts/check-spec.mjs"
   },
   "dependencies": {
     "minisearch": "^6.2.0",

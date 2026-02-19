@@ -1,6 +1,6 @@
 # Spec-Driven Development for Padrao-Labs-Agents
 
-This guide explains how to use Specification-Driven Development (SDD) to build skills, agents, rules, hooks, and workflows for the Luizalabs catalog.
+This guide explains how to use Specification-Driven Development (SDD) to build skills, agents, rules, hooks, and workflows for the Luizalabs catalog. This guide is **agent-agnostic** — works with Antigravity, Gemini CLI, Copilot, Claude, Cursor, and other AI coding assistants.
 
 ## Quick Start
 
@@ -20,62 +20,52 @@ This document outlines 5 core principles that guide all development in this proj
 
 ### 2. Create Specification for Your Feature
 
+Use the automation script:
 ```bash
-# Create feature directory
-mkdir -p .specify/specs/[feature-name]
-
-# Copy template and fill it out
-cp .specify/templates/spec-template.md .specify/specs/[feature-name]/spec.md
-
-# Edit with your requirements and user scenarios
-nano .specify/specs/[feature-name]/spec.md
+# Create feature directory and copy all templates
+pnpm spec:init [feature-name]
 ```
 
-**Key sections to complete**:
+This creates:
+- `.specify/specs/[feature-name]/spec.md` — Requirements
+- `.specify/specs/[feature-name]/plan.md` — Technical plan
+- `.specify/specs/[feature-name]/tasks.md` — Task breakdown
+- `.specify/specs/[feature-name]/checklist.md` — Validation checklist
+
+**Key sections to complete** in `spec.md`:
 - Header (feature name, type, platforms)
 - User Scenarios (P1, P2, P3 user stories)
 - Requirements (functional and non-functional)
+- Testing Strategy (unit, integration, manual)
+- Contracts (interfaces, inputs/outputs)
 - Success Criteria (measurable outcomes)
 
-### 3. Use Claude Code to Clarify & Plan
+### 3. Use Your AI Agent to Clarify & Plan
 
-Open this repository in Claude Code and use commands:
-
+Ask your AI agent to follow the SDD workflow:
 ```
-/speckit.specify Create a specification for [feature name] that:
-- Allows users to [primary action]
-- Works on [platforms: gemini_cli, copilot, claude, antigravity, cursor]
-- Include P1 scenarios: [user story 1], [user story 2]
-- Mark any unclear requirements with [NEEDS CLARIFICATION]
+Follow the workflow in .agents/workflows/sdd-new-feature.md
+for the feature [feature-name]
 ```
 
-Then clarify ambiguities:
-
+Or use individual steps:
 ```
-/speckit.clarify Review the spec and clarify:
-- What exactly should [unclear requirement] do?
-- What are the edge cases for [scenario]?
+Review the spec at .specify/specs/[feature-name]/spec.md
+and clarify any [NEEDS CLARIFICATION] items
 ```
 
 Then create a plan:
-
 ```
-/speckit.plan Create a technical plan for [feature] that:
-- Specifies the technology stack
-- Validates against the constitution
-- Maps each user scenario to implementation components
-- Identifies testing strategy
+Review the spec and create a technical plan in
+.specify/specs/[feature-name]/plan.md following the template
 ```
 
 ### 4. Break Into Tasks
 
+Ask your agent:
 ```
-/speckit.tasks Create a task breakdown with:
-- Foundation phase (setup, types, base infrastructure)
-- P1 phase (primary user stories)
-- P2 phase (secondary features)
-- Polish phase (documentation, optimization)
-- Phase 4 (review and merge)
+Create a task breakdown in .specify/specs/[feature-name]/tasks.md
+with Foundation, P1, P2, and Polish phases
 ```
 
 ### 5. Implement Following Tasks
@@ -85,9 +75,19 @@ Create feature branch:
 git checkout -b feature/[feature-name]
 ```
 
-Implement each task:
+Implement each task — ask your agent:
 ```
-/speckit.implement Execute TASK-001 - [Task description]
+Implement TASK-001 from .specify/specs/[feature-name]/tasks.md
+```
+
+After each task:
+```bash
+# Run tests
+pnpm test:run
+
+# Commit progress
+git add .
+git commit -m "[TASK-001] Brief description of what was implemented"
 ```
 
 After each task:
@@ -102,12 +102,13 @@ git commit -m "[TASK-001] Brief description of what was implemented"
 
 ### 6. Validate & Merge
 
-Create validation checklist:
-```
-/speckit.checklist Create a validation checklist for [feature]
+Run validation:
+```bash
+# Validate + show status dashboard
+pnpm spec:check
 ```
 
-Verify all items before creating pull request:
+Verify all items before creating merge request:
 ```bash
 # Run full test suite
 pnpm test:run
@@ -122,7 +123,12 @@ pnpm lint:md
 node src/loader.js
 ```
 
-Create pull request and request review.
+Check the status dashboard:
+```bash
+pnpm spec:check
+```
+
+Create merge request and request review.
 
 ---
 
@@ -135,31 +141,76 @@ Create pull request and request review.
 │   │   └── constitution.md            # Project principles and governance
 │   ├── specs/
 │   │   ├── docker-troubleshooting/    # Example feature spec directory
-│   │   │   ├── EXAMPLE-spec.md        # Completed specification example
-│   │   │   ├── spec.md                # Your feature specification
-│   │   │   ├── plan.md                # Technical implementation plan
-│   │   │   ├── tasks.md               # Task breakdown with dependencies
-│   │   │   └── checklist.md           # Validation checklist
+│   │   │   └── EXAMPLE-spec.md        # Completed specification example
 │   │   └── [feature-name]/            # Create one per new feature
-│   │       ├── spec.md
-│   │       ├── plan.md
-│   │       └── tasks.md
+│   │       ├── spec.md                # Requirements and user scenarios
+│   │       ├── plan.md                # Technical implementation plan
+│   │       ├── tasks.md               # Task breakdown with dependencies
+│   │       └── checklist.md           # Validation checklist
 │   ├── templates/
-│   │   ├── spec-template.md           # Copy for new specifications
-│   │   ├── plan-template.md           # Copy for new plans
-│   │   └── tasks-template.md          # Copy for new task breakdowns
+│   │   ├── spec-template.md           # Template for new specifications
+│   │   ├── plan-template.md           # Template for new plans
+│   │   ├── tasks-template.md          # Template for task breakdowns
+│   │   └── checklist-template.md      # Template for validation checklists
 │   ├── commands/
 │   │   └── slash-commands-guide.md    # AI agent commands reference
 │   └── scripts/
-│       └── (automation scripts TBD)
+│       ├── init-spec.sh               # Scaffold new feature spec
+│       ├── validate-spec.sh           # Lint/validate specs
+│       └── spec-status.sh             # Status dashboard
 ├── .agents/                           # Actual skills, agents, rules
 │   ├── skills/
 │   ├── agents/
 │   ├── rules/
 │   ├── hooks/
 │   └── workflows/
+│       ├── sdd-new-feature.md         # Complete SDD feature workflow
+│       ├── sdd-validate.md            # Pre-merge validation workflow
+│       └── sdd-review.md              # Spec/plan review workflow
 └── [rest of project...]
 ```
+
+---
+
+## SDD Flow Diagram
+
+```mermaid
+flowchart LR
+    A["1. Ideation"] --> B["2. Specification"]
+    B --> C["3. Clarification"]
+    C --> D["4. Planning"]
+    D --> E["5. Validation"]
+    E --> F["6. Tasks"]
+    F --> G["7. Implementation"]
+    G --> H["8. Validation"]
+    H --> I["9. Review & Merge"]
+
+    B -.- B1["spec.md"]
+    D -.- D1["plan.md"]
+    F -.- F1["tasks.md"]
+    H -.- H1["checklist.md"]
+
+    style A fill:#4a9eff,color:#fff
+    style I fill:#2ecc71,color:#fff
+```
+
+## Automation Scripts
+
+| Command | Description |
+|---------|-------------|
+| `pnpm spec:init <name>` | Cria spec completa a partir dos templates |
+| `pnpm spec:check` | Valida specs + mostra dashboard de status |
+| `pnpm spec:check <name>` | Valida uma spec específica |
+
+## Agent Workflows
+
+Workflows que qualquer AI agent pode seguir em `.agents/workflows/`:
+
+| Workflow | Descrição |
+|----------|-----------|
+| `sdd-new-feature.md` | Fluxo completo para criar nova feature |
+| `sdd-validate.md` | Validação pré-merge com checklist |
+| `sdd-review.md` | Review de spec/plan contra constitution |
 
 ---
 
@@ -172,9 +223,14 @@ Create pull request and request review.
 ### Phase 2: Specification (AI + Human)
 **File**: `.specify/specs/[feature]/spec.md`
 
-Using Claude Code or your chosen AI agent:
+Using your AI agent (Antigravity, Gemini, Copilot, Claude, Cursor, etc.):
 ```
-/speckit.specify Write a complete specification for [feature]
+Follow the workflow in .agents/workflows/sdd-new-feature.md
+```
+
+Or use the template directly:
+```bash
+pnpm spec:init [feature-name]
 ```
 
 The spec includes:
@@ -193,8 +249,10 @@ The spec includes:
 ### Phase 3: Clarification (AI)
 **Input**: Spec with `[NEEDS CLARIFICATION]` markers
 
+Ask your agent:
 ```
-/speckit.clarify Review these unclear items in the specification
+Review .specify/specs/[feature]/spec.md and resolve
+all [NEEDS CLARIFICATION] items
 ```
 
 Output: Updated spec with ambiguities resolved
@@ -202,8 +260,10 @@ Output: Updated spec with ambiguities resolved
 ### Phase 4: Planning (AI)
 **File**: `.specify/specs/[feature]/plan.md`
 
+Ask your agent:
 ```
-/speckit.plan Create  a technical implementation plan
+Create a technical plan from the spec in
+.specify/specs/[feature]/plan.md following the plan template
 ```
 
 The plan includes:
@@ -218,8 +278,10 @@ The plan includes:
 ### Phase 5: Validation (AI)
 **Check**: Does the plan accord with constitution?
 
+Ask your agent:
 ```
-/speckit.analyze Validate this plan against the constitution
+Follow the workflow in .agents/workflows/sdd-review.md
+for the feature [feature-name]
 ```
 
 Output: Risk assessment and improvements
@@ -227,8 +289,10 @@ Output: Risk assessment and improvements
 ### Phase 6: Task Breakdown (AI)
 **File**: `.specify/specs/[feature]/tasks.md`
 
+Ask your agent:
 ```
-/speckit.tasks Create a detailed task breakdown
+Create a task breakdown in .specify/specs/[feature]/tasks.md
+following the tasks template
 ```
 
 The task list includes:
@@ -250,8 +314,8 @@ For each task:
 # Check out feature branch
 git checkout feature/[feature-name]
 
-# Use AI to implement the task
-/speckit.implement Execute TASK-006 - [Description]
+# Ask your agent to implement the task
+# "Implement TASK-006 from .specify/specs/[feature]/tasks.md"
 
 # Verify with tests
 pnpm test:run
@@ -270,8 +334,10 @@ git commit -m "[TASK-006] [Description]"
 ### Phase 8: Validation (Human)
 **File**: `.specify/specs/[feature]/checklist.md`
 
-```
-/speckit.checklist Create a validation checklist
+Run validation:
+```bash
+pnpm spec:check
+# Or follow .agents/workflows/sdd-validate.md
 ```
 
 Verify all items:
@@ -505,38 +571,24 @@ pnpm lint:md
 
 ## Integration with AI Agents
 
-### With Claude Code
+All agents can use the SDD workflows located in `.agents/workflows/`. Simply ask your agent to follow a workflow:
 
-Claude has full access to `.specify/` directory. Reference it:
-
+### Any AI Agent
 ```
-/speckit.specify [Feature description]
-// Claude reads constitution, understands project principles
-// Claude creates comprehensive spec aligned with them
+Follow the workflow in .agents/workflows/sdd-new-feature.md
+for the feature [feature-name]
 ```
 
-### With GitHub Copilot
+### Available Workflows
+- **sdd-new-feature.md**: Complete flow to create a new feature
+- **sdd-validate.md**: Pre-merge validation with checklist
+- **sdd-review.md**: Spec/plan review against constitution
 
-Use slash commands in your editor:
-
-```
-/speckit.clarify What should error analysis return: string or structured data?
-```
-
-### With Cursor
-
-Cursor integrates well with context from `.specify/specs/[feature]/`:
-
-```
-// Open the spec as reference
-// Cursor uses it to guide code generation
-```
-
-### With Gemini CLI
-
-```
-gemini /speckit.tasks
-// Gemini breaks down feature into executable tasks
+### Automation Scripts
+Scripts work independently of any AI agent:
+```bash
+pnpm spec:init [name]    # Scaffold new spec
+pnpm spec:check          # Validate + status dashboard
 ```
 
 ---
@@ -575,9 +627,9 @@ A: > 80% coverage is minimum. Aim for > 90%. Test user scenarios, edge cases, an
 
 1. Read the constitution: `cat .specify/memory/constitution.md`
 2. Look at the example spec: `cat .specify/specs/docker-troubleshooting/EXAMPLE-spec.md`
-3. Create your feature spec directory: `mkdir -p .specify/specs/[your-feature]`
-4. Copy template: `cp .specify/templates/spec-template.md .specify/specs/[your-feature]/spec.md`
-5. Open in Claude Code and use `/speckit` commands
+3. Create your feature spec: `pnpm spec:init [your-feature]`
+4. Edit `.specify/specs/[your-feature]/spec.md` with your requirements
+5. Ask your AI agent to follow `.agents/workflows/sdd-new-feature.md`
 6. Follow the spec → plan → tasks → implement workflow
 
 **Happy spec-driven development!**

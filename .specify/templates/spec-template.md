@@ -10,6 +10,7 @@
 - **Branch**: `feature/[descriptive-identifier]`
 - **Date**: [date created]
 - **Status**: `draft` | `review` | `approved` | `implemented`
+- **Spec Version**: 1.0
 - **Description**: [Brief 1-2 sentence description]
 - **Platforms**: [comma-separated: gemini_cli, copilot, antigravity, claude, cursor, windsurf, cline]
 
@@ -96,6 +97,42 @@ Then [expected outcome - what happens as a result]
 ### Assumptions
 - [Assumption 1 about system behavior]
 - [Assumption 2 about user behavior]
+
+---
+
+## Testing Strategy
+
+> Defina a estratégia de testes já na fase de especificação.
+
+### Testes Unitários
+- [Quais funções/componentes devem ter testes unitários?]
+- Coverage target: ≥ 80% (idealmente ≥ 90%)
+
+### Testes de Integração
+- [Quais fluxos devem ser testados end-to-end?]
+- [Abordagem: mocks ou chamadas reais?]
+
+### Testes Manuais
+- [Quais cenários precisam de validação manual?]
+
+---
+
+## Contracts
+
+> Defina as interfaces e APIs esperadas para a feature.
+
+### Interface Principal
+```typescript
+// Defina a interface esperada
+interface [FeatureName] {
+  // [property]: [type]; // [description]
+}
+```
+
+### Inputs & Outputs
+- **Input**: [Formato e tipo dos dados de entrada]
+- **Output**: [Formato e tipo dos dados de saída]
+- **Erros**: [Tipos de erro esperados e como são comunicados]
 
 ---
 

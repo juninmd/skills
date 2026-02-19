@@ -1,11 +1,21 @@
 image: node:20-slim
 
 stages:
+  - validate
   - report
   - install
   - deploy
   - tag
   - rollback
+
+validate_specs:
+  stage: validate
+  image: node:20-slim
+  script:
+    - node .specify/scripts/check-spec.mjs
+  only:
+    - merge_requests
+  allow_failure: true
 
 variables:
   TZ: "/usr/share/zoneinfo/America/Sao_Paulo"
