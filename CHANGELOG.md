@@ -1,5 +1,17 @@
 # Changelog
 
+# [1.4.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.3.0...v1.4.0) (2026-02-20)
+
+
+### Bug Fixes
+
+* path location ([ecbfad3](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/ecbfad3))
+
+
+### Features
+
+* add workflows documentation and update settings for agent file locations ([afc7cae](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/afc7cae))
+
 # [1.3.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.2.0...v1.3.0) (2026-02-20)
 
 
