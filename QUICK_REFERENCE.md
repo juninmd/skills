@@ -116,7 +116,7 @@ pnpm test:coverage  # Generate coverage report
 pnpm docs:dev       # Start dev server (http://localhost:5173)
 pnpm docs:build     # Build production docs
 pnpm lint:md       # Lint markdown files
-node src/loader.js # Regenerate catalog from .agents/
+node src/loader.js # Regenerate catalog from .agent/
 ```
 
 ### Spec-Driven Development
@@ -153,7 +153,7 @@ Use in Claude Code, GitHub Copilot, or other supported AI agents:
 ## 🚨 Known Issues
 
 1. **org-skill markdown build issue** - Some files have unclosed HTML tags in generated markdown
-   - Workaround: Fix in `.agents/skills/org-skill/SKILL.md` or run in separate branch
+   - Workaround: Fix in `.agent/skills/org-skill/SKILL.md` or run in separate branch
    - Status: Identified, not blocking feature development
 
 2. **All tests passing** ✅ - No issues with test suite

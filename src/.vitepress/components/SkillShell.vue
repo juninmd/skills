@@ -160,7 +160,7 @@ const hasContent = computed(() => {
 });
 
 function getRelatedFileUrl(f) {
-  return `/.agents-${category.value}/${f}`;
+  return `/.agent-${category.value}/${f}`;
 }
 
 const resourceFiles = computed(() => files.value.filter(f => f.startsWith('resources/')));
@@ -168,8 +168,8 @@ const coreFiles = computed(() => files.value.filter(f => !f.startsWith('resource
 
 function getFileUrl(f) {
   return category.value === 'skills'
-    ? `/.agents-${category.value}/${skillId.value}/${f}`
-    : `/.agents-${category.value}/${f}`;
+    ? `/.agent-${category.value}/${skillId.value}/${f}`
+    : `/.agent-${category.value}/${f}`;
 }
 
 function copyInstall() {

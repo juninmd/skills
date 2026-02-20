@@ -44,7 +44,7 @@ This creates:
 
 Ask your AI agent to follow the SDD workflow:
 ```
-Follow the workflow in .agents/workflows/sdd-new-feature.md
+Follow the workflow in .agent/workflows/sdd-new-feature.md
 for the feature [feature-name]
 ```
 
@@ -158,7 +158,7 @@ Create merge request and request review.
 │       ├── init-spec.sh               # Scaffold new feature spec
 │       ├── validate-spec.sh           # Lint/validate specs
 │       └── spec-status.sh             # Status dashboard
-├── .agents/                           # Actual skills, agents, rules
+├── .agent/                           # Actual skills, agents, rules
 │   ├── skills/
 │   ├── agents/
 │   ├── rules/
@@ -204,7 +204,7 @@ flowchart LR
 
 ## Agent Workflows
 
-Workflows que qualquer AI agent pode seguir em `.agents/workflows/`:
+Workflows que qualquer AI agent pode seguir em `.agent/workflows/`:
 
 | Workflow | Descrição |
 |----------|-----------|
@@ -225,7 +225,7 @@ Workflows que qualquer AI agent pode seguir em `.agents/workflows/`:
 
 Using your AI agent (Antigravity, Gemini, Copilot, Claude, Cursor, etc.):
 ```
-Follow the workflow in .agents/workflows/sdd-new-feature.md
+Follow the workflow in .agent/workflows/sdd-new-feature.md
 ```
 
 Or use the template directly:
@@ -280,7 +280,7 @@ The plan includes:
 
 Ask your agent:
 ```
-Follow the workflow in .agents/workflows/sdd-review.md
+Follow the workflow in .agent/workflows/sdd-review.md
 for the feature [feature-name]
 ```
 
@@ -337,7 +337,7 @@ git commit -m "[TASK-006] [Description]"
 Run validation:
 ```bash
 pnpm spec:check
-# Or follow .agents/workflows/sdd-validate.md
+# Or follow .agent/workflows/sdd-validate.md
 ```
 
 Verify all items:
@@ -571,11 +571,11 @@ pnpm lint:md
 
 ## Integration with AI Agents
 
-All agents can use the SDD workflows located in `.agents/workflows/`. Simply ask your agent to follow a workflow:
+All agents can use the SDD workflows located in `.agent/workflows/`. Simply ask your agent to follow a workflow:
 
 ### Any AI Agent
 ```
-Follow the workflow in .agents/workflows/sdd-new-feature.md
+Follow the workflow in .agent/workflows/sdd-new-feature.md
 for the feature [feature-name]
 ```
 
@@ -629,7 +629,7 @@ A: > 80% coverage is minimum. Aim for > 90%. Test user scenarios, edge cases, an
 2. Look at the example spec: `cat .specify/specs/docker-troubleshooting/EXAMPLE-spec.md`
 3. Create your feature spec: `pnpm spec:init [your-feature]`
 4. Edit `.specify/specs/[your-feature]/spec.md` with your requirements
-5. Ask your AI agent to follow `.agents/workflows/sdd-new-feature.md`
+5. Ask your AI agent to follow `.agent/workflows/sdd-new-feature.md`
 6. Follow the spec → plan → tasks → implement workflow
 
 **Happy spec-driven development!**

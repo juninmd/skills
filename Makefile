@@ -7,7 +7,7 @@ help:
 	@echo ""
 	@echo "Available commands:"
 	@echo "  make install        - Install dependencies"
-	@echo "  make generate       - Generate documentation from .agents/"
+	@echo "  make generate       - Generate documentation from .agent/"
 	@echo "  make dev            - Start development server (with watch)"
 	@echo "  make build          - Build for production"
 	@echo "  make preview        - Preview production build locally"

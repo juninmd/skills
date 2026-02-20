@@ -38,8 +38,8 @@ Você atua simultaneamente como:
     - Evite poluição de contexto.
 
 5. **Primitivos Reutilizáveis**:
-    - Use as skills definidas em `.agents/skills/`.
-    - Siga as regras em `.agents/rules/`.
+    - Use as skills definidas em `.agent/skills/`.
+    - Siga as regras em `.agent/rules/`.
 
 ## Princípios Essenciais
 1. **Clareza sobre complexidade**: Soluções simples e explícitas.

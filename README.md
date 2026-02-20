@@ -4,7 +4,7 @@ A complete documentation and discovery platform for Luizalabs development standa
 
 ## 📚 What's Included
 
-- **70+ Skills** - Reusable development capabilities and patterns
+- **70+ Skills** - Reusable development capabilities and patterns. The default specification for the skills is [https://agentskills.io/specification](https://agentskills.io/specification).
 - **Agents** - AI configurations for GitHub Copilot, Cursor, Antigravity, Gemini, and more
 - **Rules** - Development standards, security guidelines, best practices
 - **Hooks** - Pre-commit automation and Git patterns
@@ -30,7 +30,7 @@ Build new skills, agents, and rules using **Specification-Driven Development (SD
 1. Read the constitution: `cat .specify/memory/constitution.md`
 2. Create your feature spec: `pnpm spec:init my-feature`
 3. Fill in `.specify/specs/my-feature/spec.md`
-4. Ask your AI agent: `Follow the workflow in .agents/workflows/sdd-new-feature.md`
+4. Ask your AI agent: `Follow the workflow in .agent/workflows/sdd-new-feature.md`
 5. Follow the spec → plan → tasks → implement → validate workflow
 
 **Spec Commands** (migrated from Bash to Node.js):
@@ -45,7 +45,7 @@ Build new skills, agents, and rules using **Specification-Driven Development (SD
 
 **All three original scripts are now consolidated into a single Node.js implementation** (`check-spec.mjs`) for better maintainability and cross-platform compatibility.
 
-**Agent Workflows** (in `.agents/workflows/`):
+**Agent Workflows** (in `.agent/workflows/`):
 
 | Workflow | Description |
 |----------|-------------|
@@ -157,7 +157,7 @@ npx @luizalabs/padrao-labs-agents update                      # Atualiza para a 
 ## 🏗️ Architecture
 
 ```
-.agents/              ← Source of truth (READ-ONLY)
+.agent/              ← Source of truth (READ-ONLY)
 ├── agents/
 ├── skills/           (70+ items)
 ├── rules/
@@ -177,7 +177,7 @@ scripts/
 
 The loader dynamically:
 
-1. Scans `.agents/` directory
+1. Scans `.agent/` directory
 2. Extracts metadata from markdown files
 3. Generates VitePress docs WITHOUT duplicating files
 4. Creates searchable catalog (catalog.json)
@@ -223,7 +223,7 @@ npm run docs:dev
 
 ## 🤝 Contributing
 
-- Changes go ONLY to `.agents/` folder
+- Changes go ONLY to `.agent/` folder
 - Run `npm run generate:index` before committing
 - Do NOT edit generated files in `docs/`
 

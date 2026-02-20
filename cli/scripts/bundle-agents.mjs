@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const CLI_DIR = join(__dirname, '..');
 const ROOT = join(CLI_DIR, '..');
-const AGENTS_SRC = join(ROOT, '.agents');
+const AGENTS_SRC = join(ROOT, '.agent');
 const AGENTS_MD = join(ROOT, 'agents.md');
 const BUNDLE_DIR = join(CLI_DIR, 'agents-bundle');
 const TEMPLATES_SRC = join(ROOT, 'src', 'exemplo');
@@ -20,7 +20,7 @@ function clean() {
 }
 
 function bundleAgents() {
-  console.log('Bundling .agents/ content...');
+  console.log('Bundling .agent/ content...');
   clean();
 
   for (const cat of CATEGORIES) {
