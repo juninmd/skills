@@ -23,7 +23,8 @@
     "spec:init": "node .specify/scripts/init-spec.mjs",
     "spec:validate": "node .specify/scripts/check-spec.mjs",
     "spec:status": "node .specify/scripts/check-spec.mjs",
-    "spec:check": "node .specify/scripts/check-spec.mjs"
+    "spec:check": "node .specify/scripts/check-spec.mjs",
+    "spec:approve": "node .specify/scripts/approve-spec.mjs"
   },
   "dependencies": {
     "minisearch": "^6.2.0",
