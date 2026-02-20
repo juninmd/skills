@@ -1,5 +1,33 @@
 # Changelog
 
+# [1.3.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.2.0...v1.3.0) (2026-02-20)
+
+
+### Bug Fixes
+
+* linter skills ([06a1818](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/06a1818))
+
+
+### Code Refactoring
+
+* migrate Bash spec scripts to Node.js for cross-platform compatibility ([022d13e](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/022d13e))
+* remove IDs from rule documents and enhance security protocols ([7280a91](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/7280a91))
+
+
+### Documentation
+
+* add Bash→Node.js migration summary documentation ([3773feb](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/3773feb))
+
+
+### Features
+
+* add approve-spec script for changing spec status and update package.json ([6ffa016](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/6ffa016))
+* add initial settings configuration for agent tools and GitHub Copilot ([73cd007](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/73cd007))
+* add naming conventions and security quality guidelines ([cf41b55](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/cf41b55))
+* add README for CLI usage and testing instructions ([50dd972](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/50dd972))
+* add validation checklist and implementation plan for init-padrao-labs feature ([54d21f8](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/54d21f8))
+* reviewing skills for compliance with Anthropic best practices and agentskills.io specification ([2aa826c](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/2aa826c))
+
 # [1.2.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.1.1...v1.2.0) (2026-02-19)
 
 
