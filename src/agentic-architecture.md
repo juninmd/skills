@@ -75,7 +75,7 @@ O Copilot adota um padrão aberto para definição de skills, baseado em estrutu
 
 A implementação de uma Skill exige rigor na estrutura de arquivos, pois o VS Code utiliza a presença de determinados caminhos para indexar automaticamente as capacidades disponíveis.
 
-1. **Diretório Raiz:** O sistema busca skills prioritariamente na pasta `.github/skills` localizada na raiz do espaço de trabalho (Workspace). Também são suportados caminhos globais no perfil do usuário (`~/.copilot/skills`).
+1. **Diretório Raiz:** O sistema busca skills prioritariamente na pasta `.github/skills` localizada na raiz do espaço de trabalho (Workspace). Também são suportados caminhos globais no perfil do usuário (`~/.agents/skills`).
 2. **Isolamento de Habilidade:** Cada habilidade deve residir em seu próprio subdiretório. Por exemplo, uma habilidade para migração de banco de dados deve estar em `.github/skills/db-migration`.
 3. **O Manifesto `SKILL.md`:** Este é o arquivo nuclear da habilidade. Ele combina metadados (YAML Frontmatter) com instruções procedimentais (Markdown).
 

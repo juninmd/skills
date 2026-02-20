@@ -133,26 +133,11 @@ npx @luizalabs/padrao-labs-agents update                      # Atualiza para a 
 
 | Ferramenta | Diretorio Global | agents | skills | rules | workflows | hooks | agents.md |
 |---|---|---|---|---|---|---|---|
-| **Copilot** | `~/.copilot/` | ✅ | ✅ | ✅ | ✅ | - | - |
+| **Copilot** | `~/.agents/` | ✅ | ✅ | ✅ | - | - | - |
 | **Gemini CLI** | `~/.gemini/` | - | ✅ | - | - | ✅ | - |
 | **Antigravity** | `~/.gemini/antigravity/` | ✅ | ✅ | ✅ | ✅ | - | ✅ AGENTS.md |
-| **Claude** | `~/.claude/` | - | ✅ | ✅ | - | - | ✅ CLAUDE.md |
-| **Cursor** | `~/.cursor/` | - | - | ✅ concatenado | - | - | - |
-| **Windsurf** | `~/.windsurf/` | - | - | ✅ concatenado | - | - | - |
-| **Cline** | `~/.cline/` | - | ✅ | ✅ | - | - | - |
 
 > O CLI detecta automaticamente quais ferramentas estao instaladas no sistema e instala apenas para essas.
-
-## 📋 Tool Integration Matrix (por projeto)
-
-| Tool | File | Location |
-|------|------|----------|
-| GitHub Copilot | `copilot-instructions.md` | `.github/` |
-| Antigravity | `AGENTS.md` | Root `/` |
-| Gemini CLI | `agents.md` + `.gemini.json` | Root `/` |
-| Cursor | `.cursorrules` | Root `/` |
-| Windsurf | `.windsurfrules` | Root `/` |
-| Cline/Roo Code | `.clinerules` | Root `/` |
 
 ## 🏗️ Architecture
 

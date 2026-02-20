@@ -9,14 +9,13 @@ export class CopilotInstaller extends BaseInstaller {
   }
 
   get targetDir(): string {
-    return join(getHomeDir(), '.copilot');
+    return join(getHomeDir(), '.agents');
   }
 
   get categoryMappings(): CategoryMapping[] {
     return [
       { source: 'skills', target: 'skills' },
       { source: 'rules', target: 'rules' },
-      { source: 'workflows', target: 'workflows' },
       { source: 'agents', target: 'agents' },
     ];
   }

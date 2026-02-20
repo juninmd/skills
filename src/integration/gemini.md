@@ -52,7 +52,7 @@ Se você clonou este repositório e quer usar as skills locais:
 
 ```bash
 # Copiar skill específica para VSCode Copilot
-mkdir -p ~/.copilot/skills && cp -r .agents/skills/git-skill ~/.copilot/skills/
+mkdir -p ~/.agents/skills && cp -r .agents/skills/git-skill ~/.agents/skills/
 
 # Copiar skill específica para Antigravity
 mkdir -p ~/.gemini/antigravity/skills && cp -r .agents/skills/git-skill ~/.gemini/antigravity/skills/
@@ -65,7 +65,7 @@ mkdir -p ~/.gemini/skills && cp -r .agents/skills/git-skill ~/.gemini/skills/
 
 ```bash
 # Copiar rule para VSCode Copilot
-mkdir -p ~/.copilot/rules && cp -r .agents/rules/<rule-name> ~/.copilot/rules/
+mkdir -p ~/.agents/rules && cp -r .agents/rules/<rule-name> ~/.agents/rules/
 
 # Copiar rule para Antigravity
 mkdir -p ~/.gemini/antigravity/rules && cp -r .agents/rules/<rule-name> ~/.gemini/antigravity/rules/
@@ -76,13 +76,10 @@ mkdir -p ~/.gemini/antigravity/rules && cp -r .agents/rules/<rule-name> ~/.gemin
 #### Para Workflows
 
 ```bash
-# Copiar workflow para VSCode Copilot
-mkdir -p ~/.copilot/workflows && cp -r .agents/workflows/<workflow-name> ~/.copilot/workflows/
-
 # Copiar workflow para Antigravity
 mkdir -p ~/.gemini/antigravity/workflows && cp -r .agents/workflows/<workflow-name> ~/.gemini/antigravity/workflows/
 
-# Gemini CLI: Não suporta workflows
+# Gemini CLI e Copilot: Não suportam workflows
 ```
 
 #### Para Hooks (apenas Gemini CLI)

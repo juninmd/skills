@@ -24,20 +24,19 @@ function generateInstallCommands(category, item, isDirectory = false) {
   // SKILLS
   if (category === 'skills') {
     commands.gemini = `mkdir -p ~/.gemini/skills && cp -r .agents/skills/${item} ~/.gemini/skills/`;
-    commands.copilot = `mkdir -p ~/.copilot/skills && cp -r .agents/skills/${item} ~/.copilot/skills/`;
+    commands.copilot = `mkdir -p ~/.agents/skills && cp -r .agents/skills/${item} ~/.agents/skills/`;
     commands.antigravity = `mkdir -p ~/.gemini/antigravity/skills && cp -r .agents/skills/${item} ~/.gemini/antigravity/skills/`;
   }
   // RULES
   else if (category === 'rules') {
-    commands.copilot = `mkdir -p ~/.copilot/rules && cp -r .agents/rules/${item} ~/.copilot/rules/`;
+    commands.copilot = `mkdir -p ~/.agents/rules && cp -r .agents/rules/${item} ~/.agents/rules/`;
     commands.antigravity = `mkdir -p ~/.gemini/antigravity/rules && cp -r .agents/rules/${item} ~/.gemini/antigravity/rules/`;
     // Gemini CLI: sem suporte para rules
   }
   // WORKFLOWS
   else if (category === 'workflows') {
-    commands.copilot = `mkdir -p ~/.copilot/workflows && cp -r .agents/workflows/${item} ~/.copilot/workflows/`;
     commands.antigravity = `mkdir -p ~/.gemini/antigravity/workflows && cp -r .agents/workflows/${item} ~/.gemini/antigravity/workflows/`;
-    // Gemini CLI: sem suporte para workflows
+    // Gemini CLI e Copilot: sem suporte para workflows
   }
   // HOOKS (apenas Gemini CLI)
   else if (category === 'hooks') {

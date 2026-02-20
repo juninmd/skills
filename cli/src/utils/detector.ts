@@ -19,7 +19,7 @@ const TOOL_CONFIGS: Array<{
 }> = [
   {
     name: 'copilot',
-    configDir: '~/.copilot',
+    configDir: '~/.agents',
   },
   {
     name: 'gemini',
@@ -28,30 +28,6 @@ const TOOL_CONFIGS: Array<{
   {
     name: 'antigravity',
     configDir: '~/.gemini/antigravity',
-  },
-  {
-    name: 'claude',
-    configDir: '~/.claude',
-  },
-  {
-    name: 'cursor',
-    configDir: '~/.cursor',
-  },
-  {
-    name: 'windsurf',
-    configDir: '~/.windsurf',
-  },
-  {
-    name: 'cline',
-    configDir: '~/.cline',
-  },
-  {
-    name: 'vscode',
-    configDir: process.platform === 'win32' 
-      ? '~/AppData/Roaming/Code/User' 
-      : process.platform === 'darwin' 
-        ? '~/Library/Application Support/Code/User' 
-        : '~/.config/Code/User',
   },
 ];
 

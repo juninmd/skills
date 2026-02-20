@@ -20,7 +20,7 @@ Comandos:
 Opcoes:
   -h, --help      Mostra esta ajuda
   -v, --version   Mostra a versao
-  -t, --tools     Ferramentas alvo (separadas por virgula): copilot,gemini,antigravity,claude,cursor,windsurf,cline
+  -t, --tools     Ferramentas alvo (separadas por virgula): copilot,gemini,antigravity
   -f, --force     Sobrescreve arquivos existentes
   --dry-run       Simula execucao sem alterar arquivos
   --verbose       Mostra detalhes da execucao
