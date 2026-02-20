@@ -64,13 +64,13 @@
   "chat.hookFilesLocations": {
     "~/.agents/hooks": true
   },
-  "chat.agentsFilesLocations": {
+  "chat.agentFilesLocations": {
     "~/.agents/agents": true
   },
   "chat.instructionsFilesLocations": {
     "~/.agents/rules": true
   },
-  "chat.agentsSkillsLocations": {
-    "~/.agents/skills": true
+  "chat.agentSkillsLocations": {
+  "~/.agents/skills": true
   }
 }
