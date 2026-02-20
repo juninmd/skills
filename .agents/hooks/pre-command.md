@@ -35,7 +35,7 @@ Configure o caminho no seu arquivo `~/.gemini/settings.json`:
 ```json
 {
   "hooks": {
-    "pre_command": "/path/to/padrao-labs-agents/.agent/hooks/pre-command.py"
+    "pre_command": "/path/to/padrao-labs-agents/.agents/hooks/pre-command.py"
   }
 }
 ```
@@ -43,7 +43,7 @@ Configure o caminho no seu arquivo `~/.gemini/settings.json`:
 Ou passe a flag ao executar comandos:
 
 ```bash
-gemini --hooks-dir /path/to/padrao-labs-agents/.agent/hooks/
+gemini --hooks-dir /path/to/padrao-labs-agents/.agents/hooks/
 ```
 
 ## Documentação Oficial

@@ -6,14 +6,14 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..');
-const AGENTS_DIR = path.join(ROOT, '.agent');
+const AGENTS_DIR = path.join(ROOT, '.agents');
 const DOCS_DIR = path.join(ROOT, 'docs');
 
 const CATEGORIES = ['agents', 'skills', 'rules', 'hooks', 'workflows'];
 // Base URLs for GitLab
-const REPO_BASE_URL = 'https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/tree/main/.agent';
-const RAW_BASE_URL = 'https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/-/raw/main/.agent';
-const EDIT_BASE_URL = 'https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/-/edit/main/.agent';
+const REPO_BASE_URL = 'https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/tree/main/.agents';
+const RAW_BASE_URL = 'https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/-/raw/main/.agents';
+const EDIT_BASE_URL = 'https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/-/edit/main/.agents';
 
 function generateInstallCommands(category, item, isDirectory = false) {
   const commands = {};
@@ -23,20 +23,20 @@ function generateInstallCommands(category, item, isDirectory = false) {
 
   // SKILLS
   if (category === 'skills') {
-    commands.gemini = `mkdir -p ~/.gemini/skills && cp -r .agent/skills/${item} ~/.gemini/skills/`;
-    commands.copilot = `mkdir -p ~/.copilot/skills && cp -r .agent/skills/${item} ~/.copilot/skills/`;
-    commands.antigravity = `mkdir -p ~/.gemini/antigravity/skills && cp -r .agent/skills/${item} ~/.gemini/antigravity/skills/`;
+    commands.gemini = `mkdir -p ~/.gemini/skills && cp -r .agents/skills/${item} ~/.gemini/skills/`;
+    commands.copilot = `mkdir -p ~/.copilot/skills && cp -r .agents/skills/${item} ~/.copilot/skills/`;
+    commands.antigravity = `mkdir -p ~/.gemini/antigravity/skills && cp -r .agents/skills/${item} ~/.gemini/antigravity/skills/`;
   }
   // RULES
   else if (category === 'rules') {
-    commands.copilot = `mkdir -p ~/.copilot/rules && cp -r .agent/rules/${item} ~/.copilot/rules/`;
-    commands.antigravity = `mkdir -p ~/.gemini/antigravity/rules && cp -r .agent/rules/${item} ~/.gemini/antigravity/rules/`;
+    commands.copilot = `mkdir -p ~/.copilot/rules && cp -r .agents/rules/${item} ~/.copilot/rules/`;
+    commands.antigravity = `mkdir -p ~/.gemini/antigravity/rules && cp -r .agents/rules/${item} ~/.gemini/antigravity/rules/`;
     // Gemini CLI: sem suporte para rules
   }
   // WORKFLOWS
   else if (category === 'workflows') {
-    commands.copilot = `mkdir -p ~/.copilot/workflows && cp -r .agent/workflows/${item} ~/.copilot/workflows/`;
-    commands.antigravity = `mkdir -p ~/.gemini/antigravity/workflows && cp -r .agent/workflows/${item} ~/.gemini/antigravity/workflows/`;
+    commands.copilot = `mkdir -p ~/.copilot/workflows && cp -r .agents/workflows/${item} ~/.copilot/workflows/`;
+    commands.antigravity = `mkdir -p ~/.gemini/antigravity/workflows && cp -r .agents/workflows/${item} ~/.gemini/antigravity/workflows/`;
     // Gemini CLI: sem suporte para workflows
   }
   // HOOKS (apenas Gemini CLI)
@@ -46,9 +46,9 @@ function generateInstallCommands(category, item, isDirectory = false) {
   }
   // AGENTS (mantém como está)
   else if (category === 'agents') {
-    commands.gemini = `gemini rules add ${gitRepoHttpUrl} --path .agent/agents/${itemPath}`;
-    commands.copilot = `copilot rules add ${gitRepoHttpUrl} --path .agent/agents/${itemPath}`;
-    commands.antigravity = `antigravity rules add ${gitRepoHttpUrl} --path .agent/agents/${itemPath}`;
+    commands.gemini = `gemini rules add ${gitRepoHttpUrl} --path .agents/agents/${itemPath}`;
+    commands.copilot = `copilot rules add ${gitRepoHttpUrl} --path .agents/agents/${itemPath}`;
+    commands.antigravity = `antigravity rules add ${gitRepoHttpUrl} --path .agents/agents/${itemPath}`;
   }
 
   return commands;
@@ -418,7 +418,7 @@ function cleanMarkdownContent(raw, itemId, category) {
 function createSymlinks() {
   for (const category of CATEGORIES) {
     const sourcePath = path.join(AGENTS_DIR, category);
-    const targetPath = path.join(DOCS_DIR, `.agent-${category}`);
+    const targetPath = path.join(DOCS_DIR, `.agents-${category}`);
 
     // Clean old symlink
     if (fs.existsSync(targetPath)) {
@@ -429,7 +429,7 @@ function createSymlinks() {
     if (fs.existsSync(sourcePath)) {
       try {
         fs.symlinkSync(sourcePath, targetPath, 'dir');
-        console.log(`✅ Symlink: ${category} → docs/.agent-${category}`);
+        console.log(`✅ Symlink: ${category} → docs/.agents-${category}`);
       } catch (e) {
         console.warn(`⚠️  Symlink failed for ${category}: ${e.message}`);
       }
@@ -446,8 +446,8 @@ function generateCatalogJson(catalog) {
       ...item,
       url: `/${category}/${item.id}/`,
       sourceFile: category === 'skills'
-        ? `/.agent-${category}/${item.id}/${path.basename(item.path)}`
-        : `/.agent-${category}/${path.basename(item.path)}`
+        ? `/.agents-${category}/${item.id}/${path.basename(item.path)}`
+        : `/.agents-${category}/${path.basename(item.path)}`
     }));
   }
 
@@ -478,26 +478,26 @@ function generateCategoryIndexes(catalog) {
 
       // Determine the filename from the path
       const markdownFile = path.basename(item.path);
-      const symlinkedPath = `/.agent-${category}/${item.isScript ? '' : item.id + '/'}${markdownFile}`;
+      const symlinkedPath = `/.agents-${category}/${item.isScript ? '' : item.id + '/'}${markdownFile}`;
       // Note: symlink structure.
-      // Skills: .agent-skills/skill-id/SKILL.md
-      // Agents: .agent-agents/agent-id.md (NO, symlink points to directory)
+      // Skills: .agents-skills/skill-id/SKILL.md
+      // Agents: .agents-agents/agent-id.md (NO, symlink points to directory)
       // Wait, createSymlinks links the WHOLE category directory.
       // So:
-      // Skills: docs/.agent-skills/skill-id/SKILL.md
-      // Agents: docs/.agent-agents/agent-id.md
-      // Hooks: docs/.agent-hooks/script.py
+      // Skills: docs/.agents-skills/skill-id/SKILL.md
+      // Agents: docs/.agents-agents/agent-id.md
+      // Hooks: docs/.agents-hooks/script.py
 
-      // My logic above for symlinkedPath was: `/.agent-${category}/${item.id}/${markdownFile}`
+      // My logic above for symlinkedPath was: `/.agents-${category}/${item.id}/${markdownFile}`
       // This is wrong for files directly in the category folder.
 
       let finalSymPath = '';
       if (category === 'skills') {
           // Skills are directories
-          finalSymPath = `/.agent-${category}/${item.id}/${markdownFile}`;
+          finalSymPath = `/.agents-${category}/${item.id}/${markdownFile}`;
       } else {
           // Others are files directly in category folder
-          finalSymPath = `/.agent-${category}/${markdownFile}`;
+          finalSymPath = `/.agents-${category}/${markdownFile}`;
       }
 
       // We'll build the frontmatter later (after gen paths are known)
@@ -650,7 +650,7 @@ function copySrcToDocs() {
 }
 
 async function main() {
-  console.log('🔄 Escaneando .agent...\n');
+  console.log('🔄 Escaneando .agents...\n');
   const catalog = scanAgentsDirectory();
 
   console.log(`📊 Catalogo:`);

@@ -36,4 +36,4 @@ Isso criará uma nova pasta com templates baseados nos exemplos aqui disponívei
 
 - [Documentação SDD](../../docs/sdd.md)
 - [Templates de Spec](../templates/)
-- [Workflow Completo](../../../.agent/workflows/sdd-new-feature.md)
+- [Workflow Completo](../../../.agents/workflows/sdd-new-feature.md)

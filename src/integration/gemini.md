@@ -39,9 +39,9 @@ Você pode instalar todas as skills da Luizalabs diretamente do repositório ofi
 Para instalar apenas uma skill específica (ex: Git):
 
 <InstallTabs
-  gemini="gemini skills install git@gitlab.luizalabs.com:luizalabs/padrao-labs-agents.git --path .agent/skills/git-skill"
-  copilot="copilot skills install git@gitlab.luizalabs.com:luizalabs/padrao-labs-agents.git --path .agent/skills/git-skill"
-  antigravity="antigravity skills install git@gitlab.luizalabs.com:luizalabs/padrao-labs-agents.git --path .agent/skills/git-skill"
+  gemini="gemini skills install git@gitlab.luizalabs.com:luizalabs/padrao-labs-agents.git --path .agents/skills/git-skill"
+  copilot="copilot skills install git@gitlab.luizalabs.com:luizalabs/padrao-labs-agents.git --path .agents/skills/git-skill"
+  antigravity="antigravity skills install git@gitlab.luizalabs.com:luizalabs/padrao-labs-agents.git --path .agents/skills/git-skill"
 />
 
 ### 3. Instalação Local (Para Desenvolvimento)
@@ -52,23 +52,23 @@ Se você clonou este repositório e quer usar as skills locais:
 
 ```bash
 # Copiar skill específica para VSCode Copilot
-mkdir -p ~/.copilot/skills && cp -r .agent/skills/git-skill ~/.copilot/skills/
+mkdir -p ~/.copilot/skills && cp -r .agents/skills/git-skill ~/.copilot/skills/
 
 # Copiar skill específica para Antigravity
-mkdir -p ~/.gemini/antigravity/skills && cp -r .agent/skills/git-skill ~/.gemini/antigravity/skills/
+mkdir -p ~/.gemini/antigravity/skills && cp -r .agents/skills/git-skill ~/.gemini/antigravity/skills/
 
 # Copiar skill específica para Gemini
-mkdir -p ~/.gemini/skills && cp -r .agent/skills/git-skill ~/.gemini/skills/
+mkdir -p ~/.gemini/skills && cp -r .agents/skills/git-skill ~/.gemini/skills/
 ```
 
 #### Para Rules
 
 ```bash
 # Copiar rule para VSCode Copilot
-mkdir -p ~/.copilot/rules && cp -r .agent/rules/<rule-name> ~/.copilot/rules/
+mkdir -p ~/.copilot/rules && cp -r .agents/rules/<rule-name> ~/.copilot/rules/
 
 # Copiar rule para Antigravity
-mkdir -p ~/.gemini/antigravity/rules && cp -r .agent/rules/<rule-name> ~/.gemini/antigravity/rules/
+mkdir -p ~/.gemini/antigravity/rules && cp -r .agents/rules/<rule-name> ~/.gemini/antigravity/rules/
 
 # Gemini CLI: Não suporta rules
 ```
@@ -77,10 +77,10 @@ mkdir -p ~/.gemini/antigravity/rules && cp -r .agent/rules/<rule-name> ~/.gemini
 
 ```bash
 # Copiar workflow para VSCode Copilot
-mkdir -p ~/.copilot/workflows && cp -r .agent/workflows/<workflow-name> ~/.copilot/workflows/
+mkdir -p ~/.copilot/workflows && cp -r .agents/workflows/<workflow-name> ~/.copilot/workflows/
 
 # Copiar workflow para Antigravity
-mkdir -p ~/.gemini/antigravity/workflows && cp -r .agent/workflows/<workflow-name> ~/.gemini/antigravity/workflows/
+mkdir -p ~/.gemini/antigravity/workflows && cp -r .agents/workflows/<workflow-name> ~/.gemini/antigravity/workflows/
 
 # Gemini CLI: Não suporta workflows
 ```
@@ -163,7 +163,7 @@ gemini skills install git@gitlab.luizalabs.com:luizalabs/padrao-labs-agents.git 
 
 Além das skills, este projeto fornece **Hooks** para estender e proteger seu fluxo de trabalho no terminal.
 
-> **⚠️ Importante:** Os hooks descritos abaixo e contidos no diretório `.agent/hooks/` são exclusivos para uso com o **Gemini CLI**. Eles não funcionam em outros ambientes como VSCode, Antigravity ou terminais padrão sem a ferramenta Gemini instalada e configurada.
+> **⚠️ Importante:** Os hooks descritos abaixo e contidos no diretório `.agents/hooks/` são exclusivos para uso com o **Gemini CLI**. Eles não funcionam em outros ambientes como VSCode, Antigravity ou terminais padrão sem a ferramenta Gemini instalada e configurada.
 
 Hooks permitem interceptar e customizar o comportamento do Gemini CLI em pontos específicos do loop do agente. Eles funcionam de forma síncrona, ou seja, o CLI aguarda a execução do hook antes de prosseguir.
 

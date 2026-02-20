@@ -30,6 +30,7 @@ export interface ToolDetection {
   name: string;
   detected: boolean;
   configDir: string;
+  detectedPath?: string;
 }
 
 export interface CategoryMapping {

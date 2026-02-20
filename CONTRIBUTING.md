@@ -35,7 +35,7 @@ Edit `.specify/specs/[feature-name]/spec.md`. Define the user scenarios, functio
 
 ### Step 3: Plan & Task Breakdown (with your AI Agent)
 Use your preferred AI agent (Claude, Gemini, Copilot) to help clarify the spec and break it down into tasks. You can prompt your agent with:
-> *"Follow the workflow in .agent/workflows/sdd-new-feature.md for the feature [feature-name]"*
+> *"Follow the workflow in .agents/workflows/sdd-new-feature.md for the feature [feature-name]"*
 
 ### Step 4: Implementation
 Implement the tasks strictly one at a time, checking off the items in `.specify/specs/[feature-name]/tasks.md`.
@@ -62,7 +62,7 @@ pnpm docs:build        # Ensures the VitePress documentation builds successfully
 
 ## 3. Creating and Formatting Skills
 
-If you are contributing a new **Skill**, it must be placed in `.agent/skills/` and strictly follow these standards:
+If you are contributing a new **Skill**, it must be placed in `.agents/skills/` and strictly follow these standards:
 
 ### Specification (agentskills.io)
 *   **Directory Structure:** Every skill must be a self-contained folder.

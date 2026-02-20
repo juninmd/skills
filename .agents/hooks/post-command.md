@@ -40,7 +40,7 @@ Configure o caminho no seu arquivo `~/.gemini/settings.json`:
 ```json
 {
   "hooks": {
-    "post_command": "/path/to/padrao-labs-agents/.agent/hooks/post-command.py"
+    "post_command": "/path/to/padrao-labs-agents/.agents/hooks/post-command.py"
   }
 }
 ```
@@ -48,7 +48,7 @@ Configure o caminho no seu arquivo `~/.gemini/settings.json`:
 Ou passe a flag ao executar comandos:
 
 ```bash
-gemini --hooks-dir /path/to/padrao-labs-agents/.agent/hooks/
+gemini --hooks-dir /path/to/padrao-labs-agents/.agents/hooks/
 ```
 
 ## Exemplo de Log

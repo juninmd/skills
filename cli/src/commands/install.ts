@@ -29,7 +29,10 @@ export async function install(options: InstallOptions): Promise<void> {
     const detected = detections.filter(d => d.detected);
 
     if (detected.length > 0) {
-      log.success(`Ferramentas detectadas: ${detected.map(d => d.name).join(', ')}`);
+      log.success('Ferramentas detectadas:');
+      detected.forEach(d => {
+        log.detail(`${d.name.padEnd(12)} -> ${d.detectedPath}`);
+      });
       toolsToInstall = detected.map(d => d.name);
     } else {
       // Nenhuma detectada, pergunta ao usuario

@@ -138,7 +138,7 @@ Then [outcome]
   - Run: `pnpm lint:md` and address all issues
 
 ### Catalog Integration
-- **TASK-020**: Update catalog metadata and run generator [.agent/] [depends: TASK-011]
+- **TASK-020**: Update catalog metadata and run generator [.agents/] [depends: TASK-011]
   - Command: `node src/loader.js`
   - Verify: Catalog entry appears in docs/catalog.json
 

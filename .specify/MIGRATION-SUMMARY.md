@@ -97,7 +97,7 @@ These can still be used if needed, but **Node.js versions are preferred**.
 1. **Phase Out Bash Scripts:** Document deprecation in next release notes
 2. **CI/CD Integration:** Update pipeline to use Node.js commands
 3. **Team Communication:** Share new commands in documentation
-4. **Workflow Updates:** Update `.agent/workflows/` if using shell syntax
+4. **Workflow Updates:** Update `.agents/workflows/` if using shell syntax
 
 ---
 
@@ -141,7 +141,7 @@ pnpm spec:check
 - `.specify/scripts/init-spec.mjs` - Scaffolder
 - `.specify/templates/` - Template files
 - `.specify/specs/` - Actual specs directory
-- `.agent/workflows/sdd-*.md` - SDD workflows
+- `.agents/workflows/sdd-*.md` - SDD workflows
 
 ---
 

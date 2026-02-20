@@ -6,8 +6,8 @@
     "plaintext": true
   },
   "chat.mcp.autostart": "newAndOutdated",
-  "chat.agent.maxRequests": 1000,
-  "chat.agent.enabled": true,
+  "chat.agents.maxRequests": 1000,
+  "chat.agents.enabled": true,
   "chat.tools.terminal.autoApprove": {
     "*": true,
     "curl": true,
@@ -45,7 +45,7 @@
   "chat.mcp.gallery.enabled": true,
   "chat.customAgentInSubagent.enabled": true,
   "chat.useAgentSkills": true,
-  "chat.agentSessionProjection.enabled": true,
+  "chat.agentsSessionProjection.enabled": true,
   "chat.alternativeToolAction.enabled": true,
   "chat.editing.explainChanges.enabled": true,
   "chat.editMode.hidden": true,
@@ -53,7 +53,7 @@
   "chat.tips.enabled": true,
   "chat.tools.terminal.autoReplyToPrompts": true,
   "chat.useNestedAgentsMdFiles": true,
-  "github.copilot.chat.agent.autoFix": true,
+  "github.copilot.chat.agents.autoFix": true,
   "github.copilot.chat.codesearch.enabled": true,
   "github.copilot.chat.copilotMemory.enabled": true,
   "github.copilot.chat.generateTests.codeLens": true,
@@ -62,15 +62,15 @@
   "chat.viewSessions.orientation": "stacked",
   "github.copilot.chat.switchAgent.enabled": true,
   "chat.hookFilesLocations": {
-    "~/.agent/hooks": true
+    "~/.agents/hooks": true
   },
-  "chat.agentFilesLocations": {
-    "~/.agent/agents": true
+  "chat.agentsFilesLocations": {
+    "~/.agents/agents": true
   },
   "chat.instructionsFilesLocations": {
-    "~/.agent/rules": true
+    "~/.agents/rules": true
   },
-  "chat.agentSkillsLocations": {
-    "~/.agent/skills": true
+  "chat.agentsSkillsLocations": {
+    "~/.agents/skills": true
   }
 }

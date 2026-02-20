@@ -23,9 +23,9 @@ This skill enables the agent to scaffold new Agent Skills that comply with the `
     *   Must be 1-1024 characters long.
     *   Should clearly describe what the skill does and when to use it, including keywords.
 4.  **Scaffold Directory Structure:**
-    *   Create a directory under `.agent/skills/` with the exact `name` of the skill.
+    *   Create a directory under `.agents/skills/` with the exact `name` of the skill.
 5.  **Create `SKILL.md`:**
-    *   Create `.agent/skills/<name>/SKILL.md`.
+    *   Create `.agents/skills/<name>/SKILL.md`.
     *   Include the required YAML frontmatter with `name` and `description`. Ensure `name` exactly matches the parent directory.
     *   Add optional metadata fields if requested (e.g., `license`, `compatibility`, `metadata`, `allowed-tools`).
     *   Include a Markdown body with basic sections: `# <Title>`, `## Description`, `## Instructions`, `## Best Practices`.

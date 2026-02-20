@@ -244,14 +244,14 @@ O gerenciamento de memória no Antigravity é tratado através de Knowledge Item
 
 ### 3.5 Rules e Workflows
 
-A configuração de regras e fluxos no Antigravity é centralizada na pasta `.agent`.
+A configuração de regras e fluxos no Antigravity é centralizada na pasta `.agents`.
 
-**Rules (`.agent/rules/`)**
+**Rules (`.agents/rules/`)**
 Arquivos Markdown que atuam como "guardrails" (barreiras de proteção).
 
-* *Implementação:* Basta criar um arquivo `.agent/rules/no-console-log.md` com o texto "Não permita console.log em código de produção". O agente injeta essa restrição em seu prompt de sistema.
+* *Implementação:* Basta criar um arquivo `.agents/rules/no-console-log.md` com o texto "Não permita console.log em código de produção". O agente injeta essa restrição em seu prompt de sistema.
 
-**Workflows (`.agent/workflows/`)**
+**Workflows (`.agents/workflows/`)**
 Workflows são scripts de alto nível que orquestram ações sequenciais.
 
 * *Estrutura:* Um arquivo Markdown descrevendo passos.
@@ -373,7 +373,7 @@ A seleção da plataforma adequada depende não apenas da preferência pessoal, 
 | **Modelo Mental** | Par Programador (Assistência Síncrona) | Arquiteto de Software (Delegação Assíncrona) | Engenheiro de Automação (Scripting) |
 | **Gestão de Agentes** | Sub-agentes efêmeros (`#runSubagent`) | Agentes persistentes por tarefa | Extensões (Jules, Maestro) |
 | **Confiança/Validação** | Revisão de Código (Diff) | Artefatos Visuais (Planos, Screenshots) | Confirmação de Ação (Allow/Deny) |
-| **Governança (Rules)** | Arquivos `.instructions.md` | Arquivos `.agent/rules` | Configuração JSON e Prompts de Sistema |
+| **Governança (Rules)** | Arquivos `.instructions.md` | Arquivos `.agents/rules` | Configuração JSON e Prompts de Sistema |
 | **Automação (Hooks)** | JSON (`hooks.json`) - Foco em IDE | Integrado aos Workflows | Scripts Shell/Python - Foco em Sistema |
 
 **Recomendações de Adoção**

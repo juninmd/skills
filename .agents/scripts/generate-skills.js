@@ -6,8 +6,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // project root is one level above this scripts/ directory
-const projectRoot = path.resolve(__dirname, '..', '..'); // Fix path: script is in .agent/scripts
-const skillsDir = path.join(projectRoot, '.agent', 'skills');
+const projectRoot = path.resolve(__dirname, '..', '..'); // Fix path: script is in .agents/scripts
+const skillsDir = path.join(projectRoot, '.agents', 'skills');
 const outDir = path.join(projectRoot, 'docs', 'skills');
 
 if (!fs.existsSync(path.join(projectRoot, 'docs'))) fs.mkdirSync(path.join(projectRoot, 'docs'), { recursive: true });
@@ -58,7 +58,7 @@ for (const dir of dirs) {
   let hasTabs = false;
 
   if (worksOn.includes('gemini_cli')) {
-    const cmd = `gemini skills install ${REPO_URL} --path .agent/skills/${dir}`;
+    const cmd = `gemini skills install ${REPO_URL} --path .agents/skills/${dir}`;
     installTabs += `  gemini="${cmd}"\n`;
     hasTabs = true;
   }
@@ -66,7 +66,7 @@ for (const dir of dirs) {
   // Common sparse checkout command for manual installs
   const sparseCmd = `git clone --filter=blob:none --no-checkout ${REPO_URL} ${dir}
 cd ${dir}
-git sparse-checkout set --no-cone .agent/skills/${dir}
+git sparse-checkout set --no-cone .agents/skills/${dir}
 git checkout`;
 
   if (worksOn.includes('vscode')) { // Mapping vscode -> Copilot

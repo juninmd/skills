@@ -21,7 +21,7 @@ const skillSchema = z.object({
   'allowed-tools': z.string().optional()
 });
 
-const skillsDir = path.join(process.cwd(), '.agent/skills');
+const skillsDir = path.join(process.cwd(), '.agents/skills');
 const skills = fs.readdirSync(skillsDir, { withFileTypes: true })
   .filter(dirent => dirent.isDirectory())
   .map(dirent => dirent.name);

@@ -8,7 +8,7 @@ server.js
 vitest.config.ts
 
 # Configuration
-.agent/
+.agents/
 .specify/
 .gitlab-ci.yml
 .markdownlint.json

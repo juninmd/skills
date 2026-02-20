@@ -7,7 +7,7 @@ metadata:
 
 # Reviewing Skills
 
-This skill empowers the agent to act as a strict reviewer and auditor for Agent Skills. Its purpose is to analyze existing skills within the `.agent/skills/` directory and ensure they adhere to the highest standards of quality, performance, and specification compliance.
+This skill empowers the agent to act as a strict reviewer and auditor for Agent Skills. Its purpose is to analyze existing skills within the `.agents/skills/` directory and ensure they adhere to the highest standards of quality, performance, and specification compliance.
 
 ## Core Mandates
 

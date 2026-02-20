@@ -1,7 +1,7 @@
 import { execSync } from 'node:child_process';
 import { join } from 'node:path';
 import { getHomeDir } from './platform.js';
-import { dirExists } from './fs.js';
+import { dirExists, fileExists } from './fs.js';
 import type { ToolDetection } from '../types.js';
 
 function commandExists(cmd: string): boolean {
@@ -16,50 +16,34 @@ function commandExists(cmd: string): boolean {
 const TOOL_CONFIGS: Array<{
   name: string;
   configDir: string;
-  commands: string[];
-  extraDirs: string[];
 }> = [
   {
     name: 'copilot',
     configDir: '~/.copilot',
-    commands: [],
-    extraDirs: [],
   },
   {
     name: 'gemini',
     configDir: '~/.gemini',
-    commands: ['gemini'],
-    extraDirs: [],
   },
   {
     name: 'antigravity',
     configDir: '~/.gemini/antigravity',
-    commands: ['antigravity'],
-    extraDirs: [],
   },
   {
     name: 'claude',
     configDir: '~/.claude',
-    commands: ['claude'],
-    extraDirs: [],
   },
   {
     name: 'cursor',
     configDir: '~/.cursor',
-    commands: ['cursor'],
-    extraDirs: ['/Applications/Cursor.app'],
   },
   {
     name: 'windsurf',
     configDir: '~/.windsurf',
-    commands: ['windsurf'],
-    extraDirs: ['/Applications/Windsurf.app'],
   },
   {
     name: 'cline',
     configDir: '~/.cline',
-    commands: [],
-    extraDirs: [],
   },
   {
     name: 'vscode',
@@ -68,8 +52,6 @@ const TOOL_CONFIGS: Array<{
       : process.platform === 'darwin' 
         ? '~/Library/Application Support/Code/User' 
         : '~/.config/Code/User',
-    commands: ['code'],
-    extraDirs: [],
   },
 ];
 
@@ -85,25 +67,14 @@ export async function detectTools(): Promise<ToolDetection[]> {
 
   for (const tool of TOOL_CONFIGS) {
     const configDir = resolveHome(tool.configDir);
-    let detected = await dirExists(configDir);
-
-    if (!detected) {
-      detected = tool.commands.some(cmd => commandExists(cmd));
-    }
-
-    if (!detected) {
-      for (const extraDir of tool.extraDirs) {
-        if (await dirExists(extraDir)) {
-          detected = true;
-          break;
-        }
-      }
-    }
+    const detected = await dirExists(configDir);
+    const detectedPath = detected ? configDir : '';
 
     results.push({
       name: tool.name,
       detected,
       configDir,
+      detectedPath,
     });
   }
 
