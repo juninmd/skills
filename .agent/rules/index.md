@@ -10,7 +10,5 @@ Lista de regras e padrões:
 - [luizalabs_culture](./luizalabs_culture.md)
 - [quality_android_safety](./quality_android_safety.md)
 - [scripting_patterns](./scripting_patterns.md)
-- [secret_protection](./secret_protection.md)
 - [shell_automation](./shell_automation.md)
-- [shell_safety](./shell_safety.md)
 - [workspace_nav](./workspace_nav.md)

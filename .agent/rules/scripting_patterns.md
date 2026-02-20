@@ -6,7 +6,6 @@ metadata:
 ---
 
 # Rule: Shell Scripting Patterns
-# Id: scripting_patterns
 # Description: Padrões de automação shell (loops, condições).
 
 ## Capabilities

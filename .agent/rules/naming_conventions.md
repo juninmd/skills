@@ -6,7 +6,6 @@ metadata:
 ---
 
 # Rule: Naming Conventions
-# Id: naming_conventions
 
 ## Sistemas
 - Definir nomes de sistemas não é um problema, desde que seja utilizado internamente e não seja complexo.

@@ -1,4 +1,5 @@
 ---
+name: sdd-validate
 description: Workflow de validação pré-merge para garantir compliance SDD e constitution
 ---
 

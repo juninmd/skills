@@ -6,7 +6,6 @@ metadata:
 ---
 
 # Rule: Documentation Standards
-# Id: documentation_standards
 
 ## README.md
 - Deve existir na raiz.

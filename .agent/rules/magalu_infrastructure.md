@@ -6,7 +6,6 @@ metadata:
 ---
 
 # Rule: Magalu Infrastructure
-# Id: magalu_infrastructure
 
 ## Deploy e Infraestrutura
 - **Deploy**: ArgoCD. Endpoint: `https://argocd-mke-operacoes-hml.ipet.sh`.

@@ -1,4 +1,5 @@
 ---
+name: sdd-review
 description: Workflow para review de spec/plan por agents - análise contra constitution e identificação de gaps
 ---
 

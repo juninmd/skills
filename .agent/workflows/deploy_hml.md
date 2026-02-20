@@ -6,7 +6,6 @@ metadata:
 ---
 
 # Workflow: Deploy HML (CI/CD)
-# Id: deploy_hml
 
 **GATILHO:** Quando solicitado "deploy Hml", "deploy Homologação", "Faça uma release" ou "Execute o CI/CD".
 

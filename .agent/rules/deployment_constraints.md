@@ -6,7 +6,6 @@ metadata:
 ---
 
 # Rule: Deployment Constraints
-# Id: deployment_constraints
 
 ## Description
 Bloqueios e restrições temporais para deploys em produção.

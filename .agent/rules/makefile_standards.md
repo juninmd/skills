@@ -6,7 +6,6 @@ metadata:
 ---
 
 # Rule: Makefile Standards
-# Id: makefile_standards
 
 ## Requisitos
 - Verifique a existência de um arquivo `Makefile` na raiz do projeto.

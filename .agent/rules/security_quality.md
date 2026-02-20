@@ -6,7 +6,6 @@ metadata:
 ---
 
 # Rule: Security & Quality Guidelines
-# Id: security_quality
 
 ## Diretrizes
 | Item | Regra Estrita |
@@ -15,7 +14,6 @@ metadata:
 | **Logs** | Padrão `logging` (Python). Nível `INFO`. **PROIBIDO logar PII (Dados Pessoais)**. |
 | **Cobertura** | Mínimo **90%**. O PR falha se for menor. |
 | **Docstrings** | Obrigatório em todas as funções/classes públicas (Google Style). |
-| **Android** | Detectar ambiente local físico conectado (USB): Se detectar, instalar build via ADB automaticamente. |
 
 ## SonarQube
 - Seguir as métricas de qualidade definidas no `sonar.properties`.

@@ -6,7 +6,6 @@ metadata:
 ---
 
 # Rule: CI/CD Standards
-# Id: ci_cd_standards
 
 ## SonarQube
 - Arquivo `sonar.properties` na raiz do projeto é obrigatório.

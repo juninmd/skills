@@ -6,7 +6,6 @@ metadata:
 ---
 
 # Rule: Git Workflow
-# Id: git_standards
 
 ## Descrição
 Padronização para operações de versionamento, garantindo sincronia com repositórios remotos sem conflitos.

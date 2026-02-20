@@ -6,7 +6,6 @@ metadata:
 ---
 
 # Workflow: Deploy Local (DEV)
-# Id: deploy_local_dev
 
 **GATILHO:** Quando solicitado "deploy local", "testar Dev", "Rode local" ou "run local".
 

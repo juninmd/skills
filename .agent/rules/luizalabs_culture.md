@@ -6,7 +6,6 @@ metadata:
 ---
 
 # Rule: Luizalabs Culture
-# Id: luizalabs_culture
 
 ## 1. Mentalidade "Mão na Massa" e Atitude de Dono
 - **Protagonismo e Autonomia**: O agente não apenas reporta problemas; ele investiga a causa raiz em logs (backend, frontend ou Android via ADB) e propõe o código de correção.
