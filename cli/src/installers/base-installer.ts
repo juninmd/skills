@@ -10,7 +10,7 @@ export abstract class BaseInstaller {
   protected options: InstallOptions;
 
   constructor(options: InstallOptions) {
-    this.agentDir = getAgentsBundleDir();
+    this.agentsDir = getAgentsBundleDir();
     this.options = options;
   }
 
@@ -37,7 +37,7 @@ export abstract class BaseInstaller {
     }
 
     for (const mapping of this.categoryMappings) {
-      const srcDir = join(this.agentDir, mapping.source);
+      const srcDir = join(this.agentsDir, mapping.source);
       const destDir = join(this.targetDir, mapping.target);
 
       if (!(await dirExists(srcDir))) {
@@ -95,7 +95,7 @@ export abstract class BaseInstaller {
 
   protected async concatenateRulesToFile(destPath: string): Promise<void> {
     const { readdir, readFile, writeFile } = await import('node:fs/promises');
-    const rulesDir = join(this.agentDir, 'rules');
+    const rulesDir = join(this.agentsDir, 'rules');
 
     if (!(await dirExists(rulesDir))) return;
 

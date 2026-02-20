@@ -42,6 +42,12 @@ function bundleAgents() {
     console.log('  Copied agents.md');
   }
 
+  const SETTINGS_JSON = join(AGENTS_SRC, '.settings.json');
+  if (existsSync(SETTINGS_JSON)) {
+    copyFileSync(SETTINGS_JSON, join(BUNDLE_DIR, '.settings.json'));
+    console.log('  Copied .settings.json');
+  }
+
   console.log(`Bundle complete: ${BUNDLE_DIR}`);
 }
 

@@ -61,6 +61,16 @@ const TOOL_CONFIGS: Array<{
     commands: [],
     extraDirs: [],
   },
+  {
+    name: 'vscode',
+    configDir: process.platform === 'win32' 
+      ? '~/AppData/Roaming/Code/User' 
+      : process.platform === 'darwin' 
+        ? '~/Library/Application Support/Code/User' 
+        : '~/.config/Code/User',
+    commands: ['code'],
+    extraDirs: [],
+  },
 ];
 
 function resolveHome(p: string): string {

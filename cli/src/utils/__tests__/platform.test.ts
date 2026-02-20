@@ -8,7 +8,7 @@ import {
   getAgentsBundleDir,
   getTemplatesDir,
   getMasterAgentsPath,
-} from '../platform';
+} from '../platform.js';
 import * as os from 'node:os';
 
 describe('Platform Utils', () => {

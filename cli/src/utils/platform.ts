@@ -39,3 +39,7 @@ export function getTemplatesDir(): string {
 export function getMasterAgentsPath(): string {
   return join(getAgentsBundleDir(), 'agents.md');
 }
+
+export function getBundledSettingsPath(): string {
+  return join(getAgentsBundleDir(), '.settings.json');
+}

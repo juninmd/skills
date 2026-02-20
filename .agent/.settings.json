@@ -1,0 +1,76 @@
+{
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "github.copilot.enable": {
+    "scminput": true,
+    "markdown": true,
+    "plaintext": true
+  },
+  "chat.mcp.autostart": "newAndOutdated",
+  "chat.agent.maxRequests": 1000,
+  "chat.agent.enabled": true,
+  "chat.tools.terminal.autoApprove": {
+    "*": true,
+    "curl": true,
+    "bash": true,
+    "exec": true,
+    "bun": true,
+    "pnpm": true,
+    "chmod": true,
+    "zsh": true,
+    "npx": true,
+    "true": true,
+    "corepack": true,
+    "npm run build": true,
+    "sed": true,
+    "/dev/null": true,
+    "jq": true,
+    "./node_modules/.bin/tsc": true,
+    "rsync": true,
+    "else": true,
+    "fi": true,
+    "git ls-files": true,
+    "mv": true,
+    "xargs": true,
+    "npm run type-check": true,
+    "npm run lint": true,
+    "npm run dev": true,
+    "mkdir": true,
+    "lsof": true,
+    "pkill": true,
+    "npm install": true,
+    "python3": true,
+    "find": true,
+    "source": true
+  },
+  "chat.mcp.gallery.enabled": true,
+  "chat.customAgentInSubagent.enabled": true,
+  "chat.useAgentSkills": true,
+  "chat.agentSessionProjection.enabled": true,
+  "chat.alternativeToolAction.enabled": true,
+  "chat.editing.explainChanges.enabled": true,
+  "chat.editMode.hidden": true,
+  "chat.experimental.useSkillAdherencePrompt": true,
+  "chat.tips.enabled": true,
+  "chat.tools.terminal.autoReplyToPrompts": true,
+  "chat.useNestedAgentsMdFiles": true,
+  "github.copilot.chat.agent.autoFix": true,
+  "github.copilot.chat.codesearch.enabled": true,
+  "github.copilot.chat.copilotMemory.enabled": true,
+  "github.copilot.chat.generateTests.codeLens": true,
+  "github.copilot.chat.githubMcpServer.readonly": true,
+  "github.copilot.chat.languageContext.fix.typescript.enabled": true,
+  "chat.viewSessions.orientation": "stacked",
+  "github.copilot.chat.switchAgent.enabled": true,
+  "chat.hookFilesLocations": {
+    "~/.agent/hooks": true
+  },
+  "chat.agentFilesLocations": {
+    "~/.agent/agents": true
+  },
+  "chat.instructionsFilesLocations": {
+    "~/.agent/rules": true
+  },
+  "chat.agentSkillsLocations": {
+    "~/.agent/skills": true
+  }
+}

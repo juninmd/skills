@@ -7,6 +7,7 @@ import { ClaudeInstaller } from './claude.js';
 import { CursorInstaller } from './cursor.js';
 import { WindsurfInstaller } from './windsurf.js';
 import { ClineInstaller } from './cline.js';
+import { VscodeInstaller } from './vscode.js';
 
 const INSTALLER_MAP: Record<string, new (options: InstallOptions) => BaseInstaller> = {
   copilot: CopilotInstaller,
@@ -16,6 +17,7 @@ const INSTALLER_MAP: Record<string, new (options: InstallOptions) => BaseInstall
   cursor: CursorInstaller,
   windsurf: WindsurfInstaller,
   cline: ClineInstaller,
+  vscode: VscodeInstaller,
 };
 
 export function createInstaller(name: string, options: InstallOptions): BaseInstaller | null {
