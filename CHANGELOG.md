@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.7.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.6.0...v1.7.0) (2026-02-23)
+
+
+### Features
+
+* add feature comparison table for AI agent capabilities ([8d59f53](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/8d59f53))
+
 # [1.6.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.5.0...v1.6.0) (2026-02-23)
 
 
