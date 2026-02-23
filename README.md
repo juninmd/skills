@@ -137,6 +137,20 @@ npx @luizalabs/padrao-labs-agents update                      # Atualiza para a 
 | **Gemini CLI** | `~/.gemini/` | - | ✅ | - | - | ✅ | - |
 | **Antigravity** | `~/.gemini/antigravity/` | ✅ | ✅ | ✅ | ✅ | - | ✅ AGENTS.md |
 
+### 📊 Comparativo de Funcionalidades por Provedor
+
+| Funcionalidade / Suporte | 🐙 GitHub Copilot (VS Code) | 🚀 Antigravity | 🌌 Gemini CLI |
+| :--- | :---: | :---: | :---: |
+| **Modelo de Configuração** | Arquivo Local (`.github/copilot-instructions.md`) | Arquivo Local (`AGENTS.md`) | Global / Workspace (`~/.gemini/`) |
+| **Agentes (Personas)** | ✅ Suportado (via prompt de sistema) | ✅ Nativo | ✅ Nativo |
+| **Skills (Procedimentos/Tools)** | ⚠️ Apenas como leitura/contexto | ✅ Execução via Tool Calling | ✅ Execução Nativa Avançada |
+| **Rules (Padrões de Código)** | ✅ Aplicado no chat e autocomplete | ✅ Contexto forte | ✅ Contexto forte |
+| **Workflows (Passo a passo)** | ⚠️ Guiado manualmente pelo usuário | ✅ Segue planos arquiteturais | ✅ Suporta loops autônomos |
+| **Hooks (Ex: Git Pre-commit)**| ❌ Não aplicável na extensão | ❌ Não aplicável | ✅ Nativo (Automação de terminal) |
+| **Execução de Comandos Shell** | ❌ Não suportado | ✅ Suportado | ✅ Suportado |
+| **Criação/Edição de Arquivos** | ✅ Nativo na IDE | ✅ Suportado (Ferramentas) | ✅ Suportado (Ferramentas) |
+| **Interface Primária** | GUI (Editor / Sidebar) | CLI / Terminal | CLI / Terminal Interativo |
+
 > O CLI detecta automaticamente quais ferramentas estao instaladas no sistema e instala apenas para essas.
 
 ## 🏗️ Architecture
