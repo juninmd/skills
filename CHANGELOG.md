@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.6.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.5.0...v1.6.0) (2026-02-23)
+
+
+### Features
+
+* add refactoring-agent and skills for software design principles ([784a625](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/784a625))
+
 # [1.5.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.4.0...v1.5.0) (2026-02-20)
 
 
