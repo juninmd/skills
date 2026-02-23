@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.5.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.4.0...v1.5.0) (2026-02-20)
+
+
+### Features
+
+* update agent directory structure and remove unsupported tools ([d58419d](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/d58419d))
+
 # [1.4.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.3.0...v1.4.0) (2026-02-20)
 
 
