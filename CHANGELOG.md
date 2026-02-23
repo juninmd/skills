@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.8.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.7.0...v1.8.0) (2026-02-23)
+
+
+### Features
+
+* add helm-chart-reviewer agent and validating-baseweb-charts skill with configuration files ([24bad84](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/24bad84))
+
 # [1.7.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.6.0...v1.7.0) (2026-02-23)
 
 
