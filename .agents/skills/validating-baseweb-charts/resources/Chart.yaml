@@ -1,0 +1,8 @@
+apiVersion: v2
+name: {name}
+type: application
+version: {version}
+dependencies:
+  - name: base-webapp
+    version: 1.3.2
+    repository: https://chartmuseum.luizalabs.com

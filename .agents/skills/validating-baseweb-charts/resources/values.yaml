@@ -1,0 +1,79 @@
+base-webapp:
+  squad: {squad}
+  tribe: {tribe}
+  vertical: {vertical}
+  product: {product}
+  replicaCount: 0
+  image:
+    repository: {repository}
+    tag: {tag}
+    pullPolicy: IfNotPresent
+  command: {command}
+  args: {args}
+  resources:
+    limits:
+      cpu: {cpuLimit}
+      memory: {memoryLimit}
+    requests:
+      cpu: {cpuRequest}
+      memory: {memoryRequest}
+  ingress:
+    ingressController:
+      internal:
+        enabled: true
+        annotations:
+          konghq.com/protocol: https
+          konghq.com/https-redirect-status-code: '308'
+        ingressClassName: internal
+        hosts:
+          - host: {host}
+            paths:
+              - /*
+  livenessProbe:
+    failureThreshold: 10
+    httpGet:
+      path: {livenessPath}
+    initialDelaySeconds: 15
+    periodSeconds: 20
+    successThreshold: 1
+    timeoutSeconds: 5
+  readinessProbe:
+    failureThreshold: 10
+    httpGet:
+      path: {readinessPath}
+    initialDelaySeconds: 15
+    periodSeconds: 20
+    successThreshold: 1
+    timeoutSeconds: 5
+  hpa:
+    enabled: true
+    targetMetric:
+      targetCPUUtilizationPercentage: 70
+      targetMemoryUtilizationPercentage: 70
+    minReplicas: 2
+    maxReplicas: {maxReplicas}
+  maxUnavailable: 0
+  maxSurge: 1
+  lifecycle:
+    preStop:
+      exec:
+        command:
+          - sleep
+          - '30'
+  secretFiles:
+    enabled: false
+  secretEnvs:
+    enabled: false
+  envs:
+    - name: TZ
+      value: America/Sao_Paulo
+    - name: NODE_ENV
+      value: production
+    - name: PORT
+      value: '5000'
+  gmud: ''
+  secretvault:
+    enabled: true
+  repositoryLink: {repositoryLink}
+  author: {author}
+  date: '{date}'
