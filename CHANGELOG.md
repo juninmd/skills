@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.9.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.8.0...v1.9.0) (2026-02-23)
+
+
+### Features
+
+* add padrao-labs-agent and configuring-sonarqube skill with templates and guidelines ([3a43c26](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/3a43c26))
+
 # [1.8.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.7.0...v1.8.0) (2026-02-23)
 
 
