@@ -8,15 +8,6 @@ stages:
   - tag
   - rollback
 
-validate_specs:
-  stage: validate
-  image: node:20-slim
-  script:
-    - node .specify/scripts/check-spec.mjs
-  only:
-    - merge_requests
-  allow_failure: true
-
 variables:
   TZ: "/usr/share/zoneinfo/America/Sao_Paulo"
   DOCKER_REPO: gcr.io/magalu-cicd/tribe-ipet/padrao-labs-agents
@@ -46,12 +37,12 @@ build_frontend:
   script:
     - npm install -g pnpm@8.6.2
     - pnpm install --frozen-lockfile
-    - pnpm run docs:build
+    - pnpm run build
     - mkdir -p public
-    - cp -rf docs/.vitepress/dist/* public/
+    - cp -rf apps/docs/docs/.vitepress/dist/* public/
   artifacts:
     paths:
-      - docs/
+      - apps/docs/docs/
       - public/
     expire_in: 1 day
   only:

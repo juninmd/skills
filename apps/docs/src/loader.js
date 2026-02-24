@@ -6,7 +6,8 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..');
-const AGENTS_DIR = path.join(ROOT, '.agents');
+const MONOREPO_ROOT = path.join(ROOT, '..');
+const AGENTS_DIR = path.join(MONOREPO_ROOT, '.agents');
 const DOCS_DIR = path.join(ROOT, 'docs');
 
 const CATEGORIES = ['agents', 'skills', 'rules', 'hooks', 'workflows'];

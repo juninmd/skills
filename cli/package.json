@@ -12,6 +12,10 @@
     "agents-bundle/"
   ],
   "scripts": {
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest run --coverage",
     "build": "tsc",
     "bundle-agents": "node scripts/bundle-agents.mjs",
     "prepublishOnly": "npm run build && npm run bundle-agents"

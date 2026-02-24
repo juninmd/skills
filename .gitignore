@@ -1,4 +1,4 @@
-node_modules/*
+*/node_modules/*
 */dist/*
 */cache/*
 
@@ -19,3 +19,4 @@ public/*
 **/__pycache__/**
 
 **/node_modules/**
+apps/docs/docs/**

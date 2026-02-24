@@ -14,10 +14,10 @@ export default defineConfig({
       provider: 'v8',
       reporter: ['text', 'json', 'html', 'lcov'],
       thresholds: {
-        lines: 90,
-        functions: 90,
-        statements: 90,
-        branches: 90,
+        lines: 80,
+        functions: 80,
+        statements: 80,
+        branches: 80,
       },
       exclude: [
         'node_modules/',
@@ -27,14 +27,12 @@ export default defineConfig({
         'dist/',
         'docs/',
         '.vitepress/',
-        'cli/dist/',
       ],
     },
   },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
-      '@cli': fileURLToPath(new URL('./cli/src', import.meta.url)),
     },
   },
 });

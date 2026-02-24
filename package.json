@@ -1,47 +1,26 @@
 {
-  "name": "padrao-labs-agents-docs",
+  "name": "padrao-labs-agents-root",
   "version": "1.0.0",
   "private": true,
-  "description": "VitePress documentation for Luizalabs Agents, Skills, Rules, and Workflows",
+  "description": "Luizalabs Agents, Skills, Rules, and Workflows",
   "type": "module",
-  "workspaces": [
-    "cli"
-  ],
   "scripts": {
-    "docs:dev": "node src/loader.js && vitepress dev docs",
-    "docs:build": "node src/loader.js && vitepress build docs",
-    "docs:preview": "vitepress preview docs",
-    "generate:index": "node src/loader.js",
+    "dev": "pnpm -r run dev",
+    "build": "pnpm -r run build",
+    "start": "pnpm -r run start",
     "lint:md": "markdownlint '**/*.md' --ignore node_modules --ignore docs --ignore .",
     "lint:md:fix": "markdownlint '**/*.md' --ignore node_modules --ignore docs --ignore . --fix",
     "lint:skills": "node scripts/lint-skills.mjs",
-    "start": "node server.js",
-    "test": "vitest",
-    "test:run": "vitest run",
-    "test:ui": "vitest --ui",
-    "test:coverage": "vitest run --coverage",
-    "spec:init": "node .specify/scripts/init-spec.mjs",
-    "spec:validate": "node .specify/scripts/check-spec.mjs",
-    "spec:status": "node .specify/scripts/check-spec.mjs",
-    "spec:check": "node .specify/scripts/check-spec.mjs",
-    "spec:approve": "node .specify/scripts/approve-spec.mjs"
-  },
-  "dependencies": {
-    "minisearch": "^6.2.0",
-    "vitepress": "^1.5.0",
-    "vitepress-mermaid-preview": "^0.1.1",
-    "vue": "^3.4.0"
+    "test": "pnpm -r run test",
+    "test:run": "pnpm -r run test:run",
+    "test:ui": "pnpm -r run test:ui",
+    "test:coverage": "pnpm -r run test:coverage"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^5.2.4",
     "@vitest/coverage-v8": "^4.0.18",
-    "@vue/test-utils": "^2.4.6",
     "chokidar": "^3.6.0",
     "gray-matter": "^4.0.3",
-    "happy-dom": "^20.6.2",
-    "jsdom": "^28.1.0",
     "markdownlint-cli": "^0.47.0",
-    "vite": "^5.0.0",
     "vitest": "^4.0.18",
     "zod": "^4.3.6"
   }
