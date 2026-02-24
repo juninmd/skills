@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.10.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.9.0...v1.10.0) (2026-02-24)
+
+
+### Features
+
+* add logo and social icons to documentation ([dab5fe7](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/dab5fe7))
+
 # [1.9.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.8.0...v1.9.0) (2026-02-23)
 
 
