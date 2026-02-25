@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.3](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.11.2...v1.11.3) (2026-02-25)
+
+
+### Documentation
+
+* Update deploy instructions with new sections on quality, observability, image registry, detailed GMUD approval, and refined configuration file guidance. ([2fa40bc](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/2fa40bc))
+
 ## [1.11.2](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.11.1...v1.11.2) (2026-02-25)
 
 
