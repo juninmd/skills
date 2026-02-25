@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.4](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.11.3...v1.11.4) (2026-02-25)
+
+
+### Documentation
+
+* add specific instructions for handling `GOOGLE_APPLICATION_CREDENTIALS` in MGC clusters and remove a horizontal rule. ([567bf9f](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/567bf9f))
+
 ## [1.11.3](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.11.2...v1.11.3) (2026-02-25)
 
 
