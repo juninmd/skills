@@ -1,6 +1,6 @@
 # Instruções de Deploy
 
-Este guia explica como fazer deploy das suas aplicacoes na infraestrutura Luizalabs, incluindo configuracao de ArgoCD, DNS e gerenciamento de segredos.
+Este guia explica como fazer deploy das suas aplicações na infraestrutura Luizalabs, incluindo configuração de ArgoCD, DNS e gerenciamento de segredos.
 
 ---
 
@@ -21,16 +21,15 @@ O nosso GitLab é o [https://gitlab.luizalabs.com/](https://gitlab.luizalabs.com
 
 ### Arquivos de Configuração
 Certifique-se de configurar os seguintes arquivos no seu projeto:
-1. **Configurar o `hangar-info.yaml`** - Arquivo com os metadados do projeto para o catálogo.
-2. **Configurar o `dependency.yaml`** - Declaração de dependências do projeto e suas integrações.
-3. **Configurar o `sonar-project.properties`** - Propriedades do SonarQube para análise de qualidade e cobertura de código.
-4. **Configurar o `.gitlab-ci.yml`** - Pipeline de CI/CD que precisa estar configurado para rodar a automação (já inclui acesso ao `ci-knife`).
+4. **Configurar o `.gitignore`** - Ajustado para a stack de desenvolvimento.
+5. **Configurar o `.gitlab-ci.yml`** - Pipeline de CI/CD padrão com `ci-knife`.
+6. **Configurar o `dependency.yaml`** e `hangar-info.yaml` - Use os templates do [catálogo de APIs](https://padrao-labs-agents.luizalabs.com/skills/cataloging-apis/).
 
 ---
 
 ## ArgoCD
 
-O ArgoCD e a ferramenta que sincroniza o estado do seu repositorio Git com o cluster Kubernetes. Quando voce faz push de uma mudanca, o ArgoCD detecta e aplica automaticamente.
+O ArgoCD é a ferramenta que sincroniza o estado do seu repositório Git com o cluster Kubernetes. Quando você faz push de uma mudança, o ArgoCD detecta e aplica automaticamente.
 
 ### Ambientes Disponíveis
 
@@ -50,7 +49,30 @@ Não sabe qual é a sua vertical? Você pode consultar no [Mapa Labs](https://ma
 1. Abra a URL do ArgoCD do ambiente desejado no navegador
 2. Faca login com suas credenciais corporativas
 3. Procure sua aplicacao pelo nome (geralmente o mesmo nome do repositorio)
-4. Verifique se o status esta **Synced** (sincronizado) e **Healthy** (saudavel)
+4. Verifique se o status está **Synced** (sincronizado) e **Healthy** (saudável)
+
+---
+
+## Qualidade e SonarQube
+
+A validação de qualidade e cobertura é feita através do SonarQube. As URLs oficiais são:
+*   **Staging**: [https://sonarqube-staging.luizalabs.com/](https://sonarqube-staging.luizalabs.com/)
+*   **Produção**: [https://sonarqube.luizalabs.com/](https://sonarqube.luizalabs.com/)
+
+---
+
+## Observabilidade e Logs
+
+Toda aplicação no Padrão Labs envia logs estruturados automaticamente para o **Google Cloud Logging**.
+*   Para visualizar os logs, você deve acessar o projeto GCP correspondente ao seu ambiente (ex: `maga-homolog`).
+*   Certifique-se de que sua aplicação está imprimindo logs no formato JSON para melhor análise.
+
+---
+
+## Registro de Imagens (GCR)
+
+As imagens Docker geradas pelo pipeline são armazenadas obrigatoriamente no registro oficial:
+*   **Registry**: `gcr.io/magalu-cicd/<NOME_DA_SQUAD>/<NOME_DA_APP>`
 
 ---
 
@@ -183,6 +205,28 @@ graph TD
 
 > [!IMPORTANT]
 > **Regra de Aprovação de GMUD**: O deploy em produção só pode ser realizado após a aprovação da GMUD pelo bot **PIO** ou por **2 TLs (Tech Leads)** que não são do mesmo time.
+> *   **Acessar GMUDs pendentes**: [GitLab GMUD Issues](https://gitlab.luizalabs.com/luizalabs/gmud/-/issues)
+
+#### Auto-aprovação pelo Bot PiO
+O bot **PiO** pode realizar a aprovação automática caso os seguintes critérios sejam atendidos após a primeira aprovação manual:
+- **Cobertura de Código**: Maior ou igual a **90%** (avaliada pelo SonarQube).
+- **Segurança**: Ausência de issues críticas de segurança (avaliadas pelo pipeline de segurança/Atena).
+
+#### Como solicitar a Auto-aprovação
+Para que seu projeto seja elegível à auto-aprovação pelo PiO, você deve solicitar a inclusão do seu repositório na lista de projetos permitidos.
+1. Realize um Merge Request adicionando o nome do seu projeto ao arquivo `auto-approved-projects.csv` no repositório de GMUD:
+   - **Repositório de Solicitação**: [GMUD Merge Requests](https://gitlab.luizalabs.com/luizalabs/gmud/-/merge_requests/)
+
+2. **Requisitos de Conformidade**:
+   Para ser aprovado, o MR verificará automaticamente se o projeto atende a:
+   - ✅ Time pratica "Code Review" via Merge Requests.
+   - ✅ Deploy e Rollback automatizados via CI.
+   - ✅ Metadados (`owner`, `tribe`, `vertical`) preenchidos no `dependency.yaml` e `hangar-info.yaml`.
+   - ✅ Nenhuma issue crítica de segurança (Snyk/Atena).
+   - ✅ **Métricas Sonar**:
+     - Cobertura de testes >= 90%.
+     - Duplicação de código < 3%.
+     - Rating 'A' em Maintainability, Reliability e Security.
 
 ### Etapas do Pipeline
 
@@ -296,6 +340,7 @@ Isso vai criar (ou atualizar) os seguintes arquivos:
 | `dependency.yaml` | Declaracao de dependencias do projeto |
 | `sonar-project.properties` | Configuracao do SonarQube para analise de codigo |
 | `hangar-info.yaml` | Metadados do projeto para o catalogo interno |
-| `.gitlab-ci.yml` | Pipeline de CI/CD padrao com build, test, security e deploy |
+| `.gitignore` | Arquivo para ignorar arquivos/diretórios no Git |
+| `.gitlab-ci.yml` | Pipeline de CI/CD padrão com build, test, security e deploy |
 
 O comando vai perguntar interativamente as informacoes do seu projeto (nome, vertical, tribo, linguagem, etc.).
