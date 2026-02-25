@@ -1,5 +1,17 @@
 # Changelog
 
+# [1.11.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.10.0...v1.11.0) (2026-02-25)
+
+
+### Code Refactoring
+
+* Adjust Dockerfile to copy specific subdirectories for build and use `pnpm build` instead of `pnpm docs:build`. ([7b2bae7](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/7b2bae7))
+
+
+### Features
+
+* skill dockerfile ([1c37668](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/1c37668))
+
 # [1.10.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.9.0...v1.10.0) (2026-02-24)
 
 
