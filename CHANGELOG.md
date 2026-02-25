@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.2](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.11.1...v1.11.2) (2026-02-25)
+
+
+### Documentation
+
+* add Design Doc section, CI/CD flow diagram, GMUD approval rules, and `ci-knife create-gmud` example. ([4a8ac2d](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/4a8ac2d))
+
 ## [1.11.1](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.11.0...v1.11.1) (2026-02-25)
 
 
