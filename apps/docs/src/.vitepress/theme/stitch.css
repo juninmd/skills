@@ -44,10 +44,10 @@
 
 /* Dark Mode */
 html.dark {
-  --vp-c-bg: #0f172a;
-  --vp-c-bg-rgb: 15, 23, 42;       /* RGB components for rgba() in dark mode */
-  --vp-c-bg-soft: #1e293b;
-  --vp-c-bg-muted: #334155;
+  --vp-c-bg: #000000;
+  --vp-c-bg-rgb: 0, 0, 0;       /* RGB components for rgba() in dark mode */
+  --vp-c-bg-soft: #111111;
+  --vp-c-bg-muted: #1a1a1a;
 
   --vp-c-text-1: #f1f5f9;
   --vp-c-text-2: #cbd5e1;
