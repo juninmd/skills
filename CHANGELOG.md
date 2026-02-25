@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.6](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.11.5...v1.11.6) (2026-02-25)
+
+
+### Documentation
+
+* Remove Specification-Driven Development navigation link and update dark mode background colors. ([736b35c](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/736b35c))
+
 ## [1.11.5](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.11.4...v1.11.5) (2026-02-25)
 
 
