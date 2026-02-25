@@ -82,47 +82,58 @@ Este repositório (localizado no subgrupo `cicd`) gerencia o deploy da aplicaç�
 Define os metadados do chart e as dependências necessárias.
 
 ```yaml
-apiVersion: v2
-name: <NOME_DA_SUA_APP>
-type: application
-version: <VERSAO_DO_CHART>
+apiVersion: v2 # Versão da API do Helm (v2 é o padrão para o Helm 3)
+name: <NOME_DA_SUA_APP> # Nome da sua aplicação
+type: application # Define se é uma application ou uma library
+version: <VERSAO_DO_CHART> # Versão do Chart (incrementada a cada alteração)
 dependencies:
-  - name: base-webapp
+  - name: base-webapp # Chart base padrão do Luizalabs
     version: <VERSAO_BASE_WEBAPP>
     repository: https://chartmuseum.luizalabs.com
 annotations:
-  rollback_version: <VERSAO_ANTERIOR>
-  previous_commit: <HASH_COMMIT_ANTERIOR>
+  rollback_version: <VERSAO_ANTERIOR> # Metadados para o processo de CI/CD
+  previous_commit: <HASH_COMMIT_ANTERIOR> # Rastreabilidade de commits
 ```
-
-**Descrição dos campos:**
-- `apiVersion`: Versão da API do Helm (v2 é o padrão para o Helm 3).
-- `name`: Nome do Helm Chart (deve ser o nome da sua aplicação).
-- `type`: Define se é uma `application` ou uma `library`.
-- `version`: A versão do seu Chart (deve ser incrementada a cada alteração).
-- `dependencies`: Lista de dependências. Aqui incluímos o `base-webapp` que é o padrão do Luizalabs.
-- `annotations`: Metadados adicionais úteis para o processo de CI/CD, como versão de rollback e rastreabilidade de commits.
 
 ### 2. `values.yaml`
 Contém as configurações específicas da aplicação e do ambiente através do chart base `base-webapp`.
 
 ```yaml
 base-webapp:
+  # --------------------------------------------------------------------------
+  # Metadados de Identificação (Obrigatório para faturamento e catálogo)
+  # --------------------------------------------------------------------------
   squad: <NOME_DA_SQUAD>
   tribe: <NOME_DA_TRIBO>
   vertical: <NOME_DA_VERTICAL>
   product: <NOME_DO_PRODUTO>
-  replicaCount: <NUMERO_REPLICAS>
+
+  # --------------------------------------------------------------------------
+  # Configuração de Imagem e Escalonamento
+  # --------------------------------------------------------------------------
+  replicaCount: <NUMERO_REPLICAS> # Instâncias caso HPA esteja desativado
   image:
     repository: gcr.io/magalu-cicd/<NOME_DA_APP>
     tag: <TAG_VERSAO>
-  resources:
+
+  resources: # Limites de recursos (crucial para o escalonamento)
     limits:
       cpu: <CPU_LIMIT> # Ex: 800m
       memory: <MEM_LIMIT> # Ex: 3Gi
     requests:
       cpu: <CPU_REQ> # Ex: 400m
       memory: <MEM_REQ> # Ex: 500Mi
+
+  hpa: # Horizontal Pod Autoscaler
+    enabled: true
+    minReplicas: <MIN_REPLICAS>
+    maxReplicas: <MAX_REPLICAS>
+    targetMetric:
+      targetCPUUtilizationPercentage: 70
+
+  # --------------------------------------------------------------------------
+  # Configuração de DNS (Ingress)
+  # --------------------------------------------------------------------------
   ingress:
     ingressController:
       internal:
@@ -131,12 +142,10 @@ base-webapp:
           - host: <SUBDOMINIO>.luizalabs.com
             paths:
               - /*
-  hpa:
-    enabled: true
-    minReplicas: <MIN_REPLICAS>
-    maxReplicas: <MAX_REPLICAS>
-    targetMetric:
-      targetCPUUtilizationPercentage: 70
+
+  # --------------------------------------------------------------------------
+  # Variáveis de Ambiente e Segredos (GSM)
+  # --------------------------------------------------------------------------
   envs:
     - name: NODE_ENV
       value: production
@@ -144,14 +153,9 @@ base-webapp:
       value: gcp:secretmanager:projects/<PROJECT_ID>/secrets/<SECRET_NAME>/versions/<VERSION>
 ```
 
-**Descrição dos principais blocos:**
-- `squad`, `tribe`, `vertical`: Metadados para identificação e faturamento da aplicação.
-- `replicaCount`: Número de instâncias da aplicação (caso o HPA esteja desativado).
-- `image`: Define o repositório da imagem no GCR e a tag da versão.
-- `resources`: Define os limites e requisições de CPU e Memória (crucial para o escalonamento).
-- `ingress`: Configuração de DNS e exposição da aplicação. No exemplo, usa o controlador interno (`internal`).
-- `hpa`: Configura o *Horizontal Pod Autoscaler* para escalar o número de pods automaticamente com base no uso de recursos.
-- `envs`: Variáveis de ambiente.
+::: tip GESTÃO DE SEGREDOS
+Note que variáveis que começam com `gcp:secretmanager` referenciam segredos do **Google Secret Manager (GSM)**. Elas são normalmente geradas e atualizadas pelo script [gsmpatch.sh](#gerenciamento-de-segredos-gsmpatch).
+:::
 
 #### Observação para Clusters MGC (Magalu Cloud)
 Se você estiver publicando em um cluster **MGC** e possuir uma variável chamada `GOOGLE_APPLICATION_CREDENTIALS`, você deve:
@@ -167,10 +171,7 @@ Exemplo:
       value: 'true'
 ```
 
-> [!TIP]
-> **Gestão de Segredos**: Note que variáveis que começam com `gcp:secretmanager` referenciam segredos do **Google Secret Manager (GSM)**. Elas são normalmente geradas e atualizadas pelo script [gsmpatch.sh](#gerenciamento-de-segredos-gsmpatch).
-
-::: tip
+::: tip DNS AUTOMÁTICO HML
 O DNS automático só funciona para o domínio `*.mgc-hml.mglu.io` no ambiente de **homologação**. Para produção, domínios customizados (como `luizalabs.com`) ou outras configurações, é necessário configurar o Ingress Controller adequado e garantir as entradas de DNS via ticket ou tech lead.
 :::
 
@@ -182,6 +183,13 @@ Antes de realizar o deploy em **Produção**, é obrigatório o desenvolvimento 
 
 Você deve seguir o template oficial da Luizalabs:
 *   **Template de Design Doc**: [Clique aqui para acessar o Template no Confluence](https://magazine.atlassian.net/wiki/spaces/EN/pages/3553067014/Template+de+Design+Doc)
+
+::: warning VALIDAÇÃO E APROVAÇÃO
+Após gerar a Design Doc, você deve obrigatoriamente:
+1.  **Postar no Google Chat**: Envie o link do documento gerado no confluence no space oficial de Design Docs: [Acessar Space do Google Chat](https://chat.google.com/app/chat/AAAAuAeKaGw)
+2.  **Solicitar Aprovação**: O documento deve ser revisado e aprovado pelo **Tech Lead** responsável pela área.
+:::
+
 
 ### Construção com ArchDD Agent
 Para acelerar o processo, você pode utilizar o **ArchDD Agent**, que ajuda na construção da documentação seguindo os padrões arquiteturais:
@@ -215,9 +223,10 @@ graph TD
     DeployPRD --> End
 ```
 
-> [!IMPORTANT]
-> **Regra de Aprovação de GMUD**: O deploy em produção só pode ser realizado após a aprovação da GMUD pelo bot **PIO** ou por **2 TLs (Tech Leads)** que não são do mesmo time.
-> *   **Acessar GMUDs pendentes**: [GitLab GMUD Issues](https://gitlab.luizalabs.com/luizalabs/gmud/-/issues)
+::: warning REGRA DE APROVAÇÃO DE GMUD
+O deploy em produção só pode ser realizado após a aprovação da GMUD pelo bot **PIO** ou por **2 TLs (Tech Leads)** que não são do mesmo time.
+*   **Acessar GMUDs pendentes**: [GitLab GMUD Issues](https://gitlab.luizalabs.com/luizalabs/gmud/-/issues)
+:::
 
 #### Auto-aprovação pelo Bot PiO
 O bot **PiO** pode realizar a aprovação automática caso os seguintes critérios sejam atendidos após a primeira aprovação manual:

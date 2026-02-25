@@ -930,3 +930,108 @@ input:focus, textarea:focus, select:focus {
   gap: 1rem;
 }
 
+/* =========================================================================
+   VITEPRESS MARKDOWN OPTIMIZATIONS (Docs & YAML)
+   ========================================================================= */
+
+/* Typography & Spacing in Markdown */
+.vp-doc {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  letter-spacing: 0.01em;
+}
+
+.vp-doc p {
+  margin-bottom: 1.5rem;
+}
+
+.vp-doc h2 {
+  margin-top: 3.5rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--vp-c-divider);
+}
+
+.vp-doc h3 {
+  margin-top: 2.5rem;
+  font-weight: 700;
+}
+
+/* Code Blocks (YAML focus) */
+.vp-doc div[class*='language-'] {
+  border-radius: 12px;
+  margin: 1.5rem 0;
+  box-shadow: var(--vp-shadow-2);
+  border: 1px solid var(--vp-c-divider);
+  background: var(--vp-code-bg);
+}
+
+.vp-doc div[class*='language-'] pre {
+  padding: 1.5rem;
+}
+
+/* Enhancing Code Comments and Keys in YAML */
+.vp-doc div[class*='language-'] code .token.comment {
+  color: var(--vp-c-text-3);
+  font-style: italic;
+  opacity: 0.8;
+}
+
+.vp-doc div[class*='language-'] code .token.key {
+  color: var(--vp-c-brand-light);
+  font-weight: 600;
+}
+
+/* Inline Code */
+.vp-doc p > code, .vp-doc li > code, .vp-doc th > code, .vp-doc td > code {
+  color: var(--vp-c-brand-dark) !important;
+  font-weight: 600;
+  padding: 0.2rem 0.4rem !important;
+  border-radius: 6px !important;
+  background: rgba(var(--vp-c-brand-rgb), 0.08) !important;
+  font-size: 0.9em !important;
+}
+
+.dark .vp-doc p > code, .dark .vp-doc li > code, .dark .vp-doc th > code, .dark .vp-doc td > code {
+  color: var(--vp-c-brand-light) !important;
+  background: rgba(var(--vp-c-brand-rgb), 0.15) !important;
+}
+
+/* Alerts / Custom Containers (::: tip, ::: warning) */
+.vp-doc .custom-block {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: var(--vp-shadow-1);
+}
+
+.vp-doc .custom-block-title {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  font-size: 1.1em;
+}
+
+/* Tables */
+.vp-doc table {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--vp-shadow-1);
+  margin: 2rem 0;
+  display: table;
+  border-collapse: collapse;
+}
+
+.vp-doc th, .vp-doc td {
+  padding: 1rem 1.2rem;
+  border: 1px solid var(--vp-c-divider);
+}
+
+.vp-doc th {
+  background-color: var(--vp-c-bg-soft);
+  font-weight: 700;
+}
+
+.vp-doc tr:nth-child(2n) {
+  background-color: var(--vp-c-bg-mute);
+}
