@@ -1,4 +1,4 @@
-# Instrucoes de Deploy
+# Instruções de Deploy
 
 Este guia explica como fazer deploy das suas aplicacoes na infraestrutura Luizalabs, incluindo configuracao de ArgoCD, DNS e gerenciamento de segredos.
 
@@ -9,7 +9,7 @@ Este guia explica como fazer deploy das suas aplicacoes na infraestrutura Luizal
 Antes de começar o deploy, certifique-se de que você tem os seguintes acessos e configurações concluídas:
 
 ### Acessos Necessários
-1. **Acesso ao projeto da GCP** - Necessário para recursos de infraestrutura (Logs/Cloud). Caso não tenha, você pode solicitar através do Papagali: [Solicitar via Papagali](https://papagali.ipet.sh/card/create/team/CLOUD/request/59)
+1. **Acesso ao projeto da GCP** - Necessário para recursos de infraestrutura (Logs/Cloud). Ao solicitar acesso, você precisará informar os nomes dos projetos (ex: `maga-homolog` para o ambiente de homologação). Caso não tenha, solicite via Papagali: [Solicitar via Papagali](https://papagali.ipet.sh/card/create/team/CLOUD/request/59)
 2. **Acesso ao ArgoCD** - Para monitorar o status e sincronizar os deploys na Luizalabs. Caso não tenha, você pode solicitar através do Papagali: [Solicitar via Papagali](https://papagali.ipet.sh/card/create/team/CLOUD/request/123)
 3. **gcloud CLI e kubectl** - O `gcloud` deve estar instalado ([Guia de Instalação](https://cloud.google.com/sdk/docs/install)) e o `kubectl` configurado para o cluster correto da GCP.
 
@@ -54,31 +54,135 @@ Não sabe qual é a sua vertical? Você pode consultar no [Mapa Labs](https://ma
 
 ---
 
-## Configuracao de DNS
+## Configuração do Repositório de CI/CD (Helm Chart)
 
-Ao configurar o `host` no arquivo `values.yaml` com o dominio `.mgc-hml.mglu.io`, os registros DNS sao criados automaticamente apontando para o IP do Ingress Controller.
+Este repositório (localizado no subgrupo `cicd`) gerencia o deploy da aplicação utilizando Helm. Os dois arquivos principais que devem ser configurados são:
 
-### Exemplo de values.yaml
+### 1. `Chart.yaml`
+Define os metadados do chart e as dependências necessárias.
 
 ```yaml
-ingress:
-  enabled: true
-  hosts:
-    - host: minha-app.mgc-hml.mglu.io
-      paths:
-        - path: /
-          pathType: Prefix
+apiVersion: v2
+name: <NOME_DA_SUA_APP>
+type: application
+version: <VERSAO_DO_CHART>
+dependencies:
+  - name: base-webapp
+    version: <VERSAO_BASE_WEBAPP>
+    repository: https://chartmuseum.luizalabs.com
+annotations:
+  rollback_version: <VERSAO_ANTERIOR>
+  previous_commit: <HASH_COMMIT_ANTERIOR>
 ```
 
+**Descrição dos campos:**
+- `apiVersion`: Versão da API do Helm (v2 é o padrão para o Helm 3).
+- `name`: Nome do Helm Chart (deve ser o nome da sua aplicação).
+- `type`: Define se é uma `application` ou uma `library`.
+- `version`: A versão do seu Chart (deve ser incrementada a cada alteração).
+- `dependencies`: Lista de dependências. Aqui incluímos o `base-webapp` que é o padrão do Luizalabs.
+- `annotations`: Metadados adicionais úteis para o processo de CI/CD, como versão de rollback e rastreabilidade de commits.
+
+### 2. `values.yaml`
+Contém as configurações específicas da aplicação e do ambiente através do chart base `base-webapp`.
+
+```yaml
+base-webapp:
+  squad: <NOME_DA_SQUAD>
+  tribe: <NOME_DA_TRIBO>
+  vertical: <NOME_DA_VERTICAL>
+  product: <NOME_DO_PRODUTO>
+  replicaCount: <NUMERO_REPLICAS>
+  image:
+    repository: gcr.io/magalu-cicd/<NOME_DA_APP>
+    tag: <TAG_VERSAO>
+  resources:
+    limits:
+      cpu: <CPU_LIMIT> # Ex: 800m
+      memory: <MEM_LIMIT> # Ex: 3Gi
+    requests:
+      cpu: <CPU_REQ> # Ex: 400m
+      memory: <MEM_REQ> # Ex: 500Mi
+  ingress:
+    ingressController:
+      internal:
+        enabled: true
+        hosts:
+          - host: <SUBDOMINIO>.luizalabs.com
+            paths:
+              - /*
+  hpa:
+    enabled: true
+    minReplicas: <MIN_REPLICAS>
+    maxReplicas: <MAX_REPLICAS>
+    targetMetric:
+      targetCPUUtilizationPercentage: 70
+  envs:
+    - name: NODE_ENV
+      value: production
+    - name: <NOME_DA_VAR>
+      value: gcp:secretmanager:projects/<PROJECT_ID>/secrets/<SECRET_NAME>/versions/<VERSION>
+```
+
+**Descrição dos principais blocos:**
+- `squad`, `tribe`, `vertical`: Metadados para identificação e faturamento da aplicação.
+- `replicaCount`: Número de instâncias da aplicação (caso o HPA esteja desativado).
+- `image`: Define o repositório da imagem no GCR e a tag da versão.
+- `resources`: Define os limites e requisições de CPU e Memória (crucial para o escalonamento).
+- `ingress`: Configuração de DNS e exposição da aplicação. No exemplo, usa o controlador interno (`internal`).
+- `hpa`: Configura o *Horizontal Pod Autoscaler* para escalar o número de pods automaticamente com base no uso de recursos.
+- `envs`: Variáveis de ambiente.
+
+> [!TIP]
+> **Gestão de Segredos**: Note que variáveis que começam com `gcp:secretmanager` referenciam segredos do **Google Secret Manager (GSM)**. Elas são normalmente geradas e atualizadas pelo script [gsmpatch.sh](#gerenciamento-de-segredos-gsmpatch).
+
 ::: tip
-O DNS automatico so funciona para o dominio `*.mgc-hml.mglu.io`. Para outros dominios, entre em contato com o time de infraestrutura.
+O DNS automático só funciona para o domínio `*.mgc-hml.mglu.io` no ambiente de **homologação**. Para produção, domínios customizados (como `luizalabs.com`) ou outras configurações, é necessário configurar o Ingress Controller adequado e garantir as entradas de DNS via ticket ou tech lead.
 :::
 
 ---
 
-## Pipeline CI/CD com ci-knife
+## Design Doc
+
+Antes de realizar o deploy em **Produção**, é obrigatório o desenvolvimento e aprovação da **Design Doc** do projeto.
+
+Você deve seguir o template oficial da Luizalabs:
+*   **Template de Design Doc**: [Clique aqui para acessar o Template no Confluence](https://magazine.atlassian.net/wiki/spaces/EN/pages/3553067014/Template+de+Design+Doc)
+
+### Construção com ArchDD Agent
+Para acelerar o processo, você pode utilizar o **ArchDD Agent**, que ajuda na construção da documentação seguindo os padrões arquiteturais:
+*   **Documentação ArchDD Agent**: [Acessar Guia do ArchDD](https://padrao-labs-agents.luizalabs.com/agents/archdd-agent/)
+
+---
+
+## Pipeline CI/CD com ci-knife {#ci-knife}
 
 O `ci-knife` e a ferramenta padrao para automacao de pipelines na Luizalabs. Ele cuida de build, testes, deploy e seguranca.
+
+### Fluxo da Esteira CI/CD
+
+```mermaid
+graph TD
+    Start((Início)) --> BuildTest[Build & Test]
+    BuildTest --> SonarStaging[Sonar Staging]
+    SonarStaging --> Security[Pipeline de Segurança]
+    Security --> DeployHML[Deploy Homologação]
+
+    DeployHML --> IsMainBranch{Merge na Main?}
+
+    IsMainBranch -- Sim --> Release[Geração de Release]
+    Release --> SonarProd[Sonar Production]
+    SonarProd --> GMUD[Criação de GMUD]
+    GMUD --> DeployPRD[Deploy Production]
+    DeployPRD --> Rollback[Rollback Production - Opcional]
+
+    IsMainBranch -- Não --> End((Fim))
+    Rollback --> End
+    DeployPRD --> End
+```
+
+> [!IMPORTANT]
+> **Regra de Aprovação de GMUD**: O deploy em produção só pode ser realizado após a aprovação da GMUD pelo bot **PIO** ou por **2 TLs (Tech Leads)** que não são do mesmo time.
 
 ### Etapas do Pipeline
 
@@ -102,9 +206,10 @@ ci-knife create-release
 
 # Scanner de qualidade (SonarQube)
 ci-knife sonar-scanner --project-key $SONAR_PROJECT_KEY
-```
 
----
+# Gerar GMUD (de acordo com o CHANGELOG)
+ci-knife create-gmud
+```
 
 ## Gerenciamento de Segredos (GSMPatch)
 
