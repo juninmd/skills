@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.1](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.11.0...v1.11.1) (2026-02-25)
+
+
+### Documentation
+
+* expand and clarify deployment prerequisites, access requirements, and environment details in the deployment documentation. ([551da3b](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/551da3b))
+
 # [1.11.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.10.0...v1.11.0) (2026-02-25)
 
 
