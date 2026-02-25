@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.5](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.11.4...v1.11.5) (2026-02-25)
+
+
+### Documentation
+
+* enhance deployment guide clarity with inline comments and improve markdown styling for better readability. ([731a9a7](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/731a9a7))
+
 ## [1.11.4](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.11.3...v1.11.4) (2026-02-25)
 
 
