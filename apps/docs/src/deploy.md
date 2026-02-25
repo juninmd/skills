@@ -2,8 +2,6 @@
 
 Este guia explica como fazer deploy das suas aplicações na infraestrutura Luizalabs, incluindo configuração de ArgoCD, DNS e gerenciamento de segredos.
 
----
-
 ## Pré-requisitos
 
 Antes de começar o deploy, certifique-se de que você tem os seguintes acessos e configurações concluídas:
@@ -154,6 +152,20 @@ base-webapp:
 - `ingress`: Configuração de DNS e exposição da aplicação. No exemplo, usa o controlador interno (`internal`).
 - `hpa`: Configura o *Horizontal Pod Autoscaler* para escalar o número de pods automaticamente com base no uso de recursos.
 - `envs`: Variáveis de ambiente.
+
+#### Observação para Clusters MGC (Magalu Cloud)
+Se você estiver publicando em um cluster **MGC** e possuir uma variável chamada `GOOGLE_APPLICATION_CREDENTIALS`, você deve:
+1.  Renomear a variável para `GOOGLE_APPLICATION_CREDENTIALS_REPLACEMENT`.
+2.  Adicionar a variável de ambiente `DO_NOT_SILENCE_GOOGLE_APPLICATION_CREDENTIALS` com o valor `'true'`.
+
+Exemplo:
+```yaml
+  envs:
+    - name: GOOGLE_APPLICATION_CREDENTIALS_REPLACEMENT
+      value: gcp:secretmanager:projects/<PROJECT_ID>/secrets/<SECRET_NAME>/versions/<VERSION>
+    - name: DO_NOT_SILENCE_GOOGLE_APPLICATION_CREDENTIALS
+      value: 'true'
+```
 
 > [!TIP]
 > **Gestão de Segredos**: Note que variáveis que começam com `gcp:secretmanager` referenciam segredos do **Google Secret Manager (GSM)**. Elas são normalmente geradas e atualizadas pelo script [gsmpatch.sh](#gerenciamento-de-segredos-gsmpatch).
