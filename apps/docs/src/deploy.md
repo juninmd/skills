@@ -4,14 +4,27 @@ Este guia explica como fazer deploy das suas aplicacoes na infraestrutura Luizal
 
 ---
 
-## Pre-requisitos
+## Pré-requisitos
 
-Antes de comecar, certifique-se de que voce tem:
+Antes de começar o deploy, certifique-se de que você tem os seguintes acessos e configurações concluídas:
 
-1. **Acesso ao GitLab** - Seu repositorio deve estar no GitLab da Luizalabs
-2. **gcloud CLI** instalado - [Guia de Instalacao](https://cloud.google.com/sdk/docs/install)
-3. **kubectl** configurado para o cluster correto
-4. **ci-knife** disponivel no pipeline (ja vem configurado no `.gitlab-ci.yml` padrao)
+### Acessos Necessários
+1. **Acesso ao projeto da GCP** - Necessário para recursos de infraestrutura (Logs/Cloud). Caso não tenha, você pode solicitar através do Papagali: [Solicitar via Papagali](https://papagali.ipet.sh/card/create/team/CLOUD/request/59)
+2. **Acesso ao ArgoCD** - Para monitorar o status e sincronizar os deploys na Luizalabs. Caso não tenha, você pode solicitar através do Papagali: [Solicitar via Papagali](https://papagali.ipet.sh/card/create/team/CLOUD/request/123)
+3. **gcloud CLI e kubectl** - O `gcloud` deve estar instalado ([Guia de Instalação](https://cloud.google.com/sdk/docs/install)) e o `kubectl` configurado para o cluster correto da GCP.
+
+### Repositórios no GitLab
+O nosso GitLab é o [https://gitlab.luizalabs.com/](https://gitlab.luizalabs.com/).
+
+1. **Link do Repositório do Código Fonte** - O repositório do código fonte deve obrigatoriamente residir em um subgrupo dentro de [luizalabs](https://gitlab.luizalabs.com/luizalabs/).
+2. **Link do Repositório do Chart (baseweb-app)** - O repositório contendo o Helm Chart (ou o diretório de deploy) normalmente reside em um subgrupo de [cicd](https://gitlab.luizalabs.com/cicd/).
+
+### Arquivos de Configuração
+Certifique-se de configurar os seguintes arquivos no seu projeto:
+1. **Configurar o `hangar-info.yaml`** - Arquivo com os metadados do projeto para o catálogo.
+2. **Configurar o `dependency.yaml`** - Declaração de dependências do projeto e suas integrações.
+3. **Configurar o `sonar-project.properties`** - Propriedades do SonarQube para análise de qualidade e cobertura de código.
+4. **Configurar o `.gitlab-ci.yml`** - Pipeline de CI/CD que precisa estar configurado para rodar a automação (já inclui acesso ao `ci-knife`).
 
 ---
 
@@ -19,12 +32,18 @@ Antes de comecar, certifique-se de que voce tem:
 
 O ArgoCD e a ferramenta que sincroniza o estado do seu repositorio Git com o cluster Kubernetes. Quando voce faz push de uma mudanca, o ArgoCD detecta e aplica automaticamente.
 
-### Ambientes Disponiveis
+### Ambientes Disponíveis
 
 | Ambiente | URL do ArgoCD | Uso |
 | :--- | :--- | :--- |
-| **Homologacao (HML)** | `https://argocd-mke-operacoes-hml.ipet.sh` | Testes e validacao |
-| **Producao (PRD)** | Consulte o time de infraestrutura | Ambiente de producao |
+| **Homologação (HML)** | `https://argocd-mke-operacoes-hml.ipet.sh`* | Testes e validação |
+| **Produção (PRD)** | Consulte seu tech lead | Ambiente de produção |
+
+\* *A URL de HML acima é exclusiva da vertical **Operações**. Caso você esteja em outra vertical, consulte seu tech lead para obter a URL correta.*
+
+::: tip
+Não sabe qual é a sua vertical? Você pode consultar no [Mapa Labs](https://mapa-labs.web.app/).
+:::
 
 ### Como acessar o ArgoCD
 
