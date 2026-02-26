@@ -9,7 +9,50 @@ Antes de começar o deploy, certifique-se de que você tem os seguintes acessos 
 ### Acessos Necessários
 1. **Acesso ao projeto da GCP** - Necessário para recursos de infraestrutura (Logs/Cloud). Ao solicitar acesso, você precisará informar os nomes dos projetos (ex: `maga-homolog` para o ambiente de homologação). Caso não tenha, solicite via Papagali: [Solicitar via Papagali](https://papagali.ipet.sh/card/create/team/CLOUD/request/59)
 2. **Acesso ao ArgoCD** - Para monitorar o status e sincronizar os deploys na Luizalabs. Caso não tenha, você pode solicitar através do Papagali: [Solicitar via Papagali](https://papagali.ipet.sh/card/create/team/CLOUD/request/123)
-3. **gcloud CLI e kubectl** - O `gcloud` deve estar instalado ([Guia de Instalação](https://cloud.google.com/sdk/docs/install)) e o `kubectl` configurado para o cluster correto da GCP.
+3. **gcloud CLI** - O `gcloud` deve estar instalado ([Guia de Instalação](https://cloud.google.com/sdk/docs/install)) e configurado para o cluster correto da GCP.
+4. **Acesso ao GitLab e Configuração de Chave SSH** - Necessário para interagir com os repositórios de código.
+5. **Acesso ao GitHub Copilot** - Para desenvolvedores que desejam utilizar a ferramenta de assistência de código.
+
+### Configuração de Chave SSH para GitLab
+
+Para interagir com o GitLab de forma segura, é fundamental configurar uma chave SSH. Isso permite que você se autentique sem precisar digitar sua senha repetidamente.
+
+**Resumo de Comandos para Geração de Chave SSH:**
+
+**Linux/macOS:**
+```bash
+ssh-keygen -t ed25519 -C "seu_email@luizalabs.com"
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+cat ~/.ssh/id_ed25519.pub
+```
+
+**Windows (usando Git Bash):**
+```bash
+ssh-keygen -t ed25519 -C "seu_email@luizalabs.com"
+# Pressione Enter para aceitar o local padrão e sem passphrase
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+cat ~/.ssh/id_ed25519.pub
+```
+
+Após gerar a chave, copie o conteúdo da chave pública (o que `cat` exibe) e adicione-o às suas configurações de SSH no GitLab: [Adicionar Chave SSH no GitLab](https://gitlab.luizalabs.com/-/profile/keys)
+
+Certifique-se de que o seu `.ssh/config` está configurado para o GitLab:
+```
+Host gitlab.luizalabs.com
+  PreferredAuthentications publickey
+  IdentityFile ~/.ssh/id_ed25519
+  AddKeysToAgent yes
+  UseKeychain yes # macOS apenas
+```
+
+### Solicitação de Licença para GitHub Copilot
+
+Para solicitar sua licença do GitHub Copilot, acesse o link:
+[Como solicitar a licença](https://magazine.atlassian.net/wiki/spaces/FinOps/pages/5281546368/Como+solicitar+a+licen+a)
+
+
 
 ### Repositórios no GitLab
 O nosso GitLab é o [https://gitlab.luizalabs.com/](https://gitlab.luizalabs.com/).
