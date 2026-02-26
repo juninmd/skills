@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.7](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.11.6...v1.11.7) (2026-02-26)
+
+
+### Documentation
+
+* Add setup instructions for GitLab SSH key configuration and GitHub Copilot access. ([e9c0c2f](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/e9c0c2f))
+
 ## [1.11.6](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.11.5...v1.11.6) (2026-02-25)
 
 
