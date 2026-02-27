@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.14.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.13.0...v1.14.0) (2026-02-27)
+
+
+### Features
+
+* Add GitLab token input and environment configuration for MCP integration ([0b8a1d7](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/0b8a1d7))
+
 # [1.13.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.12.0...v1.13.0) (2026-02-27)
 
 
