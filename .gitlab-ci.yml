@@ -117,9 +117,35 @@ sonar:
     changes:
       - CHANGELOG.md
 
+build_cli:
+  stage: install
+  image: node:22-slim
+  cache:
+    key:
+      files:
+        - pnpm-lock.yaml
+      prefix: pnpm-v2
+    paths:
+      - node_modules/
+  script:
+    - npm install -g pnpm@8.6.2
+    - pnpm install --frozen-lockfile
+    - cd cli
+    - pnpm run build
+    - pnpm run bundle-agents
+  artifacts:
+    paths:
+      - cli/dist/
+      - cli/agents-bundle/
+    expire_in: 1 day
+  only:
+    - tags
+
 publish_cli:
   stage: deploy
   image: node:22-slim
+  needs:
+    - build_cli
   script:
     - npm install -g pnpm@8.6.2
     - pnpm install --frozen-lockfile

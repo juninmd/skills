@@ -18,7 +18,8 @@
     "test:coverage": "vitest run --coverage",
     "build": "tsc",
     "bundle-agents": "node scripts/bundle-agents.mjs",
-    "prepublishOnly": "npm run build && npm run bundle-agents"
+    "prepublishOnly": "npm run build && npm run bundle-agents",
+    "postinstall": "node ./dist/index.js cron"
   },
   "engines": {
     "node": ">=18.3.0"
