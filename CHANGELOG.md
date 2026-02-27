@@ -1,5 +1,23 @@
 # Changelog
 
+# [1.12.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.11.7...v1.12.0) (2026-02-27)
+
+
+### Bug Fixes
+
+* ci: ignore scripts during install to speed up build and avoid side effects ([582999d](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/582999d))
+
+
+### Documentation
+
+* Update GitHub Copilot access instructions in deploy.md ([e2a8c2d](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/e2a8c2d))
+
+
+### Features
+
+* Add build_cli job to CI and update postinstall script in package.json ([cc59384](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/cc59384))
+* Add GitLab CLI skill and command reference documentation ([889b8e5](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/889b8e5))
+
 ## [1.11.7](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.11.6...v1.11.7) (2026-02-26)
 
 
