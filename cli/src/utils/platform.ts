@@ -43,3 +43,13 @@ export function getMasterAgentsPath(): string {
 export function getBundledSettingsPath(): string {
   return join(getAgentsBundleDir(), '.settings.json');
 }
+
+export function getVSCodeMcpConfigPath(): string {
+  const home = getHomeDir();
+  if (process.platform === 'win32') {
+    return join(process.env.APPDATA || '', 'Code', 'User', 'mcp.json');
+  } else if (process.platform === 'darwin') {
+    return join(home, 'Library', 'Application Support', 'Code', 'User', 'mcp.json');
+  }
+  return join(home, '.config', 'Code', 'User', 'mcp.json');
+}

@@ -51,3 +51,35 @@ A complete reference of available commands for Luizalabs projects can be found h
     glab mr create --title "feat: <description>" --description "Closes #<issue_id>" --label "squad-name"
     ```
 
+## GitLab MCP (Model Context Protocol)
+
+The `glab` binary (v1.86+) includes a built-in MCP server to expose GitLab tools to AI assistants like GitHub Copilot.
+
+### VSCode Configuration (mcp.json)
+
+To enable GitLab tools in VSCode Copilot Chat, add the following to your `mcp.json` (found in `~/.config/Code/User/mcp.json` on Linux):
+
+```json
+{
+  "servers": {
+    "gitlab-labs": {
+      "type": "stdio",
+      "command": "glab",
+      "args": [
+        "mcp",
+        "serve"
+      ],
+      "gallery": true
+    }
+  }
+}
+```
+
+### Automatic Setup via CLI
+
+Luizalabs engineers can use the internal CLI to automate this:
+```bash
+padrao-labs-agents install --tools copilot
+```
+This command automatically merges the `gitlab-labs` configuration into the correct VSCode path.
+
