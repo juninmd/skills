@@ -11,7 +11,7 @@ Antes de começar o deploy, certifique-se de que você tem os seguintes acessos 
 2. **Acesso ao ArgoCD** - Para monitorar o status e sincronizar os deploys na Luizalabs. Caso não tenha, você pode solicitar através do Papagali: [Solicitar via Papagali](https://papagali.ipet.sh/card/create/team/CLOUD/request/123)
 3. **gcloud CLI** - O `gcloud` deve estar instalado ([Guia de Instalação](https://cloud.google.com/sdk/docs/install)) e configurado para o cluster correto da GCP.
 4. **Acesso ao GitLab e Configuração de Chave SSH** - Necessário para interagir com os repositórios de código.
-5. **Acesso ao GitHub Copilot** - Para desenvolvedores que desejam utilizar a ferramenta de assistência de código.
+5. **Acesso ao GitHub Copilot** - Para desenvolvedores que desejam utilizar a ferramenta de assistência de código. **Importante:** É obrigatório ativar a opção "Coding Agent" em [github.com/settings/copilot/coding_agent](https://github.com/settings/copilot/coding_agent).
 
 ### Configuração de Chave SSH para GitLab
 
