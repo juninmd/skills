@@ -36,8 +36,8 @@ build_frontend:
       - node_modules/
   script:
     - npm install -g pnpm@8.6.2
-    - pnpm install --frozen-lockfile
-    - pnpm run build
+    - pnpm install --frozen-lockfile --ignore-scripts
+    - pnpm --filter ./apps/docs run build
     - mkdir -p public
     - cp -rf apps/docs/docs/.vitepress/dist/* public/
   artifacts:
@@ -129,7 +129,7 @@ build_cli:
       - node_modules/
   script:
     - npm install -g pnpm@8.6.2
-    - pnpm install --frozen-lockfile
+    - pnpm install --frozen-lockfile --ignore-scripts
     - cd cli
     - pnpm run build
     - pnpm run bundle-agents
@@ -148,7 +148,7 @@ publish_cli:
     - build_cli
   script:
     - npm install -g pnpm@8.6.2
-    - pnpm install --frozen-lockfile
+    - pnpm install --frozen-lockfile --ignore-scripts
     - cd cli
     - echo "//nexus.luizalabs.com/repository/npm-private/:_authToken=${NPM_AUTH_TOKEN}" >> .npmrc
     - npm publish
