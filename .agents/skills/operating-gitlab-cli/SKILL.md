@@ -61,6 +61,14 @@ To enable GitLab tools in VSCode Copilot Chat, add the following to your `mcp.js
 
 ```json
 {
+  "inputs": [
+		{
+			"id": "GITLAB_TOKEN",
+			"type": "promptString",
+			"description": "Personal Access Token for GitLab (GITLAB_TOKEN)",
+			"password": true
+		}
+	],
   "servers": {
     "gitlab-labs": {
       "type": "stdio",
@@ -69,6 +77,10 @@ To enable GitLab tools in VSCode Copilot Chat, add the following to your `mcp.js
         "mcp",
         "serve"
       ],
+      "env": {
+        "GITLAB_TOKEN": "${input:GITLAB_TOKEN}",
+        "GITLAB_HOST": "https://gitlab.luizalabs.com/"
+      },
       "gallery": true
     }
   }
