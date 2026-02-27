@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.13.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.12.0...v1.13.0) (2026-02-27)
+
+
+### Features
+
+* Add GitLab MCP configuration and automation for VSCode integration ([84d1da0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/84d1da0))
+
 # [1.12.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.11.7...v1.12.0) (2026-02-27)
 
 
