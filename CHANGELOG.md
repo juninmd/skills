@@ -1,5 +1,13 @@
 # Changelog
 
+# [1.15.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.14.0...v1.15.0) (2026-03-02)
+
+
+### Features
+
+* Enhance category validation and improve cron configuration handling ([8ad1366](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/8ad1366))
+* Enhance platform engineer and software architect guidelines with Helm chart review and design doc output modes ([12ed769](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/12ed769))
+
 # [1.14.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.13.0...v1.14.0) (2026-02-27)
 
 
