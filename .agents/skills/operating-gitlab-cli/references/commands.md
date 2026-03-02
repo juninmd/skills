@@ -1,6 +1,7 @@
 # GitLab CLI (glab) Command Reference
 
-This document provides a comprehensive list of core `glab` commands. Always use `--help` (e.g., `glab mr --help`) for specific sub-command flags.
+This document provides a comprehensive list of core `glab` commands. Always use
+`--help` (e.g., `glab mr --help`) for specific sub-command flags.
 
 ## Authentication (glab auth)
 *   `glab auth login` - Authenticate with a GitLab instance.

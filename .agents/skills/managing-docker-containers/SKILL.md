@@ -28,6 +28,31 @@ Esta skill padroniza a criação de imagens para garantir segurança e eficiênc
 *   **Check Size:** Compare imagem base vs final. Multistage deve reduzir em >60%.
 *   **Scan Vulnerabilities:** Use `trivy image <image>` antes do push.
 
+---
+
+## Orquestração com Docker Compose
+
+Usar para ambientes locais e stacks multi-container (banco, cache, app).
+
+### Workflow
+1. **Analisar requisitos**: identifique serviços, portas, volumes e variáveis necessárias.
+2. **Verificar ambiente**: `docker info` para confirmar que o daemon está ativo.
+3. **Build & Deploy**: `docker compose up -d --build`
+4. **Monitorar**: `docker compose ps`, `docker compose logs -f <service>`
+5. **Cleanup**: `docker compose down -v` (remove containers + volumes) ou `docker system prune` para liberar espaço.
+
+### Boas Práticas de Orquestração
+- **Segredos**: nunca commite `.env` com credenciais reais. Use `.env.example` como template.
+- **Persistência**: use `volumes` nomeados para dados críticos (ex: `postgres_data`).
+- **Networking**: use redes user-defined (`bridge`) para isolação e resolução de nomes entre serviços.
+- **Health Checks**: defina `healthcheck` nos serviços críticos para que dependências sejam respeitadas.
+
+### Diagnóstico Rápido
+- Inspecionar container: `docker inspect <container_id>`
+- Estatísticas de recurso: `docker stats`
+- Entrar no container: `docker exec -it <container> sh`
+
+
 ## Example: Secure Node.js Dockerfile
 ```dockerfile
 # Build Stage

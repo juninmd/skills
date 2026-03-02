@@ -1,6 +1,8 @@
 ---
 name: operating-gitlab-cli
 description: Specialized skill for operating the GitLab CLI (glab) within the Luizalabs infrastructure. Use this to manage projects, merge requests, and pipelines specifically on gitlab.luizalabs.com.
+metadata:
+    works_on: [copilot, antigravity, gemini_cli]
 ---
 
 # Operating GitLab CLI at Luizalabs
@@ -30,53 +32,48 @@ The GitLab CLI must be explicitly configured for the internal instance.
     glab config set host gitlab.luizalabs.com
     ```
 2.  **Authentication (Non-interactive):**
-    Luizalabs engineers should use a Personal Access Token (PAT) with `api` and `write_repository` scopes.
+    Use a Personal Access Token (PAT) with `api` and `write_repository` scopes.
     ```bash
     glab auth login --hostname gitlab.luizalabs.com --token "<YOUR_PAT>" --api-protocol https
     ```
 3.  **Telemetry Note:**
-    When authenticating, you might see `401 Unauthorized` for telemetry. This is expected as the internal instance may block usage data tracking. The authentication remains valid.
+    `401 Unauthorized` errors for telemetry are expected — the internal instance blocks usage tracking. Authentication remains valid.
 
 ## Command Reference
 
-A complete reference of available commands for Luizalabs projects can be found here:
-*   [references/commands.md](references/commands.md)
+See the full command reference at [references/commands.md](references/commands.md).
 
 ## Luizalabs Specific Workflows
 
 *   **List Squad Repos:** `glab repo list --per-page 20`
-*   **Check Pipeline Status:** `glab ci status` (Crucial for CI/CD checks before merging).
-*   **Merge Request for Luizalabs:**
+*   **Check Pipeline Status:** `glab ci status` (crucial before merging)
+*   **Trace Job Logs:** `glab ci trace` (tail logs in real time)
+*   **Create MR:**
     ```bash
-    glab mr create --title "feat: <description>" --description "Closes #<issue_id>" --label "squad-name"
+    glab mr create \
+      --title "feat: <description>" \
+      --description "Closes #<issue_id>" \
+      --label "<squad-name>"
     ```
 
-## GitLab MCP (Model Context Protocol)
+## MCP (Model Context Protocol) — GitHub Copilot
 
-The `glab` binary (v1.86+) includes a built-in MCP server to expose GitLab tools to AI assistants like GitHub Copilot.
+Exposes GitLab tools to VS Code Copilot Chat via `glab`'s built-in MCP server (v1.86+).
 
-### VSCode Configuration (mcp.json)
-
-To enable GitLab tools in VSCode Copilot Chat, add the following to your `mcp.json` (found in `~/.config/Code/User/mcp.json` on Linux):
-
+**Config file:** `~/.config/Code/User/mcp.json`
 ```json
 {
-  "inputs": [
-		{
-			"id": "GITLAB_TOKEN",
-			"type": "promptString",
-			"description": "Personal Access Token for GitLab (GITLAB_TOKEN)",
-			"password": true
-		}
-	],
+  "inputs": [{
+    "id": "GITLAB_TOKEN",
+    "type": "promptString",
+    "description": "Personal Access Token for GitLab (GITLAB_TOKEN)",
+    "password": true
+  }],
   "servers": {
     "gitlab-labs": {
       "type": "stdio",
       "command": "glab",
-      "args": [
-        "mcp",
-        "serve"
-      ],
+      "args": ["mcp", "serve"],
       "env": {
         "GITLAB_TOKEN": "${input:GITLAB_TOKEN}",
         "GITLAB_HOST": "https://gitlab.luizalabs.com/"
@@ -87,11 +84,8 @@ To enable GitLab tools in VSCode Copilot Chat, add the following to your `mcp.js
 }
 ```
 
-### Automatic Setup via CLI
-
-Luizalabs engineers can use the internal CLI to automate this:
+**Automatic Setup:**
 ```bash
 padrao-labs-agents install --tools copilot
 ```
 This command automatically merges the `gitlab-labs` configuration into the correct VSCode path.
-

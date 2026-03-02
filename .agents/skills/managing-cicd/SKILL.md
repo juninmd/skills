@@ -160,3 +160,58 @@ deploy_prod:
 - **SonarQube**: Integração de análise estática e coverage
 - **Docker**: Build e push de imagens para GCR
 - **Semantic Versioning**: Criação automática de releases e tags
+
+---
+
+## Pipeline Architecture Best Practices
+
+### Templating & Reusabilidade
+Nunca repita definições de jobs. Use `include` para centralizar templates e garantir atualizações em massa.
+
+```yaml
+# Válido: reusar template central
+include:
+  - project: 'luizalabs/ci-knife'
+    ref: 'master'
+    file: 'templates/report-security.yaml'
+
+build_job:
+  extends: .node_build_template
+  script:
+    - pnpm build
+```
+
+```yaml
+# Inválido: copy-paste entre projetos
+build_job:
+  image: node:latest  # versão não fixada
+  script:
+    - npm i           # sem cache, lento
+    - npm test
+```
+
+### Cache Strategy
+Use chaves baseadas em lockfiles para invalidar cache apenas quando as dependências mudarem:
+```yaml
+cache:
+  key:
+    files:
+      - pnpm-lock.yaml
+  paths:
+    - node_modules/
+  policy: pull-push
+```
+
+### Paralelismo
+Paraleliza jobs independentes no mesmo stage para reduzir lead time:
+- Lint e Testes Unitários podem rodar juntos
+- Sempre fixe versões de templates (`ref: 'v2.0.0'`) para evitar surpresas
+
+### Validação Local
+Antes do commit, valide a sintaxe do pipeline com `gitlab-ci-lint` ou via API:
+```bash
+curl --header "PRIVATE-TOKEN: $GITLAB_TOKEN" \
+  "https://gitlab.luizalabs.com/api/v4/ci/lint" \
+  --data-urlencode "content@.gitlab-ci.yml"
+```
+

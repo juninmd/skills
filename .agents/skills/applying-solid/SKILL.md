@@ -19,3 +19,6 @@ SOLID is an acronym for five principles of object-oriented design that aim to ma
 - Analyze the system for tight coupling and rigid hierarchies.
 - Introduce interfaces to decouple components.
 - Invert dependencies where high-level modules depend on low-level modules.
+
+## SRP Quick Heuristic
+If you can’t describe what a function or class does **without using the word "and"**, it likely violates SRP. Extract the secondary responsibility into its own class or function and ensure all existing tests still pass.
