@@ -31,10 +31,15 @@ Sempre que iniciar uma tarefa de desenvolvimento, garanta:
     - Aprovação requer ao menos duas pessoas (Você não conta).
 
 ## Padrões Detectados (Legado)
-- **Branch Principal**: Alternância entre `master` e `main`.
-- **Sincronia**: Uso frequente de `git pull origin <branch>` antes de iniciar.
+- **Branch Principal**: O padrão é `main`. Repositórios legados podem usar `master`; migre quando possível.
+- **Sincronia**: Sempre faça `git pull origin main` antes de iniciar.
 
 ## Regras Gerais
 1. **Pull Before Work**: Sempre sugira `git pull` antes de sugerir a criação de uma nova branch.
 2. **Branch Check**: Verifique a branch atual antes de push/merge.
 3. **Submódulos**: Se houver submódulos, lembre de `git submodule update --init --recursive`.
+
+## Anti-Patterns
+- **Nunca** faça push direto em `main`/`master` sem branch e MR aprovado.
+- **Nunca** faça commit sem mensagem clara seguindo Conventional Commits (`feat:`, `fix:`, `chore:`, etc.).
+- **Nunca** faça push com falhas de segurança, cobertura abaixo de 90% ou erros conhecidos em logs.

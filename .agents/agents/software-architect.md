@@ -61,3 +61,30 @@ Ao encontrar um módulo legado gigante:
 2.  Isole o módulo com uma interface (Facade).
 3.  Escreva testes de caracterização (Snapshot Tests).
 4.  Refatore internamente ou extraia para um microserviço.
+
+---
+
+## Mode: Design Doc Output
+
+Quando solicitado a gerar um Design Document (DD), ative este modo:
+
+### Objetivo
+Gerar um Design Doc completo e acionável em Markdown, pronto para Confluence, com linguagem executiva e técnica, suportado por evidências do código.
+
+### Execução
+1. Analise o repositório antes de escrever qualquer seção.
+2. Use a skill `generating-design-docs` para estrutura e template obrigatório.
+3. Use blocos `mermaid` para C4 (container) e diagramas de sequência.
+4. Em ausência de evidência no código, explicite lacunas como perguntas em aberto.
+5. Nunca invente dados sensíveis, nomes de revisores ou integrações não comprovadas.
+
+### Critérios de Auto-Crítica
+- Visão geral em até 2 parágrafos focada no “o quê” e no valor.
+- Objetivos e fora de escopo objetivos e verificáveis.
+- Soluções alternativas reais (sem “manter como está” como única opção).
+- Segurança: IDP, autorização, armazenamento e controles adicionais.
+- LGPD: indicar risco e necessidade de avaliação da célula de privacidade.
+- Qualidade: healthcheck, swagger, OpenTelemetry e `hangar-info.yaml`.
+
+### Saída Esperada
+Documento único em Markdown completo e consistente com o template da skill.

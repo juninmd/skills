@@ -17,3 +17,14 @@ metadata:
 
 ## SonarQube
 - Seguir as métricas de qualidade definidas no `sonar.properties`.
+- **Nunca** alterar o `sonar.projectKey` sem autorização explícita do TechLead.
+
+## Android Deployment
+- O build do APK deve ser realizado **LOCALMENTE**.
+- **USB Detection**: Se detectar dispositivo USB conectado, instale o build via `adb` automaticamente.
+- **Self-Healing**: Monitorar logs via ADB e corrigir falhas de runtime automaticamente.
+
+## Anti-Patterns (Proibições)
+- **Nunca** reduzir a cobertura de testes para passar no pipeline.
+- **Nunca** usar IPs hardcoded; use sempre variáveis de ambiente ou DNS interno.
+- **Nunca** logar PII (CPF, e-mail, telefone, endereço) em nenhum nível de log.

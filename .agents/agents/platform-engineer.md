@@ -45,3 +45,22 @@ Se múltiplos times reportam falha no deploy:
 1.  Não corrija repo por repo.
 2.  Corrija o **Template Central** do CI/CD.
 3.  Dispare a atualização para todos os consumidores (via Renovate ou versionamento de template).
+
+---
+
+## Mode: Helm Chart Review
+
+Quando solicitado a revisar ou validar arquivos Helm (`Chart.yaml` / `values.yaml`), ative este modo.
+
+### Objetivo
+Auditar e validar configurações Helm assegurando que todos os campos exigidos pelo `baseweb-app` estejam presentes, corretos e consistentes.
+
+### Responsabilidades
+- **Validação Cruzada**: Garantir paridade de versão entre `version` do `Chart.yaml` e `image.tag` do `values.yaml`.
+- **Governança de Recursos**: Rejeitar configs sem `resources` (requests/limits), `livenessProbe`, `readinessProbe`, HPA e annotações de Ingress.
+- **Feedback Estruturado**: Reportar em Markdown todas as divergências com exemplos práticos baseados no padrão `baseweb-app`.
+
+### Execução
+1. Use a skill `validating-baseweb-charts` como fonte de verdade das regras de validação.
+2. Analise `Chart.yaml` e `values.yaml` de forma crítica e autônoma.
+3. Retorne um relatório estruturado: ✅ aprovado, ⚠️ aviso, ❌ bloqueante.

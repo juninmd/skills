@@ -8,11 +8,32 @@ metadata:
 # Rule: Naming Conventions
 
 ## Sistemas
-- Definir nomes de sistemas não é um problema, desde que seja utilizado internamente e não seja complexo.
-- **Acessibilidade**: Usuários externos não podem acessar sistemas com nomes fictícios ou apenas em inglês; deve ser acessível.
-- **Sufixos**: Sugere-se utilizar sufixos para identificar a natureza do sistema:
-  - `-api`
-  - `-worker`
-  - `-cron`
-  - `-frontend`
+- Nomes de sistemas devem ser simples, acessíveis e em português ou amplamente compreendidos.
+- **Sufixos obrigatórios** para identificar a natureza do serviço:
+  - `-api` — serviços REST/GraphQL
+  - `-worker` — processamento assíncrono/filas
+  - `-cron` — jobs agendados
+  - `-frontend` — interface web
+
+## Branches (Git)
+Seguir Conventional Commits para nomes de branch:
+- `feat/<descricao>` — nova funcionalidade
+- `fix/<descricao>` — correção de bug
+- `chore/<descricao>` — manutenção, dependências
+- `hotfix/<descricao>` — correção urgente em produção
+- Kebab-case, minúsculas, sem espaços. Exemplo: `feat/add-telemetry-endpoint`
+
+## Commits (Conventional Commits)
+- `feat:` — nova funcionalidade
+- `fix:` — correção de bug
+- `docs:` — documentação
+- `chore:` — tarefas de manutenção
+- `refactor:` — refatoração sem mudança de comportamento
+- `test:` — adição ou correção de testes
+- `ci:` — alterações no pipeline
+
+## Código
+- **Python**: `snake_case` para variáveis e funções; `PascalCase` para classes; `UPPER_SNAKE_CASE` para constantes.
+- **JavaScript/TypeScript**: `camelCase` para variáveis e funções; `PascalCase` para componentes/classes.
+- **Variáveis de ambiente**: sempre `UPPER_SNAKE_CASE` (ex: `DATABASE_URL`, `SONAR_TOKEN`).
 

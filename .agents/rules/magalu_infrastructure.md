@@ -96,3 +96,9 @@ security:
   authentication: {AUTH_METHOD}
   administration: {ADMIN_METHOD}
 ```
+
+## Restrições de Deploy (Deploy Constraints)
+
+1. **Feature Freeze**: Respeite rigorosamente os períodos de congelamento (Black Friday, Liquidação). Deploys são proibidos sem aprovação C-Level.
+2. **Sexta-feira**: Evite deploys em sextas-feiras para minimizar risco de incidentes no final de semana.
+3. **Hybrid Cloud Distinction**: Diferencie claramente entre `GCP` e `MGC` (Magalu Cloud). As ferramentas, namespaces e limitações são distintas.
