@@ -2,6 +2,24 @@ import { createInterface } from 'node:readline/promises';
 import { stdin, stdout } from 'node:process';
 import type { ProjectConfig } from '../types.js';
 
+/** Valida que o nome segue o padrao de slugs: apenas lowercase, numeros e hifens */
+function validateAppName(name: string): void {
+  if (!name.trim()) {
+    throw new Error('Nome da aplicacao e obrigatorio.');
+  }
+  if (!/^[a-z0-9][a-z0-9-]*[a-z0-9]$/.test(name.trim()) && !/^[a-z0-9]$/.test(name.trim())) {
+    throw new Error(
+      'Nome da aplicacao deve conter apenas letras minusculas, numeros e hifens, e nao pode comecar ou terminar com hifen.'
+    );
+  }
+}
+
+function validateRequired(value: string, label: string): void {
+  if (!value.trim()) {
+    throw new Error(`${label} e obrigatorio e nao pode ser vazio.`);
+  }
+}
+
 export async function promptProjectConfig(): Promise<ProjectConfig> {
   const rl = createInterface({ input: stdin, output: stdout });
 
@@ -12,6 +30,16 @@ export async function promptProjectConfig(): Promise<ProjectConfig> {
   const owner = await rl.question('Owner (squad/time): ');
   const tribe = await rl.question('Tribo (ex: comercial): ');
   const vertical = await rl.question('Vertical (ex: operacoes): ');
+
+  try {
+    validateAppName(appName);
+    validateRequired(owner, 'Owner');
+    validateRequired(tribe, 'Tribo');
+    validateRequired(vertical, 'Vertical');
+  } catch (err) {
+    rl.close();
+    throw err;
+  }
 
   console.log('\nLinguagem principal:');
   console.log('  1) TypeScript');

@@ -16,18 +16,22 @@ function commandExists(cmd: string): boolean {
 const TOOL_CONFIGS: Array<{
   name: string;
   configDir: string;
+  command?: string;
 }> = [
   {
     name: 'copilot',
     configDir: '~/.agents',
+    // GitHub Copilot nao tem bin proprio; deteccao por diretorio e suficiente
   },
   {
     name: 'gemini',
     configDir: '~/.gemini',
+    command: 'gemini',
   },
   {
     name: 'antigravity',
     configDir: '~/.gemini/antigravity',
+    command: 'antigravity',
   },
 ];
 
@@ -43,8 +47,10 @@ export async function detectTools(): Promise<ToolDetection[]> {
 
   for (const tool of TOOL_CONFIGS) {
     const configDir = resolveHome(tool.configDir);
-    const detected = await dirExists(configDir);
-    const detectedPath = detected ? configDir : '';
+    const dirDetected = await dirExists(configDir);
+    const cmdDetected = tool.command ? commandExists(tool.command) : false;
+    const detected = dirDetected || cmdDetected;
+    const detectedPath = dirDetected ? configDir : (cmdDetected ? tool.command! : '');
 
     results.push({
       name: tool.name,

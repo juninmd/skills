@@ -4,7 +4,7 @@ import { getHomeDir, getVSCodeMcpConfigPath } from '../utils/platform.js';
 import { ensureDir, fileExists } from '../utils/fs.js';
 import { log } from '../utils/logger.js';
 import { BaseInstaller } from './base-installer.js';
-import type { CategoryMapping } from '../types.js';
+import type { CategoryMapping, MCPConfig } from '../types.js';
 
 export class CopilotInstaller extends BaseInstaller {
   get name(): string {
@@ -35,7 +35,7 @@ export class CopilotInstaller extends BaseInstaller {
       return;
     }
 
-    let mcpConfig: any = { servers: {} };
+    let mcpConfig: MCPConfig = { servers: {} };
 
     if (await fileExists(mcpPath)) {
       try {

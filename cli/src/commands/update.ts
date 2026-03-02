@@ -6,7 +6,7 @@ export async function update(): Promise<void> {
   log.header('Padrao Labs Agents - Atualizacao');
 
   const manifest = await readManifest();
-  const currentVersion = manifest?.version || getCurrentPackageVersion();
+  const currentVersion = manifest?.version || await getCurrentPackageVersion();
 
   log.info(`Versao instalada: ${currentVersion}`);
   log.info('Verificando versao mais recente...');

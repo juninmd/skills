@@ -11,7 +11,9 @@ const BUNDLE_DIR = join(CLI_DIR, 'agents-bundle');
 const TEMPLATES_SRC = join(ROOT, 'src', 'exemplo');
 const TEMPLATES_DIR = join(CLI_DIR, 'templates');
 
-const CATEGORIES = ['agents', 'skills', 'rules', 'hooks', 'workflows'];
+const REQUIRED_CATEGORIES = ['agents', 'skills', 'rules'];
+const OPTIONAL_CATEGORIES = ['hooks', 'workflows'];
+const CATEGORIES = [...REQUIRED_CATEGORIES, ...OPTIONAL_CATEGORIES];
 
 function clean() {
   if (existsSync(BUNDLE_DIR)) {
@@ -28,6 +30,11 @@ function bundleAgents() {
     const dest = join(BUNDLE_DIR, cat);
 
     if (!existsSync(src)) {
+      if (REQUIRED_CATEGORIES.includes(cat)) {
+        console.error(`  ERROR: Categoria obrigatoria "${cat}" nao encontrada em: ${src}`);
+        console.error('  Certifique-se de que a pasta .agents/ esta presente antes de publicar.');
+        process.exit(1);
+      }
       console.log(`  Skipping ${cat} (not found)`);
       continue;
     }

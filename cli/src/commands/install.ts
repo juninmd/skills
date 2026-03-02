@@ -1,7 +1,7 @@
 import { createInterface } from 'node:readline/promises';
 import { stdin, stdout } from 'node:process';
 import { detectTools, getToolNames } from '../utils/detector.js';
-import { writeManifest } from '../utils/version.js';
+import { writeManifest, getCurrentPackageVersion } from '../utils/version.js';
 import { createInstaller, getAvailableInstallers } from '../installers/index.js';
 import { log } from '../utils/logger.js';
 import type { InstallOptions, InstallResult } from '../types.js';
@@ -85,7 +85,7 @@ export async function install(options: InstallOptions): Promise<void> {
     }
 
     await writeManifest({
-      version: '1.0.0',
+      version: await getCurrentPackageVersion(),
       installedAt: new Date().toISOString(),
       tools: results.filter(r => !r.skipped).map(r => r.tool),
       categories,

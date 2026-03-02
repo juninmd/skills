@@ -1,5 +1,5 @@
 import { join } from 'node:path';
-import { copyFile } from 'node:fs/promises';
+import { copyFile, readdir, readFile, writeFile } from 'node:fs/promises';
 import { cleanAndCopy, ensureDir, dirExists } from '../utils/fs.js';
 import { getAgentsBundleDir, getMasterAgentsPath } from '../utils/platform.js';
 import { log } from '../utils/logger.js';
@@ -94,7 +94,6 @@ export abstract class BaseInstaller {
   }
 
   protected async concatenateRulesToFile(destPath: string): Promise<void> {
-    const { readdir, readFile, writeFile } = await import('node:fs/promises');
     const rulesDir = join(this.agentsDir, 'rules');
 
     if (!(await dirExists(rulesDir))) return;

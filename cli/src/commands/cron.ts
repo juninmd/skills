@@ -8,15 +8,49 @@ const CRON_MARKER = '# padrao-labs-auto-update';
 const CRON_SCHEDULE = '0 9 * * 1-5';
 const CRON_COMMAND = 'npx @luizalabs/padrao-labs-agents@latest update';
 
+/** Detecta ambientes CI/CD onde instalar cron nao faz sentido */
+const IS_CI = !!(
+  process.env['CI'] ||
+  process.env['GITLAB_CI'] ||
+  process.env['GITHUB_ACTIONS'] ||
+  process.env['JENKINS_URL'] ||
+  process.env['CIRCLECI'] ||
+  process.env['TF_BUILD'] ||
+  process.env['BUILDKITE']
+);
+
+function crontabAvailable(): boolean {
+  try {
+    execSync('which crontab', { encoding: 'utf-8', stdio: 'pipe' });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 export async function cron(options: CronOptions): Promise<void> {
   log.header('Padrao Labs Agents - Cron Auto-Update');
+
+  // Ambientes CI/CD nao precisam de cron local
+  if (IS_CI) {
+    log.info('Ambiente CI/CD detectado. Configuracao de cron ignorada.');
+    log.info('O auto-update via cron e destinado a maquinas de desenvolvimento.');
+    return;
+  }
+
+  // Sistemas sem crontab (Windows, Docker sem daemon de cron, etc.)
+  if (!crontabAvailable()) {
+    log.warn('crontab nao disponivel neste sistema. Auto-update nao configurado.');
+    log.info('Execute "padrao-labs-agents update" manualmente para atualizar.');
+    return;
+  }
 
   // Le crontab atual
   let existing = '';
   try {
     existing = execSync('crontab -l 2>/dev/null', { encoding: 'utf-8' });
   } catch {
-    // Sem crontab existente
+    // Sem entradas de crontab existentes - comportamento normal
   }
 
   const hasEntry = existing.includes(CRON_MARKER);

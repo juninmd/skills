@@ -1,3 +1,15 @@
+export interface MCPServerConfig {
+  type: 'stdio' | 'http';
+  command?: string;
+  args?: string[];
+  gallery?: boolean;
+  url?: string;
+}
+
+export interface MCPConfig {
+  servers: Record<string, MCPServerConfig>;
+}
+
 export interface InstallOptions {
   tools?: string[];
   force: boolean;

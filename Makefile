@@ -25,19 +25,19 @@ help:
 	@echo ""
 
 install:
-	npm install
+	pnpm install
 
 generate:
-	node scripts/loader.js
+	pnpm --filter @luizalabs/padrao-labs-agents-docs run generate:index
 
 dev: generate
-	npm run docs:dev
+	pnpm run dev
 
 build: generate
-	npm run docs:build
+	pnpm run build
 
 preview:
-	npm run docs:preview
+	pnpm --filter @luizalabs/padrao-labs-agents-docs run preview
 
 clean:
 	rm -rf docs/.vitepress/dist

@@ -77,6 +77,27 @@ npx @luizalabs/padrao-labs-agents update                      # Atualiza para a 
 
 > O CLI detecta automaticamente quais ferramentas estão instaladas no sistema e instala apenas para essas.
 
+### 🔄 Auto-Update Automático (Cron)
+
+O CLI registra **automaticamente** um job de cron durante a instalação, mantendo suas configurações de agentes sempre atualizadas.
+
+| Detalhe | Valor |
+|---|---|
+| **Horário** | Segunda a Sexta, 09:00 |
+| **Comando** | `npx @luizalabs/padrao-labs-agents@latest update` |
+| **Log** | `~/.padrao-labs/cron.log` |
+
+```bash
+# Verificar se está ativo
+crontab -l | grep padrao-labs
+
+# Remover o auto-update (nao recomendado)
+npx @luizalabs/padrao-labs-agents cron --remove
+```
+
+> **CI/CD:** O cron é ignorado automaticamente em ambientes com `CI`, `GITLAB_CI`, `GITHUB_ACTIONS`, etc.
+> **Sem crontab:** Em sistemas sem suporte a cron (Windows, Docker), um aviso é exibido e a instalação continua normalmente.
+
 ## 🤝 Como Usar no seu Projeto (Manual)
 
 Caso não queira usar o CLI, você pode baixar as definições manualmente:
