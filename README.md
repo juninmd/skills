@@ -32,6 +32,7 @@ padrao-labs-agents/
 ## 🚀 Quick Start (Development)
 
 **Requirements:**
+
 - Node.js 18+
 - pnpm 8+
 
@@ -48,6 +49,40 @@ pnpm run build
 # Run tests across all workspaces
 pnpm run test
 ```
+
+## 📦 CLI - Uso Local (Desenvolvimento)
+
+Se você quiser testar as alterações da CLI na sua máquina antes de publicá-la, siga os passos abaixo:
+
+1. Clone o repositório:
+
+```bash
+git clone https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents.git
+cd padrao-labs-agents
+```
+
+2. Instale as dependências e faça o build:
+
+```bash
+pnpm install
+pnpm run build
+```
+
+3. Entre na pasta da CLI e crie o link simbólico global:
+
+```bash
+cd cli
+npm link
+```
+
+4. Agora você pode usar o comando da CLI em qualquer lugar do seu terminal para testar:
+
+```bash
+padrao-labs-agents --help
+padrao-labs-agents install --dry-run
+```
+
+_Dica: Para remover o link depois, execute `npm unlink -g @luizalabs/padrao-labs-agents` dentro da pasta `cli`._
 
 ## 📦 CLI - Instalação Global via NPX
 
@@ -69,11 +104,11 @@ npx @luizalabs/padrao-labs-agents update                      # Atualiza para a 
 
 ### Mapa de Instalação Global por Ferramenta
 
-| Ferramenta | Diretório Global | agents | skills | rules | workflows | hooks |
-|---|---|---|---|---|---|---|
-| **Copilot** | `~/.agents/` | ✅ | ✅ | ✅ | - | - |
-| **Gemini CLI** | `~/.gemini/` | - | ✅ | - | - | ✅ |
-| **Antigravity** | `~/.gemini/antigravity/` | ✅ | ✅ | ✅ | ✅ | - |
+| Ferramenta      | Diretório Global         | agents | skills | rules | workflows | hooks |
+| --------------- | ------------------------ | ------ | ------ | ----- | --------- | ----- |
+| **Copilot**     | `~/.agents/`             | ✅     | ✅     | ✅    | -         | -     |
+| **Gemini CLI**  | `~/.gemini/`             | -      | ✅     | -     | -         | ✅    |
+| **Antigravity** | `~/.gemini/antigravity/` | ✅     | ✅     | ✅    | ✅        | -     |
 
 > O CLI detecta automaticamente quais ferramentas estão instaladas no sistema e instala apenas para essas.
 
@@ -81,11 +116,11 @@ npx @luizalabs/padrao-labs-agents update                      # Atualiza para a 
 
 O CLI registra **automaticamente** um job de cron durante a instalação, mantendo suas configurações de agentes sempre atualizadas.
 
-| Detalhe | Valor |
-|---|---|
-| **Horário** | Segunda a Sexta, 09:00 |
+| Detalhe     | Valor                                             |
+| ----------- | ------------------------------------------------- |
+| **Horário** | Segunda a Sexta, 09:00                            |
 | **Comando** | `npx @luizalabs/padrao-labs-agents@latest update` |
-| **Log** | `~/.padrao-labs/cron.log` |
+| **Log**     | `~/.padrao-labs/cron.log`                         |
 
 ```bash
 # Verificar se está ativo
@@ -103,6 +138,7 @@ npx @luizalabs/padrao-labs-agents cron --remove
 Caso não queira usar o CLI, você pode baixar as definições manualmente:
 
 **GitHub Copilot (VS Code):**
+
 ```bash
 mkdir -p .github
 curl https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/agents.md -o agents.md
@@ -110,11 +146,13 @@ curl https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/agents.
 ```
 
 **Antigravity / Gemini:**
+
 ```bash
 curl https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/agents.md -o AGENTS.md
 ```
 
 **Cursor:**
+
 ```bash
 curl https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/agents.md -o .cursorrules
 ```
@@ -132,6 +170,7 @@ pnpm test:coverage # Gera relatório de cobertura
 ## 🔄 Como a Documentação Funciona
 
 O projeto usa um script interno (`apps/docs/src/loader.js`) que, durante o processo de build ou dev:
+
 1. Escaneia a pasta raiz `.agents/`.
 2. Extrai metadados e conteúdos dos arquivos Markdown.
 3. Gera a estrutura do VitePress **sem duplicar arquivos reais** na raiz do projeto.
@@ -144,4 +183,5 @@ O projeto usa um script interno (`apps/docs/src/loader.js`) que, durante o proce
 - **Alterar o CLI?** Modifique o código em `cli/src/`.
 
 ---
+
 Part of Luizalabs · Magalu
