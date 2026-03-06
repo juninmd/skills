@@ -72,3 +72,8 @@ export async function fileExists(file: string): Promise<boolean> {
     return false;
   }
 }
+
+export async function readFileList(dir: string): Promise<string[]> {
+  const entries = await readdir(dir, { withFileTypes: true });
+  return entries.filter(e => e.isFile()).map(e => e.name);
+}

@@ -63,7 +63,6 @@ pnpm --filter @luizalabs/padrao-labs-agents exec node dist/index.js init
 ### Dicas de Teste
 
 - Use a flag `--dry-run` no comando `install` para ver o que seria feito sem alterar seus arquivos de configuração reais.
-- Use a flag `--verbose` para ver detalhes da execução e logs de debug.
 - Se estiver testando mudanças nos agents/skills/rules, lembre-se de rodar `pnpm run bundle-agents` dentro da pasta `cli` para atualizar o pacote interno que a CLI utiliza.
 
 ## Estrutura de Comandos

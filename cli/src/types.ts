@@ -23,7 +23,6 @@ export interface InstallOptions {
   tools?: string[];
   force: boolean;
   dryRun: boolean;
-  verbose: boolean;
 }
 
 export interface InitOptions {

@@ -25,7 +25,6 @@ Opcoes:
   -t, --tools     Ferramentas alvo (separadas por virgula): copilot,gemini,antigravity
   -f, --force     Sobrescreve arquivos existentes
   --dry-run       Simula execucao sem alterar arquivos
-  --verbose       Mostra detalhes da execucao
   --remove        (cron) Remove o cron de auto-update
 
 Exemplos:
@@ -44,7 +43,6 @@ async function main(): Promise<void> {
       tools: { type: 'string', short: 't' },
       force: { type: 'boolean', short: 'f', default: false },
       'dry-run': { type: 'boolean', default: false },
-      verbose: { type: 'boolean', default: false },
       remove: { type: 'boolean', default: false },
     },
   });
@@ -70,7 +68,6 @@ async function main(): Promise<void> {
           tools: toolsList,
           force: values.force as boolean,
           dryRun: values['dry-run'] as boolean,
-          verbose: values.verbose as boolean,
         });
         break;
 

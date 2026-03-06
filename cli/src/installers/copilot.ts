@@ -6,7 +6,7 @@ import {
   getVSCodeMcpConfigPath,
   getVSCodeSettingsPath,
 } from '../utils/platform.js';
-import { dirExists, ensureDir, fileExists } from '../utils/fs.js';
+import { dirExists, ensureDir, fileExists, readFileList } from '../utils/fs.js';
 import { log } from '../utils/logger.js';
 import { BaseInstaller } from './base-installer.js';
 import type { CategoryMapping, MCPConfig, MCPInputConfig } from '../types.js';
@@ -37,7 +37,13 @@ const COPILOT_DISABLED_LANGUAGES: Record<string, boolean> = {
 const VSCODE_PROMPT_LOCS_KEY = 'chat.promptFilesLocations';
 
 /** Fragmento de caminho para identificar entradas gerenciadas por este installer. */
-const MANAGED_PATH_MARKER = '.padrao-labs';
+const MANAGED_PATH_MARKER = '.agents';
+const LEGACY_PATH_MARKER = '.padrao-labs';
+
+function isManagedPath(p?: string): boolean {
+  if (!p) return false;
+  return p.includes(MANAGED_PATH_MARKER) || p.includes(LEGACY_PATH_MARKER);
+}
 
 export class CopilotInstaller extends BaseInstaller {
   get name(): string {
@@ -58,6 +64,8 @@ export class CopilotInstaller extends BaseInstaller {
       { source: 'skills', target: 'skills' },
       { source: 'rules', target: 'rules' },
       { source: 'agents', target: 'agents' },
+      { source: 'hooks', target: 'hooks' },
+      { source: 'workflows', target: 'workflows' },
     ];
   }
 
@@ -71,10 +79,16 @@ export class CopilotInstaller extends BaseInstaller {
     // 2. settings.json do VS Code User aponta para esse arquivo globalmente
     await this.configureVSCodeSettings(instructionsFile, agentsDir);
 
-    // 3. mcp.json com GitLab MCP server (inputs + env)
+    // 3. Configura hooks do Copilot
+    await this.configureCopilotHooks(agentsDir);
+
+    // 4. Copia workflows como .prompt.md para compatibilidade com Copilot Prompts
+    await this.copyWorkflowsAsPrompts(agentsDir);
+
+    // 5. mcp.json com GitLab MCP server (inputs + env)
     await this.configureMcp();
 
-    // 4. ~/.copilotignore global para excluir artefatos e segredos do contexto
+    // 6. ~/.copilotignore global para excluir artefatos e segredos do contexto
     await this.generateCopilotIgnore();
   }
 
@@ -88,9 +102,7 @@ export class CopilotInstaller extends BaseInstaller {
       return;
     }
     await this.concatenateRulesToFile(destPath);
-    if (this.options.verbose) {
-      log.detail(`Instructions geradas: ${destPath}`);
-    }
+    log.detail(`Instructions geradas: ${destPath}`);
   }
 
   /**
@@ -135,7 +147,7 @@ export class CopilotInstaller extends BaseInstaller {
       : [];
 
     // Remove entradas antigas deste CLI e adiciona a atual
-    instructions = instructions.filter(e => !e.file?.includes(MANAGED_PATH_MARKER));
+    instructions = instructions.filter(e => !isManagedPath(e.file));
     instructions.push({ file: instructionsFile });
     settings[VSCODE_INSTRUCTIONS_KEY] = instructions;
 
@@ -166,23 +178,19 @@ export class CopilotInstaller extends BaseInstaller {
 
     // Remove entradas antigas deste CLI
     promptLocs = Object.fromEntries(
-      Object.entries(promptLocs).filter(([k]) => !k.includes(MANAGED_PATH_MARKER)),
+      Object.entries(promptLocs).filter(([k]) => !isManagedPath(k)),
     );
 
-    // Adiciona pastas de skills e agents se existirem
-    const skillsDir = join(agentsDir, 'skills');
-    const agentsSubDir = join(agentsDir, 'agents');
-    if (await dirExists(skillsDir)) promptLocs[skillsDir] = true;
-    if (await dirExists(agentsSubDir)) promptLocs[agentsSubDir] = true;
+    // Adiciona a pasta de prompts se existir
+    const promptsDir = join(agentsDir, 'prompts');
+    if (await dirExists(promptsDir)) promptLocs[promptsDir] = true;
 
     settings[VSCODE_PROMPT_LOCS_KEY] = promptLocs;
 
     await ensureDir(join(settingsPath, '..'));
     await writeFile(settingsPath, JSON.stringify(settings, null, 2), 'utf-8');
 
-    if (this.options.verbose) {
-      log.detail(`VS Code settings.json atualizado: ${settingsPath}`);
-    }
+    log.detail(`VS Code settings.json atualizado: ${settingsPath}`);
     log.success(`Instructions Copilot ativas globalmente (User settings.json)`);
     log.detail(
       `Copilot desativado para: ${Object.entries(COPILOT_DISABLED_LANGUAGES)
@@ -190,6 +198,98 @@ export class CopilotInstaller extends BaseInstaller {
         .map(([k]) => k)
         .join(', ')}`,
     );
+  }
+
+  /**
+   * Copia os arquivos de workflow (.md) para uma pasta de prompts com extensão .prompt.md.
+   * Isso permite que o Copilot reconheça os workflows como comandos (/workflow-name).
+   */
+  private async copyWorkflowsAsPrompts(agentsDir: string): Promise<void> {
+    const workflowsDir = join(agentsDir, 'workflows');
+    const promptsDir = join(agentsDir, 'prompts');
+
+    if (this.options.dryRun) {
+      log.dryRun(`Mapearia workflows como prompts em ${promptsDir}`);
+      return;
+    }
+
+    if (!(await dirExists(workflowsDir))) {
+      return;
+    }
+
+    await ensureDir(promptsDir);
+    const files = await readFileList(workflowsDir);
+
+    for (const file of files) {
+      if (file.endsWith('.md') && file !== 'index.md') {
+        const content = await readFile(join(workflowsDir, file), 'utf-8');
+        const promptName = file.replace('.md', '.prompt.md');
+        await writeFile(join(promptsDir, promptName), content, 'utf-8');
+      }
+    }
+
+    log.detail(`Workflows mapeados como prompts em ${promptsDir}`);
+  }
+
+  /**
+   * Configura os hooks do Copilot no settings.json do VS Code.
+   * Utiliza os scripts pre-command.py e post-command.py instalados na pasta hooks.
+   */
+  private async configureCopilotHooks(agentsDir: string): Promise<void> {
+    const settingsPath = getVSCodeSettingsPath();
+    const hooksDir = join(agentsDir, 'hooks');
+
+    if (this.options.dryRun) {
+      log.dryRun(`Configuraria hooks do Copilot em ${settingsPath}`);
+      return;
+    }
+
+    if (!(await dirExists(hooksDir))) {
+      return;
+    }
+
+    let settings: Record<string, any> = {};
+    if (await fileExists(settingsPath)) {
+      try {
+        const raw = await readFile(settingsPath, 'utf-8');
+        settings = JSON.parse(raw);
+      } catch {
+        return;
+      }
+    }
+
+    const preCommandPath = join(hooksDir, 'pre-command.py');
+    const postCommandPath = join(hooksDir, 'post-command.py');
+
+    // Mapeamento de eventos do Copilot para nossos hooks
+    const copilotHooks: Record<string, any> = settings['github.copilot.chat.hooks'] || {};
+
+    if (await fileExists(preCommandPath)) {
+      copilotHooks.PreToolUse = [
+        ...(copilotHooks.PreToolUse || []).filter((h: any) => !isManagedPath(h.command) && h.managed !== MANAGED_PATH_MARKER && h.managed !== LEGACY_PATH_MARKER),
+        {
+          type: 'command',
+          command: `python3 \${preCommandPath}`,
+          managed: MANAGED_PATH_MARKER,
+        },
+      ];
+    }
+
+    if (await fileExists(postCommandPath)) {
+      copilotHooks.PostToolUse = [
+        ...(copilotHooks.PostToolUse || []).filter((h: any) => !isManagedPath(h.command) && h.managed !== MANAGED_PATH_MARKER && h.managed !== LEGACY_PATH_MARKER),
+        {
+          type: 'command',
+          command: `python3 \${postCommandPath}`,
+          managed: MANAGED_PATH_MARKER,
+        },
+      ];
+    }
+
+    settings['github.copilot.chat.hooks'] = copilotHooks;
+
+    await writeFile(settingsPath, JSON.stringify(settings, null, 2), 'utf-8');
+    log.detail('Hooks do Copilot configurados em settings.json');
   }
 
   /**
@@ -202,7 +302,7 @@ export class CopilotInstaller extends BaseInstaller {
     const ignorePath = getGlobalCopilotIgnorePath();
 
     if (this.options.dryRun) {
-      log.dryRun(`Geraria ~/.copilotignore em ${ignorePath}`);
+      log.dryRun(`Geraria ~/.copilotignore em \${ignorePath}`);
       return;
     }
 
@@ -279,20 +379,18 @@ export class CopilotInstaller extends BaseInstaller {
     const MANAGED_HEADER = '# Gerenciado por padrao-labs-agents CLI';
     if (current.includes(MANAGED_HEADER)) {
       // Mantém apenas a parte customizada (após o bloco gerenciado)
-      const customStart = current.indexOf('\n# ────', current.indexOf(MANAGED_HEADER) + 1);
+      const customStart = current.indexOf('\\n# ────', current.indexOf(MANAGED_HEADER) + 1);
       const custom = customStart !== -1 ? current.slice(customStart) : '';
-      await writeFile(ignorePath, baseline + (custom ? '\n' + custom.trimStart() : '\n'), 'utf-8');
+      await writeFile(ignorePath, baseline + (custom ? '\\n' + custom.trimStart() : '\\n'), 'utf-8');
     } else if (current.trim()) {
       // Arquivo existente com conteúdo do usuário — prefixa sem sobrescrever
-      await writeFile(ignorePath, baseline + '\n\n# Configurações existentes\n' + current, 'utf-8');
+      await writeFile(ignorePath, baseline + '\\n\\n# Configurações existentes\\n' + current, 'utf-8');
     } else {
-      await writeFile(ignorePath, baseline + '\n', 'utf-8');
+      await writeFile(ignorePath, baseline + '\\n', 'utf-8');
     }
 
-    if (this.options.verbose) {
-      log.detail(`~/.copilotignore gerado em: ${ignorePath}`);
-    }
-    log.success(`~/.copilotignore configurado (${ignorePath})`);
+    log.detail(`~/.copilotignore gerado em: \${ignorePath}`);
+    log.success(`~/.copilotignore configurado (\${ignorePath})`);
   }
 
   /**
@@ -303,7 +401,7 @@ export class CopilotInstaller extends BaseInstaller {
     const mcpPath = getVSCodeMcpConfigPath();
 
     if (this.options.dryRun) {
-      log.dryRun(`Configuraria GitLab MCP em ${mcpPath}`);
+      log.dryRun(`Configuraria GitLab MCP em \${mcpPath}`);
       return;
     }
 
@@ -337,7 +435,7 @@ export class CopilotInstaller extends BaseInstaller {
       args: ['mcp', 'serve'],
       gallery: false,
       env: {
-        GITLAB_TOKEN: '${input:GITLAB_TOKEN}',
+        GITLAB_TOKEN: '\${input:GITLAB_TOKEN}',
         GITLAB_HOST: 'https://gitlab.luizalabs.com/',
       },
     };
@@ -345,8 +443,6 @@ export class CopilotInstaller extends BaseInstaller {
     await ensureDir(join(mcpPath, '..'));
     await writeFile(mcpPath, JSON.stringify(mcpConfig, null, 2), 'utf-8');
 
-    if (this.options.verbose) {
-      log.detail(`GitLab MCP configurado em ${mcpPath}`);
-    }
+    log.detail(`GitLab MCP configurado em \${mcpPath}`);
   }
 }

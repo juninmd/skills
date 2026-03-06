@@ -108,8 +108,6 @@ export class GeminiCliInstaller extends BaseInstaller {
     await ensureDir(this.targetDir);
     await writeFile(settingsPath, JSON.stringify(settings, null, 2), 'utf-8');
 
-    if (this.options.verbose) {
-      log.detail('Hooks configurados em settings.json (merge com hooks existentes)');
-    }
+    log.detail('Hooks configurados em settings.json (merge com hooks existentes)');
   }
 }

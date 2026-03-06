@@ -32,18 +32,14 @@ export abstract class BaseInstaller {
 
     log.step(`Instalando para ${this.name}...`);
 
-    if (this.options.verbose) {
-      log.detail(`Diretorio alvo: ${this.targetDir}`);
-    }
+    log.detail(`Diretorio alvo: ${this.targetDir}`);
 
     for (const mapping of this.categoryMappings) {
       const srcDir = join(this.agentsDir, mapping.source);
       const destDir = join(this.targetDir, mapping.target);
 
       if (!(await dirExists(srcDir))) {
-        if (this.options.verbose) {
-          log.detail(`Fonte nao encontrada: ${mapping.source} (pulando)`);
-        }
+        log.detail(`Fonte nao encontrada: ${mapping.source} (pulando)`);
         continue;
       }
 
@@ -64,9 +60,7 @@ export abstract class BaseInstaller {
         targetDir: destDir,
       });
 
-      if (this.options.verbose) {
-        log.detail(`${mapping.source}: ${count} arquivos copiados`);
-      }
+      log.detail(`${mapping.source}: ${count} arquivos copiados`);
     }
 
     await this.postInstall();
