@@ -1,5 +1,13 @@
 # Changelog
 
+# [1.16.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.15.0...v1.16.0) (2026-03-06)
+
+
+### Features
+
+* Add a `setup` CLI command to configure the development environment for VS Code extensions and Copilot, and update the CLI build process to use esbuild. ([1b46525](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/1b46525))
+* Implement subagent architecture with new coordinating agents like `code-reviewer` and `feature-builder`, and add a skill for configuring VS Code Copilot. ([0290691](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/0290691))
+
 # [1.15.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.14.0...v1.15.0) (2026-03-02)
 
 
