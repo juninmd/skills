@@ -1,5 +1,14 @@
 # Changelog
 
+# [1.17.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.16.0...v1.17.0) (2026-03-06)
+
+
+### Features
+
+* Configure Copilot settings to use individual rule files, add agent skills and agent files locations, and convert workflows to prompts with frontmatter. ([52dabd8](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/52dabd8))
+* Enhance Copilot installer to support hooks and workflows as prompts, and remove the `--verbose` option. ([0110cc3](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/0110cc3))
+* enhance setup command to support global VS Code settings, multiple profiles, and update agent directory structure ([2448ccd](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/2448ccd))
+
 # [1.16.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.15.0...v1.16.0) (2026-03-06)
 
 
