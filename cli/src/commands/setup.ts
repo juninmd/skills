@@ -4,12 +4,15 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { createInterface } from 'node:readline/promises';
 import { stdin, stdout } from 'node:process';
+import { getVSCodeSettingsPaths, getPadraoLabsAgentsDir, getGlobalCopilotIgnorePath } from '../utils/platform.js';
+import { cron } from './cron.js';
 
 const REGISTRY_URL = 'https://nexus.luizalabs.com/repository/npm/';
 const SCOPE = '@luizalabs';
-const EXTENSION_ID = '@luizalabs/padrao-labs-agents';
 
 export async function setup(): Promise<void> {
+  log.header('Configuração de Ambiente Luizalabs Agents');
+
   log.info('Selecione a abordagem de instalação das regras e agentes:');
   console.log('  1) Nexus (Recomendado) - Instala via extensão do VS Code');
   console.log('  2) GitLab (Cron) - Baixa os arquivos localmente via cron');
@@ -20,27 +23,46 @@ export async function setup(): Promise<void> {
 
   const choice = answer.trim();
 
+  // 1. Identifica o ambiente global
+  const vscodeUserPaths = getVSCodeSettingsPaths();
+  const agentsDir = getPadraoLabsAgentsDir();
+
+  log.info('Detectando ambiente...');
+  log.success('IDE detectada: VS Code (Configurações do usuário e Perfis Sincronizados)');
+  log.detail(`- O VS Code suporta perfis. A configuração será injetada em TODOS os perfis encontrados.`);
+  vscodeUserPaths.forEach(p => log.detail(`  - ${p}`));
+  
+  // Log das pastas de destino
+  log.info('Destino físico dos artefatos:');
+  log.detail(`- Base: ${agentsDir}`);
+  log.detail(`- Skills: ${path.join(agentsDir, 'skills')}`);
+  log.detail(`- Agents: ${path.join(agentsDir, 'agents')}`);
+  log.detail(`- Rules: ${path.join(agentsDir, 'rules')}`);
+  log.detail(`- Hooks: ${path.join(agentsDir, 'hooks')}`);
+  log.detail(`- Workflows: ${path.join(agentsDir, 'workflows')}`);
+
   if (choice === '1') {
-    await setupNexus();
+    await setupNexus(vscodeUserPaths);
   } else if (choice === '2') {
-    await setupGitlabCron();
+    await setupGitlabCron(vscodeUserPaths);
   } else {
     log.error('Opção inválida. Saindo.');
     process.exit(1);
   }
 }
 
-async function setupNexus(): Promise<void> {
+async function setupNexus(vscodeUserPaths: string[]): Promise<void> {
+  log.header('Configuração via Nexus (Extensão)');
+
   log.info(`Verificando autenticação no Nexus Luizalabs (${REGISTRY_URL})...`);
 
-  // 1. Garante que o NPM saiba onde encontrar o escopo @luizalabs
   try {
     execSync(`npm config set ${SCOPE}:registry ${REGISTRY_URL}`, { stdio: 'ignore' });
+    log.detail(`- Escopo ${SCOPE} mapeado para ${REGISTRY_URL}`);
   } catch (err) {
     log.error('Falha ao configurar o registro do escopo.');
   }
 
-  // 2. Testa a conexão tentando ler a versão de um pacote conhecido que exige auth
   let isAuthenticated = false;
   try {
     execSync(`npm view @shell-components/core version --registry ${REGISTRY_URL}`, {
@@ -51,10 +73,9 @@ async function setupNexus(): Promise<void> {
     isAuthenticated = false;
   }
 
-  // 3. Se não estiver autenticado, força o login interativo no terminal
   if (!isAuthenticated) {
     log.warn('Você não está autenticado no Nexus privado ou seu token expirou.');
-    log.info('Iniciando fluxo de login. Por favor, insira suas credenciais da rede Luizalabs:');
+    log.info('Iniciando fluxo de login interativo...');
     
     const result = spawnSync('npm', ['login', '--registry', REGISTRY_URL, '--scope', SCOPE], {
       stdio: 'inherit',
@@ -65,99 +86,112 @@ async function setupNexus(): Promise<void> {
       log.error('O login falhou ou foi cancelado.');
       process.exit(1);
     }
-
-    log.success('Login concluído com sucesso! Arquivo .npmrc atualizado.');
+    log.success('Login concluído com sucesso! ~/.npmrc atualizado.');
   } else {
     log.success('Sua autenticação no Nexus está válida!');
   }
 
-  // 4. Configura os arquivos do VS Code para a extensão privada
-  const vscodeDir = path.join(process.cwd(), '.vscode');
-  if (!fs.existsSync(vscodeDir)) {
-    fs.mkdirSync(vscodeDir, { recursive: true });
+  for (const settingsFile of vscodeUserPaths) {
+    configureGlobalPrivateRegistry(settingsFile);
+    configureGlobalVSCodeSettings(settingsFile);
   }
-
-  configureVSCodePrivateExtensions(vscodeDir);
-  configureVSCodeSettings(vscodeDir);
-  configureCopilotIgnore();
+  configureGlobalCopilotIgnore();
 }
 
-async function setupGitlabCron(): Promise<void> {
-  log.info('Configurando VS Code para ler regras sincronizadas via GitLab (Cron)...');
-  const vscodeDir = path.join(process.cwd(), '.vscode');
-  if (!fs.existsSync(vscodeDir)) {
-    fs.mkdirSync(vscodeDir, { recursive: true });
-  }
+async function setupGitlabCron(vscodeUserPaths: string[]): Promise<void> {
+  log.header('Configuração via GitLab (Cron)');
 
-  configureVSCodeSettings(vscodeDir);
-  configureCopilotIgnore();
+  for (const settingsFile of vscodeUserPaths) {
+    configureGlobalVSCodeSettings(settingsFile);
+  }
+  configureGlobalCopilotIgnore();
+
+  
+  log.info('Acionando configuração do job de sincronização no sistema...');
+  await cron({ remove: false });
 }
 
-function configureVSCodePrivateExtensions(vscodeDir: string) {
-  const privateExtensionsFile = path.join(vscodeDir, 'extensions.private.json');
-  const extensionsFile = path.join(vscodeDir, 'extensions.json');
+function logSettingsDiff(oldSettings: any, newSettings: any) {
+  let hasChanges = false;
+  for (const key of Object.keys(newSettings)) {
+    const oldStr = JSON.stringify(oldSettings[key]);
+    const newStr = JSON.stringify(newSettings[key]);
+    
+    if (oldStr !== newStr) {
+      hasChanges = true;
+      if (oldSettings[key] === undefined) {
+        const displayVal = newStr.length > 60 ? '(novo objeto/array)' : newStr;
+        log.detail(`  [+] ${key}: ${displayVal}`);
+      } else {
+        const displayVal = newStr.length > 60 ? '(modificado)' : `${oldStr} -> ${newStr}`;
+        log.detail(`  [~] ${key}: ${displayVal}`);
+      }
+    }
+  }
+  if (!hasChanges) {
+    log.detail('  (Nenhuma configuração precisou ser alterada)');
+  }
+}
 
-  log.info('Configurando Private Extension Manager para o padrão Luizalabs...');
+function configureGlobalPrivateRegistry(settingsFile: string) {
+  log.info('Configurando Private Extension Manager globalmente...');
 
-  // --- 1. Configura .vscode/extensions.private.json ---
-  let privateConfig: any = { registries: [], recommendations: [] };
-  if (fs.existsSync(privateExtensionsFile)) {
+  let settings: any = {};
+  let originalSettings: any = {};
+  if (fs.existsSync(settingsFile)) {
     try {
-      privateConfig = JSON.parse(fs.readFileSync(privateExtensionsFile, 'utf-8'));
+      const raw = fs.readFileSync(settingsFile, 'utf-8');
+      const cleanJson = raw.replace(/\\"|"(?:\\"|[^"])*"|(\/\/.*|\/\*[\s\S]*?\*\/)/g, (m, g) => g ? "" : m);
+      settings = JSON.parse(cleanJson || '{}');
+      originalSettings = JSON.parse(cleanJson || '{}');
     } catch (e) {
-      log.warn('Falha ao ler extensions.private.json existente. Criando novo.');
+      log.error(`Falha ao ler ${settingsFile}. O arquivo pode conter erros de sintaxe. Para evitar perda de dados, a configuração foi abortada.`);
+      return;
     }
   }
 
-  if (!privateConfig.registries) privateConfig.registries = [];
-  const hasRegistry = privateConfig.registries.some((r: any) => r.registry === REGISTRY_URL);
+  if (!settings['privateExtensions.registries']) {
+    settings['privateExtensions.registries'] = [];
+  }
+
+  const registries = settings['privateExtensions.registries'];
+  const hasRegistry = registries.some((r: any) => r.url === REGISTRY_URL || r.registry === REGISTRY_URL);
+  
   if (!hasRegistry) {
-    privateConfig.registries.push({
+    registries.push({
       name: "Luizalabs Nexus (NPM)",
-      registry: REGISTRY_URL
+      type: "npm",
+      enable: true,
+      url: REGISTRY_URL
     });
   }
 
-  if (!privateConfig.recommendations) privateConfig.recommendations = [];
-  if (!privateConfig.recommendations.includes(EXTENSION_ID)) {
-    privateConfig.recommendations.push(EXTENSION_ID);
-  }
+  log.info('Diff de alterações do Registry:');
+  logSettingsDiff(originalSettings, settings);
 
-  fs.writeFileSync(privateExtensionsFile, JSON.stringify(privateConfig, null, 2), 'utf-8');
-  log.success('Arquivo .vscode/extensions.private.json configurado com sucesso!');
-
-  // --- 2. Configura .vscode/extensions.json ---
-  let standardExtensions: any = { recommendations: [] };
-  const GARMIN_EXTENSION_ID = 'Garmin.private-extension-manager';
-
-  if (fs.existsSync(extensionsFile)) {
-    try {
-      standardExtensions = JSON.parse(fs.readFileSync(extensionsFile, 'utf-8'));
-    } catch (e) {}
-  }
-
-  if (!standardExtensions.recommendations) standardExtensions.recommendations = [];
-  if (!standardExtensions.recommendations.includes(GARMIN_EXTENSION_ID)) {
-    standardExtensions.recommendations.push(GARMIN_EXTENSION_ID);
-    fs.writeFileSync(extensionsFile, JSON.stringify(standardExtensions, null, 2), 'utf-8');
-    log.info(`Recomendando a instalação da extensão '${GARMIN_EXTENSION_ID}' no workspace.`);
-  }
+  fs.writeFileSync(settingsFile, JSON.stringify(settings, null, 2), 'utf-8');
+  log.success(`Registry global configurado em: ${settingsFile}`);
 }
 
-function configureVSCodeSettings(vscodeDir: string) {
-  const settingsFile = path.join(vscodeDir, 'settings.json');
+function configureGlobalVSCodeSettings(settingsFile: string) {
+  log.info('Aplicando diretrizes globais do Copilot no VS Code...');
+
   let settings: any = {};
+  let originalSettings: any = {};
   if (fs.existsSync(settingsFile)) {
     try {
-      settings = JSON.parse(fs.readFileSync(settingsFile, 'utf-8'));
+      const raw = fs.readFileSync(settingsFile, 'utf-8');
+      const cleanJson = raw.replace(/\\"|"(?:\\"|[^"])*"|(\/\/.*|\/\*[\s\S]*?\*\/)/g, (m, g) => g ? "" : m);
+      settings = JSON.parse(cleanJson || '{}');
+      originalSettings = JSON.parse(cleanJson || '{}');
     } catch (e) {
-      log.warn('Falha ao ler settings.json. Recriando.');
+      log.error(`Falha ao ler ${settingsFile}. O arquivo pode conter erros de sintaxe. Para evitar perda de dados, a configuração foi abortada.`);
+      return;
     }
   }
 
-  // --- 1. Copilot Instructions ---
-  const homedir = process.env.HOME || process.env.USERPROFILE || '~';
-  const instructionsPath = path.join(homedir, '.padrao-labs', 'agents', 'copilot-instructions.md');
+  const agentsDir = getPadraoLabsAgentsDir();
+  const instructionsPath = path.join(agentsDir, 'copilot-instructions.md');
 
   if (!settings['github.copilot.chat.codeGeneration.instructions']) {
     settings['github.copilot.chat.codeGeneration.instructions'] = [];
@@ -170,7 +204,6 @@ function configureVSCodeSettings(vscodeDir: string) {
     instructions.push({ file: instructionsPath });
   }
 
-  // --- 2. Desativar Copilot em linguagens ruidosas ---
   if (!settings['github.copilot.enable']) {
     settings['github.copilot.enable'] = {};
   }
@@ -178,12 +211,9 @@ function configureVSCodeSettings(vscodeDir: string) {
   const disabledLangs = ['plaintext', 'scminput', 'dotenv', 'ignore', 'properties', 'markdown'];
   
   for (const lang of disabledLangs) {
-    if (enable[lang] !== false) {
-      enable[lang] = false;
-    }
+    enable[lang] = false;
   }
 
-  // --- 3. Configurações avançadas de Chat, MCP e Agentes ---
   const advancedSettings: Record<string, any> = {
     "chat.mcp.autostart": "newAndOutdated",
     "chat.agent.maxRequests": 1000,
@@ -210,22 +240,31 @@ function configureVSCodeSettings(vscodeDir: string) {
     settings[key] = value;
   }
 
+  log.info('Diff de alterações do VS Code Settings:');
+  logSettingsDiff(originalSettings, settings);
+
   fs.writeFileSync(settingsFile, JSON.stringify(settings, null, 2), 'utf-8');
-  log.success(`Arquivo settings.json configurado com as diretrizes do Luizalabs.`);
+  log.success(`Arquivo global configurado: ${settingsFile}`);
 }
 
-function configureCopilotIgnore() {
-  const ignoreFile = path.join(process.cwd(), '.copilotignore');
+function configureGlobalCopilotIgnore() {
+  const ignoreFile = getGlobalCopilotIgnorePath();
   const ignoreContent = 'node_modules/\n';
+
+  log.info('Configurando ignorados globais do Copilot...');
 
   if (!fs.existsSync(ignoreFile)) {
     fs.writeFileSync(ignoreFile, ignoreContent, 'utf-8');
-    log.success('Arquivo .copilotignore criado (node_modules desativado).');
+    log.success(`Arquivo global criado: ${ignoreFile}`);
+    log.detail('- node_modules/ adicionado à lista global de exclusão.');
   } else {
     let current = fs.readFileSync(ignoreFile, 'utf-8');
     if (!current.includes('node_modules/')) {
       fs.appendFileSync(ignoreFile, `\n${ignoreContent}`);
-      log.success('Pasta node_modules adicionada ao .copilotignore.');
+      log.success(`Arquivo global atualizado: ${ignoreFile}`);
+      log.detail('- node_modules/ adicionado à lista global de exclusão.');
+    } else {
+      log.info(`O arquivo ${ignoreFile} já possui exclusão para node_modules/.`);
     }
   }
 }

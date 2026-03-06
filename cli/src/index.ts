@@ -30,7 +30,7 @@ Opcoes:
 
 Exemplos:
   npx @luizalabs/padrao-labs-agents setup
-  npx @luizalabs/padrao-labs-agents install --tools copilot,gemini
+  npx @luizalabs/padrao-labs-agents install
   npx @luizalabs/padrao-labs-agents init
   npx @luizalabs/padrao-labs-agents cron
 `;

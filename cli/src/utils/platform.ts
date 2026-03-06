@@ -2,6 +2,7 @@ import { homedir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { dirname } from 'node:path';
+import * as fs from 'node:fs';
 
 export function getHomeDir(): string {
   return process.env.HOME || homedir();
@@ -15,7 +16,7 @@ export function expandHome(p: string): string {
 }
 
 export function getManifestDir(): string {
-  return join(getHomeDir(), '.padrao-labs');
+  return join(getHomeDir(), '.agents');
 }
 
 export function getManifestPath(): string {
@@ -45,7 +46,7 @@ export function getBundledSettingsPath(): string {
 }
 
 export function getPadraoLabsAgentsDir(): string {
-  return join(getManifestDir(), 'agents');
+  return getManifestDir();
 }
 
 export function getVSCodeUserDir(): string {
@@ -64,6 +65,26 @@ export function getVSCodeMcpConfigPath(): string {
 
 export function getVSCodeSettingsPath(): string {
   return join(getVSCodeUserDir(), 'settings.json');
+}
+
+export function getVSCodeSettingsPaths(): string[] {
+  const userDir = getVSCodeUserDir();
+  const paths: string[] = [join(userDir, 'settings.json')];
+
+  const profilesDir = join(userDir, 'profiles');
+  if (fs.existsSync(profilesDir)) {
+    try {
+      const entries = fs.readdirSync(profilesDir, { withFileTypes: true });
+      for (const entry of entries) {
+        if (entry.isDirectory()) {
+          paths.push(join(profilesDir, entry.name, 'settings.json'));
+        }
+      }
+    } catch (e) {
+      // Ignora erros de leitura do diretório de perfis
+    }
+  }
+  return paths;
 }
 
 /** Arquivo global ~/.copilotignore aplica-se a todos os projetos do usuário. */
