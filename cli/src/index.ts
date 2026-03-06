@@ -5,6 +5,7 @@ import { install } from './commands/install.js';
 import { update } from './commands/update.js';
 import { init } from './commands/init.js';
 import { cron } from './commands/cron.js';
+import { setup } from './commands/setup.js';
 import { log } from './utils/logger.js';
 import { getCurrentPackageVersion } from './utils/version.js';
 
@@ -16,6 +17,7 @@ Comandos:
   update      Atualiza para a versao mais recente publicada
   init        Inicializa repositorio com arquivos padrao (dependency.yaml, sonar, etc.)
   cron        Configura auto-update diario via crontab
+  setup       Configura o ambiente (Nexus login e VS Code Agent Plugins)
 
 Opcoes:
   -h, --help      Mostra esta ajuda
@@ -27,11 +29,10 @@ Opcoes:
   --remove        (cron) Remove o cron de auto-update
 
 Exemplos:
-  npx @luizalabs/padrao-labs-agents install
+  npx @luizalabs/padrao-labs-agents setup
   npx @luizalabs/padrao-labs-agents install --tools copilot,gemini
   npx @luizalabs/padrao-labs-agents init
   npx @luizalabs/padrao-labs-agents cron
-  npx @luizalabs/padrao-labs-agents update
 `;
 
 async function main(): Promise<void> {
@@ -87,6 +88,10 @@ async function main(): Promise<void> {
         await cron({
           remove: values.remove as boolean,
         });
+        break;
+
+      case 'setup':
+        await setup();
         break;
 
       default:

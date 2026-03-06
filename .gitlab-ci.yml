@@ -155,3 +155,23 @@ publish_cli:
   only:
     - tags
   when: manual
+
+publish_vsix:
+  stage: deploy
+  image: node:22-slim
+  needs:
+    - build_cli
+  script:
+    - npm install -g pnpm@8.6.2
+    - pnpm install --frozen-lockfile --ignore-scripts
+    - npx @vscode/vsce package --no-dependencies --allow-missing-repository
+    - >
+      curl -v -u "${NEXUS_USERNAME}:${NEXUS_PASSWORD}"
+      --upload-file $(ls *.vsix)
+      "https://nexus.luizalabs.com/repository/raw-private/padrao-labs-agents/${CI_COMMIT_TAG}/padrao-labs-agents-root-${CI_COMMIT_TAG}.vsix"
+  artifacts:
+    paths:
+      - "*.vsix"
+    expire_in: 1 week
+  only:
+    - tags

@@ -16,7 +16,7 @@
     "test:run": "vitest run",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest run --coverage",
-    "build": "tsc",
+    "build": "tsc --emitDeclarationOnly && node esbuild.config.mjs",
     "bundle-agents": "node scripts/bundle-agents.mjs",
     "prepublishOnly": "npm run build && npm run bundle-agents",
     "postinstall": "node ./dist/index.js cron"
@@ -25,10 +25,11 @@
     "node": ">=18.3.0"
   },
   "publishConfig": {
-    "registry": "https://nexus.luizalabs.com/repository/npm-private/"
+    "registry": "https://nexus.luizalabs.com/repository/npm/"
   },
   "devDependencies": {
-    "typescript": "^5.4.0",
-    "@types/node": "^20.0.0"
+    "@types/node": "^20.0.0",
+    "esbuild": "^0.27.3",
+    "typescript": "^5.4.0"
   }
 }

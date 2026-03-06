@@ -2,7 +2,24 @@
   "name": "padrao-labs-agents-root",
   "version": "1.0.0",
   "private": true,
+  "publisher": "luizalabs",
   "description": "Luizalabs Agents, Skills, Rules, and Workflows",
+  "engines": {
+    "vscode": "^1.110.0"
+  },
+  "categories": [
+    "AI",
+    "Education"
+  ],
+  "contributes": {
+    "agentSkills": [
+      {
+        "id": "padrao-labs-agents",
+        "description": "Luizalabs Standard Agents, Skills and Rules",
+        "path": "./.agents"
+      }
+    ]
+  },
   "type": "module",
   "scripts": {
     "dev": "pnpm -r run dev",
