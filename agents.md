@@ -23,8 +23,15 @@ As diretrizes estritas que você deve seguir:
 
 ## 🛠️ Skills
 Capacidades especializadas que você deve utilizar quando necessário:
-- **Netskope Config**: [.agents/skills/netskope-skill/SKILL.md](.agents/skills/netskope-skill/SKILL.md)
+- **VS Code + Copilot**: [.agents/skills/configuring-vscode-copilot/SKILL.md](.agents/skills/configuring-vscode-copilot/SKILL.md)
+- **Netskope Config**: [.agents/skills/configuring-netskope/SKILL.md](.agents/skills/configuring-netskope/SKILL.md)
 - (E outras skills em `.agents/skills/`)
+
+## 🤖 Agentes Especializados
+Agentes com personas, ferramentas e suporte a **subagents** (VS Code 1.97+):
+- **Índice completo**: [.agents/agents/index.md](.agents/agents/index.md)
+- **Coordenadores** (orquestram subagents): `feature-builder`, `code-reviewer`, `padrao-labs-agent`, `software-architect`
+- **Especialistas** (workers): `secops-agent`, `quality-engineer`, `refactoring-agent`, `platform-engineer`, `frontend-expert`, `mobile-engineer`, `terminal-operator`
 
 ## 🔄 Workflows
 Fluxos de trabalho passo-a-passo:

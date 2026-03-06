@@ -1,7 +1,7 @@
 import { execSync } from 'node:child_process';
 import { join } from 'node:path';
-import { getHomeDir } from './platform.js';
-import { dirExists, fileExists } from './fs.js';
+import { getHomeDir, getPadraoLabsAgentsDir, getVSCodeDirs } from './platform.js';
+import { dirExists } from './fs.js';
 import type { ToolDetection } from '../types.js';
 
 function commandExists(cmd: string): boolean {
@@ -13,50 +13,65 @@ function commandExists(cmd: string): boolean {
   }
 }
 
+/**
+ * Detecta presença do VS Code verificando:
+ * 1. Comando `code` ou `code-insiders` no PATH
+ * 2. Diretório de configuração do VS Code (~/.config/Code ou equivalente por OS)
+ */
+async function detectVSCode(): Promise<string> {
+  if (commandExists('code')) return 'code';
+  if (commandExists('code-insiders')) return 'code-insiders';
+  for (const dir of getVSCodeDirs()) {
+    if (await dirExists(dir)) return dir;
+  }
+  return '';
+}
+
 const TOOL_CONFIGS: Array<{
   name: string;
   configDir: string;
+  detect?: () => Promise<string>;
   command?: string;
 }> = [
   {
     name: 'copilot',
-    configDir: '~/.agents',
-    // GitHub Copilot nao tem bin proprio; deteccao por diretorio e suficiente
+    // Pasta alvo após instalação — usada como configDir para exibição
+    configDir: getPadraoLabsAgentsDir(),
+    // Detecção real: presença do VS Code no sistema
+    detect: detectVSCode,
   },
   {
     name: 'gemini',
-    configDir: '~/.gemini',
+    configDir: join(getHomeDir(), '.gemini'),
     command: 'gemini',
   },
   {
     name: 'antigravity',
-    configDir: '~/.gemini/antigravity',
+    configDir: join(getHomeDir(), '.gemini', 'antigravity'),
     command: 'antigravity',
   },
 ];
-
-function resolveHome(p: string): string {
-  if (p.startsWith('~/')) {
-    return join(getHomeDir(), p.slice(2));
-  }
-  return p;
-}
 
 export async function detectTools(): Promise<ToolDetection[]> {
   const results: ToolDetection[] = [];
 
   for (const tool of TOOL_CONFIGS) {
-    const configDir = resolveHome(tool.configDir);
-    const dirDetected = await dirExists(configDir);
-    const cmdDetected = tool.command ? commandExists(tool.command) : false;
-    const detected = dirDetected || cmdDetected;
-    const detectedPath = dirDetected ? configDir : (cmdDetected ? tool.command! : '');
+    let detectedPath = '';
+
+    if (tool.detect) {
+      detectedPath = await tool.detect();
+    } else {
+      const configDir = tool.configDir;
+      const dirDetected = await dirExists(configDir);
+      const cmdDetected = tool.command ? commandExists(tool.command) : false;
+      detectedPath = dirDetected ? configDir : cmdDetected ? tool.command! : '';
+    }
 
     results.push({
       name: tool.name,
-      detected,
-      configDir,
-      detectedPath,
+      detected: detectedPath !== '',
+      configDir: tool.configDir,
+      detectedPath: detectedPath || undefined,
     });
   }
 

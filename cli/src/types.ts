@@ -4,9 +4,18 @@ export interface MCPServerConfig {
   args?: string[];
   gallery?: boolean;
   url?: string;
+  env?: Record<string, string>;
+}
+
+export interface MCPInputConfig {
+  id: string;
+  type: 'promptString';
+  description: string;
+  password?: boolean;
 }
 
 export interface MCPConfig {
+  inputs?: MCPInputConfig[];
   servers: Record<string, MCPServerConfig>;
 }
 

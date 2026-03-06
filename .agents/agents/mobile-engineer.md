@@ -1,6 +1,9 @@
 ---
 name: mobile-engineer
 description: Especialista em Desenvolvimento Mobile Cross-Platform (React Native / Android / iOS) e publicação nas lojas.
+tools: ['read', 'search', 'edit']
+user-invokable: true
+disable-model-invocation: false
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
 ---

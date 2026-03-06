@@ -1,6 +1,8 @@
 ---
 name: software-architect
 description: Agente Sênior responsável por Arquitetura de Software, Design Patterns, Refatoração e Débito Técnico.
+tools: ['agent', 'read', 'search', 'edit']
+agents: ['archdd-agent', 'quality-engineer', 'secops-agent']
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
 ---

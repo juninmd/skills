@@ -1,6 +1,9 @@
 ---
 name: refactoring-agent
 description: Agente especialista em refatoração de código, focado em princípios de engenharia de software como SOLID, DRY, KISS, YAGNI e Clean Code.
+tools: ['read', 'search', 'edit']
+user-invokable: true
+disable-model-invocation: false
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
 ---

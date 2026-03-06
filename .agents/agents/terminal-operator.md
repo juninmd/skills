@@ -1,6 +1,9 @@
 ---
 name: terminal-operator
 description: Agente especialista em execução de comandos shell, orquestração de infraestrutura (K8s, Git, Docker) e protocolos Luizalabs seguindo o padrão Sênior.
+tools: ['read', 'search']
+user-invokable: true
+disable-model-invocation: false
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
 ---

@@ -44,12 +44,48 @@ export function getBundledSettingsPath(): string {
   return join(getAgentsBundleDir(), '.settings.json');
 }
 
-export function getVSCodeMcpConfigPath(): string {
+export function getPadraoLabsAgentsDir(): string {
+  return join(getManifestDir(), 'agents');
+}
+
+export function getVSCodeUserDir(): string {
   const home = getHomeDir();
   if (process.platform === 'win32') {
-    return join(process.env.APPDATA || '', 'Code', 'User', 'mcp.json');
+    return join(process.env.APPDATA || '', 'Code', 'User');
   } else if (process.platform === 'darwin') {
-    return join(home, 'Library', 'Application Support', 'Code', 'User', 'mcp.json');
+    return join(home, 'Library', 'Application Support', 'Code', 'User');
   }
-  return join(home, '.config', 'Code', 'User', 'mcp.json');
+  return join(home, '.config', 'Code', 'User');
+}
+
+export function getVSCodeMcpConfigPath(): string {
+  return join(getVSCodeUserDir(), 'mcp.json');
+}
+
+export function getVSCodeSettingsPath(): string {
+  return join(getVSCodeUserDir(), 'settings.json');
+}
+
+/** Arquivo global ~/.copilotignore aplica-se a todos os projetos do usuário. */
+export function getGlobalCopilotIgnorePath(): string {
+  return join(getHomeDir(), '.copilotignore');
+}
+
+export function getVSCodeDirs(): string[] {
+  const home = getHomeDir();
+  if (process.platform === 'win32') {
+    return [
+      join(process.env.APPDATA || '', 'Code'),
+      join(process.env.APPDATA || '', 'Code - Insiders'),
+    ];
+  } else if (process.platform === 'darwin') {
+    return [
+      join(home, 'Library', 'Application Support', 'Code'),
+      join(home, 'Library', 'Application Support', 'Code - Insiders'),
+    ];
+  }
+  return [
+    join(home, '.config', 'Code'),
+    join(home, '.config', 'Code - Insiders'),
+  ];
 }

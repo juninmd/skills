@@ -1,8 +1,6 @@
 ---
-name: command-safety
+trigger: model_decision
 description: Regras críticas de segurança para execução de comandos destrutivos.
-metadata:
-    works_on: [copilot, antigravity, gemini_cli]
 ---
 
 # Rule: Command Safety
