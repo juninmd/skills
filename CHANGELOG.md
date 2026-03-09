@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.18.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.17.1...v1.18.0) (2026-03-09)
+
+
+### Features
+
+* Add backup functionality for settings.json in Copilot and Gemini CLI installers ([4bb6255](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/4bb6255))
+
 ## [1.17.1](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.17.0...v1.17.1) (2026-03-06)
 
 
