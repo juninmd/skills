@@ -5,7 +5,7 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { createInterface } from 'node:readline/promises';
 import { stdin, stdout } from 'node:process';
-import { getVSCodeSettingsPaths, getPadraoLabsAgentsDir, getGlobalCopilotIgnorePath } from '../utils/platform.js';
+import { getVSCodeSettingsPaths, getPadraoLabsAgentsDir, getGlobalCopilotIgnorePath, getHomeDir } from '../utils/platform.js';
 import { cron } from './cron.js';
 
 const REGISTRY_URL = 'https://nexus.luizalabs.com/repository/npm/';
@@ -29,9 +29,19 @@ export async function setup(): Promise<void> {
   const agentsDir = getPadraoLabsAgentsDir();
 
   log.info('Detectando ambiente...');
+  
+  // VS Code
   log.success('IDE detectada: VS Code (Configurações do usuário e Perfis Sincronizados)');
   log.detail(`- O VS Code suporta perfis. A configuração será injetada em TODOS os perfis encontrados.`);
   vscodeUserPaths.forEach(p => log.detail(`  - ${p}`));
+  
+  // Antigravity
+  const antigravityDir = path.join(getHomeDir(), '.gemini', 'antigravity');
+  const hasAntigravity = fs.existsSync(antigravityDir);
+  if (hasAntigravity) {
+    log.success('Agente detectado: Google Antigravity');
+    log.detail(`- Pasta encontrada: ${antigravityDir}`);
+  }
   
   // Log das pastas de destino
   log.info('Destino físico dos artefatos:');
@@ -43,16 +53,16 @@ export async function setup(): Promise<void> {
   log.detail(`- Workflows: ${path.join(agentsDir, 'workflows')}`);
 
   if (choice === '1' || choice === '') { // Default para enter vazio
-    await setupGitlabCron(vscodeUserPaths);
+    await setupGitlabCron(vscodeUserPaths, hasAntigravity);
   } else if (choice === '2') {
-    await setupNexus(vscodeUserPaths);
+    await setupNexus(vscodeUserPaths, hasAntigravity);
   } else {
     log.error('Opção inválida. Saindo.');
     process.exit(1);
   }
 }
 
-async function setupNexus(vscodeUserPaths: string[]): Promise<void> {
+async function setupNexus(vscodeUserPaths: string[], hasAntigravity: boolean): Promise<void> {
   log.header('Configuração via Nexus (Extensão)');
 
   log.info(`Verificando autenticação no Nexus Luizalabs (${REGISTRY_URL})...`);
@@ -97,15 +107,17 @@ async function setupNexus(vscodeUserPaths: string[]): Promise<void> {
     configureGlobalVSCodeSettings(settingsFile);
   }
   configureGlobalCopilotIgnore();
+  if (hasAntigravity) configureGlobalAntigravity();
 }
 
-async function setupGitlabCron(vscodeUserPaths: string[]): Promise<void> {
+async function setupGitlabCron(vscodeUserPaths: string[], hasAntigravity: boolean): Promise<void> {
   log.header('Configuração via GitLab (Cron)');
 
   for (const settingsFile of vscodeUserPaths) {
     configureGlobalVSCodeSettings(settingsFile);
   }
   configureGlobalCopilotIgnore();
+  if (hasAntigravity) configureGlobalAntigravity();
 
   
   log.info('Acionando configuração do job de sincronização no sistema...');
@@ -264,6 +276,33 @@ function configureGlobalCopilotIgnore() {
       log.detail('- node_modules/ adicionado à lista global de exclusão.');
     } else {
       log.info(`O arquivo ${ignoreFile} já possui exclusão para node_modules/.`);
+    }
+  }
+}
+
+function configureGlobalAntigravity() {
+  const geminiDir = path.join(getHomeDir(), '.gemini');
+  const antigravityDir = path.join(geminiDir, 'antigravity');
+  const geminiMdPath = path.join(geminiDir, 'GEMINI.md');
+  const agentsMdTarget = path.join(antigravityDir, 'AGENTS.md');
+  const importLine = `@${agentsMdTarget}`;
+
+  log.info('Configurando regras globais para o Google Antigravity...');
+
+  if (!fs.existsSync(geminiMdPath)) {
+    fs.writeFileSync(geminiMdPath, `${importLine}\n`, 'utf-8');
+    log.success(`Arquivo global criado: ${geminiMdPath}`);
+    log.detail(`- Regra global importada: ${importLine}`);
+  } else {
+    const current = fs.readFileSync(geminiMdPath, 'utf-8');
+    if (!current.includes(importLine)) {
+      // Garante uma quebra de linha caso o arquivo não termine com uma
+      const prefix = current.endsWith('\n') ? '' : '\n';
+      fs.appendFileSync(geminiMdPath, `${prefix}${importLine}\n`);
+      log.success(`Arquivo global atualizado: ${geminiMdPath}`);
+      log.detail(`- Regra global anexada: ${importLine}`);
+    } else {
+      log.info(`O arquivo ${geminiMdPath} já importa as regras globais (${importLine}).`);
     }
   }
 }
