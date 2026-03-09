@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.20.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.19.0...v1.20.0) (2026-03-09)
+
+
+### Features
+
+* provide Windows-specific auto-update instructions when crontab is unavailable. ([03a161d](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/03a161d))
+
 # [1.19.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.18.0...v1.19.0) (2026-03-09)
 
 
