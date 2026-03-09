@@ -39,6 +39,10 @@ export class GeminiCliInstaller extends BaseInstaller {
     if (await fileExists(settingsPath)) {
       try {
         const content = await readFile(settingsPath, 'utf-8');
+        // Faz backup do arquivo original
+        await writeFile(`${settingsPath}.old`, content, 'utf-8');
+        log.detail(`Backup de settings.json criado em ${settingsPath}.old`);
+
         settings = JSON.parse(content);
       } catch {
         // Se nao conseguir ler, cria do zero

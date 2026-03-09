@@ -134,6 +134,10 @@ export class CopilotInstaller extends BaseInstaller {
     if (await fileExists(settingsPath)) {
       try {
         const raw = await readFile(settingsPath, 'utf-8');
+        // Faz backup do arquivo original
+        await writeFile(`${settingsPath}.old`, raw, 'utf-8');
+        log.detail(`Backup de settings.json criado em ${settingsPath}.old`);
+
         settings = JSON.parse(raw);
       } catch {
         log.warn('Nao foi possivel ler settings.json — sera criado do zero');
