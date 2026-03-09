@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.19.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.18.0...v1.19.0) (2026-03-09)
+
+
+### Features
+
+* Introduce Git-based repository synchronization, standardize agent directories to `~/.agents`, and migrate JSON parsing to `comment-json`. ([6dd557f](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/6dd557f))
+
 # [1.18.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.17.1...v1.18.0) (2026-03-09)
 
 
