@@ -1,3 +1,4 @@
+import { parse, stringify } from 'comment-json';
 import { join } from 'node:path';
 import { readFile, writeFile, readdir } from 'node:fs/promises';
 import {
@@ -49,11 +50,10 @@ const VSCODE_AGENTS_LOCS_KEY = 'chat.agentFilesLocations';
 
 /** Fragmento de caminho para identificar entradas gerenciadas por este installer. */
 const MANAGED_PATH_MARKER = '.agents';
-const LEGACY_PATH_MARKER = '.padrao-labs';
 
 function isManagedPath(p?: string): boolean {
   if (!p) return false;
-  return p.includes(MANAGED_PATH_MARKER) || p.includes(LEGACY_PATH_MARKER);
+  return p.includes(MANAGED_PATH_MARKER);
 }
 
 function toPortablePath(p: string): string {
@@ -70,7 +70,7 @@ export class CopilotInstaller extends BaseInstaller {
   }
 
   /**
-   * Os arquivos são instalados em ~/.padrao-labs/agents — pasta única gerenciada
+   * Os arquivos são instalados em ~/.agents — pasta única gerenciada
    * pelo CLI. O VS Code é configurado via settings.json para ler desse caminho,
    * evitando cópia por projeto.
    */
@@ -138,7 +138,7 @@ export class CopilotInstaller extends BaseInstaller {
         await writeFile(`${settingsPath}.old`, raw, 'utf-8');
         log.detail(`Backup de settings.json criado em ${settingsPath}.old`);
 
-        settings = JSON.parse(raw);
+        settings = parse(raw) as Record<string, unknown>;
       } catch {
         log.warn('Nao foi possivel ler settings.json — sera criado do zero');
       }
@@ -250,7 +250,7 @@ export class CopilotInstaller extends BaseInstaller {
     settings[VSCODE_AGENTS_LOCS_KEY] = agentsLocs;
 
     await ensureDir(join(settingsPath, '..'));
-    await writeFile(settingsPath, JSON.stringify(settings, null, 2), 'utf-8');
+    await writeFile(settingsPath, stringify(settings, null, 2), 'utf-8');
 
     log.detail(`VS Code settings.json atualizado: ${settingsPath}`);
     log.success(`Instructions Copilot ativas globalmente (User settings.json)`);
@@ -351,7 +351,7 @@ export class CopilotInstaller extends BaseInstaller {
     if (await fileExists(settingsPath)) {
       try {
         const raw = await readFile(settingsPath, 'utf-8');
-        settings = JSON.parse(raw);
+        settings = parse(raw) as Record<string, any>;
       } catch {
         return;
       }
@@ -365,7 +365,7 @@ export class CopilotInstaller extends BaseInstaller {
 
     if (await fileExists(preCommandPath)) {
       copilotHooks.PreToolUse = [
-        ...(copilotHooks.PreToolUse || []).filter((h: any) => !isManagedPath(h.command) && h.managed !== MANAGED_PATH_MARKER && h.managed !== LEGACY_PATH_MARKER),
+        ...(copilotHooks.PreToolUse || []).filter((h: any) => !isManagedPath(h.command) && h.managed !== MANAGED_PATH_MARKER),
         {
           type: 'command',
           command: `python3 ${toPortablePath(preCommandPath)}`,
@@ -376,7 +376,7 @@ export class CopilotInstaller extends BaseInstaller {
 
     if (await fileExists(postCommandPath)) {
       copilotHooks.PostToolUse = [
-        ...(copilotHooks.PostToolUse || []).filter((h: any) => !isManagedPath(h.command) && h.managed !== MANAGED_PATH_MARKER && h.managed !== LEGACY_PATH_MARKER),
+        ...(copilotHooks.PostToolUse || []).filter((h: any) => !isManagedPath(h.command) && h.managed !== MANAGED_PATH_MARKER),
         {
           type: 'command',
           command: `python3 ${toPortablePath(postCommandPath)}`,
@@ -387,7 +387,7 @@ export class CopilotInstaller extends BaseInstaller {
 
     settings['github.copilot.chat.hooks'] = copilotHooks;
 
-    await writeFile(settingsPath, JSON.stringify(settings, null, 2), 'utf-8');
+    await writeFile(settingsPath, stringify(settings, null, 2), 'utf-8');
     log.detail('Hooks do Copilot configurados em settings.json');
   }
 
@@ -401,7 +401,7 @@ export class CopilotInstaller extends BaseInstaller {
     const ignorePath = getGlobalCopilotIgnorePath();
 
     if (this.options.dryRun) {
-      log.dryRun(`Geraria ~/.copilotignore em \${ignorePath}`);
+      log.dryRun(`Geraria ~/.copilotignore em ${ignorePath}`);
       return;
     }
 
@@ -488,8 +488,8 @@ export class CopilotInstaller extends BaseInstaller {
       await writeFile(ignorePath, baseline + '\\n', 'utf-8');
     }
 
-    log.detail(`~/.copilotignore gerado em: \${ignorePath}`);
-    log.success(`~/.copilotignore configurado (\${ignorePath})`);
+    log.detail(`~/.copilotignore gerado em: ${ignorePath}`);
+    log.success(`~/.copilotignore configurado (${ignorePath})`);
   }
 
   /**
@@ -500,7 +500,7 @@ export class CopilotInstaller extends BaseInstaller {
     const mcpPath = getVSCodeMcpConfigPath();
 
     if (this.options.dryRun) {
-      log.dryRun(`Configuraria GitLab MCP em \${mcpPath}`);
+      log.dryRun(`Configuraria GitLab MCP em ${mcpPath}`);
       return;
     }
 
@@ -508,7 +508,7 @@ export class CopilotInstaller extends BaseInstaller {
     if (await fileExists(mcpPath)) {
       try {
         const content = await readFile(mcpPath, 'utf-8');
-        mcpConfig = JSON.parse(content) as MCPConfig;
+        mcpConfig = parse(content) as unknown as MCPConfig;
       } catch {
         // Recria do zero
       }
@@ -534,14 +534,14 @@ export class CopilotInstaller extends BaseInstaller {
       args: ['mcp', 'serve'],
       gallery: false,
       env: {
-        GITLAB_TOKEN: '\${input:GITLAB_TOKEN}',
+        GITLAB_TOKEN: '${input:GITLAB_TOKEN}',
         GITLAB_HOST: 'https://gitlab.luizalabs.com/',
       },
     };
 
     await ensureDir(join(mcpPath, '..'));
-    await writeFile(mcpPath, JSON.stringify(mcpConfig, null, 2), 'utf-8');
+    await writeFile(mcpPath, stringify(mcpConfig, null, 2), 'utf-8');
 
-    log.detail(`GitLab MCP configurado em \${mcpPath}`);
+    log.detail(`GitLab MCP configurado em ${mcpPath}`);
   }
 }

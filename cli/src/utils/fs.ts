@@ -1,6 +1,7 @@
-import { mkdir, cp, rm, readdir, stat } from 'node:fs/promises';
+import { mkdir, cp, rm, readdir, stat, symlink } from 'node:fs/promises';
 import { join } from 'node:path';
 import { existsSync } from 'node:fs';
+import { log } from './logger.js';
 
 export async function ensureDir(dir: string): Promise<void> {
   await mkdir(dir, { recursive: true });
@@ -32,10 +33,22 @@ export async function copyDirRecursive(src: string, dest: string): Promise<numbe
 }
 
 export async function cleanAndCopy(src: string, dest: string): Promise<number> {
-  if (existsSync(dest)) {
-    await rm(dest, { recursive: true, force: true });
+  try {
+    const s = await stat(dest).catch(() => null);
+    if (s || existsSync(dest)) {
+      await rm(dest, { recursive: true, force: true });
+    }
+  } catch (e) {}
+
+  await ensureDir(join(dest, '..'));
+
+  try {
+    await symlink(src, dest, 'dir');
+    return countFiles(src);
+  } catch (err) {
+    log.detail(`Symlink falhou para ${dest}, caindo para copia recursiva...`);
+    return copyDirRecursive(src, dest);
   }
-  return copyDirRecursive(src, dest);
 }
 
 export async function countFiles(dir: string): Promise<number> {

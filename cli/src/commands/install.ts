@@ -3,6 +3,7 @@ import { stdin, stdout } from 'node:process';
 import { detectTools, getToolNames } from '../utils/detector.js';
 import { writeManifest, getCurrentPackageVersion } from '../utils/version.js';
 import { createInstaller, getAvailableInstallers } from '../installers/index.js';
+import { syncRepository } from '../utils/git.js';
 import { log } from '../utils/logger.js';
 import type { InstallOptions, InstallResult } from '../types.js';
 
@@ -45,6 +46,9 @@ export async function install(options: InstallOptions): Promise<void> {
       }
     }
   }
+
+  // Sincroniza repositorio via Git
+  syncRepository();
 
   // Executa instalacao
   const results: InstallResult[] = [];
@@ -96,7 +100,7 @@ export async function install(options: InstallOptions): Promise<void> {
     log.table([
       ['Ferramentas', results.filter(r => !r.skipped).map(r => r.tool).join(', ')],
       ['Total arquivos', String(totalFiles)],
-      ['Manifest', '~/.padrao-labs/manifest.json'],
+      ['Manifest', '~/.agents/manifest.json'],
     ]);
   }
 

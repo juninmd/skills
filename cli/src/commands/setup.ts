@@ -1,3 +1,4 @@
+import { parse, stringify } from 'comment-json';
 import { execSync, spawnSync } from 'node:child_process';
 import { log } from '../utils/logger.js';
 import * as fs from 'node:fs';
@@ -114,8 +115,8 @@ async function setupGitlabCron(vscodeUserPaths: string[]): Promise<void> {
 function logSettingsDiff(oldSettings: any, newSettings: any) {
   let hasChanges = false;
   for (const key of Object.keys(newSettings)) {
-    const oldStr = JSON.stringify(oldSettings[key]);
-    const newStr = JSON.stringify(newSettings[key]);
+    const oldStr = stringify(oldSettings[key]);
+    const newStr = stringify(newSettings[key]);
     
     if (oldStr !== newStr) {
       hasChanges = true;
@@ -141,9 +142,8 @@ function configureGlobalPrivateRegistry(settingsFile: string) {
   if (fs.existsSync(settingsFile)) {
     try {
       const raw = fs.readFileSync(settingsFile, 'utf-8');
-      const cleanJson = raw.replace(/\\"|"(?:\\"|[^"])*"|(\/\/.*|\/\*[\s\S]*?\*\/)/g, (m, g) => g ? "" : m);
-      settings = JSON.parse(cleanJson || '{}');
-      originalSettings = JSON.parse(cleanJson || '{}');
+      settings = parse(raw || '{}');
+      originalSettings = parse(raw || '{}');
     } catch (e) {
       log.error(`Falha ao ler ${settingsFile}. O arquivo pode conter erros de sintaxe. Para evitar perda de dados, a configuração foi abortada.`);
       return;
@@ -169,7 +169,7 @@ function configureGlobalPrivateRegistry(settingsFile: string) {
   log.info('Diff de alterações do Registry:');
   logSettingsDiff(originalSettings, settings);
 
-  fs.writeFileSync(settingsFile, JSON.stringify(settings, null, 2), 'utf-8');
+  fs.writeFileSync(settingsFile, stringify(settings, null, 2), 'utf-8');
   log.success(`Registry global configurado em: ${settingsFile}`);
 }
 
@@ -181,9 +181,8 @@ function configureGlobalVSCodeSettings(settingsFile: string) {
   if (fs.existsSync(settingsFile)) {
     try {
       const raw = fs.readFileSync(settingsFile, 'utf-8');
-      const cleanJson = raw.replace(/\\"|"(?:\\"|[^"])*"|(\/\/.*|\/\*[\s\S]*?\*\/)/g, (m, g) => g ? "" : m);
-      settings = JSON.parse(cleanJson || '{}');
-      originalSettings = JSON.parse(cleanJson || '{}');
+      settings = parse(raw || '{}');
+      originalSettings = parse(raw || '{}');
     } catch (e) {
       log.error(`Falha ao ler ${settingsFile}. O arquivo pode conter erros de sintaxe. Para evitar perda de dados, a configuração foi abortada.`);
       return;
@@ -243,7 +242,7 @@ function configureGlobalVSCodeSettings(settingsFile: string) {
   log.info('Diff de alterações do VS Code Settings:');
   logSettingsDiff(originalSettings, settings);
 
-  fs.writeFileSync(settingsFile, JSON.stringify(settings, null, 2), 'utf-8');
+  fs.writeFileSync(settingsFile, stringify(settings, null, 2), 'utf-8');
   log.success(`Arquivo global configurado: ${settingsFile}`);
 }
 

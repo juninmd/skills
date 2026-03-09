@@ -57,33 +57,33 @@ describe('Platform Utils', () => {
   });
 
   describe('getManifestDir', () => {
-    it('should return .padrao-labs directory in home', () => {
+    it('should return .agents directory in home', () => {
       process.env.HOME = '/home/user';
-      expect(getManifestDir()).toBe('/home/user/.padrao-labs');
+      expect(getManifestDir()).toBe('/home/user/.agents');
     });
   });
 
   describe('getManifestPath', () => {
     it('should return full path to manifest.json', () => {
       process.env.HOME = '/home/user';
-      expect(getManifestPath()).toBe('/home/user/.padrao-labs/manifest.json');
+      expect(getManifestPath()).toBe('/home/user/.agents/manifest.json');
     });
   });
 
   describe('bundle and template paths', () => {
-    it('should resolve agents bundle directory from current module path', () => {
+    it('should resolve agents bundle directory from manifest path', () => {
       const bundleDir = normalize(getAgentsBundleDir());
-      expect(bundleDir).toContain(normalize('/cli/agents-bundle'));
+      expect(bundleDir).toContain(normalize('.agents/.repo/.agents'));
     });
 
-    it('should resolve templates directory from current module path', () => {
+    it('should resolve templates directory from manifest path', () => {
       const templatesDir = normalize(getTemplatesDir());
-      expect(templatesDir).toContain(normalize('/cli/templates'));
+      expect(templatesDir).toContain(normalize('.agents/.repo/templates'));
     });
 
     it('should resolve master agents file inside agents bundle directory', () => {
       const masterAgentsPath = normalize(getMasterAgentsPath());
-      expect(masterAgentsPath).toContain(normalize('/cli/agents-bundle/agents.md'));
+      expect(masterAgentsPath).toContain(normalize('.agents/.repo/.agents/agents.md'));
     });
   });
 });

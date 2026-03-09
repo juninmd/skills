@@ -1,3 +1,4 @@
+import { parse, stringify } from 'comment-json';
 import { readFile, writeFile } from 'node:fs/promises';
 import { execSync } from 'node:child_process';
 import { dirname, join } from 'node:path';
@@ -18,7 +19,7 @@ export async function readManifest(): Promise<Manifest | null> {
 
   try {
     const content = await readFile(manifestPath, 'utf-8');
-    return JSON.parse(content) as Manifest;
+    return parse(content) as unknown as Manifest;
   } catch {
     return null;
   }
@@ -26,7 +27,7 @@ export async function readManifest(): Promise<Manifest | null> {
 
 export async function writeManifest(manifest: Manifest): Promise<void> {
   await ensureDir(getManifestDir());
-  await writeFile(getManifestPath(), JSON.stringify(manifest, null, 2), 'utf-8');
+  await writeFile(getManifestPath(), stringify(manifest, null, 2), 'utf-8');
 }
 
 export function getLatestVersion(registry?: string): string | null {
@@ -45,7 +46,7 @@ export function getLatestVersion(registry?: string): string | null {
 export async function getCurrentPackageVersion(): Promise<string> {
   try {
     const content = await readFile(PACKAGE_JSON_PATH, 'utf-8');
-    const pkg = JSON.parse(content);
+    const pkg = parse(content) as unknown as Record<string, string>;
     return pkg.version || '1.0.0';
   } catch {
     return '1.0.0';

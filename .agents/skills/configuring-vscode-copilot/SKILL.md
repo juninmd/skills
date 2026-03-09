@@ -98,7 +98,7 @@ Add to `~/.config/Code/User/settings.json` (Linux/macOS) or `%APPDATA%\Code\User
 
 ```json
 "github.copilot.chat.codeGeneration.instructions": [
-    { "file": "~/.padrao-labs/agents/copilot-instructions.md" }
+    { "file": "~/.agents/copilot-instructions.md" }
 ]
 ```
 
@@ -106,8 +106,8 @@ Add to `~/.config/Code/User/settings.json` (Linux/macOS) or `%APPDATA%\Code\User
 
 ```json
 "chat.promptFilesLocations": {
-    "~/.padrao-labs/agents/skills": true,
-    "~/.padrao-labs/agents/agents": true
+    "~/.agents/skills": true,
+    "~/.agents/agents": true
 }
 ```
 
@@ -164,11 +164,11 @@ Synthesize into a prioritized report.
     "properties": false
   },
   "github.copilot.chat.codeGeneration.instructions": [
-    { "file": "~/.padrao-labs/agents/copilot-instructions.md" }
+    { "file": "~/.agents/copilot-instructions.md" }
   ],
   "chat.promptFilesLocations": {
-    "~/.padrao-labs/agents/skills": true,
-    "~/.padrao-labs/agents/agents": true
+    "~/.agents/skills": true,
+    "~/.agents/agents": true
   }
 }
 ```

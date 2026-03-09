@@ -24,17 +24,11 @@ export function getManifestPath(): string {
 }
 
 export function getAgentsBundleDir(): string {
-  const currentFile = fileURLToPath(import.meta.url);
-  const currentDir = dirname(currentFile);
-  // dist/utils/platform.js -> ../../agents-bundle
-  return join(currentDir, '..', '..', 'agents-bundle');
+  return join(getManifestDir(), '.repo', '.agents');
 }
 
 export function getTemplatesDir(): string {
-  const currentFile = fileURLToPath(import.meta.url);
-  const currentDir = dirname(currentFile);
-  // dist/utils/platform.js -> ../../templates
-  return join(currentDir, '..', '..', 'templates');
+  return join(getManifestDir(), '.repo', 'templates');
 }
 
 export function getMasterAgentsPath(): string {

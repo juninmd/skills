@@ -1,3 +1,4 @@
+import { parse, stringify } from 'comment-json';
 import { join } from 'node:path';
 import { readFile, writeFile } from 'node:fs/promises';
 import { getHomeDir } from '../utils/platform.js';
@@ -43,7 +44,7 @@ export class GeminiCliInstaller extends BaseInstaller {
         await writeFile(`${settingsPath}.old`, content, 'utf-8');
         log.detail(`Backup de settings.json criado em ${settingsPath}.old`);
 
-        settings = JSON.parse(content);
+        settings = parse(content) as Record<string, unknown>;
       } catch {
         // Se nao conseguir ler, cria do zero
       }
@@ -110,7 +111,7 @@ export class GeminiCliInstaller extends BaseInstaller {
     }
 
     await ensureDir(this.targetDir);
-    await writeFile(settingsPath, JSON.stringify(settings, null, 2), 'utf-8');
+    await writeFile(settingsPath, stringify(settings, null, 2), 'utf-8');
 
     log.detail('Hooks configurados em settings.json (merge com hooks existentes)');
   }
