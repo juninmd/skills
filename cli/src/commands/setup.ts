@@ -15,8 +15,8 @@ export async function setup(): Promise<void> {
   log.header('Configuração de Ambiente Luizalabs Agents');
 
   log.info('Selecione a abordagem de instalação das regras e agentes:');
-  console.log('  1) Nexus (Recomendado) - Instala via extensão do VS Code');
-  console.log('  2) GitLab (Cron) - Baixa os arquivos localmente via cron');
+  console.log('  1) GitLab (Cron) [Recomendado] - Baixa e atualiza os arquivos localmente via Git');
+  console.log('  2) Nexus [Beta] - Instala via gerenciador de extensões privado do VS Code');
   
   const rl = createInterface({ input: stdin, output: stdout });
   const answer = await rl.question('\nEscolha [1 ou 2]: ');
@@ -42,10 +42,10 @@ export async function setup(): Promise<void> {
   log.detail(`- Hooks: ${path.join(agentsDir, 'hooks')}`);
   log.detail(`- Workflows: ${path.join(agentsDir, 'workflows')}`);
 
-  if (choice === '1') {
-    await setupNexus(vscodeUserPaths);
-  } else if (choice === '2') {
+  if (choice === '1' || choice === '') { // Default para enter vazio
     await setupGitlabCron(vscodeUserPaths);
+  } else if (choice === '2') {
+    await setupNexus(vscodeUserPaths);
   } else {
     log.error('Opção inválida. Saindo.');
     process.exit(1);
