@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.17.1](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.17.0...v1.17.1) (2026-03-06)
+
+
+### Documentation
+
+* Add local CLI development instructions and refine README formatting. ([aa04f0a](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/aa04f0a))
+
 # [1.17.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.16.0...v1.17.0) (2026-03-06)
 
 
