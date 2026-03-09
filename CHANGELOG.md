@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.21.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.20.0...v1.21.0) (2026-03-09)
+
+
+### Features
+
+* Reordered agent installation options, making GitLab (Cron) the recommended default and updating setup logic accordingly. ([6bef0f0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/6bef0f0))
+
 # [1.20.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.19.0...v1.20.0) (2026-03-09)
 
 
