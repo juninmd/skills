@@ -40,8 +40,21 @@ export async function cron(options: CronOptions): Promise<void> {
 
   // Sistemas sem crontab (Windows, Docker sem daemon de cron, etc.)
   if (!crontabAvailable()) {
-    log.warn('crontab nao disponivel neste sistema. Auto-update nao configurado.');
-    log.info('Execute "padrao-labs-agents update" manualmente para atualizar.');
+    log.warn('crontab nao disponivel neste sistema. Auto-update nao configurado automaticamente.');
+    
+    if (process.platform === 'win32') {
+      log.info('### Instrucoes para Windows (Agendador de Tarefas) ###');
+      log.info('Para manter seus agentes atualizados, crie uma tarefa basica no Windows:');
+      log.info('1. Abra o "Agendador de Tarefas" (Task Scheduler)');
+      log.info('2. Clique em "Criar Tarefa Basica..." e de o nome "PadraoLabsAutoUpdate"');
+      log.info('3. Gatilho: Diariamente, as 09:00:00');
+      log.info('4. Acao: Iniciar um programa');
+      log.info('5. Programa/script: npx.cmd');
+      log.info('6. Adicione os argumentos: @luizalabs/padrao-labs-agents@latest update');
+      log.info('----------------------------------------------------');
+    } else {
+      log.info('Execute "padrao-labs-agents update" manualmente para atualizar.');
+    }
     return;
   }
 
