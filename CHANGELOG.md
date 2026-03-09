@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.22.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.21.0...v1.22.0) (2026-03-09)
+
+
+### Features
+
+* add Google Antigravity agent detection and global configuration to the setup command. ([96cc3f4](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/96cc3f4))
+
 # [1.21.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.20.0...v1.21.0) (2026-03-09)
 
 
