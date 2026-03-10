@@ -29,7 +29,8 @@ WORKDIR /app
 
 # Copia apenas o necessario para execucao
 COPY --from=builder /app/server.js ./server.js
-COPY --from=builder /app/.vitepress/dist ./.vitepress/dist
+COPY --from=builder /app/docs/.vitepress/dist ./docs/.vitepress/dist
+COPY --from=builder /app/docs/catalog.json ./docs/catalog.json
 COPY --from=builder /app/application ./application
 
 # Instala apenas dependencias de producao (sem vitepress, vue, etc.)
@@ -40,7 +41,7 @@ RUN npm install -g pnpm \
     && rm -rf .pnpm-store
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 \
-    CMD wget -qO- http://localhost:8080/ || exit 1
+    CMD wget -qO- http://localhost:5000/ || exit 1
 
 # Executa como usuario nao-root (node user ja existe na imagem node:alpine)
 USER node
