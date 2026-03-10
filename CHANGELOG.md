@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.23.1](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.23.0...v1.23.1) (2026-03-10)
+
+
+### Bug Fixes
+
+* build image ([9d09152](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/9d09152))
+
+
+### Improvements
+
+* update pnpm-lock.yaml to match package.json ([951b30d](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/951b30d))
+
 # [1.23.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.22.0...v1.23.0) (2026-03-09)
 
 
