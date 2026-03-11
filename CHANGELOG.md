@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.24.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.23.1...v1.24.0) (2026-03-11)
+
+
+### Features
+
+* Enhance frontend-expert documentation and update naming conventions for skills ([d32fde5](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/d32fde5))
+
 ## [1.23.1](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.23.0...v1.23.1) (2026-03-10)
 
 
