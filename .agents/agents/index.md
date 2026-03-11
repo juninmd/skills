@@ -30,7 +30,7 @@ Agentes focados, usados diretamente ou invocados como subagents pelos coordenado
 | [refactoring-agent](./refactoring-agent.md) | SOLID, DRY, KISS, YAGNI, Clean Code | ✅ |
 | [platform-engineer](./platform-engineer.md) | IaC (Terraform), CLIs, templates CI/CD, Helm Charts | ✅ |
 | [terminal-operator](./terminal-operator.md) | DevOps, K8s, GCP/MGC, Docker, Git avançado, CI-Knife | ✅ |
-| [frontend-expert](./frontend-expert.md) | React/Vue, acessibilidade WCAG, Core Web Vitals | ✅ |
+| [frontend-expert](./frontend-expert.md) | React/Vite/TypeScript, Zustand, acessibilidade WCAG, Core Web Vitals | ✅ |
 | [mobile-engineer](./mobile-engineer.md) | React Native, Android, iOS, performance 60fps | ✅ |
 
 ---
