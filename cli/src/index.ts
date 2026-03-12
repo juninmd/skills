@@ -6,6 +6,7 @@ import { update } from './commands/update.js';
 import { init } from './commands/init.js';
 import { cron } from './commands/cron.js';
 import { setup } from './commands/setup.js';
+import { skill } from './commands/skill.js';
 import { log } from './utils/logger.js';
 import { getCurrentPackageVersion } from './utils/version.js';
 
@@ -13,6 +14,7 @@ const HELP = `
 padrao-labs-agents - CLI para instalar skills, agents, rules e workflows Luizalabs
 
 Comandos:
+  skill       Gerencia skills personalizadas
   install     Instala skills globalmente para ferramentas de IA detectadas
   update      Atualiza para a versao mais recente publicada
   init        Inicializa repositorio com arquivos padrao (dependency.yaml, sonar, etc.)
@@ -32,6 +34,7 @@ Exemplos:
   npx @luizalabs/padrao-labs-agents install
   npx @luizalabs/padrao-labs-agents init
   npx @luizalabs/padrao-labs-agents cron
+  npx @luizalabs/padrao-labs-agents skill install applying-yagni
 `;
 
 async function main(): Promise<void> {
@@ -59,10 +62,36 @@ async function main(): Promise<void> {
   }
 
   const command = positionals[0];
+  const subcommand = positionals[1];
   const toolsList = values.tools ? values.tools.split(',').map(t => t.trim()) : undefined;
 
   try {
     switch (command) {
+      case 'skill': {
+        if (!subcommand || subcommand === 'help') {
+          console.log(`
+Gerenciamento de Skills:
+  skill install <skill-name>    Instala uma skill do repositório
+
+Exemplo:
+  padrao-labs-agents skill install applying-yagni
+`);
+          return;
+        }
+        if (subcommand === 'install') {
+          const skillName = positionals[2];
+          if (!skillName) {
+            log.error('Especifique o nome da skill');
+            console.log(`Uso: padrao-labs-agents skill install <skill-name>`);
+            process.exit(1);
+          }
+          await skill({ skillName });
+        } else {
+          log.error(`Subcomando desconhecido: ${subcommand}`);
+          process.exit(1);
+        }
+        break;
+      }
       case 'install':
         await install({
           tools: toolsList,
