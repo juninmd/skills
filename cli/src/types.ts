@@ -63,7 +63,15 @@ export interface Manifest {
   version: string;
   installedAt: string;
   tools: string[];
+  commitHash?: string;
   categories: Record<string, number>;
+  inventory?: {
+    skills: string[];
+    agents: string[];
+    rules: string[];
+    workflows: string[];
+    hooks: string[];
+  };
 }
 
 export interface ProjectConfig {

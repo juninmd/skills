@@ -6,6 +6,16 @@ import { getManifestDir } from './platform.js';
 
 const REPO_URL = 'git@gitlab.luizalabs.com:luizalabs/padrao-labs-agents.git';
 
+export function getLatestCommitHash(): string {
+  const targetDir = join(getManifestDir(), '.repo');
+  if (!existsSync(targetDir)) return 'unknown';
+  try {
+    return execSync('git rev-parse HEAD', { cwd: targetDir, encoding: 'utf-8' }).trim();
+  } catch {
+    return 'unknown';
+  }
+}
+
 export function syncRepository(): string {
   const targetDir = join(getManifestDir(), '.repo');
   

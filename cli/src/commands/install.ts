@@ -1,18 +1,31 @@
 import * as p from '@clack/prompts';
 import color from 'picocolors';
+import { readdir } from 'node:fs/promises';
+import { join } from 'node:path';
 import { detectTools, getToolNames } from '../utils/detector.js';
 import { writeManifest, getCurrentPackageVersion } from '../utils/version.js';
 import { createInstaller, getAvailableInstallers } from '../installers/index.js';
-import { syncRepository } from '../utils/git.js';
+import { syncRepository, getLatestCommitHash } from '../utils/git.js';
+import { getAgentsBundleDir } from '../utils/platform.js';
 import { log } from '../utils/logger.js';
 import type { InstallOptions, InstallResult } from '../types.js';
 
 export async function install(options: InstallOptions): Promise<void> {
   console.clear();
   
-  // Header mais chamativo
-  console.log(color.magenta(color.bold('\n  🚀 PADRAO LABS AGENTS')));
-  console.log(color.dim('  ──────────────────────────────────────────'));
+  // Logo ASCII impactante (Simetria total da letra O e alinhamento de blocos)
+  const logo = `
+   ${color.blue('██████╗ ')}  ${color.magenta('█████╗ ')}  ${color.blue('██████╗ ')}  ${color.magenta('██████╗ ')}  ${color.blue('█████╗ ')}   ${color.magenta('██████╗ ')}
+   ${color.blue('██╔══██╗')} ${color.magenta('██╔══██╗')} ${color.blue('██╔══██╗')} ${color.magenta('██╔══██╗')} ${color.blue('██╔══██╗')}  ${color.magenta('██╔═══██╗')}
+   ${color.blue('██████╔╝')} ${color.magenta('███████║')} ${color.blue('██║  ██║')} ${color.magenta('██████╔╝')} ${color.blue('███████║')}  ${color.magenta('██║   ██║')}
+   ${color.blue('██╔═══╝ ')} ${color.magenta('██╔══██║')} ${color.blue('██║  ██║')} ${color.magenta('██╔══██╗')} ${color.blue('██╔══██║')}  ${color.magenta('██║   ██║')}
+   ${color.blue('██║     ')} ${color.magenta('██║  ██║')} ${color.blue('██████╔╝')} ${color.magenta('██║  ██║')} ${color.blue('██║  ██║')}  ${color.magenta('████████║')}
+   ${color.blue('╚═╝     ')} ${color.magenta('╚═╝  ╚═╝')} ${color.blue('╚═════╝ ')} ${color.magenta('╚═╝  ╚═╝')} ${color.blue('╚═╝  ╚═╝')}   ${color.magenta('╚═══════╝')}
+          ${color.cyan(color.bold('L A B S   A G E N T S   E N G I N E'))} ${color.dim(`v${await getCurrentPackageVersion()}`)}
+  ${color.dim('https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents')}
+  `;  
+  console.log(logo);
+  console.log(color.dim('  ──────────────────────────────────────────────────────────'));
   
   p.intro(`${color.bgBlue(color.white(color.bold(' INSTALADOR INTERATIVO ')))}`);
 
@@ -117,11 +130,28 @@ export async function install(options: InstallOptions): Promise<void> {
       }
     }
 
+    // Coleta inventário de componentes para o manifesto
+    const agentsBundleDir = getAgentsBundleDir();
+    const inventory: any = {};
+    const categoriesToScan = ['skills', 'agents', 'rules', 'workflows', 'hooks'];
+    
+    for (const cat of categoriesToScan) {
+      try {
+        const catPath = join(agentsBundleDir, cat);
+        const entries = await readdir(catPath);
+        inventory[cat] = entries.filter(e => !e.startsWith('.') && e !== 'index.md');
+      } catch {
+        inventory[cat] = [];
+      }
+    }
+
     await writeManifest({
       version: await getCurrentPackageVersion(),
       installedAt: new Date().toISOString(),
       tools: results.filter(r => !r.skipped).map(r => r.tool),
+      commitHash: getLatestCommitHash(),
       categories,
+      inventory,
     });
 
     // Construção do resumo detalhado
