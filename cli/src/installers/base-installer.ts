@@ -1,6 +1,6 @@
 import { join } from 'node:path';
 import { copyFile, readdir, readFile, writeFile } from 'node:fs/promises';
-import { cleanAndCopy, ensureDir, dirExists } from '../utils/fs.js';
+import { syncSymlinksGranular, ensureDir, dirExists } from '../utils/fs.js';
 import { getAgentsBundleDir, getMasterAgentsPath } from '../utils/platform.js';
 import { log } from '../utils/logger.js';
 import type { InstallOptions, InstallResult, CategoryResult, CategoryMapping } from '../types.js';
@@ -53,7 +53,7 @@ export abstract class BaseInstaller {
         continue;
       }
 
-      const count = await cleanAndCopy(srcDir, destDir);
+      const count = await syncSymlinksGranular(srcDir, destDir);
       result.copiedCategories.push({
         category: mapping.source,
         filesCount: count,
@@ -63,7 +63,10 @@ export abstract class BaseInstaller {
       log.detail(`${mapping.source}: ${count} arquivos copiados`);
     }
 
-    await this.postInstall();
+    const postSummary = await this.postInstall();
+    if (postSummary && Array.isArray(postSummary)) {
+      result.summary = [...(result.summary || []), ...postSummary];
+    }
 
     const totalFiles = result.copiedCategories.reduce((sum, c) => sum + c.filesCount, 0);
     if (!this.options.dryRun) {
@@ -73,7 +76,7 @@ export abstract class BaseInstaller {
     return result;
   }
 
-  protected async postInstall(): Promise<void> {
+  protected async postInstall(): Promise<string[] | void> {
     // Override in subclasses for tool-specific post-processing
   }
 

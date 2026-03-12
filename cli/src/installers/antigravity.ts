@@ -21,8 +21,9 @@ export class AntigravityInstaller extends BaseInstaller {
     ];
   }
 
-  protected override async postInstall(): Promise<void> {
+  protected override async postInstall(): Promise<string[] | void> {
     const destPath = join(this.targetDir, 'AGENTS.md');
     await this.copyAgentsMd(destPath);
+    return ['Arquivo AGENTS.md configurado'];
   }
 }

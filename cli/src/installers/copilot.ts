@@ -48,6 +48,15 @@ const VSCODE_SKILLS_LOCS_KEY = 'chat.agentSkillsLocations';
  */
 const VSCODE_AGENTS_LOCS_KEY = 'chat.agentFilesLocations';
 
+/** Chave para habilitar Autopilot no VS Code. */
+const VSCODE_AUTOPILOT_KEY = 'chat.autopilot.enabled';
+
+/** Chave para pastas de hooks do VS Code. */
+const VSCODE_HOOK_LOCS_KEY = 'chat.hookFilesLocations';
+
+/** Chave para habilitar uso de hooks customizados no VS Code. */
+const VSCODE_USE_HOOKS_KEY = 'chat.useCustomAgentHooks';
+
 /** Fragmento de caminho para identificar entradas gerenciadas por este installer. */
 const MANAGED_PATH_MARKER = '.agents';
 
@@ -88,23 +97,31 @@ export class CopilotInstaller extends BaseInstaller {
     ];
   }
 
-  protected override async postInstall(): Promise<void> {
+  protected override async postInstall(): Promise<string[] | void> {
     const agentsDir = this.targetDir;
+    const summary: string[] = [];
 
     // 1. settings.json do VS Code User aponta para os arquivos de rules individualmente
     await this.configureVSCodeSettings(agentsDir);
+    summary.push('VS Code Settings (rules, skills, agents, autopilot)');
 
     // 2. Configura hooks do Copilot
     await this.configureCopilotHooks(agentsDir);
+    summary.push('Copilot Hooks (chat.hookFilesLocations + Legacy)');
 
     // 3. Copia componentes (skills, agents, workflows) como .prompt.md
-    await this.convertComponentsToPrompts(agentsDir);
+    const workflowsCount = await this.convertComponentsToPrompts(agentsDir);
+    summary.push(`${workflowsCount} Workflows convertidos em prompts`);
 
     // 4. mcp.json com GitLab MCP server (inputs + env)
     await this.configureMcp();
+    summary.push('GitLab MCP Server configurado');
 
     // 5. ~/.copilotignore global para excluir artefatos e segredos do contexto
     await this.generateCopilotIgnore();
+    summary.push('~/.copilotignore global gerado');
+
+    return summary;
   }
 
   /**
@@ -249,6 +266,9 @@ export class CopilotInstaller extends BaseInstaller {
     if (await dirExists(agentsSubDir)) agentsLocs[toPortablePath(agentsSubDir)] = true;
     settings[VSCODE_AGENTS_LOCS_KEY] = agentsLocs;
 
+    // --- 6. chat.autopilot.enabled ---
+    settings[VSCODE_AUTOPILOT_KEY] = true;
+
     await ensureDir(join(settingsPath, '..'));
     await writeFile(settingsPath, stringify(settings, null, 2), 'utf-8');
 
@@ -267,12 +287,12 @@ export class CopilotInstaller extends BaseInstaller {
    * Isso permite que o Copilot os reconheça como comandos (/nome) ou referências (#nome).
    * Skills e Agents agora têm localizações próprias no settings.json e não precisam ser convertidos.
    */
-  private async convertComponentsToPrompts(agentsDir: string): Promise<void> {
+  private async convertComponentsToPrompts(agentsDir: string): Promise<number> {
     const promptsDir = join(agentsDir, 'prompts');
 
     if (this.options.dryRun) {
       log.dryRun(`Mapearia workflows como prompts em ${promptsDir}`);
-      return;
+      return 0;
     }
 
     await ensureDir(promptsDir);
@@ -329,10 +349,12 @@ export class CopilotInstaller extends BaseInstaller {
         }
       }
     }
+
+    return total;
   }
   /**
    * Configura os hooks do Copilot no settings.json do VS Code.
-   * Utiliza os scripts pre-command.py e post-command.py instalados na pasta hooks.
+   * Suporta o novo sistema (chat.hookFilesLocations) e o antigo (github.copilot.chat.hooks).
    */
   private async configureCopilotHooks(agentsDir: string): Promise<void> {
     const settingsPath = getVSCodeSettingsPath();
@@ -357,10 +379,28 @@ export class CopilotInstaller extends BaseInstaller {
       }
     }
 
+    // --- Sistema Novo: chat.hookFilesLocations ---
+    let hookLocs: Record<string, boolean> =
+      settings[VSCODE_HOOK_LOCS_KEY] !== null &&
+      typeof settings[VSCODE_HOOK_LOCS_KEY] === 'object' &&
+      !Array.isArray(settings[VSCODE_HOOK_LOCS_KEY])
+        ? (settings[VSCODE_HOOK_LOCS_KEY] as Record<string, boolean>)
+        : {};
+
+    hookLocs = Object.fromEntries(
+      Object.entries(hookLocs).filter(([k]) => !isManagedPath(k)),
+    );
+
+    hookLocs['.github/hooks'] = true;
+    hookLocs[toPortablePath(hooksDir)] = true;
+    
+    settings[VSCODE_HOOK_LOCS_KEY] = hookLocs;
+    settings[VSCODE_USE_HOOKS_KEY] = true;
+
+    // --- Sistema Antigo: github.copilot.chat.hooks (Legado) ---
     const preCommandPath = join(hooksDir, 'pre-command.py');
     const postCommandPath = join(hooksDir, 'post-command.py');
 
-    // Mapeamento de eventos do Copilot para nossos hooks
     const copilotHooks: Record<string, any> = settings['github.copilot.chat.hooks'] || {};
 
     if (await fileExists(preCommandPath)) {
@@ -388,7 +428,7 @@ export class CopilotInstaller extends BaseInstaller {
     settings['github.copilot.chat.hooks'] = copilotHooks;
 
     await writeFile(settingsPath, stringify(settings, null, 2), 'utf-8');
-    log.detail('Hooks do Copilot configurados em settings.json');
+    log.detail('Hooks do Copilot configurados em settings.json (Novo e Legado)');
   }
 
   /**

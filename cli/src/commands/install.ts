@@ -1,5 +1,5 @@
-import { createInterface } from 'node:readline/promises';
-import { stdin, stdout } from 'node:process';
+import * as p from '@clack/prompts';
+import color from 'picocolors';
 import { detectTools, getToolNames } from '../utils/detector.js';
 import { writeManifest, getCurrentPackageVersion } from '../utils/version.js';
 import { createInstaller, getAvailableInstallers } from '../installers/index.js';
@@ -8,63 +8,92 @@ import { log } from '../utils/logger.js';
 import type { InstallOptions, InstallResult } from '../types.js';
 
 export async function install(options: InstallOptions): Promise<void> {
-  log.header('Padrao Labs Agents - Instalacao Global');
+  console.clear();
+  
+  // Header mais chamativo
+  console.log(color.magenta(color.bold('\n  🚀 PADRAO LABS AGENTS')));
+  console.log(color.dim('  ──────────────────────────────────────────'));
+  
+  p.intro(`${color.bgBlue(color.white(color.bold(' INSTALADOR INTERATIVO ')))}`);
 
   // Determina quais ferramentas instalar
-  let toolsToInstall: string[];
+  let toolsToInstall: string[] = [];
 
   if (options.tools && options.tools.length > 0) {
-    // Ferramentas especificadas pelo usuario
     const available = getAvailableInstallers();
     const invalid = options.tools.filter(t => !available.includes(t));
     if (invalid.length > 0) {
-      log.error(`Ferramentas desconhecidas: ${invalid.join(', ')}`);
-      log.info(`Disponiveis: ${available.join(', ')}`);
+      p.cancel(`Ferramentas desconhecidas: ${invalid.join(', ')}\nDisponiveis: ${available.join(', ')}`);
       process.exit(1);
     }
     toolsToInstall = options.tools;
   } else {
-    // Auto-detecta ferramentas instaladas
-    log.info('Detectando ferramentas instaladas...');
+    const s = p.spinner();
+    s.start('Detectando ferramentas instaladas...');
     const detections = await detectTools();
     const detected = detections.filter(d => d.detected);
+    s.stop('Deteccao concluida.');
 
     if (detected.length > 0) {
-      log.success('Ferramentas detectadas:');
-      detected.forEach(d => {
-        log.detail(`${d.name.padEnd(12)} -> ${d.detectedPath}`);
-      });
-      toolsToInstall = detected.map(d => d.name);
-    } else {
-      // Nenhuma detectada, pergunta ao usuario
-      log.warn('Nenhuma ferramenta detectada automaticamente.');
-      toolsToInstall = await promptToolSelection();
+      p.note(
+        detected.map(d => `${color.green('✔')} ${color.bold(d.name.padEnd(12))} -> ${color.dim(d.detectedPath!)}`).join('\n'),
+        'Ferramentas Encontradas'
+      );
+    }
 
-      if (toolsToInstall.length === 0) {
-        log.info('Nenhuma ferramenta selecionada. Saindo.');
-        return;
-      }
+    const availableTools = getToolNames();
+    const toolChoices = availableTools.map(t => ({
+      value: t,
+      label: t.charAt(0).toUpperCase() + t.slice(1),
+      hint: detected.find(d => d.name === t) ? 'Detectado' : 'Nao detectado'
+    }));
+
+    // Copilot habilitado por padrão, os outros desmarcados (mesmo se detectados)
+    const result = await p.multiselect({
+      message: 'Quais ferramentas voce deseja configurar?',
+      options: toolChoices,
+      initialValues: ['copilot'], // Apenas copilot por padrão
+      required: true
+    });
+
+    if (p.isCancel(result)) {
+      p.cancel('Instalacao cancelada pelo usuario.');
+      process.exit(0);
+    }
+
+    toolsToInstall = result as string[];
+  }
+
+  const s = p.spinner();
+
+  if (!options.dryRun) {
+    s.start('Sincronizando repositorio oficial (git pull)...');
+    try {
+      syncRepository();
+      s.stop('Repositorio sincronizado com sucesso.');
+    } catch (err) {
+      s.stop('Aviso: Falha ao sincronizar repositorio (usando versao local).');
     }
   }
 
-  // Sincroniza repositorio via Git
-  syncRepository();
-
   // Executa instalacao
   const results: InstallResult[] = [];
-
+  
   for (const toolName of toolsToInstall) {
+    s.start(`Instalando contextos para ${color.cyan(color.bold(toolName))}...`);
     const installer = createInstaller(toolName, options);
     if (!installer) {
-      log.warn(`Installer nao encontrado para: ${toolName}`);
+      s.stop(`Aviso: Instalador nao encontrado para: ${toolName}`);
       continue;
     }
 
     try {
       const result = await installer.install();
       results.push(result);
+      s.stop(`Concluido para ${color.cyan(color.bold(toolName))}.`);
     } catch (err) {
-      log.error(`Falha ao instalar para ${toolName}: ${err instanceof Error ? err.message : String(err)}`);
+      s.stop(`Erro ao instalar ${color.red(toolName)}.`);
+      p.log.error(err instanceof Error ? err.message : String(err));
       results.push({
         tool: toolName,
         skipped: true,
@@ -74,7 +103,7 @@ export async function install(options: InstallOptions): Promise<void> {
     }
   }
 
-  // Salva manifest
+  // Salva manifest e exibe resumo detalhado
   if (!options.dryRun) {
     const totalFiles = results
       .filter(r => !r.skipped)
@@ -95,38 +124,28 @@ export async function install(options: InstallOptions): Promise<void> {
       categories,
     });
 
-    // Resumo
-    log.header('Resumo da Instalacao');
-    log.table([
-      ['Ferramentas', results.filter(r => !r.skipped).map(r => r.tool).join(', ')],
-      ['Total arquivos', String(totalFiles)],
-      ['Manifest', '~/.agents/manifest.json'],
-    ]);
+    // Construção do resumo detalhado
+    let summaryText = `${color.bold('Ferramentas:')} ${color.cyan(results.filter(r => !r.skipped).map(r => r.tool).join(', '))}\n`;
+    summaryText += `${color.bold('Arquivos linkados (syslin):')} ${color.green(String(totalFiles))}\n`;
+    
+    summaryText += `\n${color.bold('Categorias instaladas:')}\n`;
+    for (const [cat, count] of Object.entries(categories)) {
+      summaryText += `  ${color.blue('•')} ${cat.padEnd(12)}: ${color.yellow(String(count))} arquivos\n`;
+    }
+
+    // Adiciona sumário de configurações específicas dos installers
+    const extraConfigs = results.filter(r => !r.skipped).flatMap(r => r.summary || []);
+    if (extraConfigs.length > 0) {
+      summaryText += `\n${color.bold('Configuracoes habilitadas:')}\n`;
+      for (const config of extraConfigs) {
+        summaryText += `  ${color.green('✔')} ${config}\n`;
+      }
+    }
+
+    summaryText += `\n${color.bold('Manifesto:')} ${color.dim('~/.agents/manifest.json')}`;
+
+    p.note(summaryText, 'Resumo da Instalacao');
   }
 
-  console.log('');
-  log.success('Instalacao concluida!');
-}
-
-async function promptToolSelection(): Promise<string[]> {
-  const rl = createInterface({ input: stdin, output: stdout });
-  const tools = getToolNames();
-
-  console.log('\nSelecione as ferramentas para instalar (separadas por virgula):');
-  tools.forEach((t, i) => console.log(`  ${i + 1}) ${t}`));
-  console.log(`  A) Todas`);
-
-  const answer = await rl.question('\nEscolha [1-7, A]: ');
-  rl.close();
-
-  const trimmed = answer.trim().toUpperCase();
-
-  if (trimmed === 'A') {
-    return tools;
-  }
-
-  const indices = trimmed.split(',').map(s => parseInt(s.trim(), 10) - 1);
-  return indices
-    .filter(i => i >= 0 && i < tools.length)
-    .map(i => tools[i]);
+  p.outro(`${color.green(color.bold('✔'))} Instalacao finalizada com sucesso!`);
 }

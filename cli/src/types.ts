@@ -38,6 +38,7 @@ export interface InstallResult {
   skipped: boolean;
   reason?: string;
   copiedCategories: CategoryResult[];
+  summary?: string[];
 }
 
 export interface CategoryResult {

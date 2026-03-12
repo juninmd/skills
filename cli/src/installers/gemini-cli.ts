@@ -23,8 +23,9 @@ export class GeminiCliInstaller extends BaseInstaller {
     ];
   }
 
-  protected override async postInstall(): Promise<void> {
+  protected override async postInstall(): Promise<string[] | void> {
     await this.configureHooks();
+    return ['Hooks do Gemini CLI configurados'];
   }
 
   private async configureHooks(): Promise<void> {
