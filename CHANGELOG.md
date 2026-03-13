@@ -1,5 +1,26 @@
 # Changelog
 
+# [1.25.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.24.0...v1.25.0) (2026-03-13)
+
+
+### Bug Fixes
+
+* **docs:** resolve vitepress build errors with vue interpolation and css syntax ([625c2d5](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/625c2d5))
+* update command paths in hooks configuration to use absolute paths ([0af8b04](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/0af8b04))
+
+
+### Code Refactoring
+
+* update styles and layout for improved UI consistency ([a7a28b5](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/a7a28b5))
+
+
+### Features
+
+* add dependencies for @clack/prompts and picocolors, and update their versions in pnpm-lock.yaml ([f7d5ac4](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/f7d5ac4))
+* Add new skill for managing Helm charts and update CLI installer logic. ([8941ec6](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/8941ec6))
+* implement skill install command with symlink support and caching mechanism ([4ea300c](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/4ea300c))
+* include commit hash and component inventory in the manifest, and enhance VS Code settings configuration with multi-path support and diff logging. ([072c2b8](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/072c2b8))
+
 # [1.24.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.23.1...v1.24.0) (2026-03-11)
 
 
