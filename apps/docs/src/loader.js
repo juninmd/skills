@@ -562,7 +562,9 @@ function generateCategoryIndexes(catalog) {
         // Emit SkillPage component WITHOUT inlined attribute concatenation; the component
         // will read props from frontmatter. Place cleaned markdown inside the component slot.
         pageContent += `<SkillPage>\n\n`;
+        pageContent += `<div v-pre>\n\n`;
         pageContent += cleanedContent + '\n\n';
+        pageContent += `</div>\n\n`;
         pageContent += `</SkillPage>\n`;
       } else {
         // Scripts or other files: include directly as code block
@@ -585,7 +587,9 @@ function generateCategoryIndexes(catalog) {
         pageContent += '---\n\n';
 
         pageContent += `<SkillPage>\n\n`;
+        pageContent += `<div v-pre>\n\n`;
         pageContent += `<<< @${finalSymPath}\n\n`;
+        pageContent += `</div>\n\n`;
         pageContent += `</SkillPage>\n`;
       }
 

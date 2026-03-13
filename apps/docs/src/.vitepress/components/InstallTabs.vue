@@ -212,14 +212,14 @@ function copyCommand() {
   padding: 1rem;
   animation: fadeIn 0.4s ease-out;
 }
-  from {
-    opacity: 0;
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
-  to {
-    opacity: 1;
-  }
-}
-
 .code-container {
   display: flex;
   align-items: flex-start;
