@@ -85,7 +85,7 @@ function getCategoryIcon(category) {
 
 <style scoped>
 .category-grid {
-  padding: 2rem 0;
+  padding: 1.2rem 0;
   animation: fadeInUp 0.6s ease-out;
 }
 
@@ -101,7 +101,7 @@ function getCategoryIcon(category) {
 }
 
 .grid-header {
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.2rem;
 }
 
 .grid-search {
@@ -111,11 +111,11 @@ function getCategoryIcon(category) {
 
 .search-icon {
   position: absolute;
-  left: 1.25rem;
+  left: 1rem;
   top: 50%;
   transform: translateY(-50%);
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   color: var(--vp-c-text-3);
   transition: color 0.3s;
   pointer-events: none;
@@ -123,14 +123,14 @@ function getCategoryIcon(category) {
 
 .grid-search-input {
   width: 100%;
-  padding: 1rem 1.25rem 1rem 3.25rem;
+  padding: 0.7rem 1rem 0.7rem 2.8rem;
   border: 2px solid var(--vp-c-divider);
-  border-radius: 12px;
-  font-size: 1rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
   background: var(--vp-c-bg);
   color: var(--vp-c-text-1);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
 }
 
 .grid-search-input::placeholder {
@@ -150,17 +150,17 @@ function getCategoryIcon(category) {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.2rem;
 }
 
 .grid-card {
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 2rem;
+  padding: 1.4rem;
   border: 1px solid var(--vp-c-divider);
-  border-radius: 16px;
+  border-radius: 12px;
   background: linear-gradient(
     135deg,
     rgba(var(--vp-c-bg-rgb), 0.95) 0%,
@@ -172,7 +172,7 @@ function getCategoryIcon(category) {
   color: inherit;
   cursor: pointer;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
 }
 
 .grid-card::before {
@@ -199,26 +199,26 @@ function getCategoryIcon(category) {
 .grid-card:hover {
   border-color: transparent;
   box-shadow:
-    0 12px 32px rgba(var(--vp-c-brand-rgb), 0.12),
-    0 2px 8px rgba(0, 0, 0, 0.08);
-  transform: translateY(-8px);
+    0 8px 20px rgba(var(--vp-c-brand-rgb), 0.12),
+    0 1px 4px rgba(0, 0, 0, 0.04);
+  transform: translateY(-5px);
 }
 
 .card-icon {
-  font-size: 3rem;
-  margin-bottom: 1.25rem;
+  font-size: 2.5rem;
+  margin-bottom: 0.9rem;
   filter: grayscale(0.3);
   transition: all 0.3s;
 }
 
 .grid-card:hover .card-icon {
   filter: grayscale(0);
-  transform: scale(1.1) rotate(5deg);
+  transform: scale(1.08) rotate(3deg);
 }
 
 .card-content h3 {
-  margin: 0 0 0.75rem 0;
-  font-size: 1.25rem;
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
   background: linear-gradient(
     120deg,
     var(--vp-c-brand) 0%,
@@ -237,10 +237,10 @@ function getCategoryIcon(category) {
 }
 
 .description {
-  margin: 0 0 1.5rem 0;
+  margin: 0 0 0.7rem 0;
   color: var(--vp-c-text-2);
-  font-size: 0.95rem;
-  line-height: 1.6;
+  font-size: 0.85rem;
+  line-height: 1.5;
   flex-grow: 1;
 }
 

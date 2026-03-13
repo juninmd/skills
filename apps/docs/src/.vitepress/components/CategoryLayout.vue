@@ -52,13 +52,14 @@ onMounted(async () => {
 
 <style scoped>
 .subtitle {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   color: var(--vp-c-text-2);
-  font-size: 1.1rem;
+  font-size: 0.95rem;
 }
 .loading {
-  padding: 2rem;
+  padding: 1.5rem;
   text-align: center;
   color: var(--vp-c-text-3);
+  font-size: 0.9rem;
 }
 </style>

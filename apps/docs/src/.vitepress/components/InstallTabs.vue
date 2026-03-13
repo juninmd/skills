@@ -82,9 +82,9 @@ function copyCommand() {
 
 <style scoped>
 .install-tabs {
-  margin: 2rem 0;
+  margin: 1.2rem 0;
   border: 2px solid var(--vp-c-divider);
-  border-radius: 16px;
+  border-radius: 12px;
   overflow: hidden;
   background: linear-gradient(
     135deg,
@@ -92,7 +92,7 @@ function copyCommand() {
     rgba(var(--vp-c-bg-rgb), 1) 100%
   );
   backdrop-filter: blur(10px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
   animation: fadeInUp 0.5s ease-out;
 }
 
@@ -138,18 +138,18 @@ function copyCommand() {
 
 .tab-btn {
   flex: 1;
-  padding: 1rem 1.5rem;
+  padding: 0.8rem 1rem;
   border: none;
   background: transparent;
   cursor: pointer;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   font-weight: 600;
   color: var(--vp-c-text-2);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.6rem;
+  gap: 0.5rem;
   white-space: nowrap;
   position: relative;
   overflow: hidden;
@@ -197,7 +197,7 @@ function copyCommand() {
 }
 
 .icon {
-  font-size: 1.2rem;
+  font-size: 1rem;
   line-height: 1;
   filter: grayscale(0.3);
   transition: all 0.3s;
@@ -209,11 +209,9 @@ function copyCommand() {
 }
 
 .tabs-content {
-  padding: 1.5rem;
+  padding: 1rem;
   animation: fadeIn 0.4s ease-out;
 }
-
-@keyframes fadeIn {
   from {
     opacity: 0;
   }
@@ -225,14 +223,14 @@ function copyCommand() {
 .code-container {
   display: flex;
   align-items: flex-start;
-  gap: 1rem;
+  gap: 0.75rem;
   background: var(--vp-c-bg);
-  padding: 1.25rem 1.5rem;
-  border-radius: 12px;
+  padding: 0.95rem 1rem;
+  border-radius: 10px;
   border: 2px solid var(--vp-c-divider);
   position: relative;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
 }
 
 .code-container::before {
@@ -264,8 +262,8 @@ function copyCommand() {
   margin: 0;
   padding: 0;
   font-family: var(--vp-font-family-mono);
-  font-size: 0.9rem;
-  line-height: 1.6;
+  font-size: 0.8rem;
+  line-height: 1.5;
   overflow-x: auto;
   white-space: pre-wrap;
   word-break: break-all;
@@ -287,16 +285,16 @@ function copyCommand() {
   color: white;
   border: none;
   border-radius: 8px;
-  padding: 0.6rem 1.2rem;
-  font-size: 0.85rem;
+  padding: 0.5rem 0.95rem;
+  font-size: 0.75rem;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   flex-shrink: 0;
-  margin-top: 2px;
+  margin-top: 1px;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(var(--vp-c-brand-rgb), 0.3);
+  box-shadow: 0 1px 4px rgba(var(--vp-c-brand-rgb), 0.2);
 }
 
 .copy-btn::before {

@@ -39,7 +39,6 @@
 
   /* Sidebar Overrides - Aggressive widening (+35-70%) */
   --vp-aside-width: 540px;
-  --vp-layout-max-width: 1600px;
 }
 
 /* Dark Mode */
@@ -59,12 +58,12 @@ html.dark {
 /* Stitch Design Token Variables */
 :root {
   /* Spacing Scale */
-  --stitch-space-xs: 0.25rem;
-  --stitch-space-sm: 0.5rem;
-  --stitch-space-md: 1rem;
-  --stitch-space-lg: 1.5rem;
-  --stitch-space-xl: 2rem;
-  --stitch-space-2xl: 3rem;
+  --stitch-space-xs: 0.2rem;
+  --stitch-space-sm: 0.35rem;
+  --stitch-space-md: 0.75rem;
+  --stitch-space-lg: 1rem;
+  --stitch-space-xl: 1.5rem;
+  --stitch-space-2xl: 2rem;
 
   /* Border Widths */
   --stitch-border-light: 1px;
@@ -214,8 +213,8 @@ input:focus, textarea:focus, select:focus {
 .skill-page {
   display: grid;
   grid-template-columns: 1fr 300px;
-  gap: 2rem;
-  margin-top: 2rem;
+  gap: 1.2rem;
+  margin-top: 1rem;
 }
 
 .skill-content {
@@ -236,11 +235,11 @@ input:focus, textarea:focus, select:focus {
 .skill-sidebar ul {
   list-style: none;
   padding: 0;
-  margin: 1rem 0;
+  margin: 0.7rem 0;
 }
 
 .skill-sidebar li {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.3rem;
 }
 
 .skill-sidebar a {
@@ -281,22 +280,22 @@ input:focus, textarea:focus, select:focus {
 .install-box {
   background: var(--vp-c-bg-soft);
   border: 1px solid var(--vp-c-divider);
-  padding: 1rem;
+  padding: 0.75rem;
   border-radius: 8px;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 .install-box h3 {
-  margin: 0 0 0.5rem 0;
-  font-size: 0.95rem;
+  margin: 0 0 0.35rem 0;
+  font-size: 0.85rem;
 }
 .install-code {
   background: var(--vp-c-bg);
   border: 1px solid var(--vp-c-divider);
-  padding: 0.75rem;
+  padding: 0.5rem 0.65rem;
   border-radius: 6px;
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 0.35rem 0;
   font-family: var(--vp-font-family-mono);
-  font-size: 0.875rem;
+  font-size: 0.8rem;
   overflow-x: auto;
 }
 .copy-btn {
@@ -304,19 +303,20 @@ input:focus, textarea:focus, select:focus {
   background: transparent;
   border: 1px solid var(--vp-c-divider);
   color: var(--vp-c-text-1);
-  padding: 0.4rem 0.75rem;
+  padding: 0.35rem 0.6rem;
   border-radius: 6px;
   cursor: pointer;
   font-weight: 600;
+  font-size: 0.85rem;
 }
 .ref-files h4 {
-  margin: 0.5rem 0 0.5rem 0;
+  margin: 0.3rem 0 0.3rem 0;
   font-size: 0.85rem;
 }
 .ref-files ul { padding: 0; margin: 0; list-style: none; }
-.ref-file { margin: 0.35rem 0; }
+.ref-file { margin: 0.2rem 0; }
 .ref-file a { color: var(--vp-c-brand); text-decoration: none; }
-.view-source { margin-top: 1rem; }
+.view-source { margin-top: 0.7rem; }
 .view-source-btn {
   display: inline-block;
   width: 100%;
@@ -369,7 +369,7 @@ input:focus, textarea:focus, select:focus {
 .source-pre { margin: 0; padding: 0; }
 .source-pre code { display: block; white-space: pre-wrap; font-family: var(--vp-font-family-mono); font-size: 0.9rem; }
 
-.skill-actions { display:flex; gap:1.5rem; align-items:flex-start; margin-bottom:1.5rem; }
+.skill-actions { display:flex; gap:0.8rem; align-items:flex-start; margin-bottom:0.8rem; }
 .skill-actions .install-box { flex:0 0 360px; }
 .skill-actions .ref-files { flex:1; }
 
@@ -512,28 +512,28 @@ input:focus, textarea:focus, select:focus {
 
 /* Rendered Content Styling */
 .skill-content-area {
-  line-height: 1.8;
+  line-height: 1.6;
   color: var(--vp-c-text-1);
-  font-size: 1.05rem;
+  font-size: 1rem;
 }
 
 .skill-content-area h1,
 .skill-content-area h2,
 .skill-content-area h3 {
   border-bottom: none;
-  margin-top: 2.5rem;
-  margin-bottom: 1.25rem;
+  margin-top: 1.2rem;
+  margin-bottom: 0.5rem;
   font-weight: 700;
   letter-spacing: -0.02em;
-  scroll-margin-top: 2rem;
+  scroll-margin-top: 1rem;
 }
 
 .skill-content-area h1 {
-  font-size: 2.5rem;
+  font-size: 2rem;
 }
 
 .skill-content-area h2 {
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   background: linear-gradient(120deg, var(--vp-c-brand), var(--vp-c-brand-light));
   -webkit-background-clip: text;
   background-clip: text;
@@ -555,31 +555,34 @@ input:focus, textarea:focus, select:focus {
 }
 
 .skill-content-area h3 {
-  font-size: 1.35rem;
+  font-size: 1.15rem;
   color: var(--vp-c-text-1);
 }
 
 .skill-content-area h4 {
-  font-size: 1.15rem;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--vp-c-text-1);
-  margin-top: 1.5rem;
+  margin-top: 0.8rem;
+  margin-bottom: 0.4rem;
 }
 
 .skill-content-area p {
-  margin-bottom: 1.25rem;
-  line-height: 1.8;
+  margin-bottom: 0.65rem;
+  line-height: 1.6;
+  margin-top: 0;
 }
 
 .skill-content-area ul,
 .skill-content-area ol {
-  padding-left: 2rem;
-  margin-bottom: 1.75rem;
+  padding-left: 1.5rem;
+  margin-bottom: 0.8rem;
+  margin-top: 0.4rem;
 }
 
 .skill-content-area li {
-  margin-bottom: 0.75rem;
-  line-height: 1.7;
+  margin-bottom: 0.3rem;
+  line-height: 1.6;
 }
 
 .skill-content-area li::marker {
@@ -594,12 +597,12 @@ input:focus, textarea:focus, select:focus {
     rgba(var(--vp-c-brand-rgb), 0.08) 0%,
     transparent 100%
   );
-  padding: 1.25rem 1.5rem;
-  border-radius: 0 12px 12px 0;
-  margin: 2rem 0;
+  padding: 0.9rem 1.2rem;
+  border-radius: 0 8px 8px 0;
+  margin: 1rem 0;
   font-style: italic;
   position: relative;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
 }
 
 .skill-content-area blockquote::before {
@@ -626,11 +629,11 @@ input:focus, textarea:focus, select:focus {
 .skill-content-area pre {
   background: var(--vp-c-bg-soft);
   border: 2px solid var(--vp-c-divider);
-  border-radius: 12px;
-  padding: 1.5rem;
-  margin: 1.5rem 0;
+  border-radius: 10px;
+  padding: 1rem;
+  margin: 0.9rem 0;
   overflow-x: auto;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
   position: relative;
 }
 
@@ -650,25 +653,25 @@ input:focus, textarea:focus, select:focus {
   padding: 0;
   border: none;
   color: inherit;
-  font-size: 0.95rem;
-  line-height: 1.6;
+  font-size: 0.9rem;
+  line-height: 1.5;
 }
 
 .skill-content-area table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  margin: 2rem 0;
-  border-radius: 12px;
+  margin: 1rem 0;
+  border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
   border: 1px solid var(--vp-c-divider);
 }
 
 .skill-content-area th,
 .skill-content-area td {
   border: 1px solid var(--vp-c-divider);
-  padding: 1rem 1.25rem;
+  padding: 0.75rem 1rem;
   text-align: left;
 }
 
@@ -681,8 +684,8 @@ input:focus, textarea:focus, select:focus {
   font-weight: 700;
   color: var(--vp-c-text-1);
   text-transform: uppercase;
-  font-size: 0.85rem;
-  letter-spacing: 0.05em;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
 }
 
 .skill-content-area tbody tr {
@@ -781,10 +784,10 @@ input:focus, textarea:focus, select:focus {
 
 /* What is a Skill Section */
 .info-section {
-  padding: 4rem 1.5rem;
+  padding: 2.5rem 1.2rem;
   background: var(--vp-c-bg-soft);
-  border-radius: 24px;
-  margin: 4rem 0;
+  border-radius: 16px;
+  margin: 2rem 0;
   border: 1px solid var(--vp-c-divider);
   box-shadow: var(--vp-shadow-2);
 }
@@ -792,28 +795,30 @@ input:focus, textarea:focus, select:focus {
 .info-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 3rem;
+  gap: 1.5rem;
   align-items: center;
 }
 
 .info-content h2 {
-  font-size: 2.5rem;
+  font-size: 2rem;
   margin-top: 0;
+  margin-bottom: 0.6rem;
   border: none;
   font-weight: 800;
   color: var(--vp-c-text-1);
 }
 
 .info-content p {
-  font-size: 1.1rem;
+  font-size: 1rem;
   line-height: 1.6;
   color: var(--vp-c-text-2);
+  margin: 0.5rem 0;
 }
 
 .info-visual {
   background: var(--vp-c-bg);
-  padding: 2rem;
-  border-radius: 16px;
+  padding: 1.2rem;
+  border-radius: 12px;
   border: 1px solid var(--vp-c-divider);
   box-shadow: var(--vp-shadow-1);
 }
@@ -821,8 +826,8 @@ input:focus, textarea:focus, select:focus {
 .visual-item {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+  gap: 0.75rem;
+  margin-bottom: 0.9rem;
   animation: slideIn 0.5s ease-out forwards;
   opacity: 0;
 }
@@ -912,7 +917,7 @@ input:focus, textarea:focus, select:focus {
 
   :deep(.VPDoc.has-aside .content),
   .VPDoc.has-aside .content {
-    max-width: 900px !important;
+    max-width: 1200px !important;
   }
 }
 
@@ -936,38 +941,40 @@ input:focus, textarea:focus, select:focus {
 
 /* Typography & Spacing in Markdown */
 .vp-doc {
-  font-size: 1.05rem;
-  line-height: 1.8;
+  font-size: 1rem;
+  line-height: 1.6;
   letter-spacing: 0.01em;
 }
 
 .vp-doc p {
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.8rem;
+  margin-top: 0;
 }
 
 .vp-doc h2 {
-  margin-top: 3.5rem;
-  margin-bottom: 1.5rem;
-  padding-bottom: 0.5rem;
+  margin-top: 1.8rem;
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.4rem;
   border-bottom: 1px solid var(--vp-c-divider);
 }
 
 .vp-doc h3 {
-  margin-top: 2.5rem;
+  margin-top: 1.3rem;
+  margin-bottom: 0.5rem;
   font-weight: 700;
 }
 
 /* Code Blocks (YAML focus) */
 .vp-doc div[class*='language-'] {
-  border-radius: 12px;
-  margin: 1.5rem 0;
+  border-radius: 10px;
+  margin: 0.95rem 0;
   box-shadow: var(--vp-shadow-2);
   border: 1px solid var(--vp-c-divider);
   background: var(--vp-code-bg);
 }
 
 .vp-doc div[class*='language-'] pre {
-  padding: 1.5rem;
+  padding: 1rem;
 }
 
 /* Enhancing Code Comments and Keys in YAML */
@@ -1029,7 +1036,7 @@ input:focus, textarea:focus, select:focus {
 
 .vp-doc th {
   background-color: var(--vp-c-bg-soft);
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .vp-doc tr:nth-child(2n) {

@@ -49,19 +49,20 @@ const categories = [
 
 <style scoped>
 .category-section {
-  margin-top: 4rem;
-  margin-bottom: 4rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .text-center {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   border: none;
+  font-size: 0.92rem;
 }
 
 .grid {
   display: grid;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 .grid-cols-3 {
@@ -90,19 +91,21 @@ const categories = [
 }
 
 .card-icon {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
 }
 
 .card h3 {
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 0.28rem 0;
   color: var(--vp-c-text-1);
+  font-size: 1.05rem;
 }
 
 .text-muted {
   color: var(--vp-c-text-2);
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   margin: 0;
+  line-height: 1.5;
 }
 
 @media (max-width: 960px) {

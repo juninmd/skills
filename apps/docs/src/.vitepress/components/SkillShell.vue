@@ -220,66 +220,71 @@ function copyRaw() {
 /* Main Card Container */
 .skill-card {
   width: 100%;
-  background: #1e293b63;
+  background: linear-gradient(135deg, var(--vp-c-bg-soft) 0%, var(--vp-c-bg) 100%);
   border: 1px solid var(--vp-c-divider);
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   overflow: hidden;
-  transition: box-shadow 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .skill-card:hover {
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  transform: translateY(-1px);
 }
 
 /* Card Header */
 .card-header {
-  background: linear-gradient(135deg, var(--vp-c-brand) 0%, rgba(var(--vp-c-brand-rgb), 0.8) 100%);
-  border-bottom: 1px solid var(--vp-c-divider);
+  border-bottom: none;
+  padding: 0 0 0.75rem 0;
+  margin-bottom: 0.75rem;
 }
 
 .header-left {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.75rem;
 }
 
 .card-title {
   margin: 0;
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 600;
-  color: white;
+  color: var(--vp-c-text-1);
 }
 
 /* Installation Section */
 .card-installation {
-  padding: 0.875rem;
-  border-bottom: 1px solid var(--vp-c-divider);
+  padding: 0;
+  border-bottom: none;
 }
 
 .install-label {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 600;
   text-transform: uppercase;
   color: var(--vp-c-text-2);
-  letter-spacing: 0.05em;
-  margin-bottom: 0.35rem;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.2rem;
 }
 
 .install-tabs-container {
   display: flex;
-  gap: 0.5rem;
-  margin-bottom: 0.6rem;
+  gap: 0.3rem;
+  margin-bottom: 0.45rem;
   border-bottom: 1px solid var(--vp-c-divider);
-  padding-bottom: 0.35rem;
+  padding-bottom: 0.2rem;
 }
 
 .install-tab {
-  padding: 0.4rem 0.85rem;
+  padding: 0.35rem 0.7rem;
   background: transparent;
   border: 1px solid var(--vp-c-divider);
   border-bottom: none;
-  border-radius: 4px 4px 0 0;
+  border-radius: 3px 3px 0 0;
   color: var(--vp-c-text-2);
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -299,9 +304,9 @@ function copyRaw() {
 
 .install-container {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.4rem;
   background: var(--vp-c-bg);
-  padding: 0.625rem;
+  padding: 0.4rem;
   border: 1px solid var(--vp-c-divider);
   border-radius: 6px;
   align-items: center;
@@ -316,25 +321,27 @@ function copyRaw() {
   flex: 1;
   min-width: 100px;
   user-select: all;
-  padding: 0.15rem;
+  padding: 0.1rem;
 }
 
 .copy-btn {
-  padding: 0.35rem 0.65rem;
-  background: var(--vp-c-brand);
+  padding: 0.35rem 0.7rem;
+  background: linear-gradient(135deg, var(--vp-c-brand) 0%, rgba(var(--vp-c-brand-rgb), 0.8) 100%);
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
   font-weight: 500;
   font-size: 0.7rem;
   flex-shrink: 0;
   transition: all 0.2s ease;
+  box-shadow: 0 1px 2px rgba(var(--vp-c-brand-rgb), 0.15);
 }
 
 .copy-btn:hover {
-  background: var(--vp-c-brand-dark);
+  background: linear-gradient(135deg, var(--vp-c-brand-dark) 0%, var(--vp-c-brand) 100%);
   transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(var(--vp-c-brand-rgb), 0.3);
 }
 
 .copy-btn:active {
@@ -344,24 +351,31 @@ function copyRaw() {
 /* Content Grid */
 .card-content {
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
 }
 
 .content-section {
-  padding: 0.875rem;
-  border-right: 1px solid var(--vp-c-divider);
+  padding: 0;
+  border-right: none;
+  background: rgba(var(--vp-c-bg-rgb), 0.5);
+  border-radius: 6px;
+  padding: 0.6rem;
 }
 
 .content-section:last-child {
   border-right: none;
+  margin-bottom: 0;
 }
 
 .section-title {
-  margin: 0 0 0.75rem 0;
-  font-size: 0.8rem;
-  font-weight: 600;
+  margin: 0 0 0.35rem 0;
+  font-size: 0.7rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--vp-c-text-2);
+  letter-spacing: 0.08em;
+  color: var(--vp-c-text-3);
 }
 
 /* File List */
@@ -371,14 +385,14 @@ function copyRaw() {
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.35rem;
 }
 
 .file-item {
   display: flex;
   align-items: center;
-  padding: 0.3rem 0;
-  font-size: 0.8rem;
+  padding: 0.2rem 0;
+  font-size: 0.75rem;
   color: var(--vp-c-text-1);
 }
 
@@ -398,7 +412,7 @@ function copyRaw() {
 .file-link {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.4rem;
   color: var(--vp-c-brand);
   text-decoration: none;
   transition: color 0.2s ease;
@@ -420,18 +434,18 @@ function copyRaw() {
 .action-buttons {
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
+  gap: 0.35rem;
 }
 
 .action-link {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 0.5rem;
-  padding: 0.5rem 0.7rem;
+  gap: 0.4rem;
+  padding: 0.4rem 0.8rem;
   background: var(--vp-c-bg);
   border: 1px solid var(--vp-c-divider);
-  border-radius: 5px;
+  border-radius: 6px;
   color: var(--vp-c-text-1);
   text-decoration: none;
   font-size: 0.8rem;
@@ -444,17 +458,20 @@ function copyRaw() {
   background: var(--vp-c-bg-mute);
   border-color: var(--vp-c-brand);
   color: var(--vp-c-brand);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(var(--vp-c-brand-rgb), 0.1);
 }
 
 .action-link.primary {
-  background: var(--vp-c-brand);
+  background: linear-gradient(135deg, var(--vp-c-brand) 0%, rgba(var(--vp-c-brand-rgb), 0.8) 100%);
   color: white;
   border-color: var(--vp-c-brand);
 }
 
 .action-link.primary:hover {
-  background: var(--vp-c-brand-dark);
+  background: linear-gradient(135deg, var(--vp-c-brand-dark) 0%, var(--vp-c-brand) 100%);
   border-color: var(--vp-c-brand-dark);
+  box-shadow: 0 4px 12px rgba(var(--vp-c-brand-rgb), 0.25);
 }
 
 .link-icon {
@@ -512,7 +529,7 @@ function copyRaw() {
 }
 
 .param-item {
-  padding: 0.6rem;
+  padding: 0.5rem;
   background: var(--vp-c-bg);
   border: 1px solid var(--vp-c-divider);
   border-radius: 5px;
@@ -524,25 +541,25 @@ function copyRaw() {
   font-family: var(--vp-font-family-mono);
   font-weight: 600;
   color: var(--vp-c-brand);
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.15rem;
 }
 
 .param-badge {
   display: inline-block;
-  margin-left: 0.5rem;
-  padding: 0.2rem 0.5rem;
+  margin-left: 0.35rem;
+  padding: 0.15rem 0.4rem;
   background: var(--vp-c-danger-soft);
   color: var(--vp-c-danger);
   border-radius: 3px;
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   font-weight: 700;
   text-transform: uppercase;
 }
 
 .param-info {
-  margin-top: 0.4rem;
+  margin-top: 0.25rem;
   color: var(--vp-c-text-2);
-  line-height: 1.4;
+  line-height: 1.3;
 }
 
 /* Modal */

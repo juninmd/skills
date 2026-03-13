@@ -5,8 +5,11 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+// __dirname = apps/docs/src
+// ROOT = apps/docs
+// MONOREPO_ROOT = padrao-labs-agents (raiz do projeto)
 const ROOT = path.join(__dirname, '..');
-const MONOREPO_ROOT = path.join(ROOT, '..');
+const MONOREPO_ROOT = path.join(__dirname, '../../..');
 const AGENTS_DIR = path.join(MONOREPO_ROOT, '.agents');
 const DOCS_DIR = path.join(ROOT, 'docs');
 

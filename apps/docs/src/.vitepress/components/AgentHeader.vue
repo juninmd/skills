@@ -86,11 +86,11 @@ function getPlatformName(platform) {
     transparent 100%
   );
   border: 2px solid var(--vp-c-divider);
-  border-radius: 20px;
-  padding: 2.5rem;
-  margin-bottom: 3rem;
+  border-radius: 16px;
+  padding: 1.2rem;
+  margin-bottom: 1.2rem;
   box-shadow:
-    0 4px 20px rgba(0, 0, 0, 0.05),
+    0 2px 12px rgba(0, 0, 0, 0.03),
     0 0 0 1px rgba(var(--vp-c-brand-rgb), 0.05);
   overflow: hidden;
   animation: slideInDown 0.6s ease-out;
@@ -126,8 +126,9 @@ function getPlatformName(platform) {
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
   z-index: 1;
+  align-items: flex-start;
 }
 
 .title-section {
@@ -135,8 +136,8 @@ function getPlatformName(platform) {
 }
 
 .content-title {
-  margin: 0 0 1rem 0;
-  font-size: 2.5rem;
+  margin: 0 0 0.5rem 0;
+  font-size: 2rem;
   font-weight: 800;
   background: linear-gradient(
     120deg,
@@ -164,36 +165,25 @@ function getPlatformName(platform) {
 
 .content-description {
   margin: 0;
-  font-size: 1.15rem;
-  line-height: 1.7;
+  font-size: 0.95rem;
+  line-height: 1.6;
   color: var(--vp-c-text-2);
   max-width: 90%;
 }
 
 .platforms-section {
   position: relative;
-  padding-top: 2rem;
+  padding-top: 0.8rem;
+  flex-basis: 100%;
 }
 
 .platforms-section::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    var(--vp-c-divider) 20%,
-    var(--vp-c-divider) 80%,
-    transparent 100%
-  );
+  display: none;
 }
 
 .platforms-label {
-  margin: 0 0 1.25rem 0;
-  font-size: 0.8rem;
+  margin: 0 0 0.4rem 0;
+  font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -201,6 +191,7 @@ function getPlatformName(platform) {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  white-space: nowrap;
 }
 
 .platforms-label::before {
@@ -218,24 +209,26 @@ function getPlatformName(platform) {
 
 .platform-badges {
   display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
   flex-wrap: wrap;
-  gap: 1rem;
 }
 
 .platform-badge {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  padding: 0.7rem 1.25rem;
+  padding: 0.5rem 1rem;
   background: rgba(var(--vp-c-bg-rgb), 0.9);
   border: 2px solid var(--vp-c-divider);
   border-radius: 12px;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   font-weight: 600;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: default;
   position: relative;
   overflow: hidden;
+  white-space: nowrap;
 }
 
 .platform-badge::before {
@@ -312,31 +305,42 @@ function getPlatformName(platform) {
 
 @media (max-width: 768px) {
   .content-header {
-    padding: 2rem 1.5rem;
-    margin-bottom: 2rem;
+    padding: 1.25rem 1rem;
+    margin-bottom: 1.5rem;
     border-radius: 16px;
   }
 
+  .header-content {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
   .content-title {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
 
   .content-description {
-    font-size: 1rem;
+    font-size: 0.9rem;
     max-width: 100%;
   }
 
+  .platforms-section {
+    width: 100%;
+  }
+
   .platform-badges {
-    gap: 0.75rem;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem;
   }
 
   .platform-badge {
-    padding: 0.6rem 1rem;
-    font-size: 0.9rem;
+    padding: 0.5rem 0.9rem;
+    font-size: 0.8rem;
   }
 
   .badge-icon {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
 }
 </style>
