@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.28.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.27.0...v1.28.0) (2026-03-18)
+
+
+### Features
+
+* test ([21ab9d4](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/21ab9d4))
+
 # [1.27.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.26.0...v1.27.0) (2026-03-18)
 
 
