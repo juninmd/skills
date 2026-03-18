@@ -20,3 +20,7 @@ public/*
 
 **/node_modules/**
 apps/docs/docs/**
+
+# Plugin generated symlinks
+plugins/*/skills/
+plugins/*/agents/

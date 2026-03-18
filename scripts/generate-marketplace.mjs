@@ -92,6 +92,42 @@ function readPluginMetadata(pluginDir) {
 }
 
 /**
+ * Create relative symlinks for skills and agents
+ */
+function createPluginSymlinks(pluginPath, metadata) {
+  const pluginJsonDir = path.join(pluginPath, ".github/plugin");
+  const categories = ['skills', 'agents'];
+
+  for (const category of categories) {
+    if (metadata[category] && Array.isArray(metadata[category])) {
+      const targetDir = path.join(pluginPath, category);
+      
+      // Clear and recreate target directory to remove stale symlinks
+      if (fs.existsSync(targetDir)) {
+        fs.rmSync(targetDir, { recursive: true, force: true });
+      }
+      fs.mkdirSync(targetDir, { recursive: true });
+
+      for (const itemRelPath of metadata[category]) {
+        // Resolve absolute source path (relative to .github/plugin/)
+        const absoluteSourcePath = path.resolve(pluginJsonDir, itemRelPath);
+        const itemName = path.basename(absoluteSourcePath);
+        const destPath = path.join(targetDir, itemName);
+
+        if (fs.existsSync(absoluteSourcePath)) {
+          const stats = fs.statSync(absoluteSourcePath);
+          // Calculate relative path from the target link directory to the actual file/folder
+          const relativeSourcePath = path.relative(targetDir, absoluteSourcePath);
+          fs.symlinkSync(relativeSourcePath, destPath, stats.isDirectory() ? 'dir' : 'file');
+        } else {
+          console.warn(`⚠️ Warning: Target not found for symlink: ${absoluteSourcePath}`);
+        }
+      }
+    }
+  }
+}
+
+/**
  * Generate marketplace.json from plugin directories
  */
 function generateMarketplace() {
@@ -115,13 +151,16 @@ function generateMarketplace() {
     const metadata = readPluginMetadata(pluginPath);
 
     if (metadata) {
+      // Create symlinks for this plugin based on metadata
+      createPluginSymlinks(pluginPath, metadata);
+
       plugins.push({
         name: metadata.name,
         source: `./plugins/${dirName}`,
         description: metadata.description,
         version: metadata.version || "1.0.0"
       });
-      console.log(`✅ Adicionado: ${metadata.name}`);
+      console.log(`✅ Adicionado e linkado: ${metadata.name}`);
     }
   }
 
