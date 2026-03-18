@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.30.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.29.0...v1.30.0) (2026-03-18)
+
+
+### Features
+
+* improve badge ([4fe3236](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/4fe3236))
+
 # [1.29.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.28.0...v1.29.0) (2026-03-18)
 
 
