@@ -3,6 +3,7 @@ name: validating-baseweb-charts
 description: Validação rigorosa dos arquivos Chart.yaml e values.yaml com base nos padrões do baseweb-app.
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
+argument-hint: "[file/module] [options]"
 ---
 
 # Validating BaseWeb Charts

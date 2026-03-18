@@ -3,6 +3,7 @@ name: developing-ui-ux-components
 description: Design, implement, and document reusable, accessible frontend UI components for web applications
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
+argument-hint: "[file/module] [options]"
 ---
 
 # UI/UX Component Developer Skill

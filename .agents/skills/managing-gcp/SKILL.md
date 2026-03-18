@@ -3,6 +3,8 @@ name: managing-gcp
 description: Operações em Google Cloud Platform e Magalu Cloud com foco em segurança (IAM), identidade federada e Serverless (Cloud Run).
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
+argument-hint: "[resource/project] [options]"
+disable-model-invocation: true
 ---
 
 # Google Cloud Platform (GCP) Sênior

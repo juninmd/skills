@@ -3,6 +3,7 @@ name: auditing-code
 description: Execução de análise estática (linting), verificação de estilo e detecção de code smells em Python e JS/TS.
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
+argument-hint: "[file/module] [options]"
 ---
 
 # Code Auditor & Linter

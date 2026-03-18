@@ -3,6 +3,7 @@ name: analyzing-data
 description: Análise e processamento de dados (CSV, JSON, SQL) usando Python (Pandas) e ferramentas de CLI (csvkit, jq).
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
+argument-hint: "[context] [options]"
 ---
 
 # Data Analyst

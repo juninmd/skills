@@ -3,6 +3,7 @@ name: securing-k8s
 description: Secure Kubernetes clusters with RBAC management, configuration auditing, network policies, and runtime security
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
+argument-hint: "[context] [options]"
 ---
 
 # Kubernetes Security Specialist Skill

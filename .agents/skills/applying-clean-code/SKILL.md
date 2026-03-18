@@ -1,6 +1,7 @@
 ---
 name: applying-clean-code
 description: Skill for refactoring code to follow Clean Code practices. Use to improve readability, maintainability, naming conventions, and structure of the code.
+argument-hint: "[file/module] [options]"
 ---
 
 # Applying Clean Code Practices

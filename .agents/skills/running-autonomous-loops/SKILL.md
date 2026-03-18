@@ -4,6 +4,8 @@ description: Transforma o Gemini CLI em um engenheiro autônomo que executa tare
 metadata:
   works_on: [gemini_cli]
 
+argument-hint: "[context] [options]"
+disable-model-invocation: true
 ---
 
 # Autonomous Agent Loop

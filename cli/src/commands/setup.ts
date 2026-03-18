@@ -7,6 +7,11 @@ import { createInterface } from 'node:readline/promises';
 import { stdin, stdout } from 'node:process';
 import { getVSCodeSettingsPaths, getPadraoLabsAgentsDir, getGlobalCopilotIgnorePath, getHomeDir } from '../utils/platform.js';
 import { cron } from './cron.js';
+import {
+  VSCODE_SETTINGS_KEYS,
+  SETTING_DESCRIPTIONS,
+  DEFAULT_ADVANCED_SETTINGS
+} from '../utils/vscode-settings.js';
 
 const REGISTRY_URL = 'https://nexus.luizalabs.com/repository/npm/';
 const SCOPE = '@luizalabs';
@@ -17,7 +22,7 @@ export async function setup(): Promise<void> {
   log.info('Selecione a abordagem de instalação das regras e agentes:');
   console.log('  1) GitLab (Cron) [Recomendado] - Baixa e atualiza os arquivos localmente via Git');
   console.log('  2) Nexus [Beta] - Instala via gerenciador de extensões privado do VS Code');
-  
+
   const rl = createInterface({ input: stdin, output: stdout });
   const answer = await rl.question('\nEscolha [1 ou 2]: ');
   rl.close();
@@ -29,12 +34,12 @@ export async function setup(): Promise<void> {
   const agentsDir = getPadraoLabsAgentsDir();
 
   log.info('Detectando ambiente...');
-  
+
   // VS Code
   log.success('IDE detectada: VS Code (Configurações do usuário e Perfis Sincronizados)');
   log.detail(`- O VS Code suporta perfis. A configuração será injetada em TODOS os perfis encontrados.`);
   vscodeUserPaths.forEach(p => log.detail(`  - ${p}`));
-  
+
   // Antigravity
   const antigravityDir = path.join(getHomeDir(), '.gemini', 'antigravity');
   const hasAntigravity = fs.existsSync(antigravityDir);
@@ -42,7 +47,7 @@ export async function setup(): Promise<void> {
     log.success('Agente detectado: Google Antigravity');
     log.detail(`- Pasta encontrada: ${antigravityDir}`);
   }
-  
+
   // Log das pastas de destino
   log.info('Destino físico dos artefatos:');
   log.detail(`- Base: ${agentsDir}`);
@@ -87,7 +92,7 @@ async function setupNexus(vscodeUserPaths: string[], hasAntigravity: boolean): P
   if (!isAuthenticated) {
     log.warn('Você não está autenticado no Nexus privado ou seu token expirou.');
     log.info('Iniciando fluxo de login interativo...');
-    
+
     const result = spawnSync('npm', ['login', '--registry', REGISTRY_URL, '--scope', SCOPE], {
       stdio: 'inherit',
       shell: true,
@@ -119,7 +124,7 @@ async function setupGitlabCron(vscodeUserPaths: string[], hasAntigravity: boolea
   configureGlobalCopilotIgnore();
   if (hasAntigravity) configureGlobalAntigravity();
 
-  
+
   log.info('Acionando configuração do job de sincronização no sistema...');
   await cron({ remove: false });
 }
@@ -129,15 +134,16 @@ function logSettingsDiff(oldSettings: any, newSettings: any) {
   for (const key of Object.keys(newSettings)) {
     const oldStr = stringify(oldSettings[key]);
     const newStr = stringify(newSettings[key]);
-    
+
     if (oldStr !== newStr) {
       hasChanges = true;
+      const desc = SETTING_DESCRIPTIONS[key] ? ` - ${SETTING_DESCRIPTIONS[key]}` : '';
       if (oldSettings[key] === undefined) {
         const displayVal = newStr.length > 60 ? '(novo objeto/array)' : newStr;
-        log.detail(`  [+] ${key}: ${displayVal}`);
+        log.detail(`  [+] ${key}: ${displayVal}${desc}`);
       } else {
         const displayVal = newStr.length > 60 ? '(modificado)' : `${oldStr} -> ${newStr}`;
-        log.detail(`  [~] ${key}: ${displayVal}`);
+        log.detail(`  [~] ${key}: ${displayVal}${desc}`);
       }
     }
   }
@@ -162,13 +168,14 @@ function configureGlobalPrivateRegistry(settingsFile: string) {
     }
   }
 
-  if (!settings['privateExtensions.registries']) {
-    settings['privateExtensions.registries'] = [];
+  const regKey = 'privateExtensions.registries';
+  if (!settings[regKey]) {
+    settings[regKey] = [];
   }
 
-  const registries = settings['privateExtensions.registries'];
+  const registries = settings[regKey];
   const hasRegistry = registries.some((r: any) => r.url === REGISTRY_URL || r.registry === REGISTRY_URL);
-  
+
   if (!hasRegistry) {
     registries.push({
       name: "Luizalabs Nexus (NPM)",
@@ -204,50 +211,30 @@ function configureGlobalVSCodeSettings(settingsFile: string) {
   const agentsDir = getPadraoLabsAgentsDir();
   const instructionsPath = path.join(agentsDir, 'copilot-instructions.md');
 
-  if (!settings['github.copilot.chat.codeGeneration.instructions']) {
-    settings['github.copilot.chat.codeGeneration.instructions'] = [];
+  const instKey = VSCODE_SETTINGS_KEYS.INSTRUCTIONS;
+  if (!settings[instKey]) {
+    settings[instKey] = [];
   }
-  
-  const instructions = settings['github.copilot.chat.codeGeneration.instructions'];
+
+  const instructions = settings[instKey];
   const hasInstruction = instructions.some((i: any) => i.file === instructionsPath);
-  
+
   if (!hasInstruction) {
     instructions.push({ file: instructionsPath });
   }
 
-  if (!settings['github.copilot.enable']) {
-    settings['github.copilot.enable'] = {};
+  const enableKey = VSCODE_SETTINGS_KEYS.COPILOT_ENABLE;
+  if (!settings[enableKey]) {
+    settings[enableKey] = {};
   }
-  const enable = settings['github.copilot.enable'];
+  const enable = settings[enableKey];
   const disabledLangs = ['plaintext', 'scminput', 'dotenv', 'ignore', 'properties', 'markdown'];
-  
+
   for (const lang of disabledLangs) {
     enable[lang] = false;
   }
 
-  const advancedSettings: Record<string, any> = {
-    "chat.mcp.autostart": "newAndOutdated",
-    "chat.agent.maxRequests": 1000,
-    "chat.agent.enabled": true,
-    "chat.agentSessionProjection.enabled": true,
-    "chat.editing.explainChanges.enabled": true,
-    "chat.editMode.hidden": true,
-    "chat.experimental.useSkillAdherencePrompt": true,
-    "chat.tools.terminal.autoReplyToPrompts": true,
-    "chat.useNestedAgentsMdFiles": true,
-    "github.copilot.chat.agent.autoFix": true,
-    "github.copilot.chat.codesearch.enabled": true,
-    "github.copilot.chat.copilotMemory.enabled": true,
-    "chat.mcp.gallery.enabled": true,
-    "chat.customAgentInSubagent.enabled": true,
-    "chat.useAgentSkills": true,
-    "github.copilot.chat.githubMcpServer.readonly": true,
-    "github.copilot.chat.languageContext.fix.typescript.enabled": true,
-    "github.copilot.chat.switchAgent.enabled": true,
-    "chat.viewSessions.orientation": "stacked"
-  };
-
-  for (const [key, value] of Object.entries(advancedSettings)) {
+  for (const [key, value] of Object.entries(DEFAULT_ADVANCED_SETTINGS)) {
     settings[key] = value;
   }
 

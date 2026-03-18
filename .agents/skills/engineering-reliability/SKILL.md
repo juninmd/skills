@@ -3,6 +3,7 @@ name: engineering-reliability
 description: Ensure system reliability, scalability, and observability through monitoring, alerting, and incident response
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
+argument-hint: "[context] [options]"
 ---
 
 # System Reliability Engineer Skill

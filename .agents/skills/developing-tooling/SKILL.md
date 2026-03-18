@@ -3,6 +3,7 @@ name: developing-tooling
 description: Desenvolvimento de ferramentas CLI, scripts de automação e utilitários internos com foco em robustez, logs e testes.
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
+argument-hint: "[file/module] [options]"
 ---
 
 # Tooling Developer

@@ -3,6 +3,7 @@ name: diagnosing-rabbitmq
 description: Diagnóstico de saúde de filas RabbitMQ, consumidores e Dead Letter Queues (DLQ).
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
+argument-hint: "[incident/alert] [options]"
 ---
 
 # Diagnose RabbitMQ Health

@@ -3,6 +3,8 @@ name: configuring-netskope
 description: Configurações de certificados SSL/CA para garantir conectividade em ambientes protegidos pelo Netskope na Luizalabs.
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
+argument-hint: "[config/tool] [options]"
+disable-model-invocation: true
 ---
 
 # Skill: Netskope Configuration

@@ -3,6 +3,7 @@ name: managing-observability
 description: Análise de performance e saúde sistêmica baseada em RED (Rate, Error, Duration) e USE Method (Utilization, Saturation).
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
+argument-hint: "[resource/project] [options]"
 ---
 
 # Observability & Monitoring

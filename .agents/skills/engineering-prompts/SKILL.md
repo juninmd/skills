@@ -3,6 +3,7 @@ name: engineering-prompts
 description: Design, optimize, and evaluate prompts for LLMs using advanced techniques like Few-Shot and Chain-of-Thought
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
+argument-hint: "[context] [options]"
 ---
 
 # Prompt Engineering Specialist

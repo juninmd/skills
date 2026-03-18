@@ -3,6 +3,7 @@ name: managing-vector-databases
 description: Manage vector databases for similarity search, RAG systems, and semantic search applications
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
+argument-hint: "[resource/project] [options]"
 ---
 
 # Vector Database Manager

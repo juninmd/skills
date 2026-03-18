@@ -3,6 +3,7 @@ name: auditing-accessibility
 description: Auditoria de acessibilidade web (A11y) usando ferramentas automatizadas e verificação manual para conformidade WCAG 2.1 AA.
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
+argument-hint: "[file/module] [options]"
 ---
 
 # Accessibility Auditor

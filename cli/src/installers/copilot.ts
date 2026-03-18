@@ -13,14 +13,11 @@ import { log } from '../utils/logger.js';
 import { BaseInstaller } from './base-installer.js';
 import type { CategoryMapping, MCPConfig, MCPInputConfig } from '../types.js';
 import color from 'picocolors';
-
-/** Chave do settings.json para instruções globais de geração de código. */
-const VSCODE_INSTRUCTIONS_KEY = 'github.copilot.chat.codeGeneration.instructions';
-
-/**
- * Chave do settings.json para habilitar/desabilitar Copilot por linguagem.
- */
-const VSCODE_COPILOT_ENABLE_KEY = 'github.copilot.enable';
+import { 
+  VSCODE_SETTINGS_KEYS, 
+  SETTING_DESCRIPTIONS, 
+  DEFAULT_ADVANCED_SETTINGS 
+} from '../utils/vscode-settings.js';
 
 /** Linguagens onde o Copilot deve ser desativado por padrão. */
 const COPILOT_DISABLED_LANGUAGES: Record<string, boolean> = {
@@ -30,24 +27,6 @@ const COPILOT_DISABLED_LANGUAGES: Record<string, boolean> = {
   ignore: false,
   properties: false,
 };
-
-/** Chave do settings.json para pastas adicionais de prompts. */
-const VSCODE_PROMPT_LOCS_KEY = 'chat.promptFilesLocations';
-
-/** Chave do settings.json para pastas de Agent Skills. */
-const VSCODE_SKILLS_LOCS_KEY = 'chat.agentSkillsLocations';
-
-/** Chave do settings.json para pastas de Agent Definitions. */
-const VSCODE_AGENTS_LOCS_KEY = 'chat.agentFilesLocations';
-
-/** Chave para habilitar Autopilot no VS Code. */
-const VSCODE_AUTOPILOT_KEY = 'chat.autopilot.enabled';
-
-/** Chave para pastas de hooks do VS Code. */
-const VSCODE_HOOK_LOCS_KEY = 'chat.hookFilesLocations';
-
-/** Chave para habilitar uso de hooks customizados no VS Code. */
-const VSCODE_USE_HOOKS_KEY = 'chat.useCustomAgentHooks';
 
 /** Fragmento de caminho para identificar entradas gerenciadas por este installer. */
 const MANAGED_PATH_MARKER = '.agents';
@@ -77,12 +56,13 @@ function logSettingsDiff(path: string, oldSettings: any, newSettings: any): void
     const newVal = JSON.stringify(newSettings[key]);
 
     if (oldVal !== newVal) {
+      const desc = SETTING_DESCRIPTIONS[key] ? ` - ${color.gray(SETTING_DESCRIPTIONS[key])}` : '';
       if (oldSettings[key] === undefined) {
-        diffs.push(`${color.green('+')} ${color.bold(key)}`);
+        diffs.push(`${color.green('+')} ${color.bold(key)}${desc}`);
       } else if (newSettings[key] === undefined) {
-        diffs.push(`${color.red('-')} ${color.bold(key)}`);
+        diffs.push(`${color.red('-')} ${color.bold(key)}${desc}`);
       } else {
-        diffs.push(`${color.yellow('~')} ${color.bold(key)}`);
+        diffs.push(`${color.yellow('~')} ${color.bold(key)}${desc}`);
       }
     }
   }
@@ -165,8 +145,9 @@ export class CopilotInstaller extends BaseInstaller {
 
     // --- 1. Instructions ---
     type InstructionEntry = { file?: string; text?: string };
-    let instructions: InstructionEntry[] = Array.isArray(settings[VSCODE_INSTRUCTIONS_KEY])
-      ? (settings[VSCODE_INSTRUCTIONS_KEY] as InstructionEntry[])
+    const instKey = VSCODE_SETTINGS_KEYS.INSTRUCTIONS;
+    let instructions: InstructionEntry[] = Array.isArray(settings[instKey])
+      ? (settings[instKey] as InstructionEntry[])
       : [];
 
     instructions = instructions.filter(e => !isManagedPath(e.file));
@@ -180,28 +161,30 @@ export class CopilotInstaller extends BaseInstaller {
         }
       }
     }
-    settings[VSCODE_INSTRUCTIONS_KEY] = instructions;
+    settings[instKey] = instructions;
 
     // --- 2. Copilot Enable ---
+    const enableKey = VSCODE_SETTINGS_KEYS.COPILOT_ENABLE;
     const existingEnable: Record<string, boolean> =
-      settings[VSCODE_COPILOT_ENABLE_KEY] !== null &&
-      typeof settings[VSCODE_COPILOT_ENABLE_KEY] === 'object' &&
-      !Array.isArray(settings[VSCODE_COPILOT_ENABLE_KEY])
-        ? (settings[VSCODE_COPILOT_ENABLE_KEY] as Record<string, boolean>)
+      settings[enableKey] !== null &&
+      typeof settings[enableKey] === 'object' &&
+      !Array.isArray(settings[enableKey])
+        ? (settings[enableKey] as Record<string, boolean>)
         : {};
 
-    settings[VSCODE_COPILOT_ENABLE_KEY] = {
+    settings[enableKey] = {
       '*': true,
       ...COPILOT_DISABLED_LANGUAGES,
       ...existingEnable,
     };
 
     // --- 3. Prompt Files ---
+    const promptKey = VSCODE_SETTINGS_KEYS.PROMPT_LOCS;
     let promptLocs: Record<string, boolean> =
-      settings[VSCODE_PROMPT_LOCS_KEY] !== null &&
-      typeof settings[VSCODE_PROMPT_LOCS_KEY] === 'object' &&
-      !Array.isArray(settings[VSCODE_PROMPT_LOCS_KEY])
-        ? (settings[VSCODE_PROMPT_LOCS_KEY] as Record<string, boolean>)
+      settings[promptKey] !== null &&
+      typeof settings[promptKey] === 'object' &&
+      !Array.isArray(settings[promptKey])
+        ? (settings[promptKey] as Record<string, boolean>)
         : {};
 
     promptLocs = Object.fromEntries(
@@ -213,14 +196,15 @@ export class CopilotInstaller extends BaseInstaller {
     promptLocs['.agents/prompts'] = true;
     promptLocs['.claude/prompts'] = true;
     if (await dirExists(promptsDir)) promptLocs[toPortablePath(promptsDir)] = true;
-    settings[VSCODE_PROMPT_LOCS_KEY] = promptLocs;
+    settings[promptKey] = promptLocs;
 
     // --- 4. Skills ---
+    const skillsKey = VSCODE_SETTINGS_KEYS.SKILLS_LOCS;
     let skillsLocs: Record<string, boolean> =
-      settings[VSCODE_SKILLS_LOCS_KEY] !== null &&
-      typeof settings[VSCODE_SKILLS_LOCS_KEY] === 'object' &&
-      !Array.isArray(settings[VSCODE_SKILLS_LOCS_KEY])
-        ? (settings[VSCODE_SKILLS_LOCS_KEY] as Record<string, boolean>)
+      settings[skillsKey] !== null &&
+      typeof settings[skillsKey] === 'object' &&
+      !Array.isArray(settings[skillsKey])
+        ? (settings[skillsKey] as Record<string, boolean>)
         : {};
 
     skillsLocs = Object.fromEntries(
@@ -235,14 +219,15 @@ export class CopilotInstaller extends BaseInstaller {
     
     const skillsDir = join(agentsDir, 'skills');
     if (await dirExists(skillsDir)) skillsLocs[toPortablePath(skillsDir)] = true;
-    settings[VSCODE_SKILLS_LOCS_KEY] = skillsLocs;
+    settings[skillsKey] = skillsLocs;
 
     // --- 5. Agents ---
+    const agentsKey = VSCODE_SETTINGS_KEYS.AGENTS_LOCS;
     let agentsLocs: Record<string, boolean> =
-      settings[VSCODE_AGENTS_LOCS_KEY] !== null &&
-      typeof settings[VSCODE_AGENTS_LOCS_KEY] === 'object' &&
-      !Array.isArray(settings[VSCODE_AGENTS_LOCS_KEY])
-        ? (settings[VSCODE_AGENTS_LOCS_KEY] as Record<string, boolean>)
+      settings[agentsKey] !== null &&
+      typeof settings[agentsKey] === 'object' &&
+      !Array.isArray(settings[agentsKey])
+        ? (settings[agentsKey] as Record<string, boolean>)
         : {};
 
     agentsLocs = Object.fromEntries(
@@ -255,10 +240,15 @@ export class CopilotInstaller extends BaseInstaller {
 
     const agentsSubDir = join(agentsDir, 'agents');
     if (await dirExists(agentsSubDir)) agentsLocs[toPortablePath(agentsSubDir)] = true;
-    settings[VSCODE_AGENTS_LOCS_KEY] = agentsLocs;
+    settings[agentsKey] = agentsLocs;
 
     // --- 6. Autopilot ---
-    settings[VSCODE_AUTOPILOT_KEY] = true;
+    settings[VSCODE_SETTINGS_KEYS.AUTOPILOT_ENABLE] = true;
+
+    // --- 7. Advanced Settings ---
+    for (const [key, value] of Object.entries(DEFAULT_ADVANCED_SETTINGS)) {
+      settings[key] = value;
+    }
 
     await ensureDir(join(settingsPath, '..'));
     await writeFile(settingsPath, stringify(settings, null, 2), 'utf-8');
@@ -329,11 +319,12 @@ export class CopilotInstaller extends BaseInstaller {
       } catch { return; }
     }
 
+    const hookLocsKey = VSCODE_SETTINGS_KEYS.HOOK_LOCS;
     let hookLocs: Record<string, boolean> =
-      settings[VSCODE_HOOK_LOCS_KEY] !== null &&
-      typeof settings[VSCODE_HOOK_LOCS_KEY] === 'object' &&
-      !Array.isArray(settings[VSCODE_HOOK_LOCS_KEY])
-        ? (settings[VSCODE_HOOK_LOCS_KEY] as Record<string, boolean>)
+      settings[hookLocsKey] !== null &&
+      typeof settings[hookLocsKey] === 'object' &&
+      !Array.isArray(settings[hookLocsKey])
+        ? (settings[hookLocsKey] as Record<string, boolean>)
         : {};
 
     hookLocs = Object.fromEntries(
@@ -341,12 +332,13 @@ export class CopilotInstaller extends BaseInstaller {
     );
     hookLocs['.github/hooks'] = true;
     hookLocs[toPortablePath(hooksDir)] = true;
-    settings[VSCODE_HOOK_LOCS_KEY] = hookLocs;
-    settings[VSCODE_USE_HOOKS_KEY] = true;
+    settings[hookLocsKey] = hookLocs;
+    settings[VSCODE_SETTINGS_KEYS.USE_HOOKS] = true;
 
     const preCommandPath = join(hooksDir, 'pre-command.py');
     const postCommandPath = join(hooksDir, 'post-command.py');
-    const copilotHooks: Record<string, any> = settings['github.copilot.chat.hooks'] || {};
+    const hooksKey = VSCODE_SETTINGS_KEYS.COPILOT_HOOKS;
+    const copilotHooks: Record<string, any> = settings[hooksKey] || {};
 
     if (await fileExists(preCommandPath)) {
       copilotHooks.PreToolUse = [
@@ -368,7 +360,7 @@ export class CopilotInstaller extends BaseInstaller {
         },
       ];
     }
-    settings['github.copilot.chat.hooks'] = copilotHooks;
+    settings[hooksKey] = copilotHooks;
     await writeFile(settingsPath, stringify(settings, null, 2), 'utf-8');
   }
 

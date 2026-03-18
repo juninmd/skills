@@ -3,6 +3,7 @@ name: validating-typescript
 description: Validate TypeScript code by running tsc type checking, linting, and algorithm correctness analysis to catch compile errors, style issues, and logic problems.
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
+argument-hint: "[file/module] [options]"
 ---
 
 # TypeScript Validation

@@ -3,6 +3,7 @@ name: developing-node
 description: Gerenciamento de pacotes e scripts do ecossistema Node.js/TypeScript. Prioriza pnpm, mas suporta npm para projetos legados.
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
+argument-hint: "[file/module] [options]"
 ---
 
 # Node.js Development

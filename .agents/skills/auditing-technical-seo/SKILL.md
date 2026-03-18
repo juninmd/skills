@@ -3,6 +3,7 @@ name: auditing-technical-seo
 description: Perform technical SEO audits to identify crawling, indexing, and ranking issues on websites
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
+argument-hint: "[file/module] [options]"
 ---
 
 # Technical SEO Auditor Skill

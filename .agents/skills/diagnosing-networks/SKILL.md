@@ -3,6 +3,7 @@ name: diagnosing-networks
 description: Testes de conectividade, inspeção de headers HTTP, resolução de DNS e troubleshooting de rede.
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
+argument-hint: "[incident/alert] [options]"
 ---
 
 # Network & Diagnostics

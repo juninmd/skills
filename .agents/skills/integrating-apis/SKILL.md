@@ -3,6 +3,7 @@ name: integrating-apis
 description: This skill enables the agent to interact with external REST and GraphQL APIs. Use this when integrating with third-party APIs, fetching data from external services, or automating API interactions.
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
+argument-hint: "[context] [options]"
 ---
 
 # API Integrator

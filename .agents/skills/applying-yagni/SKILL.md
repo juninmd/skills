@@ -1,6 +1,7 @@
 ---
 name: applying-yagni
 description: Skill for applying the You Aren't Gonna Need It (YAGNI) principle. Use when the code contains features, abstractions, or flexibility added "just in case" that are not currently used.
+argument-hint: "[file/module] [options]"
 ---
 
 # Applying YAGNI (You Aren't Gonna Need It)

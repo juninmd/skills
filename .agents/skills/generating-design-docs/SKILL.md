@@ -3,6 +3,7 @@ name: generating-design-docs
 description: Gera Design Docs (Confluence Markdown) a partir de código-fonte com auto-crítica arquitetural, segurança, observabilidade e qualidade de código.
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
+argument-hint: "[component/feature] [options]"
 ---
 
 # Skill: Gerador de Design Doc (DD) a partir de Código

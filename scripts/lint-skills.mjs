@@ -15,6 +15,8 @@ const skillSchema = z.object({
       message: "Name must not contain consecutive hyphens",
     }),
   description: z.string().min(1).max(1024),
+  'argument-hint': z.string().min(1),
+  'disable-model-invocation': z.boolean().optional(),
   license: z.string().optional(),
   compatibility: z.any().optional(),
   metadata: z.any().optional(),

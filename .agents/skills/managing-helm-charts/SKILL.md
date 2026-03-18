@@ -1,6 +1,7 @@
 ---
 name: managing-helm-charts
 description: Expert guidance for scaffolding, managing, and optimizing Helm charts for production Kubernetes deployments.
+argument-hint: "[resource/project] [options]"
 ---
 
 # Managing Helm Charts

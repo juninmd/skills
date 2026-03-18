@@ -1,6 +1,7 @@
 ---
 name: applying-kiss
 description: Skill for applying the Keep It Simple, Stupid (KISS) principle. Use when the code is overly complex, over-engineered, or difficult to understand.
+argument-hint: "[file/module] [options]"
 ---
 
 # Applying KISS (Keep It Simple, Stupid)

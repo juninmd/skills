@@ -3,6 +3,7 @@ name: administrating-databases
 description: Administração de bancos de dados SQL (Postgres) e NoSQL (Mongo/Redis) com foco em performance e integridade.
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
+argument-hint: "[context] [options]"
 ---
 
 # Database Administrator (DBA)

@@ -3,6 +3,8 @@ name: operating-shell
 description: Operações fundamentais de sistema e segurança no terminal Linux/Unix.
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
+argument-hint: "[command/script] [options]"
+disable-model-invocation: true
 ---
 
 # Shell Core & Safety

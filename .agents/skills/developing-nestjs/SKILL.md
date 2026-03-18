@@ -3,6 +3,7 @@ name: developing-nestjs
 description: Design, implement, and maintain production-ready NestJS backend applications with modular architecture, validation, authentication, and comprehensive testing.
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
+argument-hint: "[file/module] [options]"
 ---
 
 # NestJS Development

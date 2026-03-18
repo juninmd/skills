@@ -3,6 +3,7 @@ name: processing-nlp
 description: Process and analyze natural language text for sentiment analysis, NER, summarization, and translation
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
+argument-hint: "[context] [options]"
 ---
 
 # NLP Specialist Skill

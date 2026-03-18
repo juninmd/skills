@@ -3,6 +3,7 @@ name: managing-localization
 description: Manage application internationalization and localization including string extraction, translation files, and locale-specific formatting
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
+argument-hint: "[resource/project] [options]"
 ---
 
 # Localization Expert Skill

@@ -3,6 +3,7 @@ name: documenting-markdown
 description: Generate high-quality Markdown documentation from source code including READMEs, API references, and technical guides
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
+argument-hint: "[context] [options]"
 ---
 
 # Skill: Markdown Documenter

@@ -3,6 +3,7 @@ name: architecting-file-systems
 description: Manage, organize, and optimize complex project directory structures and file organization patterns
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
+argument-hint: "[component/feature] [options]"
 ---
 
 # Skill: File System Architect
