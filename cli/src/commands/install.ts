@@ -91,6 +91,23 @@ export async function install(options: InstallOptions): Promise<void> {
   console.log(logo);
   console.log(color.dim('  ──────────────────────────────────────────────────────────'));
 
+  // 0. Validar configuração de SSL do Git (VPN/Netskope)
+  try {
+    const sslVerify = execSync('git config --global http.sslVerify', { stdio: 'pipe' }).toString().trim();
+    if (sslVerify !== 'false') {
+      p.note(
+        'A configuração "http.sslVerify" do Git não está definida como "false".\nIsso pode causar problemas de certificado (SSL) durante a instalação se você estiver na VPN ou Netskope.\nConsidere rodar: git config --global http.sslVerify false',
+        color.yellow('Aviso de Rede / VPN')
+      );
+    }
+  } catch (err) {
+    // Se falhar, significa que a chave não está configurada (comportamento padrão é true)
+    p.note(
+      'A configuração "http.sslVerify" do Git não está definida como "false".\nIsso pode causar problemas de certificado (SSL) durante a instalação se você estiver na VPN ou Netskope.\nConsidere rodar: git config --global http.sslVerify false',
+      color.yellow('Aviso de Rede / VPN')
+    );
+  }
+
   p.intro(`${color.bgBlue(color.white(color.bold(' INSTALADOR INTERATIVO ')))}`);
 
   // 1. Verificar e atualizar via Git
@@ -350,9 +367,8 @@ async function performVSCodeInstall(toolName: string, turbo: boolean, method: 'p
       }
 
       if (method === 'plugins') {
-        const repoRoot = getRepoDir();
-        const marketplacePath = repoRoot;
-        const marketplaceUri = pathToFileURL(marketplacePath).toString();
+        // TODO: Permitir múltiplos marketplaces e ordenação personalizada no futuro
+        const marketplaceUri = "ssh://git@gitlab.luizalabs.com/luizalabs/padrao-labs-agents.git";
 
         const marketplaces = settings[VSCODE_SETTINGS_KEYS.PLUGINS_MARKETPLACES] || [];
 
