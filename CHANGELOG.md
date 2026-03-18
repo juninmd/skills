@@ -1,5 +1,18 @@
 # Changelog
 
+# [1.33.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.32.0...v1.33.0) (2026-03-18)
+
+
+### Features
+
+* **cli/build:** auto-link plugin skills/agents and validate ssl ([16691c2](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/16691c2))
+
+
+### Improvements
+
+* **.gitignore:** remove plugin generated symlinks from ignore list ([76331ee](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/76331ee))
+* **plugins:** add relative symlinks to skills and agents ([d1b09e9](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/d1b09e9))
+
 # [1.32.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.31.0...v1.32.0) (2026-03-18)
 
 
