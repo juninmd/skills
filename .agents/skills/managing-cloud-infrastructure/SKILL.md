@@ -2,7 +2,7 @@
 name: managing-cloud-infrastructure
 description: Design de arquiteturas de nuvem resilientes, escaláveis e seguras (AWS/GCP/Azure). Foco em padrões (HA/DR) e diagramas.
 metadata:
-    works_on: [copilot, antigravity, gemini_cli]
+    works_on: [copilot, antigravity]
 argument-hint: "[resource/project] [options]"
 ---
 

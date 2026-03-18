@@ -394,7 +394,7 @@ Apos criar o secret, o script mostrara exatamente o que voce precisa adicionar a
 Use o comando `init` do CLI para gerar automaticamente todos os arquivos de configuracao:
 
 ```bash
-npx @luizalabs/padrao-labs-agents init
+padrao-labs-agents init
 ```
 
 Isso vai criar (ou atualizar) os seguintes arquivos:

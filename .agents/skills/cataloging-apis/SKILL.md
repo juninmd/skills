@@ -2,7 +2,7 @@
 name: cataloging-apis
 description: Catalogação de APIs no Backstage utilizando dependency.yaml e OpenAPI specs.
 metadata:
-    works_on: [copilot, antigravity, gemini_cli]
+    works_on: [copilot, antigravity]
 argument-hint: "[context] [options]"
 ---
 

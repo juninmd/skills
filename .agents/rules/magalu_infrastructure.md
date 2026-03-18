@@ -1,6 +1,7 @@
 ---
 name: magalu-infrastructure
 description: Padrões de infraestrutura, deploy e dependências na Luizalabs (Magalu).
+applyTo: ['**/dependency.yaml', '**/hangar-info.yaml', '**/values.yaml', '**/Dockerfile']
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
 ---

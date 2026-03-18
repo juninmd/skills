@@ -2,7 +2,7 @@
 name: architecting-distributed-systems
 description: Design, analyze, and optimize distributed systems with microservices architecture and message queue communication
 metadata:
-    works_on: [copilot, antigravity, gemini_cli]
+    works_on: [copilot, antigravity]
 argument-hint: "[component/feature] [options]"
 ---
 

@@ -2,7 +2,7 @@
 name: operating-gitlab-cli
 description: Specialized skill for operating the GitLab CLI (glab) within the Luizalabs infrastructure. Use this to manage projects, merge requests, and pipelines specifically on gitlab.luizalabs.com.
 metadata:
-    works_on: [copilot, antigravity, gemini_cli]
+    works_on: [copilot, antigravity]
 argument-hint: "[resource/cluster] [options]"
 disable-model-invocation: true
 ---

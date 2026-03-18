@@ -1,0 +1,17 @@
+{
+  "name": "frontend-and-mobile",
+  "description": "UI/UX, accessibility, SEO, and cross-platform mobile development.",
+  "version": "1.0.0",
+  "skills": [
+    "../../../../.agents/skills/developing-react-native",
+    "../../../../.agents/skills/developing-ui-ux-components",
+    "../../../../.agents/skills/auditing-accessibility",
+    "../../../../.agents/skills/auditing-technical-seo",
+    "../../../../.agents/skills/validating-baseweb-charts",
+    "../../../../.agents/skills/managing-localization"
+  ],
+  "agents": [
+    "../../../../.agents/agents/frontend-expert.md",
+    "../../../../.agents/agents/mobile-engineer.md"
+  ]
+}

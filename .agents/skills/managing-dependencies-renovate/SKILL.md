@@ -2,7 +2,7 @@
 name: managing-dependencies-renovate
 description: Automação segura de atualização de dependências (npm, pip, docker) com auto-merge em patches não-quebrantes.
 metadata:
-    works_on: [copilot, antigravity, gemini_cli]
+    works_on: [copilot, antigravity]
 argument-hint: "[repo/file] [options]"
 ---
 

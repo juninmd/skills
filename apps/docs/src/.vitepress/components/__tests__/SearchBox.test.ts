@@ -43,7 +43,7 @@ describe('SearchBox', () => {
 
   it('should render category filter buttons', () => {
     const wrapper = mount(SearchBox);
-    const categories = ['agents', 'skills', 'rules', 'hooks', 'workflows'];
+    const categories = ['agents', 'skills', 'rules', 'workflows'];
 
     categories.forEach(category => {
       const button = wrapper.findAll('.filter-btn').find(btn =>

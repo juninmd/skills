@@ -13,40 +13,48 @@ function commandExists(cmd: string): boolean {
   }
 }
 
-/**
- * Detecta presença do VS Code verificando:
- * 1. Comando `code` ou `code-insiders` no PATH
- * 2. Diretório de configuração do VS Code (~/.config/Code ou equivalente por OS)
- */
-async function detectVSCode(): Promise<string> {
+async function detectVSCodeStable(): Promise<string> {
   if (commandExists('code')) return 'code';
+  const dirs = getVSCodeDirs(); // Retorna [Stable, Insiders]
+  if (await dirExists(dirs[0])) return dirs[0];
+  return '';
+}
+
+async function detectVSCodeInsiders(): Promise<string> {
   if (commandExists('code-insiders')) return 'code-insiders';
-  for (const dir of getVSCodeDirs()) {
-    if (await dirExists(dir)) return dir;
-  }
+  const dirs = getVSCodeDirs();
+  if (await dirExists(dirs[1])) return dirs[1];
   return '';
 }
 
 const TOOL_CONFIGS: Array<{
   name: string;
+  label: string;
   configDir: string;
   detect?: () => Promise<string>;
   command?: string;
 }> = [
   {
-    name: 'copilot',
-    // Pasta alvo após instalação — usada como configDir para exibição
+    name: 'vscode',
+    label: 'VS Code',
     configDir: getPadraoLabsAgentsDir(),
-    // Detecção real: presença do VS Code no sistema
-    detect: detectVSCode,
+    detect: detectVSCodeStable,
+  },
+  {
+    name: 'vscode-insiders',
+    label: 'VS Code Insiders',
+    configDir: getPadraoLabsAgentsDir(),
+    detect: detectVSCodeInsiders,
   },
   {
     name: 'gemini',
+    label: 'Gemini CLI',
     configDir: join(getHomeDir(), '.gemini'),
     command: 'gemini',
   },
   {
     name: 'antigravity',
+    label: 'Google Antigravity',
     configDir: join(getHomeDir(), '.gemini', 'antigravity'),
     command: 'antigravity',
   },

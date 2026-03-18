@@ -1,0 +1,13 @@
+{
+  "name": "quality-and-testing",
+  "description": "Software testing, quality assurance, and code review processes.",
+  "version": "1.0.0",
+  "skills": [
+    "../../../../.agents/skills/managing-quality",
+    "../../../../.agents/skills/validating-typescript"
+  ],
+  "agents": [
+    "../../../../.agents/agents/quality-engineer.md",
+    "../../../../.agents/agents/code-reviewer.md"
+  ]
+}

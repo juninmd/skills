@@ -1,84 +1,72 @@
-# 🤖 Luizalabs Agents & Skills Catalog
+# 🤖 Catálogo de Agentes e Skills Luizalabs
 
-A complete documentation and discovery platform for Luizalabs development standards, AI agent configurations, skills, rules, hooks, and workflows.
+![setup.png](.github/setup.png "Setup")
 
-## 📚 What's Included
+Uma plataforma completa de documentação e descoberta para padrões de desenvolvimento da Luizalabs, configurações de agentes de IA, skills, regras e fluxos de trabalho.
 
-- **70+ Skills** - Reusable development capabilities and patterns. The default specification for the skills is [https://agentskills.io/specification](https://agentskills.io/specification).
-- **Agents** - AI configurations for GitHub Copilot, Cursor, Antigravity, Gemini, and more
-- **Rules** - Development standards, security guidelines, best practices
-- **Hooks** - Pre-commit automation and Git patterns
-- **Workflows** - CI/CD pipelines and deployment automation
+## 📚 O que está incluído
 
-## 🏗️ Architecture
+- **70+ Skills** - Capacidades e padrões de desenvolvimento reutilizáveis. A especificação padrão para as skills segue [https://agentskills.io/specification](https://agentskills.io/specification).
+- **Agentes** - Configurações de IA para GitHub Copilot, Cursor, Antigravity, Gemini e mais.
+- **Regras** - Padrões de desenvolvimento, diretrizes de segurança e melhores práticas.
+- **Workflows** - Pipelines de CI/CD e automação de deploy.
+- **Plugins** - Organização contextual para agentes e skills (padrão Agent Plugins).
 
-This project is structured as a modern **Monorepo** using `pnpm workspaces`.
+![install.png](.github/install.png "Install")
 
-```text
-padrao-labs-agents/
-├── .agents/          ← 🌟 SOURCE OF TRUTH (READ-ONLY for consumers)
-│   ├── agents/
-│   ├── skills/       (70+ items)
-│   ├── rules/
-│   ├── hooks/
-│   └── workflows/
-├── apps/
-│   └── docs/         ← VitePress Documentation Site
-├── cli/              ← NPM CLI Package (@luizalabs/padrao-labs-agents)
-├── package.json      ← Monorepo Root (Orchestration & Global Scripts)
-└── pnpm-workspace.yaml
-```
-
-## 🚀 Quick Start (Development)
-
-**Requirements:**
-
-- Node.js 18+
-- pnpm 8+
-
-```bash
-# Install dependencies for all workspaces
-pnpm install
-
-# Run the documentation site locally (starts on http://localhost:5173)
-pnpm run dev
-
-# Build both the CLI and the Documentation
-pnpm run build
-
-# Run tests across all workspaces
-pnpm run test
-```
+![marketplace.png](.github/marketplace.png "Marketplace")
 
 ## 📦 CLI - Instalação e Uso
 
-### 🌐 Instalação Global (Recomendado)
+### 🌐 Instalação Recomendada (via Git Clone)
 
-Instale todas as skills, agents, rules, hooks e workflows globalmente com um único comando:
+Para garantir que você sempre tenha a versão mais recente e possa customizar as ferramentas, recomendamos clonar o repositório e linkar o binário globalmente:
 
 ```bash
-npx @luizalabs/padrao-labs-agents install
+# 1. Clone o repositório
+git clone git@gitlab.luizalabs.com:luizalabs/padrao-labs-agents.git
+cd padrao-labs-agents
+
+# 2. Instale as dependências e faça o build
+pnpm install
+pnpm run build
+
+# 3. Link o comando globalmente
+cd cli
+npm link
 ```
 
-#### Comandos Disponíveis
+Após esses passos, o comando `padrao-labs-agents` estará disponível no seu terminal.
+
+### 🚀 Configuração Inicial (Setup)
+
+Configure seu ambiente (VS Code/Insiders) com um único comando:
 
 ```bash
-npx @luizalabs/padrao-labs-agents install                     # Instala globalmente (auto-detecta ferramentas)
-npx @luizalabs/padrao-labs-agents install --tools copilot,gemini  # Instala apenas para ferramentas específicas
-npx @luizalabs/padrao-labs-agents init                        # Inicializa repo com arquivos padrão
-npx @luizalabs/padrao-labs-agents cron                        # Configura auto-update diário
-npx @luizalabs/padrao-labs-agents update                      # Atualiza para a versão mais recente
+padrao-labs-agents install
+```
+
+Este comando irá:
+1. Verificar atualizações no seu repositório local.
+2. Detectar instalações do VS Code e VS Code Insiders.
+3. Configurar os caminhos de regras, agentes e skills (via Agent Plugins ou Symlinks).
+
+#### Outros Comandos Disponíveis
+
+```bash
+padrao-labs-agents install --tools vscode  # Instala apenas para o VS Code Stable
+padrao-labs-agents init                    # Inicializa um projeto novo com arquivos padrão (sonar, dependency.yaml)
+padrao-labs-agents cron                    # Gerencia o agendamento de auto-update
 ```
 
 #### Mapa de Instalação Global por Ferramenta
 
-| Ferramenta      | Diretório Global         | agents | skills | rules | workflows | hooks |
-| --------------- | ------------------------ | ------ | ------ | ----- | --------- | ----- |
-| **Copilot**     | `~/.agents/`             | ✅     | ✅     | ✅    | -         | -     |
-| **Gemini CLI**  | `~/.gemini/`             | -      | ✅     | -     | -         | ✅    |
-| **Antigravity** | `~/.gemini/antigravity/` | ✅     | ✅     | ✅    | ✅        | -     |
+| Ferramenta          | Diretório Global         | agentes | skills | regras | workflows |
+| ------------------- | ------------------------ | :-----: | :----: | :----: | :-------: |
+| **VS Code**         | `~/.agents/`             |    ✅    |   ✅    |   ✅    |     -     |
+| **VS Code Insiders**| `~/.agents/`             |    ✅    |   ✅    |   ✅    |     -     |
 
-> O CLI detecta automaticamente quais ferramentas estão instaladas no sistema e instala apenas para essas.
+> O CLI detecta automaticamente quais ferramentas estão instaladas no sistema e instala apenas para elas.
 
 #### 🔄 Auto-Update Automático (Cron)
 
@@ -87,15 +75,15 @@ O CLI registra **automaticamente** um job de cron durante a instalação, manten
 | Detalhe     | Valor                                             |
 | ----------- | ------------------------------------------------- |
 | **Horário** | Segunda a Sexta, 09:00                            |
-| **Comando** | `npx @luizalabs/padrao-labs-agents@latest update` |
-| **Log**     | `~/.padrao-labs/cron.log`                         |
+| **Comando** | `padrao-labs-agents update`                       |
+| **Log**     | `~/.agents/cron.log`                             |
 
 ```bash
 # Verificar se está ativo
 crontab -l | grep padrao-labs
 
 # Remover o auto-update (não recomendado)
-npx @luizalabs/padrao-labs-agents cron --remove
+padrao-labs-agents cron --remove
 ```
 
 > **CI/CD:** O cron é ignorado automaticamente em ambientes com `CI`, `GITLAB_CI`, `GITHUB_ACTIONS`, etc.
@@ -103,7 +91,7 @@ npx @luizalabs/padrao-labs-agents cron --remove
 
 ### 🎯 Instalar Skills Individuais
 
-Instale skills específicas do repositório GitLab privado com um único comando:
+Instale skills específicas do repositório GitLab com um único comando:
 
 ```bash
 # Sintaxe
@@ -119,19 +107,47 @@ padrao-labs-agents skill install applying-clean-code
 
 #### ⚙️ Como Funciona o Cache
 
-- **Primeiro `install`**: Clona o repositório uma única vez em `~/.padrao-labs/padrao-labs-agents/` (~2.9 MB)
-- **Próximos `install`**: Reutiliza o cache existente (instantâneo!)
-- **Cada skill**: Cria um symlink local apontando para o arquivo no repositório (~4 KB)
-- **Eficiência**: Instalar 10 skills = 2.9 MB total (não 29+ MB como seria com cópias!)
+- **Repositório Local**: O CLI identifica automaticamente a pasta onde você clonou o projeto.
+- **Symlinks**: Cada skill cria um symlink local apontando para o arquivo original no seu repositório.
+- **Eficiência**: Instalações são instantâneas e ocupam quase zero de espaço extra (~4 KB por skill).
 
 #### 📍 Localização das Skills Instaladas
 
-```
+```text
 ~/.agents/skills/
-├── applying-yagni/ → ~/.padrao-labs/padrao-labs-agents/.agents/skills/applying-yagni/
-├── applying-dry/ → ~/.padrao-labs/padrao-labs-agents/.agents/skills/applying-dry/
+├── applying-yagni/ → <seu-repositorio-clonado>/.agents/skills/applying-yagni/
+├── applying-dry/   → <seu-repositorio-clonado>/.agents/skills/applying-dry/
 └── ...
 ```
+
+### 🔌 Plugins Externos (Remotos)
+
+Você pode estender o catálogo adicionando skills e agentes de repositórios externos (GitHub/GitLab). Para isso, adicione a configuração do plugin em `plugins/external.json`.
+
+**Exemplo de configuração (Dataverse):**
+
+```json
+{
+  "name": "dataverse",
+  "description": "Build and manage Microsoft Dataverse solutions using natural language. Includes table/column creation, solution lifecycle, data operations, and MCP server configuration.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Microsoft",
+    "url": "https://www.microsoft.com"
+  },
+  "homepage": "https://github.com/microsoft/Dataverse-skills",
+  "keywords": ["dataverse", "power-platform", "microsoft", "mcp", "python", "sdk"],
+  "license": "MIT",
+  "repository": "https://github.com/microsoft/Dataverse-skills",
+  "source": {
+    "source": "github",
+    "repo": "microsoft/Dataverse-skills",
+    "path": ".github/plugins/dataverse"
+  }
+}
+```
+
+Após adicionar o plugin ao arquivo, execute `pnpm run build` para sincronizar e gerar o novo catálogo.
 
 #### 📖 Documentação Detalhada
 
@@ -159,7 +175,7 @@ pnpm run build
 
 ```bash
 cd cli
-npm build
+pnpm run build
 npm link
 ```
 
@@ -173,6 +189,46 @@ padrao-labs-agents skill install applying-yagni
 
 **Dica:** Para remover o link depois, execute `npm unlink -g @luizalabs/padrao-labs-agents` dentro da pasta `cli`.
 
+## 🏗️ Arquitetura
+
+Este projeto está estruturado como um **Monorepo** moderno usando `pnpm workspaces`.
+
+```text
+padrao-labs-agents/
+├── .agents/          ← 🌟 FONTE DA VERDADE (SOMENTE LEITURA para consumidores)
+│   ├── agents/
+│   ├── skills/       (70+ itens)
+│   ├── rules/
+│   └── workflows/
+├── apps/
+│   └── docs/         ← Site de Documentação VitePress
+├── cli/              ← Pacote CLI NPM (@luizalabs/padrao-labs-agents)
+├── plugins/          ← 🔌 Agent Plugins (Organização Contextual)
+├── package.json      ← Raiz do Monorepo (Orquestração e Scripts Globais)
+└── pnpm-workspace.yaml
+```
+
+## 🚀 Início Rápido (Desenvolvimento)
+
+**Requisitos:**
+
+- Node.js 18+
+- pnpm 8+
+
+```bash
+# Instala as dependências para todos os workspaces
+pnpm install
+
+# Executa o site de documentação localmente (inicia em http://localhost:5173)
+pnpm run dev
+
+# Gera a build tanto do CLI quanto da Documentação
+pnpm run build
+
+# Executa os testes em todos os workspaces
+pnpm run test
+```
+
 ## 🤝 Como Usar no seu Projeto (Manual)
 
 Caso não queira usar o CLI, você pode baixar as definições manualmente:
@@ -185,19 +241,13 @@ curl https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/agents.
 curl https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/agents.md -o .github/copilot-instructions.md
 ```
 
-**Antigravity / Gemini:**
-
-```bash
-curl https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/agents.md -o AGENTS.md
-```
-
 **Cursor:**
 
 ```bash
 curl https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/agents.md -o .cursorrules
 ```
 
-## 🧪 Testing
+## 🧪 Testes
 
 O monorepo utiliza o `vitest` com configurações otimizadas e isoladas para cada pacote.
 
@@ -224,4 +274,4 @@ O projeto usa um script interno (`apps/docs/src/loader.js`) que, durante o proce
 
 ---
 
-Part of Luizalabs · Magalu
+Parte de Luizalabs · Magalu

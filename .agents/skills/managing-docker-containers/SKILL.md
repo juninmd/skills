@@ -2,7 +2,7 @@
 name: managing-docker-containers
 description: Criação e otimização de imagens Docker seguras, leves e prontas para produção (Multistage, Non-Root).
 metadata:
-    works_on: [copilot, antigravity, gemini_cli]
+    works_on: [copilot, antigravity]
 argument-hint: "[resource/project] [options]"
 ---
 

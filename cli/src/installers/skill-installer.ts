@@ -3,16 +3,17 @@ import * as path from 'node:path';
 import { execSync } from 'node:child_process';
 import * as os from 'node:os';
 import { log } from '../utils/logger.js';
+import { getRepoDir, getManifestDir } from '../utils/platform.js';
 
 const GITLAB_REPO = 'https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents.git';
 const SKILLS_PATH = '.agents/skills';
-const PADRAO_LABS_DIR = path.join(os.homedir(), '.padrao-labs');
-const REPO_CLONE_DIR = path.join(PADRAO_LABS_DIR, 'padrao-labs-agents');
-const AGENTS_LINK_DIR = path.join(os.homedir(), '.agents');
+const REPO_CLONE_DIR = getRepoDir();
+const AGENTS_LINK_DIR = getManifestDir();
 
 interface SkillInstallResult {
   path: string;
   skillName: string;
+  status: 'installed' | 'updated' | 'up-to-date';
 }
 
 export async function installSkill(skillName: string): Promise<SkillInstallResult> {
@@ -31,10 +32,6 @@ export async function installSkill(skillName: string): Promise<SkillInstallResul
 
   const skillLinkDir = path.join(skillsDir, skillName);
 
-  if (fs.existsSync(skillLinkDir)) {
-    throw new Error(`Skill "${skillName}" already installed at ${skillLinkDir}`);
-  }
-
   // Clone or update repo cache
   await ensureRepoCloned();
 
@@ -42,6 +39,57 @@ export async function installSkill(skillName: string): Promise<SkillInstallResul
   const skillSourceDir = path.join(REPO_CLONE_DIR, SKILLS_PATH, skillName);
   if (!fs.existsSync(skillSourceDir)) {
     throw new Error(`Skill "${skillName}" not found in repository at ${SKILLS_PATH}/${skillName}`);
+  }
+
+  let status: 'installed' | 'updated' | 'up-to-date' = 'installed';
+
+  if (fs.existsSync(skillLinkDir)) {
+    // Check for differences
+    let hasDiff = false;
+    const sourceFiles = fs.readdirSync(skillSourceDir);
+    const linkedFiles = fs.readdirSync(skillLinkDir);
+
+    if (sourceFiles.length !== linkedFiles.length) {
+      hasDiff = true;
+    } else {
+      for (const file of sourceFiles) {
+        if (!linkedFiles.includes(file)) {
+          hasDiff = true;
+          break;
+        }
+        const sourceFilePath = path.join(skillSourceDir, file);
+        const linkFilePath = path.join(skillLinkDir, file);
+        
+        try {
+          const lstat = fs.lstatSync(linkFilePath);
+          if (lstat.isSymbolicLink()) {
+            const target = fs.readlinkSync(linkFilePath);
+            if (target !== sourceFilePath) {
+              hasDiff = true;
+              break;
+            }
+          } else {
+             // Not a symlink, so it's a diff
+             hasDiff = true;
+             break;
+          }
+        } catch {
+          hasDiff = true;
+          break;
+        }
+      }
+    }
+
+    if (hasDiff) {
+      fs.rmSync(skillLinkDir, { recursive: true, force: true });
+      status = 'updated';
+    } else {
+      return {
+        path: path.join(skillLinkDir, 'SKILL.md'),
+        skillName,
+        status: 'up-to-date',
+      };
+    }
   }
 
   // Create skill directory
@@ -67,31 +115,17 @@ export async function installSkill(skillName: string): Promise<SkillInstallResul
   return {
     path: path.join(skillLinkDir, 'SKILL.md'),
     skillName,
+    status,
   };
 }
 
 async function ensureRepoCloned(): Promise<void> {
   if (fs.existsSync(REPO_CLONE_DIR)) {
-    log.detail(`Using cached repo...`);
+    log.detail(`Using local repo: ${REPO_CLONE_DIR}`);
     return;
   }
 
-  log.detail(`Cloning repository...`);
-
-  if (!fs.existsSync(PADRAO_LABS_DIR)) {
-    fs.mkdirSync(PADRAO_LABS_DIR, { recursive: true });
-  }
-
-  try {
-    execSync(`git clone --depth 1 --filter=blob:none "${GITLAB_REPO}" "${REPO_CLONE_DIR}"`, {
-      stdio: 'pipe',
-      encoding: 'utf-8',
-    });
-  } catch (error) {
-    throw new Error(
-      `Failed to clone repository: ${error instanceof Error ? error.message : String(error)}`
-    );
-  }
+  throw new Error(`Local repository not found at ${REPO_CLONE_DIR}. Please ensure you have cloned the project correctly.`);
 }
 
 function validateSkillName(skillName: string): void {

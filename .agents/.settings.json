@@ -61,9 +61,6 @@
   "github.copilot.chat.languageContext.fix.typescript.enabled": true,
   "chat.viewSessions.orientation": "stacked",
   "github.copilot.chat.switchAgent.enabled": true,
-  "chat.hookFilesLocations": {
-    "~/.agents/hooks": true
-  },
   "chat.agentFilesLocations": {
     "~/.agents/agents": true
   },

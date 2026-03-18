@@ -2,7 +2,7 @@
 name: configuring-sonarqube
 description: Configuração e padronização do arquivo sonar-project.properties para garantir o cumprimento das métricas de qualidade do Labs.
 metadata:
-    works_on: [copilot, antigravity, gemini_cli]
+    works_on: [copilot, antigravity]
 argument-hint: "[config/tool] [options]"
 ---
 

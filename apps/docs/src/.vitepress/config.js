@@ -4,14 +4,14 @@ import { vitepressMermaidPreview } from 'vitepress-mermaid-preview';
 
 export default defineConfig({
   title: 'Luizalabs Catalog',
-  description: 'Catalog of Agents, Skills & Workflows for Gemini, Antigravity & Copilot',
+  description: 'Catalog of Agents, Skills & Workflows for Copilot',
   cleanUrls: true,
   ignoreDeadLinks: true,
 
   head: [
     ['meta', { name: 'viewport', content: 'width=device-width, initial-scale=1' }],
     ['meta', { property: 'og:title', content: 'Luizalabs Catalog' }],
-    ['meta', { property: 'og:description', content: 'Catalog of Agents, Skills & Workflows for Gemini, Antigravity & Copilot' }],
+    ['meta', { property: 'og:description', content: 'Catalog of Agents, Skills & Workflows for Copilot' }],
     ['link', { rel: 'icon', href: '/favicon.svg' }]
   ],
 
@@ -38,21 +38,10 @@ export default defineConfig({
           { text: 'Agentes', link: '/agents/' },
           { text: 'Skills', link: '/skills/' },
           { text: 'Regras', link: '/rules/' },
-          { text: 'Hooks', link: '/hooks/' },
           { text: 'Workflows', link: '/workflows/' }
         ]
       },
-      { text: 'Deploy', link: '/deploy/' },
-      {
-        text: 'Guias',
-        items: [
-          { text: 'Conceitos Basicos', link: '/agentic-concepts' },
-          { text: 'Arquitetura Agentica', link: '/agentic-architecture' },
-          { text: 'GitHub Copilot', link: '/integration/copilot' },
-          { text: 'Antigravity', link: '/integration/antigravity' },
-          { text: 'Gemini CLI', link: '/integration/gemini' }
-        ]
-      }
+      { text: 'Deploy', link: '/deploy/' }
     ],
 
     sidebar: sidebar,

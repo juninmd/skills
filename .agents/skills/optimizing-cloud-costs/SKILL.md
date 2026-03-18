@@ -2,7 +2,7 @@
 name: optimizing-cloud-costs
 description: Otimização de custos de nuvem (FinOps) usando Infracost, AWS Cost Explorer e GCP Billing.
 metadata:
-    works_on: [copilot, antigravity, gemini_cli]
+    works_on: [copilot, antigravity]
 argument-hint: "[context] [options]"
 ---
 

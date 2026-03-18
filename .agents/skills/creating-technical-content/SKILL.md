@@ -2,7 +2,7 @@
 name: creating-technical-content
 description: Produce high-quality technical documentation, tutorials, blog posts, and release notes
 metadata:
-    works_on: [copilot, antigravity, gemini_cli]
+    works_on: [copilot, antigravity]
 argument-hint: "[context] [options]"
 ---
 

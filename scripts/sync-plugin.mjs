@@ -30,17 +30,6 @@ if (fs.existsSync(agentsSubDir)) {
   capabilities.agents = agents;
 }
 
-// Map Hooks (if any applicable format)
-const hooksDir = path.join(agentsDir, 'hooks');
-if (fs.existsSync(hooksDir)) {
-  const hooks = fs.readdirSync(hooksDir, { withFileTypes: true })
-    .filter(dirent => dirent.isFile() && dirent.name.endsWith('.json'))
-    .map(dirent => `.agents/hooks/${dirent.name}`);
-  if (hooks.length > 0) {
-    capabilities.hooks = hooks;
-  }
-}
-
 const pluginJson = {
   name: packageJson.name || 'padrao-labs-agents',
   version: packageJson.version || '1.0.0',

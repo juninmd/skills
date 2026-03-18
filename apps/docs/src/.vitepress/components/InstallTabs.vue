@@ -13,14 +13,8 @@
     <div class="tabs-content">
       <div class="code-container">
         <div class="code-wrapper">
-          <slot v-if="activeTab === 'gemini'" name="gemini">
-            <pre class="code-text"><code>{{ props.gemini }}</code></pre>
-          </slot>
-          <slot v-else-if="activeTab === 'copilot'" name="copilot">
+          <slot v-if="activeTab === 'copilot'" name="copilot">
             <pre class="code-text"><code>{{ props.copilot }}</code></pre>
-          </slot>
-          <slot v-else-if="activeTab === 'antigravity'" name="antigravity">
-            <pre class="code-text"><code>{{ props.antigravity }}</code></pre>
           </slot>
         </div>
         <button class="copy-btn" :class="{ copied }" @click="copyCommand" :title="copied ? 'Copiado!' : 'Copiar'">
@@ -35,19 +29,15 @@
 import { ref, computed, useSlots } from 'vue';
 
 const props = defineProps({
-  gemini: { type: String, default: '' },
-  copilot: { type: String, default: '' },
-  antigravity: { type: String, default: '' }
+  copilot: { type: String, default: '' }
 });
 
 const slots = useSlots();
-const activeTab = ref('gemini');
+const activeTab = ref('copilot');
 const copied = ref(false);
 
 const platforms = [
-  { id: 'gemini', name: 'Gemini CLI', icon: '✨' },
-  { id: 'copilot', name: 'GitHub Copilot', icon: '🤖' },
-  { id: 'antigravity', name: 'Google Antigravity', icon: '⚙️' }
+  { id: 'copilot', name: 'GitHub Copilot', icon: '🤖' }
 ];
 
 const availablePlatforms = computed(() => {

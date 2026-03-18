@@ -1,36 +1,128 @@
 import * as p from '@clack/prompts';
 import color from 'picocolors';
-import { readdir } from 'node:fs/promises';
+import { readdir, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import { execSync } from 'node:child_process';
+import { pathToFileURL } from 'node:url';
+import { parse, stringify } from 'comment-json';
 import { detectTools, getToolNames } from '../utils/detector.js';
 import { writeManifest, getCurrentPackageVersion } from '../utils/version.js';
 import { createInstaller, getAvailableInstallers } from '../installers/index.js';
-import { syncRepository, getLatestCommitHash } from '../utils/git.js';
-import { getAgentsBundleDir } from '../utils/platform.js';
+import { getLatestCommitHash } from '../utils/git.js';
+import {
+  getAgentsBundleDir,
+  getPadraoLabsAgentsDir,
+  getVSCodeSettingsPaths,
+  getHomeDir,
+  getRepoDir,
+  getGlobalCopilotIgnorePath
+} from '../utils/platform.js';
 import { log } from '../utils/logger.js';
+import { cron, isCronEnabled } from './cron.js';
+import { fileExists, ensureDir, dirExists, syncSymlinksGranular, readFileList } from '../utils/fs.js';
+import {
+  VSCODE_SETTINGS_KEYS,
+  DEFAULT_ADVANCED_SETTINGS,
+  SETTING_DESCRIPTIONS
+} from '../utils/vscode-settings.js';
 import type { InstallOptions, InstallResult } from '../types.js';
+
+function toPortablePath(p: string): string {
+  const home = getHomeDir();
+  if (p.startsWith(home)) {
+    return '~' + p.slice(home.length);
+  }
+  return p;
+}
+
+/**
+ * Calcula e exibe o diff simplificado entre dois objetos de configuração.
+ * Retorna o número de mudanças encontradas.
+ */
+function logSettingsDiff(path: string, oldSettings: any, newSettings: any): number {
+  const diffs: string[] = [];
+  const allKeys = new Set([...Object.keys(oldSettings), ...Object.keys(newSettings)]);
+
+  for (const key of allKeys) {
+    const oldValRaw = oldSettings[key];
+    const newValRaw = newSettings[key];
+    const oldValStr = JSON.stringify(oldValRaw);
+    const newValStr = JSON.stringify(newValRaw);
+
+    if (oldValStr !== newValStr) {
+      const desc = SETTING_DESCRIPTIONS[key] ? ` - ${color.gray(SETTING_DESCRIPTIONS[key])}` : '';
+
+      if (oldValRaw === undefined) {
+        // Novo parametro
+        diffs.push(`${color.green('+')} ${color.bold(key)}: ${color.green(newValStr)}${desc}`);
+      } else if (newValRaw === undefined) {
+        // Removido
+        diffs.push(`${color.red('-')} ${color.bold(key)}${desc}`);
+      } else {
+        // Modificado (exibe valor antigo e novo)
+        const valuesDiff = `(${color.dim(oldValStr)} -> ${color.yellow(newValStr)})`;
+        diffs.push(`${color.yellow('~')} ${color.bold(key)}: ${valuesDiff}${desc}`);
+      }
+    }
+  }
+
+  if (diffs.length > 0) {
+    p.log.step(`Alterações em ${color.cyan(toPortablePath(path))}:`);
+    diffs.forEach(d => p.log.message(`  ${d}`));
+  }
+
+  return diffs.length;
+}
 
 export async function install(options: InstallOptions): Promise<void> {
   console.clear();
-  
-  // Logo ASCII impactante (Simetria total da letra O e alinhamento de blocos)
+
+  // Logo ASCII compacto e moderno: PADRÃO LABS
   const logo = `
-   ${color.blue('██████╗ ')}  ${color.magenta('█████╗ ')}  ${color.blue('██████╗ ')}  ${color.magenta('██████╗ ')}  ${color.blue('█████╗ ')}   ${color.magenta('██████╗ ')}
-   ${color.blue('██╔══██╗')} ${color.magenta('██╔══██╗')} ${color.blue('██╔══██╗')} ${color.magenta('██╔══██╗')} ${color.blue('██╔══██╗')}  ${color.magenta('██╔═══██╗')}
-   ${color.blue('██████╔╝')} ${color.magenta('███████║')} ${color.blue('██║  ██║')} ${color.magenta('██████╔╝')} ${color.blue('███████║')}  ${color.magenta('██║   ██║')}
-   ${color.blue('██╔═══╝ ')} ${color.magenta('██╔══██║')} ${color.blue('██║  ██║')} ${color.magenta('██╔══██╗')} ${color.blue('██╔══██║')}  ${color.magenta('██║   ██║')}
-   ${color.blue('██║     ')} ${color.magenta('██║  ██║')} ${color.blue('██████╔╝')} ${color.magenta('██║  ██║')} ${color.blue('██║  ██║')}  ${color.magenta('████████║')}
-   ${color.blue('╚═╝     ')} ${color.magenta('╚═╝  ╚═╝')} ${color.blue('╚═════╝ ')} ${color.magenta('╚═╝  ╚═╝')} ${color.blue('╚═╝  ╚═╝')}   ${color.magenta('╚═══════╝')}
-          ${color.cyan(color.bold('L A B S   A G E N T S   E N G I N E'))} ${color.dim(`v${await getCurrentPackageVersion()}`)}
-  ${color.dim('https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents')}
-  `;  
+   ${color.blue('██████╗  █████╗ ██████╗ ██████╗  █████╗  ██████╗     ██╗      █████╗ ██████╗ ███████╗')}
+   ${color.blue('██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔═══██╗    ██║     ██╔══██╗██╔══██╗██╔════╝')}
+   ${color.green('██████╔╝███████║██║  ██║██████╔╝███████║██║   ██║    ██║     ███████║██████╔╝███████╗')}
+   ${color.green('██╔═══╝ ██╔══██║██║  ██║██╔══██╗██╔══██║██║   ██║    ██║     ██╔══██║██╔══██╗╚════██║')}
+   ${color.cyan('██║     ██║  ██║██████╔╝██║  ██║██║  ██║╚██████╔╝    ███████╗██║  ██║██████╔╝███████║')}
+   ${color.cyan('╚═╝     ╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝     ╚══════╝╚═╝  ╚═╝╚═════╝ ╚══════╝')}
+   ${color.white(color.bold('                      L A B S   A G E N T S   E N G I N E'))} ${color.dim(`v${await getCurrentPackageVersion()}`)}
+  ${color.dim('           https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents')}
+  `;
   console.log(logo);
   console.log(color.dim('  ──────────────────────────────────────────────────────────'));
-  
+
   p.intro(`${color.bgBlue(color.white(color.bold(' INSTALADOR INTERATIVO ')))}`);
 
-  // Determina quais ferramentas instalar
+  // 1. Verificar e atualizar via Git
+  const s = p.spinner();
+  const repoDir = getRepoDir();
+  if (!options.dryRun) {
+    s.start(`Verificando atualizações em: ${color.dim(repoDir)}`);
+    try {
+      const isGitRepo = execSync('git rev-parse --is-inside-work-tree', { cwd: repoDir, stdio: 'pipe' }).toString().trim() === 'true';
+      if (isGitRepo) {
+        execSync('git fetch', { cwd: repoDir, stdio: 'pipe' });
+        const local = execSync('git rev-parse @', { cwd: repoDir, stdio: 'pipe' }).toString().trim();
+        const remote = execSync('git rev-parse @{u}', { cwd: repoDir, stdio: 'pipe' }).toString().trim();
+
+        if (local !== remote) {
+          s.message('Atualizando projeto automaticamente...');
+          execSync('git pull', { cwd: repoDir, stdio: 'pipe' });
+          s.stop('Projeto atualizado com sucesso.');
+          p.note(`O projeto em ${color.cyan(repoDir)} foi atualizado. Por favor, reinicie o comando para garantir que as alterações mais recentes sejam aplicadas.`, 'RESTART NECESSÁRIO');
+          process.exit(0);
+        }
+      }
+      s.stop('Projeto já está na versão mais recente.');
+    } catch (err) {
+      s.stop(`Aviso: Não foi possível verificar atualizações em ${color.dim(repoDir)} (continuando com versão local).`);
+    }
+  }
+
+  // 2. Detectar ferramentas
   let toolsToInstall: string[] = [];
+  let installationMethod: 'plugins' | 'raiz' = 'plugins';
+  let turboSettings = false;
 
   if (options.tools && options.tools.length > 0) {
     const available = getAvailableInstallers();
@@ -41,7 +133,6 @@ export async function install(options: InstallOptions): Promise<void> {
     }
     toolsToInstall = options.tools;
   } else {
-    const s = p.spinner();
     s.start('Detectando ferramentas instaladas...');
     const detections = await detectTools();
     const detected = detections.filter(d => d.detected);
@@ -54,18 +145,17 @@ export async function install(options: InstallOptions): Promise<void> {
       );
     }
 
-    const availableTools = getToolNames();
-    const toolChoices = availableTools.map(t => ({
-      value: t,
-      label: t.charAt(0).toUpperCase() + t.slice(1),
-      hint: detected.find(d => d.name === t) ? 'Detectado' : 'Nao detectado'
+    const toolChoices = detections.map(d => ({
+      value: d.name,
+      label: (d as any).label || d.name,
+      hint: d.detected ? 'Detectado' : 'Instalacao manual',
+      disabled: d.name === 'gemini' || d.name === 'antigravity'
     }));
 
-    // Copilot habilitado por padrão, os outros desmarcados (mesmo se detectados)
     const result = await p.multiselect({
       message: 'Quais ferramentas voce deseja configurar?',
       options: toolChoices,
-      initialValues: ['copilot'], // Apenas copilot por padrão
+      initialValues: detections.filter(d => d.detected && d.name.startsWith('vscode')).map(d => d.name),
       required: true
     });
 
@@ -77,22 +167,56 @@ export async function install(options: InstallOptions): Promise<void> {
     toolsToInstall = result as string[];
   }
 
-  const s = p.spinner();
+  // 3. Perguntas específicas se VS Code selecionado
+  const hasVSCode = toolsToInstall.some(t => t.startsWith('vscode'));
+  if (hasVSCode) {
+    const turbo = await p.confirm({
+      message: 'Deseja turbinar as configurações do VS Code? (Otimiza o settings.json sem forçar caminhos de skills)',
+      initialValue: true,
+    });
 
-  if (!options.dryRun) {
-    s.start('Sincronizando repositorio oficial (git pull)...');
-    try {
-      syncRepository();
-      s.stop('Repositorio sincronizado com sucesso.');
-    } catch (err) {
-      s.stop('Aviso: Falha ao sincronizar repositorio (usando versao local).');
+    if (p.isCancel(turbo)) {
+      p.cancel('Instalacao cancelada.');
+      process.exit(0);
     }
+    turboSettings = turbo;
+
+    const method = await p.select({
+      message: 'Selecione o meio de instalação para o VS Code:',
+      options: [
+        { value: 'plugins', label: 'Agent Plugins (Recomendado)', hint: 'Organização moderna por contexto' },
+        { value: 'raiz', label: 'Raiz (Tradicional)', hint: 'Modifica pastas agents e skills diretamente' },
+      ],
+    });
+
+    if (p.isCancel(method)) {
+      p.cancel('Instalacao cancelada.');
+      process.exit(0);
+    }
+    installationMethod = method as 'plugins' | 'raiz';
   }
 
   // Executa instalacao
   const results: InstallResult[] = [];
-  
+
   for (const toolName of toolsToInstall) {
+    if (toolName === 'vscode' || toolName === 'vscode-insiders') {
+      const label = toolName === 'vscode' ? 'VS Code' : 'VS Code Insiders';
+      await performVSCodeInstall(toolName, turboSettings, installationMethod, options);
+      results.push({
+        tool: toolName,
+        skipped: false,
+        copiedCategories: [
+          { category: 'settings', filesCount: 1, targetDir: `${label} Settings` }
+        ],
+        summary: [
+          `Instalação via ${installationMethod === 'plugins' ? 'Agent Plugins' : 'Modo Raiz'}`,
+          turboSettings ? 'Configurações turbo habilitadas' : 'Configurações base'
+        ]
+      });
+      continue;
+    }
+
     s.start(`Instalando contextos para ${color.cyan(color.bold(toolName))}...`);
     const installer = createInstaller(toolName, options);
     if (!installer) {
@@ -133,8 +257,8 @@ export async function install(options: InstallOptions): Promise<void> {
     // Coleta inventário de componentes para o manifesto
     const agentsBundleDir = getAgentsBundleDir();
     const inventory: any = {};
-    const categoriesToScan = ['skills', 'agents', 'rules', 'workflows', 'hooks'];
-    
+    const categoriesToScan = ['skills', 'agents', 'rules', 'workflows'];
+
     for (const cat of categoriesToScan) {
       try {
         const catPath = join(agentsBundleDir, cat);
@@ -154,28 +278,176 @@ export async function install(options: InstallOptions): Promise<void> {
       inventory,
     });
 
-    // Construção do resumo detalhado
     let summaryText = `${color.bold('Ferramentas:')} ${color.cyan(results.filter(r => !r.skipped).map(r => r.tool).join(', '))}\n`;
-    summaryText += `${color.bold('Arquivos linkados (syslin):')} ${color.green(String(totalFiles))}\n`;
-    
-    summaryText += `\n${color.bold('Categorias instaladas:')}\n`;
-    for (const [cat, count] of Object.entries(categories)) {
-      summaryText += `  ${color.blue('•')} ${cat.padEnd(12)}: ${color.yellow(String(count))} arquivos\n`;
-    }
-
-    // Adiciona sumário de configurações específicas dos installers
-    const extraConfigs = results.filter(r => !r.skipped).flatMap(r => r.summary || []);
-    if (extraConfigs.length > 0) {
-      summaryText += `\n${color.bold('Configuracoes habilitadas:')}\n`;
-      for (const config of extraConfigs) {
-        summaryText += `  ${color.green('✔')} ${config}\n`;
-      }
-    }
+    summaryText += `${color.bold('Arquivos/Configuracoes:')} ${color.green(String(totalFiles))}\n`;
 
     summaryText += `\n${color.bold('Manifesto:')} ${color.dim('~/.agents/manifest.json')}`;
 
     p.note(summaryText, 'Resumo da Instalacao');
   }
 
+  // Sugestao de auto-update via cron
+  if (!options.dryRun && !isCronEnabled()) {
+    const shouldEnableCron = await p.confirm({
+      message: 'Deseja habilitar a atualizacao automatica diaria (auto-update)?',
+      initialValue: true,
+    });
+
+    if (shouldEnableCron && !p.isCancel(shouldEnableCron)) {
+      await cron({ remove: false });
+    }
+  }
+
   p.outro(`${color.green(color.bold('✔'))} Instalacao finalizada com sucesso!`);
+}
+
+async function performVSCodeInstall(toolName: string, turbo: boolean, method: 'plugins' | 'raiz', options: InstallOptions) {
+  const allSettingsPaths = getVSCodeSettingsPaths();
+  const agentsDir = getPadraoLabsAgentsDir();
+
+  // Filtra caminhos baseado na variante (Stable vs Insiders)
+  const variantKeyword = toolName === 'vscode-insiders' ? 'Insiders' : 'Code';
+  const settingsPaths = allSettingsPaths.filter(p => {
+    // No Linux/macOS o caminho do Insiders contém "Insiders"
+    // No Windows o caminho do Insiders contém "Code - Insiders"
+    if (toolName === 'vscode-insiders') {
+       return p.includes('Insiders');
+    }
+    // Para VS Code estável, garantimos que NÃO tenha Insiders no caminho
+    return !p.includes('Insiders');
+  });
+
+  if (settingsPaths.length === 0) return;
+
+  const label = toolName === 'vscode' ? 'VS Code' : 'VS Code Insiders';
+  p.log.step(`Configurando ${settingsPaths.length} perfis do ${label}...`);
+
+  for (const settingsPath of settingsPaths) {
+    if (await fileExists(settingsPath)) {
+      let settings: any = {};
+      let oldSettings: any = {};
+
+      try {
+        const raw = await readFile(settingsPath, 'utf-8');
+        settings = parse(raw);
+        oldSettings = parse(raw); // Cópia para o diff
+      } catch (err) {
+        p.log.error(`Erro ao ler ${settingsPath}: ${err instanceof Error ? err.message : String(err)}`);
+        continue;
+      }
+
+      if (turbo) {
+        for (const [key, value] of Object.entries(DEFAULT_ADVANCED_SETTINGS)) {
+          if (key !== VSCODE_SETTINGS_KEYS.SKILLS_LOCS &&
+              key !== VSCODE_SETTINGS_KEYS.AGENTS_LOCS &&
+              key !== VSCODE_SETTINGS_KEYS.RULES_LOCS &&
+              key !== VSCODE_SETTINGS_KEYS.PLUGINS_PATHS &&
+              key !== VSCODE_SETTINGS_KEYS.PLUGINS_MARKETPLACES &&
+              key !== VSCODE_SETTINGS_KEYS.PLUGINS_ENABLED) {
+            settings[key] = value;
+          }
+        }
+      }
+
+      if (method === 'plugins') {
+        const repoRoot = getRepoDir();
+        const marketplacePath = repoRoot;
+        const marketplaceUri = pathToFileURL(marketplacePath).toString();
+
+        const marketplaces = settings[VSCODE_SETTINGS_KEYS.PLUGINS_MARKETPLACES] || [];
+
+        if (Array.isArray(marketplaces)) {
+           if (!marketplaces.includes(marketplaceUri)) {
+              marketplaces.push(marketplaceUri);
+           }
+        } else {
+           settings[VSCODE_SETTINGS_KEYS.PLUGINS_MARKETPLACES] = [marketplaceUri];
+        }
+
+        settings[VSCODE_SETTINGS_KEYS.PLUGINS_MARKETPLACES] = marketplaces;
+        settings[VSCODE_SETTINGS_KEYS.PLUGINS_ENABLED] = true;
+      } else {
+        const skillsLocs = settings[VSCODE_SETTINGS_KEYS.SKILLS_LOCS] || {};
+        const agentsLocs = settings[VSCODE_SETTINGS_KEYS.AGENTS_LOCS] || {};
+        const rulesLocs = settings[VSCODE_SETTINGS_KEYS.RULES_LOCS] || {};
+
+        skillsLocs[join(agentsDir, 'skills')] = true;
+        agentsLocs[join(agentsDir, 'agents')] = true;
+        rulesLocs[join(agentsDir, 'rules')] = true;
+
+        settings[VSCODE_SETTINGS_KEYS.SKILLS_LOCS] = skillsLocs;
+        settings[VSCODE_SETTINGS_KEYS.AGENTS_LOCS] = agentsLocs;
+        settings[VSCODE_SETTINGS_KEYS.RULES_LOCS] = rulesLocs;
+      }
+
+      // Exibe o diff antes de salvar
+      const changeCount = logSettingsDiff(settingsPath, oldSettings, settings);
+
+      if (changeCount === 0) {
+        p.log.info(`🚀 ${color.green('Tudo em ordem!')} As configurações em ${color.cyan(toPortablePath(settingsPath))} já estavam atualizadas.`);
+      }
+
+      if (!options.dryRun && changeCount > 0) {
+        await writeFile(settingsPath, stringify(settings, null, 2), 'utf-8');
+        p.log.success(`✅ Configurações salvas em ${color.cyan(toPortablePath(settingsPath))}`);
+      }
+    }
+  }
+
+  // Gera o ~/.copilotignore global
+  if (!options.dryRun) {
+    await generateCopilotIgnore();
+    p.log.success(`✅ Arquivo ${color.cyan('~/.copilotignore')} global configurado`);
+  }
+
+  if (method === 'raiz' && !options.dryRun) {
+    const bundleDir = getAgentsBundleDir();
+    await ensureDir(agentsDir);
+    await syncSymlinksGranular(join(bundleDir, 'skills'), join(agentsDir, 'skills'));
+    await syncSymlinksGranular(join(bundleDir, 'agents'), join(agentsDir, 'agents'));
+    await syncSymlinksGranular(join(bundleDir, 'rules'), join(agentsDir, 'rules'));
+    await syncSymlinksGranular(join(bundleDir, 'workflows'), join(agentsDir, 'workflows'));
+  }
+}
+
+async function generateCopilotIgnore(): Promise<void> {
+  const ignorePath = getGlobalCopilotIgnorePath();
+  const MANAGED_HEADER = '# Gerenciado por padrao-labs-agents CLI';
+
+  const baseline = [
+    MANAGED_HEADER,
+    '# Secrets & Credentials',
+    '.env',
+    '.env.*',
+    '**/*.pem',
+    '**/*.key',
+    'secrets/',
+    '',
+    '# Build Artifacts',
+    'dist/',
+    'build/',
+    '.next/',
+    'out/',
+    '',
+    '# Package Managers & Context',
+    'node_modules/',
+    '.venv/',
+    'package-lock.json',
+    'pnpm-lock.yaml',
+    'yarn.lock'
+  ].join('\n');
+
+  let current = '';
+  if (await fileExists(ignorePath)) {
+    try {
+      current = await readFile(ignorePath, 'utf-8');
+    } catch { /* ignore */ }
+  }
+
+  if (current.includes(MANAGED_HEADER)) {
+    await writeFile(ignorePath, baseline, 'utf-8');
+  } else {
+    const separator = current.trim() ? '\n\n' : '';
+    await writeFile(ignorePath, baseline + separator + current, 'utf-8');
+  }
 }

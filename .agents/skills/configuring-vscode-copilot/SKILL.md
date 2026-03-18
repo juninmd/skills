@@ -2,7 +2,7 @@
 name: configuring-vscode-copilot
 description: Configure GitHub Copilot and VS Code for optimal AI-assisted development. Creates .copilotignore files, tunes settings.json (disable Copilot per-language, subagents, etc.) and applies workspace-level optimizations.
 metadata:
-    works_on: [copilot]
+    works_on: [copilot, antigravity]
 argument-hint: "[config/tool] [options]"
 disable-model-invocation: true
 ---

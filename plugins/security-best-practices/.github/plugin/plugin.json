@@ -1,23 +1,17 @@
 {
   "name": "security-best-practices",
-  "description": "Security frameworks, accessibility guidelines, performance optimization, and code quality best practices for building secure, maintainable, and high-performance applications.",
+  "description": "Security auditing, incident response, and best practices for secure environments.",
   "version": "1.0.0",
-  "author": {
-    "name": "Awesome Copilot Community"
-  },
-  "repository": "https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents",
-  "license": "MIT",
-  "keywords": [
-    "security",
-    "accessibility",
-    "performance",
-    "code-quality",
-    "owasp",
-    "a11y",
-    "optimization",
-    "best-practices"
-  ],
   "skills": [
-    "./skills/ai-prompt-engineering-safety-review"
+    "../../../../.agents/skills/managing-security",
+    "../../../../.agents/skills/securing-environments",
+    "../../../../.agents/skills/responding-cyber-incidents",
+    "../../../../.agents/skills/triaging-incidents",
+    "../../../../.agents/skills/auditing-code",
+    "../../../../.agents/skills/configuring-netskope",
+    "../../../../.agents/skills/authenticating-sso-corp"
+  ],
+  "agents": [
+    "../../../../.agents/agents/secops-agent.md"
   ]
 }

@@ -2,7 +2,7 @@
 name: navigating-organizations
 description: Navegação em estruturas organizacionais e busca em bases de conhecimento históricas (Confluence, Mapa Labs).
 metadata:
-    works_on: [copilot, antigravity, gemini_cli]
+    works_on: [copilot, antigravity]
 argument-hint: "[context] [options]"
 ---
 

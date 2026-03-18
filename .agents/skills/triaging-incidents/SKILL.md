@@ -2,7 +2,7 @@
 name: triaging-incidents
 description: Investigação de incidentes, triagem de alertas e mapeamento de recursos cloud com rigor forense (DNS/Logs/Impact).
 metadata:
-    works_on: [copilot, antigravity, gemini_cli]
+    works_on: [copilot, antigravity]
 argument-hint: "[incident/alert] [options]"
 disable-model-invocation: true
 ---

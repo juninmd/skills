@@ -2,7 +2,7 @@
 name: generating-skills
 description: Generate new Agent Skills that strictly adhere to the agentskills.io/specification format.
 metadata:
-    works_on: [copilot, antigravity, gemini_cli]
+    works_on: [copilot, antigravity]
 argument-hint: "[component/feature] [options]"
 ---
 
@@ -40,7 +40,7 @@ This skill enables the agent to scaffold new Agent Skills that comply with the `
 name: generating-skills
 description: This is a brief description of what the skill does.
 metadata:
-    works_on: [copilot, antigravity, gemini_cli]
+    works_on: [copilot, antigravity]
 ---
 
 # Example Skill Name

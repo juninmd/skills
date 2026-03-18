@@ -1,8 +1,8 @@
 <template>
   <div class="category-section">
     <h2 class="text-center">Explore o Catálogo</h2>
-      <p style="text-align: center; color: var(--vp-c-text-2); margin-bottom: 2.5rem;">Navegue por Agentes, Skills, Regras, Hooks e Workflows</p>
-    <div class="grid grid-cols-3 gap-lg">
+      <p style="text-align: center; color: var(--vp-c-text-2); margin-bottom: 2.5rem;">Navegue por Agentes, Skills, Regras e Workflows</p>
+    <div class="grid grid-cols-2 gap-lg">
       <a v-for="cat in categories" :key="cat.title" :href="cat.link" class="card p-lg text-decoration-none">
         <div class="card-icon">{{ cat.icon }}</div>
         <h3>{{ cat.title }}</h3>
@@ -33,12 +33,6 @@ const categories = [
     description: 'Padrões obrigatórios para segurança, qualidade de código e performance.'
   },
   {
-    title: 'Hooks',
-    link: '/hooks/',
-    icon: '🪝',
-    description: 'Git hooks para automação de pré-commit e pré-push.'
-  },
-  {
     title: 'Fluxos de Trabalho',
     link: '/workflows/',
     icon: '🔄',
@@ -65,8 +59,8 @@ const categories = [
   gap: 1rem;
 }
 
-.grid-cols-3 {
-  grid-template-columns: repeat(3, 1fr);
+.grid-cols-2 {
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .card {
@@ -108,14 +102,8 @@ const categories = [
   line-height: 1.5;
 }
 
-@media (max-width: 960px) {
-  .grid-cols-3 {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
 @media (max-width: 640px) {
-  .grid-cols-3 {
+  .grid-cols-2 {
     grid-template-columns: 1fr;
   }
 }

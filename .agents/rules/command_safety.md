@@ -1,5 +1,6 @@
 ---
 trigger: model_decision
+applyTo: ['*']
 description: Regras críticas de segurança para execução de comandos destrutivos.
 ---
 

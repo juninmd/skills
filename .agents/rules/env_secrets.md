@@ -1,6 +1,7 @@
 ---
 name: env-secrets
 description: Protocolo para gerenciamento de variáveis de ambiente e proteção de informações sensíveis.
+applyTo: ['**/*', '**/.*env*', '**/.gitignore']
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
 ---

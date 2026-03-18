@@ -11,25 +11,18 @@
     "AI",
     "Education"
   ],
-  "contributes": {
-    "agentSkills": [
-      {
-        "id": "padrao-labs-agents",
-        "description": "Luizalabs Standard Agents, Skills and Rules",
-        "path": "./.agents"
-      }
-    ]
-  },
   "type": "module",
   "scripts": {
     "dev": "pnpm -r run dev",
     "sync-plugin": "node scripts/sync-plugin.mjs",
-    "prebuild": "pnpm run sync-plugin",
+    "prebuild": "pnpm run sync-plugin && pnpm run gen:marketplace && pnpm run lint:plugins",
     "build": "pnpm -r run build",
     "start": "pnpm -r run start",
     "lint:md": "markdownlint '**/*.md' --ignore node_modules --ignore docs --ignore .",
     "lint:md:fix": "markdownlint '**/*.md' --ignore node_modules --ignore docs --ignore . --fix",
     "lint:skills": "node scripts/lint-skills.mjs",
+    "lint:plugins": "node scripts/lint-plugins.mjs",
+    "gen:marketplace": "node scripts/generate-marketplace.mjs",
     "test": "pnpm -r run test",
     "test:run": "pnpm -r run test:run",
     "test:ui": "pnpm -r run test:ui",

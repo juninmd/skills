@@ -2,7 +2,7 @@
 name: managing-mlops
 description: Manage the lifecycle of machine learning models from deployment to monitoring and retraining
 metadata:
-    works_on: [copilot, antigravity, gemini_cli]
+    works_on: [copilot, antigravity]
 argument-hint: "[resource/project] [options]"
 ---
 

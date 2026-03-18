@@ -25,7 +25,6 @@ const categoryLabels = {
   agents: 'Agentes',
   skills: 'Skills (Capacidades)',
   rules: 'Regras',
-  hooks: 'Hooks (Automações)',
   workflows: 'Workflows (Fluxos)'
 };
 

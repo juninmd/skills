@@ -2,7 +2,7 @@
 name: securing-environments
 description: Proteção de segredos e gestão rigorosa de arquivos .env e .gitignore para evitar vazamentos.
 metadata:
-    works_on: [copilot, antigravity, gemini_cli]
+    works_on: [copilot, antigravity]
 argument-hint: "[context] [options]"
 ---
 

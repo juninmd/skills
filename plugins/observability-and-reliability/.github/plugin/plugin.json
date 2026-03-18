@@ -1,0 +1,12 @@
+{
+  "name": "observability-and-reliability",
+  "description": "System health, performance optimization, and site reliability engineering.",
+  "version": "1.0.0",
+  "skills": [
+    "../../../../.agents/skills/managing-observability",
+    "../../../../.agents/skills/engineering-reliability",
+    "../../../../.agents/skills/optimizing-performance",
+    "../../../../.agents/skills/configuring-sonarqube",
+    "../../../../.agents/skills/managing-dependencies-renovate"
+  ]
+}

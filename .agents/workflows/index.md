@@ -10,5 +10,4 @@ Os workflows são compatíveis exclusivamente com:
 - **GitHub Copilot** (VS Code / Visual Studio)
 - **Google Antigravity**
 
-> **Nota:** Hooks são exclusivos para Gemini CLI. Veja a seção [Hooks](/hooks/) para automações específicas do Gemini CLI.
 

@@ -113,7 +113,7 @@ const renderedHtml = ref('');
 const rawMarkdown = ref('');
 const loadingRaw = ref(false);
 const rawCopied = ref(false);
-const activeInstallTab = ref('gemini');
+const activeInstallTab = ref('copilot');
 
 const platformLabels = {
   gemini: '✨ Gemini CLI',
@@ -137,11 +137,11 @@ const parsedInstallCmds = computed(() => {
 
 const availablePlatforms = computed(() => {
   const platforms = Object.keys(parsedInstallCmds.value);
-  return platforms.length > 0 ? platforms : ['gemini'];
+  return platforms.length > 0 ? platforms : ['copilot'];
 });
 
 const currentInstallCmd = computed(() => {
-  if (!activeInstallTab.value) activeInstallTab.value = availablePlatforms.value[0] || 'gemini';
+  if (!activeInstallTab.value) activeInstallTab.value = availablePlatforms.value[0] || 'copilot';
   const cmd = parsedInstallCmds.value?.[activeInstallTab.value] || installCmd.value;
   return cmd;
 });

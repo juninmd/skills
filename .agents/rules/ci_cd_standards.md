@@ -1,6 +1,7 @@
 ---
 name: ci-cd-standards
 description: Padrões para integração contínua e qualidade de código (GitLab CI, SonarQube).
+applyTo: ['**/.gitlab-ci.yml', '**/sonar-project.properties', '**/sonar.properties']
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
 ---

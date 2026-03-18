@@ -2,7 +2,7 @@
 name: managing-security
 description: This skill enables the agent to perform security-related tasks, such as vulnerability scanning, security audits, and implementing security best practices. Use this when conducting security reviews, scanning for vulnerabilities, or implementing secure coding practices.
 metadata:
-    works_on: [copilot, antigravity, gemini_cli]
+    works_on: [copilot, antigravity]
 argument-hint: "[resource/project] [options]"
 ---
 
