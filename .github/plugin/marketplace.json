@@ -1,0 +1,20 @@
+{
+  "name": "padrao-labs-agents-root",
+  "metadata": {
+    "description": "Agents, Skills, Rules, and Workflows",
+    "version": "1.0.0",
+    "pluginRoot": "./"
+  },
+  "owner": {
+    "name": "Antonio",
+    "email": "antonio.junior@luizalabs.com"
+  },
+  "plugins": [
+    {
+      "name": "padrao-labs-agents",
+      "source": ".",
+      "description": "Luizalabs Agents, Skills, Rules, and Workflows",
+      "version": "1.0.0"
+    }
+  ]
+}
