@@ -1,5 +1,17 @@
 # Changelog
 
+# [1.32.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.31.0...v1.32.0) (2026-03-18)
+
+
+### Bug Fixes
+
+* readme ([3f8050f](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/3f8050f))
+
+
+### Features
+
+* update README with git config command and modify marketplace URI in install command ([b94ce37](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/b94ce37))
+
 # [1.31.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.30.0...v1.31.0) (2026-03-18)
 
 
