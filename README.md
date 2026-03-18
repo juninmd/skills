@@ -1,5 +1,7 @@
 # 🤖 Catálogo de Agentes e Skills Luizalabs
 
+[![Documentation](https://img.shields.io/badge/catalogo-padrao--labs--agents.luizalabs.com-blue?style=for-the-badge)](https://padrao-labs-agents.luizalabs.com/)
+
 ![setup.png](.github/setup.png "Setup")
 
 Uma plataforma completa de documentação e descoberta para padrões de desenvolvimento da Luizalabs, configurações de agentes de IA, skills, regras e fluxos de trabalho.
