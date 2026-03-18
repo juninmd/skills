@@ -23,6 +23,8 @@
   "type": "module",
   "scripts": {
     "dev": "pnpm -r run dev",
+    "sync-plugin": "node scripts/sync-plugin.mjs",
+    "prebuild": "pnpm run sync-plugin",
     "build": "pnpm -r run build",
     "start": "pnpm -r run start",
     "lint:md": "markdownlint '**/*.md' --ignore node_modules --ignore docs --ignore .",
