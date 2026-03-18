@@ -1,0 +1,1 @@
+../../../.agents/agents/terminal-operator.md
