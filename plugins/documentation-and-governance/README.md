@@ -10,4 +10,5 @@ Responsável por manter padrões, auditar governança de agentes autônomos e ge
 - **Governança de Agentes**: `reviewing-skills`, `generating-skills`, `running-autonomous-loops`, `configuring-vscode-copilot`.
 - **Navegação e Pesquisa**: `researching-web`, `navigating-organizations`.
 
+## 🚀 Como Utilizar
 Quando o objetivo for mapear processos organizacionais, registrar Design Docs, atualizar CHANGELOGs, pesquisar referências técnicas ou criar/melhorar agentes e skills no ecossistema atual.

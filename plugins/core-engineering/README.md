@@ -12,4 +12,5 @@ Este plugin fornece um conjunto robusto de agentes e habilidades (skills) focado
 - **Desenvolvimento e Ferramentas**: `developing-nestjs`, `developing-node`, `developing-python`, `developing-tooling`.
 - **APIs e Banco de Dados**: `designing-graphql-schemas`, `integrating-apis`, `administrating-databases`, `cataloging-apis`.
 
+## 🚀 Como Utilizar
 Estas skills e agentes podem ser invocados diretamente nos fluxos de engenharia de backend e arquitetura através do Copilot/Gemini utilizando os caminhos lógicos de configuração, mantendo a estrutura original em `.agents` intacta.
