@@ -1,213 +1,139 @@
 # Primeiros Passos
 
-Bem-vindo ao Catalogo Luizalabs de Agentes e Skills de IA! Este guia vai te ajudar a configurar tudo do zero, mesmo que voce nunca tenha usado ferramentas de programacao antes.
+Bem-vindo ao Catalogo Luizalabs de Agentes e Skills de IA! Este guia vai te ajudar a configurar e entender tudo do zero, focando na sua experiência com o Visual Studio Code e o GitHub Copilot.
 
 ---
 
-## Antes de Comecar: Instalando o Node.js
+## 1. O que é Engenharia Agêntica?
 
-O nosso instalador usa uma ferramenta chamada **npx**, que vem junto com o **Node.js**. O Node.js e um programa gratuito e seguro, usado por milhoes de pessoas no mundo todo.
+A indústria de desenvolvimento de software está transitando de um modelo assistido por ferramentas passivas para um paradigma de colaboração ativa com Inteligência Artificial (IA), denominado "Engenharia Agêntica". Diferentemente dos assistentes de codificação do passado (apenas autocompletar), as plataformas contemporâneas introduzem o conceito de "Agentes Autônomos", que percebem o ambiente, planejam ações, usam ferramentas e iteram sobre erros.
 
-### O que e o Node.js?
+Antes de abrir o VS Code, entenda os termos como se fossem a estrutura de uma empresa:
 
-E um programa que roda no seu computador e permite executar ferramentas de linha de comando (como o nosso instalador). Voce so precisa instalar uma vez.
-
-### Como instalar
-
-1. Acesse **[nodejs.org](https://nodejs.org)**
-2. Clique no botao verde **LTS** (versao recomendada)
-3. Baixe e execute o instalador
-4. Siga os passos do instalador (pode clicar "Next" em tudo)
-5. Quando terminar, abra o **Terminal** e digite:
-
-```bash
-node --version
-```
-
-Se aparecer algo como `v20.x.x` ou `v22.x.x`, esta tudo certo!
-
-::: tip Como abrir o Terminal?
-
-- **Windows:** Pressione `Win + R`, digite `cmd` e pressione Enter. Ou procure por "Prompt de Comando" no Menu Iniciar.
-- **Mac:** Pressione `Cmd + Espaco`, digite `Terminal` e pressione Enter.
-- **Linux:** Pressione `Ctrl + Alt + T`.
-:::
+* **Agent (Agente):** É o "funcionário" ou colaborador sênior. Você dá uma meta (ex: "crie um site") e ele orquestra os passos. No VS Code, é o `@copilot`.
+* **Sub-agent (Sub-agente):** É o "assistente" ou especialista terceirizado. Quando o agente principal tem uma tarefa complexa, ele delega para focar na memória principal.
+* **Skills (Habilidades/Tools):** São os "manuais de procedimentos". É o pacote de conhecimento que ensina ao agente como executar uma ferramenta ou roteiro (ex: migração de banco de dados).
+* **Workflows (Fluxos):** É o "procedimento padrão" (SOP). Sequência obrigatória e ordenada de passos para garantir consistência.
+* **Rules (Regras):** O "manual de conduta" ou "políticas da empresa". Diretrizes persistentes, como "Sempre escreva em Português" ou "Nunca exponha segredos".
 
 ---
 
-## Instalacao Automatica (Recomendada)
+## 2. GitHub Copilot no Visual Studio Code
+
+O Copilot evoluiu de um "corretor automático" para um Agente completo capaz de orquestrar a construção de código dentro do editor. A filosofia é manter o desenvolvedor no controle ("human-in-the-loop").
+
+### Passo a Passo de Operação Básica
+
+1. **Ativar o Modo Agent:**
+    * Abra o Chat do Copilot (`Ctrl+Alt+I` ou `Cmd+Alt+I`).
+    * Certifique-se de usar o modo Agent para que a IA possa criar, editar e rodar comandos sozinha.
+
+2. **Contexto e Comandos:**
+    * Digite `@` no chat para acessar comandos e contexto.
+    * `@workspace`: O agente lê todo o seu projeto. (ex: `@workspace Explique como esse projeto funciona`).
+    * `#file:nome-do-arquivo.ts` ou `#selection`: Foca a atenção do agente.
+    * `/tests`: Atalho para criar testes.
+
+3. **Sub-agentes (`#runSubagent`):**
+    * Use sub-agentes para evitar saturar a janela de contexto em conversas longas.
+    * *Exemplo:* `@copilot Analise a arquitetura de banco de dados. Utilize #runSubagent para investigar e retorne apenas o relatório de recomendações.`
+
+---
+
+## 3. Instalando o Node.js (Pré-requisito)
+
+O nosso instalador automático requer o Node.js. Você só precisa instalar uma vez.
+
+1. Acesse **[nodejs.org](https://nodejs.org)**, baixe e instale a versão **LTS** (recomendada).
+2. Quando terminar, abra o **Terminal** e digite:
+   ```bash
+   node --version
+   ```
+   Se aparecer `v18.x.x` ou superior, está tudo certo!
+
+---
+
+## 4. Instalacao Automatica (Recomendada)
 
 Com o Node.js instalado, basta colar este comando no terminal e pressionar Enter:
 
 ```bash
-npx @luizalabs/padrao-labs-agents install
+padrao-labs-agents install
 ```
 
 **O que esse comando faz:**
-
-- Detecta automaticamente quais ferramentas de IA voce tem instaladas (Copilot, Claude, Gemini, etc.)
-- Copia todos os agents, skills, rules, hooks e workflows para os diretorios corretos de cada ferramenta
-- Nao altera nenhum arquivo existente do seu projeto
+- Detecta automaticamente o Visual Studio Code.
+- Copia todos os agents, skills, rules e workflows para o diretório `.github` e outras pastas necessárias no seu ambiente.
+- Não altera arquivos do projeto, apenas configura a ferramenta de IA.
 
 ### Outros Comandos Uteis
 
 | Comando | O que faz |
 | :--- | :--- |
-| `npx @luizalabs/padrao-labs-agents install` | Instala tudo nas suas ferramentas de IA |
-| `npx @luizalabs/padrao-labs-agents update` | Atualiza para a versao mais recente |
-| `npx @luizalabs/padrao-labs-agents init` | Padroniza um repositorio com arquivos de configuracao |
-| `npx @luizalabs/padrao-labs-agents cron` | Configura atualizacao automatica diaria |
+| `padrao-labs-agents install` | Instala tudo na sua ferramenta (VS Code / Copilot) |
+| `padrao-labs-agents update` | Atualiza para a versao mais recente |
+| `padrao-labs-agents init` | Padroniza um repositorio com arquivos de configuracao |
+| `padrao-labs-agents cron` | Configura atualizacao automatica diaria |
 
 ---
 
-## O que Voce Encontra no Catalogo
+## 5. Instalacao Manual e Configuração (Alternativa)
 
-### Skills (70+)
+Se preferir instalar manualmente para o seu GitHub Copilot:
 
-Skills sao "habilidades" prontas que ensinam a IA a realizar tarefas especificas. Exemplos:
-
-- Criar e configurar containers Docker
-- Montar pipelines de CI/CD
-- Configurar bancos de dados
-- Rodar testes automatizados
-- Fazer scans de seguranca
-
-Veja todas em [Skills](/skills/).
-
-### Agents
-
-Agents sao instrucoes pre-configuradas para cada ferramenta de IA. Temos agents para:
-
-- GitHub Copilot (VS Code)
-- Google Antigravity
-- Gemini CLI
-- Claude
-- Cursor
-- Windsurf
-- Cline
-
-Veja todos em [Agentes](/agents/).
-
-### Rules (Regras)
-
-Regras que a IA segue automaticamente, como:
-
-- Boas praticas de seguranca
-- Padroes de qualidade de codigo
-- Convencoes de nomenclatura
-
-Veja todas em [Regras](/rules/).
-
-### Hooks e Workflows
-
-Automacoes que rodam em momentos especificos:
-
-- Verificacoes antes de salvar um arquivo
-- Pipelines de deploy automatizado
-- Fluxos de trabalho padronizados
-
-Veja em [Hooks](/hooks/) e [Workflows](/workflows/).
-
----
-
-## Instalacao Manual (Alternativa)
-
-Se preferir instalar manualmente em uma ferramenta especifica, siga o guia correspondente:
-
-<InstallTabs>
-  <template #copilot>
-
+### 1. Crie o arquivo de instruções
+O Copilot suporta regras personalizadas através do arquivo `copilot-instructions.md`.
 ```bash
-# 1. Va ate a pasta do seu projeto
-cd seu-projeto
-
-# 2. Crie a pasta .github (se nao existir)
 mkdir -p .github
-
-# 3. Baixe os padroes
-curl -L https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/agents/index.md -o agents.md
-curl -L https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/agents/index.md -o .github/copilot-instructions.md
-
-# 4. Salve no Git
-git add agents.md .github/copilot-instructions.md
-git commit -m 'docs: add luizalabs development standards'
-
-# 5. Reinicie o VS Code
+touch .github/copilot-instructions.md
 ```
 
-  </template>
-  <template #antigravity>
+### 2. Defina as Regras
+Adicione suas regras no `.github/copilot-instructions.md`:
+```markdown
+# Instruções Luizalabs
 
+Você é um assistente de IA focado em qualidade e segurança.
+1. **Segurança:** Nunca exponha segredos ou chaves de API.
+2. **Testes:** Todo código novo deve ter testes unitários.
+```
+
+### 3. Baixe as Skills e Padrões Completos
 ```bash
-# 1. Va ate a pasta do seu projeto
-cd seu-projeto
-
-# 2. Baixe os padroes como AGENTS.md
-curl -L https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/agents/index.md -o AGENTS.md
-
-# 3. Salve no Git
-git add AGENTS.md
-git commit -m 'docs: add luizalabs development standards'
-
-# 4. Pronto!
-```
-
-  </template>
-  <template #gemini>
-
-```bash
-# 1. Va ate a pasta do seu projeto
-cd seu-projeto
-
-# 2. Baixe o agents.md
 curl -L https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/agents/index.md -o agents.md
-
-# 3. Crie o arquivo de configuracao .gemini.json
-cat > .gemini.json << 'EOF'
-{
-  "projectId": "seu-projeto-gcp",
-  "context": {
-    "files": ["agents.md"],
-    "systemPrompt": "Follow the patterns defined in agents.md"
-  },
-  "generation": {
-    "model": "gemini-2.0-flash",
-    "temperature": 0.7
-  }
-}
-EOF
-
-# 4. Salve no Git
-git add agents.md .gemini.json
-git commit -m 'docs: add luizalabs development standards'
-
-# 5. Comece a usar!
 ```
 
-  </template>
-</InstallTabs>
+### 4. Salve e Faça o Commit
+```bash
+git add .github/copilot-instructions.md agents.md
+git commit -m 'docs: add luizalabs development standards for copilot'
+```
 
 ---
 
-## Ferramenta GSMPatch (Google Secret Manager)
+## 6. O que Voce Encontra no Catalogo
 
-O **gsmpatch.sh** e um script utilitario para gerenciar segredos (senhas, chaves de API, credenciais) no Google Secret Manager (GSM). Ele simplifica a criacao e versionamento de secrets nos projetos GCP da Luizalabs.
+Com a instalação concluída, você tem acesso local a:
 
-### Pre-requisitos do GSMPatch
+- **[Skills](/skills/) (70+):** Manuais prontos ensinando o Copilot tarefas como configurar Docker ou rodar scans de segurança. Ficam em `.github/skills`.
+- **[Agents](/agents/):** Funcionalidades de persona e orquestração pré-configuradas.
+- **[Regras](/rules/):** Diretrizes persistentes de qualidade, segurança e convenção.
+- **[Workflows](/workflows/):** Automações de ciclos completos (deploy, revisão).
 
-Antes de usar, voce precisa instalar:
+---
 
-1. **gcloud CLI** - Ferramenta oficial do Google Cloud. Instale em [cloud.google.com/sdk/docs/install](https://cloud.google.com/sdk/docs/install)
-2. **jq** - Processador de JSON para linha de comando. Instale em [stedolan.github.io/jq/download](https://stedolan.github.io/jq/download/)
+## 7. Ferramenta GSMPatch (Google Secret Manager)
 
-### Como usar o GSMPatch
+O **gsmpatch.sh** é um script utilitário para gerenciar segredos no Google Cloud. 
+
+**Pré-requisitos:** [gcloud CLI](https://cloud.google.com/sdk/docs/install) e [jq](https://stedolan.github.io/jq/download/).
 
 ```bash
 # Baixe o script
 curl -L https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/src/downloads/gsmpatch.sh -o gsmpatch.sh
 chmod +x gsmpatch.sh
 
-# Exemplo: Criar um secret com valor de texto
+# Exemplo: Criar um secret de texto
 ./gsmpatch.sh \
   --project maga-homolog \
   --app MINHA-APP \
@@ -216,56 +142,21 @@ chmod +x gsmpatch.sh
   --vertical minha-vertical \
   --tribe minha-tribo \
   --squad meu-squad
-
-# Exemplo: Criar um secret a partir de um arquivo
-./gsmpatch.sh \
-  --project maga-homolog \
-  --app MINHA-APP \
-  --secret-name GOOGLE_APPLICATION_CREDENTIALS \
-  --secret-file ./credentials.json \
-  --pod-file-path /application/files/credentials.json \
-  --vertical minha-vertical \
-  --tribe minha-tribo \
-  --squad meu-squad
 ```
 
-O script vai mostrar o que precisa ser adicionado ao `values.yaml` do seu deploy apos criar o secret.
+O script vai mostrar o que adicionar ao `values.yaml` do seu deploy.
 
 ---
 
-## Resolucao de Problemas
+## 8. Resolucao de Problemas
 
-### A ferramenta de IA nao esta usando os padroes
+### O Copilot não está usando os padrões
+- Verifique se o arquivo `.github/copilot-instructions.md` está no local correto.
+- Reinicie o Visual Studio Code.
+- No terminal, feche e abra novamente.
 
-- Verifique se o arquivo esta no local correto (veja os guias de cada ferramenta)
-- Reinicie o editor de codigo (VS Code, Cursor, etc.)
-- No terminal, feche e abra novamente
-
-### O comando `npx` nao funciona
-
-- Verifique se o Node.js esta instalado: `node --version`
-- Se nao esta instalado, siga as instrucoes no inicio desta pagina
-- Se o Node.js esta instalado mas `npx` nao funciona, tente reinstalar o Node.js
-
-### Quero atualizar os padroes
-
-Execute o comando de atualizacao:
-
+### Quero atualizar os padrões
+Execute o comando de atualização:
 ```bash
-npx @luizalabs/padrao-labs-agents update
+padrao-labs-agents update
 ```
-
-Ou configure a atualizacao automatica diaria:
-
-```bash
-npx @luizalabs/padrao-labs-agents cron
-```
-
----
-
-## Proximos Passos
-
-1. **Instale os padroes** usando o comando `npx @luizalabs/padrao-labs-agents install`
-2. **Escolha sua ferramenta** - veja os guias em [Copilot](/integration/copilot), [Antigravity](/integration/antigravity) ou [Gemini CLI](/integration/gemini)
-3. **Explore as Skills** disponiveis em [Skills](/skills/)
-4. **Leia os Conceitos Basicos** em [Conceitos Basicos](/agentic-concepts) para entender como agents e skills funcionam

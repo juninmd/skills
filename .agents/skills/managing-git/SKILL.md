@@ -2,7 +2,7 @@
 name: managing-git
 description: Gestão de repositórios, versionamento e fluxos de trabalho colaborativos com Git seguindo o padrão Sênior Luizalabs.
 metadata:
-    works_on: [copilot, antigravity, gemini_cli]
+    works_on: [copilot, antigravity]
 argument-hint: "[repo/file] [options]"
 ---
 

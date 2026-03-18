@@ -25,7 +25,7 @@
       <div class="section-header">
         <h3 class="installation-title">
           <span class="section-icon">📥</span>
-          Instale via NPX para utilizar
+          Comando para instalação
         </h3>
       </div>
       
@@ -79,7 +79,6 @@ const categoryIcons = {
   skills: '⚙️',
   agents: '🤖',
   rules: '📋',
-  hooks: '🪝',
   workflows: '🔄'
 };
 
@@ -87,7 +86,6 @@ const categoryLabels = {
   skills: 'Skill',
   agents: 'Agente',
   rules: 'Regra',
-  hooks: 'Hook',
   workflows: 'Workflow'
 };
 
@@ -97,7 +95,6 @@ const alertDescriptions = {
   skills: 'Abra esta skill no GitHub Copilot Chat do VS Code. O conteúdo será copiado automaticamente para sua área de transferência.',
   agents: 'Abra este agente no GitHub Copilot Chat do VS Code. O conteúdo será copiado automaticamente para sua área de transferência.',
   rules: 'Configure esta regra no VS Code para personalizar o comportamento do Copilot.',
-  hooks: 'Configure este hook para automatizar tarefas no seu workflow.',
   workflows: 'Execute este workflow para automatizar seu processo de desenvolvimento.'
 };
 
@@ -109,10 +106,10 @@ const installCommand = computed(() => {
   const baseCmdCategory = props.category.slice(0, -1); // Remove 's' do final
   
   if (props.itemId) {
-    return `npx @luizalabs/padrao-labs-agents install --${baseCmdCategory} ${props.itemId}`;
+    return `padrao-labs-agents install --${baseCmdCategory} ${props.itemId}`;
   }
   
-  return `npx @luizalabs/padrao-labs-agents install`;
+  return `padrao-labs-agents install`;
 });
 
 const executeInVsCode = async () => {

@@ -1,0 +1,15 @@
+{
+  "name": "documentation-and-governance",
+  "description": "Project documentation, organizational navigation, and agent governance.",
+  "version": "1.0.0",
+  "skills": [
+    "../../../../.agents/skills/documenting-markdown",
+    "../../../../.agents/skills/generating-design-docs",
+    "../../../../.agents/skills/creating-technical-content",
+    "../../../../.agents/skills/researching-web",
+    "../../../../.agents/skills/navigating-organizations"
+  ],
+  "agents": [
+    "../../../../.agents/agents/padrao-labs-agent.md"
+  ]
+}

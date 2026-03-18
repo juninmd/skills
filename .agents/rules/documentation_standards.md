@@ -1,6 +1,7 @@
 ---
 name: documentation-standards
 description: Padrões para documentação de projetos (README, Design Docs, GMUD).
+applyTo: ['**/*.md']
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
 ---

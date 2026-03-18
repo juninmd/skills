@@ -87,7 +87,6 @@ export class CopilotInstaller extends BaseInstaller {
       { source: 'skills', target: 'skills' },
       { source: 'rules', target: 'rules' },
       { source: 'agents', target: 'agents' },
-      { source: 'hooks', target: 'hooks' },
       { source: 'workflows', target: 'workflows' },
     ];
   }
@@ -101,11 +100,6 @@ export class CopilotInstaller extends BaseInstaller {
       await this.configureVSCodeSettings(agentsDir, path);
     }
     summary.push(`VS Code Settings atualizados em ${settingsPaths.length} perfis`);
-
-    for (const path of settingsPaths) {
-      await this.configureCopilotHooks(agentsDir, path);
-    }
-    summary.push('Copilot Hooks configurados (Novo + Legado)');
 
     const workflowsCount = await this.convertComponentsToPrompts(agentsDir);
     summary.push(`${workflowsCount} Workflows convertidos em prompts`);
@@ -301,67 +295,6 @@ export class CopilotInstaller extends BaseInstaller {
       }
     }
     return total;
-  }
-
-  private async configureCopilotHooks(
-    agentsDir: string,
-    settingsPath: string,
-  ): Promise<void> {
-    const hooksDir = join(agentsDir, 'hooks');
-    if (this.options.dryRun) return;
-    if (!(await dirExists(hooksDir))) return;
-
-    let settings: Record<string, any> = {};
-    if (await fileExists(settingsPath)) {
-      try {
-        const raw = await readFile(settingsPath, 'utf-8');
-        settings = parse(raw) as Record<string, any>;
-      } catch { return; }
-    }
-
-    const hookLocsKey = VSCODE_SETTINGS_KEYS.HOOK_LOCS;
-    let hookLocs: Record<string, boolean> =
-      settings[hookLocsKey] !== null &&
-      typeof settings[hookLocsKey] === 'object' &&
-      !Array.isArray(settings[hookLocsKey])
-        ? (settings[hookLocsKey] as Record<string, boolean>)
-        : {};
-
-    hookLocs = Object.fromEntries(
-      Object.entries(hookLocs).filter(([k]) => !isManagedPath(k)),
-    );
-    hookLocs['.github/hooks'] = true;
-    hookLocs[toPortablePath(hooksDir)] = true;
-    settings[hookLocsKey] = hookLocs;
-    settings[VSCODE_SETTINGS_KEYS.USE_HOOKS] = true;
-
-    const preCommandPath = join(hooksDir, 'pre-command.py');
-    const postCommandPath = join(hooksDir, 'post-command.py');
-    const hooksKey = VSCODE_SETTINGS_KEYS.COPILOT_HOOKS;
-    const copilotHooks: Record<string, any> = settings[hooksKey] || {};
-
-    if (await fileExists(preCommandPath)) {
-      copilotHooks.PreToolUse = [
-        ...(copilotHooks.PreToolUse || []).filter((h: any) => !isManagedPath(h.command) && h.managed !== MANAGED_PATH_MARKER),
-        {
-          type: 'command',
-          command: `python3 ${toPortablePath(preCommandPath)}`,
-          managed: MANAGED_PATH_MARKER,
-        },
-      ];
-    }
-    if (await fileExists(postCommandPath)) {
-      copilotHooks.PostToolUse = [
-        ...(copilotHooks.PostToolUse || []).filter((h: any) => !isManagedPath(h.command) && h.managed !== MANAGED_PATH_MARKER),
-        {
-          type: 'command',
-          command: `python3 ${toPortablePath(postCommandPath)}`,
-          managed: MANAGED_PATH_MARKER,
-        },
-      ];
-    }
-    settings[hooksKey] = copilotHooks;
-    await writeFile(settingsPath, stringify(settings, null, 2), 'utf-8');
   }
 
   private async generateCopilotIgnore(): Promise<void> {

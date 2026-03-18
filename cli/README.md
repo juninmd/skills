@@ -67,7 +67,8 @@ pnpm --filter @luizalabs/padrao-labs-agents exec node dist/index.js init
 
 ## Estrutura de Comandos
 
-- `install`: Instala as regras e skills nas ferramentas detectadas.
-- `update`: Atualiza a CLI (em ambiente real).
+- `install`: Instala as regras, agentes e skills nas ferramentas detectadas.
+- `update`: Atualiza a CLI para a versão mais recente publicada.
 - `init`: Cria arquivos de configuração padrão no repositório atual.
-- `cron`: Gerencia o auto-update diário.
+- `cron`: Gerencia o agendamento de auto-update diário (crontab).
+- `skill`: Gerencia e instala skills específicas do repositório.

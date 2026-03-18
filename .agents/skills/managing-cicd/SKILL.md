@@ -2,7 +2,7 @@
 name: managing-cicd
 description: Gerenciamento de pipelines GitLab CI, integração com SonarQube e deploys automatizados via ArgoCD.
 metadata:
-    works_on: [copilot, antigravity, gemini_cli]
+    works_on: [copilot, antigravity]
 argument-hint: "[resource/project] [options]"
 ---
 

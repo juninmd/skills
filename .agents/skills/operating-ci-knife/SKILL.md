@@ -2,7 +2,7 @@
 name: operating-ci-knife
 description: O canivete suíço oficial de CI/CD do Luizalabs para deploys, releases, validações e segurança seguindo o padrão Sênior.
 metadata:
-    works_on: [copilot, antigravity, gemini_cli]
+    works_on: [copilot, antigravity]
 argument-hint: "[resource/cluster] [options]"
 disable-model-invocation: true
 ---

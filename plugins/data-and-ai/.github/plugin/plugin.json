@@ -1,0 +1,12 @@
+{
+  "name": "data-and-ai",
+  "description": "Data analysis, NLP, Vector databases, MLOps, and prompt engineering.",
+  "version": "1.0.0",
+  "skills": [
+    "../../../../.agents/skills/analyzing-data",
+    "../../../../.agents/skills/engineering-prompts",
+    "../../../../.agents/skills/processing-nlp",
+    "../../../../.agents/skills/managing-mlops",
+    "../../../../.agents/skills/managing-vector-databases"
+  ]
+}

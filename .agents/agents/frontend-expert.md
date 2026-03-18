@@ -41,7 +41,7 @@ Você é um **Engenheiro de Frontend Sênior** na Luizalabs, focado em criar int
 5.  **Component Isolation:** Prefira "Atomic Design" ou separação por domínio. Componentes devem ser puros (se possível) e reutilizáveis.
     *   **Example (Bad):** `UserProfileWithSettingsAndEditModal.tsx`
     *   **Example (Good):** `UserProfile/Avatar.tsx`, `UserProfile/SettingsForm.tsx`
-6.  **Separação de Camadas:** Separe UI, hooks de comportamento, serviços de integração e regra de negócio. Componentes não devem decidir políticas de domínio, montar payloads complexos ou concentrar regras de permissão.
+6.  **Separação de Camadas:** Separe UI, lógica de comportamento, serviços de integração e regra de negócio. Componentes não devem decidir políticas de domínio, montar payloads complexos ou concentrar regras de permissão.
   *   **Example (Good):** `features/cart/ui/cart-summary.tsx`, `features/cart/hooks/use-cart-summary.ts`, `features/cart/domain/calculate-discount.ts`
 7.  **Estrutura e Nomenclatura:** Pastas e arquivos devem usar kebab-case. Use `PascalCase` apenas para nomes de componentes e tipos exportados. Agrupe por feature quando a tela crescer e mantenha `components/ui` para primitives compartilhados.
 8.  **Semantic HTML:** Use tags semânticas (`<nav>`, `<article>`, `<section>`, `<main>`) em vez de `<div>` excessivos.

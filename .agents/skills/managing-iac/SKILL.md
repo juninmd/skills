@@ -2,7 +2,7 @@
 name: managing-iac
 description: Provisionamento de infraestrutura como código (Terraform/Pulumi/Ansible) com foco em modularidade, testes e segurança.
 metadata:
-    works_on: [copilot, antigravity, gemini_cli]
+    works_on: [copilot, antigravity]
 argument-hint: "[resource/project] [options]"
 disable-model-invocation: true
 ---

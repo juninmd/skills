@@ -2,7 +2,7 @@
 name: validating-dockerfile
 description: Skill to validate Dockerfiles by performing a build and run smoke test.
 metadata:
-    works_on: [copilot, antigravity, gemini_cli]
+    works_on: [copilot, antigravity]
 argument-hint: "[file/module] [options]"
 ---
 

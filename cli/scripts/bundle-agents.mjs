@@ -12,7 +12,7 @@ const TEMPLATES_SRC = join(ROOT, 'src', 'exemplo');
 const TEMPLATES_DIR = join(CLI_DIR, 'templates');
 
 const REQUIRED_CATEGORIES = ['agents', 'skills', 'rules'];
-const OPTIONAL_CATEGORIES = ['hooks', 'workflows'];
+const OPTIONAL_CATEGORIES = ['workflows'];
 const CATEGORIES = [...REQUIRED_CATEGORIES, ...OPTIONAL_CATEGORIES];
 
 function clean() {

@@ -2,7 +2,7 @@
 name: operating-k8s
 description: Operação e Troubleshooting avançado em Kubernetes (Magalu Cloud / GCP).
 metadata:
-    works_on: [copilot, antigravity, gemini_cli]
+    works_on: [copilot, antigravity]
 argument-hint: "[resource/cluster] [options]"
 disable-model-invocation: true
 ---

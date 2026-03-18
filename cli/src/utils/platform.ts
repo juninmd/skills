@@ -23,12 +23,19 @@ export function getManifestPath(): string {
   return join(getManifestDir(), 'manifest.json');
 }
 
+export function getRepoDir(): string {
+  // O CLI está em <root>/cli/dist/utils/platform.js
+  // Precisamos subir 3 níveis para chegar em <root>/cli e mais 1 para <root>
+  const __dirname = dirname(fileURLToPath(import.meta.url));
+  return join(__dirname, '..', '..', '..');
+}
+
 export function getAgentsBundleDir(): string {
-  return join(getManifestDir(), '.repo', '.agents');
+  return join(getRepoDir(), '.agents');
 }
 
 export function getTemplatesDir(): string {
-  return join(getManifestDir(), '.repo', 'templates');
+  return join(getRepoDir(), 'templates');
 }
 
 export function getMasterAgentsPath(): string {
@@ -62,23 +69,50 @@ export function getVSCodeSettingsPath(): string {
 }
 
 export function getVSCodeSettingsPaths(): string[] {
-  const userDir = getVSCodeUserDir();
-  const paths: string[] = [join(userDir, 'settings.json')];
+  const home = getHomeDir();
+  const baseDirs: string[] = [];
 
-  const profilesDir = join(userDir, 'profiles');
-  if (fs.existsSync(profilesDir)) {
-    try {
-      const entries = fs.readdirSync(profilesDir, { withFileTypes: true });
-      for (const entry of entries) {
-        if (entry.isDirectory()) {
-          paths.push(join(profilesDir, entry.name, 'settings.json'));
+  if (process.platform === 'win32') {
+    const appData = process.env.APPDATA || '';
+    baseDirs.push(join(appData, 'Code', 'User'));
+    baseDirs.push(join(appData, 'Code - Insiders', 'User'));
+  } else if (process.platform === 'darwin') {
+    baseDirs.push(join(home, 'Library', 'Application Support', 'Code', 'User'));
+    baseDirs.push(join(home, 'Library', 'Application Support', 'Code - Insiders', 'User'));
+  } else {
+    baseDirs.push(join(home, '.config', 'Code', 'User'));
+    baseDirs.push(join(home, '.config', 'Code - Insiders', 'User'));
+  }
+
+  const allPaths: string[] = [];
+
+  for (const userDir of baseDirs) {
+    // 1. Caminho principal
+    const mainSettings = join(userDir, 'settings.json');
+    if (fs.existsSync(mainSettings)) {
+      allPaths.push(mainSettings);
+    }
+
+    // 2. Perfis (Profiles)
+    const profilesDir = join(userDir, 'profiles');
+    if (fs.existsSync(profilesDir)) {
+      try {
+        const entries = fs.readdirSync(profilesDir, { withFileTypes: true });
+        for (const entry of entries) {
+          if (entry.isDirectory()) {
+            const profileSettings = join(profilesDir, entry.name, 'settings.json');
+            if (fs.existsSync(profileSettings)) {
+              allPaths.push(profileSettings);
+            }
+          }
         }
+      } catch (e) {
+        // Silencioso
       }
-    } catch (e) {
-      // Ignora erros de leitura do diretório de perfis
     }
   }
-  return paths;
+
+  return [...new Set(allPaths)]; // Remove duplicatas se houver
 }
 
 /** Arquivo global ~/.copilotignore aplica-se a todos os projetos do usuário. */

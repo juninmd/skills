@@ -13,7 +13,7 @@ const MONOREPO_ROOT = path.join(__dirname, '../../..');
 const AGENTS_DIR = path.join(MONOREPO_ROOT, '.agents');
 const DOCS_DIR = path.join(ROOT, 'docs');
 
-const CATEGORIES = ['agents', 'skills', 'rules', 'hooks', 'workflows'];
+const CATEGORIES = ['agents', 'skills', 'rules', 'workflows'];
 // Base URLs for GitLab
 const REPO_BASE_URL = 'https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/tree/main/.agents';
 const RAW_BASE_URL = 'https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/-/raw/main/.agents';
@@ -27,31 +27,19 @@ function generateInstallCommands(category, item, isDirectory = false) {
 
   // SKILLS
   if (category === 'skills') {
-    commands.gemini = `mkdir -p ~/.gemini/skills && cp -r .agents/skills/${item} ~/.gemini/skills/`;
     commands.copilot = `mkdir -p ~/.agents/skills && cp -r .agents/skills/${item} ~/.agents/skills/`;
-    commands.antigravity = `mkdir -p ~/.gemini/antigravity/skills && cp -r .agents/skills/${item} ~/.gemini/antigravity/skills/`;
   }
   // RULES
   else if (category === 'rules') {
     commands.copilot = `mkdir -p ~/.agents/rules && cp -r .agents/rules/${item} ~/.agents/rules/`;
-    commands.antigravity = `mkdir -p ~/.gemini/antigravity/rules && cp -r .agents/rules/${item} ~/.gemini/antigravity/rules/`;
-    // Gemini CLI: sem suporte para rules
   }
   // WORKFLOWS
   else if (category === 'workflows') {
-    commands.antigravity = `mkdir -p ~/.gemini/antigravity/workflows && cp -r .agents/workflows/${item} ~/.gemini/antigravity/workflows/`;
-    // Gemini CLI e Copilot: sem suporte para workflows
+    // Copilot: sem suporte para workflows
   }
-  // HOOKS (apenas Gemini CLI)
-  else if (category === 'hooks') {
-    commands.gemini = 'Configure hooks: ~/.gemini/settings.json (see https://geminicli.com/docs/hooks/)';
-    // Copilot e Antigravity não suportam hooks diretamente
-  }
-  // AGENTS (mantém como está)
+  // AGENTS
   else if (category === 'agents') {
-    commands.gemini = `gemini rules add ${gitRepoHttpUrl} --path .agents/agents/${itemPath}`;
     commands.copilot = `copilot rules add ${gitRepoHttpUrl} --path .agents/agents/${itemPath}`;
-    commands.antigravity = `antigravity rules add ${gitRepoHttpUrl} --path .agents/agents/${itemPath}`;
   }
 
   return commands;
@@ -86,7 +74,7 @@ const TITLE_ACRONYMS = {
 };
 
 const TITLE_STOP_WORDS = new Set(['de', 'da', 'do', 'das', 'dos', 'e', 'em', 'para', 'com']);
-const TITLE_CATEGORY_SUFFIXES = new Set(['skill', 'skills', 'rule', 'rules', 'workflow', 'workflows', 'agent', 'agents', 'hook', 'hooks']);
+const TITLE_CATEGORY_SUFFIXES = new Set(['skill', 'skills', 'rule', 'rules', 'workflow', 'workflows', 'agent', 'agents']);
 
 function isSlugLikeTitle(value) {
   if (!value) return true;
@@ -122,11 +110,11 @@ function normalizeItemTitle(rawTitle, itemId, category) {
   if (!source) source = fallback;
 
   source = source
-    .replace(/^\s*(skill|rule|workflow|agent|hook)\s*:\s*/i, '')
+    .replace(/^\s*(skill|rule|workflow|agent)\s*:\s*/i, '')
     .replace(/\.[^/.]+$/, '')
     .trim();
 
-  source = source.replace(/\s+(skill|skills|rule|rules|workflow|workflows|agent|agents|hook|hooks)$/i, '').trim();
+  source = source.replace(/\s+(skill|skills|rule|rules|workflow|workflows|agent|agents|)$/i, '').trim();
 
   const shouldTransform = isSlugLikeTitle(source) || source.toLowerCase() === fallback.toLowerCase();
 
@@ -177,7 +165,6 @@ function scanAgentsDirectory() {
       let repoUrl = '';
       let installCmd = '';
       let installCmds = {};
-      let isScript = false;
       let editUrl = '';
       let rawUrl = '';
 
@@ -192,7 +179,7 @@ function scanAgentsDirectory() {
          editUrl = `${EDIT_BASE_URL}/${category}/${item}/${markdownFile}`;
          rawUrl = `${RAW_BASE_URL}/${category}/${item}/${markdownFile}`;
          installCmds = generateInstallCommands(category, item, true);
-         installCmd = installCmds.gemini;
+         installCmd = installCmds.copilot;
 
          // Files list (all except .git, recursive for some folders)
          const getFiles = (dir, base = '') => {
@@ -220,7 +207,7 @@ function scanAgentsDirectory() {
          tags = meta.tags;
          metadata = meta.metadata;
       }
-      // --- Case 2: Markdown File (Agents, Rules) ---
+      // --- Case 2: Markdown File (Agents, Rules, Workflows) ---
       else if (stat.isFile() && item.endsWith('.md')) {
          if (item === 'index.md' || item === 'README.md') continue;
 
@@ -230,7 +217,7 @@ function scanAgentsDirectory() {
          editUrl = `${EDIT_BASE_URL}/${category}/${item}`;
          rawUrl = `${RAW_BASE_URL}/${category}/${item}`;
          installCmds = generateInstallCommands(category, item, false);
-         installCmd = installCmds.gemini;
+         installCmd = installCmds.copilot;
          files = [item];
 
          const content = fs.readFileSync(markdownPath, 'utf-8');
@@ -239,22 +226,6 @@ function scanAgentsDirectory() {
          description = meta.description;
          tags = meta.tags;
          metadata = meta.metadata;
-      }
-      // --- Case 3: Scripts (Hooks) ---
-      else if (stat.isFile() && (item.endsWith('.py') || item.endsWith('.sh') || item.endsWith('.js'))) {
-         itemId = item; // hooks like pre-command.py should keep extension
-         markdownPath = itemPath;
-         repoUrl = `${REPO_BASE_URL}/${category}/${item}`;
-         editUrl = `${EDIT_BASE_URL}/${category}/${item}`;
-         rawUrl = `${RAW_BASE_URL}/${category}/${item}`;
-         installCmds = generateInstallCommands(category, item, false);
-         installCmd = installCmds.gemini;
-         files = [item];
-         isScript = true;
-
-         title = normalizeItemTitle(item, itemId, category);
-         description = `Automation script: ${item}`;
-         tags = ['script', path.extname(item).substring(1)];
       }
       else {
          continue;
@@ -299,8 +270,7 @@ function scanAgentsDirectory() {
         editUrl,
         rawUrl,
         installCmd,
-        installCmds,
-        isScript
+        installCmds
       });
     }
   }
@@ -308,7 +278,7 @@ function scanAgentsDirectory() {
 }
 
 function findMarkdownFile(dirPath) {
-  const patterns = ['SKILL.md', 'RULES.md', 'HOOKS.md', 'AGENTS.md', 'WORKFLOWS.md', 'README.md'];
+  const patterns = ['SKILL.md', 'RULES.md', 'WORKFLOWS.md', 'AGENTS.md', 'README.md'];
   for (const pattern of patterns) {
     if (fs.existsSync(path.join(dirPath, pattern))) {
       return pattern;
@@ -489,7 +459,6 @@ function generateCategoryIndexes(catalog) {
       // So:
       // Skills: docs/.agents-skills/skill-id/SKILL.md
       // Agents: docs/.agents-agents/agent-id.md
-      // Hooks: docs/.agents-hooks/script.py
 
       // My logic above for symlinkedPath was: `/.agents-${category}/${item.id}/${markdownFile}`
       // This is wrong for files directly in the category folder.
@@ -605,7 +574,6 @@ function generateSidebarConfig(catalog) {
     agents: 'Agentes',
     skills: 'Skills (Capacidades)',
     rules: 'Regras',
-    hooks: 'Hooks (Automações)',
     workflows: 'Workflows (Fluxos)'
   };
 

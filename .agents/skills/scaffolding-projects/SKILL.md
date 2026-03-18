@@ -2,7 +2,7 @@
 name: scaffolding-projects
 description: Padronização de estrutura de projetos (Makefile, Dockerfile, README, Sonar, Hangar) seguindo o protocolo Sênior Luizalabs.
 metadata:
-    works_on: [copilot, antigravity, gemini_cli]
+    works_on: [copilot, antigravity]
 argument-hint: "[context] [options]"
 disable-model-invocation: true
 ---

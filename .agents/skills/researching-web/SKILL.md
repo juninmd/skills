@@ -2,7 +2,7 @@
 name: researching-web
 description: Perform comprehensive web research through search engines, content fetching, and information synthesis
 metadata:
-    works_on: [copilot, antigravity, gemini_cli]
+    works_on: [copilot, antigravity]
 argument-hint: "[query/topic] [options]"
 ---
 

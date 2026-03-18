@@ -1,6 +1,7 @@
 ---
 name: makefile-standards
 description: Padrões para o arquivo Makefile em projetos Python.
+applyTo: ['**/Makefile']
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
 ---

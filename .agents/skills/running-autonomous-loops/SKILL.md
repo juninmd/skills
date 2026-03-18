@@ -2,7 +2,7 @@
 name: running-autonomous-loops
 description: Transforma o Gemini CLI em um engenheiro autônomo que executa tarefas sequenciais de um plano com self-healing e verificação contínua.
 metadata:
-  works_on: [gemini_cli]
+  works_on: [copilot, antigravity]
 
 argument-hint: "[context] [options]"
 disable-model-invocation: true

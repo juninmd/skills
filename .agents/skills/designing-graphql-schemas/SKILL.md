@@ -2,7 +2,7 @@
 name: designing-graphql-schemas
 description: Design, optimize, and document GraphQL schemas with types, queries, mutations, and subscriptions
 metadata:
-    works_on: [copilot, antigravity, gemini_cli]
+    works_on: [copilot, antigravity]
 argument-hint: "[component/feature] [options]"
 ---
 

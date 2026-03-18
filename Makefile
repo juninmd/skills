@@ -44,7 +44,7 @@ clean:
 	rm -rf docs/.vitepress/cache
 	rm -f docs/.vitepress/sidebar.js
 	rm -f docs/catalog.json
-	rm -rf docs/agents docs/skills docs/rules docs/hooks docs/workflows
+	rm -rf docs/agents docs/skills docs/rules docs/workflows
 	rm -f docs/search.md
 
 docker-build:

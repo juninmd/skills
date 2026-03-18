@@ -5,7 +5,8 @@ import { GeminiCliInstaller } from './gemini-cli.js';
 import { AntigravityInstaller } from './antigravity.js';
 
 const INSTALLER_MAP: Record<string, new (options: InstallOptions) => BaseInstaller> = {
-  copilot: CopilotInstaller,
+  vscode: CopilotInstaller,
+  'vscode-insiders': CopilotInstaller,
   gemini: GeminiCliInstaller,
   antigravity: AntigravityInstaller,
 };

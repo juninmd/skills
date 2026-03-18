@@ -2,7 +2,7 @@
 name: operating-infrastructure
 description: Operações avançadas de infraestrutura (RDP fix, K8s clean, DNS, Traffic Shifting).
 metadata:
-    works_on: [copilot, antigravity, gemini_cli]
+    works_on: [copilot, antigravity]
 argument-hint: "[resource/cluster] [options]"
 disable-model-invocation: true
 ---

@@ -66,7 +66,7 @@ const searchQuery = ref('');
 const selectedCategory = ref('');
 const results = ref([]);
 const allItems = ref([]);
-const categories = ref(['agents', 'skills', 'rules', 'hooks', 'workflows']);
+const categories = ref(['agents', 'skills', 'rules', 'workflows']);
 let miniSearch = null;
 
 onMounted(async () => {

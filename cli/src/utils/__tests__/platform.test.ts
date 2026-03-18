@@ -71,19 +71,19 @@ describe('Platform Utils', () => {
   });
 
   describe('bundle and template paths', () => {
-    it('should resolve agents bundle directory from manifest path', () => {
+    it('should resolve agents bundle directory from repo path', () => {
       const bundleDir = normalize(getAgentsBundleDir());
-      expect(bundleDir).toContain(normalize('.agents/.repo/.agents'));
+      expect(bundleDir).toContain(normalize('.padrao-labs-agents/.agents'));
     });
 
-    it('should resolve templates directory from manifest path', () => {
+    it('should resolve templates directory from repo path', () => {
       const templatesDir = normalize(getTemplatesDir());
-      expect(templatesDir).toContain(normalize('.agents/.repo/templates'));
+      expect(templatesDir).toContain(normalize('.padrao-labs-agents/templates'));
     });
 
     it('should resolve master agents file inside agents bundle directory', () => {
       const masterAgentsPath = normalize(getMasterAgentsPath());
-      expect(masterAgentsPath).toContain(normalize('.agents/.repo/.agents/agents.md'));
+      expect(masterAgentsPath).toContain(normalize('.padrao-labs-agents/.agents/agents.md'));
     });
   });
 });

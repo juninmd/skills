@@ -70,7 +70,6 @@ export interface Manifest {
     agents: string[];
     rules: string[];
     workflows: string[];
-    hooks: string[];
   };
 }
 

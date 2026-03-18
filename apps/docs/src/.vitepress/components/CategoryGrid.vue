@@ -76,7 +76,6 @@ function getCategoryIcon(category) {
     skills: '⚙️',
     agents: '🤖',
     rules: '📋',
-    hooks: '🪝',
     workflows: '🔄'
   };
   return icons[category] || '📦';

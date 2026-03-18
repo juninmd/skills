@@ -1,6 +1,7 @@
 ---
 name: security-quality
 description: Diretrizes estritas de segurança e qualidade de código.
+applyTo: ['**/*.{py,js,ts,tsx}']
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
 ---

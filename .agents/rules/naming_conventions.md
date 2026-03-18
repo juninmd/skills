@@ -1,6 +1,7 @@
 ---
 name: naming-conventions
 description: Padrões de nomenclatura para sistemas e arquivos.
+applyTo: ['**/*.{py,js,ts,tsx,sh}']
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
 ---

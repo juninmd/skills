@@ -1,0 +1,27 @@
+{
+  "name": "cloud-and-platform",
+  "description": "Infrastructure as Code, Kubernetes, CI/CD, and Cloud operations.",
+  "version": "1.0.0",
+  "skills": [
+    "../../../../.agents/skills/operating-k8s",
+    "../../../../.agents/skills/operating-infrastructure",
+    "../../../../.agents/skills/operating-shell",
+    "../../../../.agents/skills/managing-cloud-infrastructure",
+    "../../../../.agents/skills/managing-gcp",
+    "../../../../.agents/skills/managing-iac",
+    "../../../../.agents/skills/managing-docker-containers",
+    "../../../../.agents/skills/managing-helm-charts",
+    "../../../../.agents/skills/managing-cicd",
+    "../../../../.agents/skills/securing-k8s",
+    "../../../../.agents/skills/validating-dockerfile",
+    "../../../../.agents/skills/diagnosing-rabbitmq",
+    "../../../../.agents/skills/diagnosing-networks",
+    "../../../../.agents/skills/operating-gitlab-cli",
+    "../../../../.agents/skills/operating-ci-knife",
+    "../../../../.agents/skills/optimizing-cloud-costs"
+  ],
+  "agents": [
+    "../../../../.agents/agents/platform-engineer.md",
+    "../../../../.agents/agents/terminal-operator.md"
+  ]
+}

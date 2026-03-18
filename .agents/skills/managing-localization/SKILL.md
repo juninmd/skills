@@ -2,7 +2,7 @@
 name: managing-localization
 description: Manage application internationalization and localization including string extraction, translation files, and locale-specific formatting
 metadata:
-    works_on: [copilot, antigravity, gemini_cli]
+    works_on: [copilot, antigravity]
 argument-hint: "[resource/project] [options]"
 ---
 

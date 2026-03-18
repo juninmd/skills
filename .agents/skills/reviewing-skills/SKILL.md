@@ -2,7 +2,7 @@
 name: reviewing-skills
 description: Review and audit existing Agent Skills to ensure strict compliance with Anthropic best practices and the agentskills.io specification. All skills must be reviewed and maintained in English.
 metadata:
-    works_on: [copilot, antigravity, gemini_cli]
+    works_on: [copilot, antigravity]
 argument-hint: "[context] [options]"
 ---
 
