@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.26.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.25.0...v1.26.0) (2026-03-18)
+
+
+### Features
+
+* enhance skills with argument hints and disable model invocation options ([6d4891a](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/6d4891a))
+
 # [1.25.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.24.0...v1.25.0) (2026-03-13)
 
 
