@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.27.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.26.0...v1.27.0) (2026-03-18)
+
+
+### Features
+
+* add sync-plugin script and create plugin.json for agent capabilities ([0f71ffe](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/0f71ffe))
+
 # [1.26.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.25.0...v1.26.0) (2026-03-18)
 
 
