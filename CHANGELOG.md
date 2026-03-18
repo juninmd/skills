@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.29.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.28.0...v1.29.0) (2026-03-18)
+
+
+### Features
+
+* add marketplace.json and update plugin name in plugin.json ([238928b](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/238928b))
+
 # [1.28.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.27.0...v1.28.0) (2026-03-18)
 
 
