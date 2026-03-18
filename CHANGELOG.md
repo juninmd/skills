@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.31.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.30.0...v1.31.0) (2026-03-18)
+
+
+### Features
+
+* add Security Best Practices plugin and usage instructions ([c584e20](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/c584e20))
+
 # [1.30.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.29.0...v1.30.0) (2026-03-18)
 
 
