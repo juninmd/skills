@@ -24,9 +24,11 @@ Uma plataforma completa de documentação e descoberta para padrões de desenvol
 
 Para garantir que você sempre tenha a versão mais recente e possa customizar as ferramentas, recomendamos clonar o repositório e linkar o binário globalmente:
 
-```bash
 > git config --global http.sslVerify false
 
+Ative temporariamente para evitar problemas na VPN
+
+```bash
 # 1. Clone o repositório
 git clone git@gitlab.luizalabs.com:luizalabs/padrao-labs-agents.git
 cd padrao-labs-agents
