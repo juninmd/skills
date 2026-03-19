@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.40.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.39.0...v1.40.0) (2026-03-19)
+
+
+### Features
+
+* add installation notes ([9d1f570](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/9d1f570))
+
 # [1.39.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.38.2...v1.39.0) (2026-03-19)
 
 
