@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.39.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.38.2...v1.39.0) (2026-03-19)
+
+
+### Features
+
+* enhance copilotInstaller ([14f9c32](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/14f9c32))
+
 ## [1.38.2](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.38.1...v1.38.2) (2026-03-19)
 
 
