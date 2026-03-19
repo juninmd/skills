@@ -1,4 +1,4 @@
-image: node:20-slim
+image: node:24-slim
 
 stages:
   - validate
@@ -10,11 +10,26 @@ stages:
 
 variables:
   TZ: "/usr/share/zoneinfo/America/Sao_Paulo"
+  PNPM_VERSION: "10.32.1"
   DOCKER_REPO: gcr.io/magalu-cicd/tribe-ipet/padrao-labs-agents
   ARGOCD_SERVER: argocd-ipet.ipet.sh
   ARGOCD_NAMESPACE: cicd/tribe-ipet
   ARGOCD_BRANCH: master
   DEPLOY_TAG: ${CI_COMMIT_SHORT_SHA}
+
+.setup-pnpm:
+  image: node:24-slim
+  cache:
+    key:
+      files:
+        - pnpm-lock.yaml
+      prefix: pnpm-v2
+    paths:
+      - node_modules/
+  before_script:
+    - corepack enable
+    - corepack prepare pnpm@$PNPM_VERSION --activate
+    - pnpm install --frozen-lockfile --ignore-scripts
 
 commitlint:
   stage: install
@@ -25,18 +40,9 @@ commitlint:
   when: always
 
 unit_tests:
+  extends: .setup-pnpm
   stage: validate
-  image: node:20-slim
-  cache:
-    key:
-      files:
-        - pnpm-lock.yaml
-      prefix: pnpm-v2
-    paths:
-      - node_modules/
   script:
-    - npm install -g pnpm@8.6.2
-    - pnpm install --frozen-lockfile --ignore-scripts
     - pnpm run test:coverage
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
   artifacts:
@@ -56,19 +62,18 @@ unit_tests:
     - main
     - branches
 
-build_frontend:
-  stage: install
-  image: node:lts-slim
-  cache:
-    key:
-      files:
-        - pnpm-lock.yaml
-      prefix: pnpm-v2
-    paths:
-      - node_modules/
+lint_code:
+  extends: .setup-pnpm
+  stage: validate
   script:
-    - npm install -g pnpm@8.6.2
-    - pnpm install --frozen-lockfile --ignore-scripts
+    - pnpm run lint
+  only:
+    - merge_requests
+
+build_frontend:
+  extends: .setup-pnpm
+  stage: install
+  script:
     - pnpm --filter ./apps/docs run build
     - mkdir -p public
     - cp -rf apps/docs/docs/.vitepress/dist/* public/
@@ -81,6 +86,21 @@ build_frontend:
     - merge_requests
     - main
     - branches
+
+build_cli:
+  extends: .setup-pnpm
+  stage: install
+  script:
+    - cd cli
+    - pnpm run build
+    - pnpm run bundle-agents
+  artifacts:
+    paths:
+      - cli/dist/
+      - cli/agents-bundle/
+    expire_in: 1 day
+  only:
+    - tags
 
 create_release:
   stage: tag
@@ -148,29 +168,3 @@ sonar:
   except:
     changes:
       - CHANGELOG.md
-
-build_cli:
-  stage: install
-  image: node:22-slim
-  cache:
-    key:
-      files:
-        - pnpm-lock.yaml
-      prefix: pnpm-v2
-    paths:
-      - node_modules/
-  script:
-    - npm install -g pnpm@8.6.2
-    - pnpm install --frozen-lockfile --ignore-scripts
-    - cd cli
-    - pnpm run build
-    - pnpm run bundle-agents
-  artifacts:
-    paths:
-      - cli/dist/
-      - cli/agents-bundle/
-    expire_in: 1 day
-  only:
-    - tags
-
-

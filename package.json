@@ -27,7 +27,8 @@
     "test": "pnpm -r run test",
     "test:run": "pnpm -r run test:run",
     "test:ui": "pnpm -r run test:ui",
-    "test:coverage": "pnpm -r run test:coverage"
+    "test:coverage": "pnpm -r run test:coverage",
+    "lint": "pnpm run lint:md && pnpm run lint:skills && pnpm run lint:agents && pnpm run lint:plugins"
   },
   "devDependencies": {
     "@vitest/coverage-v8": "^4.0.18",
