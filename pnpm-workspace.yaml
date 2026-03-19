@@ -1,3 +1,7 @@
 packages:
-  - 'apps/*'
-  - 'cli'
+  - apps/*
+  - cli
+
+onlyBuiltDependencies:
+  - '@parcel/watcher'
+  - esbuild

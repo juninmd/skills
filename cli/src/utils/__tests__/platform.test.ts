@@ -228,10 +228,9 @@ describe('Platform Utils', () => {
           return true; // for profiles dir
         });
         vi.mocked(fs.readdirSync).mockReturnValue([
-          { isDirectory: () => true, name: 'profile1' } as fs.Dirent,
-          { isDirectory: () => false, name: 'not-a-dir' } as fs.Dirent,
-          { isDirectory: () => true, name: 'profile2' } as fs.Dirent
+          { name: 'profile1', isDirectory: () => true } as any
         ]);
+ 
         const paths = getVSCodeSettingsPaths();
         expect(paths.length).toBeGreaterThan(0);
         expect(paths).toContain(join('C:\\AppData', 'Code', 'User', 'profiles', 'profile1', 'settings.json'));
