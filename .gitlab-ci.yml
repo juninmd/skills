@@ -87,7 +87,7 @@ create_release:
   image: $CIKNIFE_IMAGE
   allow_failure: false
   script:
-    - ci-knife create-release -n -w
+    - ci-knife create-release -n
   only:
     - main
   except:
