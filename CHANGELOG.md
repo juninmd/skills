@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.34.1](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.34.0...v1.34.1) (2026-03-19)
+
+
+### Documentation
+
+* padroniza idioma das descriptions e corrige referencias de skills ([364b67c](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/364b67c))
+
 # [1.34.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.33.1...v1.34.0) (2026-03-19)
 
 
