@@ -211,6 +211,27 @@ export async function install(options: InstallOptions): Promise<void> {
       process.exit(0);
     }
     installationMethod = method as 'plugins' | 'raiz';
+
+    const agentsDir = getPadraoLabsAgentsDir();
+    if (installationMethod === 'raiz') {
+      p.note(
+        `Os componentes serão vinculados globalmente em:\n` +
+        `${color.dim('• Agents:   ')} ${color.cyan(toPortablePath(join(agentsDir, 'agents')))}\n` +
+        `${color.dim('• Skills:   ')} ${color.cyan(toPortablePath(join(agentsDir, 'skills')))}\n` +
+        `${color.dim('• Rules:    ')} ${color.cyan(toPortablePath(join(agentsDir, 'rules')))}\n` +
+        `${color.dim('• Workflows:')} ${color.cyan(toPortablePath(join(agentsDir, 'workflows')))}`,
+        'Estrutura de Pastas (Modo Raiz)'
+      );
+    } else {
+      p.note(
+        'O modo Agent Plugins gerencia dinamicamente através do marketplace:\n' +
+        '• Agentes customizados (.agent.md)\n' +
+        '• Agent Skills (tools)\n' +
+        '• Servidores MCP\n' +
+        '• Hooks de Ciclo de Vida',
+        'Escopo do Agent Plugins'
+      );
+    }
   }
 
   // Executa instalacao
