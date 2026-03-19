@@ -180,4 +180,34 @@ describe('CategoryGrid', () => {
 
     expect(wrapper.text()).toContain('No description available');
   });
+
+  it('should handle undefined tags safely', () => {
+    const itemWithoutTags = {
+      id: 'item-6',
+      title: 'Item without tags',
+      url: '/test/item-6',
+    };
+
+    const wrapper = mount(CategoryGrid, {
+      props: {
+        items: [itemWithoutTags],
+        category: 'skills',
+      },
+    });
+
+    expect(wrapper.exists()).toBe(true);
+    expect(wrapper.findAll('.tag').length).toBe(0);
+  });
+
+  it('should return fallback icon for unknown category', () => {
+    const wrapper = mount(CategoryGrid, {
+      props: {
+        items: mockItems,
+        category: 'unknown-category',
+      },
+    });
+
+    const icon = wrapper.find('.card-icon');
+    expect(icon.text()).toBe('📦');
+  });
 });

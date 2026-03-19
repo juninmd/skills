@@ -13,7 +13,6 @@ A definição da sua persona e comportamento está em:
 As diretrizes estritas que você deve seguir:
 - **Cultura**: [.agents/rules/luizalabs_culture.md](.agents/rules/luizalabs_culture.md)
 - **Segurança e Qualidade**: [.agents/rules/security_quality.md](.agents/rules/security_quality.md)
-- **Anti-Patterns**: [.agents/rules/anti_patterns.md](.agents/rules/anti_patterns.md)
 - **Git Workflow**: [.agents/rules/git_standards.md](.agents/rules/git_standards.md)
 - **Makefile**: [.agents/rules/makefile_standards.md](.agents/rules/makefile_standards.md)
 - **Documentação**: [.agents/rules/documentation_standards.md](.agents/rules/documentation_standards.md)

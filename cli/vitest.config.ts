@@ -7,14 +7,18 @@ export default defineConfig({
     environment: 'node',
     include: ['**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
     exclude: ['node_modules', 'dist', 'agents-bundle', 'templates'],
+    reporters: ['default', 'junit'],
+    outputFile: {
+      junit: './coverage/junit.xml',
+    },
     coverage: {
       provider: 'v8',
-      reporter: ['text', 'json', 'html', 'lcov'],
+      reporter: ['text', 'json', 'html', 'lcov', 'cobertura'],
       thresholds: {
-        lines: 80,
-        functions: 80,
-        statements: 80,
-        branches: 80,
+        lines: 90,
+        functions: 90,
+        statements: 90,
+        branches: 90,
       },
       exclude: [
         'node_modules/',

@@ -242,15 +242,15 @@ Caso não queira usar o CLI, você pode baixar as definições manualmente:
 **GitHub Copilot (VS Code):**
 
 ```bash
-mkdir -p .github
-curl https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/agents.md -o agents.md
-curl https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/agents.md -o .github/copilot-instructions.md
+mkdir -p .github .agents
+curl https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/.agents/agents.md -o .agents/agents.md
+curl https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/.agents/agents.md -o .github/copilot-instructions.md
 ```
 
 **Cursor:**
 
 ```bash
-curl https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/agents.md -o .cursorrules
+curl https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/.agents/agents.md -o .cursorrules
 ```
 
 ## 🧪 Testes

@@ -24,6 +24,38 @@ commitlint:
     - merge_requests
   when: always
 
+unit_tests:
+  stage: validate
+  image: node:20-slim
+  cache:
+    key:
+      files:
+        - pnpm-lock.yaml
+      prefix: pnpm-v2
+    paths:
+      - node_modules/
+  script:
+    - npm install -g pnpm@8.6.2
+    - pnpm install --frozen-lockfile --ignore-scripts
+    - pnpm run test:coverage
+  coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
+  artifacts:
+    when: always
+    paths:
+      - apps/docs/coverage/
+      - cli/coverage/
+    reports:
+      junit:
+        - apps/docs/coverage/junit.xml
+        - cli/coverage/junit.xml
+      coverage_report:
+        coverage_format: cobertura
+        path: "*/coverage/cobertura-coverage.xml"
+  only:
+    - merge_requests
+    - main
+    - branches
+
 build_frontend:
   stage: install
   image: node:lts-slim

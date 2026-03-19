@@ -9,6 +9,10 @@ docs/*
 cli/dist/
 cli/agents-bundle/
 
+# Test Coverage
+coverage/
+**/coverage/
+
 # Environment & IDE
 .env*
 .vscode/

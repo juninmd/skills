@@ -99,4 +99,21 @@ describe('SearchBox', () => {
     expect(consoleErrorSpy).toHaveBeenCalled();
     consoleErrorSpy.mockRestore();
   });
+
+  it('should perform search when miniSearch is ready and filter by category', async () => {
+    const wrapper = mount(SearchBox);
+    await new Promise(resolve => setTimeout(resolve, 100));
+
+    // Filter by category without query
+    const filterBtn = wrapper.find('.filter-btn');
+    await filterBtn.trigger('click');
+    
+    // Type query
+    const input = wrapper.find('input[type="text"]');
+    await input.setValue('test');
+    
+    // Check results
+    const results = wrapper.findAll('.result-item');
+    expect(results.length).toBeGreaterThan(0);
+  });
 });
