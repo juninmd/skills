@@ -1,6 +1,6 @@
 ---
 name: validating-typescript
-description: Validate TypeScript code by running tsc type checking, linting, and algorithm correctness analysis to catch compile errors, style issues, and logic problems.
+description: Validar código TypeScript executando verificação de tipos com tsc, linting e análise de correção de algoritmos para capturar erros de compilação, problemas de estilo e falhas lógicas.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[file/module] [options]"

@@ -1,6 +1,6 @@
 ---
 name: managing-security
-description: This skill enables the agent to perform security-related tasks, such as vulnerability scanning, security audits, and implementing security best practices. Use this when conducting security reviews, scanning for vulnerabilities, or implementing secure coding practices.
+description: Habilidade para realizar tarefas relacionadas à segurança, como varredura de vulnerabilidades, auditorias de segurança e implementação de melhores práticas. Use ao conduzir revisões de segurança, buscar vulnerabilidades ou implementar práticas de codificação segura.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[resource/project] [options]"

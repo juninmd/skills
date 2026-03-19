@@ -1,6 +1,6 @@
 ---
 name: architecting-file-systems
-description: Manage, organize, and optimize complex project directory structures and file organization patterns
+description: Gerenciar, organizar e otimizar estruturas complexas de diretórios de projetos e padrões de organização de arquivos.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[component/feature] [options]"

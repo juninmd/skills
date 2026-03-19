@@ -1,6 +1,6 @@
 ---
 name: integrating-apis
-description: This skill enables the agent to interact with external REST and GraphQL APIs. Use this when integrating with third-party APIs, fetching data from external services, or automating API interactions.
+description: Habilidade para interagir com APIs REST e GraphQL externas. Use ao integrar com APIs de terceiros, buscar dados de serviços externos ou automatizar interações com APIs.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[context] [options]"

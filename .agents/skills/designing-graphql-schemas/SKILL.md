@@ -1,6 +1,6 @@
 ---
 name: designing-graphql-schemas
-description: Design, optimize, and document GraphQL schemas with types, queries, mutations, and subscriptions
+description: Projetar, otimizar e documentar esquemas GraphQL com tipos, queries, mutations e subscriptions.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[component/feature] [options]"

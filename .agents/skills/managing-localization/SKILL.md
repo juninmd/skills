@@ -1,6 +1,6 @@
 ---
 name: managing-localization
-description: Manage application internationalization and localization including string extraction, translation files, and locale-specific formatting
+description: Gerenciar internacionalização e localização da aplicação, incluindo extração de strings, arquivos de tradução e formatação específica de localidade.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[resource/project] [options]"

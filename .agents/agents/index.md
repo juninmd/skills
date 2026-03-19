@@ -15,7 +15,7 @@ Estes agentes usam **subagents em paralelo** para análises multi-perspectiva. S
 | [feature-builder](./feature-builder.md) | Coordena entrega end-to-end de features (Plan → TDD → Implement → Review) | `software-architect`, `quality-engineer`, `secops-agent`, `code-reviewer`, `platform-engineer` |
 | [code-reviewer](./code-reviewer.md) | Review multi-perspectiva paralelo antes de merge | `secops-agent`, `quality-engineer`, `software-architect`, `refactoring-agent` |
 | [padrao-labs-agent](./padrao-labs-agent.md) | Audita 100% de aderência ao Padrão Labs | `secops-agent`, `quality-engineer`, `platform-engineer`, `software-architect` |
-| [software-architect](./software-architect.md) | Arquitetura, ADRs, Design Docs (C4), débito técnico | `archdd-agent`, `quality-engineer`, `secops-agent` |
+| [software-architect](./software-architect.md) | Arquitetura, ADRs, Design Docs (C4), débito técnico | `quality-engineer`, `secops-agent` |
 
 ---
 

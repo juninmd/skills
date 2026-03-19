@@ -1,6 +1,6 @@
 ---
 name: authenticating-sso-corp
-description: This skill enables the agent to implement authentication and authorization for internal collaborative applications using SSO Corp (Keycloak). Use this for any application handling employee logins. Do NOT use this for M2M, B2B, or supplier integrations (use ID.Magalu instead).
+description: Habilidade para implementar autenticação e autorização em aplicações colaborativas internas usando SSO Corp (Keycloak). Use para aplicações que gerenciam logins de funcionários. NÃO use para integrações M2M, B2B ou com fornecedores (use ID.Magalu em seu lugar).
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[context] [options]"

@@ -1,6 +1,6 @@
 ---
 name: processing-nlp
-description: Process and analyze natural language text for sentiment analysis, NER, summarization, and translation
+description: Processar e analisar textos em linguagem natural para análise de sentimento, NER, sumarização e tradução.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[context] [options]"

@@ -1,6 +1,6 @@
 ---
 name: sdd-review
-description: Workflow para review de spec/plan por agents - análise contra constitution e identificação de gaps
+description: Workflow para revisão de especificação e plano por agents - análise baseada na constituição e identificação de lacunas.
 ---
 
 # SDD: Review de Spec e Plan

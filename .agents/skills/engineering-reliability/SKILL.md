@@ -1,6 +1,6 @@
 ---
 name: engineering-reliability
-description: Ensure system reliability, scalability, and observability through monitoring, alerting, and incident response
+description: Garantir a confiabilidade, escalabilidade e observabilidade do sistema através de monitoramento, alertas e resposta a incidentes.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[context] [options]"

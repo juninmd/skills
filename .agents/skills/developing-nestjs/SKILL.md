@@ -1,6 +1,6 @@
 ---
 name: developing-nestjs
-description: Design, implement, and maintain production-ready NestJS backend applications with modular architecture, validation, authentication, and comprehensive testing.
+description: Projetar, implementar e manter aplicações backend NestJS prontas para produção com arquitetura modular, validação, autenticação e testes abrangentes.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[file/module] [options]"

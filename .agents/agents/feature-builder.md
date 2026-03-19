@@ -1,6 +1,6 @@
 ---
 name: feature-builder
-description: Coordenador de desenvolvimento de features que orquestra planejamento, arquitetura, implementação e revisão usando subagents especializados. Use para implementar features completas do início ao fim.
+description: Coordenador de desenvolvimento de funcionalidades que orquestra o planejamento, arquitetura, implementação e revisão usando subagentes especializados. Use para implementar funcionalidades completas de ponta a ponta.
 tools: ['agent', 'read', 'search', 'edit']
 user-invokable: true
 agents: ['software-architect', 'quality-engineer', 'secops-agent', 'code-reviewer', 'refactoring-agent', 'platform-engineer']

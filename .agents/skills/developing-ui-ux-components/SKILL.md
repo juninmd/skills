@@ -1,6 +1,6 @@
 ---
 name: developing-ui-ux-components
-description: Design, implement, and document reusable, accessible frontend UI components for web applications
+description: Projetar, implementar e documentar componentes de interface de usuário frontend reutilizáveis e acessíveis para aplicações web.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[file/module] [options]"

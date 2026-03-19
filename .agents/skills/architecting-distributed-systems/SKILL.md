@@ -1,6 +1,6 @@
 ---
 name: architecting-distributed-systems
-description: Design, analyze, and optimize distributed systems with microservices architecture and message queue communication
+description: Projetar, analisar e otimizar sistemas distribuídos com arquitetura de microsserviços e comunicação via fila de mensagens.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[component/feature] [options]"

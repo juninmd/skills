@@ -1,6 +1,6 @@
 ---
 name: sdd-new-feature
-description: Workflow completo para criar uma nova feature usando Spec-Driven Development (SDD)
+description: Workflow completo para criar uma nova funcionalidade usando Spec-Driven Development (SDD).
 ---
 
 # SDD: Nova Feature

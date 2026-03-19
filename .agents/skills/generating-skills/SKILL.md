@@ -1,6 +1,6 @@
 ---
 name: generating-skills
-description: Generate new Agent Skills that strictly adhere to the agentskills.io/specification format.
+description: Gerar novas Agent Skills que aderem estritamente ao formato agentskills.io/specification.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[component/feature] [options]"

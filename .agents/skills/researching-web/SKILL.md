@@ -1,6 +1,6 @@
 ---
 name: researching-web
-description: Perform comprehensive web research through search engines, content fetching, and information synthesis
+description: Realizar pesquisa web abrangente através de motores de busca, extração de conteúdo e síntese de informações.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[query/topic] [options]"

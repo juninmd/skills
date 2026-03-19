@@ -1,6 +1,6 @@
 ---
 name: validating-dockerfile
-description: Skill to validate Dockerfiles by performing a build and run smoke test.
+description: Habilidade para validar Dockerfiles realizando build e smoke test.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[file/module] [options]"

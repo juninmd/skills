@@ -1,6 +1,6 @@
 ---
 name: applying-dry
-description: Skill for applying the Don't Repeat Yourself (DRY) principle. Use when identifying code duplication, copy-pasted logic, or repeated patterns across the codebase.
+description: Habilidade para aplicar o princípio Don't Repeat Yourself (DRY). Use ao identificar duplicação de código, lógica copiada e colada ou padrões repetidos no repositório.
 argument-hint: "[file/module] [options]"
 ---
 

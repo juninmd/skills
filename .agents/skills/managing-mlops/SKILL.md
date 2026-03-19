@@ -1,6 +1,6 @@
 ---
 name: managing-mlops
-description: Manage the lifecycle of machine learning models from deployment to monitoring and retraining
+description: Gerenciar o ciclo de vida de modelos de machine learning, desde o deploy até o monitoramento e retreinamento.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[resource/project] [options]"

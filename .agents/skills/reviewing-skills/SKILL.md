@@ -1,6 +1,6 @@
 ---
 name: reviewing-skills
-description: Review and audit existing Agent Skills to ensure strict compliance with Anthropic best practices and the agentskills.io specification. All skills must be reviewed and maintained in English.
+description: Revisar e auditar Agent Skills existentes para garantir estrita conformidade com as melhores práticas da Anthropic e a especificação agentskills.io. Todas as skills devem ser revisadas e mantidas em inglês.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[context] [options]"

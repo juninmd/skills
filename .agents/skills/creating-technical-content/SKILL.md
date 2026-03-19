@@ -1,6 +1,6 @@
 ---
 name: creating-technical-content
-description: Produce high-quality technical documentation, tutorials, blog posts, and release notes
+description: Produzir documentação técnica de alta qualidade, tutoriais, postagens em blogs e notas de lançamento.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[context] [options]"

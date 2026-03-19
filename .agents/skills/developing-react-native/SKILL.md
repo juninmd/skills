@@ -1,6 +1,6 @@
 ---
 name: developing-react-native
-description: Develop cross-platform mobile applications using React Native for iOS and Android
+description: Desenvolver aplicativos móveis multiplataforma usando React Native para iOS e Android.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[file/module] [options]"

@@ -1,6 +1,6 @@
 ---
 name: optimizing-performance
-description: Analyze applications for performance bottlenecks and implement optimizations through profiling and testing
+description: Analisar aplicações em busca de gargalos de desempenho e implementar otimizações através de profiling e testes.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[context] [options]"

@@ -1,6 +1,6 @@
 ---
 name: documenting-markdown
-description: Generate high-quality Markdown documentation from source code including READMEs, API references, and technical guides
+description: Gerar documentação de alta qualidade em Markdown a partir do código-fonte, incluindo READMEs, referências de API e guias técnicos.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[context] [options]"

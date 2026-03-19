@@ -1,6 +1,6 @@
 ---
 name: engineering-prompts
-description: Design, optimize, and evaluate prompts for LLMs using advanced techniques like Few-Shot and Chain-of-Thought
+description: Projetar, otimizar e avaliar prompts para LLMs usando técnicas avançadas como Few-Shot e Chain-of-Thought.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[context] [options]"

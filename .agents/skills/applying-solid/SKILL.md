@@ -1,6 +1,6 @@
 ---
 name: applying-solid
-description: Skill for applying SOLID object-oriented design principles. Use when designing or refactoring class hierarchies, interfaces, and dependencies to improve flexibility and maintainability.
+description: Habilidade para aplicar princípios de design orientado a objetos SOLID. Use ao projetar ou refatorar hierarquias de classes, interfaces e dependências para melhorar a flexibilidade e manutenibilidade.
 argument-hint: "[file/module] [options]"
 ---
 

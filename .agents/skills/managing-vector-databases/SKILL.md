@@ -1,6 +1,6 @@
 ---
 name: managing-vector-databases
-description: Manage vector databases for similarity search, RAG systems, and semantic search applications
+description: Gerenciar bancos de dados vetoriais para busca por similaridade, sistemas RAG e aplicações de busca semântica.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[resource/project] [options]"

@@ -1,6 +1,6 @@
 ---
 name: auditing-technical-seo
-description: Perform technical SEO audits to identify crawling, indexing, and ranking issues on websites
+description: Realizar auditorias técnicas de SEO para identificar problemas de rastreamento, indexação e ranqueamento em sites.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[file/module] [options]"

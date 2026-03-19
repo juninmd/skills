@@ -1,6 +1,6 @@
 ---
 name: generating-design-docs
-description: Gera Design Docs (Confluence Markdown) a partir de código-fonte com auto-crítica arquitetural, segurança, observabilidade e qualidade de código.
+description: Gerar Design Docs (Confluence Markdown) a partir do código-fonte com autocrítica arquitetural, segurança, observabilidade e qualidade de código.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[component/feature] [options]"

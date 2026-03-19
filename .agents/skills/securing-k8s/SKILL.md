@@ -1,6 +1,6 @@
 ---
 name: securing-k8s
-description: Secure Kubernetes clusters with RBAC management, configuration auditing, network policies, and runtime security
+description: Proteger clusters Kubernetes com gerenciamento RBAC, auditoria de configurações, políticas de rede e segurança em tempo de execução.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[context] [options]"
