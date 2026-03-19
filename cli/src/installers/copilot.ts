@@ -13,10 +13,10 @@ import { log } from '../utils/logger.js';
 import { BaseInstaller } from './base-installer.js';
 import type { CategoryMapping, MCPConfig, MCPInputConfig } from '../types.js';
 import color from 'picocolors';
-import { 
-  VSCODE_SETTINGS_KEYS, 
-  SETTING_DESCRIPTIONS, 
-  DEFAULT_ADVANCED_SETTINGS 
+import {
+  VSCODE_SETTINGS_KEYS,
+  SETTING_DESCRIPTIONS,
+  DEFAULT_ADVANCED_SETTINGS
 } from '../utils/vscode-settings.js';
 
 /** Linguagens onde o Copilot deve ser desativado por padrão. */
@@ -96,13 +96,13 @@ export class CopilotInstaller extends BaseInstaller {
     const summary: string[] = [];
     const settingsPaths = getVSCodeSettingsPaths();
 
+    const assetsCount = await this.prepareCopilotAssets(agentsDir);
+    summary.push(`${assetsCount} componentes adaptados para o Copilot`);
+
     for (const path of settingsPaths) {
       await this.configureVSCodeSettings(agentsDir, path);
     }
     summary.push(`VS Code Settings atualizados em ${settingsPaths.length} perfis`);
-
-    const workflowsCount = await this.convertComponentsToPrompts(agentsDir);
-    summary.push(`${workflowsCount} Workflows convertidos em prompts`);
 
     await this.configureMcp();
     summary.push('GitLab MCP Server configurado');
@@ -129,7 +129,7 @@ export class CopilotInstaller extends BaseInstaller {
       try {
         const raw = await readFile(settingsPath, 'utf-8');
         await writeFile(`${settingsPath}.old`, raw, 'utf-8');
-        
+
         settings = parse(raw) as Record<string, unknown>;
         oldSettings = parse(raw) as Record<string, unknown>;
       } catch {
@@ -150,7 +150,7 @@ export class CopilotInstaller extends BaseInstaller {
     if (await dirExists(rulesDir)) {
       const ruleFiles = await readFileList(rulesDir);
       for (const file of ruleFiles.sort()) {
-        if (file.endsWith('.md') && file !== 'index.md') {
+        if (file.endsWith('.instructions.md')) {
           instructions.push({ file: toPortablePath(join(rulesDir, file)) });
         }
       }
@@ -161,8 +161,8 @@ export class CopilotInstaller extends BaseInstaller {
     const enableKey = VSCODE_SETTINGS_KEYS.COPILOT_ENABLE;
     const existingEnable: Record<string, boolean> =
       settings[enableKey] !== null &&
-      typeof settings[enableKey] === 'object' &&
-      !Array.isArray(settings[enableKey])
+        typeof settings[enableKey] === 'object' &&
+        !Array.isArray(settings[enableKey])
         ? (settings[enableKey] as Record<string, boolean>)
         : {};
 
@@ -176,8 +176,8 @@ export class CopilotInstaller extends BaseInstaller {
     const promptKey = VSCODE_SETTINGS_KEYS.PROMPT_LOCS;
     let promptLocs: Record<string, boolean> =
       settings[promptKey] !== null &&
-      typeof settings[promptKey] === 'object' &&
-      !Array.isArray(settings[promptKey])
+        typeof settings[promptKey] === 'object' &&
+        !Array.isArray(settings[promptKey])
         ? (settings[promptKey] as Record<string, boolean>)
         : {};
 
@@ -196,8 +196,8 @@ export class CopilotInstaller extends BaseInstaller {
     const skillsKey = VSCODE_SETTINGS_KEYS.SKILLS_LOCS;
     let skillsLocs: Record<string, boolean> =
       settings[skillsKey] !== null &&
-      typeof settings[skillsKey] === 'object' &&
-      !Array.isArray(settings[skillsKey])
+        typeof settings[skillsKey] === 'object' &&
+        !Array.isArray(settings[skillsKey])
         ? (settings[skillsKey] as Record<string, boolean>)
         : {};
 
@@ -210,7 +210,7 @@ export class CopilotInstaller extends BaseInstaller {
     skillsLocs['.claude/skills'] = true;
     skillsLocs['~/.copilot/skills'] = true;
     skillsLocs['~/.claude/skills'] = true;
-    
+
     const skillsDir = join(agentsDir, 'skills');
     if (await dirExists(skillsDir)) skillsLocs[toPortablePath(skillsDir)] = true;
     settings[skillsKey] = skillsLocs;
@@ -219,8 +219,8 @@ export class CopilotInstaller extends BaseInstaller {
     const agentsKey = VSCODE_SETTINGS_KEYS.AGENTS_LOCS;
     let agentsLocs: Record<string, boolean> =
       settings[agentsKey] !== null &&
-      typeof settings[agentsKey] === 'object' &&
-      !Array.isArray(settings[agentsKey])
+        typeof settings[agentsKey] === 'object' &&
+        !Array.isArray(settings[agentsKey])
         ? (settings[agentsKey] as Record<string, boolean>)
         : {};
 
@@ -250,7 +250,7 @@ export class CopilotInstaller extends BaseInstaller {
     logSettingsDiff(settingsPath, oldSettings, settings);
   }
 
-  private async convertComponentsToPrompts(agentsDir: string): Promise<number> {
+  private async prepareCopilotAssets(agentsDir: string): Promise<number> {
     const promptsDir = join(agentsDir, 'prompts');
     if (this.options.dryRun) return 0;
 
@@ -283,6 +283,21 @@ export class CopilotInstaller extends BaseInstaller {
       await processDir(join(agentsDir, category), category);
     }
 
+    // Adapt Rules to .instructions.md
+    const rulesSubDir = join(agentsDir, 'rules');
+    if (await dirExists(rulesSubDir)) {
+      const entries = await readdir(rulesSubDir, { withFileTypes: true });
+      for (const entry of entries) {
+        if (entry.isFile() && entry.name.endsWith('.md') && !entry.name.endsWith('.instructions.md') && entry.name !== 'index.md') {
+          const content = await readFile(join(rulesSubDir, entry.name), 'utf-8');
+          const newName = entry.name.replace('.md', '.instructions.md');
+          await writeFile(join(rulesSubDir, newName), content, 'utf-8');
+          total++;
+        }
+      }
+    }
+
+    // Adapt Agents to .agent.md
     const agentsSubDir = join(agentsDir, 'agents');
     if (await dirExists(agentsSubDir)) {
       const entries = await readdir(agentsSubDir, { withFileTypes: true });
@@ -291,6 +306,7 @@ export class CopilotInstaller extends BaseInstaller {
           const content = await readFile(join(agentsSubDir, entry.name), 'utf-8');
           const newName = entry.name.replace('.md', '.agent.md');
           await writeFile(join(agentsSubDir, newName), content, 'utf-8');
+          total++;
         }
       }
     }
@@ -328,7 +344,7 @@ export class CopilotInstaller extends BaseInstaller {
       try {
         const content = await readFile(mcpPath, 'utf-8');
         mcpConfig = parse(content) as unknown as MCPConfig;
-      } catch {}
+      } catch { }
     }
 
     if (!mcpConfig.servers) mcpConfig.servers = {};
