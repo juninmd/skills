@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.33.1](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.33.0...v1.33.1) (2026-03-19)
+
+
+### Continuous Integration
+
+* add unit_tests job to gitlab pipeline with coverage reports ([b43e50f](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/b43e50f))
+
 # [1.33.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.32.0...v1.33.0) (2026-03-18)
 
 
