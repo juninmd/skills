@@ -199,6 +199,41 @@ describe('CategoryGrid', () => {
     expect(wrapper.findAll('.tag').length).toBe(0);
   });
 
+  it('should handle edge case with empty title and empty description', () => {
+    const itemEmpty = {
+      id: 'item-7',
+      title: '',
+      description: '',
+      url: '/test/item-7',
+    };
+
+    const wrapper = mount(CategoryGrid, {
+      props: {
+        items: [itemEmpty],
+        category: 'skills',
+      },
+    });
+
+    expect(wrapper.exists()).toBe(true);
+    expect(wrapper.find('h3').text()).toBe('');
+    expect(wrapper.text()).toContain('No description available');
+  });
+
+  it('should return all items when search query is only spaces', async () => {
+    const wrapper = mount(CategoryGrid, {
+      props: {
+        items: mockItems,
+        category: 'rules',
+      },
+    });
+
+    const input = wrapper.find('.grid-search-input');
+    await input.setValue('   ');
+
+    const cards = wrapper.findAll('.grid-card');
+    expect(cards.length).toBe(3);
+  });
+
   it('should return fallback icon for unknown category', () => {
     const wrapper = mount(CategoryGrid, {
       props: {

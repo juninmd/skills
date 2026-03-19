@@ -91,6 +91,18 @@ describe('Logger', () => {
       expect(consoleLogSpy).toHaveBeenCalledWith(expect.stringContaining('LongerKey'));
     });
 
+    it('should log table rows with extreme alternative values', () => {
+      const rows: Array<[string, string]> = [
+        ['', 'EmptyKey'],
+        ['A-Very-Long-Key-To-Test-Padding-Edge-Cases', ''],
+        ['Special chars !@#', 'Val !@#'],
+      ];
+      log.table(rows);
+      expect(consoleLogSpy).toHaveBeenCalledTimes(3);
+      expect(consoleLogSpy).toHaveBeenCalledWith(expect.stringContaining('EmptyKey'));
+      expect(consoleLogSpy).toHaveBeenCalledWith(expect.stringContaining('Val !@#'));
+    });
+
     it('should handle empty rows array', () => {
       log.table([]);
       expect(consoleLogSpy).not.toHaveBeenCalled();

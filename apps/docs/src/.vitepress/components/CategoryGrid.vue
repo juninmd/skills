@@ -62,7 +62,8 @@ const localSearch = ref('');
 
 const filteredItems = computed(() => {
   return props.items.filter(item => {
-    const query = localSearch.value.toLowerCase();
+    const query = localSearch.value.toLowerCase().trim();
+    if (!query) return true;
     return (
       item.title.toLowerCase().includes(query) ||
       item.description?.toLowerCase().includes(query) ||
