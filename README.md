@@ -8,25 +8,54 @@ Uma plataforma completa de documentação e descoberta para padrões de desenvol
 
 ## 📚 O que está incluído
 
-- **70+ Skills** - Capacidades e padrões de desenvolvimento reutilizáveis. A especificação padrão para as skills segue [https://agentskills.io/specification](https://agentskills.io/specification).
-- **Agentes** - Configurações de IA para GitHub Copilot, Cursor, Antigravity, Gemini e mais.
+- **65+ Skills** - Capacidades e padrões de desenvolvimento reutilizáveis. A especificação padrão para as skills segue [https://agentskills.io/specification](https://agentskills.io/specification).
+- **Agentes** - Configurações de IA para GitHub Copilot, Antigravity, Gemini e mais.
 - **Regras** - Padrões de desenvolvimento, diretrizes de segurança e melhores práticas.
 - **Workflows** - Pipelines de CI/CD e automação de deploy.
 - **Plugins** - Organização contextual para agentes e skills (padrão Agent Plugins).
+
+## 🔤 Nomenclaturas e Conceitos
+
+Dependendo da ferramenta de IA utilizada, os conceitos deste repositório podem aparecer com nomes diferentes:
+
+| Conceito neste Repositório | VS Code (GitHub Copilot) | Google Antigravity / Gemini |
+| :--- | :--- | :--- |
+| **Agente (Agent)** | Chat Participant / Agent | Custom Agent / Persona |
+| **Subagente (Subagent)** | Subagent / Tool Call | Delegate Agent / Sub-Persona |
+| **Skill** | Tool / Action / Skill | Skill / Tool |
+| **Regras (Rules)** | Custom Instructions | System Instructions / Constitution |
+| **Workflow** | Procedure / Plan | Workflow / Action Plan |
 
 ![install.png](.github/install.png "Install")
 
 ![marketplace.png](.github/marketplace.png "Marketplace")
 
-## 📦 CLI - Instalação e Uso
+![agents.png](.github/agents.png "agents")
+
+![subagents.png](.github/subagents.png "subagents")
+
+![resposta.png](.github/resposta.png "resposta")
+
+## Dica
+
+> git config --global http.sslVerify false
+
+Ative temporariamente para evitar problemas na VPN ao clonar o repositório
+
+## Instalação Direta Manual Remota - VSCode
+
+```json
+{
+  "chat.plugins.marketplaces": [
+    "ssh://git@gitlab.luizalabs.com/luizalabs/padrao-labs-agents.git",
+  ]
+}
+```
+## 📦 CLI - Instalação Automatizada e Uso
 
 ### 🌐 Instalação Recomendada (via Git Clone)
 
 Para garantir que você sempre tenha a versão mais recente e possa customizar as ferramentas, recomendamos clonar o repositório e linkar o binário globalmente:
-
-> git config --global http.sslVerify false
-
-Ative temporariamente para evitar problemas na VPN
 
 ```bash
 # 1. Clone o repositório
@@ -157,7 +186,7 @@ Após adicionar o plugin ao arquivo, execute `pnpm run build` para sincronizar e
 
 #### 📖 Documentação Detalhada
 
-Para mais informações sobre a arquitetura e funcionamento: [SKILL_INSTALL_GUIDE.md](SKILL_INSTALL_GUIDE.md)
+Para mais informações sobre a arquitetura e funcionamento, consulte os arquivos no diretório `.agents/`.
 
 ### 💻 Uso Local em Desenvolvimento
 
@@ -193,7 +222,7 @@ padrao-labs-agents install --dry-run
 padrao-labs-agents skill install applying-yagni
 ```
 
-**Dica:** Para remover o link depois, execute `npm unlink -g @luizalabs/padrao-labs-agents` dentro da pasta `cli`.
+**Dica:** Para remover o link depois, execute `npm unlink -g padrao-labs-agents` dentro da pasta `cli`.
 
 ## 🏗️ Arquitetura
 
@@ -203,7 +232,7 @@ Este projeto está estruturado como um **Monorepo** moderno usando `pnpm workspa
 padrao-labs-agents/
 ├── .agents/          ← 🌟 FONTE DA VERDADE (SOMENTE LEITURA para consumidores)
 │   ├── agents/
-│   ├── skills/       (70+ itens)
+│   ├── skills/       (65+ itens)
 │   ├── rules/
 │   └── workflows/
 ├── apps/
@@ -235,24 +264,6 @@ pnpm run build
 pnpm run test
 ```
 
-## 🤝 Como Usar no seu Projeto (Manual)
-
-Caso não queira usar o CLI, você pode baixar as definições manualmente:
-
-**GitHub Copilot (VS Code):**
-
-```bash
-mkdir -p .github .agents
-curl https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/.agents/agents.md -o .agents/agents.md
-curl https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/.agents/agents.md -o .github/copilot-instructions.md
-```
-
-**Cursor:**
-
-```bash
-curl https://raw.githubusercontent.com/luizalabs/padrao-labs-agents/main/.agents/agents.md -o .cursorrules
-```
-
 ## 🧪 Testes
 
 O monorepo utiliza o `vitest` com configurações otimizadas e isoladas para cada pacote.
@@ -275,9 +286,6 @@ O projeto usa um script interno (`apps/docs/src/loader.js`) que, durante o proce
 ## ✍️ Contribuindo
 
 - **Nova Skill ou Regra?** Adicione ou modifique arquivos **APENAS** dentro da pasta raiz `.agents/`.
+- **Novo Plugin?** Adicione ou modifique arquivos **APENAS** dentro da pasta `plugins/`.
 - **Alterar o site?** Modifique os componentes em `apps/docs/`.
 - **Alterar o CLI?** Modifique o código em `cli/src/`.
-
----
-
-Parte de Luizalabs · Magalu

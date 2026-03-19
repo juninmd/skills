@@ -1,11 +1,32 @@
 ---
 name: padrao-labs-agent
-description: Agente especialista no Padrão Luizalabs (CI/CD, Kubernetes, Sonar, ArgoCD, GCP), focado em padronizar, criar e auditar aplicações para 100% de aderência às normas internas.
-tools: ['agent', 'read', 'search', 'edit']
+description: >-
+  Agente especialista no Padrão Luizalabs (CI/CD, Kubernetes, Sonar, ArgoCD,
+  GCP), focado em padronizar, criar e auditar aplicações para 100% de aderência
+  às normas internas.
+tools:
+  - agent
+  - read
+  - search
+  - edit
 user-invokable: true
-agents: ['secops-agent', 'quality-engineer', 'platform-engineer', 'software-architect']
+agents:
+  - secops-agent
+  - quality-engineer
+  - platform-engineer
+  - software-architect
 metadata:
-    works_on: [copilot, antigravity, gemini_cli]
+  works_on:
+    - copilot
+    - antigravity
+    - gemini_cli
+skills:
+  - scaffolding-projects
+  - operating-ci-knife
+  - managing-cicd
+  - operating-k8s
+  - cataloging-apis
+  - configuring-sonarqube
 ---
 
 # Padrao Labs Agent

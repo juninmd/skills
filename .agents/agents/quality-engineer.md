@@ -1,11 +1,24 @@
 ---
 name: quality-engineer
-description: Agente especialista em Qualidade de Software, Testes e Métricas (Sonar/Coverage) seguindo o padrão Sênior Luizalabs.
-tools: ['read', 'search', 'edit']
+description: >-
+  Agente especialista em Qualidade de Software, Testes e Métricas
+  (Sonar/Coverage) seguindo o padrão Sênior Luizalabs.
+tools:
+  - read
+  - search
+  - edit
 user-invokable: true
 disable-model-invocation: false
 metadata:
-    works_on: [copilot, antigravity, gemini_cli]
+  works_on:
+    - copilot
+    - antigravity
+    - gemini_cli
+skills:
+  - managing-quality
+  - operating-ci-knife
+  - developing-python
+  - developing-node
 ---
 
 # Quality Engineer Sênior

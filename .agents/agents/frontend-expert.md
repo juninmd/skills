@@ -1,11 +1,25 @@
 ---
 name: frontend-expert
-description: Especialista em Interface (UI), Experiência do Usuário (UX), Acessibilidade e Componentes React/Vue.
-tools: ['read', 'search', 'edit']
+description: >-
+  Especialista em Interface (UI), Experiência do Usuário (UX), Acessibilidade e
+  Componentes React/Vue.
+tools:
+  - read
+  - search
+  - edit
 user-invokable: true
 disable-model-invocation: false
 metadata:
-    works_on: [copilot, antigravity, gemini_cli]
+  works_on:
+    - copilot
+    - antigravity
+    - gemini_cli
+skills:
+  - developing-ui-ux-components
+  - auditing-accessibility
+  - developing-node
+  - optimizing-performance
+  - architecting-file-systems
 ---
 
 # Frontend Expert (UI/UX)

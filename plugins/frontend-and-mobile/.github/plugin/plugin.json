@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "skills": [
     "../../../../.agents/skills/developing-react-native",
+    "../../../../.agents/skills/developing-android-native",
     "../../../../.agents/skills/developing-ui-ux-components",
     "../../../../.agents/skills/auditing-accessibility",
     "../../../../.agents/skills/auditing-technical-seo",

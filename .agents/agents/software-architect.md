@@ -1,10 +1,26 @@
 ---
 name: software-architect
-description: Agente Sênior responsável por Arquitetura de Software, Design Patterns, Refatoração e Débito Técnico.
-tools: ['agent', 'read', 'search', 'edit']
-agents: ['quality-engineer', 'secops-agent']
+description: >-
+  Agente Sênior responsável por Arquitetura de Software, Design Patterns,
+  Refatoração e Débito Técnico.
+tools:
+  - agent
+  - read
+  - search
+  - edit
+agents:
+  - quality-engineer
+  - secops-agent
 metadata:
-    works_on: [copilot, antigravity, gemini_cli]
+  works_on:
+    - copilot
+    - antigravity
+    - gemini_cli
+skills:
+  - auditing-code
+  - architecting-distributed-systems
+  - navigating-organizations
+  - cataloging-apis
 ---
 
 # Software Architect (Tech Lead)
