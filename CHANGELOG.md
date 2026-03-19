@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.34.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.33.1...v1.34.0) (2026-03-19)
+
+
+### Features
+
+* **CategoryGrid:** enhance search functionality to handle empty queries and trim whitespace ([d9bc376](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/d9bc376))
+
 ## [1.33.1](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.33.0...v1.33.1) (2026-03-19)
 
 
