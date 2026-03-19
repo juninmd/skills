@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.35.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.34.1...v1.35.0) (2026-03-19)
+
+
+### Features
+
+* update agent and skill definitions, add new skills and validation scripts ([75c7e7b](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/75c7e7b))
+
 ## [1.34.1](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.34.0...v1.34.1) (2026-03-19)
 
 
