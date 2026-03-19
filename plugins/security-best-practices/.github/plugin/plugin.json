@@ -1,7 +1,7 @@
 {
   "name": "security-best-practices",
   "description": "Security auditing, incident response, and best practices for secure environments.",
-  "version": "1.0.0",
+  "version": "1.38.2",
   "skills": [
     "../../../../.agents/skills/managing-security",
     "../../../../.agents/skills/securing-environments",

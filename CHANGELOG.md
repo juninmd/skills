@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.38.2](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.38.1...v1.38.2) (2026-03-19)
+
+
+### Code Refactoring
+
+* reorganize release configuration ([2da97fc](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/2da97fc))
+
 # [1.35.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.34.1...v1.35.0) (2026-03-19)
 
 
