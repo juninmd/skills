@@ -14,7 +14,6 @@
   "type": "module",
   "scripts": {
     "dev": "pnpm -r run dev",
-    "version": "node scripts/sync-versions.mjs && git add .",
     "prebuild": "pnpm run gen:marketplace && pnpm run lint:plugins && pnpm run lint:agents && pnpm run lint:skills",
     "build": "pnpm -r run build",
     "start": "pnpm -r run start",

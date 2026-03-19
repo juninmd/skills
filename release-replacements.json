@@ -1,0 +1,30 @@
+[
+  {
+    "files": [
+      "cli/package.json"
+    ],
+    "from": "\"version\": \".*\"",
+    "to": "\"version\": \"${nextRelease.version}\""
+  },
+  {
+    "files": [
+      "apps/docs/package.json"
+    ],
+    "from": "\"version\": \".*\"",
+    "to": "\"version\": \"${nextRelease.version}\""
+  },
+  {
+    "files": [
+      "plugins/**/.github/plugin/plugin.json"
+    ],
+    "from": "\"version\": \".*\"",
+    "to": "\"version\": \"${nextRelease.version}\""
+  },
+  {
+    "files": [
+      ".github/plugin/marketplace.json"
+    ],
+    "from": "    \"version\": \".*\"",
+    "to": "    \"version\": \"${nextRelease.version}\""
+  }
+]
