@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.41.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.40.0...v1.41.0) (2026-03-20)
+
+
+### Features
+
+* add comprehensive rules for CI/CD, command safety, documentation standards, environment secrets, git workflow, and more ([46c9fcc](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/46c9fcc))
+
 # [1.40.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.39.0...v1.40.0) (2026-03-19)
 
 
