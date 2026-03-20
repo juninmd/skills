@@ -99,8 +99,10 @@ export class CopilotInstaller extends BaseInstaller {
 
     for (const path of settingsPaths) {
       await this.configureVSCodeSettings(agentsDir, path);
+      const keybindingsPath = path.replace(/settings\\.json$/, 'keybindings.json');
+      await this.configureVSCodeKeybindings(keybindingsPath);
     }
-    summary.push(`VS Code Settings atualizados em ${settingsPaths.length} perfis`);
+    summary.push(`VS Code Settings e Keybindings atualizados em ${settingsPaths.length} perfis`);
 
     await this.configureMcp();
     summary.push('GitLab MCP Server configurado');
@@ -243,6 +245,42 @@ export class CopilotInstaller extends BaseInstaller {
     await writeFile(settingsPath, stringify(settings, null, 2), 'utf-8');
 
     logSettingsDiff(settingsPath, oldSettings, settings);
+  }
+
+  private async configureVSCodeKeybindings(keybindingsPath: string): Promise<void> {
+    if (this.options.dryRun) {
+      log.dryRun(`Configuraria VS Code keybindings.json: ${keybindingsPath}`);
+      return;
+    }
+
+    let keybindings: any[] = [];
+
+    if (await fileExists(keybindingsPath)) {
+      try {
+        const raw = await readFile(keybindingsPath, 'utf-8');
+        await writeFile(`${keybindingsPath}.old`, raw, 'utf-8');
+        const parsed = parse(raw);
+        if (Array.isArray(parsed)) {
+          keybindings = parsed;
+        }
+      } catch {
+        log.warn(`Nao foi possivel ler ${keybindingsPath} — sera criado do zero`);
+      }
+    }
+
+    const newBinding = {
+      key: "ctrl+shift+insert",
+      command: "aiCustomization.openManagementEditor",
+      when: "chatIsEnabled && config.chat.customizationsMenu.enabled"
+    };
+
+    const exists = keybindings.some(b => b.key === newBinding.key && b.command === newBinding.command);
+    if (!exists) {
+      keybindings.push(newBinding);
+    }
+
+    await ensureDir(join(keybindingsPath, '..'));
+    await writeFile(keybindingsPath, stringify(keybindings, null, 2), 'utf-8');
   }
 
   private async generateCopilotIgnore(): Promise<void> {

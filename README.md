@@ -85,6 +85,7 @@ Este comando irá:
 1. Verificar atualizações no seu repositório local.
 2. Detectar instalações do VS Code e VS Code Insiders.
 3. Configurar os caminhos de regras, agentes e skills (via Agent Plugins ou Symlinks).
+4. Configurar atalhos no `keybindings.json` (ex: `ctrl+shift+insert` para abrir o Customization Menu do AI).
 
 #### Outros Comandos Disponíveis
 
