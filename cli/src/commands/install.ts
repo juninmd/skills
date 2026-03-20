@@ -432,6 +432,12 @@ async function performVSCodeInstall(toolName: string, turbo: boolean, method: 'p
         await writeFile(settingsPath, stringify(settings, null, 2), 'utf-8');
         p.log.success(`✅ Configurações salvas em ${color.cyan(toPortablePath(settingsPath))}`);
       }
+
+      const keybindingsPath = settingsPath.replace(/settings\.json$/, 'keybindings.json');
+      const kbChanges = await configureVSCodeKeybindings(keybindingsPath, options);
+      if (kbChanges === 0) {
+        p.log.info(`🚀 ${color.green('Tudo em ordem!')} Os atalhos em ${color.cyan(toPortablePath(keybindingsPath))} já estavam atualizados.`);
+      }
     }
   }
 
@@ -449,6 +455,50 @@ async function performVSCodeInstall(toolName: string, turbo: boolean, method: 'p
     await syncSymlinksGranular(join(bundleDir, 'rules'), join(agentsDir, 'rules'));
     await syncSymlinksGranular(join(bundleDir, 'workflows'), join(agentsDir, 'workflows'));
   }
+}
+
+async function configureVSCodeKeybindings(keybindingsPath: string, options: InstallOptions): Promise<number> {
+  if (options.dryRun) {
+    p.log.step(`Configuraria VS Code keybindings.json: ${toPortablePath(keybindingsPath)}`);
+    return 1;
+  }
+
+  let keybindings: any[] = [];
+
+  if (await fileExists(keybindingsPath)) {
+    try {
+      const raw = await readFile(keybindingsPath, 'utf-8');
+      const parsed = parse(raw);
+      if (Array.isArray(parsed)) {
+        keybindings = parsed;
+      }
+    } catch {
+      // Ignora erro e recria do zero
+    }
+  }
+
+  const newBinding = {
+    key: "ctrl+shift+insert",
+    command: "aiCustomization.openManagementEditor",
+    when: "chatIsEnabled && config.chat.customizationsMenu.enabled"
+  };
+
+  const exists = keybindings.some(b => b.key === newBinding.key && b.command === newBinding.command);
+  
+  if (!exists) {
+    keybindings.push(newBinding);
+    
+    p.log.step(`Alterações em ${color.cyan(toPortablePath(keybindingsPath))}:`);
+    p.log.message(`  ${color.green('+')} ${color.bold('Adicionado atalho:')} ${color.green(newBinding.key)} -> ${color.yellow(newBinding.command)}`);
+    
+    await ensureDir(join(keybindingsPath, '..'));
+    await writeFile(keybindingsPath, stringify(keybindings, null, 2), 'utf-8');
+    p.log.success(`✅ Atalhos salvos em ${color.cyan(toPortablePath(keybindingsPath))}`);
+    
+    return 1;
+  }
+  
+  return 0;
 }
 
 async function generateCopilotIgnore(): Promise<void> {

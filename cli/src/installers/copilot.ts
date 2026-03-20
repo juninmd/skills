@@ -99,8 +99,6 @@ export class CopilotInstaller extends BaseInstaller {
 
     for (const path of settingsPaths) {
       await this.configureVSCodeSettings(agentsDir, path);
-      const keybindingsPath = path.replace(/settings\\.json$/, 'keybindings.json');
-      await this.configureVSCodeKeybindings(keybindingsPath);
     }
     summary.push(`VS Code Settings e Keybindings atualizados em ${settingsPaths.length} perfis`);
 
