@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.43.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.42.0...v1.43.0) (2026-03-20)
+
+
+### Features
+
+* workflows ([26e3d43](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/26e3d43))
+
 # [1.42.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.41.0...v1.42.0) (2026-03-20)
 
 
