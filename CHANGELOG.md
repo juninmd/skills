@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.43.2](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.43.1...v1.43.2) (2026-03-20)
+
+
+### Code Refactoring
+
+* streamline prompt location handling in CopilotInstaller ([ccce766](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/ccce766))
+
 ## [1.43.1](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.43.0...v1.43.1) (2026-03-20)
 
 
