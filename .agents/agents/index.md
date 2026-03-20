@@ -12,10 +12,10 @@ Estes agentes usam **subagents em paralelo** para análises multi-perspectiva. S
 
 | Agente | Papel | Subagents Utilizados |
 |---|---|---|
-| [feature-builder](./feature-builder.md) | Coordena entrega end-to-end de features (Plan → TDD → Implement → Review) | `software-architect`, `quality-engineer`, `secops-agent`, `code-reviewer`, `platform-engineer` |
-| [code-reviewer](./code-reviewer.md) | Review multi-perspectiva paralelo antes de merge | `secops-agent`, `quality-engineer`, `software-architect`, `refactoring-agent` |
-| [padrao-labs-agent](./padrao-labs-agent.md) | Audita 100% de aderência ao Padrão Labs | `secops-agent`, `quality-engineer`, `platform-engineer`, `software-architect` |
-| [software-architect](./software-architect.md) | Arquitetura, ADRs, Design Docs (C4), débito técnico | `quality-engineer`, `secops-agent` |
+| [feature-builder](./feature-builder.agent.md) | Coordena entrega end-to-end de features (Plan → TDD → Implement → Review) | `software-architect`, `quality-engineer`, `secops-agent`, `code-reviewer`, `platform-engineer` |
+| [code-reviewer](./code-reviewer.agent.md) | Review multi-perspectiva paralelo antes de merge | `secops-agent`, `quality-engineer`, `software-architect`, `refactoring-agent` |
+| [padrao-labs-agent](./padrao-labs-agent.agent.md) | Audita 100% de aderência ao Padrão Labs | `secops-agent`, `quality-engineer`, `platform-engineer`, `software-architect` |
+| [software-architect](./software-architect.agent.md) | Arquitetura, ADRs, Design Docs (C4), débito técnico | `quality-engineer`, `secops-agent` |
 
 ---
 
@@ -25,13 +25,13 @@ Agentes focados, usados diretamente ou invocados como subagents pelos coordenado
 
 | Agente | Especialidade | `user-invokable` |
 |---|---|---|
-| [quality-engineer](./quality-engineer.md) | Cobertura ≥90%, SonarQube, pytest/jest, métricas DORA | ✅ |
-| [secops-agent](./secops-agent.md) | SecOps, segredos, WAF, conformidade, Zero Trust | ✅ |
-| [refactoring-agent](./refactoring-agent.md) | SOLID, DRY, KISS, YAGNI, Clean Code | ✅ |
-| [platform-engineer](./platform-engineer.md) | IaC (Terraform), CLIs, templates CI/CD, Helm Charts | ✅ |
-| [terminal-operator](./terminal-operator.md) | DevOps, K8s, GCP/MGC, Docker, Git avançado, CI-Knife | ✅ |
-| [frontend-expert](./frontend-expert.md) | React/Vite/TypeScript, Zustand, acessibilidade WCAG, Core Web Vitals | ✅ |
-| [mobile-engineer](./mobile-engineer.md) | React Native, Android, iOS, performance 60fps | ✅ |
+| [quality-engineer](./quality-engineer.agent.md) | Cobertura ≥90%, SonarQube, pytest/jest, métricas DORA | ✅ |
+| [secops-agent](./secops-agent.agent.md) | SecOps, segredos, WAF, conformidade, Zero Trust | ✅ |
+| [refactoring-agent](./refactoring-agent.agent.md) | SOLID, DRY, KISS, YAGNI, Clean Code | ✅ |
+| [platform-engineer](./platform-engineer.agent.md) | IaC (Terraform), CLIs, templates CI/CD, Helm Charts | ✅ |
+| [terminal-operator](./terminal-operator.agent.md) | DevOps, K8s, GCP/MGC, Docker, Git avançado, CI-Knife | ✅ |
+| [frontend-expert](./frontend-expert.agent.md) | React/Vite/TypeScript, Zustand, acessibilidade WCAG, Core Web Vitals | ✅ |
+| [mobile-engineer](./mobile-engineer.agent.md) | React Native, Android, iOS, performance 60fps | ✅ |
 
 ---
 

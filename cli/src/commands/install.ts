@@ -29,10 +29,11 @@ import type { InstallOptions, InstallResult } from '../types.js';
 
 function toPortablePath(p: string): string {
   const home = getHomeDir();
+  let portable = p;
   if (p.startsWith(home)) {
-    return '~' + p.slice(home.length);
+    portable = '~' + p.slice(home.length);
   }
-  return p;
+  return portable.replace(/\\/g, '/');
 }
 
 /**
@@ -349,7 +350,7 @@ async function performVSCodeInstall(toolName: string, turbo: boolean, method: 'p
     // No Linux/macOS o caminho do Insiders contém "Insiders"
     // No Windows o caminho do Insiders contém "Code - Insiders"
     if (toolName === 'vscode-insiders') {
-       return p.includes('Insiders');
+      return p.includes('Insiders');
     }
     // Para VS Code estável, garantimos que NÃO tenha Insiders no caminho
     return !p.includes('Insiders');
@@ -377,11 +378,11 @@ async function performVSCodeInstall(toolName: string, turbo: boolean, method: 'p
       if (turbo) {
         for (const [key, value] of Object.entries(DEFAULT_ADVANCED_SETTINGS)) {
           if (key !== VSCODE_SETTINGS_KEYS.SKILLS_LOCS &&
-              key !== VSCODE_SETTINGS_KEYS.AGENTS_LOCS &&
-              key !== VSCODE_SETTINGS_KEYS.RULES_LOCS &&
-              key !== VSCODE_SETTINGS_KEYS.PLUGINS_PATHS &&
-              key !== VSCODE_SETTINGS_KEYS.PLUGINS_MARKETPLACES &&
-              key !== VSCODE_SETTINGS_KEYS.PLUGINS_ENABLED) {
+            key !== VSCODE_SETTINGS_KEYS.AGENTS_LOCS &&
+            key !== VSCODE_SETTINGS_KEYS.RULES_LOCS &&
+            key !== VSCODE_SETTINGS_KEYS.PLUGINS_PATHS &&
+            key !== VSCODE_SETTINGS_KEYS.PLUGINS_MARKETPLACES &&
+            key !== VSCODE_SETTINGS_KEYS.PLUGINS_ENABLED) {
             settings[key] = value;
           }
         }
@@ -394,11 +395,11 @@ async function performVSCodeInstall(toolName: string, turbo: boolean, method: 'p
         const marketplaces = settings[VSCODE_SETTINGS_KEYS.PLUGINS_MARKETPLACES] || [];
 
         if (Array.isArray(marketplaces)) {
-           if (!marketplaces.includes(marketplaceUri)) {
-              marketplaces.push(marketplaceUri);
-           }
+          if (!marketplaces.includes(marketplaceUri)) {
+            marketplaces.push(marketplaceUri);
+          }
         } else {
-           settings[VSCODE_SETTINGS_KEYS.PLUGINS_MARKETPLACES] = [marketplaceUri];
+          settings[VSCODE_SETTINGS_KEYS.PLUGINS_MARKETPLACES] = [marketplaceUri];
         }
 
         settings[VSCODE_SETTINGS_KEYS.PLUGINS_MARKETPLACES] = marketplaces;
@@ -407,14 +408,17 @@ async function performVSCodeInstall(toolName: string, turbo: boolean, method: 'p
         const skillsLocs = settings[VSCODE_SETTINGS_KEYS.SKILLS_LOCS] || {};
         const agentsLocs = settings[VSCODE_SETTINGS_KEYS.AGENTS_LOCS] || {};
         const rulesLocs = settings[VSCODE_SETTINGS_KEYS.RULES_LOCS] || {};
+        const promptLocs = settings[VSCODE_SETTINGS_KEYS.PROMPT_LOCS] || {};
 
-        skillsLocs[join(agentsDir, 'skills')] = true;
-        agentsLocs[join(agentsDir, 'agents')] = true;
-        rulesLocs[join(agentsDir, 'rules')] = true;
+        skillsLocs[toPortablePath(join(agentsDir, 'skills'))] = true;
+        agentsLocs[toPortablePath(join(agentsDir, 'agents'))] = true;
+        rulesLocs[toPortablePath(join(agentsDir, 'rules'))] = true;
+        promptLocs[toPortablePath(join(agentsDir, 'workflows'))] = true;
 
         settings[VSCODE_SETTINGS_KEYS.SKILLS_LOCS] = skillsLocs;
         settings[VSCODE_SETTINGS_KEYS.AGENTS_LOCS] = agentsLocs;
         settings[VSCODE_SETTINGS_KEYS.RULES_LOCS] = rulesLocs;
+        settings[VSCODE_SETTINGS_KEYS.PROMPT_LOCS] = promptLocs;
       }
 
       // Exibe o diff antes de salvar

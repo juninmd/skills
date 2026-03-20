@@ -38,10 +38,11 @@ function isManagedPath(p?: string): boolean {
 
 function toPortablePath(p: string): string {
   const home = getHomeDir();
+  let portable = p;
   if (p.startsWith(home)) {
-    return '~' + p.slice(home.length);
+    portable = '~' + p.slice(home.length);
   }
-  return p;
+  return portable.replace(/\\/g, '/');
 }
 
 /**
@@ -95,9 +96,6 @@ export class CopilotInstaller extends BaseInstaller {
     const agentsDir = this.targetDir;
     const summary: string[] = [];
     const settingsPaths = getVSCodeSettingsPaths();
-
-    const assetsCount = await this.prepareCopilotAssets(agentsDir);
-    summary.push(`${assetsCount} componentes adaptados para o Copilot`);
 
     for (const path of settingsPaths) {
       await this.configureVSCodeSettings(agentsDir, path);
@@ -245,69 +243,6 @@ export class CopilotInstaller extends BaseInstaller {
     await writeFile(settingsPath, stringify(settings, null, 2), 'utf-8');
 
     logSettingsDiff(settingsPath, oldSettings, settings);
-  }
-
-  private async prepareCopilotAssets(agentsDir: string): Promise<number> {
-    const promptsDir = join(agentsDir, 'prompts');
-    if (this.options.dryRun) return 0;
-
-    await ensureDir(promptsDir);
-    const categories = ['workflows'];
-    let total = 0;
-
-    const processDir = async (srcDir: string, category: string) => {
-      if (!(await dirExists(srcDir))) return;
-      const entries = await readdir(srcDir, { withFileTypes: true });
-      for (const entry of entries) {
-        const fullPath = join(srcDir, entry.name);
-        if (entry.isDirectory()) {
-          await processDir(fullPath, category);
-        } else if (entry.name.endsWith('.md') && entry.name !== 'index.md') {
-          const content = await readFile(fullPath, 'utf-8');
-          const name = entry.name.endsWith('.prompt.md') ? entry.name.replace('.prompt.md', '') : entry.name.replace('.md', '');
-          const promptName = `${name}.prompt.md`;
-          let finalContent = content;
-          if (!content.startsWith('---')) {
-            finalContent = `---\nname: ${name}\ndescription: ${category.slice(0, -1)}: ${name}\n---\n\n${content}`;
-          }
-          await writeFile(join(promptsDir, promptName), finalContent, 'utf-8');
-          total++;
-        }
-      }
-    };
-
-    for (const category of categories) {
-      await processDir(join(agentsDir, category), category);
-    }
-
-    // Adapt Rules to .instructions.md
-    const rulesSubDir = join(agentsDir, 'rules');
-    if (await dirExists(rulesSubDir)) {
-      const entries = await readdir(rulesSubDir, { withFileTypes: true });
-      for (const entry of entries) {
-        if (entry.isFile() && entry.name.endsWith('.md') && !entry.name.endsWith('.instructions.md') && entry.name !== 'index.md') {
-          const content = await readFile(join(rulesSubDir, entry.name), 'utf-8');
-          const newName = entry.name.replace('.md', '.instructions.md');
-          await writeFile(join(rulesSubDir, newName), content, 'utf-8');
-          total++;
-        }
-      }
-    }
-
-    // Adapt Agents to .agent.md
-    const agentsSubDir = join(agentsDir, 'agents');
-    if (await dirExists(agentsSubDir)) {
-      const entries = await readdir(agentsSubDir, { withFileTypes: true });
-      for (const entry of entries) {
-        if (entry.isFile() && entry.name.endsWith('.md') && !entry.name.endsWith('.agent.md') && entry.name !== 'index.md') {
-          const content = await readFile(join(agentsSubDir, entry.name), 'utf-8');
-          const newName = entry.name.replace('.md', '.agent.md');
-          await writeFile(join(agentsSubDir, newName), content, 'utf-8');
-          total++;
-        }
-      }
-    }
-    return total;
   }
 
   private async generateCopilotIgnore(): Promise<void> {
