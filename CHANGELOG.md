@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.45.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.44.0...v1.45.0) (2026-03-20)
+
+
+### Features
+
+* keybind ([472f7a9](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/472f7a9))
+
 # [1.44.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.43.2...v1.44.0) (2026-03-20)
 
 

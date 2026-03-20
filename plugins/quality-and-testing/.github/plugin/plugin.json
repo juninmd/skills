@@ -1,7 +1,7 @@
 {
   "name": "quality-and-testing",
   "description": "Software testing, quality assurance, and code review processes.",
-  "version": "1.44.0",
+  "version": "1.45.0",
   "skills": [
     "../../../../.agents/skills/managing-quality",
     "../../../../.agents/skills/validating-typescript"
