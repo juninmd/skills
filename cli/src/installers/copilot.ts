@@ -188,6 +188,7 @@ export class CopilotInstaller extends BaseInstaller {
     const promptsDir = join(agentsDir, 'prompts');
     promptLocs['.github/prompts'] = true;
     promptLocs['.agents/prompts'] = true;
+    promptLocs['.agents/workflows'] = true;
     promptLocs['.claude/prompts'] = true;
     if (await dirExists(promptsDir)) promptLocs[toPortablePath(promptsDir)] = true;
     settings[promptKey] = promptLocs;
