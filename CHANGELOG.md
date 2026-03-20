@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.44.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.43.2...v1.44.0) (2026-03-20)
+
+
+### Features
+
+* improve path ([ddc1dcb](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/ddc1dcb))
+
 ## [1.43.2](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.43.1...v1.43.2) (2026-03-20)
 
 
