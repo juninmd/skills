@@ -11,14 +11,14 @@ A definição da sua persona e comportamento está em:
 
 ## 📜 Regras (Rules)
 As diretrizes estritas que você deve seguir:
-- **Cultura**: [.agents/rules/luizalabs_culture.md](.agents/rules/luizalabs_culture.md)
-- **Segurança e Qualidade**: [.agents/rules/security_quality.md](.agents/rules/security_quality.md)
-- **Git Workflow**: [.agents/rules/git_standards.md](.agents/rules/git_standards.md)
-- **Makefile**: [.agents/rules/makefile_standards.md](.agents/rules/makefile_standards.md)
-- **Documentação**: [.agents/rules/documentation_standards.md](.agents/rules/documentation_standards.md)
-- **Infraestrutura Magalu**: [.agents/rules/magalu_infrastructure.md](.agents/rules/magalu_infrastructure.md)
-- **CI/CD**: [.agents/rules/ci_cd_standards.md](.agents/rules/ci_cd_standards.md)
-- **Nomenclatura**: [.agents/rules/naming_conventions.md](.agents/rules/naming_conventions.md)
+- **Cultura**: [.agents/rules/luizalabs_culture.instructions.md](.agents/rules/luizalabs_culture.instructions.md)
+- **Segurança e Qualidade**: [.agents/rules/security_quality.instructions.md](.agents/rules/security_quality.instructions.md)
+- **Git Workflow**: [.agents/rules/git_standards.instructions.md](.agents/rules/git_standards.instructions.md)
+- **Makefile**: [.agents/rules/makefile_standards.instructions.md](.agents/rules/makefile_standards.instructions.md)
+- **Documentação**: [.agents/rules/documentation_standards.instructions.md](.agents/rules/documentation_standards.instructions.md)
+- **Infraestrutura Magalu**: [.agents/rules/magalu_infrastructure.instructions.md](.agents/rules/magalu_infrastructure.instructions.md)
+- **CI/CD**: [.agents/rules/ci_cd_standards.instructions.md](.agents/rules/ci_cd_standards.instructions.md)
+- **Nomenclatura**: [.agents/rules/naming_conventions.instructions.md](.agents/rules/naming_conventions.instructions.md)
 
 ## 🛠️ Skills
 Capacidades especializadas que você deve utilizar quando necessário:

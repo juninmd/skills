@@ -1,7 +1,7 @@
 ---
 name: documentation-standards
 description: Padrões para documentação de projetos (README, Design Docs, GMUD).
-applyTo: ['**/*.md']
+applyTo: '**/*.md'
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
 ---
@@ -14,9 +14,10 @@ metadata:
 - Deve ser atualizado a cada alteração significativa.
 - Mantenha sempre um Release Notes atualizado sem deletar informações das versões anteriores.
 
-## Design Docs
+## Design Docs & ADRs
 - Essencial para o sucesso arquitetural.
 - Deve ser criado e aprovado pelo TechLead.
+- **ADR (Architecture Decision Record)**: Use para documentar decisões técnicas importantes (ex: mudança de banco, nova biblioteca core).
 - Serve como referência para novos devs e documentação de requisitos.
 
 ## GMUD (Gestão de Mudanças)

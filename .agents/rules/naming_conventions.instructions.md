@@ -1,7 +1,7 @@
 ---
 name: naming-conventions
 description: Padrões de nomenclatura para sistemas e arquivos.
-applyTo: ['**/*.{py,js,ts,tsx,sh}']
+applyTo: '**/*.{py,js,ts,tsx,sh}'
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
 ---
@@ -15,23 +15,6 @@ metadata:
   - `-worker` — processamento assíncrono/filas
   - `-cron` — jobs agendados
   - `-frontend` — interface web
-
-## Branches (Git)
-Seguir Conventional Commits para nomes de branch:
-- `feat/<descricao>` — nova funcionalidade
-- `fix/<descricao>` — correção de bug
-- `chore/<descricao>` — manutenção, dependências
-- `hotfix/<descricao>` — correção urgente em produção
-- Kebab-case, minúsculas, sem espaços. Exemplo: `feat/add-telemetry-endpoint`
-
-## Commits (Conventional Commits)
-- `feat:` — nova funcionalidade
-- `fix:` — correção de bug
-- `docs:` — documentação
-- `chore:` — tarefas de manutenção
-- `refactor:` — refatoração sem mudança de comportamento
-- `test:` — adição ou correção de testes
-- `ci:` — alterações no pipeline
 
 ## Código
 - **Python**: `snake_case` para variáveis e funções; `PascalCase` para classes; `UPPER_SNAKE_CASE` para constantes.

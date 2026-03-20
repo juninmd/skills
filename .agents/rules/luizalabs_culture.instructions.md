@@ -1,7 +1,7 @@
 ---
 name: luizalabs-culture
 description: Cultura de desenvolvimento Luizalabs - Melhores práticas e padrões de qualidade.
-applyTo: ['*']
+applyTo: '**/*.{ts,tsx,js,jsx,py,go,java,kt,md}'
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
 ---

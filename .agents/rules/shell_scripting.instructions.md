@@ -1,7 +1,7 @@
 ---
 name: shell-scripting
 description: Padrões de automação shell — sintaxe de loops/condicionais e regras para scripts seguros e idempotentes.
-applyTo: ['**/*.sh', '**/Makefile']
+applyTo: '**/*.sh, **/Makefile'
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
 ---

@@ -1,7 +1,7 @@
 ---
 name: makefile-standards
 description: Padrões para o arquivo Makefile em projetos Python.
-applyTo: ['**/Makefile']
+applyTo: '**/Makefile'
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
 ---
@@ -9,7 +9,7 @@ metadata:
 # Rule: Makefile Standards
 
 ## Requisitos
-- Verifique a existência de um arquivo `Makefile` na raiz do projeto.
+- Para projetos python, verifique a existência de um arquivo `Makefile` na raiz do projeto.
 - Caso não exista, crie-o com os seguintes targets:
   - `run`: Para executar a aplicação localmente.
   - `coverage`: Para executar testes com cobertura e gerar relatório HTML.
@@ -34,7 +34,7 @@ PYTEST := $(VENV_BIN)/pytest
 
 # Execução Local (Web) - Garante PYTHONPATH correto
 run:
- @export PYTHONPATH=$(PWD) && 
+ @export PYTHONPATH=$(PWD) &&
  $(UVICORN) app.main:app --host 0.0.0.0 --port 5000 --reload
 
 # Execução Server (Prod-like)
@@ -48,10 +48,10 @@ clean:
 
 # Tests e Cobertura
 coverage:
- @export PYTHONPATH=$(PWD) && 
- PYTHONWARNINGS=ignore $(VENV_BIN)/coverage run -m pytest tests/ -v && 
- $(VENV_BIN)/coverage xml && 
- rm -rf ./coverage && 
- $(VENV_BIN)/coverage html --directory=./coverage && 
+ @export PYTHONPATH=$(PWD) &&
+ PYTHONWARNINGS=ignore $(VENV_BIN)/coverage run -m pytest tests/ -v &&
+ $(VENV_BIN)/coverage xml &&
+ rm -rf ./coverage &&
+ $(VENV_BIN)/coverage html --directory=./coverage &&
  echo "✅ Relatório gerado em ./coverage/index.html"
 ```

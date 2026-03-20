@@ -1,14 +1,14 @@
 ---
 name: magalu-infrastructure
 description: Padrões de infraestrutura, deploy e dependências na Luizalabs (Magalu).
-applyTo: ['**/dependency.yaml', '**/hangar-info.yaml', '**/values.yaml', '**/Dockerfile']
+applyTo: '**/dependency.yaml, **/hangar-info.yaml, **/values.yaml, **/Dockerfile'
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
 ---
 
 # Rule: Magalu Infrastructure
 
-## Deploy e Infraestrutura
+## Deploy e Infraestrutura Exemplos:
 - **Deploy**: ArgoCD. Endpoint: `https://argocd-mke-operacoes-hml.ipet.sh`.
 - **Repositório**: GitLab. Endpoint: `https://gitlab.luizalabs.com`.
 - **Variáveis de Ambiente**: Google Secret Manager via `values.yaml`.

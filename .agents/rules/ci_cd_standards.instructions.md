@@ -1,30 +1,31 @@
 ---
 name: ci-cd-standards
 description: Padrões para integração contínua e qualidade de código (GitLab CI, SonarQube).
-applyTo: ['**/.gitlab-ci.yml', '**/sonar-project.properties', '**/sonar.properties']
+applyTo: '**/.gitlab-ci.yml, **/sonar-project.properties'
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
 ---
 
+Exemplo de padrões para integração contínua e qualidade de código usando GitLab CI e SonarQube. Adapte os exemplos conforme necessário para o ecossistema do seu projeto (Python, Node.js, Go, etc.).
+
 # Rule: CI/CD Standards
 
 ## SonarQube
-- Arquivo `sonar.properties` na raiz do projeto é obrigatório.
+- Arquivo `sonar-project.properties` na raiz do projeto é obrigatório.
 - Deve conter:
   ```properties
-  sonar.host.url=https://sonarqube.luizalabs.com
   sonar.projectName={APPNAME}
   sonar.projectKey={APPNAME}
-  sonar.projectVersion=0.1.0
-  sonar.sources=app
-  sonar.language=py
+  sonar.sources={SOURCE_DIR}
+  sonar.language={LANGUAGE}
   sonar.sourceEncoding=UTF-8
-  sonar.python.coverage.reportPaths=coverage.xml
-  sonar.exclusions=**test_**,**conftest**,**settings**
-  sonar.coverage.exclusions=**test_**,**conftest**,**settings**
+  sonar.exclusions={EXCLUSIONS}
+  sonar.coverage.exclusions={EXCLUSIONS}
   ```
 
 ## GitLab CI (.gitlab-ci.yml)
+
+> **Nota**: Os exemplos abaixo focam no ecossistema Python (usando `pip` e `python:3.11`). Adapte as imagens e os scripts (`npm test`, `go test`) dependendo do ecossistema do seu app.
 
 ### Stages Obrigatórios
 ```yaml
@@ -40,12 +41,12 @@ stages:
 variables:
   TZ: "/usr/share/zoneinfo/America/Sao_Paulo"
   DOCKER_REPO: gcr.io/magalu-cicd/{APPNAME}
-  ARGOCD_NAMESPACE: cicd/tribe-operacao/ops-automacao
+  ARGOCD_NAMESPACE: cicd/{PATH_IMAGE_ARGOCD}
   PROJECT_NAME: {APPNAME}
   DEPLOY_TAG: ${CI_COMMIT_SHORT_SHA}
   SONAR_URL: ${STAGE_SONAR_URL}
   SONAR_TOKEN: ${STAGE_SONAR_TOKEN}
-  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip" // Adiciona cache para pip, adaptável para outros gerenciadores de pacotes (npm, go mod)
 ```
 
 ### Job: Security Scanner
@@ -59,8 +60,7 @@ security-scanner:
   cache: {}
   only:
     refs:
-      - main
-      - staging
+      - main # Branch principal
 ```
 
 ### Job: Unit Tests & Coverage
@@ -124,8 +124,8 @@ deploy-staging:
   services:
     - docker:26-dind
   variables:
-    ARGOCD_PREFIX_PATH: mgc-mke-operacoes-stg
-    ARGOCD_SERVER: argocd-mke-operacoes-hml.ipet.sh
+    ARGOCD_PREFIX_PATH: {ARGO_PREFIX_PATH}
+    ARGOCD_SERVER: {ARGOCD_SERVER}
   script:
     - ci-knife argocd-deploy --branch main --docker-image --no-msg -pp ${ARGOCD_PREFIX_PATH} --sync ${ARGOCD_SERVER}
   allow_failure: false

@@ -1,7 +1,7 @@
 ---
 name: env-secrets
 description: Protocolo para gerenciamento de variáveis de ambiente e proteção de informações sensíveis.
-applyTo: ['**/*', '**/.*env*', '**/.gitignore']
+applyTo: '**/.env*, **/.gitignore, **/docker-compose*.yml, **/values.yaml, **/*.{ts,js,py,go,java}'
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
 ---
