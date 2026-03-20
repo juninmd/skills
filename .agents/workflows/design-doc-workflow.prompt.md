@@ -1,11 +1,11 @@
 ---
-name: archdd-design-doc-workflow
-description: Workflow para geração de Design Doc a partir de código com o ArchDD-Agent, incluindo análise arquitetural, segurança, observabilidade e qualidade.
+name: design-doc-workflow
+description: Workflow para geração de Design Doc a partir de código, incluindo análise arquitetural, segurança, observabilidade e qualidade.
 metadata:
     works_on: [copilot, antigravity]
 ---
 
-# Workflow: ArchDD - Design Doc a partir de Código
+# Workflow: Design Doc a partir de Código
 
 Este workflow padroniza a execução do `archdd-agent` com a skill `design-doc-generator` para produzir Design Docs completos e auditáveis, prontos para Confluence Markdown.
 

@@ -64,7 +64,5 @@ graph LR
 
 - **Skill de configuração do VS Code + Copilot**: `.agents/skills/configuring-vscode-copilot/SKILL.md`
 - **Configuração Netskope (SSL)**: `.agents/skills/configuring-netskope/SKILL.md`
-- **Deploy Local (DEV)**: `.agents/workflows/deploy_local_dev.md`
-- **Deploy HML (CI/CD)**: `.agents/workflows/deploy_hml.md`
 - **Regras e Padrões**: `.agents/rules/index.md`
 - **Documentação Subagents (VS Code)**: https://code.visualstudio.com/docs/copilot/agents/subagents

@@ -34,8 +34,7 @@ Agentes com personas, ferramentas e suporte a **subagents** (VS Code 1.97+):
 
 ## 🔄 Workflows
 Fluxos de trabalho passo-a-passo:
-- **Deploy Local (DEV)**: [.agents/workflows/deploy_local_dev.md](.agents/workflows/deploy_local_dev.md)
-- **Deploy HML (CI/CD)**: [.agents/workflows/deploy_hml.md](.agents/workflows/deploy_hml.md)
+- **Design-Doc**: [.agents/workflows/deploy_hml.prompt.md](.agents/workflows/design-doc-workflow.prompt.md)
 
 ---
 **Observação**: Este arquivo serve como mapa. O conteúdo detalhado foi migrado para os arquivos acima para melhor organização e contexto. Não invente regras; siga as fontes da verdade listadas.

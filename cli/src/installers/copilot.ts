@@ -267,7 +267,7 @@ export class CopilotInstaller extends BaseInstaller {
           await processDir(fullPath, category);
         } else if (entry.name.endsWith('.md') && entry.name !== 'index.md') {
           const content = await readFile(fullPath, 'utf-8');
-          const name = entry.name.replace('.md', '');
+          const name = entry.name.endsWith('.prompt.md') ? entry.name.replace('.prompt.md', '') : entry.name.replace('.md', '');
           const promptName = `${name}.prompt.md`;
           let finalContent = content;
           if (!content.startsWith('---')) {
