@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.43.1](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.43.0...v1.43.1) (2026-03-20)
+
+
+### Bug Fixes
+
+* path ([767ab39](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/767ab39))
+
 # [1.43.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.42.0...v1.43.0) (2026-03-20)
 
 
