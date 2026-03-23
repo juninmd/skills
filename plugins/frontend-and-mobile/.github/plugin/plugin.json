@@ -1,7 +1,7 @@
 {
   "name": "frontend-and-mobile",
   "description": "UI/UX, accessibility, SEO, and cross-platform mobile development.",
-  "version": "1.46.0",
+  "version": "1.47.0",
   "skills": [
     "../../../../.agents/skills/developing-react-native",
     "../../../../.agents/skills/developing-android-native",

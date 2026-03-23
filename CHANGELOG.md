@@ -1,5 +1,17 @@
 # Changelog
 
+# [1.47.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.46.0...v1.47.0) (2026-03-23)
+
+
+### Code Refactoring
+
+* rename agent files to use .agent.md extension and update references ([99d556a](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/99d556a))
+
+
+### Features
+
+* add core and ts-react plugins with git subdirectory sources ([6bc6750](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/6bc6750))
+
 # [1.46.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.45.0...v1.46.0) (2026-03-20)
 
 
