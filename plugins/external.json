@@ -18,5 +18,15 @@
             "url": "ssh://git@gitlab.luizalabs.com/luizalabs/vertical-logistica/agent-skills.git",
             "path": "plugins/core"
         }
+    },
+    {
+        "name": "vertical-logistica-skills",
+        "description": "Plugins from vertical-logistica agent-skills",
+        "version": "1.0.0",
+        "source": {
+            "source": "git-subdir",
+            "url": "ssh://git@gitlab.luizalabs.com/luizalabs/vertical-logistica/agent-skills.git",
+            "path": "plugins"
+        }
     }
 ]
