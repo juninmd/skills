@@ -12,7 +12,7 @@
     "../../../../.agents/skills/managing-localization"
   ],
   "agents": [
-    "../../../../.agents/agents/frontend-expert.md",
-    "../../../../.agents/agents/mobile-engineer.md"
+    "../../../../.agents/agents/frontend-expert.agent.md",
+    "../../../../.agents/agents/mobile-engineer.agent.md"
   ]
 }

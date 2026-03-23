@@ -12,6 +12,6 @@
     "../../../../.agents/skills/authenticating-sso-corp"
   ],
   "agents": [
-    "../../../../.agents/agents/secops-agent.md"
+    "../../../../.agents/agents/secops-agent.agent.md"
   ]
 }

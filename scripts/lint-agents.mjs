@@ -6,8 +6,8 @@ const agentsDir = path.join(process.cwd(), '.agents/agents');
 const skillsDir = path.join(process.cwd(), '.agents/skills');
 
 const existingAgents = fs.readdirSync(agentsDir)
-  .filter(f => f.endsWith('.md'))
-  .map(f => f.replace('.md', ''));
+  .filter(f => f.endsWith('.agent.md'))
+  .map(f => f.replace('.agent.md', ''));
 
 const existingSkills = fs.readdirSync(skillsDir, { withFileTypes: true })
   .filter(dirent => dirent.isDirectory())
@@ -16,7 +16,7 @@ const existingSkills = fs.readdirSync(skillsDir, { withFileTypes: true })
 let globalHasErrors = false;
 const skillMentionPattern = /Skill:\s*`([^`]+)`/g;
 
-for (const agentFile of fs.readdirSync(agentsDir).filter(f => f.endsWith('.md'))) {
+for (const agentFile of fs.readdirSync(agentsDir).filter(f => f.endsWith('.agent.md'))) {
   const agentPath = path.join(agentsDir, agentFile);
   const fileContent = fs.readFileSync(agentPath, 'utf8');
 

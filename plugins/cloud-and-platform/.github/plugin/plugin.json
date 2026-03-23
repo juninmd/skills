@@ -21,7 +21,7 @@
     "../../../../.agents/skills/optimizing-cloud-costs"
   ],
   "agents": [
-    "../../../../.agents/agents/platform-engineer.md",
-    "../../../../.agents/agents/terminal-operator.md"
+    "../../../../.agents/agents/platform-engineer.agent.md",
+    "../../../../.agents/agents/terminal-operator.agent.md"
   ]
 }

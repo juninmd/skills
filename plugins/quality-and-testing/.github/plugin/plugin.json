@@ -7,7 +7,7 @@
     "../../../../.agents/skills/validating-typescript"
   ],
   "agents": [
-    "../../../../.agents/agents/quality-engineer.md",
-    "../../../../.agents/agents/code-reviewer.md"
+    "../../../../.agents/agents/quality-engineer.agent.md",
+    "../../../../.agents/agents/code-reviewer.agent.md"
   ]
 }

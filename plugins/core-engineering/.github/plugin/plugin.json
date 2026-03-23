@@ -19,8 +19,8 @@
     "../../../../.agents/skills/cataloging-apis"
   ],
   "agents": [
-    "../../../../.agents/agents/software-architect.md",
-    "../../../../.agents/agents/feature-builder.md",
-    "../../../../.agents/agents/refactoring-agent.md"
+    "../../../../.agents/agents/software-architect.agent.md",
+    "../../../../.agents/agents/feature-builder.agent.md",
+    "../../../../.agents/agents/refactoring-agent.agent.md"
   ]
 }

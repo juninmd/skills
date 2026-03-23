@@ -1,1 +1,22 @@
-[]
+[
+    {
+        "name": "ts-react",
+        "description": "ts-react",
+        "version": "1.0.0",
+        "source": {
+            "source": "git-subdir",
+            "url": "ssh://git@gitlab.luizalabs.com/luizalabs/vertical-logistica/agent-skills.git",
+            "path": "plugins/ts-react"
+        }
+    },
+    {
+        "name": "core",
+        "description": "core",
+        "version": "1.0.0",
+        "source": {
+            "source": "git-subdir",
+            "url": "ssh://git@gitlab.luizalabs.com/luizalabs/vertical-logistica/agent-skills.git",
+            "path": "plugins/core"
+        }
+    }
+]

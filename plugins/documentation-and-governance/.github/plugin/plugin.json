@@ -10,6 +10,6 @@
     "../../../../.agents/skills/navigating-organizations"
   ],
   "agents": [
-    "../../../../.agents/agents/padrao-labs-agent.md"
+    "../../../../.agents/agents/padrao-labs-agent.agent.md"
   ]
 }
