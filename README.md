@@ -156,11 +156,11 @@ padrao-labs-agents skill install applying-clean-code
 └── ...
 ```
 
-### 🔌 Plugins Externos (Remotos)
+## 🔌 Plugins externos
 
-Você pode estender o catálogo adicionando skills e agentes de repositórios externos (GitHub/GitLab). Para isso, adicione a URL do repositório em `external_catalogs.json` na raiz do projeto.
+Você pode estender os plugins externos adicionando skills e agentes de repositórios externos (GitHub/GitLab). Para isso, adicione a URL do repositório em `plugins/external.json`.
 
-**Exemplo de configuração (Dataverse):**
+**Exemplo de configuração:**
 
 ```json
 {
@@ -181,6 +181,17 @@ Você pode estender o catálogo adicionando skills e agentes de repositórios ex
     "path": ".github/plugins/dataverse"
   }
 }
+```
+
+### 🔌 Catalogos Externos (Remotos)
+
+Você pode estender o catálogo adicionando skills e agentes de repositórios externos (GitHub/GitLab). Para isso, adicione a URL do repositório em `external_catalogs.json` na raiz do projeto.
+
+
+```json
+[
+  "ssh://git@gitlab.luizalabs.com/luizalabs/vertical-logistica/agent-skills.git"
+]
 ```
 
 Após adicionar o plugin ao arquivo, execute `pnpm run build` para sincronizar e gerar o novo catálogo.
