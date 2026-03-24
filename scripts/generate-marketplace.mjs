@@ -101,7 +101,7 @@ function createPluginSymlinks(pluginPath, metadata) {
   for (const category of categories) {
     if (metadata[category] && Array.isArray(metadata[category])) {
       const targetDir = path.join(pluginPath, category);
-      
+
       // Clear and recreate target directory to remove stale symlinks
       if (fs.existsSync(targetDir)) {
         fs.rmSync(targetDir, { recursive: true, force: true });
@@ -175,14 +175,22 @@ function generateMarketplace() {
 
   plugins.sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: "base" }));
 
+  // Preserve existing metadata (version, owner, etc.) if marketplace.json already exists
+  let existing = {};
+  if (fs.existsSync(MARKETPLACE_FILE)) {
+    try {
+      existing = JSON.parse(fs.readFileSync(MARKETPLACE_FILE, "utf8"));
+    } catch { /* ignore, will use defaults */ }
+  }
+
   const marketplace = {
-    name: "padrao-labs-agents-root",
+    name: existing.name ?? "padrao-labs-agents-root",
     metadata: {
-      description: "Agents, Skills, Rules, and Workflows",
-      version: "1.0.0",
-      pluginRoot: "./"
+      description: existing.metadata?.description ?? "Agents, Skills, Rules, and Workflows",
+      version: existing.metadata?.version ?? "1.0.0",
+      pluginRoot: existing.metadata?.pluginRoot ?? "./"
     },
-    owner: {
+    owner: existing.owner ?? {
       name: "Antonio",
       email: "antonio.junior@luizalabs.com"
     },

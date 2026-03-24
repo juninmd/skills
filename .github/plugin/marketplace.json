@@ -17,16 +17,6 @@
       "version": "1.48.0"
     },
     {
-      "name": "core",
-      "description": "core",
-      "version": "1.48.0",
-      "source": {
-        "source": "url",
-        "url": "git@gitlab.luizalabs.com:luizalabs/vertical-logistica/agent-skills.git",
-        "path": "plugins/core"
-      }
-    },
-    {
       "name": "core-engineering",
       "source": "./plugins/core-engineering",
       "description": "Software architecture, backend development, design patterns, and core engineering best practices.",
@@ -73,26 +63,6 @@
       "source": "./plugins/security-best-practices",
       "description": "Security auditing, incident response, and best practices for secure environments.",
       "version": "1.48.0"
-    },
-    {
-      "name": "ts-react",
-      "description": "ts-react",
-      "version": "1.48.0",
-      "source": {
-        "source": "url",
-        "url": "git@gitlab.luizalabs.com:luizalabs/vertical-logistica/agent-skills.git",
-        "path": "plugins/ts-react"
-      }
-    },
-    {
-      "name": "vertical-logistica-skills",
-      "description": "Plugins from vertical-logistica agent-skills",
-      "version": "1.48.0",
-      "source": {
-        "source": "url",
-        "url": "git@gitlab.luizalabs.com:luizalabs/vertical-logistica/agent-skills.git",
-        "path": "plugins"
-      }
     }
   ]
 }

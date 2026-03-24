@@ -141,6 +141,7 @@ export async function install(options: InstallOptions): Promise<void> {
   let toolsToInstall: string[] = [];
   let installationMethod: 'plugins' | 'raiz' = 'plugins';
   let turboSettings = false;
+  let selectedMarketplaces: string[] = [];
 
   if (options.tools && options.tools.length > 0) {
     const available = getAvailableInstallers();
@@ -232,6 +233,34 @@ export async function install(options: InstallOptions): Promise<void> {
         '• Hooks de Ciclo de Vida',
         'Escopo do Agent Plugins'
       );
+
+      // Lê catálogos externos e apresenta multiselect de marketplaces
+      const DEFAULT_MARKETPLACE = 'ssh://git@gitlab.luizalabs.com/luizalabs/padrao-labs-agents.git';
+      let externalCatalogs: string[] = [];
+      try {
+        const catalogsPath = join(getRepoDir(), 'external_catalogs.json');
+        const raw = await readFile(catalogsPath, 'utf-8');
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) externalCatalogs = parsed.filter((u): u is string => typeof u === 'string');
+      } catch {
+        // arquivo não encontrado ou inválido — usa somente o padrão
+      }
+
+      const allMarketplaces = [DEFAULT_MARKETPLACE, ...externalCatalogs];
+      const marketplaceOptions = allMarketplaces.map(uri => ({ value: uri, label: uri }));
+
+      const chosenMarketplaces = await p.multiselect({
+        message: 'Selecione os marketplaces a configurar no VS Code:',
+        options: marketplaceOptions,
+        initialValues: allMarketplaces,
+        required: true,
+      });
+
+      if (p.isCancel(chosenMarketplaces)) {
+        p.cancel('Instalacao cancelada.');
+        process.exit(0);
+      }
+      selectedMarketplaces = chosenMarketplaces as string[];
     }
   }
 
@@ -241,7 +270,7 @@ export async function install(options: InstallOptions): Promise<void> {
   for (const toolName of toolsToInstall) {
     if (toolName === 'vscode' || toolName === 'vscode-insiders') {
       const label = toolName === 'vscode' ? 'VS Code' : 'VS Code Insiders';
-      await performVSCodeInstall(toolName, turboSettings, installationMethod, options);
+      await performVSCodeInstall(toolName, turboSettings, installationMethod, selectedMarketplaces, options);
       results.push({
         tool: toolName,
         skipped: false,
@@ -340,7 +369,7 @@ export async function install(options: InstallOptions): Promise<void> {
   p.outro(`${color.green(color.bold('✔'))} Instalacao finalizada com sucesso!`);
 }
 
-async function performVSCodeInstall(toolName: string, turbo: boolean, method: 'plugins' | 'raiz', options: InstallOptions) {
+async function performVSCodeInstall(toolName: string, turbo: boolean, method: 'plugins' | 'raiz', selectedMarketplaces: string[], options: InstallOptions) {
   const allSettingsPaths = getVSCodeSettingsPaths();
   const agentsDir = getPadraoLabsAgentsDir();
 
@@ -389,17 +418,14 @@ async function performVSCodeInstall(toolName: string, turbo: boolean, method: 'p
       }
 
       if (method === 'plugins') {
-        // TODO: Permitir múltiplos marketplaces e ordenação personalizada no futuro
-        const marketplaceUri = "ssh://git@gitlab.luizalabs.com/luizalabs/padrao-labs-agents.git";
+        const marketplaces: string[] = Array.isArray(settings[VSCODE_SETTINGS_KEYS.PLUGINS_MARKETPLACES])
+          ? [...settings[VSCODE_SETTINGS_KEYS.PLUGINS_MARKETPLACES]]
+          : [];
 
-        const marketplaces = settings[VSCODE_SETTINGS_KEYS.PLUGINS_MARKETPLACES] || [];
-
-        if (Array.isArray(marketplaces)) {
-          if (!marketplaces.includes(marketplaceUri)) {
-            marketplaces.push(marketplaceUri);
+        for (const uri of selectedMarketplaces) {
+          if (!marketplaces.includes(uri)) {
+            marketplaces.push(uri);
           }
-        } else {
-          settings[VSCODE_SETTINGS_KEYS.PLUGINS_MARKETPLACES] = [marketplaceUri];
         }
 
         settings[VSCODE_SETTINGS_KEYS.PLUGINS_MARKETPLACES] = marketplaces;
@@ -484,20 +510,20 @@ async function configureVSCodeKeybindings(keybindingsPath: string, options: Inst
   };
 
   const exists = keybindings.some(b => b.key === newBinding.key && b.command === newBinding.command);
-  
+
   if (!exists) {
     keybindings.push(newBinding);
-    
+
     p.log.step(`Alterações em ${color.cyan(toPortablePath(keybindingsPath))}:`);
     p.log.message(`  ${color.green('+')} ${color.bold('Adicionado atalho:')} ${color.green(newBinding.key)} -> ${color.yellow(newBinding.command)}`);
-    
+
     await ensureDir(join(keybindingsPath, '..'));
     await writeFile(keybindingsPath, stringify(keybindings, null, 2), 'utf-8');
     p.log.success(`✅ Atalhos salvos em ${color.cyan(toPortablePath(keybindingsPath))}`);
-    
+
     return 1;
   }
-  
+
   return 0;
 }
 

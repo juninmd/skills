@@ -158,7 +158,7 @@ padrao-labs-agents skill install applying-clean-code
 
 ### 🔌 Plugins Externos (Remotos)
 
-Você pode estender o catálogo adicionando skills e agentes de repositórios externos (GitHub/GitLab). Para isso, adicione a configuração do plugin em `plugins/external.json`.
+Você pode estender o catálogo adicionando skills e agentes de repositórios externos (GitHub/GitLab). Para isso, adicione a URL do repositório em `external_catalogs.json` na raiz do projeto.
 
 **Exemplo de configuração (Dataverse):**
 
