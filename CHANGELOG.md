@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.48.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.47.0...v1.48.0) (2026-03-23)
+
+
+### Features
+
+* update versioning and add vertical-logistica-skills plugin ([abb7ad1](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/abb7ad1))
+
 # [1.47.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.46.0...v1.47.0) (2026-03-23)
 
 
