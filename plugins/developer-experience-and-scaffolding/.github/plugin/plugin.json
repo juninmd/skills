@@ -1,7 +1,7 @@
 {
   "name": "developer-experience-and-scaffolding",
   "description": "Developer tooling, git standards, project scaffolding, and agent skill generation.",
-  "version": "1.48.0",
+  "version": "1.48.1",
   "skills": [
     "../../../../.agents/skills/scaffolding-projects",
     "../../../../.agents/skills/generating-skills",
