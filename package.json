@@ -12,6 +12,22 @@
     "Education"
   ],
   "type": "module",
+  "contributes": {
+    "githubCopilot": {
+      "agentPlugins": [
+        {
+          "id": "vertical-logistica-skills",
+          "name": "Vertical Logística Skills",
+          "description": "External plugins from vertical-logistica agent-skills repository",
+          "source": {
+            "source": "git-subdir",
+            "url": "ssh://git@gitlab.luizalabs.com/luizalabs/vertical-logistica/agent-skills.git",
+            "path": "plugins"
+          }
+        }
+      ]
+    }
+  },
   "scripts": {
     "dev": "pnpm -r run dev",
     "prebuild": "pnpm run gen:marketplace && pnpm run lint:plugins && pnpm run lint:agents && pnpm run lint:skills",
