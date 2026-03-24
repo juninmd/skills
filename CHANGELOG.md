@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.48.1](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.48.0...v1.48.1) (2026-03-24)
+
+
+### Bug Fixes
+
+* update plugin versions to 1.0.0 and change source URLs to use 'url' format ([2ff670d](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/2ff670d))
+
 # [1.48.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.47.0...v1.48.0) (2026-03-23)
 
 
