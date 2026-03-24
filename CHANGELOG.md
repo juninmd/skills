@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.49.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.48.1...v1.49.0) (2026-03-24)
+
+
+### Features
+
+* refactor plugin management and external catalog integration ([9c94199](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/9c94199))
+
 ## [1.48.1](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.48.0...v1.48.1) (2026-03-24)
 
 
