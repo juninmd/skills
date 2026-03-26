@@ -7,6 +7,7 @@ import path from 'path';
  * 1. Todos os plugins têm um plugin.json
  * 2. Todos os caminhos de 'skills' e 'agents' no JSON existem no disco
  * 3. A estrutura de diretórios do plugin está correta (.github/plugin/plugin.json)
+ * 4. Todas as skills em .agents/skills/ estão referenciadas em pelo menos um plugin
  */
 
 const pluginsDir = path.join(process.cwd(), 'plugins');
@@ -105,9 +106,47 @@ for (const jsonPath of pluginFiles) {
     console.log('');
 }
 
+// 3. Validar se todas as skills estão referenciadas em pelo menos um plugin
+const skillsDir = path.join(process.cwd(), '.agents', 'skills');
+const availableSkills = fs.readdirSync(skillsDir, { withFileTypes: true })
+    .filter(dirent => dirent.isDirectory())
+    .map(dirent => dirent.name);
+
+const referencedSkills = new Set();
+
+// Coletar todas as skills referenciadas em todos os plugins
+for (const jsonPath of pluginFiles) {
+    const content = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
+
+    if (content.skills && Array.isArray(content.skills)) {
+        for (const skillPath of content.skills) {
+            // Extrair o nome da skill do caminho (ex: ../../../../.agents/skills/validating-typescript -> validating-typescript)
+            const skillName = path.basename(skillPath);
+            referencedSkills.add(skillName);
+        }
+    }
+}
+
+// Encontrar skills não referenciadas
+console.log('\n📚 Validando cobertura de Skills...\n');
+const unreferencedSkills = availableSkills.filter(skill => !referencedSkills.has(skill));
+
+if (unreferencedSkills.length > 0) {
+    console.error(`❌ ${unreferencedSkills.length} skill(s) não referenciada(s) em nenhum plugin:`);
+    unreferencedSkills.forEach(skill => {
+        const skillPath = path.join(skillsDir, skill);
+        console.error(`   - ${skill}`);
+        console.error(`     📁 ${skillPath}`);
+    });
+    console.error(`\n   💡 Dica: Adicione cada uma dessas skills ao plugin.json correspondente`);
+    hasErrors = true;
+} else {
+    console.log('✅ Todas as skills estão referenciadas em pelo menos um plugin');
+}
+
 if (hasErrors) {
-    console.error('🚨 Erros encontrados nos Agent Plugins. Verifique os caminhos acima.');
+    console.error('\n🚨 Erros encontrados nos Agent Plugins. Verifique os caminhos acima.');
     process.exit(1);
 } else {
-    console.log('🎉 Todos os caminhos dos Agent Plugins foram validados com sucesso!');
+    console.log('\n🎉 Todos os caminhos dos Agent Plugins foram validados com sucesso!');
 }

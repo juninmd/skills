@@ -9,6 +9,7 @@
     "../../../../.agents/skills/running-autonomous-loops",
     "../../../../.agents/skills/configuring-vscode-copilot",
     "../../../../.agents/skills/managing-git",
-    "../../../../.agents/skills/developing-tooling"
+    "../../../../.agents/skills/developing-tooling",
+    "../../../../.agents/skills/padrao-labs-agents"
   ]
 }
