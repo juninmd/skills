@@ -76,3 +76,10 @@ COPY --from=builder /app/node_modules ./node_modules
 USER node
 CMD ["node", "dist/main.js"]
 ```
+## Advanced Optimization Hacks
+
+- **Cache Mounts (BuildKit):** Em vez de baixar todas as dependências do zero a cada build no CI, use mounts de cache nativos do BuildKit no seu Dockerfile para o pnpm/npm.
+  - **Exemplo:** `RUN --mount=type=cache,target=/root/.local/share/pnpm/store pnpm install`
+  - **Vantagem:** O tempo de `pnpm install` cai de minutos para segundos no CI, reaproveitando o cache de pacotes globais entre as execuções do pipeline.
+- **Imagens Distroless:** Para produção em Node.js, dê preferência para imagens do Google (ex: `gcr.io/distroless/nodejs20-debian12`).
+  - **Vantagem:** Elas não possuem shell (`/bin/sh`), bash ou gerenciadores de pacotes embutidos. Isso reduz drasticamente a superfície de ataque, zerando vulnerabilidades críticas do SO (CVEs) relatadas por scanners como Trivy ou SonarQube, além de criar imagens minúsculas.

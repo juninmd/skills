@@ -7,7 +7,7 @@ tools:
   - read
   - search
   - edit
-user-invokable: true
+user-invocable: true
 disable-model-invocation: false
 metadata:
   works_on:

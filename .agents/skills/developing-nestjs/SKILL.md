@@ -343,3 +343,10 @@ npm run format
 - `developing-node` — Package management e scripts para Node.js/TypeScript.
 - `managing-quality` — Estratégias de teste, cobertura e integração CI/CD.
 - `integrating-apis` — Padrões de integração com APIs externas.
+
+## Performance & Production Hacks (NestJS)
+
+- **SWC (Speedy Web Compiler):** Para turbinar a velocidade de build e cold start local, utilize o SWC (escrito em Rust) no lugar do compilador TypeScript padrão.
+  - **Como usar:** Rode a aplicação com `nest start -b swc`. O tempo de compilação cai de ~10s para menos de 1 segundo.
+- **Graceful Shutdown no Kubernetes:** O NestJS não lida com `SIGTERM` por padrão, o que causa erros 502/504 durante deploys quando o K8s mata os pods.
+  - **Como resolver:** Habilite `app.enableShutdownHooks()` no `main.ts`. Isso garante que conexões de banco de dados e requisições em andamento sejam finalizadas suavemente antes do pod morrer.

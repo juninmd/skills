@@ -73,6 +73,29 @@ lint-staged
 }
 ```
 
+### High-Performance Setup with SWC
+```bash
+# Instalar SWC para transpilação ultra-rápida (100x mais rápido que ts-jest)
+pnpm add -D @swc/core @swc/jest
+
+# jest.config.ts com SWC
+export default {
+  preset: 'ts-jest',
+  transform: {
+    '^.+\\.tsx?$': [
+      '@swc/jest',
+      {
+        jsc: {
+          parser: { syntax: 'typescript', tsx: true },
+          transform: { react: { runtime: 'automatic' } },
+        },
+      },
+    ],
+  },
+  // Continua type checking separado com tsc
+};
+```
+
 ### GitHub / GitLab CI Example
 ```yaml
 # .gitlab-ci.yml or .github/workflows/validate.yml
@@ -92,6 +115,7 @@ validate:
 - **Test Critical Logic:** Algoritmos, cálculos, e orquestração cross-layer devem ter testes. UI que só renderiza pode ter apenas testes visuais.
 - **Document Assumptions:** Se um tipo ou algoritmo tem precondições, documente com JSDoc.
 - **Fail Fast:** Conflitos type check + linting + testes devem bloquear merge.
+- **Use SWC for Speed:** Para projetos com muitos testes, use SWC (`@swc/jest`, `@swc/esbuild`) em vez de `ts-jest` ou `babel-loader`. SWC é 100x+ mais rápido na transpilação, reduzindo tempo de CI/CD significativamente. Mantenha `tsc --noEmit` para type checking separado.
 
 ## Troubleshooting
 
@@ -99,6 +123,21 @@ validate:
 - **Linter vs Formatter Conflict:** Use `eslint-config-prettier` como último extends em `.eslintrc` para evitar conflitos com Prettier.
 - **Slow Type Checking:** Se `tsc` ficar lento, use `incremental: true` em `tsconfig.json` ou `tsc --incremental`.
 - **Test Timeout:** Se os testes demorarem muito, use `--testTimeout` no Vitest/Jest ou divida em arquivos menores.
+- **Slow Jest Tests:** Para turbinar a velocidade dos testes Jest com `ts-jest`, configure `isolatedModules: true` no `jest.config.ts` (dentro de `transform`) ou migre para SWC. Isso pula a checagem de tipos (deixe o `tsc --noEmit` cuidar disso) e acelera a execução massivamente.
+- **Slow Build Times:** Se o build estiver lento, substitua webpack's `ts-loader` ou `babel-loader` por `swc-loader`. Configure em `webpack.config.js`:
+  ```js
+  module: {
+    rules: [{
+      test: /\.tsx?$/,
+      loader: 'swc-loader',
+      options: {
+        jsc: { parser: { syntax: 'typescript', tsx: true } }
+      }
+    }]
+  }
+  ```
+  SWC reduz tempo de build em até 70%.
+- **SWC + ESBuild for Production:** Para bundling otimizado, use `esbuild` com `loader: 'ts'` (suporte nativo a TS) em vez de Webpack. Exemplo com esbuild CLI: `esbuild src/index.ts --bundle --loader:.ts=ts --outfile=dist/index.js`. Tempo de build: <1s para a maioria dos projetos.
 
 ## Related Skills
 

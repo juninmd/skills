@@ -3,6 +3,9 @@
 Este arquivo é o **INDEX** para os padrões de projeto, segurança e deploy.
 **INSTRUÇÃO PRIMÁRIA:** Siga as regras definidas nos arquivos referenciados abaixo.
 
+> ⚠️ **REGRAS DE CONTRIBUIÇÃO (ATENÇÃO AOS AGENTES):** ⚠️
+> Todas as criações, edições e modificações de Skills, Regras ou Agentes DEVEM ocorrer ESTRITAMENTE dentro do diretório **`.agents/`**. NUNCA modifique ou adicione arquivos diretamente nos diretórios de publicação (como `plugins/`, `skills/` ou `agents/`). O diretório `.agents/` atua como a área de staging/desenvolvimento que será posteriormente processada pelas ferramentas de automação do repositório.
+
 ---
 
 ## 🧠 Persona e Soul

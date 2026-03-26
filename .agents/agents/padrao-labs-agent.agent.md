@@ -9,7 +9,7 @@ tools:
   - read
   - search
   - edit
-user-invokable: true
+user-invocable: true
 agents:
   - secops-agent
   - quality-engineer

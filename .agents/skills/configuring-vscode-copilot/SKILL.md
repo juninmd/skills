@@ -15,7 +15,7 @@ This skill automates the configuration of GitHub Copilot and VS Code to maximize
 - Creating and maintaining `.copilotignore` to exclude files/directories from Copilot's context.
 - Configuring `github.copilot.enable` per language to disable Copilot where it adds no value.
 - Setting up `chat.promptFilesLocations` so custom agents and skills are discovered globally.
-- Leveraging the **Subagents** feature (VS Code 1.97+) via `user-invokable` and `disable-model-invocation` frontmatter.
+- Leveraging the **Subagents** feature (VS Code 1.97+) via `user-invocable` and `disable-model-invocation` frontmatter.
 - Wiring `github.copilot.chat.codeGeneration.instructions` to a shared instructions file.
 
 ## Instructions
@@ -119,14 +119,14 @@ Custom agents (`.prompt.md` / `.chatparticipant`) support two new frontmatter pr
 
 | Property | Default | Purpose |
 |---|---|---|
-| `user-invokable` | `true` | Show in chat agents dropdown |
+| `user-invocable` | `true` | Show in chat agents dropdown |
 | `disable-model-invocation` | `false` | Prevent other agents from using this as a subagent |
 
 **Worker-only agent (invisible in dropdown):**
 ```yaml
 ---
 name: internal-researcher
-user-invokable: false
+user-invocable: false
 tools: ['read', 'search']
 ---
 ```
@@ -179,7 +179,7 @@ Synthesize into a prioritized report.
 
 - **Commit `.copilotignore` to version control** — it ensures all team members share the same exclusions.
 - **Never put secrets in files that Copilot can read** — even if not committed, Copilot reads from the disk.
-- **Keep `user-invokable: false` for internal helper agents** — keeps the chat dropdown clean.
+- **Keep `user-invocable: false` for internal helper agents** — keeps the chat dropdown clean.
 - **Use `agents: []` to prevent any subagent delegation** for safety-critical or cost-sensitive agents.
 - **Run `padrao-labs install --tool copilot`** after changes to regenerate global settings automatically.
 - **Re-run after VSCode updates** — new VS Code versions may add new settings keys that need opt-in.

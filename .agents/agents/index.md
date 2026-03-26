@@ -23,7 +23,7 @@ Estes agentes usam **subagents em paralelo** para análises multi-perspectiva. S
 
 Agentes focados, usados diretamente ou invocados como subagents pelos coordenadores.
 
-| Agente | Especialidade | `user-invokable` |
+| Agente | Especialidade | `user-invocable` |
 |---|---|---|
 | [quality-engineer](./quality-engineer.agent.md) | Cobertura ≥90%, SonarQube, pytest/jest, métricas DORA | ✅ |
 | [secops-agent](./secops-agent.agent.md) | SecOps, segredos, WAF, conformidade, Zero Trust | ✅ |
@@ -54,7 +54,7 @@ graph LR
 | Propriedade | Padrão | Descrição |
 |---|---|---|
 | `tools: ['agent', ...]` | — | Habilita o agente a invocar subagents |
-| `user-invokable` | `true` | Exibir o agente no dropdown do chat |
+| `user-invocable` | `true` | Exibir o agente no dropdown do chat |
 | `disable-model-invocation` | `false` | Impede outros agentes de usar este como subagent |
 | `agents: [...]` | `*` (todos) | Restringe quais subagents este coordenador pode usar |
 

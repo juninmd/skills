@@ -2,7 +2,7 @@
 name: code-reviewer
 description: Revisor de código multi-perspectiva que executa análises paralelas de segurança, qualidade e arquitetura usando subagents. Use para revisões completas antes do merge.
 tools: ['agent', 'read', 'search']
-user-invokable: true
+user-invocable: true
 agents: ['secops-agent', 'quality-engineer', 'software-architect', 'refactoring-agent']
 metadata:
     works_on: [copilot]

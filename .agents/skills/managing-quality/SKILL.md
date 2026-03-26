@@ -53,3 +53,12 @@ Esta skill padroniza a estratégia de testes e validação de software.
 **Gatilho:** "massa de dados", "csv produtos".
 - **Ação:** Gerar SQL para extrair SKUs de 1P/3P do Datalake (Uso Interno).
 - **Output:** CSV com `product_id, sku, seller_id`.
+
+## Advanced Testing Strategies
+
+- **Testcontainers (Integração sem Mocks):** Para testes de integração, evite mockar bancos de dados em memória (ex: sqlite-inmemory, mongomemoryserver). Utilize a biblioteca `testcontainers-node`.
+  - **Como funciona:** Ele levanta um container Docker real com a imagem exata de produção sob demanda durante o início da suíte de testes e o destrói magicamente ao final.
+  - **Vantagem:** Garante 100% de fidelidade nas transações e queries executadas, sem a sobrecarga de manter os mocks atualizados ou sofrer com particularidades do banco em memória versus produção.
+- **Property-Based Testing (fast-check):** Para algoritmos críticos e lógicas complexas (parsers, cálculos financeiros, agendamentos), utilize testes baseados em propriedades usando `fast-check`.
+  - **Como funciona:** Em vez de você fornecer o input `a=1` e `b=2`, você diz à lib que o teste aceita "dois números inteiros". O framework vai rodar o mesmo teste 10000 vezes gerando números aleatórios gigantes, negativos, 0 e floats malucos.
+  - **Vantagem:** A biblioteca explora agressivamente os "edge cases" em frações de segundo para forçar uma quebra de validação ou de lógica na sua implementação, pegando bugs que um dev normalmente ignoraria criar no TDD manual.

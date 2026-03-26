@@ -36,8 +36,22 @@ const pluginFolders = fs.readdirSync(pluginsDir, { withFileTypes: true })
 
 for (const folder of pluginFolders) {
     const jsonPath = path.join(pluginsDir, folder, '.github/plugin/plugin.json');
+    const folderPath = path.join(pluginsDir, folder);
+
     if (!fs.existsSync(jsonPath)) {
-        console.error(`❌ [${folder}] Faltando arquivo de manifesto: .github/plugin/plugin.json`);
+        // Verificar se a pasta tem conteúdo relevante
+        const folderContents = fs.readdirSync(folderPath, { withFileTypes: true });
+        const hasContent = folderContents.some(item => item.name !== '.github' && item.name !== 'README.md');
+
+        if (hasContent) {
+            console.error(`❌ [${folder}] Faltando arquivo de manifesto`);
+            console.error(`   📁 Caminho: ${jsonPath}`);
+            console.error(`   💡 Dica: Crie o arquivo plugin.json neste diretório com referências às skills e agents`);
+        } else {
+            console.warn(`⚠️  [${folder}] Pasta vazia ou sem conteúdo relevante`);
+            console.warn(`   📁 Caminho: ${folderPath}`);
+            console.warn(`   💡 Dica: Adicione skills/agents ou remova a pasta se não for usada`);
+        }
         hasErrors = true;
     }
 }
@@ -49,7 +63,7 @@ for (const jsonPath of pluginFiles) {
     // Pegar o nome do plugin do caminho (plugins/<nome-do-plugin>/...)
     const relativePath = path.relative(pluginsDir, jsonPath);
     const pluginName = relativePath.split(path.sep)[0];
-    
+
     let content;
     try {
         content = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
