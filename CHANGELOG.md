@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.49.1](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.49.0...v1.49.1) (2026-03-24)
+
+
+### Improvements
+
+* readme ([e165b64](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/e165b64))
+
 # [1.49.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.48.1...v1.49.0) (2026-03-24)
 
 
