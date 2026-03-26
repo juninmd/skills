@@ -259,7 +259,7 @@ padrao-labs-agents/
 
 **Requisitos:**
 
-- Node.js 18+
+- Node.js 22+
 - pnpm 8+
 
 ```bash

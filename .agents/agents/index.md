@@ -32,6 +32,7 @@ Agentes focados, usados diretamente ou invocados como subagents pelos coordenado
 | [terminal-operator](./terminal-operator.agent.md) | DevOps, K8s, GCP/MGC, Docker, Git avançado, CI-Knife | ✅ |
 | [frontend-expert](./frontend-expert.agent.md) | React/Vite/TypeScript, Zustand, acessibilidade WCAG, Core Web Vitals | ✅ |
 | [mobile-engineer](./mobile-engineer.agent.md) | React Native, Android, iOS, performance 60fps | ✅ |
+| [python-engineer](./python-engineer.agent.md) | FastAPI, Pydantic v2, SQLAlchemy async, pytest, uv, type safety | ✅ |
 
 ---
 

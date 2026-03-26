@@ -13,6 +13,7 @@
     "../../../../.agents/skills/developing-nestjs",
     "../../../../.agents/skills/developing-node",
     "../../../../.agents/skills/developing-python",
+    "../../../../.agents/skills/developing-fastapi",
     "../../../../.agents/skills/designing-graphql-schemas",
     "../../../../.agents/skills/integrating-apis",
     "../../../../.agents/skills/administrating-databases",

@@ -41,3 +41,6 @@ Fluxos de trabalho passo-a-passo:
 
 ---
 **Observação**: Este arquivo serve como mapa. O conteúdo detalhado foi migrado para os arquivos acima para melhor organização e contexto. Não invente regras; siga as fontes da verdade listadas.
+
+## Importante
+Após qualquer modificação no código execute pnpm build para validar se nada foi quebrado.
