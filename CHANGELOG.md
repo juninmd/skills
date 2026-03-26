@@ -1,5 +1,17 @@
 # Changelog
 
+# [1.50.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.49.1...v1.50.0) (2026-03-26)
+
+
+### Bug Fixes
+
+* correct spelling of 'user-invokable' to 'user-invocable' ([7cce8cb](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/7cce8cb))
+
+
+### Features
+
+* add padrao-labs-agents skill and update plugin references ([8d00abb](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/8d00abb))
+
 ## [1.49.1](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.49.0...v1.49.1) (2026-03-24)
 
 

@@ -2,7 +2,7 @@
   "name": "padrao-labs-agents-root",
   "metadata": {
     "description": "Agents, Skills, Rules, and Workflows",
-    "version": "1.49.1",
+    "version": "1.50.0",
     "pluginRoot": "./"
   },
   "owner": {
@@ -14,55 +14,55 @@
       "name": "cloud-and-platform",
       "source": "./plugins/cloud-and-platform",
       "description": "Infrastructure as Code, Kubernetes, CI/CD, and Cloud operations.",
-      "version": "1.49.1"
+      "version": "1.50.0"
     },
     {
       "name": "core-engineering",
       "source": "./plugins/core-engineering",
       "description": "Software architecture, backend development, design patterns, and core engineering best practices.",
-      "version": "1.49.1"
+      "version": "1.50.0"
     },
     {
       "name": "data-and-ai",
       "source": "./plugins/data-and-ai",
       "description": "Data analysis, NLP, Vector databases, MLOps, and prompt engineering.",
-      "version": "1.49.1"
+      "version": "1.50.0"
     },
     {
       "name": "developer-experience-and-scaffolding",
       "source": "./plugins/developer-experience-and-scaffolding",
       "description": "Developer tooling, git standards, project scaffolding, and agent skill generation.",
-      "version": "1.49.1"
+      "version": "1.50.0"
     },
     {
       "name": "documentation-and-governance",
       "source": "./plugins/documentation-and-governance",
       "description": "Project documentation, organizational navigation, and agent governance.",
-      "version": "1.49.1"
+      "version": "1.50.0"
     },
     {
       "name": "frontend-and-mobile",
       "source": "./plugins/frontend-and-mobile",
       "description": "UI/UX, accessibility, SEO, and cross-platform mobile development.",
-      "version": "1.49.1"
+      "version": "1.50.0"
     },
     {
       "name": "observability-and-reliability",
       "source": "./plugins/observability-and-reliability",
       "description": "System health, performance optimization, and site reliability engineering.",
-      "version": "1.49.1"
+      "version": "1.50.0"
     },
     {
       "name": "quality-and-testing",
       "source": "./plugins/quality-and-testing",
       "description": "Software testing, quality assurance, and code review processes.",
-      "version": "1.49.1"
+      "version": "1.50.0"
     },
     {
       "name": "security-best-practices",
       "source": "./plugins/security-best-practices",
       "description": "Security auditing, incident response, and best practices for secure environments.",
-      "version": "1.49.1"
+      "version": "1.50.0"
     }
   ]
 }
