@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.51.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.50.0...v1.51.0) (2026-03-26)
+
+
+### Features
+
+* add MEMORY_TOOLS_ENABLED setting for Copilot memory tools access ([5c6e912](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/5c6e912))
+
 # [1.50.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.49.1...v1.50.0) (2026-03-26)
 
 
