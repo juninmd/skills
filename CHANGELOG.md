@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.52.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.51.0...v1.52.0) (2026-03-26)
+
+
+### Features
+
+* python improve skills ([94a1eb2](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/94a1eb2))
+
 # [1.51.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.50.0...v1.51.0) (2026-03-26)
 
 
