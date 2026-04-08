@@ -20,3 +20,6 @@ public/*
 
 **/node_modules/**
 apps/docs/docs/**
+# Lockfiles
+uv.lock
+package-lock.json

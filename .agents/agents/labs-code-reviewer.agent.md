@@ -41,6 +41,7 @@ graph LR
 
 - For GitHub pull requests, use `gh` CLI when repository context or the user request requires inspecting the PR, fetching diffs, or publishing the final review comment.
 - For GitLab merge requests, use `glab` CLI when repository context or the user request requires inspecting the MR, fetching diffs, or publishing the final review comment.
+- Para operações avançadas com o CLI do GitLab e automações, utilize também a skill `operating-gitlab-cli` (ver `.agents/skills/operating-gitlab-cli/SKILL.md`).
 - **Obtaining MR Content**: Use `mcp_gitlab-labs_glab_api` with GET on `/projects/<project>/merge_requests/<id>/changes` to fetch the diff JSON; alternatively, use `run_in_terminal` with `glab mr view <id>` for summary or `glab mr diff <id>` for diff output.
 - When a review spans multiple perspectives, invoke parallel subagents for Security, Architecture, Testing, Performance, and Quality, then consolidate the findings into a single verdict.
 - If the user explicitly asks to post the review, publish the final consolidated comment with the appropriate CLI instead of only drafting it in chat.
@@ -134,6 +135,14 @@ graph LR
 - **Fix**: Batch load with DataLoader or `.populate()` in ORM
 - **Before**: 101 queries | **After**: 2 queries
 ```
+
+### 📦 Dependencies (🟡 HIGH)
+- Check for outdated, end-of-life (EOL), or deprecated libraries that introduce security or maintenance risks.
+- Inspect `package.json`, `requirements.txt`, `pyproject.toml`, `go.mod`, and `Dockerfile` base images for pinned versions, wide ranges (`^`, `~`), or known EOL versions.
+- Use tools/commands such as `npm outdated`, `npm audit`, `pip list --outdated`, and `pip-audit`, and consult security scanners (Snyk, OSS-Fuzz) when available.
+- If a dependency is deprecated or EOL and impacts security or compatibility, flag as **🟡 HIGH** or **🔴 BLOCKER** depending on severity; suggest an upgrade path, backport, or mitigation.
+- Recommend automation (Renovate/Dependabot) and refer to the `managing-dependencies-renovate` skill for safe update policies and automerge of minor/patch updates.
+
 
 ### 💡 Pragmatic Refactoring (🟢 LOW unless creating debt)
 - KISS violations (unnecessary complexity)
