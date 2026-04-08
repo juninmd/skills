@@ -1,6 +1,6 @@
 {
   "name": "padrao-labs-agents-root",
-  "version": "1.52.0",
+  "version": "1.53.0",
   "private": true,
   "publisher": "luizalabs",
   "description": "Luizalabs Agents, Skills, Rules, and Workflows",
