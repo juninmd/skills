@@ -1,5 +1,4 @@
-# Reference: File System Standards
-
+# Referência: File System Standards 📚
 ## Standard Structures
 
 ### Web Development (React/Next.js)
@@ -46,8 +45,7 @@ src/
 ### Go (Standard Layout)
 - `cmd/`, `internal/`, `pkg/`, `api/`, `configs/`, `scripts/`.
 
-## Best Practices
-- **KISS (Keep It Simple, Stupid):** Don't over-engineer the structure for small projects.
+## Boas Práticas- **KISS (Keep It Simple, Stupid):** Don't over-engineer the structure for small projects.
 - **Separation of Concerns:** Keep logic, UI, and data models in distinct directories.
 - **Consistency:** Use consistent naming (kebab-case, camelCase) across the entire system.
 - **Flat vs. Nested:** Prefer flatter structures until nesting becomes necessary for clarity.
@@ -55,7 +53,6 @@ src/
 - **Avoid Junk Drawers:** Avoid generic folders such as `utils/`, `helpers/`, or `common/` without clear ownership.
 - **Co-locate by Ownership:** Keep files near the feature that owns them, and extract to shared directories only when the reuse is real.
 
-## External Resources
-- [Next.js Project Structure](https://nextjs.org/docs/getting-started/project-structure)
+## Recursos Externos- [Next.js Project Structure](https://nextjs.org/docs/getting-started/project-structure)
 - [Python Project Structure](https://docs.python-guide.org/writing/structure/)
 - [Standard Go Project Layout](https://github.com/golang-standards/project-layout)

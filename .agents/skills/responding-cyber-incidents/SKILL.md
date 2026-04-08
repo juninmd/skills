@@ -1,6 +1,6 @@
 ---
 name: responding-cyber-incidents
-description: Investigação forense e resposta a incidentes de segurança (IR) seguindo NIST SP 800-61.
+description: Forensic investigation and cyber incident response (IR) following NIST SP 800-61.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[incident/alert] [options]"
@@ -9,28 +9,27 @@ disable-model-invocation: true
 
 # Cyber Incident Responder
 
-Esta skill foca na contenção e erradicação de ameaças ativas.
+This skill focuses on the containment and eradication of active threats.
 
 ## Instructions
-1.  **Isolation (Containment):** Isole o host comprometido da rede.
-    *   **K8s:** Cordon e drain do nó, ou delete o pod suspeito.
-    *   **VM:** Aplique Security Group "Deny All" exceto sua origem.
-2.  **Forensics (Identification):** Colete evidências voláteis primeiro (RAM -> Network -> Disk).
-    *   **Process:** Identifique processos estranhos (`ps aux --sort=-%cpu`).
-    *   **Network:** Identifique conexões ativas (`ss -tunlp`).
-    *   **Files:** Busque arquivos modificados recentemente (`find / -mtime -1`).
+1.  **Isolation (Containment):** Isolate the compromised host from the network.
+    *   **K8s:** Cordon and drain the node, or delete the suspicious pod.
+    *   **VM:** Apply a "Deny All" Security Group except for your origin.
+2.  **Forensics (Identification):** Collect volatile evidence first (RAM -> Network -> Disk).
+    *   **Process:** Identify strange processes (`ps aux --sort=-%cpu`).
+    *   **Network:** Identify active connections (`ss -tunlp`).
+    *   **Files:** Search for recently modified files (`find / -mtime -1`).
 3.  **Log Analysis:**
-    *   Busque padrões de ataque (SQLi, XSS, RCE) nos logs de acesso.
-    *   Exemplo: `grep -E "UNION SELECT|/etc/passwd" access.log`
+    *   Look for attack patterns (SQLi, XSS, RCE) in access logs.
+    *   Example: `grep -E "UNION SELECT|/etc/passwd" access.log`
 
-## Common Tasks
-*   **Check Open Ports:** `netstat -tuln` ou `ss -tuln`
+## Common Tasks*   **Check Open Ports:** `netstat -tuln` or `ss -tuln`
 *   **Check Active Connections:** `lsof -i -P -n | grep LISTEN`
 *   **Analyze Auth Logs:**
-    *   `grep "Failed password" /var/log/auth.log | awk '{print $11}' | sort | uniq -c | sort -nr` (Top IPs brute-force).
-*   **Check Crontab:** `crontab -l` e `ls /etc/cron.*` (Persistência de malware).
+    *   `grep "Failed password" /var/log/auth.log | awk '{print $11}' | sort | uniq -c | sort -nr` (Top brute-force IPs).
+*   **Check Crontab:** `crontab -l` and `ls /etc/cron.*` (Malware persistence).
 
 ## Best Practices
-- **Chain of Custody:** Preserve logs originais; trabalhe em cópias.
-- **Reference:** Consulte a `triage-skill` para o protocolo inicial de triagem.
-- **Post-Mortem:** Documente tudo para o relatório final (RCA).
+- **Chain of Custody:** Preserve original logs; work on copies.
+- **Reference:** Consult the `triage-skill` for the initial triage protocol.
+- **Post-Mortem:** Document everything for the final report (RCA).

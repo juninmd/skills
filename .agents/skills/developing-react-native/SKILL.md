@@ -1,36 +1,45 @@
 ---
 name: developing-react-native
-description: Desenvolver aplicativos móveis multiplataforma usando React Native para iOS e Android.
+description: Develop cross-platform mobile applications using React Native for iOS and Android.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[file/module] [options]"
 ---
 
-# React Native Mobile Developer Skill
+# Development with React Native
 
 ## Description
-This skill enables the agent to develop cross-platform mobile applications using React Native. It focuses on building native-like experiences for iOS and Android from a single codebase.
+This skill guides the development of cross-platform mobile applications with React Native, seeking a native experience for iOS and Android from a single codebase.
 
-## Workflow
+## 🧱 Recommended Stack 2026
+- Runtime/App: Expo SDK + EAS Build/Update.
+- Navigation: Expo Router (file-based) as default.
+- Server State: TanStack Query.
+- Client State: Zustand (Redux Toolkit only when strictly necessary).
+- UI: NativeWind or Tamagui.
+- Testing: Jest + React Native Testing Library + Maestro/Detox.
+- Observability: Sentry + Crashlytics (when applicable).
+
+## Flow
 
 ### 1. Project Setup
-- **Framework:** Prefer **Expo** (Managed workflow) for rapid development and OTA updates. Use CLI only if native modules require custom linking.
-- **Routing:** Use **Expo Router** (File-based) or **React Navigation**.
+- **Framework:** Prefer **Expo** (managed workflow) for fast development and OTA.
+- **Routing:** Use **Expo Router** (file-based) or **React Navigation**.
 
-### 2. Architecture & State
-- **Server State:** Use **TanStack Query (React Query)** for API calls, caching, and loading states. Avoid managing API data in global store.
-- **Client State:** Use **Zustand** for lightweight global state (theme, user preferences). Use **Redux Toolkit** only for complex transactional state.
+### 2. Architecture and State
+- **Server State:** Use **TanStack Query** for API calls, caching, and loading.
+- **Client State:** Use **Zustand** for lightweight global state (theme/preferences).
 
 ### 3. UI Implementation
-- **Styling:** Use **NativeWind** (Tailwind for RN) for rapid styling or **Tamagui** for performance and cross-platform consistency.
-- **Components:** Prioritize `FlatList` (virtualized) over `ScrollView` for lists.
+- **Styling:** Use **NativeWind** (Tailwind for RN) or **Tamagui**.
+- **Lists:** Prefer `FlatList` (virtualized) over `ScrollView`.
 
-### 4. Testing & Debugging
-- **Unit/Integration:** Use `Jest` and `React Native Testing Library`.
-- **E2E:** Use `Maestro` (simpler YAML flows) or `Detox` (grey-box testing).
-- **Debugger:** Use Flipper or React Native Debugger.
+### 4. Testing and Debugging
+- **Unit/Integration:** `Jest` + `React Native Testing Library`.
+- **E2E:** `Maestro` (simple YAML flows) or `Detox` (grey-box).
+- **Debugger:** Flipper or React Native Debugger.
 
 ## Best Practices
-- **Performance:** Memoize expensive calculations (`useMemo`) and callbacks (`useCallback`) to prevent re-renders.
-- **Images:** Use `expo-image` for aggressive caching and performance.
-- **Platform:** Use `Platform.select({ ios: ..., android: ... })` for OS-specific tweaks.
+- **Performance:** Memoize expensive calculations and callbacks (`useMemo`, `useCallback`).
+- **Images:** Use `expo-image` for aggressive caching and better performance.
+- **Platform:** Apply OS-specific adjustments with `Platform.select({ ios: ..., android: ... })`.

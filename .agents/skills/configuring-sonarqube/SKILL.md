@@ -1,6 +1,6 @@
 ---
 name: configuring-sonarqube
-description: Configuração e padronização do arquivo sonar-project.properties para garantir o cumprimento das métricas de qualidade do Labs.
+description: Configuration and standardization of the sonar-project.properties file to ensure compliance with Labs quality metrics.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[config/tool] [options]"
@@ -8,21 +8,21 @@ argument-hint: "[config/tool] [options]"
 
 # Configuring SonarQube
 
-Esta skill fornece o template e as diretrizes para a configuração do `sonar-project.properties` em repositórios da Luizalabs.
+This skill provides the template and guidelines for configuring `sonar-project.properties` in Luizalabs repositories.
 
 ## Concept
-O SonarQube é a ferramenta oficial do Labs para análise estática de código e métricas de qualidade (cobertura de testes, code smells, vulnerabilidades). Todo repositório deve ter o arquivo `sonar-project.properties` configurado corretamente na raiz.
+SonarQube is the official tool at Labs for static code analysis and quality metrics (test coverage, code smells, vulnerabilities). Every repository must have the `sonar-project.properties` file correctly configured at the root.
 
 ## Instructions
-1.  **Template:** Utilize o template oficial localizado em `assets/sonar-project.properties`.
-2.  **Variáveis:**
-    *   Substitua `{APPNAME}` pelo nome do projeto no GitLab (ex: `api-meu-servico`).
-    *   Ajuste `sonar.sources` e `sonar.tests` de acordo com a estrutura do projeto.
-3.  **Linguagem e Coverage:**
-    *   Para projetos Python, garanta a linha `sonar.python.coverage.reportPaths=coverage.xml`.
-    *   Para projetos Node.js/TS, garanta a linha `sonar.javascript.lcov.reportPaths=coverage/lcov.info`.
-4.  **Exclusions:** Sempre ignore pastas de dependências (node_modules, venv) e arquivos de build/dist.
+1.  **Template:** Use the official template located at `assets/sonar-project.properties`.
+2.  **Variables:**
+    *   Replace `{APPNAME}` with the project name in GitLab (e.g., `api-my-service`).
+    *   Adjust `sonar.sources` and `sonar.tests` according to the project structure.
+3.  **Language and Coverage:**
+    *   For Python projects, ensure the line `sonar.python.coverage.reportPaths=coverage.xml`.
+    *   For Node.js/TS projects, ensure the line `sonar.javascript.lcov.reportPaths=coverage/lcov.info`.
+4.  **Exclusions:** Always ignore dependency folders (node_modules, venv) and build/dist files.
 
 ## Validation
-- Certifique-se de que a cobertura de testes no projeto atenda aos limites da organização (geralmente >= 90%).
-- O pipeline irá rodar o comando `ci-knife sonar-scanner` baseado nessas propriedades.
+- Ensure that the project's test coverage meets organization limits (usually >= 90%).
+- The pipeline will run the `ci-knife sonar-scanner` command based on these properties.

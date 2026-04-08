@@ -1,6 +1,6 @@
 ---
 name: developing-tooling
-description: Desenvolvimento de ferramentas CLI, scripts de automação e utilitários internos com foco em robustez, logs e testes.
+description: Development of CLI tools, automation scripts, and internal utilities with a focus on robustness, logging, and testing.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[file/module] [options]"
@@ -8,30 +8,36 @@ argument-hint: "[file/module] [options]"
 
 # Tooling Developer
 
-Esta skill orienta a criação de ferramentas de linha de comando (CLI) e scripts de automação de alta qualidade, seguindo padrões de engenharia de software (Testes, Logs, Documentação).
+This skill guides the creation of high-quality command-line tools (CLI) and automation scripts, following software engineering standards (Testing, Logging, Documentation).
+
+## 🧱 Recommended Stack 2026
+- **Internal Python CLI:** `uv` + `typer` + `rich` + `structlog` + `pytest`.
+- **Internal Node CLI:** `pnpm` + `commander` + `zod` + `pino` + `vitest`.
+- **Distribution:** binaries with `PyOxidizer`/`shiv` (Python) or `pkg`/`nexe` (Node) when necessary.
+- **Observability:** OpenTelemetry SDK + structured JSON logs.
 
 ## Instructions
-1.  **Interface Design:** Use bibliotecas robustas para CLI (Python: `typer`/`click`, Go: `cobra`, Node: `commander`).
-    *   **Help:** Todo comando deve ter `--help` detalhado com exemplos.
-    *   **Arguments:** Valide inputs rigorosamente (tipagem forte com Pydantic/Zod).
-2.  **Logging & Observability:**
-    *   **Structured Logs:** Use logs estruturados (JSON) para execução em CI/CD (`structlog` em Python).
-    *   **Human Logs:** Use logs coloridos/formatados (`rich` ou `chalk`) para execução interativa.
-    *   **Levels:** Diferencie claramente `DEBUG`, `INFO`, `WARNING`, `ERROR`.
+1.  **Interface Design:** Use robust libraries for CLI (Python: `typer`/`click`, Go: `cobra`, Node: `commander`).
+    *   **Help:** Every command must have a detailed `--help` with examples.
+    *   **Arguments:** Validate inputs rigorously (strong typing with Pydantic/Zod).
+2.  **Logging and Observability:**
+    *   **Structured Logs:** Use structured logs (JSON) for CI/CD execution (`structlog` in Python).
+    *   **Human Logs:** Use colored/formatted logs (`rich` or `chalk`) for interactive execution.
+    *   **Levels:** Clearly differentiate `DEBUG`, `INFO`, `WARNING`, `ERROR`.
 3.  **Error Handling:**
-    *   Nunca mostre stack traces para o usuário final (exceto em `--debug`).
-    *   Use códigos de saída (exit codes) semânticos (0=sucesso, 1=erro geral, 2=uso incorreto).
+    *   Never show stack traces to the end-user (except with `--debug`).
+    *   Use semantic exit codes (0=success, 1=general error, 2=incorrect usage).
 4.  **Testing Strategy:**
-    *   **Unit Tests:** Teste a lógica de negócio isolada (Mock de I/O).
-    *   **Integration Tests:** Teste a invocação do CLI (ex: `typer.testing.CliRunner`).
-    *   **Coverage:** Almeje > 80% de cobertura.
+    *   **Unit Tests:** Test isolated business logic (I/O mocking).
+    *   **Integration Tests:** Test CLI invocation (e.g., `typer.testing.CliRunner`).
+    *   **Coverage:** Aim for > 80% coverage.
 
 ## Common Tasks
 *   **Create CLI (Python):** `uv init --app && uv add typer rich structlog`
 *   **Create CLI (Node):** `npm init && pnpm add commander chalk winston`
 
 ## Examples
-### Valid Python CLI (Typer + Rich)
+### Valid Python CLI Example (Typer + Rich)
 ```python
 import typer
 from rich.console import Console
@@ -57,7 +63,7 @@ if __name__ == "__main__":
     app()
 ```
 
-### Valid Logging Configuration
+### Valid Logging Configuration Example
 ```python
 # Configure structlog for JSON output in CI, Console in Dev
 import sys
@@ -69,4 +75,4 @@ def configure_logging(json_mode: bool):
 ```
 
 ## Resources
-- **12-Factor CLI Apps:** Princípios para construção de apps de linha de comando (Config via Env Vars, Logs via Stdout).
+- **12-Factor CLI Apps:** Principles for building command-line apps (Config via Env Vars, Logs via Stdout).

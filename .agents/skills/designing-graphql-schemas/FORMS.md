@@ -1,5 +1,4 @@
-# GraphQL Schema Designer Forms
-
+# GraphQL Schema Designer Formulários 📋
 ## 1. GraphQL Schema Design Request (graphql_design_request.md)
 
 ### Goal

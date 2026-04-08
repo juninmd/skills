@@ -1,23 +1,30 @@
 ---
 name: developing-nestjs
-description: Projetar, implementar e manter aplicações backend NestJS prontas para produção com arquitetura modular, validação, autenticação e testes abrangentes.
+description: Design, implement, and maintain production-ready NestJS backend applications with modular architecture, validation, authentication, and comprehensive testing.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[file/module] [options]"
 ---
 
-# NestJS Development
+# Development with NestJS
 
-Esta skill padroniza o desenvolvimento de aplicações backend robustas com NestJS, focando em arquitetura modular, validação rigorosa, autenticação segura, testes e conformidade com TypeScript strict.
+This skill standardizes the development of robust backend applications with NestJS, focusing on modular architecture, rigorous validation, secure authentication, testing, and compliance with strict TypeScript.
+
+## 🧱 Recommended Stack 2026
+- **Runtime:** Node.js 24 LTS
+- **Framework:** NestJS + strict TypeScript
+- **Data:** PostgreSQL + Prisma (or TypeORM when already adopted)
+- **Messaging:** Kafka or RabbitMQ
+- **Quality:** Jest + Supertest + ESLint + OpenTelemetry
 
 ## Recommended Baseline
 
-- Use NestJS com TypeScript em modo `strict: true`.
-- Organize por módulos de negócio (feature-based), não por tipo técnico.
-- Use class-validator para validação de DTOs.
-- Implemente testes end-to-end (e2e) e unitários com Jest.
-- Siga o padrão de Pipes, Guards e Interceptors para cross-cutting concerns.
-- Use decoradores customizados para reduzir boilerplate e melhorar legibilidade.
+- Use NestJS with TypeScript in `strict: true` mode.
+- Organize by business modules (feature-based), not by technical type.
+- Use class-validator for DTO validation.
+- Implement end-to-end (e2e) and unit tests with Jest.
+- Follow the Pipes, Guards, and Interceptors pattern for cross-cutting concerns.
+- Use custom decorators to reduce boilerplate and improve readability.
 
 ## Instructions
 
@@ -52,11 +59,11 @@ Esta skill padroniza o desenvolvimento de aplicações backend robustas com Nest
       main.ts
     ```
 
-    *   **Reasoning:** Organizar por feature reduz cognitive load, facilita encapsulamento e permite deletar features sem afetar outras partes.
-    *   **Verification:** Cada módulo é standalone e pode ser importado sem dependências circulares.
+    *   **Rationale:** Organizing by feature reduces cognitive load, facilitates encapsulation, and allows features to be removed without affecting other parts.
+    *   **Validation:** Each module is autonomous and can be imported without circular dependencies.
 
 2.  **Validation (DTOs + Pipes):**
-    *   **Install:** `pnpm add class-validator class-transformer`
+  *   **Installation:** `pnpm add class-validator class-transformer`
     *   **DTO Example:**
     ```typescript
     import { IsEmail, IsString, MinLength } from 'class-validator';
@@ -71,9 +78,9 @@ Esta skill padroniza o desenvolvimento de aplicações backend robustas com Nest
     }
     ```
 
-    *   **Global Pipe:** Em `main.ts`, use `app.useGlobalPipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))`.
-    *   **Reasoning:** Validação centralizada reduz duplicação, captura erros cedo e protege o banco de dados.
-    *   **Verification:** Requests inválidas retornam 400 com mensagens de erro detalhadas.
+    *   **Global Pipe:** In `main.ts`, use `app.useGlobalPipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))`.
+    *   **Rationale:** Centralized validation reduces duplication, catches errors early, and protects the database.
+    *   **Validation:** Invalid requests return 400 with detailed error messages.
 
 3.  **Authentication & Authorization (Guards):**
     *   **JWT Guard Example:**
@@ -97,9 +104,9 @@ Esta skill padroniza o desenvolvimento de aplicações backend robustas com Nest
     }
     ```
 
-    *   **Use in Controller:** `@UseGuards(JwtGuard)` ou `@UseGuards(JwtGuard, RolesGuard)`.
-    *   **Reasoning:** Guards centralizam lógica de autenticação e autorização, facilitando auditoria de segurança.
-    *   **Verification:** Endpoints protegidos retornam 401 se não autenticados, 403 se sem permissão.
+    *   **Controller Usage:** `@UseGuards(JwtGuard)` or `@UseGuards(JwtGuard, RolesGuard)`.
+    *   **Rationale:** Guards centralize authentication and authorization logic, facilitating security auditing.
+    *   **Validation:** Protected endpoints return 401 if not authenticated, 403 if without permission.
 
 4.  **Error Handling (Exception Filters):**
     *   **Custom Filter Example:**
@@ -124,9 +131,9 @@ Esta skill padroniza o desenvolvimento de aplicações backend robustas com Nest
     }
     ```
 
-    *   **Global Registration:** `app.useGlobalFilters(new AllExceptionsFilter())` em `main.ts`.
-    *   **Reasoning:** Filters padronizam o tratamento de erros, melhoram logging e garantem respostas consistentes.
-    *   **Verification:** Erros não capturados retornam 500 com envelope JSON estruturado.
+    *   **Global Registration:** `app.useGlobalFilters(new AllExceptionsFilter())` in `main.ts`.
+    *   **Rationale:** Filters standardize error handling, improve logging, and ensure consistent responses.
+    *   **Validation:** Uncaught errors return 500 with a structured JSON envelope.
 
 5.  **Database Integration (TypeORM or Prisma):**
     *   **TypeORM Example:**
@@ -168,8 +175,8 @@ Esta skill padroniza o desenvolvimento de aplicações backend robustas com Nest
     export class UsersModule {}
     ```
 
-    *   **Reasoning:** Padrão de injeção de dependência e repositório reduz acoplamento e facilita testes.
-    *   **Verification:** Queries funcionam e são testáveis.
+    *   **Rationale:** The dependency injection and repository pattern reduce coupling and facilitate testing.
+    *   **Validation:** Queries work and are testable.
 
 6.  **Testing (Unit & E2E):**
     *   **Unit Test Example (Jest):**
@@ -228,14 +235,14 @@ Esta skill padroniza o desenvolvimento de aplicações backend robustas com Nest
     });
     ```
 
-    *   **Coverage Target:** >= 80% para lógica crítica. Use `jest --coverage`.
-    *   **Reasoning:** Testes garantem que refatorações não quebrem funcionalidade e que edge cases sejam cobertos.
-    *   **Verification:** `npm run test:e2e` e `npm run test` passam, coverage >= 80%.
+    *   **Coverage Goal:** >= 80% for critical logic. Use `jest --coverage`.
+    *   **Rationale:** Tests ensure that refactoring does not break functionality and that edge cases are covered.
+    *   **Validation:** `npm run test:e2e` and `npm run test` pass, coverage >= 80%.
 
 7.  **Logging & Observability:**
     *   **Use NestJS Logger:** `private readonly logger = new Logger(ClassName)`.
     *   **Log Levels:** error, warn, log, debug, verbose.
-    *   **Structured Logging:** Use Winston ou Pino para suportar contexto estruturado (traceId, userId, etc).
+    *   **Structured Logging:** Use Winston or Pino to support structured context (traceId, userId, etc.).
     *   **Example:**
     ```typescript
     @Injectable()
@@ -256,8 +263,8 @@ Esta skill padroniza o desenvolvimento de aplicações backend robustas com Nest
     }
     ```
 
-    *   **Reasoning:** Logging centralizado facilita debugging em produção e conformidade com compliance.
-    *   **Verification:** Logs aparecem no console durante desenvolvimento e são capturados por ferramentas de observabilidade em produção.
+    *   **Rationale:** Centralized logging facilitates production debugging and compliance.
+    *   **Validation:** Logs appear in the console during development and are captured by observability tools in production.
 
 8.  **Configuration Management:**
     *   **Use ConfigModule:** `@nestjs/config`.
@@ -268,7 +275,7 @@ Esta skill padroniza o desenvolvimento de aplicações backend robustas com Nest
     NODE_ENV=development
     ```
 
-    *   **Usage in Module:**
+    *   **Module Usage:**
     ```typescript
     @Module({
       imports: [
@@ -285,21 +292,21 @@ Esta skill padroniza o desenvolvimento de aplicações backend robustas com Nest
     export class AppModule {}
     ```
 
-    *   **Reasoning:** Configuração centralizada reduz erros e facilita deploys em diferentes ambientes.
-    *   **Verification:** App inicia sem erros de configuração.
+    *   **Rationale:** Centralized configuration reduces errors and facilitates deployments in different environments.
+    *   **Validation:** App starts without configuration errors.
 
 ## Best Practices
 
-- **Dependency Injection:** NestJS DI é poderoso; use `@Injectable()` e injeção via `constructor`.
-- **Module Boundaries:** Cada módulo deve ser coesivo e ter responsabilidade única.
-- **Service Logic:** Regra de negócio fica no `service`, não no `controller`.
-- **DTOs First:** Use DTOs para validação e transformação de entrada.
-- **Error Handling:** Sempre lance exceções conhecidas (HttpException, BadRequestException) em controllers.
-- **Database Transactions:** Use `QueryRunner` para operações que precisam de transação.
-- **Pipes for Validation:** Use Pipes globais para validação automática de DTOs.
-- **Auth Patterns:** Use Guards para verificar autenticação, acessar `request.user` no controller.
-- **Logging Context:** Use Logger com nomes de classe para rastreabilidade.
-- **Repository Pattern:** Encapsule queries em métodos do `service` ou use custom repositories.
+- **Dependency Injection:** NestJS DI is powerful; use `@Injectable()` and constructor injection.
+- **Module Boundaries:** Each module must be cohesive and have a single responsibility.
+- **Service Logic:** Business rules belong in the `service`, not the `controller`.
+- **DTOs First:** Use DTOs for input validation and transformation.
+- **Error Handling:** Always throw known exceptions (HttpException, BadRequestException) in controllers.
+- **Database Transactions:** Use `QueryRunner` for operations requiring transactions.
+- **Pipes for Validation:** Use global Pipes for automatic DTO validation.
+- **Auth Patterns:** Use Guards to verify authentication and access `request.user` in the controller.
+- **Logging Context:** Use Logger with class names for traceability.
+- **Repository Pattern:** Encapsulate queries in `service` methods or use custom repositories.
 
 ## Common Tasks
 
@@ -310,7 +317,7 @@ nest generate controller modules/products
 nest generate service modules/products
 ```
 
-### Run Linting & Type Checking
+### Run Linting and Type Checking
 ```bash
 npm run lint
 tsc --noEmit
@@ -331,22 +338,22 @@ npm run format
 
 ## Troubleshooting
 
-- **Circular Dependencies:** Se módulos se importam mutuamente, use lazy-loading ou refatore para extrair dependência comum.
-- **Pipes Not Validating:** Certifique-se de que `ValidationPipe` foi registrado globalmente em `main.ts`.
-- **JWT Guard Errors:** Verifique se `JWT_SECRET` está correto no `.env` e que o token está sendo passado no header `Authorization: Bearer <token>`.
-- **Database Connection Issues:** Teste a URL de conexão separadamente; use `TypeOrmModule.forRootAsync` com logs para diagnosticar.
-- **Tests Timing Out:** Aumentar timeout em `package.json` test script ou revisar dependências assíncronas.
+- **Circular Dependencies:** If modules import each other, use lazy-loading or refactor to extract a common dependency.
+- **Pipes not Validating:** Ensure `ValidationPipe` was registered globally in `main.ts`.
+- **JWT Guard Errors:** Verify if `JWT_SECRET` is correct in `.env` and that the token is passed in the `Authorization: Bearer <token>` header.
+- **Database Connection Issues:** Test the connection URL separately; use `TypeOrmModule.forRootAsync` with logs to diagnose.
+- **Tests Timing Out:** Increase timeout in the `package.json` test script or review asynchronous dependencies.
 
 ## Related Skills
 
-- `validating-typescript` — Type checking e validação de algoritmo para TypeScript.
-- `developing-node` — Package management e scripts para Node.js/TypeScript.
-- `managing-quality` — Estratégias de teste, cobertura e integração CI/CD.
-- `integrating-apis` — Padrões de integração com APIs externas.
+- `validating-typescript` — Type checking and algorithm validation for TypeScript.
+- `developing-node` — Package management and scripts for Node.js/TypeScript.
+- `managing-quality` — Test strategies, coverage, and CI/CD integration.
+- `integrating-apis` — Integration patterns with external APIs.
 
-## Performance & Production Hacks (NestJS)
+## Performance and Production Optimizations (NestJS)
 
-- **SWC (Speedy Web Compiler):** Para turbinar a velocidade de build e cold start local, utilize o SWC (escrito em Rust) no lugar do compilador TypeScript padrão.
-  - **Como usar:** Rode a aplicação com `nest start -b swc`. O tempo de compilação cai de ~10s para menos de 1 segundo.
-- **Graceful Shutdown no Kubernetes:** O NestJS não lida com `SIGTERM` por padrão, o que causa erros 502/504 durante deploys quando o K8s mata os pods.
-  - **Como resolver:** Habilite `app.enableShutdownHooks()` no `main.ts`. Isso garante que conexões de banco de dados e requisições em andamento sejam finalizadas suavemente antes do pod morrer.
+- **SWC (Speedy Web Compiler):** To boost build speed and local cold start, use SWC (written in Rust) instead of the default TypeScript compiler.
+  - **How to use:** Run the application with `nest start -b swc`. Compilation time drops from ~10s to under 1 second.
+- **Graceful Shutdown in Kubernetes:** NestJS does not handle `SIGTERM` by default, which causes 502/504 errors during deployments when K8s kills pods.
+  - **How to solve:** Enable `app.enableShutdownHooks()` in `main.ts`. This ensures database connections and ongoing requests are gracefully terminated before the pod dies.

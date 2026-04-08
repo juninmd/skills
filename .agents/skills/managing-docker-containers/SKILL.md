@@ -1,6 +1,6 @@
 ---
 name: managing-docker-containers
-description: Criação e otimização de imagens Docker seguras, leves e prontas para produção (Multistage, Non-Root).
+description: Creation and optimization of secure, lightweight, and production-ready Docker images (Multistage, Non-Root).
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[resource/project] [options]"
@@ -8,56 +8,56 @@ argument-hint: "[resource/project] [options]"
 
 # Docker Containers
 
-Esta skill padroniza a criação de imagens para garantir segurança e eficiência no registry.
+This skill standardizes image creation to ensure security and efficiency in the registry.
 
 ## Instructions
-1.  **Security (Non-Root):** NUNCA rode a aplicação como root.
-    *   **Instruction:** Adicione `USER node` ou `USER app` no final do Dockerfile.
-    *   **Reasoning:** Minimiza superfície de ataque em caso de RCE.
-2.  **Layer Caching:** Copie `package*.json` antes do código fonte.
-    *   **Why:** Permite cachear `npm ci`. Se apenas o código mudar, o build reaproveita as dependências baixadas.
-3.  **Multistage Builds:** Use estágios de build para descartar ferramentas desnecessárias na imagem final.
-    *   **Stage 1:** `FROM node:20 AS builder` (Instala deps, compila TS).
-    *   **Stage 2:** `FROM node:20-alpine` (Copia apenas `dist/` e `node_modules/prod`).
-4.  **Linting:** Valide o Dockerfile com `hadolint`.
+1.  **Security (Non-Root):** NEVER run the application as root.
+    *   **Instruction:** Add `USER node` or `USER app` at the end of the Dockerfile.
+    *   **Rationale:** Minimizes the attack surface in case of RCE (Remote Code Execution).
+2.  **Layer Caching:** Copy `package*.json` before the source code.
+    *   **Why:** Allows caching of `npm ci`. If only the code changes, the build reuses the already downloaded dependencies.
+3.  **Multistage Builds:** Use build stages to discard unnecessary tools in the final image.
+    *   **Stage 1:** `FROM node:24 AS builder` (Installs deps, compiles TS).
+    *   **Stage 2:** `FROM node:24-alpine` (Copies only `dist/` and production `node_modules`).
+4.  **Linting:** Validate the Dockerfile with `hadolint`.
     *   **Common Errors:** `DL3003` (Use `WORKDIR`), `DL3018` (Pin versions in apk add).
-5.  **Healthcheck:** Sempre defina um `HEALTHCHECK` no Dockerfile ou no K8s Probe.
+5.  **Healthcheck:** Always define a `HEALTHCHECK` in the Dockerfile or a K8s Probe.
     *   `HEALTHCHECK --interval=30s CMD curl -f http://localhost:8080/health || exit 1`
 
-## Verification
-*   **Check User:** `docker run --rm <image> whoami` (Deve retornar != root).
-*   **Check Size:** Compare imagem base vs final. Multistage deve reduzir em >60%.
-*   **Scan Vulnerabilities:** Use `trivy image <image>` antes do push.
+## Validation
+*   **Check User:** `docker run --rm <image> whoami` (Should return != root).
+*   **Check Size:** Compare base vs final image. Multistage should reduce size by >60%.
+*   **Scan Vulnerabilities:** Use `trivy image <image>` before pushing.
 
 ---
 
-## Orquestração com Docker Compose
+## Orchestration with Docker Compose
 
-Usar para ambientes locais e stacks multi-container (banco, cache, app).
+Use for local environments and multi-container stacks (database, cache, app).
 
-### Workflow
-1. **Analisar requisitos**: identifique serviços, portas, volumes e variáveis necessárias.
-2. **Verificar ambiente**: `docker info` para confirmar que o daemon está ativo.
+### Flow
+1. **Analyze requirements**: Identify services, ports, volumes, and required variables.
+2. **Check environment**: `docker info` to confirm that the daemon is active.
 3. **Build & Deploy**: `docker compose up -d --build`
-4. **Monitorar**: `docker compose ps`, `docker compose logs -f <service>`
-5. **Cleanup**: `docker compose down -v` (remove containers + volumes) ou `docker system prune` para liberar espaço.
+4. **Monitor**: `docker compose ps`, `docker compose logs -f <service>`
+5. **Cleanup**: `docker compose down -v` (removes containers + volumes) or `docker system prune` to free up space.
 
-### Boas Práticas de Orquestração
-- **Segredos**: nunca commite `.env` com credenciais reais. Use `.env.example` como template.
-- **Persistência**: use `volumes` nomeados para dados críticos (ex: `postgres_data`).
-- **Networking**: use redes user-defined (`bridge`) para isolação e resolução de nomes entre serviços.
-- **Health Checks**: defina `healthcheck` nos serviços críticos para que dependências sejam respeitadas.
+### Orchestration Best Practices
+- **Secrets**: Never commit `.env` with real credentials. Use `.env.example` as a template.
+- **Persistence**: Use named `volumes` for critical data (e.g., `postgres_data`).
+- **Networking**: Use user-defined networks (`bridge`) for isolation and name resolution between services.
+- **Health Checks**: Define `healthcheck` on critical services to ensure dependencies are respected.
 
-### Diagnóstico Rápido
-- Inspecionar container: `docker inspect <container_id>`
-- Estatísticas de recurso: `docker stats`
-- Entrar no container: `docker exec -it <container> sh`
+### Quick Diagnosis
+- Inspect container: `docker inspect <container_id>`
+- Resource statistics: `docker stats`
+- Enter container: `docker exec -it <container> sh`
 
 
-## Example: Secure Node.js Dockerfile
+## Example: Secure Dockerfile for Node.js
 ```dockerfile
 # Build Stage
-FROM node:20-alpine AS builder
+FROM node:24-alpine AS builder
 WORKDIR /app
 # 1. Install dependencies first (Layer Caching)
 COPY package*.json ./
@@ -68,7 +68,7 @@ COPY . .
 RUN npm run build
 
 # Runtime Stage
-FROM node:20-alpine
+FROM node:24-alpine
 WORKDIR /app
 # Copy artifacts from builder
 COPY --from=builder /app/dist ./dist
@@ -78,8 +78,8 @@ CMD ["node", "dist/main.js"]
 ```
 ## Advanced Optimization Hacks
 
-- **Cache Mounts (BuildKit):** Em vez de baixar todas as dependências do zero a cada build no CI, use mounts de cache nativos do BuildKit no seu Dockerfile para o pnpm/npm.
-  - **Exemplo:** `RUN --mount=type=cache,target=/root/.local/share/pnpm/store pnpm install`
-  - **Vantagem:** O tempo de `pnpm install` cai de minutos para segundos no CI, reaproveitando o cache de pacotes globais entre as execuções do pipeline.
-- **Imagens Distroless:** Para produção em Node.js, dê preferência para imagens do Google (ex: `gcr.io/distroless/nodejs20-debian12`).
-  - **Vantagem:** Elas não possuem shell (`/bin/sh`), bash ou gerenciadores de pacotes embutidos. Isso reduz drasticamente a superfície de ataque, zerando vulnerabilidades críticas do SO (CVEs) relatadas por scanners como Trivy ou SonarQube, além de criar imagens minúsculas.
+- **Cache Mounts (BuildKit):** Instead of downloading all dependencies from scratch on every CI build, use native BuildKit cache mounts in your Dockerfile for pnpm/npm.
+  - **Example:** `RUN --mount=type=cache,target=/root/.local/share/pnpm/store pnpm install`
+  - **Advantage:** `pnpm install` time drops from minutes to seconds in CI, reusing the global package cache between pipeline executions.
+- **Distroless Images:** For production in Node.js, prefer Google images (e.g., `gcr.io/distroless/nodejs24-debian12`).
+  - **Advantage:** They do not have a shell (`/bin/sh`), bash, or built-in package managers. This drastically reduces the attack surface, zeroing out critical OS vulnerabilities (CVEs) reported by scanners like Trivy or SonarQube, besides creating tiny images.

@@ -8,10 +8,10 @@
     "../../../../.agents/skills/responding-cyber-incidents",
     "../../../../.agents/skills/triaging-incidents",
     "../../../../.agents/skills/auditing-code",
-    "../../../../.agents/skills/configuring-netskope",
-    "../../../../.agents/skills/authenticating-sso-corp"
+    "../../../../.agents/skills/labs-configuring-netskope",
+    "../../../../.agents/skills/labs-authenticating-sso-corp"
   ],
   "agents": [
-    "../../../../.agents/agents/secops-agent.agent.md"
+    "../../../../.agents/agents/labs-secops-agent.agent.md"
   ]
 }

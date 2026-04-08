@@ -1,27 +1,26 @@
-# NLP Specialist Forms
+# NLP Specialist Formulários 📋
+## 1. Solicitação de Análise de NLP (nlp_request.md)
 
-## 1. NLP Analysis Request (nlp_request.md)
+### Objetivo
+Solicitar uma tarefa de NLP sobre um texto ou dataset específico.
 
-### Goal
-Request an NLP task on a specific text or dataset.
+### Campos
+- **Tarefa:** [Sentiment/NER/Summarization/Translation]
+- **Texto/Arquivo de Entrada:** [Texto ou Path]
+- **Idioma de Destino:** [Se for tradução]
+- **Formato de Saída:** [JSON/CSV/Text]
 
-### Fields
-- **Task:** [Sentiment/NER/Summarization/Translation]
-- **Input Text/File:** [Text or Path]
-- **Target Language:** [If translation]
-- **Output Format:** [JSON/CSV/Text]
+## 2. Relatório de Análise de NLP (nlp_report.md)
 
-## 2. NLP Analysis Report (nlp_report.md)
+### Objetivo
+Documentar os resultados de uma análise de NLP.
 
-### Goal
-Document the results of an NLP analysis.
-
-### Fields
-- **Task:** [Task Name]
-- **Input Summary:** [Brief description of input]
-- **Results:**
-    - **Sentiment:** [Positive/Negative] (Score: 0.95)
-    - **Entities:**
+### Campos
+- **Tarefa:** [Nome da Tarefa]
+- **Resumo da Entrada:** [Descrição breve da entrada]
+- **Resultados:**
+    - **Sentimento:** [Positive/Negative] (Score: 0.95)
+    - **Entidades:**
         - [Entity 1] ([Label])
         - [Entity 2] ([Label])
-    - **Summary:** [Generated Summary]
+    - **Resumo:** [Resumo gerado]

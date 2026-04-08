@@ -1,5 +1,4 @@
-# Reference: Git Advanced & Recovery
-
+# Referência: Git Advanced & Recovery 📚
 ## Conflict Resolution
 - `git mergetool`: Abrir ferramenta de merge.
 - `git checkout --ours/--theirs <file>`: Resolver conflito rapidamente.

@@ -1,34 +1,34 @@
 ---
 name: triaging-incidents
-description: Investigação de incidentes, triagem de alertas e mapeamento de recursos cloud com rigor forense (DNS/Logs/Impact).
+description: Incident investigation, alert triaging, and cloud resource mapping with forensic rigor (DNS/Logs/Impact).
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[incident/alert] [options]"
 disable-model-invocation: true
 ---
 
-# Triage & Reconnaissance (Incident Response)
+# Triage and Reconnaissance (Incident Response)
 
-Esta skill estabelece o protocolo de "Primeira Resposta" para qualquer anomalia.
+This skill establishes the "First Response" protocol for any anomaly.
 
-## Protocolo Obrigatório (The 5 Steps)
-1.  **Check Status Pages:** Antes de culpar o código, verifique dependências externas.
+## Mandatory Protocol (The 5 Steps)
+1.  **Check Status Pages:** Before blaming the code, check external dependencies.
     *   **External:** Google Cloud Status, GitHub Status, Payments Gateway.
-    *   **Internal:** Status Page da Plataforma Luizalabs.
-2.  **DNS Investigation (DNS First):** O problema é conectividade ou aplicação?
-    *   **Command:** `dig +short <hostname>` (Resolve IP?).
-    *   **Command:** `nc -zv <host> <port>` (Porta aberta?).
-3.  **Asset Identification:** Onde está rodando? (K8s, VM, Cloud Function).
-    *   **Verification:** `kubectl get pods -l app=<name>`
-4.  **Impact Assessment:** Defina severidade (P1=Crítico, P2=Alto, P3=Médio).
-    *   **Criteria:** Afeta checkout? (P1). Afeta relatório interno? (P3).
-5.  **Log Analysis (Deep Dive):** Procure por padrões de erro.
+    *   **Internal:** Luizalabs Platform Status Page.
+2.  **DNS Investigation (DNS First):** Is the problem connectivity or the application?
+    *   **Command:** `dig +short <hostname>` (Does it resolve IP?).
+    *   **Command:** `nc -zv <host> <port>` (Is the port open?).
+3.  **Asset Identification:** Where is it running? (K8s, VM, Cloud Function).
+    *   **Validation:** `kubectl get pods -l app=<name>`
+4.  **Impact Assessment:** Define severity (P1=Critical, P2=High, P3=Medium).
+    *   **Criteria:** Affects checkout? (P1). Affects internal report? (P3).
+5.  **Log Analysis (Deep Dive):** Look for error patterns.
     *   **Search:** `ERROR`, `FATAL`, `EXCEPTION`, `TIMEOUT`.
-    *   **Trace ID:** Copie o Trace ID do erro e busque em todos os serviços relacionados.
+    *   **Trace ID:** Copy the error's Trace ID and search across all related services.
 
-## Troubleshooting Commands
-*   **Network Path:** `mtr -r -c 10 <target_ip>` (Perda de pacote?).
-*   **Kubernetes Events:** `kubectl get events --sort-by=.lastTimestamp` (Ocorreu OOMKill? Eviction?).
+## Diagnostic Commands
+*   **Network Path:** `mtr -r -c 10 <target_ip>` (Packet loss?).
+*   **Kubernetes Events:** `kubectl get events --sort-by=.lastTimestamp` (Did an OOMKill occur? Eviction?).
 *   **Log Grep:** `kubectl logs -l app=my-app --tail=200 | grep -i "error"`
 
 ## Example: Incident Report Template
@@ -36,7 +36,7 @@ Esta skill estabelece o protocolo de "Primeira Resposta" para qualquer anomalia.
 ### Incident Summary
 - **Severity:** P2
 - **Service:** Order API
-- **Impact:** 5% failed orders
+- **Impact:** 5% of orders failing
 - **Root Cause (Hypothesis):** Database connection pool exhaustion
-- **Action:** Restarting pods and increasing pool size
+- **Action:** Restarting pods and increasing the pool size
 ```

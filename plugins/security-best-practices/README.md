@@ -8,7 +8,7 @@ Este plugin é focado em segurança ofensiva e defensiva, auditoria de código, 
 ## 🛠️ Skills Incluídas
 - **Proteção e Auditoria**: `managing-security`, `securing-environments`, `auditing-code`.
 - **Resposta a Incidentes**: `responding-cyber-incidents`, `triaging-incidents`.
-- **Identidade e Conectividade**: `authenticating-sso-corp`, `configuring-netskope`.
+- **Identidade e Conectividade**: `labs-authenticating-sso-corp`, `labs-configuring-netskope`.
 
 ## 🚀 Como Utilizar
 Ative este plugin sempre que o contexto da tarefa envolver a proteção de segredos, auditoria de vulnerabilidades em código ou a resposta rápida a incidentes de segurança cibernética.

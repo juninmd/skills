@@ -1,5 +1,4 @@
-# GraphQL Schema Designer Reference
-
+# GraphQL Schema Designer Referência 📚
 ## Tools
 
 ### 1. `graphql-js`
@@ -12,7 +11,7 @@
 
 ### 3. `GraphQL Inspector`
 **Description:** A tool to compare schemas, find breaking changes, and validate operations.
-**Common Commands:**
+**Comandos Comuns:**
 - `graphql-inspector diff old.graphql new.graphql`: Compare two schemas.
 - `graphql-inspector validate schema.graphql`: Validate a schema.
 

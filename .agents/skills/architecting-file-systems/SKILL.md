@@ -1,30 +1,36 @@
 ---
 name: architecting-file-systems
-description: Gerenciar, organizar e otimizar estruturas complexas de diretórios de projetos e padrões de organização de arquivos.
+description: Manage, organize, and optimize complex project directory structures and file organization patterns.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[component/feature] [options]"
 ---
 
-# Skill: File System Architect
+# File System Architecture
 
 ## Description
-This skill empowers the agent to manage, organize, and optimize complex project structures. It provides specialized knowledge and workflows for creating scalable, maintainable, and standard-compliant directory hierarchies and file organization patterns.
+This skill guides the organization and optimization of complex project structures, focusing on scalable hierarchies, simple maintenance, and adherence to repository standards.
 
 ## Capabilities
-- Design scalable directory structures for various project types (Web, Mobile, Data Science, etc.).
-- Refactor existing file systems for better organization and separation of concerns.
+- Design directory structures for Web, Mobile, Data, and internal tools.
+- Refactor existing organization for better separation of concerns.
 - Identify and remove redundant or misplaced files.
-- Enforce naming conventions and project-specific organizational standards.
-- Generate boilerplate structures for new modules or components.
+- Apply naming conventions and organization patterns.
+- Generate boilerplate structures for new modules/components.
 
-## Usage
-1. **Analyze:** Examine the current project structure using directory listing tools.
-2. **Design:** Propose an optimized structure based on project requirements and industry best practices.
-3. **Execute:** Create directories, move files, and organize assets according to the approved architecture.
-4. **Maintain:** Periodically review the structure to prevent "folder rot" and ensure ongoing compliance.
+## Usage Flow
+1. **Analyze:** inspect the current structure using listing tools.
+2. **Design:** propose an optimized structure according to requirements.
+3. **Execute:** create/move folders and files with controlled impact.
+4. **Maintain:** periodically review to prevent structural degradation.
+
+## 🧱 Recommended Stack 2026
+- Monorepo: pnpm workspace + Turborepo (or Nx in complex enterprise scenarios).
+- Python Backend: `src/` + feature-based modules + mirrored tests in `tests/`.
+- Frontend: organization by feature + `ui/`, `hooks/`, `domain/`, `services/` layers.
+- Infra: `infra/` separated by environment (`dev/staging/prod`) with reusable modules.
 
 ## Constraints
-- Always verify the impact of structural changes on build systems and imports.
+- Always validate the impact of structural changes on imports/builds.
 - Do not delete files without explicit confirmation or backup.
-- Adhere to the specific conventions of the target framework (e.g., Next.js App Router, Clean Architecture).
+- Follow the target framework's conventions (e.g., Next.js App Router, Clean Architecture).

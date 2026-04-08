@@ -1,28 +1,27 @@
 ---
 name: documenting-markdown
-description: Gerar documentação de alta qualidade em Markdown a partir do código-fonte, incluindo READMEs, referências de API e guias técnicos.
-metadata:
-    works_on: [copilot, antigravity]
-argument-hint: "[context] [options]"
+description: Generate high-quality technical documentation in Markdown from source code, including READMEs, API references, and technical guides.
+metadata: { works_on: [copilot, antigravity] }
+argument-hint: "[repo/module] [options]"
 ---
 
-# Skill: Markdown Documenter
+# Documenting in Markdown
 
-## Description
-This skill enables the agent to automatically generate high-quality Markdown documentation from source code. It analyzes code structures, comments, and metadata to produce READMEs, API references, and technical guides.
+## Objective
+Generate clear, useful, and ready-to-use documentation from the code and project structure.
+
+## Instructions
+1. Map main components (modules, APIs, commands, and flows).
+2. Produce documentation focused on quick understanding and future maintenance.
+3. Prioritize executable examples and real-world usage context.
+4. Avoid generic text; each section must bring actionable information.
 
 ## Capabilities
-- Parse source code files to extract classes, functions, and docstrings.
-- Generate structured Markdown reports.
-- Create README.md templates based on project structure.
-- Format technical documentation according to best practices.
+- Extract functions, classes, endpoints, and contracts from code.
+- Generate README, API reference, and operational guides.
+- Organize content into short and objective sections.
 
-## Usage
-1. **Analyze:** Read source files and identify key components.
-2. **Transform:** Map code structures to Markdown sections (e.g., functions to "API Reference").
-3. **Refine:** Enhance generated text with descriptions and usage examples.
-
-## Constraints
-- Focus on clarity and readability.
-- Maintain consistent formatting.
-- Respect existing documentation styles if present.
+## Quality Rules
+- Clarity over volume.
+- Consistent terminology throughout the document.
+- If evidence is missing in the code, explicitly record the assumption.

@@ -1,5 +1,4 @@
-# Distributed Systems Architect Reference
-
+# Distributed Systems Architect Referência 📚
 ## Messaging & Streaming
 
 ### 1. Apache Kafka

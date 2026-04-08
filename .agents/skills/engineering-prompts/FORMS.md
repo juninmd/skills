@@ -7,7 +7,7 @@
 
 ## Prompt Parameters
 **Input Context:** (Any background information or documents the model needs)
-**Output Format:** (e.g., JSON, Markdown, Python Code)
+**Formato de Saída:** (e.g., JSON, Markdown, Python Code)
 **Constraints:** (Length limits, tone, forbidden topics)
 
 ## Evaluation Criteria

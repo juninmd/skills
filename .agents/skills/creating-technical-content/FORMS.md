@@ -1,5 +1,4 @@
-# Technical Content Creator Forms
-
+# Technical Content Creator Formulários 📋
 ## 1. Content Request (content_request.md)
 
 ### Goal

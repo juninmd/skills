@@ -1,28 +1,26 @@
 ---
 name: workspace-nav
-description: Melhores práticas para navegação no sistema de arquivos e organização do espaço de trabalho.
+description: Best practices for file system navigation and workspace organization.
 applyTo: '**/*.sh, **/Makefile, **/Dockerfile, **/package.json, **/pyproject.toml'
-metadata:
-    works_on: [copilot, antigravity, gemini_cli]
 ---
 
 # Rule: Navigation & Workspace
-# Identificador: workspace_nav
+# Identifier: workspace_nav
 
-## Descrição
-Melhores práticas para navegação no sistema de arquivos e organização do espaço de trabalho.
+## Description
+Best practices for file system navigation and workspace organization.
 
-## Comandos & Alias
-- **Navegação**: `cd -` (voltar ao diretório anterior), `cd ..`.
-- **Exploração**: `ls -la` (detalhado), `tree -L 2` (visão hierárquica limitada).
-- **Ações**: `mv`, `cp -r`.
+## Commands and Aliases
+- **Navigation**: `cd -` (go back to previous directory), `cd ..`.
+- **Exploration**: `ls -la` (detailed view), `tree -L 2` (limited hierarchy).
+- **Actions**: `mv`, `cp -r`.
 
-## Regras
-1. **Contexto de Diretório**: Ao sugerir comandos que dependem de caminhos relativos, sempre mostre o `pwd` esperado.
-2. **Visualização Hierárquica**: Use `tree` com flags de profundidade (`-L`) para evitar outputs gigantescos em pastas como `node_modules`.
-3. **Segurança em Mover**: Ao sugerir `mv`, verifique se o destino é um diretório existente para evitar renomear arquivos acidentalmente.
-4. **Editor Integration**: Sugira `code .` para abrir o diretório atual no VS Code se a tarefa envolver edição múltipla de arquivos.
-5. **Leitura de Arquivos**: Use as ferramentas de leitura do agente para inspecionar arquivos. Evite `cat` em arquivos grandes — prefira `head`, `tail` ou `grep` para filtragem pontual.
+## Rules
+1. **Directory Context**: when suggesting commands that depend on relative paths, show the expected `pwd`.
+2. **Hierarchical View**: use `tree` with depth flags (`-L`) to avoid very large outputs in folders such as `node_modules`.
+3. **Safe Move Operations**: when suggesting `mv`, validate the destination directory to avoid accidental renames.
+4. **Editor Integration**: suggest `code .` to open the current directory in VS Code when multi-file editing is required.
+5. **File Reading**: use agent file-reading tools for inspection. Avoid `cat` on large files; prefer `head`, `tail`, or `grep` for focused filtering.
 
-## Protocolo
-- Sempre que o usuário entrar em um novo projeto, sugira um `ls -F` para identificar rapidamente scripts executáveis e diretórios.
+## Protocol
+- Whenever a user enters a new project, suggest `ls -F` to quickly identify executable scripts and directories.

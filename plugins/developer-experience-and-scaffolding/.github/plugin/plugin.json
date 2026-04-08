@@ -10,6 +10,7 @@
     "../../../../.agents/skills/configuring-vscode-copilot",
     "../../../../.agents/skills/managing-git",
     "../../../../.agents/skills/developing-tooling",
-    "../../../../.agents/skills/padrao-labs-agents"
+    "../../../../.agents/skills/labs-applying-labs-standards",
+    "../../../../.agents/skills/setup-diagnose"
   ]
 }

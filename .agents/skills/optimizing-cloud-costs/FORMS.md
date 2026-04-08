@@ -1,5 +1,4 @@
-# Cloud Cost Optimizer Forms
-
+# Cloud Cost Optimizer Formulários 📋
 ## 1. Cost Optimization Assessment (cost_assessment.md)
 
 ### Goal

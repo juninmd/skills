@@ -1,5 +1,4 @@
-# UI/UX Component Developer Reference
-
+# UI/UX Component Developer Referência 📚
 ## Tools
 
 ### 1. `React`
@@ -11,7 +10,7 @@
 
 ### 2. `Storybook`
 **Description:** Frontend workshop for building UI components and pages in isolation.
-**Common Commands:**
+**Comandos Comuns:**
 - `npm run storybook`: Start the Storybook server.
 
 ### 3. `Tailwind CSS`

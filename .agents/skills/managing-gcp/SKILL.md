@@ -1,31 +1,30 @@
 ---
 name: managing-gcp
-description: Operações em Google Cloud Platform e Magalu Cloud com foco em segurança (IAM), identidade federada e Serverless (Cloud Run).
+description: Operations on Google Cloud Platform and Magalu Cloud focusing on security (IAM), federated identity, and Serverless (Cloud Run).
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[resource/project] [options]"
 disable-model-invocation: true
 ---
 
-# Google Cloud Platform (GCP) Sênior
+# Google Cloud Platform (GCP) Senior
 
-Esta skill gerencia a interação segura com serviços de nuvem, priorizando Workload Identity, Zero Trust e Serverless.
+This skill manages secure interaction with cloud services, prioritizing Workload Identity, Zero Trust, and Serverless.
 
 ## Instructions
-1.  **Identity Federation:** NUNCA utilize Service Account Keys estáticas (`.json`).
-    *   **CI/CD:** Use `google-github-actions/auth` com Workload Identity Federation.
-    *   **K8s:** Use Workload Identity (Mapeie KSA para GSA).
-2.  **Serverless First (Cloud Run):** Prefira Cloud Run para aplicações stateless (API, Web).
-    *   **Scale to Zero:** Configure `min-instances=0` para economizar em dev/hml.
-    *   **Concurrency:** Ajuste `concurrency` (padrão 80) para otimizar uso de CPU.
-3.  **IAM (Least Privilege):** Use roles granulares (`roles/storage.objectViewer`, `roles/run.invoker`).
+1.  **Identity Federation:** NEVER use static Service Account Keys (`.json`).
+    *   **CI/CD:** Use `google-github-actions/auth` with Workload Identity Federation.
+    *   **K8s:** Use Workload Identity (Map KSA to GSA).
+2.  **Serverless First (Cloud Run):** Prefer Cloud Run for stateless applications (API, Web).
+    *   **Scale to Zero:** Configure `min-instances=0` to save in dev/hml.
+    *   **Concurrency:** Adjust `concurrency` (default 80) to optimize CPU usage.
+3.  **IAM (Least Privilege):** Use granular roles (`roles/storage.objectViewer`, `roles/run.invoker`).
     *   **Audit:** `gcloud projects get-iam-policy <PROJECT_ID>`.
 4.  **Networking:**
-    *   **Internal Only:** Serviços internos devem usar `ingress=internal` e `Internal Load Balancer`.
-    *   **Private Google Access:** Ative para acessar APIs (Storage/PubSub) sem sair para internet.
+    *   **Internal Only:** Internal services should use `ingress=internal` and an `Internal Load Balancer`.
+    *   **Private Google Access:** Enable to access APIs (Storage/PubSub) without going out to the internet.
 
-## Common Tasks
-### General
+## Common Tasks### General
 *   **List Projects:** `gcloud projects list --filter="labels.tribe=demo"`
 *   **Impersonate SA:** `gcloud auth application-default login --impersonate-service-account=<SA_EMAIL>`
 

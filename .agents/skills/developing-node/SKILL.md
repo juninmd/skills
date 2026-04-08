@@ -1,6 +1,6 @@
 ---
 name: developing-node
-description: Gerenciamento de pacotes e scripts do ecossistema Node.js/TypeScript. Prioriza pnpm, mas suporta npm para projetos legados.
+description: Package management and scripting for Node.js/TypeScript ecosystem. Prioritizes pnpm, but supports npm for legacy projects.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[file/module] [options]"
@@ -8,37 +8,44 @@ argument-hint: "[file/module] [options]"
 
 # Node.js Development
 
-Esta skill foca na gestão eficiente de dependências e automação de builds JS/TS, padronizando o uso de `pnpm` para projetos novos e migrações.
+This skill focuses on efficient dependency management and JS/TS build automation, standardizing `pnpm` usage for new projects and migrations.
+
+## 🧱 Recommended 2026 Stack
+- **Runtime:** Node.js 24 LTS.
+- **Package Manager:** pnpm (latest).
+- **Base Tooling:** TypeScript strict, **Biome** (replacing ESLint and Prettier for linting/formatting), Vitest.
+- **Build / Compiler:** **SWC** (Speedy Web Compiler) for fast execution, **Vite 8** for frontend and bundlers.
+- **Monorepo:** Turborepo (Nx when enterprise governance requires).
 
 ## Instructions
 1.  **Package Manager Strategy:**
-    *   **Standard:** Use `pnpm` para novos projetos. É mais rápido e eficiente em disco.
-    *   **Legacy:** Se encontrar `package-lock.json`, use `npm` para manter consistência, mas planeje a migração.
-    *   **Verification:** Verifique a raiz do projeto.
+    *   **Standard:** Use `pnpm` for new projects. It is faster and more disk-efficient.
+    *   **Legacy:** If you find `package-lock.json`, use `npm` to maintain consistency, but plan migration.
+    *   **Validation:** Check project root.
         *   `pnpm-lock.yaml` → Use `pnpm`.
-        *   `package-lock.json` → Use `npm` (e considere migrar).
+        *   `package-lock.json` → Use `npm` (and consider migrating).
 2.  **Tool Execution:**
-    *   **pnpm:** Use `pnpm dlx` para ferramentas temporárias.
+    *   **pnpm:** Use `pnpm dlx` for temporary tools.
     *   **npm:** Use `npx`.
-3.  **Scripts:** Execute scripts via `pnpm run <script>` ou `npm run <script>`.
+3.  **Scripts:** Execute scripts via `pnpm run <script>` or `npm run <script>`.
 
 ## Common Tasks
 *   **Install Dependencies:**
     *   `pnpm install` (Ideal)
-    *   `npm ci` (Para builds reprodutíveis com npm)
+    *   `npm ci` (For reproducible builds with npm)
 *   **Add Package:**
     *   `pnpm add <package>`
     *   `npm install <package>`
-*   **Run Tests:** `pnpm test` ou `npm test`.
+*   **Run Tests:** `pnpm test` or `npm test`.
 *   **Migration (npm → pnpm):**
-    *   Rodar: `pnpm import` (Gera pnpm-lock.yaml a partir do package-lock.json).
-    *   Rodar: `rm package-lock.json` e `rm -rf node_modules`.
-    *   Rodar: `pnpm install`.
+    *   Run: `pnpm import` (Generates pnpm-lock.yaml from package-lock.json).
+    *   Run: `rm package-lock.json` and `rm -rf node_modules`.
+    *   Run: `pnpm install`.
 
 ## Troubleshooting
-*   **Erro `EACCES`:** Nunca use `sudo` para instalar pacotes globais. Use nvm/volta.
-*   **Phantom Dependencies:** Se um pacote funciona mas não está no `package.json`, o `npm` pode estar "vazando" dependências (hoisting). O `pnpm` corrige isso por padrão, o que pode quebrar imports indevidos após a migração.
-*   **Certificados (Netskope):** `npm config set cafile /path/to/cert.pem` funciona para ambos (o pnpm lê a config do npm).
+*   **Error `EACCES`:** Never use `sudo` for global package installation. Use nvm/volta.
+*   **Phantom Dependencies:** If a package works but is not in `package.json`, `npm` may be "leaking" dependencies (hoisting). `pnpm` fixes this by default, which may break unintended imports after migration.
+*   **Certificates (Netskope):** `npm config set cafile /path/to/cert.pem` works for both (pnpm reads npm config).
 
 ## Resources
-- `assets/FORMS.md`: Checklist para novas dependências (Segurança/Licença).
+- `assets/FORMS.md`: Checklist for new dependencies (Security/License).

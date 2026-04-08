@@ -1,32 +1,32 @@
 ---
-trigger: model_decision
+name: command-safety
 applyTo: '**/*.sh, **/Makefile, **/.gitlab-ci.yml, **/Dockerfile, **/docker-compose*.yml'
-description: Regras críticas de segurança para execução de comandos destrutivos.
+description: Critical safety rules for executing destructive commands.
 ---
 
 # Rule: Command Safety
 # Priority: CRITICAL
-# Description: Prevenção de perda de dados e comandos perigosos.
+# Description: Prevent data loss and unsafe command execution.
 
 ## Restricted Commands
 1.  `rm -rf <path>`:
-    - **Nunca** execute sem confirmar o caminho completo.
-    - **Atenção**: Evite variáveis não expandidas (`rm -rf $VAR/`).
+    - **Never** execute without confirming the full path.
+    - **Warning**: Avoid unexpanded variables (`rm -rf $VAR/`).
 2.  `sudo <cmd>`:
-    - Use apenas se permissão negada ou instalação de sistema (`apt`).
-    - **Nunca** use `sudo pip` (quebra o sistema).
+    - Use only when permission is denied or when installing system packages (`apt`).
+    - **Never** use `sudo pip` (it can break the system environment).
 3.  `pkill <name>`:
-    - **Cuidado**: Pode matar processos importantes com nomes similares.
-    - Prefira `kill <pid>` após verificar com `ps`.
-    - **Alternativa**: `pkill -f <pattern>` com cautela.
-    - **Sinais**: Sugira `pkill` ou `kill` apenas se o processo estiver travado, preferindo sinais suaves (SIGTERM) antes de forçar (SIGKILL).
+    - **Caution**: It can terminate critical processes with similar names.
+    - Prefer `kill <pid>` after validating with `ps`.
+    - **Alternative**: use `pkill -f <pattern>` carefully.
+    - **Signals**: suggest `pkill` or `kill` only when a process is stuck; prefer soft signals (SIGTERM) before force (SIGKILL).
 4.  `mv <src> <dest>`:
-    - **Move/Rename Guard**: Ao sugerir `mv` em diretórios com muitos arquivos, valide o destino para evitar sobrescritas acidentais.
+    - **Move/Rename Guard**: when suggesting `mv` in directories with many files, validate destination to avoid accidental overwrites.
 5.  `chmod 777` ou `-R 777`:
-    - **Nunca** utilize permissões abertas como paliativo para problemas de acesso. Aplique privilégios mínimos (ex: `755` ou `644`).
+    - **Never** use open permissions as a quick fix. Apply least privilege (`755` or `644` as examples).
 6.  `git push --force`:
-    - **Alerta Máximo**: Nunca faça force push na branch `main`/`master` ou branches compartilhadas. Restrinja a force pushes apenas em suas branches em dev.
+    - **Maximum Alert**: never force-push to `main`/`master` or shared branches. Restrict force pushes to your own development branches.
 
 ## Confirmation Protocol
-- Para comandos destrutivos em lote (`xargs rm`, `find -delete`), sempre faça um `dry-run` (echo) primeiro.
-- **Protocolo de Resposta**: Se o comando for perigoso, mostre-o em um bloco de código separado com um aviso de 🚨 **ALERTA DE SEGURANÇA**.
+- For batch-destructive commands (`xargs rm`, `find -delete`), always run a dry-run (`echo`) first.
+- **Response Protocol**: if a command is dangerous, show it in a separate code block with a clear **SECURITY ALERT** warning.

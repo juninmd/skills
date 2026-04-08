@@ -13,6 +13,27 @@ const existingSkills = fs.readdirSync(skillsDir, { withFileTypes: true })
   .filter(dirent => dirent.isDirectory())
   .map(dirent => dirent.name);
 
+function extractFrontmatterRaw(content) {
+  const match = content.match(/^---\n([\s\S]*?)\n---\n?/);
+  return match ? match[1] : '';
+}
+
+function findBlockArrayKeys(frontmatterRaw) {
+  const keys = new Set();
+  const topLevelRegex = /^([A-Za-z0-9_-]+):\s*\n\s*-\s+/gm;
+  const nestedRegex = /^\s{2}([A-Za-z0-9_-]+):\s*\n\s{4}-\s+/gm;
+
+  let match;
+  while ((match = topLevelRegex.exec(frontmatterRaw)) !== null) {
+    keys.add(match[1]);
+  }
+  while ((match = nestedRegex.exec(frontmatterRaw)) !== null) {
+    keys.add(match[1]);
+  }
+
+  return [...keys];
+}
+
 let globalHasErrors = false;
 const skillMentionPattern = /Skill:\s*`([^`]+)`/g;
 
@@ -21,10 +42,18 @@ for (const agentFile of fs.readdirSync(agentsDir).filter(f => f.endsWith('.agent
   const fileContent = fs.readFileSync(agentPath, 'utf8');
 
   let hasErrors = false;
-  
+
   try {
     const parsed = matter(fileContent);
+    const rawFrontmatter = extractFrontmatterRaw(fileContent);
+    const blockArrayKeys = findBlockArrayKeys(rawFrontmatter);
     const { agents, skills } = parsed.data;
+
+    if (blockArrayKeys.length > 0) {
+      console.error(`❌ [${agentFile}] Frontmatter arrays must be inline. Convert keys: ${blockArrayKeys.join(', ')}`);
+      hasErrors = true;
+      globalHasErrors = true;
+    }
 
     // Validate Subagents in Frontmatter
     if (agents && Array.isArray(agents)) {
@@ -71,7 +100,7 @@ for (const agentFile of fs.readdirSync(agentsDir).filter(f => f.endsWith('.agent
     }
 
     if (!hasErrors) {
-       console.log(`✅ [${agentFile}] Valid`);
+      console.log(`✅ [${agentFile}] Valid`);
     }
   } catch (err) {
     console.error(`❌ [${agentFile}] Failed to parse: ${err.message}`);

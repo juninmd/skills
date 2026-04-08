@@ -1,38 +1,38 @@
 ---
 name: processing-nlp
-description: Processar e analisar textos em linguagem natural para análise de sentimento, NER, sumarização e tradução.
+description: Process and analyze natural language texts for sentiment analysis, NER, summarization, and translation.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[context] [options]"
 ---
 
-# NLP Specialist Skill
+# NLP Specialist
 
 ## Description
-This skill enables the agent to process and analyze natural language text. It covers tasks such as sentiment analysis, named entity recognition (NER), text summarization, and language translation using libraries or APIs.
+This skill enables the agent to process and analyze natural language texts. It covers tasks such as sentiment analysis, named entity recognition (NER), summarization, and translation using libraries or APIs.
 
-## Workflow
+## Flow
 
-### 1. Preprocess Text
-- Clean text (remove HTML tags, special characters).
-- Tokenize text (split into words or subwords).
-- Normalize text (lower casing, stemming, lemmatization).
+### 1. Text Preprocessing
+- Clean text (removal of HTML tags and special characters).
+- Tokenize text (words or subwords).
+- Normalize (lowercase, stemming, lemmatization).
 - Remove stop words.
 
-### 2. Analyze & Extract
-- **Sentiment Analysis:** Determine the emotional tone (positive, negative, neutral).
-- **NER:** Identify entities like names, organizations, locations, dates.
-- **Classification:** Categorize text into predefined topics.
+### 2. Analysis and Extraction
+- **Sentiment Analysis:** Determine emotional tone (positive, negative, neutral).
+- **NER:** Identify entities such as names, organizations, locations, and dates.
+- **Classification:** Categorize texts into predefined topics.
 
-### 3. Generate & Transform
-- **Summarization:** Create a concise summary of a longer text.
-- **Translation:** Translate text from one language to another.
+### 3. Generation and Transformation
+- **Summarization:** Generate a concise summary of long texts.
+- **Translation:** Translate texts between languages.
 
-### 4. Evaluate
-- Use metrics like accuracy, precision, recall, and F1-score for classification tasks.
-- Use BLEU or ROUGE scores for generation tasks.
+### 4. Evaluation
+- Use metrics such as accuracy, precision, recall, and F1-score for classification.
+- Use BLEU or ROUGE for generation tasks.
 
 ## Best Practices
-- **Context Matters:** Consider the domain of the text (e.g., medical vs. financial) when selecting models.
+- **Context Matters:** Consider the text domain (e.g., medical vs. financial) when selecting models.
 - **Privacy:** Be careful when processing PII (Personally Identifiable Information).
-- **Model Selection:** Choose the right model size vs. performance trade-off (e.g., spaCy vs. BERT).
+- **Model Selection:** Choose the appropriate trade-off between model size and performance (e.g., spaCy vs. BERT).

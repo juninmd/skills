@@ -1,6 +1,6 @@
 ---
 name: diagnosing-rabbitmq
-description: Diagnóstico de saúde de filas RabbitMQ, consumidores e Dead Letter Queues (DLQ).
+description: Diagnose health of RabbitMQ queues, consumers, and Dead Letter Queues (DLQ).
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[incident/alert] [options]"
@@ -8,15 +8,15 @@ argument-hint: "[incident/alert] [options]"
 
 # Diagnose RabbitMQ Health
 
-Esta skill inspeciona filas para identificar gargalos e falhas de processamento.
+This skill inspects queues to identify bottlenecks and processing failures.
 
 ## Instructions
-- Utilize `rabbitmqadmin` para coletar métricas.
-- Analise `consumer_count == 0` (Crítico) e `messages_unacknowledged` (Lentidão).
+- Use `rabbitmqadmin` to collect metrics.
+- Analyze `consumer_count == 0` (Critical) and `messages_unacknowledged` (Slowness).
 
 ## Capabilities
-- **Queue Stats**: Obter contagem de mensagens e status.
-- **DLQ Inspection**: Amostragem de mensagens mortas para RCA.
+- **Queue Stats**: Get message count and status.
+- **DLQ Inspection**: Sample dead messages for RCA (Root Cause Analysis).
 
 ## Commands
 - `rabbitmqadmin get queue=<name> stat.messages stat.consumer_count`

@@ -1,10 +1,9 @@
-# Localization Expert Reference
-
+# Localization Expert Referência 📚
 ## Tools
 
 ### 1. `gettext` (GNU gettext)
 **Description:** Standard toolset for i18n in many languages (C, Python, PHP).
-**Common Commands:**
+**Comandos Comuns:**
 - `xgettext`: Extract strings from source code.
 - `msgmerge`: Merge new strings into existing PO files.
 - `msgfmt`: Compile PO files to binary MO files.
@@ -17,7 +16,7 @@
 
 ### 3. `babel` (Python)
 **Description:** Library for internationalizing Python applications.
-**Common Commands:**
+**Comandos Comuns:**
 - `pybabel extract`: Extract messages.
 - `pybabel update`: Update message catalogs.
 - `pybabel compile`: Compile message catalogs.

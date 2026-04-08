@@ -89,6 +89,7 @@ export class CopilotInstaller extends BaseInstaller {
       { source: 'rules', target: 'rules' },
       { source: 'agents', target: 'agents' },
       { source: 'workflows', target: 'workflows' },
+      { source: 'hooks', target: 'hooks' },
     ];
   }
 
@@ -183,6 +184,7 @@ export class CopilotInstaller extends BaseInstaller {
       Object.entries(promptLocs).filter(([k]) => !isManagedPath(k)),
     );
 
+    promptLocs['.agents/workflows'] = true;
     const workflowsDir = join(agentsDir, 'workflows');
     promptLocs[toPortablePath(workflowsDir)] = true;
     settings[promptKey] = promptLocs;
@@ -231,7 +233,41 @@ export class CopilotInstaller extends BaseInstaller {
     if (await dirExists(agentsSubDir)) agentsLocs[toPortablePath(agentsSubDir)] = true;
     settings[agentsKey] = agentsLocs;
 
-    // --- 6. Autopilot ---
+    // --- 6. Hooks ---
+    const hooksKey = VSCODE_SETTINGS_KEYS.HOOKS_LOCS;
+    let hooksLocs: Record<string, boolean> =
+      settings[hooksKey] !== null &&
+        typeof settings[hooksKey] === 'object' &&
+        !Array.isArray(settings[hooksKey])
+        ? (settings[hooksKey] as Record<string, boolean>)
+        : {};
+
+    hooksLocs = Object.fromEntries(
+      Object.entries(hooksLocs).filter(([k]) => !isManagedPath(k)),
+    );
+
+    hooksLocs['.agents/hooks'] = true;
+    hooksLocs['~/.agents/hooks'] = true;
+    settings[hooksKey] = hooksLocs;
+
+    // --- 7. Instructions Locations ---
+    const instrLocsKey = VSCODE_SETTINGS_KEYS.RULES_LOCS;
+    let instrLocs: Record<string, boolean> =
+      settings[instrLocsKey] !== null &&
+        typeof settings[instrLocsKey] === 'object' &&
+        !Array.isArray(settings[instrLocsKey])
+        ? (settings[instrLocsKey] as Record<string, boolean>)
+        : {};
+
+    instrLocs = Object.fromEntries(
+      Object.entries(instrLocs).filter(([k]) => !isManagedPath(k)),
+    );
+
+    instrLocs['.agents/rules'] = true;
+    instrLocs['~/.agents/rules'] = true;
+    settings[instrLocsKey] = instrLocs;
+
+    // --- 8. Autopilot ---
     settings[VSCODE_SETTINGS_KEYS.AUTOPILOT_ENABLE] = true;
 
     // --- 7. Advanced Settings ---

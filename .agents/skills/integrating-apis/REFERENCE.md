@@ -1,5 +1,4 @@
-# Reference: API Integration Standards
-
+# Referência: API Integration Standards 📚
 ## Common HTTP Methods
 - `GET`: Retrieve data from a server.
 - `POST`: Send data to a server to create a new resource.

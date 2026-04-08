@@ -30,6 +30,27 @@ const skills = fs.readdirSync(skillsDir, { withFileTypes: true })
 
 let hasErrors = false;
 
+function extractFrontmatterRaw(content) {
+  const match = content.match(/^---\n([\s\S]*?)\n---\n?/);
+  return match ? match[1] : '';
+}
+
+function findBlockArrayKeys(frontmatterRaw) {
+  const keys = new Set();
+  const topLevelRegex = /^([A-Za-z0-9_-]+):\s*\n\s*-\s+/gm;
+  const nestedRegex = /^\s{2}([A-Za-z0-9_-]+):\s*\n\s{4}-\s+/gm;
+
+  let match;
+  while ((match = topLevelRegex.exec(frontmatterRaw)) !== null) {
+    keys.add(match[1]);
+  }
+  while ((match = nestedRegex.exec(frontmatterRaw)) !== null) {
+    keys.add(match[1]);
+  }
+
+  return [...keys];
+}
+
 for (const skill of skills) {
   const skillMdPath = path.join(skillsDir, skill, 'SKILL.md');
   if (!fs.existsSync(skillMdPath)) {
@@ -43,6 +64,14 @@ for (const skill of skills) {
   try {
     const parsed = matter(fileContent);
     frontmatter = parsed.data;
+
+    const rawFrontmatter = extractFrontmatterRaw(fileContent);
+    const blockArrayKeys = findBlockArrayKeys(rawFrontmatter);
+    if (blockArrayKeys.length > 0) {
+      console.error(`❌ [${skill}] Frontmatter arrays must be inline. Convert keys: ${blockArrayKeys.join(', ')}`);
+      hasErrors = true;
+      continue;
+    }
   } catch (err) {
     console.error(`❌ [${skill}] Failed to parse frontmatter: ${err.message}`);
     hasErrors = true;

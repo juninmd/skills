@@ -1,29 +1,28 @@
-# Data Analyst Forms
+# Data Analyst Formulários 📋
+## 1. Solicitação de Análise (analysis_request.md)
 
-## 1. Analysis Request (analysis_request.md)
+### Objetivo
+Solicitar uma tarefa de análise de dados.
 
-### Goal
-Request a data analysis task.
+### Campos
+- **Fonte de Dados:** [Path/URL/DB Connection]
+- **Pergunta Principal:** [Qual pergunta específica precisa ser respondida?]
+- **Métricas-Chave:** [Métrica 1, Métrica 2]
+- **Formato de Saída:** [Relatório/Gráfico/Tabela]
 
-### Fields
-- **Data Source:** [Path/URL/DB Connection]
-- **Goal:** [What specific question needs answering?]
-- **Key Metrics:** [Metric 1, Metric 2]
-- **Output Format:** [Report/Chart/Table]
+## 2. Relatório de Análise (analysis_report.md)
 
-## 2. Analysis Report (analysis_report.md)
+### Objetivo
+Documentar os resultados da análise de dados.
 
-### Goal
-Document the findings of the data analysis.
-
-### Fields
-- **Title:** [Analysis Title]
-- **Date:** [Date]
-- **Executive Summary:** [Brief summary]
-- **Key Insights:**
+### Campos
+- **Título:** [Título da Análise]
+- **Data:** [Data]
+- **Resumo Executivo:** [Resumo breve]
+- **Principais Insights:**
     1. [Insight 1]
     2. [Insight 2]
-- **Visualizations:**
-    - [Link/Description of Chart 1]
-    - [Link/Description of Chart 2]
-- **Methodology:** [Tools and methods used]
+- **Visualizações:**
+    - [Link/Descrição do Gráfico 1]
+    - [Link/Descrição do Gráfico 2]
+- **Metodologia:** [Ferramentas e métodos utilizados]

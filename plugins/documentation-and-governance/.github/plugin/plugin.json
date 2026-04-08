@@ -7,9 +7,11 @@
     "../../../../.agents/skills/generating-design-docs",
     "../../../../.agents/skills/creating-technical-content",
     "../../../../.agents/skills/researching-web",
-    "../../../../.agents/skills/navigating-organizations"
+    "../../../../.agents/skills/labs-navigating-organizations",
+    "../../../../.agents/skills/labs-managing-internal-processes",
+    "../../../../.agents/skills/cataloging-backstage"
   ],
   "agents": [
-    "../../../../.agents/agents/padrao-labs-agent.agent.md"
+    "../../../../.agents/agents/design-doc.agent.md"
   ]
 }

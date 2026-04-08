@@ -1,35 +1,33 @@
 ---
 name: validating-dockerfile
-description: Habilidade para validar Dockerfiles realizando build e smoke test.
+description: Ability to validate Dockerfiles by performing build and smoke tests.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[file/module] [options]"
 ---
 
-# Validating Dockerfile
+# Validation of Dockerfile
 
-This skill provides a mechanism to ensure Dockerfiles are syntactically correct and functional by performing a real build and run operation.
+This skill provides a mechanism to ensure that Dockerfiles are syntactically correct and functional through real build and execution.
 
 ## Description
-
-Use this skill when a `Dockerfile` is created or modified. It prevents broken images from being committed or pushed to CI/CD pipelines by catching errors locally.
+Use this skill when a `Dockerfile` is created or modified. It prevents broken images from being committed or sent to CI/CD pipelines by catching errors locally.
 
 ## Instructions
 
 1.  **Manual Validation:**
     *   Run the validation script directly: `node .agents/skills/validating-dockerfile/scripts/validate.mjs [path_to_dockerfile]`
-    *   If no path is provided, it will attempt to detect staged (git add) Dockerfiles automatically.
+    *   If no path is provided, it will automatically attempt to detect staged Dockerfiles (`git add`).
 
 2.  **Git Integration:**
-    *   You can incorporate this into a `pre-commit` hook or a `Makefile` to ensure validation before every commit.
+    *   You can incorporate this into a `pre-commit` hook or a `Makefile` to ensure validation before each commit.
 
 3.  **Validation Steps:**
-    *   **Build:** Execs `docker build` with a temporary tag.
-    *   **Run:** Starts a detached container to verify the application starts (smoke test).
+    *   **Build:** Runs `docker build` with a temporary tag.
+    *   **Run:** Starts a container in detached mode to verify if the application starts (smoke test).
     *   **Cleanup:** Automatically stops the container, removes it, and deletes the temporary image.
 
 ## Best Practices
-
-*   **Clean Context:** Ensure the `Dockerfile` is at the correct context level to avoid sending too much data to the Docker daemon.
-*   **Permissions:** Ensure the user running the agent has permissions to execute `docker` commands.
-*   **Resources:** Close the container quickly if it's a long-running service to save local resources.
+*   **Clean Context:** Ensure the `Dockerfile` is at the correct context level to avoid sending excessive data to the Docker daemon.
+*   **Permissions:** Ensure the user running the agent has permissions for `docker` commands.
+*   **Resources:** Terminate the container quickly if it is a long-running service to save local resources.

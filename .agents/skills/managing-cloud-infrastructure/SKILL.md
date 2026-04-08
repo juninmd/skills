@@ -1,37 +1,37 @@
 ---
 name: managing-cloud-infrastructure
-description: Design de arquiteturas de nuvem resilientes, escaláveis e seguras (AWS/GCP/Azure). Foco em padrões (HA/DR) e diagramas.
+description: Design resilient, scalable, and secure cloud architectures (AWS/GCP/Azure). Focus on HA/DR patterns and diagrams.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[resource/project] [options]"
 ---
 
-# Cloud Architecture Design
+# Cloud Architecture
 
-Esta skill foca no **design** de soluções de nuvem, priorizando padrões de Alta Disponibilidade (HA) e Recuperação de Desastres (DR).
+This skill focuses on the **design** of cloud solutions, prioritizing High Availability (HA) and Disaster Recovery (DR) patterns.
 
 ## Instructions
-1.  **High Availability (HA):** Projete para falhas.
-    *   **Multi-AZ:** Distribua workloads em pelo menos 2 Zonas de Disponibilidade.
-    *   **Stateless:** Aplicações não devem guardar estado local; use Redis/S3.
-2.  **Managed Services First:** Prefira PaaS/SaaS sobre IaaS.
-    *   **Exemplo:** Use RDS/Cloud SQL em vez de instalar Postgres em VM.
-    *   **Reasoning:** Menor overhead operacional (patching, backups).
+1.  **High Availability (HA):** Design for failure.
+    *   **Multi-AZ:** Distribute workloads across at least 2 Availability Zones.
+    *   **Stateless:** Applications should not store local state; use Redis/S3.
+2.  **Managed Services First:** Prefer PaaS/SaaS over IaaS.
+    *   **Example:** Use RDS/Cloud SQL instead of installing Postgres on a VM.
+    *   **Rationale:** Lower operational overhead (patching, backups).
 3.  **Scalability:**
-    *   **Horizontal:** Adicione mais nós (Auto Scaling Groups) em vez de aumentar a máquina (Vertical).
-    *   **Event-Driven:** Use filas (SQS/PubSub) para desacoplar componentes e absorver picos.
+    *   **Horizontal:** Add more nodes (Auto Scaling Groups) instead of increasing the machine size (Vertical).
+    *   **Event-Driven:** Use queues (SQS/PubSub) to decouple components and absorb peaks.
 
-## Common Design Patterns
-*   **Circuit Breaker:** Proteja serviços chamadores de falhas em cascata.
-*   **Strangler Fig:** Migre legados monolíticos extraindo microserviços gradualmente.
-*   **Fan-out:** Distribua mensagens para múltiplos consumidores via SNS/PubSub.
+## Common Architecture Patterns
+*   **Circuit Breaker:** Protect calling services from cascading failures.
+*   **Strangler Fig:** Migrate legacy monoliths by gradually extracting microservices.
+*   **Fan-out:** Distribute messages to multiple consumers via SNS/PubSub.
 
-## Tools & Artifacts
-*   **Diagrams as Code:** Use Mermaid ou PlantUML para documentar arquiteturas.
-    *   Exemplo: `flowchart LR; User-->LB; LB-->App1; LB-->App2; App1-->DB;`
-*   **Cost Estimation:** Use a calculadora oficial do provedor antes de aprovar o design.
+## Tools and Artifacts
+*   **Diagrams as Code:** Use Mermaid or PlantUML to document architectures.
+    *   Example: `flowchart LR; User-->LB; LB-->App1; LB-->App2; App1-->DB;`
+*   **Cost Estimation:** Use the provider's official calculator before approving the design.
 
 ## Best Practices
-- **Security Groups:** Princípio do menor privilégio (allow-list, não deny-list).
-- **Encryption:** Dados em trânsito (TLS) e em repouso (KMS) devem ser criptografados por padrão.
-- **Backup Strategy:** Defina RPO (Recovery Point Objective) e RTO (Recovery Time Objective).
+- **Security Groups:** Principle of least privilege (allow-list, not deny-list).
+- **Encryption:** Data in transit (TLS) and at rest (KMS) must be encrypted by default.
+- **Backup Strategy:** Define RPO (Recovery Point Objective) and RTO (Recovery Time Objective).

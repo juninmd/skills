@@ -1,88 +1,268 @@
 ---
 name: validating-typescript
-description: Validar código TypeScript executando verificação de tipos com tsc, linting e análise de correção de algoritmos para capturar erros de compilação, problemas de estilo e falhas lógicas.
+description: Validate TypeScript code with strict type safety, advanced type patterns, compiler checks, linting, and algorithm correctness using 2025 best practices.
 metadata:
     works_on: [copilot, antigravity]
-argument-hint: "[file/module] [options]"
+argument-hint: "[file/module] [options: strict, types, patterns, lint, test]"
 ---
 
-# TypeScript Validation
+# TypeScript Validation & Best Practices (2025)
 
-Esta skill padroniza a validação rigorosa de código TypeScript através de type checking, linting e verificação de algoritmo, garantindo que o código seja correto, seguro e mantível.
+Comprehensive validation of TypeScript code combining type safety, advanced type patterns, compiler checks, linting, and algorithm verification to ensure production-ready code.
 
-## Instructions
+## Core Validation Phases
 
-1.  **Type Checking with tsc (TypeScript Compiler):**
-    *   **Always Run:** `tsc --noEmit` antes de fazer commit ou deploy.
-    *   **Reasoning:** O type checker é a primeira linha de defesa contra erros. Ele captura type mismatches, null/undefined bugs, propriedades inexistentes e incompatibilidades de interface.
-    *   **Verification:** A saída deve ser vazia ou apenas warnings. Zero erros críticos (TS2, TS70xx).
-    *   **Config:** Mantenha `tsconfig.json` com `strict: true`, `noImplicitAny: true`, `strictNullChecks: true`.
+### Phase 1: Type Safety First (Static Analysis)
 
-2.  **ESLint & Formatter (Code Quality & Style):**
-    *   **Lint & Fix:** `npm run lint -- --fix` ou `eslint . --fix` (ou equivalente pnpm).
-    *   **Reasoning:** ESLint detecta code smells, imports não utilizados, variáveis não inicializadas, e padrões perigosos.
-    *   **Verification:** Sem erros (apenas warnings se muito específicas e documentadas).
-    *   **Formatter:** Após linting, rodar `prettier --write .` para garantir formatação consistente.
-
-3.  **Algorithm Correctness (Logic Validation):**
-    *   **Unit Tests:** Escrever testes com Vitest/Jest para validar o comportamento esperado e edge cases.
-    *   **Example Valid Cases:** inputs vazios, `null`, números negativos, limites, períodos, strings especiais.
-    *   **Example Invalid Cases:** race conditions, off-by-one errors, ordem incorreta de operações.
-    *   **Reasoning:** Tipos garantem segurança, mas não garantem lógica correta. Testes confirmam que o algoritmo faz o que promete.
-    *   **Verification:** Cobertura >= 80% para funções críticas. Todos os testes passando (green CI).
-
-4.  **Integration into Development Workflow:**
-    *   **Pre-commit Hook:** Use husky + lint-staged para rodar `tsc --noEmit`, `eslint` e testes antes de commit.
-    *   **CI/CD Pipeline:** Inclua stages de `tsc`, `eslint`, `prettier --check` e `test` no pipeline GitLab CI.
-    *   **IDE Integration:** Configure VS Code para mostrar type errors em tempo real (Pylance, TypeScript extension).
-
-## Common Tasks
-
-### Local Development
-```bash
-# Type check
-tsc --noEmit
-
-# Lint with auto-fix
-npm run lint -- --fix
-
-# Format code
-prettier --write .
-
-# Run tests (with coverage)
-npm run test -- --coverage
-```
-
-### Pre-commit Setup (Husky + Lint-Staged)
-```bash
-pnpm add -D husky lint-staged
-npx husky install
-
-# .husky/pre-commit
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-lint-staged
-
-# package.json
-"lint-staged": {
-  "src/**/*.ts": [
-    "tsc --noEmit",
-    "eslint --fix",
-    "prettier --write"
-  ]
+**TypeScript Configuration:**
+```json
+{
+  "compilerOptions": {
+    "strict": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "target": "ES2022",
+    "module": "ES2022"
+  }
 }
 ```
 
-### High-Performance Setup with SWC
-```bash
-# Instalar SWC para transpilação ultra-rápida (100x mais rápido que ts-jest)
-pnpm add -D @swc/core @swc/jest
+**Validation Rules:**
+- ✅ Run `tsc --noEmit` before every commit
+- ✅ Zero `any` type usage (except during JS→TS migration)
+- ✅ Use `unknown` instead of `any` for truly unknown values
+- ✅ Explicit types for all function parameters
+- ✅ Use `void` return type for callbacks (not `any`)
+- ✅ Never use boxed types (`Number`, `String`, `Boolean`—use lowercase)
 
-# jest.config.ts com SWC
-export default {
-  preset: 'ts-jest',
-  transform: {
-    '^.+\\.tsx?$': [
+**Common Violations to Catch:**
+```typescript
+// ❌ WRONG
+function process(data: any) { }
+function callback(x: () => any) { }
+const boxed: String = "hello";  // Boxed type
+
+// ✅ CORRECT
+function process(data: unknown) { /* narrow type */ }
+function callback(x: () => void) { }
+const str: string = "hello";
+```
+
+### Phase 2: Advanced Type Patterns (2025)
+
+**Validate Type Feature Usage:**
+
+1. **Mapped Types** — Transform existing types
+```typescript
+type User = { name: string; age: number };
+type UserReadonly = { readonly [K in keyof User]: User[K] };
+```
+
+2. **Template Literal Types** — Dynamic type generation
+```typescript
+type Color = "red" | "green" | "blue";
+type ColorCode = `${Color}-color`;  // "red-color" | ...
+```
+
+3. **Conditional Types** — Type-level logic
+```typescript
+type IsString<T> = T extends string ? true : false;
+type Flatten<T> = T extends Array<infer U> ? U : T;
+```
+
+4. **Function Overloads** — Order from specific to general
+```typescript
+// ✅ CORRECT: Specific to general
+function fn(x: HTMLDivElement): string;
+function fn(x: HTMLElement): number;
+function fn(x: unknown): unknown;
+
+// ❌ WRONG: General to specific
+function fn(x: unknown): unknown;
+function fn(x: HTMLElement): number;  // Unreachable!
+```
+
+5. **Generics** — Must use their type parameters
+```typescript
+// ✅ CORRECT: T is used
+function process<T>(item: T): T { return item; }
+
+// ❌ WRONG: T is unused
+interface Box<T> { value: string; }
+```
+
+**Validation Checklist:**
+- ✅ Generics actually use their type parameters
+- ✅ Callback parameters are non-optional (don't use optional for multiarity)
+- ✅ Function overloads ordered: specific → general
+- ✅ Mapped types don't reinvent built-ins (Partial, Required, etc)
+- ✅ Conditional types have clear purpose
+- ✅ Union types preferred over multiple overloads
+
+### Phase 3: Biome (Code Quality & Style)
+
+**Commands:**
+```bash
+# Check and fix all issues
+biome check --write .
+
+# Check specific file
+biome check src/myfile.ts --write
+
+# Format only
+biome format --write .
+```
+
+**Validates:**
+- Unused imports and variables
+- Code smells and potential bugs
+- Consistent formatting (replaces ESLint + Prettier)
+- Style guide compliance
+- No redundant `else` blocks
+- Proper async patterns
+
+### Phase 4: Algorithm Correctness (Testing)
+
+**Testing Strategy (Test Pyramid):**
+```
+        E2E Tests        [small]
+    Integration Tests    [medium]
+        Unit Tests       [large]
+```
+
+**Unit Test Pattern (AAA):**
+```typescript
+describe("calculateDiscount", () => {
+  it("returns correct discount for valid percentage", () => {
+    // Arrange
+    const price = 100;
+    const percentage = 10;
+
+    // Act
+    const result = calculateDiscount(price, percentage);
+
+    // Assert
+    expect(result).toBe(90);
+  });
+
+  it("throws on negative percentage", () => {
+    expect(() => calculateDiscount(100, -10)).toThrow(ValidationError);
+  });
+});
+```
+
+**Coverage Goals:**
+- ✅ >= 80% coverage for critical functions (algorithms, calculations)
+- ✅ Edge cases tested: `null`, `undefined`, empty, boundaries, negative
+- ✅ Error paths tested: exceptions, timeouts, invalid inputs
+- ✅ Integration tests for cross-module communication
+
+**Use Vitest (Recommended):**
+```bash
+vitest run --coverage
+```
+
+### Phase 5: CI/CD Integration
+
+**Pre-commit Hook (Husky):**
+```bash
+# .husky/pre-commit
+#!/bin/sh
+tsc --noEmit
+biome check --write .
+vitest run
+```
+
+**GitLab CI Pipeline:**
+```yaml
+validate-typescript:
+  script:
+    - tsc --noEmit
+    - biome check .
+    - vitest run --coverage
+  coverage: '/Coverage: \d+\.\d+%/'
+```
+
+## 2025 Best Practices
+
+### Type Safety Patterns
+- ✅ **Type Inference**: Let TypeScript infer when possible (`const arr = [1,2,3]`)
+- ✅ **Discriminated Unions**: Use for type-safe state machines
+- ✅ **Exhaustive Checks**: Use `never` to ensure all cases handled
+- ✅ **Strict Null Checks**: Always enabled; handle `null`/`undefined` explicitly
+
+### Performance & Optimization
+- ✅ **Code Splitting**: Use dynamic imports for large modules
+- ✅ **SWC for Speed**: Replace ts-jest with `@swc/jest` (100x faster)
+- ✅ **Incremental Builds**: Enable `incremental: true` in tsconfig
+- ✅ **ESBuild for Production**: Use instead of Webpack for 70% faster builds
+
+### Framework Integration
+- **React 19**: Use `use()` hook for promises, `useFormStatus`, `useOptimistic`
+- **Angular**: Type models with interfaces, leverage dependency injection
+- **Vue 3**: Use `<script setup lang="ts">` for type-safe components
+- **Next.js**: Type `getServerSideProps`, `getStaticProps`, API routes
+
+### Testing Best Practices
+- ✅ AAA (Arrange-Act-Assert) pattern
+- ✅ Behavior-focused test names
+- ✅ No business logic in tests
+- ✅ Mock external dependencies only
+- ✅ Use `@testing-library` for React (avoid implementation details)
+
+### Security Considerations
+- ✅ Validate all external inputs with Zod or similar
+- ✅ Type-safe API responses
+- ✅ No hardcoded secrets
+- ✅ Sanitize HTML rendering
+- ✅ Implement proper error handling (reveal minimal info)
+
+## Validation Checklist
+
+**Before Commit:**
+- ✅ `tsc --noEmit` passes with no errors
+- ✅ `biome check .` passes
+- ✅ All tests pass: `vitest run`
+- ✅ Coverage >= 80% for critical code
+- ✅ No `any` type usage
+- ✅ No `@ts-ignore` without comment explaining why
+- ✅ No unused imports/variables
+- ✅ Function overloads ordered correctly (specific → general)
+- ✅ Error handling implemented
+- ✅ Security reviewed (validation, sanitization, secrets)
+
+## Troubleshooting
+
+| Issue | Cause | Solution |
+|-------|-------|----------|
+| Too many errors | Legacy project | Start with `strict: false`, migrate gradually |
+| Slow type checking | Large codebase | Enable `incremental: true` |
+| Tests timeout | Many tests | Use `--testTimeout` or split into smaller files |
+| Slow Jest | ts-jest slow | Migrate to SWC: `@swc/jest` |
+| Slow build | Webpack + ts-loader | Use SWC: `swc-loader` or ESBuild |
+| `tsc` memory leak | Large projects | Use `--watch` with `-p` flag and restart periodically |
+
+## Related Skills
+
+- `auditing-code` — Multi-language linting
+- `developing-node` — TypeScript tooling
+- `managing-quality` — Testing & coverage
+- `designing-graphql-schemas` — Type-safe APIs
       '@swc/jest',
       {
         jsc: {
@@ -92,39 +272,38 @@ export default {
       },
     ],
   },
-  // Continua type checking separado com tsc
+  // Continues separate type checking with tsc
 };
 ```
 
-### GitHub / GitLab CI Example
+### CI Example on GitHub / GitLab
 ```yaml
 # .gitlab-ci.yml or .github/workflows/validate.yml
 validate:
   script:
     - tsc --noEmit
-    - npm run lint
-    - prettier --check .
-    - npm run test
+    - biome check .
+    - vitest run
 ```
 
 ## Best Practices
 
-- **Type-First Development:** Comece pela interface (tipos), depois implemente. Tipos guiam a implementação.
-- **No `any`:** Evite `any`. Use `unknown` e narrow types conforme necessário.
-- **Strict Config:** Ative `strict: true` em `tsconfig.json`. Projetos herdados podem começar com `strict: false` e migrarem gradualmente.
-- **Test Critical Logic:** Algoritmos, cálculos, e orquestração cross-layer devem ter testes. UI que só renderiza pode ter apenas testes visuais.
-- **Document Assumptions:** Se um tipo ou algoritmo tem precondições, documente com JSDoc.
-- **Fail Fast:** Conflitos type check + linting + testes devem bloquear merge.
-- **Use SWC for Speed:** Para projetos com muitos testes, use SWC (`@swc/jest`, `@swc/esbuild`) em vez de `ts-jest` ou `babel-loader`. SWC é 100x+ mais rápido na transpilação, reduzindo tempo de CI/CD significativamente. Mantenha `tsc --noEmit` para type checking separado.
+- **Type-First Development:** Start with the interface (types), then implement. Types guide the implementation.
+- **No `any`:** Avoid `any`. Use `unknown` and narrow types as needed.
+- **Strict Configuration:** Enable `strict: true` in `tsconfig.json`. Legacy projects can start with `strict: false` and migrate gradually.
+- **Test Critical Logic: ** Algorithms, calculations, and cross-layer orchestration must have tests. UI that only renders may only have visual tests.
+- **Document Assumptions:** If a type or algorithm has preconditions, document them with JSDoc.
+- **Fail Fast:** Conflicts between type checking, linting, and tests should block merges.
+- **Use SWC for Performance:** For projects with many tests, use SWC (`@swc/jest`, `@swc/esbuild`) instead of `ts-jest` or `babel-loader`. SWC is 100x+ faster in transpilation, significantly reducing CI/CD time. Keep `tsc --noEmit` for separate type checking.
 
 ## Troubleshooting
 
-- **Too Many Errors:** Se `tsc` reportar muitos erros em um projeto legado, comece com `strict: false` e aumente gradualmente ou use `@ts-ignore` comentários justificados.
-- **Linter vs Formatter Conflict:** Use `eslint-config-prettier` como último extends em `.eslintrc` para evitar conflitos com Prettier.
-- **Slow Type Checking:** Se `tsc` ficar lento, use `incremental: true` em `tsconfig.json` ou `tsc --incremental`.
-- **Test Timeout:** Se os testes demorarem muito, use `--testTimeout` no Vitest/Jest ou divida em arquivos menores.
-- **Slow Jest Tests:** Para turbinar a velocidade dos testes Jest com `ts-jest`, configure `isolatedModules: true` no `jest.config.ts` (dentro de `transform`) ou migre para SWC. Isso pula a checagem de tipos (deixe o `tsc --noEmit` cuidar disso) e acelera a execução massivamente.
-- **Slow Build Times:** Se o build estiver lento, substitua webpack's `ts-loader` ou `babel-loader` por `swc-loader`. Configure em `webpack.config.js`:
+- **Too Many Errors:** If `tsc` reports many errors in a legacy project, start with `strict: false` and increase gradually or use justified `@ts-ignore` comments.
+- **Migration to Biome:** If migrating from legacy tooling, delete `.eslintrc`, `.prettierrc`, and `eslint-config-prettier`. Initialize with `biome init` and rely strictly on `biome.json`.
+- **Slow Type Checking:** If `tsc` becomes slow, use `incremental: true` in `tsconfig.json` or `tsc --incremental`.
+- **Test Timeout:** If tests take too long, use `--testTimeout` in Vitest/Jest or split into smaller files.
+- **Slow Jest Tests:** To boost the speed of Jest tests with `ts-jest`, set `isolatedModules: true` in `jest.config.ts` (inside `transform`) or migrate to SWC. This skips type checking (let `tsc --noEmit` handle that) and speeds up execution massively.
+- **Slow Build Time:** If the build is slow, replace webpack's `ts-loader` or `babel-loader` with `swc-loader`. Configure in `webpack.config.js`:
   ```js
   module: {
     rules: [{
@@ -136,11 +315,11 @@ validate:
     }]
   }
   ```
-  SWC reduz tempo de build em até 70%.
-- **SWC + ESBuild for Production:** Para bundling otimizado, use `esbuild` com `loader: 'ts'` (suporte nativo a TS) em vez de Webpack. Exemplo com esbuild CLI: `esbuild src/index.ts --bundle --loader:.ts=ts --outfile=dist/index.js`. Tempo de build: <1s para a maioria dos projetos.
+  SWC reduces build time by up to 70%.
+- **SWC + ESBuild for Production:** For optimized bundling, use `esbuild` with `loader: 'ts'` (native TS support) instead of Webpack. Example with esbuild CLI: `esbuild src/index.ts --bundle --loader:.ts=ts --outfile=dist/index.js`. Build time: <1s for most projects.
 
 ## Related Skills
 
 - `auditing-code` — Linting and formatting for multiple languages.
 - `developing-node` — Package management and script execution for Node.js/TypeScript projects.
-- `managing-quality` — Test strategies, coverage targets, and CI/CD integration.
+- `managing-quality` — Testing strategies, coverage goals, and CI/CD integration.
