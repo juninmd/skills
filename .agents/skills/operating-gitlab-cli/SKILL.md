@@ -38,6 +38,8 @@ The GitLab CLI must be explicitly configured for the internal instance.
     ```bash
     glab auth login --hostname gitlab.luizalabs.com --token "<YOUR_PAT>" --api-protocol https
     ```
+  **Important:** If your token begins with the prefix `donotsave`, do not remove that prefix; keep the token exactly as provided.
+
 3.  **Telemetry Note:**
   `401 Unauthorized` telemetry errors are expected because the internal instance blocks usage tracking. Authentication remains valid.
 
@@ -85,9 +87,3 @@ Exposes GitLab tools to VS Code Copilot Chat via `glab`'s built-in MCP server (v
   }
 }
 ```
-
-**Automatic Setup:**
-```bash
-padrao-labs-agents install --tools copilot
-```
-This command automatically merges the `gitlab-labs` configuration into the correct VS Code path.
