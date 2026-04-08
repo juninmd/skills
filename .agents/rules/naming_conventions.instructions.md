@@ -1,29 +1,27 @@
 ---
 name: naming-conventions
-description: Padrões de nomenclatura para sistemas e arquivos.
-applyTo: '**/*.{py,js,ts,tsx,sh}'
-metadata:
-    works_on: [copilot, antigravity, gemini_cli]
+description: Naming standards for systems and files.
+applyTo: '**/*.{py,js,ts,tsx,sh,go,java,kt,md}'
 ---
 
 # Rule: Naming Conventions
 
-## Sistemas
-- Nomes de sistemas devem ser simples, acessíveis e em português ou amplamente compreendidos.
-- **Sufixos obrigatórios** para identificar a natureza do serviço:
-  - `-api` — serviços REST/GraphQL
-  - `-worker` — processamento assíncrono/filas
-  - `-cron` — jobs agendados
-  - `-frontend` — interface web
+## Systems
+- System names should be simple, accessible, and easy to understand across teams.
+- **Mandatory suffixes** to identify service type:
+  - `-api` — REST/GraphQL services
+  - `-worker` — async processing/queue consumers
+  - `-cron` — scheduled jobs
+  - `-frontend` — web interface
 
-## Código
-- **Python**: `snake_case` para variáveis e funções; `PascalCase` para classes; `UPPER_SNAKE_CASE` para constantes.
-- **JavaScript/TypeScript**: `camelCase` para variáveis e funções; `PascalCase` para componentes/classes.
-- **Frontend Web (arquivos e pastas)**: usar `kebab-case` para nomes de diretórios e arquivos (`checkout-form.tsx`, `user-menu.tsx`, `auth-store.ts`).
-- **Frontend Web (componentes)**: componentes React exportados em `PascalCase`, mesmo quando o arquivo estiver em `kebab-case`.
-- **Hooks**: prefixo obrigatório `use` em `camelCase` (`useCheckoutForm`, `useAuthSession`).
-- **Stores**: nome explícito com sufixo `-store` para arquivos e `Store` para tipos/interfaces quando necessário (`cart-store.ts`, `AuthStore`).
-- **Features**: alinhar nome da feature, rota e pasta sempre que possível (`billing-history/`, `/billing-history`, `BillingHistoryPage`).
-- **Evitar nomes genéricos**: não criar diretórios ou módulos `utils`, `helpers`, `common` ou `misc` sem contexto de domínio claro.
-- **Variáveis de ambiente**: sempre `UPPER_SNAKE_CASE` (ex: `DATABASE_URL`, `SONAR_TOKEN`).
+## Code
+- **Python**: `snake_case` for variables and functions; `PascalCase` for classes; `UPPER_SNAKE_CASE` for constants.
+- **JavaScript/TypeScript**: `camelCase` for variables and functions; `PascalCase` for components/classes.
+- **Frontend Web (files and folders)**: use `kebab-case` for directories and file names (`checkout-form.tsx`, `user-menu.tsx`, `auth-store.ts`).
+- **Frontend Web (components)**: export React components in `PascalCase`, even when the file name is `kebab-case`.
+- **Hooks**: mandatory `use` prefix in `camelCase` (`useCheckoutForm`, `useAuthSession`).
+- **Stores**: explicit naming with `-store` suffix for files and `Store` suffix for types/interfaces when needed (`cart-store.ts`, `AuthStore`).
+- **Features**: align feature name, route, and folder whenever possible (`billing-history/`, `/billing-history`, `BillingHistoryPage`).
+- **Avoid generic names**: do not create directories or modules like `utils`, `helpers`, `common`, or `misc` without explicit domain context.
+- **Environment variables**: always `UPPER_SNAKE_CASE` (for example, `DATABASE_URL`, `SONAR_TOKEN`).
 

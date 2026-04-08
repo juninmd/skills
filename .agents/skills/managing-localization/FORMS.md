@@ -1,5 +1,4 @@
-# Localization Expert Forms
-
+# Localization Expert Formulários 📋
 ## 1. Translation Request (translation_request.md)
 
 ### Goal

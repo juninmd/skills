@@ -4,7 +4,7 @@
   "version": "1.52.0",
   "skills": [
     "../../../../.agents/skills/operating-k8s",
-    "../../../../.agents/skills/operating-infrastructure",
+    "../../../../.agents/skills/labs-operating-infrastructure",
     "../../../../.agents/skills/operating-shell",
     "../../../../.agents/skills/managing-cloud-infrastructure",
     "../../../../.agents/skills/managing-gcp",
@@ -17,11 +17,11 @@
     "../../../../.agents/skills/diagnosing-rabbitmq",
     "../../../../.agents/skills/diagnosing-networks",
     "../../../../.agents/skills/operating-gitlab-cli",
-    "../../../../.agents/skills/operating-ci-knife",
-    "../../../../.agents/skills/optimizing-cloud-costs"
+    "../../../../.agents/skills/labs-operating-ci-knife",
+    "../../../../.agents/skills/optimizing-cloud-costs",
+    "../../../../.agents/skills/operating-argocd"
   ],
   "agents": [
-    "../../../../.agents/agents/platform-engineer.agent.md",
     "../../../../.agents/agents/terminal-operator.agent.md"
   ]
 }

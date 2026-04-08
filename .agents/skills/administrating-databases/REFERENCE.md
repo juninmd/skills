@@ -1,5 +1,4 @@
-# Reference: Database Administration Standards
-
+# Referência: Database Administration Standards 📚
 ## Common SQL Commands
 - `CREATE TABLE`: Define a new table and its columns.
 - `ALTER TABLE`: Modify an existing table structure.

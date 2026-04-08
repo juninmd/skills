@@ -1,6 +1,6 @@
 ---
 name: operating-shell
-description: Operações fundamentais de sistema e segurança no terminal Linux/Unix.
+description: Fundamental system and security operations in the Linux/Unix terminal.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[command/script] [options]"
@@ -9,31 +9,31 @@ disable-model-invocation: true
 
 # Shell Core & Safety
 
-Esta skill gerencia a navegação, manipulação de arquivos e execução de comandos no sistema operacional, priorizando segurança e eficiência.
+This skill manages navigation, file manipulation, and command execution in the operating system, prioritizing security and efficiency.
 
-## Workflow
+## Flow
 
 ### 1. Construct Command
-- **Chaining:** Use pipes `|` para conectar comandos (ex: `grep | sort`).
-- **Redirection:** Use `>` para salvar output em arquivos temporários e evitar flood no terminal.
-- **Background:** Use `&` para processos de longa duração, mas monitore o PID.
+- **Chaining:** Use pipes `|` to connect commands (e.g., `grep | sort`).
+- **Redirection:** Use `>` to save output to temporary files and avoid terminal flood.
+- **Background:** Use `&` for long-running processes, but monitor the PID.
 
 ### 2. Safety Review (Dry Run)
-- **Destructive Commands:** Antes de `rm`, `mv` ou `dd`, verifique o alvo duas vezes.
-- **Simulation:** Sempre que possível, use flags de "dry run" (ex: `rsync --dry-run`, `make --dry-run`).
-- **Sudo:** Evite `sudo` implícito. Se necessário, explique o motivo.
+- **Destructive Commands:** Before `rm`, `mv`, or `dd`, double-check the target.
+- **Simulation:** Whenever possible, use "dry run" flags (e.g., `rsync --dry-run`, `make --dry-run`).
+- **Sudo:** Avoid implicit `sudo`. If necessary, explain the reason.
 
 ### 3. Execution & Troubleshooting
-- **Exit Codes:** Verifique `$?` após execução (0 = sucesso).
-- **Efficiency:** Use flags silenciosas (`-q`, `--quiet`) em comandos verbosos para economizar tokens.
+- **Exit Codes:** Check `$?` after execution (0 = success).
+- **Efficiency:** Use silent flags (`-q`, `--quiet`) in verbose commands to save tokens.
 
 ## Common Tools
-- **Find:** `find . -name "*.log" -type f` (Localização precisa).
-- **Grep:** `grep -r "pattern" .` (Busca de conteúdo).
-- **Process:** `ps aux | grep <name>` e `kill <PID>` (Gestão de processos).
-- **Network:** `curl -v <url>` (Debug de conectividade).
+- **Find:** `find . -name "*.log" -type f` (Precise location).
+- **Grep:** `grep -r "pattern" .` (Content search).
+- **Process:** `ps aux | grep <name>` and `kill <PID>` (Process management).
+- **Network:** `curl -v <url>` (Connectivity debugging).
 
 ## Best Practices
-- **Token Efficiency:** Redirecione outputs longos para arquivos (`cmd > /tmp/log.txt`) e leia apenas o necessário (`head -n 20 /tmp/log.txt`).
-- **Security:** Nunca hardcode senhas ou chaves de API nos comandos. Use variáveis de ambiente (`$MY_SECRET`).
-- **Cleanliness:** Remova arquivos temporários após o uso.
+- **Token Efficiency:** Redirect long outputs to files (`cmd > /tmp/log.txt`) and read only what's necessary (`head -n 20 /tmp/log.txt`).
+- **Security:** Never hardcode passwords or API keys in commands. Use environment variables (`$MY_SECRET`).
+- **Cleanliness:** Remove temporary files after use.

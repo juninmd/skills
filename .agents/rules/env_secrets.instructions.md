@@ -1,30 +1,28 @@
 ---
 name: env-secrets
-description: Protocolo para gerenciamento de variáveis de ambiente e proteção de informações sensíveis.
+description: Protocol for environment variable management and sensitive information protection.
 applyTo: '**/.env*, **/.gitignore, **/docker-compose*.yml, **/values.yaml, **/*.{ts,js,py,go,java}'
-metadata:
-    works_on: [copilot, antigravity, gemini_cli]
 ---
 
 # Rule: Environment & Secrets
-# Identificador: env_secrets
+# Identifier: env_secrets
 
-## Descrição
-Protocolo para gerenciamento de variáveis de ambiente e proteção de informações sensíveis.
+## Description
+Protocol for environment variable management and protection of sensitive information.
 
-## Práticas Detectadas
-- Uso de arquivos `.env` para configurações locais.
-- Referência a segredos do GCP/GitLab CI.
+## Detected Practices
+- Usage of `.env` files for local configuration.
+- References to secrets from GCP and GitLab CI.
 
-## Regras
-1. **No Secrets in Code**: NUNCA commite arquivos `.env`, chaves `.json` de service accounts ou tokens. Estes arquivos DEVEM estar no `.gitignore`.
-2. **Environment Templates**: Sempre mantenha um arquivo `.env.example` atualizado com as chaves necessárias (mas com valores vazios ou fakes).
-3. **Loading Protocol**: Ao iniciar um script ou serviço, verifique se as variáveis obrigatórias estão presentes e emita um erro claro caso faltem.
-4. **Secret Retrieval**: Prefira buscar segredos em runtime (ex: GCP Secret Manager) em vez de armazená-los em arquivos de texto no servidor.
+## Rules
+1. **No Secrets in Code**: NEVER commit `.env` files, service account `.json` keys, or tokens. These files MUST be in `.gitignore`.
+2. **Environment Templates**: always maintain an up-to-date `.env.example` with required keys and safe placeholder values.
+3. **Loading Protocol**: when starting a script or service, validate required environment variables and emit a clear error if any are missing.
+4. **Secret Retrieval**: prefer runtime secret retrieval (for example, GCP Secret Manager) instead of storing secrets in plain-text files.
 
-## Protocolo de Segurança
-1. **Gitignore Audit**: Antes de qualquer `git add` ou `git commit`, verifique se `.env`, `.key`, `.json` (service accounts) e `.pem` estão listados no `.gitignore`.
-2. **Explicit Exclusion**: Se arquivos de ambiente não estiverem ignorados, adicione-os imediatamente ao `.gitignore`.
-3. **Pre-Commit Check**: Verifique arquivos cacheados (`git diff --cached --name-only`) para garantir que nenhum segredo foi adicionado acidentalmente.
-4. **Alerta de Variável**: Se a IA sugerir um comando `export TOKEN=...`, ela deve avisar imediatamente: "⚠️ Lembre-se de não salvar este comando no seu histórico de shell se o token for sensível".
-5. **Prevenção de Commit**: Se detectar um arquivo `.env` sendo adicionado: **BLOQUEIE** a execução, alerte o usuário e sugira `git reset HEAD <file>`.
+## Security Protocol
+1. **Gitignore Audit**: before any `git add` or `git commit`, confirm that `.env`, `.key`, `.json` (service accounts), and `.pem` files are listed in `.gitignore`.
+2. **Explicit Exclusion**: if environment files are not ignored, add them immediately to `.gitignore`.
+3. **Pre-Commit Check**: inspect staged files (`git diff --cached --name-only`) to ensure no secret was accidentally added.
+4. **Variable Warning**: if an `export TOKEN=...` command is suggested, include an immediate warning: "Do not persist this command in shell history if the token is sensitive."
+5. **Commit Prevention**: if a `.env` file is detected in staging, block the flow, alert the user, and suggest `git reset HEAD <file>`.

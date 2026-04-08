@@ -1,5 +1,4 @@
-# Reference: Autonomous Loop Mechanics
-
+# Referência: Autonomous Loop Mechanics 📚
 ## Loop Logic
 O loop funciona através da pipe de shell:
 `while :; do cat PROMPT.md | gemini --yolo; done`

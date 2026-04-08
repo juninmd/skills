@@ -10,18 +10,20 @@
     "../../../../.agents/skills/applying-yagni",
     "../../../../.agents/skills/architecting-distributed-systems",
     "../../../../.agents/skills/architecting-file-systems",
+    "../../../../.agents/skills/architecting-electron",
     "../../../../.agents/skills/developing-nestjs",
     "../../../../.agents/skills/developing-node",
     "../../../../.agents/skills/developing-python",
     "../../../../.agents/skills/developing-fastapi",
+    "../../../../.agents/skills/developing-dotnet",
     "../../../../.agents/skills/designing-graphql-schemas",
     "../../../../.agents/skills/integrating-apis",
     "../../../../.agents/skills/administrating-databases",
     "../../../../.agents/skills/cataloging-apis"
   ],
   "agents": [
-    "../../../../.agents/agents/software-architect.agent.md",
-    "../../../../.agents/agents/feature-builder.agent.md",
-    "../../../../.agents/agents/refactoring-agent.agent.md"
+    "../../../../.agents/agents/labs-python-engineer.agent.md",
+    "../../../../.agents/agents/nodejs-engineer.agent.md",
+    "../../../../.agents/agents/dotnet-engineer.agent.md"
   ]
 }

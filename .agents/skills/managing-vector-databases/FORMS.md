@@ -1,6 +1,6 @@
 # Vector Database Operation Request
 
-## Purpose
+## Objetivo
 Standardized form for requesting vector database operations.
 
 ## Fields

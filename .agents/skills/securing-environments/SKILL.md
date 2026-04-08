@@ -1,6 +1,6 @@
 ---
 name: securing-environments
-description: Proteção de segredos e gestão rigorosa de arquivos .env e .gitignore para evitar vazamentos.
+description: Protection of secrets and rigorous management of .env and .gitignore files to prevent leaks.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[context] [options]"
@@ -8,11 +8,11 @@ argument-hint: "[context] [options]"
 
 # Environment Security
 
-Esta skill foca na proteção de credenciais e segredos no repositório.
+This skill focuses on the protection of credentials and secrets in the repository.
 
 ## Instructions
-- Audite o `.gitignore` antes de cada commit.
-- Use o script `scripts/audit_secrets.sh` para verificar o repositório.
+- Audit `.gitignore` before each commit.
+- Use the `scripts/audit_secrets.sh` script to verify the repository.
 
 ## Resources
-- Ver `assets/FORMS.md` para checklist de segurança de PR.
+- See `assets/FORMS.md` for the PR security checklist.

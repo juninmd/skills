@@ -1,29 +1,36 @@
 ---
 name: developing-fastapi
-description: Projetar, implementar e manter aplicações FastAPI prontas para produção com arquitetura modular (domain-driven), Pydantic v2, async/await correto, dependency injection, testes com httpx/pytest-asyncio e padrões de segurança. Use ao criar ou revisar APIs Python com FastAPI.
+description: Design, implement, and maintain production-ready FastAPI applications with modular (domain-driven) architecture, Pydantic v2, proper async/await, dependency injection, testing with httpx/pytest-asyncio, and security standards. Use when creating or reviewing Python APIs with FastAPI.
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
 argument-hint: "[module/router] [options]"
 ---
 
-# FastAPI Development
+# Development with FastAPI
 
-Esta skill padroniza o desenvolvimento de APIs FastAPI robustas para produção, cobrindo arquitetura, async, Pydantic v2, DI, testes e segurança.
+This skill standardizes the development of robust production FastAPI APIs, covering architecture, async, Pydantic v2, DI, testing, and security.
+
+## 🧱 Recommended Stack 2026
+- **API:** FastAPI + Pydantic v2
+- **Persistence:** SQLAlchemy 2 async + PostgreSQL
+- **Migration:** Alembic
+- **Queue/Jobs:** Celery (or RQ for simple scenarios)
+- **Observability:** OpenTelemetry + Prometheus + Sentry
 
 ## Recommended Baseline
 
 - **Python 3.13+**, **FastAPI 0.115+**, **Pydantic v2**, **SQLAlchemy 2.0+** (async), **Alembic**.
-- Gerenciamento via `uv` + `pyproject.toml`. Veja a skill `developing-python`.
-- Linting/formatação exclusivamente com **`ruff`** (substitui black + isort + flake8).
-- Type hints **obrigatórios** em todas as funções. `pyright` em modo strict.
-- Testes com **`pytest-asyncio`** + **`httpx`** (AsyncClient). Cobertura mínima: **90%**.
-- Estrutura **feature-based** (domain-driven), não por tipo técnico.
+- Management via `uv` + `pyproject.toml`. See the `developing-python` skill.
+- Linting/formatting exclusively with **`ruff`** (replaces black + isort + flake8).
+- Mandatory type hints in all functions. `pyright` in strict mode.
+- Tests with **`pytest-asyncio`** + **`httpx`** (AsyncClient). Minimum coverage: **90%**.
+- **Feature-based** (domain-driven) structure, not by technical type.
 
 ## Instructions
 
 ### 1. Project Structure (Feature-Based / Domain-Driven)
 
-Inspirada no projeto [Netflix Dispatch](https://github.com/Netflix/dispatch) e amplamente validada em produção.
+Inspired by the [Netflix Dispatch](https://github.com/Netflix/dispatch) project and widely validated in production.
 
 ```text
 fastapi-project/
@@ -31,14 +38,14 @@ fastapi-project/
 │   └── versions/
 ├── src/
 │   ├── auth/
-│   │   ├── router.py       # Endpoints do módulo
+│   │   ├── router.py       # Module endpoints
 │   │   ├── schemas.py      # Pydantic models (request/response)
 │   │   ├── models.py       # SQLAlchemy ORM models
 │   │   ├── service.py      # Business logic
-│   │   ├── dependencies.py # FastAPI Dependencies do módulo
-│   │   ├── constants.py    # Constantes e ErrorCodes
-│   │   ├── exceptions.py   # Exceções de domínio (ex: InvalidCredentials)
-│   │   └── utils.py        # Helpers sem lógica de negócio
+│   │   ├── dependencies.py # FastAPI Module Dependencies
+│   │   ├── constants.py    # Constants and ErrorCodes
+│   │   ├── exceptions.py   # Domain exceptions (e.g., InvalidCredentials)
+│   │   └── utils.py        # Helpers without business logic
 │   ├── posts/
 │   │   ├── router.py
 │   │   ├── schemas.py
@@ -48,10 +55,10 @@ fastapi-project/
 │   │   ├── constants.py
 │   │   ├── exceptions.py
 │   │   └── utils.py
-│   ├── config.py           # Pydantic BaseSettings global
+│   ├── config.py           # Global Pydantic BaseSettings
 │   ├── database.py         # Engine, SessionLocal, Base
-│   ├── exceptions.py       # Exception handlers globais
-│   ├── models.py           # Base models globais
+│   ├── exceptions.py       # Global Exception handlers
+│   ├── models.py           # Global Base models
 │   └── main.py             # FastAPI app factory
 ├── tests/
 │   ├── conftest.py
@@ -63,14 +70,14 @@ fastapi-project/
 └── alembic.ini
 ```
 
-*   **Regra:** Cada módulo é standalone. Importe entre módulos com nome explícito:
+*   **Rule:** Each module is standalone. Import between modules with explicit names:
     ```python
     from src.auth import constants as auth_constants
     from src.notifications import service as notification_service
     ```
-*   **Reasoning:** Estrutura feature-based reduz cognitive load, facilita encapsulamento e permite evoluir módulos de forma independente.
+*   **Rationale:** Feature-based structure reduces cognitive load, facilitates encapsulation, and allows modules to evolve independently.
 
-### 2. Async Routes — Use Corretamente
+### 2. Async Routes — Use Correctly
 
 ```python
 import asyncio
@@ -79,36 +86,36 @@ from fastapi import APIRouter
 
 router = APIRouter()
 
-# ❌ TERRÍVEL: bloqueia o event loop inteiro
+# ❌ TERRIBLE: blocks the entire event loop
 @router.get("/bad-ping")
 async def bad_ping():
-    time.sleep(10)  # NUNCA faça isso em rota async
+    time.sleep(10)  # NEVER do this in an async route
     return {"pong": True}
 
-# ✅ BOM: sync route roda em threadpool automaticamente
+# ✅ GOOD: sync route runs in a threadpool automatically
 @router.get("/sync-ping")
 def sync_ping():
-    time.sleep(10)  # OK, roda em thread separada
+    time.sleep(10)  # OK, runs in a separate thread
     return {"pong": True}
 
-# ✅ IDEAL: operações I/O realmente assíncronas
+# ✅ IDEAL: truly asynchronous I/O operations
 @router.get("/async-ping")
 async def async_ping():
     await asyncio.sleep(10)  # non-blocking
     return {"pong": True}
 ```
 
-**Regras de Ouro:**
-- Use `async def` **apenas** com libs que suportam `await` (httpx, asyncpg, asyncio).
-- Use `def` (sync) para: CPU-bound, SDKs síncronos, operações sem I/O externo.
-- Para SDKs sync em rota async, use `run_in_threadpool`:
+**Golden Rules:**
+- Use `async def` **only** with libs that support `await` (httpx, asyncpg, asyncio).
+- Use `def` (sync) for: CPU-bound, synchronous SDKs, operations without external I/O.
+- For sync SDKs in an async route, use `run_in_threadpool`:
     ```python
     from fastapi.concurrency import run_in_threadpool
     result = await run_in_threadpool(sync_sdk_client.fetch, data=payload)
     ```
-- Tasks CPU-intensivas (ML, processamento de vídeo): offload para **Celery** ou **multiprocessing**.
+- CPU-intensive tasks (ML, video processing): offload to **Celery** or **multiprocessing**.
 
-### 3. Pydantic v2 — Use Extensivamente
+### 3. Pydantic v2 — Use Extensively
 
 ```python
 from __future__ import annotations
@@ -126,7 +133,7 @@ class Species(StrEnum):
 
 
 class CustomModel(BaseModel):
-    """Base model customizado para toda a aplicação."""
+    """Custom base model for the entire application."""
     model_config = ConfigDict(
         populate_by_name=True,
         str_strip_whitespace=True,
@@ -156,17 +163,17 @@ class UserResponse(CustomModel):
     email: EmailStr
 ```
 
-**Boas Práticas Pydantic:**
-- Crie um `CustomModel` global com configs compartilhadas (`ConfigDict`).
-- Use `StrEnum` (Python 3.11+) para campos enum.
-- `@field_validator` para validações complexas em campos específicos.
-- `@model_validator(mode="after")` para validações cross-field.
-- `ValueError` levantado dentro de validators vira `422 Unprocessable Entity` automaticamente.
+**Pydantic Best Practices:**
+- Create a global `CustomModel` with shared configs (`ConfigDict`).
+- Use `StrEnum` (Python 3.11+) for enum fields.
+- `@field_validator` for complex validations on specific fields.
+- `@model_validator(mode="after")` for cross-field validations.
+- `ValueError` raised inside validators automatically becomes `422 Unprocessable Entity`.
 
-### 4. Config com Pydantic BaseSettings — Desacoplada por Módulo
+### 4. Config with Pydantic BaseSettings — Decoupled by Module
 
 ```python
-# src/config.py — Config global
+# src/config.py — Global config
 from pydantic import PostgresDsn, RedisDsn
 from pydantic_settings import BaseSettings
 from src.constants import Environment
@@ -186,7 +193,7 @@ settings = Config()
 ```
 
 ```python
-# src/auth/config.py — Config do módulo auth
+# src/auth/config.py — Auth module config
 from datetime import timedelta
 from pydantic_settings import BaseSettings
 
@@ -203,9 +210,9 @@ class AuthConfig(BaseSettings):
 auth_settings = AuthConfig()
 ```
 
-*   **Reasoning:** Config descentralizada evita um God Object e permite que cada módulo seja testado com configs isoladas.
+*   **Rationale:** Decentralized config avoids a God object and allows each module to be tested with isolated configs.
 
-### 5. Dependency Injection — Além do Básico
+### 5. Dependency Injection — Beyond the Basics
 
 ```python
 # src/posts/dependencies.py
@@ -216,7 +223,7 @@ from src.posts.exceptions import PostNotFound
 from src.posts import service
 
 async def valid_post_id(post_id: UUID4) -> dict[str, Any]:
-    """Valida existência do post e injeta o objeto."""
+    """Validates post existence and injects the object."""
     post = await service.get_by_id(post_id)
     if not post:
         raise PostNotFound()
@@ -261,11 +268,11 @@ async def update_post(
     return await service.update(id=post["id"], data=update_data)
 ```
 
-**Regras de Dependency Injection:**
-- Dependencies são **cacheadas** por request — `valid_post_id` chamado N vezes roda só 1x.
-- Prefira `async` dependencies para operações de I/O.
-- Chain dependencies para validações complexas e reuso máximo.
-- Use `Annotated[..., Depends(...)]` (sintaxe moderna PEP 593) em vez de `= Depends(...)`.
+**Dependency Injection Rules:**
+- Dependencies are **cached** per request — `valid_post_id` called N times runs only 1x.
+- Prefer `async` dependencies for I/O operations.
+- Chain dependencies for complex validations and maximum reuse.
+- Use `Annotated[..., Depends(...)]` (modern PEP 593 syntax) instead of `= Depends(...)`.
 
 ### 6. Error Handling — Domain Exceptions
 
@@ -282,7 +289,7 @@ class UserNotOwner(Exception):
 ```
 
 ```python
-# src/exceptions.py — Handlers globais
+# src/exceptions.py — Global handlers
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from src.posts.exceptions import PostNotFound, PostAlreadyExists
@@ -310,7 +317,7 @@ def create_app() -> FastAPI:
 app = create_app()
 ```
 
-*   **Reasoning:** Separar exceções de domínio de `HTTPException` mantém as camadas de negócio desacopladas do protocolo HTTP. Services não precisam saber sobre códigos HTTP.
+*   **Rationale:** Separating domain exceptions from `HTTPException` keeps business layers decoupled from the HTTP protocol. Services don't need to know about HTTP codes.
 
 ### 7. Router Organization (main.py)
 
@@ -330,7 +337,7 @@ def create_app() -> FastAPI:
     app = FastAPI(
         title="My API",
         version=settings.APP_VERSION,
-        openapi_url="/openapi.json" if is_dev else None,  # oculta docs em produção
+        openapi_url="/openapi.json" if is_dev else None,  # hides docs in production
         docs_url="/docs" if is_dev else None,
         redoc_url="/redoc" if is_dev else None,
     )
@@ -354,21 +361,21 @@ app = create_app()
 
 ### 8. REST Conventions
 
-| Ação | Método | URL |
+| Action | Method | URL |
 |---|---|---|
-| Listar recursos | `GET` | `/posts` |
-| Criar recurso | `POST` | `/posts` |
-| Obter por ID | `GET` | `/posts/{post_id}` |
-| Atualizar completo | `PUT` | `/posts/{post_id}` |
-| Atualizar parcial | `PATCH` | `/posts/{post_id}` |
-| Remover | `DELETE` | `/posts/{post_id}` |
-| Sub-recursos | `GET` | `/posts/{post_id}/comments` |
+| List resources | `GET` | `/posts` |
+| Create resource | `POST` | `/posts` |
+| Get by ID | `GET` | `/posts/{post_id}` |
+| Full update | `PUT` | `/posts/{post_id}` |
+| Partial update | `PATCH` | `/posts/{post_id}` |
+| Remove | `DELETE` | `/posts/{post_id}` |
+| Sub-resources | `GET` | `/posts/{post_id}/comments` |
 
 **Naming Rules:**
-- Use **plural** para coleções: `/animals`, `/users`, `/orders`.
-- Use **lowercase** e **kebab-case** nos paths: `/post-likes`, não `/postLikes`.
-- Versione APIs no path: `/v1/posts`, `/v2/posts`.
-- Use `status_code` e `response_model` explicitamente em todos os endpoints.
+- Use **plural** for collections: `/animals`, `/users`, `/orders`.
+- Use **lowercase** and **kebab-case** in paths: `/post-likes`, not `/postLikes`.
+- Version APIs in the path: `/v1/posts`, `/v2/posts`.
+- Use `status_code` and `response_model` explicitly in all endpoints.
 
 ### 9. Testing — Async Client from Day 0
 
@@ -479,23 +486,23 @@ class Post(Base):
 ```
 
 **DB Naming Conventions:**
-- `snake_case` em todos os nomes.
-- Forma singular para tabelas: `post`, `post_like`, `user_playlist`.
-- Grupo de tabelas por módulo: `payment_account`, `payment_bill`.
-- Sufixo `_at` para datetime, `_date` para date.
-- Migrations Alembic: `alembic.ini` com `file_template = %%(year)d-%%(month).2d-%%(day).2d_%%(slug)s`.
+- `snake_case` in all names.
+- Singular form for tables: `post`, `post_like`, `user_playlist`.
+- Group of tables per module: `payment_account`, `payment_bill`.
+- Suffix `_at` for datetime, `_date` for date.
+- Alembic Migrations: `alembic.ini` with `file_template = %%(year)d-%%(month).2d-%%(day).2d_%%(slug)s`.
 
-### 11. OpenAPI Docs — Produção vs Desenvolvimento
+### 11. OpenAPI Docs — Production vs Development
 
 ```python
-# Oculte docs em produção (segurança)
+# Hide docs in production (security)
 app = FastAPI(
     title="My API",
     openapi_url="/openapi.json" if is_dev else None,
     docs_url="/docs" if is_dev else None,
 )
 
-# Documente todos os endpoints com response_model + status_code + responses
+# Document all endpoints with response_model + status_code + responses
 @router.post(
     "/posts",
     response_model=PostResponse,
@@ -513,27 +520,27 @@ async def create_post(payload: PostCreate, ...) -> PostResponse:
 
 ### 12. Security Checklist
 
-- [ ] CORS configurado com lista explícita de origens (`CORS_ORIGINS` via env).
-- [ ] Docs (`/docs`, `/openapi.json`) desabilitados em produção.
-- [ ] Secrets via variáveis de ambiente (nunca hardcoded). Usar Google Secret Manager em produção.
-- [ ] JWT com expiração curta (15 min) + refresh token separado (30 dias).
-- [ ] Rate limiting em endpoints públicos (ex: `slowapi`).
-- [ ] SQL via ORM (SQLAlchemy) — nunca interpolação de strings em queries.
+- [ ] CORS configured with explicit list of origins (`CORS_ORIGINS` via env).
+- [ ] Docs (`/docs`, `/openapi.json`) disabled in production.
+- [ ] Secrets via environment variables (never hardcoded). Use Google Secret Manager in production.
+- [ ] JWT with short expiration (15 min) + separate refresh token (30 days).
+- [ ] Rate limiting on public endpoints (e.g., `slowapi`).
+- [ ] SQL via ORM (SQLAlchemy) — never string interpolation in queries.
 - [ ] Sanitize inputs via Pydantic validators.
-- [ ] `ValidationPipe` equivalente: Pydantic no body + `Query()`/`Path()` nos parâmetros.
+- [ ] `ValidationPipe` equivalent: Pydantic in the body + `Query()`/`Path()` in parameters.
 
 ## Common Tasks
 
-*   **Criar novo módulo:** Crie o diretório `src/<module>/` com `router.py`, `schemas.py`, `service.py`, `dependencies.py`, `exceptions.py`, `models.py`, `constants.py`.
-*   **Adicionar rota:** Defina em `router.py` e registre em `src/main.py` via `app.include_router(...)`.
-*   **Migration Alembic:** `uv run alembic revision --autogenerate -m "add_post_table"` → `uv run alembic upgrade head`.
-*   **Rodar servidor:** `make run` (usa `PYTHONPATH=src uvicorn src.main:app --reload`).
-*   **Executar testes:** `make coverage`.
+*   **Create new module:** Create the directory `src/<module>/` with `router.py`, `schemas.py`, `service.py`, `dependencies.py`, `exceptions.py`, `models.py`, `constants.py`.
+*   **Add route:** Define in `router.py` and register in `src/main.py` via `app.include_router(...)`.
+*   **Alembic Migration:** `uv run alembic revision --autogenerate -m "add_post_table"` → `uv run alembic upgrade head`.
+*   **Run server:** `make run` (uses `PYTHONPATH=src uvicorn src.main:app --reload`).
+*   **Run tests:** `make coverage`.
 
 ## Troubleshooting
 
-- **`RuntimeError: Event loop is closed`:** Configura `asyncio_mode = "auto"` no `pyproject.toml` e usa `scope="session"` em fixtures de engine.
-- **`greenlet_spawn` error (SQLAlchemy sync em contexto async):** Troque por `AsyncSession` e métodos `await session.execute(...)`.
-- **Pydantic `model_rebuild()` error:** Adicione `from __future__ import annotations` no topo do arquivo.
-- **Response serialized twice:** Evite criar instâncias Pydantic só para retornar de rotas — retorne dicts ou objetos ORM que o `response_model` já valida.
-- **Dependency caching inesperado:** Use `Depends(func, use_cache=False)` quando precisar de execução a cada chamada.
+- **`RuntimeError: Event loop is closed`:** Set `asyncio_mode = "auto"` in `pyproject.toml` and use `scope="session"` in engine fixtures.
+- **`greenlet_spawn` error (SQLAlchemy sync in async context):** Change to `AsyncSession` and `await session.execute(...)` methods.
+- **Pydantic `model_rebuild()` error:** Add `from __future__ import annotations` at the top of the file.
+- **Response serialized twice:** Avoid creating Pydantic instances just to return from routes — return dicts or ORM objects that the `response_model` already validates.
+- **Unexpected dependency caching:** Use `Depends(func, use_cache=False)` when you need execution on every call.

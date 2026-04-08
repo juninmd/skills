@@ -283,7 +283,7 @@
 
 ### Features
 
-* Add documentation for the authenticating-sso-corp skill. ([ce1c265](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/ce1c265))
+* Add documentation for the labs-authenticating-sso-corp skill. ([ce1c265](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/ce1c265))
 
 # [1.22.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.21.0...v1.22.0) (2026-03-09)
 

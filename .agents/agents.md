@@ -36,12 +36,12 @@ You have access to a vast catalog of specialized **Skills**. These are located i
 
 The `.agents/rules/` directory contains strict guidelines for various domains. When working on a specific technology or workflow, apply the relevant rules:
 
-*   **Culture & Quality:** `luizalabs_culture.md`, `security_quality.md`
+*   **Culture & Quality:** `labs_luizalabs_culture.md`, `security_quality.md`
 *   **Code & Architecture:** `naming_conventions.md`, `shell_scripting.md`
-*   **Infrastructure & CI/CD:** `ci_cd_standards.md`, `magalu_infrastructure.md`
+*   **Infrastructure & CI/CD:** `labs_ci_cd_standards.md`, `labs_magalu_infrastructure.md`
 *   **Git & Automation:** `git_standards.md`, `makefile_standards.md`
 *   **Safety:** `command_safety.md`, `env_secrets.md`
-*   **Documentation:** `documentation_standards.md`, `workspace_nav.md`
+*   **Documentation:** `labs_documentation_standards.md`, `workspace_nav.md`
 
 Always assume the environment is strictly controlled and follows these enterprise patterns.
 

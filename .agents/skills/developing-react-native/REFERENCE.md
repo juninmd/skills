@@ -1,5 +1,4 @@
-# React Native Mobile Developer Reference
-
+# React Native Mobile Developer Referência 📚
 ## Core Components
 - `View`: The fundamental component for building UI.
 - `Text`: A component for displaying text.

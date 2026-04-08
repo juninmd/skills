@@ -7,7 +7,7 @@ Este plugin é focado em desenvolvimento web, experiência do usuário (UI/UX), 
 - **Mobile Engineer** (`mobile-engineer`): Especializado em aplicações móveis e componentes cross-platform.
 
 ## 🛠️ Skills Incluídas
-- **Mobile e UI/UX**: `developing-react-native`, `developing-ui-ux-components`, `validating-baseweb-charts`.
+- **Mobile e UI/UX**: `developing-react-native`, `developing-ui-ux-components`, `labs-validating-baseweb-charts`.
 - **Acessibilidade e SEO**: `auditing-accessibility`, `auditing-technical-seo`.
 - **Internacionalização**: `managing-localization`.
 

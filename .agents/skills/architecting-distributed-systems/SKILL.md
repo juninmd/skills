@@ -1,44 +1,50 @@
 ---
 name: architecting-distributed-systems
-description: Projetar, analisar e otimizar sistemas distribuídos com arquitetura de microsserviços e comunicação via fila de mensagens.
+description: Design, analyze, and optimize distributed systems with microservices architecture and message queue communication.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[component/feature] [options]"
 ---
 
-# Distributed Systems Architect Skill
+# Distributed Systems Architecture
 
 ## Description
-This skill empowers the agent to design, analyze, and optimize distributed systems, focusing on microservices architecture and asynchronous communication via message queues. It covers system decomposition, service discovery, inter-service communication, data consistency, and fault tolerance strategies.
+This skill guides the design, analysis, and optimization of distributed systems, focusing on microservices and asynchronous communication via messaging. It covers system decomposition, service discovery, inter-service communication, data consistency, and fault tolerance.
 
-## Workflow
+## Flow
 
 ### 1. System Decomposition
 - Analyze monolithic applications or requirements to identify bounded contexts.
-- Define microservices based on business capabilities or sub-domains (Domain-Driven Design).
-- Establish clear service boundaries and APIs (REST, gRPC).
+- Define microservices by business capability or subdomain (DDD).
+- Establish clear service boundaries and API contracts (REST/gRPC).
 
 ### 2. Messaging Strategy
-- Select appropriate messaging patterns: Request-Response, Publish-Subscribe, or Event Streaming.
-- Choose message brokers (e.g., Kafka for high throughput, RabbitMQ for complex routing).
-- Define message schemas and versioning strategies.
+- Select appropriate patterns: Request-Response, Publish-Subscribe, or Event Streaming.
+- Choose brokers according to the scenario (Kafka for throughput, RabbitMQ for complex routing).
+- Define message schemas and versioning.
 
-### 3. Reliability & Resilience
+### 3. Reliability and Resilience
 - Implement circuit breakers, retries with exponential backoff, and timeouts.
-- Design for idempotency to handle duplicate messages.
-- Configure Dead Letter Queues (DLQ) for failed message handling.
+- Design with idempotency to handle duplicate messages.
+- Configure DLQ for failed messages.
 
-### 4. Observability & Monitoring
-- Integrate distributed tracing (e.g., Jaeger, Zipkin) to track requests across services.
-- Monitor queue depths, message processing latency, and error rates.
-- Set up centralized logging for cross-service troubleshooting.
+### 4. Observability and Monitoring
+- Integrate distributed tracing (Jaeger/Zipkin/OpenTelemetry).
+- Monitor queue depth, processing latency, and error rate.
+- Centralize logs for cross-service investigation.
 
-### 5. Deployment & Scaling
-- Define scaling policies for individual microservices and message broker clusters.
-- Manage service discovery and load balancing (e.g., Consul, Eureka, Istio).
+### 5. Deployment and Scalability
+- Define scaling policies for services and messaging clusters.
+- Manage service discovery and load balancing (Consul/Eureka/Istio).
+
+## 🧱 Recommended Stack 2026
+- Messaging: Kafka (high throughput) + schema registry; RabbitMQ for advanced routing.
+- Contracts: gRPC for critical internal communication and REST for public edge.
+- Consistency: Outbox + CDC (Debezium) for event-driven integration.
+- Resilience: Resilience4j (JVM) or equivalent libraries per language.
 
 ## Best Practices
-- **Loose Coupling:** Services should be independent; changes in one should not necessitate changes in others.
-- **Eventual Consistency:** Accept that data might not be immediate across all services; use Sagas or Outbox patterns for distributed transactions.
-- **Fail Fast:** Systems should detect failures quickly and gracefully degrade functionality.
-- **Statelessness:** Design services to be stateless whenever possible to simplify scaling and recovery.
+- **Low Coupling:** Changes in one service should not break others.
+- **Eventual Consistency:** Use Saga/Outbox for distributed transactions.
+- **Fail Fast:** Detect failures early and degrade with control.
+- **Statelessness:** Prefer stateless services to simplify scaling and recovery.

@@ -1,5 +1,4 @@
-# UI/UX Component Developer Forms
-
+# UI/UX Component Developer Formulários 📋
 ## 1. Component Specification (component_spec.md)
 
 ### Goal

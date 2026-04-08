@@ -1,39 +1,39 @@
 ---
 name: creating-technical-content
-description: Produzir documentação técnica de alta qualidade, tutoriais, postagens em blogs e notas de lançamento.
+description: Produce high-quality technical documentation, tutorials, blog posts, and release notes.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[context] [options]"
 ---
 
-# Technical Content Creator Skill
+# Technical Content Creator
 
 ## Description
-This skill enables the agent to produce high-quality technical documentation, tutorials, blog posts, and release notes. It focuses on clarity, accuracy, and engagement for technical audiences.
+This skill empowers the agent to produce high-quality technical documentation, tutorials, articles, and release notes. The focus is on clarity, accuracy, and engagement for technical audiences.
 
-## Workflow
+## Flow
 
-### 1. Planning & Research
-- Identify the target audience (developers, end-users, stakeholders).
-- Define the scope and purpose of the content.
-- Gather information from code, specs, and subject matter experts.
+### 1. Planning and Research
+- Identify the target audience (developers, end users, stakeholders).
+- Define the scope and objective of the content.
+- Gather information from code, specifications, and domain experts.
 
-### 2. Drafting
-- Create an outline or structure (headings, sections).
-- Write clear, concise, and grammatically correct text.
+### 2. Initial Writing
+- Create a content outline (headings and sections).
+- Write clearly, concisely, and with correct grammar.
 - Use code blocks, diagrams, and screenshots to illustrate concepts.
 
-### 3. Review & Refine
+### 3. Review and Refinement
 - Verify technical accuracy.
-- Check for consistency in tone and style (style guides).
-- Simplify complex jargon.
+- Ensure consistency of tone and style (style guide).
+- Simplify jargon when there is a clear alternative.
 
-### 4. Publishing
+### 4. Publication
 - Format the content for the target platform (Markdown, HTML, PDF).
-- Generate a table of contents.
+- Generate a table of contents when necessary.
 - Add metadata (tags, categories).
 
 ## Best Practices
-- **Active Voice:** Use active voice for clearer instructions.
-- **Examples:** Always provide concrete examples and code snippets.
-- **Structure:** Use logical headings and bullet points to improve readability.
+- **Active Voice:** Prefer active voice for clearer instructions.
+- **Concrete Examples:** Always include real-world examples and code snippets.
+- **Structure:** Use logical headings and bullet points to facilitate reading.

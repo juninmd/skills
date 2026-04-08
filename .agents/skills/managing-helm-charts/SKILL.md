@@ -1,30 +1,30 @@
 ---
 name: managing-helm-charts
-description: Orientação especializada para construir, gerenciar e otimizar Helm charts para implantações de produção em Kubernetes.
+description: Specialized guidance for building, managing, and optimizing Helm charts for production deployments on Kubernetes.
 argument-hint: "[resource/project] [options]"
 ---
 
-# Managing Helm Charts
+# Helm Charts Management
 
-Comprehensive guidance for scaffolding, managing, and optimizing Helm charts for production-grade Kubernetes deployments.
+Complete guide to creating, organizing, and optimizing Helm charts for production-ready Kubernetes deployments.
 
-## PURPOSE
-This skill provides a unified framework for building, organizing, and maintaining Helm charts. It covers the entire lifecycle from initial scaffolding to advanced templating patterns, dependency management, and multi-environment orchestration.
+## Objective
+This skill provides a unified framework for building, organizing, and maintaining Helm charts. It covers the entire lifecycle, from initial scaffolding to advanced templating patterns, dependency management, and multi-environment orchestration.
 
-## WHEN TO USE
-- **Scaffolding**: Initializing new projects with a standardized, production-ready structure.
-- **Pattern Implementation**: Applying reusable logic for complex Kubernetes manifests.
-- **Expert Management**: Handling multi-environment configurations, dependencies, and lifecycle hooks.
-- **Validation**: Ensuring charts are linted, tested, and compliant with best practices before deployment.
+## When to Use
+- **Scaffolding**: Initialize new projects with a standardized, production-ready structure.
+- **Pattern Implementation**: Apply reusable logic for complex Kubernetes manifests.
+- **Advanced Management**: Operate multi-environment configurations, dependencies, and lifecycle hooks.
+- **Validation**: Ensure charts are linted, tested, and compliant with best practices before deployment.
 
-## STEP-BY-STEP WORKFLOW
+## Step-by-Step Flow
 
-### 1. Initialize and Scaffold
-Create a new chart using the standard structure to ensure consistency across the organization.
+### 1. Initialize and Structure
+Create a new chart using the standard structure to ensure consistency in organization.
 ```bash
 helm create <chart-name>
 ```
-**Standard Directory Layout:**
+**Standard Directory Structure:**
 - `Chart.yaml`: Metadata and dependencies.
 - `values.yaml`: Default configuration values.
 - `templates/`: Kubernetes manifest templates.
@@ -37,7 +37,7 @@ Define the chart's identity and requirements:
 - Maintain separate `version` (chart version) and `appVersion` (application version).
 - Define `dependencies` with explicit versions and repositories to avoid breaking changes.
 
-### 3. Design Values Hierarchy
+### 3. Define Values Hierarchy
 Organize `values.yaml` to be intuitive and extensible:
 - Group related settings (e.g., `image`, `service`, `persistence`).
 - Use `global` values for settings shared across multiple subcharts.
@@ -51,24 +51,24 @@ Leverage Go templates and Helm functions for dynamic manifests:
 - **Pipelines**: Use functions like `nindent`, `quote`, and `default` to sanitize and format output.
 
 ### 5. Manage Dependencies
-Handle subcharts effectively to build complex applications:
+Manage subcharts efficiently for complex applications:
 - Run `helm dependency update` to fetch requirements defined in `Chart.yaml`.
 - Use `condition` or `tags` to enable/disable subcharts dynamically based on values.
 - Override subchart values in the parent `values.yaml` using the subchart's name as the top-level key.
 
-### 6. Multi-Environment Orchestration
-Manage different environments (Dev, HML, Prod) using layered value files:
+### 6. Multi-environment Orchestration
+Manage different environments (Dev, HML, Prod) with layered value files:
 - `values-dev.yaml`: Minimal resources, debug enabled.
 - `values-prod.yaml`: High availability, strict resource limits, and production-grade configurations.
 - **Command**: `helm install <release> <chart> -f values.yaml -f values-prod.yaml`
 
 ### 7. Validation and Testing
-Ensure reliability through rigorous pre-deployment checks:
+Ensure reliability with rigorous validations before deployment:
 - **Linting**: `helm lint <chart-path>` to catch syntax and best-practice violations.
 - **Dry-run**: `helm install --dry-run --debug` to inspect rendered manifests without deploying.
 - **Testing**: Implement `templates/tests/` (e.g., connection tests) and run `helm test <release>`.
 
-## BEST PRACTICES
+## Best Practices
 - **Semantic Versioning**: Strictly follow SemVer for both chart and application releases.
 - **Documentation**: Document every parameter in `values.yaml` with clear, descriptive comments.
 - **Resource Management**: Always define `requests` and `limits` for CPU and Memory to ensure cluster stability.
@@ -77,12 +77,12 @@ Ensure reliability through rigorous pre-deployment checks:
 - **Security**: Use `Secret` resources for sensitive data; never commit plain-text secrets to `values.yaml`.
 - **Labels**: Apply standard Kubernetes labels (`app.kubernetes.io/name`, `instance`, `version`) to all resources.
 
-## COMMON PATTERNS
+## Common Patterns
 - **The "Fullname" Helper**: Standardize resource naming to avoid collisions in shared namespaces.
 - **ConfigMap Checksum**: Add a checksum annotation to Deployments to trigger automatic restarts when ConfigMaps change.
 - **Library Charts**: Use `type: library` for shared template logic used across multiple distinct applications.
 
-## TROUBLESHOOTING
+## Troubleshooting
 - **Rendering Issues**: Use `helm template` to see exactly what manifests Helm is generating.
 - **Release State**: Use `helm status` and `helm history` to diagnose failed upgrades or rollbacks.
 - **Namespace Conflicts**: Ensure the target namespace exists or use the `--create-namespace` flag.

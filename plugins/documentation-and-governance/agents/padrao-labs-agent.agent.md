@@ -1,1 +1,0 @@
-../../../.agents/agents/padrao-labs-agent.agent.md

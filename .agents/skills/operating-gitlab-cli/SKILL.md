@@ -1,6 +1,6 @@
 ---
 name: operating-gitlab-cli
-description: Habilidade especializada para operar a GitLab CLI (glab) dentro da infraestrutura Luizalabs. Use para gerenciar projetos, merge requests e pipelines especificamente em gitlab.luizalabs.com.
+description: Specialized skill to operate the GitLab CLI (glab) within the Luizalabs infrastructure. Use to manage projects, merge requests, and pipelines specifically on gitlab.luizalabs.com.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[resource/cluster] [options]"
@@ -9,11 +9,11 @@ disable-model-invocation: true
 
 # Operating GitLab CLI at Luizalabs
 
-This skill provides the procedural knowledge for using `glab` within the Luizalabs ecosystem (`gitlab.luizalabs.com`).
+This skill provides the operational knowledge to use `glab` in the Luizalabs ecosystem (`gitlab.luizalabs.com`).
 
 ## Installation for Luizalabs Engineers
 
-Ensure `glab` is installed and available in your PATH.
+Ensure that `glab` is installed and available in your PATH.
 
 1.  **Check installation:** `glab --version`
 2.  **Internal Binary Install (Linux):**
@@ -25,7 +25,7 @@ Ensure `glab` is installed and available in your PATH.
     rm glab.tar.gz && rm -rf bin
     ```
 
-## Luizalabs Authentication & Config
+## Authentication and Luizalabs Configuration
 
 The GitLab CLI must be explicitly configured for the internal instance.
 
@@ -33,19 +33,19 @@ The GitLab CLI must be explicitly configured for the internal instance.
     ```bash
     glab config set host gitlab.luizalabs.com
     ```
-2.  **Authentication (Non-interactive):**
-    Use a Personal Access Token (PAT) with `api` and `write_repository` scopes.
+2.  **Authentication (non-interactive):**
+  Use a Personal Access Token (PAT) with `api` and `write_repository` scopes.
     ```bash
     glab auth login --hostname gitlab.luizalabs.com --token "<YOUR_PAT>" --api-protocol https
     ```
 3.  **Telemetry Note:**
-    `401 Unauthorized` errors for telemetry are expected — the internal instance blocks usage tracking. Authentication remains valid.
+  `401 Unauthorized` telemetry errors are expected because the internal instance blocks usage tracking. Authentication remains valid.
 
 ## Command Reference
 
 See the full command reference at [references/commands.md](references/commands.md).
 
-## Luizalabs Specific Workflows
+## Specific Luizalabs Workflows
 
 *   **List Squad Repos:** `glab repo list --per-page 20`
 *   **Check Pipeline Status:** `glab ci status` (crucial before merging)
@@ -90,4 +90,4 @@ Exposes GitLab tools to VS Code Copilot Chat via `glab`'s built-in MCP server (v
 ```bash
 padrao-labs-agents install --tools copilot
 ```
-This command automatically merges the `gitlab-labs` configuration into the correct VSCode path.
+This command automatically merges the `gitlab-labs` configuration into the correct VS Code path.

@@ -1,5 +1,4 @@
-# Forms: Autonomous Loop (Interactive)
-
+# Formulários: Autonomous Loop (Interactive) 📋
 ## Project Setup Form
 Este formulário é preenchido interativamente pelo script `scripts/setup_autonomous_agent.sh`.
 

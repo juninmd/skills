@@ -8,6 +8,8 @@ export const VSCODE_SETTINGS_KEYS = {
   SKILLS_LOCS: 'chat.agentSkillsLocations',
   AGENTS_LOCS: 'chat.agentFilesLocations',
   RULES_LOCS: 'chat.instructionsFilesLocations',
+  HOOKS_LOCS: 'chat.hookFilesLocations',
+  USE_CLAUDE_HOOKS: 'chat.useClaudeHooks',
   AUTOPILOT_ENABLE: 'chat.autopilot.enabled',
   IMAGE_SUPPORT: 'chat.imageSupport.enabled',
   PARENT_CUSTOMIZATIONS: 'chat.useCustomizationsInParentRepositories',
@@ -68,7 +70,9 @@ export const SETTING_DESCRIPTIONS: Record<string, string> = {
   [VSCODE_SETTINGS_KEYS.PROMPT_LOCS]: 'Pastas adicionais contendo arquivos de prompt (.prompt.md)',
   [VSCODE_SETTINGS_KEYS.SKILLS_LOCS]: 'Pastas contendo definições de Agent Skills',
   [VSCODE_SETTINGS_KEYS.AGENTS_LOCS]: 'Pastas contendo definições de Agentes customizados',
-  [VSCODE_SETTINGS_KEYS.RULES_LOCS]: 'Pastas contendo regras (rules) de desenvolvimento',
+  [VSCODE_SETTINGS_KEYS.RULES_LOCS]: 'Pastas contendo instruções de desenvolvimento (instructions)',
+  [VSCODE_SETTINGS_KEYS.HOOKS_LOCS]: 'Pastas contendo hooks do agente (Claude/Copilot)',
+  [VSCODE_SETTINGS_KEYS.USE_CLAUDE_HOOKS]: 'Habilita suporte a hooks do Claude no VS Code',
   [VSCODE_SETTINGS_KEYS.AUTOPILOT_ENABLE]: 'Habilita o modo Autopilot no VS Code',
   [VSCODE_SETTINGS_KEYS.IMAGE_SUPPORT]: 'Habilita suporte nativo a leitura de imagens e arquivos binários',
   [VSCODE_SETTINGS_KEYS.PARENT_CUSTOMIZATIONS]: 'Descobre instruções e configurações em repositórios pai (monorepos)',
@@ -122,6 +126,7 @@ export const SETTING_DESCRIPTIONS: Record<string, string> = {
  * Configurações padrão sugeridas pela CLI.
  */
 export const DEFAULT_ADVANCED_SETTINGS: Record<string, any> = {
+  [VSCODE_SETTINGS_KEYS.USE_CLAUDE_HOOKS]: true,
   [VSCODE_SETTINGS_KEYS.AUTOPILOT_ENABLE]: true,
   [VSCODE_SETTINGS_KEYS.PARENT_CUSTOMIZATIONS]: true,
   [VSCODE_SETTINGS_KEYS.AGENT_DEBUG_LOG]: true,

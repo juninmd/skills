@@ -8,7 +8,7 @@ Responsável por manter padrões, auditar governança de agentes autônomos e ge
 ## 🛠️ Skills Incluídas
 - **Documentação e Conteúdo**: `documenting-markdown`, `generating-design-docs`, `creating-technical-content`.
 - **Governança de Agentes**: `reviewing-skills`, `generating-skills`, `running-autonomous-loops`, `configuring-vscode-copilot`.
-- **Navegação e Pesquisa**: `researching-web`, `navigating-organizations`.
+- **Navegação e Pesquisa**: `researching-web`, `labs-navigating-organizations`.
 
 ## 🚀 Como Utilizar
 Quando o objetivo for mapear processos organizacionais, registrar Design Docs, atualizar CHANGELOGs, pesquisar referências técnicas ou criar/melhorar agentes e skills no ecossistema atual.

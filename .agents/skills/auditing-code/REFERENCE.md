@@ -1,5 +1,4 @@
-# Code Auditor Reference
-
+# Code Auditor Referência 📚
 ## Tools
 
 ### 1. `run_shell_command`

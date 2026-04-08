@@ -1,5 +1,4 @@
-# Cloud Cost Optimizer Reference
-
+# Cloud Cost Optimizer Referência 📚
 ## AWS Cost Management
 
 ### 1. AWS Cost Explorer

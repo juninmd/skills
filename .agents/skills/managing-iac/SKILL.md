@@ -1,6 +1,6 @@
 ---
 name: managing-iac
-description: Provisionamento de infraestrutura como código (Terraform/Pulumi/Ansible) com foco em modularidade, testes e segurança.
+description: Infrastructure as Code (IaC) provisioning (Terraform/Pulumi/Ansible) focusing on modularity, testing, and security.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[resource/project] [options]"
@@ -9,29 +9,29 @@ disable-model-invocation: true
 
 # Infrastructure as Code (IaC) Specialist
 
-Esta skill define os padrões para construção e manutenção de infraestrutura segura e reprodutível.
+This skill defines the standards for building and maintaining secure and reproducible infrastructure.
 
 ## Instructions
-1.  **Modularity First:** Divida a infraestrutura em módulos reutilizáveis e versionados.
-    *   **Reasoning:** Evita duplicação (DRY), facilita rollbacks e permite testes unitários isolados.
-    *   **Structure:** `modules/vpc`, `modules/rds`, `modules/eks`. Cada módulo deve ter `README.md`, `variables.tf`, `outputs.tf`.
-2.  **Automated Testing:** Teste a infraestrutura como código de software.
-    *   **Validation:** Use `terraform validate` e `tflint` em PRs.
-    *   **Unit Tests:** Use `terratest` (Go) ou `pytest-terraform` para validar criação de recursos em ambiente efêmero.
-    *   **Security:** Integre `tfsec`, `checkov` ou `bridgecrew` no pipeline.
-3.  **State Management:** Use backends remotos (S3 + DynamoDB Locking, GCS, Terraform Cloud).
-    *   **Locking:** Nunca permita concorrência de escrita no estado.
-    *   **Isolation:** Separe estados por ambiente (`prod`, `staging`, `dev`) usando workspaces ou diretórios distintos.
-4.  **Immutable Infrastructure:** Prefira recriar recursos (Immutable) a modificá-los in-place (Mutable), especialmente servidores.
+1.  **Modularity First:** Divide the infrastructure into reusable and versioned modules.
+    *   **Rationale:** Avoids duplication (DRY), facilitates rollbacks, and allows for isolated unit testing.
+    *   **Structure:** `modules/vpc`, `modules/rds`, `modules/eks`. Each module must have `README.md`, `variables.tf`, and `outputs.tf`.
+2.  **Automated Testing:** Test infrastructure as software code.
+    *   **Validation:** Use `terraform validate` and `tflint` in PRs.
+    *   **Unit Tests:** Use `terratest` (Go) or `pytest-terraform` to validate resource creation in an ephemeral environment.
+    *   **Security:** Integrate `tfsec`, `checkov`, or `bridgecrew` into the pipeline.
+3.  **State Management:** Use remote backends (S3 + DynamoDB Locking, GCS, Terraform Cloud).
+  *   **Locking:** Never allow concurrent write access to the state.
+  *   **Isolation:** Separate states by environment (`prod`, `staging`, `dev`) using distinct workspaces or directories.
+4.  **Immutable Infrastructure:** Prefer recreating resources (Immutable) over modifying them in-place (Mutable), especially for servers.
 
 ## Common Tasks
-*   **Create Module:** Crie `main.tf` (recursos), `variables.tf` (inputs tipados) e `outputs.tf` (retorno de valores).
-*   **Run Linter:** `tflint --init && tflint` (valida boas práticas e erros de provider).
-*   **Run Security Scan:** `checkov -d .` (valida conformidade CIS/AWS/GCP).
-*   **Apply Plan:** `terraform plan -out=tfplan && terraform apply tfplan` (nunca aplique sem plano salvo).
+*   **Create Module:** Create `main.tf` (resources), `variables.tf` (typed inputs), and `outputs.tf` (returned values).
+*   **Run Linter:** `tflint --init && tflint` (validates best practices and provider errors).
+*   **Run Security Scan:** `checkov -d .` (validates CIS/AWS/GCP compliance).
+*   **Apply Plan:** `terraform plan -out=tfplan && terraform apply tfplan` (never apply without a saved plan).
 
 ## Examples
-### Valid Terraform Module Interface
+### Valid Terraform Module Interface Example
 ```hcl
 variable "vpc_cidr" {
   description = "CIDR block for the VPC"
@@ -49,7 +49,7 @@ output "vpc_id" {
 }
 ```
 
-### Invalid (Hardcoded/Unsafe)
+### Invalid Example (Hardcoded/Unsafe)
 ```hcl
 resource "aws_security_group" "allow_all" {
   ingress {
@@ -62,5 +62,5 @@ resource "aws_security_group" "allow_all" {
 ```
 
 ## Resources
-- **Terraform Best Practices:** Use `modules`, `remote state`, `variable validation`.
-- **Policy as Code:** Considere usar OPA (Open Policy Agent) para regras de conformidade complexas.
+- **Terraform Best Practices:** Use `modules`, `remote state`, and `variable validation`.
+- **Policy as Code:** Consider using OPA (Open Policy Agent) for complex compliance rules.

@@ -1,26 +1,26 @@
 ---
 name: managing-dependencies-renovate
-description: Automação segura de atualização de dependências (npm, pip, docker) com auto-merge em patches não-quebrantes.
+description: Secure dependency update automation (npm, pip, docker) with auto-merge for non-breaking patches.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[repo/file] [options]"
 ---
 
-# Renovate Operations (Dependency Bot)
+# Operations with Renovate (Dependency Bot)
 
-Esta skill orquestra a "limpeza" contínua do código, mantendo dependências sempre seguras e atualizadas.
+This skill orchestrates continuous code "cleanup", keeping dependencies always secure and up-to-date.
 
 ## Instructions
-1.  **Configuration (Config as Code):** `renovate.json` DEVE estar na raiz.
+1.  **Configuration (Config as Code):** `renovate.json` MUST be at the root.
     *   **Extends:** `config:base`, `schedule:nonOfficeHours`, `:prHourlyLimit2`.
-2.  **Auto-Merge (Safe Updates):** Automatize atualizações de `patch` e `minor` para dependências dev e libs internas, desde que o CI passe.
+2.  **Auto-Merge (Safe Updates):** Automate `patch` and `minor` updates for dev dependencies and internal libs, as long as the CI passes.
     *   **Condition:** `packageRules: [{ "matchUpdateTypes": ["minor", "patch"], "automerge": true }]`
-3.  **Vulnerability Fixes:** Prioridade máxima para updates de segurança.
+3.  **Vulnerability Fixes:** Maximum priority for security updates.
     *   **Condition:** `vulnerabilityAlerts: { "enabled": true, "automerge": true }`
-4.  **Pin Versions:** Fixe versões exatas em `package.json` e `requirements.txt` (sem `^` ou `~`).
-    *   **Reasoning:** Evita builds "quebrados do nada" (determinismo).
+4.  **Pin Versions:** Pin exact versions in `package.json` and `requirements.txt` (without `^` or `~`).
+    *   **Rationale:** Prevents builds from "breaking out of nowhere" (determinism).
 
-## Example: `renovate.json` Standard
+## Example: Standard `renovate.json`
 ```json
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
@@ -45,5 +45,5 @@ Esta skill orquestra a "limpeza" contínua do código, mantendo dependências se
 ```
 
 ## Troubleshooting
-*   **Renovate Stuck:** Verifique o Dashboard do Renovate (issue no repo).
-*   **Configure Ignore:** Se uma atualização quebra, adicione `"ignoreDeps": ["package-name"]`.
+*   **Renovate Stuck:** Check the Renovate Dashboard (issue in the repo).
+*   **Configure Ignore:** If an update breaks, add `"ignoreDeps": ["package-name"]`.

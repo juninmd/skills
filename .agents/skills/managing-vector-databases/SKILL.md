@@ -1,6 +1,6 @@
 ---
 name: managing-vector-databases
-description: Gerenciar bancos de dados vetoriais para busca por similaridade, sistemas RAG e aplicações de busca semântica.
+description: Manage vector databases for similarity search, RAG systems, and semantic search applications.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[resource/project] [options]"
@@ -9,14 +9,14 @@ argument-hint: "[resource/project] [options]"
 # Vector Database Manager
 
 ## Description
-Specialized agent for managing vector databases (Pinecone, Weaviate, Milvus, Chroma, Qdrant). Capable of creating indexes, ingesting embeddings, performing similarity searches, and managing vector metadata for RAG and semantic search applications.
+Specialized agent for managing vector databases (Pinecone, Weaviate, Milvus, Chroma, Qdrant). Capable of creating indices, ingesting embeddings, executing similarity searches, and managing vector metadata for RAG applications and semantic search.
 
 ## Capabilities
-- **Index Management:** Create, configure, and delete vector indexes/collections.
-- **Data Ingestion:** Upsert vectors with metadata and sparse values.
-- **Similarity Search:** Query vectors using cosine similarity, dot product, or Euclidean distance.
+- **Index Management:** Create, configure, and remove vector indices/collections.
+- **Data Ingestion:** Perform upserts of vectors with metadata and sparse values.
+- **Similarity Search:** Query vectors via cosine similarity, dot product, or Euclidean distance.
 - **Hybrid Search:** Combine keyword search with semantic search (where supported).
-- **Metadata Filtering:** Filter search results based on metadata fields.
+- **Metadata Filtering:** Filter results by metadata fields.
 - **Namespace Management:** Organize vectors into namespaces for multi-tenancy.
 
 ## Use Cases

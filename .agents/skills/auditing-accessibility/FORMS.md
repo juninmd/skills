@@ -1,30 +1,29 @@
-# Accessibility Auditor Forms
+# Accessibility Auditor Formulários 📋
+## 1. Solicitação de Auditoria de Acessibilidade (a11y_request.md)
 
-## 1. Accessibility Audit Request (a11y_request.md)
+### Objetivo
+Iniciar uma auditoria de acessibilidade para uma página ou componente específico.
 
-### Goal
-Initiate an accessibility audit for a specific page or component.
+### Campos
+- **URL/Arquivo-Alvo:** [URL ou Path]
+- **Padrão:** [WCAG 2.1 AA / Section 508]
+- **Escopo:** [Página completa / Componente específico]
+- **Contexto de Dispositivo:** [Desktop / Mobile]
 
-### Fields
-- **Target URL/File:** [URL or Path]
-- **Standard:** [WCAG 2.1 AA / Section 508]
-- **Scope:** [Full Page / Specific Component]
-- **Device Context:** [Desktop / Mobile]
+## 2. Relatório de Auditoria de Acessibilidade (a11y_report.md)
 
-## 2. Accessibility Audit Report (a11y_report.md)
+### Objetivo
+Documentar os achados de uma auditoria de acessibilidade.
 
-### Goal
-Document the findings of an accessibility audit.
-
-### Fields
-- **Target:** [URL/File]
-- **Date:** [Date of audit]
-- **Compliance Score:** [Score if available]
-- **Violations:**
-    - **Issue 1:**
-        - **Description:** [Description]
-        - **Impact:** [Critical/Serious/Minor]
-        - **WCAG Criteria:** [e.g., 1.1.1 Non-text Content]
-        - **Element:** [Code snippet]
-        - **Fix:** [Recommendation]
-    - **Issue 2:** ...
+### Campos
+- **Alvo:** [URL/Arquivo]
+- **Data:** [Data da auditoria]
+- **Score de Conformidade:** [Score se disponível]
+- **Violações:**
+    - **Problema 1:**
+        - **Descrição:** [Descrição]
+        - **Impacto:** [Critical/Serious/Minor]
+        - **Critério WCAG:** [e.g., 1.1.1 Non-text Content]
+        - **Elemento:** [Trecho de código]
+        - **Correção:** [Recomendação]
+    - **Problema 2:** ...

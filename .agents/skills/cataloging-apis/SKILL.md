@@ -1,6 +1,6 @@
 ---
 name: cataloging-apis
-description: Catalogação de APIs no Backstage utilizando dependency.yaml e especificações OpenAPI.
+description: API cataloging in Backstage using dependency.yaml and OpenAPI specifications.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[context] [options]"
@@ -8,12 +8,12 @@ argument-hint: "[context] [options]"
 
 # API Catalog Operations
 
-Registro e governança de APIs no portal de desenvolvedor (Backstage).
+API registration and governance in the developer portal (Backstage).
 
 ## Instructions
-- Garanta que o `dependency.yaml` e a `openapi.json` existam.
-- Execute `ci-knife api-catalog` com os metadados de Lifecycle e Gateway.
+- Ensure that `dependency.yaml` and `openapi.json` exist.
+- Run `ci-knife api-catalog` with Lifecycle and Gateway metadata.
 
 ## Capabilities
 - **Lifecycle Management**: Experimental, Supported, Deprecated.
-- **Gateway Integration**: Vínculo com Kong Gateway ID.
+- **Gateway Integration**: Linking with Kong Gateway ID.

@@ -1,69 +1,58 @@
 # 🤖 Agents — Luizalabs
 
-Índice de agentes especializados. Cada agente tem uma persona, objetivos e capabilities próprias.
+Index of specialized agents. Each agent has its own persona, objectives, and capabilities.
 
-> **VS Code 1.97+ — Subagents**: Agentes com `tools: ['agent']` podem delegar tarefas a subagents especializados que rodam em janelas de contexto isoladas e retornam apenas o resultado final, reduzindo o consumo de tokens e mantendo o contexto do agente principal limpo.
-
----
-
-## 🎯 Agentes Coordenadores (Orquestradores)
-
-Estes agentes usam **subagents em paralelo** para análises multi-perspectiva. São o ponto de entrada recomendado para tarefas complexas.
-
-| Agente | Papel | Subagents Utilizados |
-|---|---|---|
-| [feature-builder](./feature-builder.agent.md) | Coordena entrega end-to-end de features (Plan → TDD → Implement → Review) | `software-architect`, `quality-engineer`, `secops-agent`, `code-reviewer`, `platform-engineer` |
-| [code-reviewer](./code-reviewer.agent.md) | Review multi-perspectiva paralelo antes de merge | `secops-agent`, `quality-engineer`, `software-architect`, `refactoring-agent` |
-| [padrao-labs-agent](./padrao-labs-agent.agent.md) | Audita 100% de aderência ao Padrão Labs | `secops-agent`, `quality-engineer`, `platform-engineer`, `software-architect` |
-| [software-architect](./software-architect.agent.md) | Arquitetura, ADRs, Design Docs (C4), débito técnico | `quality-engineer`, `secops-agent` |
+> **VS Code 1.97+ — Subagents**: Agents with `tools: ['agent']` can delegate tasks to specialized subagents running in isolated context windows and returning only the final result, reducing token consumption and keeping the main agent context clean.
 
 ---
 
-## 🔧 Agentes Especialistas (Workers)
+## 🎯 Active Agents
 
-Agentes focados, usados diretamente ou invocados como subagents pelos coordenadores.
+Simplified catalog by high-value function and technology context.
 
-| Agente | Especialidade | `user-invocable` |
-|---|---|---|
-| [quality-engineer](./quality-engineer.agent.md) | Cobertura ≥90%, SonarQube, pytest/jest, métricas DORA | ✅ |
-| [secops-agent](./secops-agent.agent.md) | SecOps, segredos, WAF, conformidade, Zero Trust | ✅ |
-| [refactoring-agent](./refactoring-agent.agent.md) | SOLID, DRY, KISS, YAGNI, Clean Code | ✅ |
-| [platform-engineer](./platform-engineer.agent.md) | IaC (Terraform), CLIs, templates CI/CD, Helm Charts | ✅ |
-| [terminal-operator](./terminal-operator.agent.md) | DevOps, K8s, GCP/MGC, Docker, Git avançado, CI-Knife | ✅ |
-| [frontend-expert](./frontend-expert.agent.md) | React/Vite/TypeScript, Zustand, acessibilidade WCAG, Core Web Vitals | ✅ |
-| [mobile-engineer](./mobile-engineer.agent.md) | React Native, Android, iOS, performance 60fps | ✅ |
-| [python-engineer](./python-engineer.agent.md) | FastAPI, Pydantic v2, SQLAlchemy async, pytest, uv, type safety | ✅ |
+| Agent | Role |
+|---|---|
+| [principal-engineer](./principal-engineer.agent.md) | Principal-level engineering guidance, architecture review, SOLID patterns, technical leadership |
+| [design-doc](./design-doc.agent.md) | Architecture, ADR/RFC, Design Docs, evolution strategy |
+| [labs-code-reviewer](./labs-code-reviewer.agent.md) | Principal-level technical review for security, architecture, quality, design patterns (Luizalabs Standard) |
+| [labs-secops-agent](./labs-secops-agent.agent.md) | Security, secrets, compliance, and defensive controls |
+| [terminal-operator](./terminal-operator.agent.md) | Infrastructure operations and safe shell execution |
+| [labs-python-engineer](./labs-python-engineer.agent.md) | Python/FastAPI engineering for production |
+| [nodejs-engineer](./nodejs-engineer.agent.md) | Node.js backend/tooling engineering for production |
+| [dotnet-engineer](./dotnet-engineer.agent.md) | C#/.NET engineering with async patterns, SOLID, DI, and testing |
+| [frontend-expert](./frontend-expert.agent.md) | Web UI/UX, accessibility, React 19.2, and frontend performance |
+| [mobile-engineer](./mobile-engineer.agent.md) | Cross-platform mobile engineering and app store publishing |
 
 ---
 
-## 🔗 Como Subagents Funcionam (VS Code 1.97+)
+## 🔗 How Subagents Work (VS Code 1.97+)
 
 ```mermaid
 graph LR
-    U[Usuário] --> C[Agente Coordenador\ntools: agent]
-    C -->|paralelo| S1[Subagent 1\ncontexto isolado]
-    C -->|paralelo| S2[Subagent 2\ncontexto isolado]
-    C -->|paralelo| S3[Subagent 3\ncontexto isolado]
-    S1 --> R[Síntese\ndo Coordenador]
+    U[User] --> C[Coordinator Agent\ntools: agent]
+    C -->|parallel| S1[Subagent 1\nisolated context]
+    C -->|parallel| S2[Subagent 2\nisolated context]
+    C -->|parallel| S3[Subagent 3\nisolated context]
+    S1 --> R[Coordinator\nSynthesis]
     S2 --> R
     S3 --> R
     R --> U
 ```
 
-**Propriedades de frontmatter relevantes:**
+**Relevant frontmatter properties:**
 
-| Propriedade | Padrão | Descrição |
+| Property | Default | Description |
 |---|---|---|
-| `tools: ['agent', ...]` | — | Habilita o agente a invocar subagents |
-| `user-invocable` | `true` | Exibir o agente no dropdown do chat |
-| `disable-model-invocation` | `false` | Impede outros agentes de usar este como subagent |
-| `agents: [...]` | `*` (todos) | Restringe quais subagents este coordenador pode usar |
+| `tools: ['agent', ...]` | — | Enables agent to invoke subagents |
+| `user-invocable` | `true` | Show agent in chat dropdown |
+| `disable-model-invocation` | `false` | Prevent other agents from using this as subagent |
+| `agents: [...]` | `*` (all) | Restrict which subagents this coordinator can use |
 
 ---
 
-## Referências Rápidas
+## Quick References
 
-- **Skill de configuração do VS Code + Copilot**: `.agents/skills/configuring-vscode-copilot/SKILL.md`
-- **Configuração Netskope (SSL)**: `.agents/skills/configuring-netskope/SKILL.md`
-- **Regras e Padrões**: `.agents/rules/index.md`
-- **Documentação Subagents (VS Code)**: https://code.visualstudio.com/docs/copilot/agents/subagents
+- **VS Code + Copilot configuration skill**: `.agents/skills/configuring-vscode-copilot/SKILL.md`
+- **Netskope configuration (SSL)**: `.agents/skills/labs-configuring-netskope/SKILL.md`
+- **Rules and standards**: `.agents/rules/index.md`
+- **Subagents documentation (VS Code)**: https://code.visualstudio.com/docs/copilot/agents/subagents

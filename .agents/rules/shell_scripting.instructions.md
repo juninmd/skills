@@ -1,38 +1,36 @@
 ---
 name: shell-scripting
-description: Padrões de automação shell — sintaxe de loops/condicionais e regras para scripts seguros e idempotentes.
+description: Shell automation standards for loop/conditional syntax and safe, idempotent scripts.
 applyTo: '**/*.sh, **/Makefile'
-metadata:
-    works_on: [copilot, antigravity, gemini_cli]
 ---
 
 # Rule: Shell Scripting
 
-## Sintaxe Essencial
+## Essential Syntax
 
 ### Loops
-- `for i in *; do echo $i; done` — iteração de arquivos.
-- `while true; do ...; sleep 1; done` — execução contínua (sempre use `sleep` para não travar CPU).
+- `for i in *; do echo $i; done` - file iteration.
+- `while true; do ...; sleep 1; done` - continuous execution (always use `sleep` to avoid CPU lock).
 
-### Condicionais
-- `if [[ -f <file> ]]; then ...; fi` — validação de existência de arquivo (prefira `[[ ]]` a `[ ]`).
-- `command1 && command2` — execução condicional de sucesso.
-- `command || echo "Failed"` — tratamento de erro básico.
+### Conditionals
+- `if [[ -f <file> ]]; then ...; fi` - file existence checks (prefer `[[ ]]` over `[ ]`).
+- `command1 && command2` - execute second command only on success.
+- `command || echo "Failed"` - basic error fallback.
 
-### Boas Práticas de Sintaxe
-- Use `${VAR}` com chaves para evitar erros de interpolação.
-- Use `set -e` em scripts longos para parar em erro.
-- Prefira `$()` a backticks para substituição de comandos.
+### Syntax Best Practices
+- Use `${VAR}` to avoid interpolation ambiguity.
+- Use `set -e` in long scripts to stop on errors.
+- Prefer `$()` over backticks for command substitution.
 
-## Regras para Scripts Seguros
+## Rules for Safe Scripts
 
-1. **Verificação de Variáveis**: Antes de usar variável em loop destrutivo (ex: `rm $VAR`), valide se está definida: `[[ -z "$VAR" ]] && exit 1`.
-2. **Shebang & Permissões**: Todo arquivo `.sh` deve ter `#!/bin/bash` na primeira linha e `chmod +x` aplicado.
-3. **Logging em Background**: Scripts em background devem redirecionar saída: `command > /tmp/app.log 2>&1 &`.
-4. **Idempotência**: Prefira comandos que podem ser rodados múltiplas vezes sem erro — `mkdir -p`, `rm -f`, `cp -n`.
-5. **Dry-Run First**: Ao sugerir loop `for` complexo ou destrutivo, forneça primeiro uma versão com `echo` para o usuário validar.
+1. **Variable Checks**: before using variables in destructive loops (for example, `rm $VAR`), validate they are defined: `[[ -z "$VAR" ]] && exit 1`.
+2. **Shebang and Permissions**: every `.sh` file must have `#!/bin/bash` on the first line and `chmod +x` applied.
+3. **Background Logging**: background scripts must redirect output: `command > /tmp/app.log 2>&1 &`.
+4. **Idempotency**: prefer commands that can run multiple times safely - `mkdir -p`, `rm -f`, `cp -n`.
+5. **Dry-Run First**: for complex or destructive `for` loops, provide an `echo` dry-run version first.
 
-## Ambiente Virtual (Python)
+## Python Virtual Environment
 
-- Sempre ative via `source .venv/bin/activate` ou referencie os binários diretamente (`.venv/bin/python`).
-- Use `source` em conjunto com `SHELL := /bin/bash` no Makefile.
+- Always activate using `source .venv/bin/activate` or directly reference binaries (`.venv/bin/python`).
+- Use `source` with `SHELL := /bin/bash` in Makefiles.

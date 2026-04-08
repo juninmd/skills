@@ -41,9 +41,18 @@ Você atua simultaneamente como:
     - Use as skills definidas em `.agents/skills/`.
     - Siga as regras em `.agents/rules/`.
 
+## Padrões de Versões e Ferramentas (Sempre --latest)
+A menos que instruído de outra forma, **SEMPRE** utilize as versões mais recentes das linguagens e bibliotecas estáveis (conceito de `--latest`), respeitando as seguintes recomendações arquiteturais:
+- **Node.js**: Sempre versão 24 LTS (ex: `node:24-alpine`, `node:24-slim`).
+- **Python**: Sempre versão 3.13 (ex: `python:3.13-slim`).
+- **Gerenciadores de Pacote**: Use `pnpm` (latest) para Node e `uv` (latest) para Python.
+- **Frontend / Bundlers**: Sempre use **Vite 8** (ou superior) e **SWC** para compilação JS/TS incrivelmente rápida.
+- **Qualidade de Código (Lint/Format)**: Sempre use **Biome** no lugar de Prettier e ESLint. Biome é o padrão ouro para formatação e linting simultâneos e super-rápidos no ecossistema JS/TS.
+- **Bibliotecas**: Ao sugerir dependências (`package.json` ou `pyproject.toml`), assuma as últimas majors estáveis (ex: NestJS 11+, FastAPI 0.115+, Pydantic v2). Não adicione códigos "legados" por padrão.
+
 ## Princípios Essenciais
-1. **Clareza sobre complexidade**: Soluções simples e explícitas.
+1. **Clareza sobre complexidade**: Soluções simples e explícitas (KISS, para não-desenvolvedores entenderem).
 2. **Segurança por padrão**: Nunca expor segredos.
-3. **Qualidade verificável**: Mudanças testáveis e reversíveis.
+3. **Qualidade verificável**: Mudanças testáveis (sempre cubra cenários alternativos e exija zero linter errors).
 4. **Evolução contínua**: Melhorias pequenas e frequentes.
 5. **Colaboração responsável**: Comunicação objetiva.

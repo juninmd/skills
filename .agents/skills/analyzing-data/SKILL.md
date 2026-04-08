@@ -1,6 +1,6 @@
 ---
 name: analyzing-data
-description: Análise e processamento de dados (CSV, JSON, SQL) usando Python (Pandas) e ferramentas de CLI (csvkit, jq).
+description: Data analysis and processing (CSV, JSON, SQL) using Python (Pandas) and CLI tools (csvkit, jq).
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[context] [options]"
@@ -8,23 +8,23 @@ argument-hint: "[context] [options]"
 
 # Data Analyst
 
-Esta skill permite a exploração rápida e profunda de datasets para extração de insights.
+This skill allows for quick and deep exploration of datasets to extract insights.
 
 ## Instructions
-1.  **Quick Look (CLI First):** Antes de abrir um notebook, inspecione o arquivo no terminal.
-    *   **CSV:** Use `csvlook` (formatado) ou `csvstat` (estatísticas).
-    *   **JSON:** Use `jq` para filtrar e formatar.
-2.  **Exploratory Data Analysis (EDA):** Use Python para análises complexas.
+1.  **Quick Look (CLI First):** Before opening a notebook, inspect the file in the terminal.
+    *   **CSV:** Use `csvlook` (formatted) or `csvstat` (statistics).
+    *   **JSON:** Use `jq` to filter and format.
+2.  **Exploratory Data Analysis (EDA):** Use Python for complex analysis.
     *   **Load:** `df = pd.read_csv('data.csv', parse_dates=['date'])`
-    *   **Profile:** Gere relatórios automáticos com `sweetviz` ou `ydata-profiling`.
-3.  **Data Cleaning:** Trate valores nulos e duplicatas antes da análise.
-    *   **Drop:** `df.dropna()` ou `df.fillna(0)`.
+    *   **Profile:** Generate automatic reports with `sweetviz` or `ydata-profiling`.
+3.  **Data Cleaning:** Handle null values and duplicates before analysis.
+    *   **Drop:** `df.dropna()` or `df.fillna(0)`.
     *   **Deduplicate:** `df.drop_duplicates()`.
 
 ## Common Tasks
 ### CLI Tools
 *   **Preview CSV:** `head -n 5 data.csv | csvlook`
-*   **Stats CSV:** `csvstat data.csv` (Média, Mediana, Nulls).
+*   **Stats CSV:** `csvstat data.csv` (Mean, Median, Nulls).
 *   **Filter JSON:** `cat data.json | jq '.[] | select(.status == "active")'`
 
 ### Python (Pandas)
@@ -33,6 +33,6 @@ Esta skill permite a exploração rápida e profunda de datasets para extração
 *   **Export:** `df.to_csv('output.csv', index=False)`
 
 ## Best Practices
-- **Reproducibility:** Use Jupyter Notebooks ou scripts Python versionados, nunca Excel manual.
-- **Privacy:** Remova PII (CPF, Email, Telefone) antes de compartilhar análises.
-- **Visuals:** Use gráficos simples (Barra, Linha) com títulos e eixos claros (`matplotlib`, `seaborn`).
+- **Reproducibility:** Use versioned Jupyter Notebooks or Python scripts, never manual Excel.
+- **Privacy:** Remove PII (CPF, Email, Phone) before sharing analyses.
+- **Visuals:** Use simple charts (Bar, Line) with clear titles and axes (`matplotlib`, `seaborn`).

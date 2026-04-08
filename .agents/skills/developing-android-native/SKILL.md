@@ -1,32 +1,32 @@
 ---
 name: developing-android-native
-description: Desenvolver aplicativos nativos para Android utilizando Kotlin, Jetpack Compose, Coroutines e arquitetura moderna recomendada pelo Google.
+description: Develop native Android applications using Kotlin, Jetpack Compose, Coroutines, and modern Google-recommended architecture.
 metadata:
     works_on: [copilot, antigravity, gemini_cli]
 argument-hint: "[file/module] [options]"
 ---
 
-# Android Native Developer (Kotlin)
+# Native Android Developer (Kotlin)
 
-Esta skill capacita o agente a criar, otimizar e debugar aplicações Android nativas utilizando as melhores práticas, bibliotecas modernas e arquiteturas recomendadas.
+This skill enables the agent to create, optimize, and debug native Android applications using best practices, modern libraries, and recommended architectures.
 
 ## Instructions
 
-1.  **Kotlin-First (Idiomatic Kotlin):** Utilize recursos modernos do Kotlin (Scope Functions, Extension Functions, Data Classes, Sealed Classes).
-    *   **Reasoning:** Código idiomático é mais legível, menos verboso e reduz a chance de erros nulos (NullPointerException).
-2.  **Modern UI (Jetpack Compose):** Para novos projetos ou novas telas, a UI deve ser declarativa usando Jetpack Compose, abandonando o XML legado.
-    *   **Best Practice:** Separe funções `@Composable` em componentes pequenos e reutilizáveis (Atomic Design). Mantenha o *State Hoisting* (elevação de estado).
-3.  **Asynchronous Programming (Coroutines & Flow):** Nunca bloqueie a Main Thread (UI Thread).
-    *   **Reasoning:** Operações pesadas (Network, Database) devem rodar em `Dispatchers.IO` ou `Dispatchers.Default` utilizando `suspend functions` e `StateFlow`/`SharedFlow` para reatividade.
-4.  **Architecture (MVVM / MVI + Clean Architecture):** Use ViewModel (`ViewModel` do Jetpack) para gerenciar o estado da UI de forma reativa que sobreviva a mudanças de configuração.
-    *   **Separation of Concerns:** Separe as camadas em Data (Repository/API), Domain (UseCases/Models) e Presentation (UI/ViewModel).
-5.  **Dependency Injection (DI):** Utilize Hilt (recomendado do Google) ou Koin para gerenciar a injeção de dependências e facilitar os testes.
-6.  **Local Storage & Caching:** Para cache local, utilize **Room** (SQLite abstraído) ou **DataStore** (para substituir o SharedPreferences legacy).
-7.  **Networking:** Utilize **Retrofit** com **OkHttp** para chamadas de API, aplicando interceptors para logging e injeção de tokens.
+1.  **Kotlin First (Idiomatic Kotlin):** Use modern Kotlin features (Scope Functions, Extension Functions, Data Classes, Sealed Classes).
+    *   **Rationale:** Idiomatic code is more readable, less verbose, and reduces the chance of null errors (NullPointerException).
+2.  **Modern UI (Jetpack Compose):** For new projects or new screens, the UI must be declarative using Jetpack Compose, moving away from legacy XML.
+    *   **Best Practice:** Separate `@Composable` functions into small, reusable components (Atomic Design). Maintain *State Hoisting*.
+3.  **Asynchronous Programming (Coroutines & Flow):** Never block the Main Thread (UI Thread).
+    *   **Rationale:** Heavy operations (Network, Database) must run on `Dispatchers.IO` or `Dispatchers.Default` using `suspend functions` and `StateFlow`/`SharedFlow` for reactivity.
+4.  **Architecture (MVVM / MVI + Clean Architecture):** Use ViewModel (Jetpack `ViewModel`) to manage UI state reactively in a way that survives configuration changes.
+    *   **Separation of Concerns:** Separate layers into Data (Repository/API), Domain (UseCases/Models), and Presentation (UI/ViewModel).
+5.  **Dependency Injection (DI):** Use Hilt (Google's recommendation) or Koin to manage dependency injection and facilitate testing.
+6.  **Local Storage and Caching:** For local caching, use **Room** (abstracted SQLite) or **DataStore** (to replace legacy SharedPreferences).
+7.  **Networking:** Use **Retrofit** with **OkHttp** for API calls, applying interceptors for logging and token injection.
 
 ## Examples
 
-### Valid Compose State Hoisting & MVVM
+### Valid Example of State Hoisting and MVVM with Compose
 ```kotlin
 @Composable
 fun UserScreen(
@@ -59,7 +59,7 @@ fun UserContent(
 }
 ```
 
-### Valid Coroutine usage in Repository
+### Valid Example of Using Coroutines in Repository
 ```kotlin
 class UserRepository @Inject constructor(
     private val api: UserApi,
@@ -76,20 +76,20 @@ class UserRepository @Inject constructor(
 }
 ```
 
-## Recommended Libraries Stack
-- **Networking:** Retrofit, OkHttp (com HttpLoggingInterceptor)
+## 🧱 Recommended Stack 2026
+- **Networking:** Retrofit, OkHttp (with HttpLoggingInterceptor)
 - **Asynchrony / Reactive:** Kotlin Coroutines, Kotlin Flow
-- **Dependency Injection:** Dagger Hilt (ou Koin)
+- **Dependency Injection:** Dagger Hilt (or Koin)
 - **UI:** Jetpack Compose, Material Design 3
 - **Image Loading:** Coil
 - **Local Database:** Room Database
 - **Preferences:** Preferences DataStore
-- **Navigation:** Compose Navigation (ou biblioteca de Navigation Type-Safe, ex: Voyager)
-- **Testing:** JUnit4/5, MockK, Coroutines Test, Turbine (para Flow)
+- **Navigation:** Compose Navigation (or Type-Safe Navigation library, e.g., Voyager)
+- **Testing:** JUnit4/5, MockK, Coroutines Test, Turbine (for Flow)
 
 ## Scenario: Performance Optimization (Jank / Dropped Frames)
-Se a UI estiver travando no Scroll (Jank):
-1. Verifique se cálculos pesados não estão acontecendo dentro de funções `@Composable`.
-2. Em `LazyColumn`, certifique-se de que a chave (key) dos itens é única e estável.
-3. Evite alocar objetos novos desnecessariamente em cada recomposição. Use `remember`.
-4. Em debug, ative o Layout Inspector do Android Studio para verificar número de recomposições (Recomposition Counts).
+If the UI is stuttering during Scroll (Jank):
+1. Check if heavy calculations are happening inside `@Composable` functions.
+2. In `LazyColumn`, ensure the item key is unique and stable.
+3. Avoid unnecessarily allocating new objects in each recomposition. Use `remember`.
+4. In debug, enable Android Studio's Layout Inspector to check Recomposition Counts.

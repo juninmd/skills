@@ -1,5 +1,4 @@
-# Reference: Scaffolding Templates
-
+# Referência: Scaffolding Templates 📚
 ## Makefile Template
 ```makefile
 .PHONY: coverage run server clean

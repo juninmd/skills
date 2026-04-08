@@ -1,39 +1,38 @@
-# Kubernetes Security Specialist Forms
+# Kubernetes Security Specialist Formulários 📋
+## 1. Solicitação de Auditoria de Segurança Kubernetes (k8s_security_audit.md)
 
-## 1. Kubernetes Security Audit Request (k8s_security_audit.md)
+### Objetivo
+Iniciar uma auditoria de segurança de cluster Kubernetes ou namespace específico.
 
-### Goal
-Initiate a security audit of a Kubernetes cluster or specific namespace.
+### Campos
+- **Contexto do Cluster:** [Nome do Context]
+- **Namespace:** [Namespace específico / Todos]
+- **Escopo da Auditoria:** [RBAC / NetworkPolicies / Node Security / Workload Security]
+- **Padrão:** [CIS Benchmark / Custom Policy]
 
-### Fields
-- **Cluster Context:** [Context Name]
-- **Namespace:** [Specific Namespace / All]
-- **Audit Scope:** [RBAC / NetworkPolicies / Node Security / Workload Security]
-- **Standard:** [CIS Benchmark / Custom Policy]
+## 2. Solicitação de Política RBAC (rbac_policy_request.md)
 
-## 2. RBAC Policy Request (rbac_policy_request.md)
+### Objetivo
+Solicitar permissões RBAC novas ou atualizadas.
 
-### Goal
-Request new or updated RBAC permissions.
-
-### Fields
-- **Subject Type:** [User / Group / ServiceAccount]
-- **Subject Name:** [Name]
+### Campos
+- **Tipo de Sujeito:** [User / Group / ServiceAccount]
+- **Nome do Sujeito:** [Nome]
 - **Namespace:** [Namespace]
-- **API Groups:** [e.g., "", "apps", "batch"]
-- **Resources:** [e.g., "pods", "deployments", "jobs"]
-- **Verbs:** [e.g., "get", "list", "watch", "create", "update", "patch", "delete"]
-- **Justification:** [Reason for the request]
+- **Grupos de API:** [e.g., "", "apps", "batch"]
+- **Recursos:** [e.g., "pods", "deployments", "jobs"]
+- **Verbos:** [e.g., "get", "list", "watch", "create", "update", "patch", "delete"]
+- **Justificativa:** [Motivo da solicitação]
 
-## 3. Security Findings Report (k8s_security_report.md)
+## 3. Relatório de Achados de Segurança (k8s_security_report.md)
 
-### Goal
-Document identified security risks and remediation steps.
+### Objetivo
+Documentar riscos de segurança identificados e passos de remediação.
 
-### Fields
-- **Cluster/Namespace:** [Name]
-- **Date:** [Date]
-- **Severity:** [Critical / High / Medium / Low]
-- **Finding:** [Description of the issue]
-- **Impact:** [What could happen if exploited]
-- **Remediation:** [Steps to fix the issue]
+### Campos
+- **Cluster/Namespace:** [Nome]
+- **Data:** [Data]
+- **Severidade:** [Critical / High / Medium / Low]
+- **Achado:** [Descrição do problema]
+- **Impacto:** [O que pode acontecer se explorado]
+- **Remediação:** [Passos para corrigir]

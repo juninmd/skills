@@ -1,37 +1,37 @@
 ---
 name: securing-k8s
-description: Proteger clusters Kubernetes com gerenciamento RBAC, auditoria de configurações, políticas de rede e segurança em tempo de execução.
+description: Protect Kubernetes clusters with RBAC management, configuration auditing, network policies, and runtime security.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[context] [options]"
 ---
 
-# Kubernetes Security Specialist Skill
+# Kubernetes Security Specialist
 
 ## Description
-This skill enables the agent to secure Kubernetes clusters by implementing security best practices, auditing configurations, and managing Role-Based Access Control (RBAC). It focuses on Kubernetes Security Posture Management (KSPM), network policies, and container security.
+This skill empowers the agent to protect Kubernetes clusters through security best practices, configuration auditing, and Role-Based Access Control (RBAC) management. Focus includes Kubernetes Security Posture Management (KSPM), network policies, and container security.
 
-## Workflow
+## Flow
 
-### 1. Configuration Audit
-- Use tools like `kube-bench` to check the cluster against CIS Kubernetes Benchmarks.
-- Scan manifests and Helm charts for security misconfigurations using tools like `checkov` or `tfsec`.
+### 1. Configuration Auditing
+- Use tools like `kube-bench` to check adherence to CIS Kubernetes Benchmarks.
+- Scan manifests and Helm charts to detect misconfigurations with `checkov` or `tfsec`.
 
 ### 2. RBAC Management
 - Audit existing ClusterRoles, Roles, RoleBindings, and ClusterRoleBindings.
-- Implement the principle of least privilege by defining specific permissions for service accounts and users.
-- Identify and remediate risky permissions (e.g., ability to create pods with `hostPath` or `privileged: true`).
+- Implement the principle of least privilege with specific permissions for service accounts and users.
+- Identify and fix risky permissions (e.g., pods created with `hostPath` or `privileged: true`).
 
 ### 3. Network Security
-- Define and implement NetworkPolicies to restrict pod-to-pod communication.
-- Audit ingress and egress rules to ensure minimal exposure.
+- Define and implement NetworkPolicies to restrict communication between pods.
+- Audit ingress and egress rules to maintain minimal exposure.
 
 ### 4. Runtime Security
-- Monitor for suspicious activities using tools like `Falco`.
-- Implement Pod Security Admissions or OPA Gatekeeper to enforce security policies at runtime.
+- Monitor suspicious activities with tools like `Falco`.
+- Implement Pod Security Admission or OPA Gatekeeper to enforce runtime policies.
 
 ## Best Practices
-- **Least Privilege:** Always grant the minimum permissions necessary for a task.
-- **Secrets Management:** Use Kubernetes Secrets or external secret managers (e.g., HashiCorp Vault) instead of environment variables or config maps for sensitive data.
-- **Immutable Infrastructure:** Treat pods as immutable and avoid manual changes in running containers.
-- **Regular Updates:** Keep the Kubernetes control plane and worker nodes patched and updated.
+- **Least Privilege:** Grant only the minimum required permissions.
+- **Secrets Management:** Use Kubernetes Secrets or external secret managers (e.g., HashiCorp Vault) instead of environment variables/config maps for sensitive data.
+- **Immutable Infrastructure:** Treat pods as immutable and avoid manual changes to running containers.
+- **Regular Updates:** Keep the control plane and workers updated and patched.

@@ -215,13 +215,21 @@ export async function install(options: InstallOptions): Promise<void> {
     installationMethod = method as 'plugins' | 'raiz';
 
     const agentsDir = getPadraoLabsAgentsDir();
+    const localAgentsDir = join(getRepoDir(), '.agents');
     if (installationMethod === 'raiz') {
       p.note(
         `Os componentes serão vinculados globalmente em:\n` +
-        `${color.dim('• Agents:   ')} ${color.cyan(toPortablePath(join(agentsDir, 'agents')))}\n` +
-        `${color.dim('• Skills:   ')} ${color.cyan(toPortablePath(join(agentsDir, 'skills')))}\n` +
-        `${color.dim('• Rules:    ')} ${color.cyan(toPortablePath(join(agentsDir, 'rules')))}\n` +
-        `${color.dim('• Workflows:')} ${color.cyan(toPortablePath(join(agentsDir, 'workflows')))}`,
+        `${color.dim('• Agents:    ')} ${color.cyan(toPortablePath(join(agentsDir, 'agents')))}\n` +
+        `${color.dim('• Skills:    ')} ${color.cyan(toPortablePath(join(agentsDir, 'skills')))}\n` +
+        `${color.dim('• Rules:     ')} ${color.cyan(toPortablePath(join(agentsDir, 'rules')))}\n` +
+        `${color.dim('• Workflows: ')} ${color.cyan(toPortablePath(join(agentsDir, 'workflows')))}\n` +
+        `${color.dim('• Hooks:     ')} ${color.cyan(toPortablePath(join(agentsDir, 'hooks')))}\n\n` +
+        `Origem local (repositório):\n` +
+        `${color.dim('• Agents:    ')} ${color.cyan(toPortablePath(join(localAgentsDir, 'agents')))}\n` +
+        `${color.dim('• Skills:    ')} ${color.cyan(toPortablePath(join(localAgentsDir, 'skills')))}\n` +
+        `${color.dim('• Rules:     ')} ${color.cyan(toPortablePath(join(localAgentsDir, 'rules')))}\n` +
+        `${color.dim('• Workflows: ')} ${color.cyan(toPortablePath(join(localAgentsDir, 'workflows')))}\n` +
+        `${color.dim('• Hooks:     ')} ${color.cyan(toPortablePath(join(localAgentsDir, 'hooks')))}`,
         'Estrutura de Pastas (Modo Raiz)'
       );
     } else {
@@ -325,7 +333,7 @@ export async function install(options: InstallOptions): Promise<void> {
     // Coleta inventário de componentes para o manifesto
     const agentsBundleDir = getAgentsBundleDir();
     const inventory: any = {};
-    const categoriesToScan = ['skills', 'agents', 'rules', 'workflows'];
+    const categoriesToScan = ['skills', 'agents', 'rules', 'workflows', 'hooks'];
 
     for (const cat of categoriesToScan) {
       try {
@@ -409,6 +417,8 @@ async function performVSCodeInstall(toolName: string, turbo: boolean, method: 'p
           if (key !== VSCODE_SETTINGS_KEYS.SKILLS_LOCS &&
             key !== VSCODE_SETTINGS_KEYS.AGENTS_LOCS &&
             key !== VSCODE_SETTINGS_KEYS.RULES_LOCS &&
+            key !== VSCODE_SETTINGS_KEYS.HOOKS_LOCS &&
+            key !== VSCODE_SETTINGS_KEYS.PROMPT_LOCS &&
             key !== VSCODE_SETTINGS_KEYS.PLUGINS_PATHS &&
             key !== VSCODE_SETTINGS_KEYS.PLUGINS_MARKETPLACES &&
             key !== VSCODE_SETTINGS_KEYS.PLUGINS_ENABLED) {
@@ -435,16 +445,25 @@ async function performVSCodeInstall(toolName: string, turbo: boolean, method: 'p
         const agentsLocs = settings[VSCODE_SETTINGS_KEYS.AGENTS_LOCS] || {};
         const rulesLocs = settings[VSCODE_SETTINGS_KEYS.RULES_LOCS] || {};
         const promptLocs = settings[VSCODE_SETTINGS_KEYS.PROMPT_LOCS] || {};
+        const hooksLocs = settings[VSCODE_SETTINGS_KEYS.HOOKS_LOCS] || {};
 
+        skillsLocs['.agents/skills'] = true;
         skillsLocs[toPortablePath(join(agentsDir, 'skills'))] = true;
+        agentsLocs['.agents/agents'] = true;
         agentsLocs[toPortablePath(join(agentsDir, 'agents'))] = true;
+        rulesLocs['.agents/rules'] = true;
         rulesLocs[toPortablePath(join(agentsDir, 'rules'))] = true;
+        promptLocs['.agents/workflows'] = true;
         promptLocs[toPortablePath(join(agentsDir, 'workflows'))] = true;
+        hooksLocs['.agents/hooks'] = true;
+        hooksLocs[toPortablePath(join(agentsDir, 'hooks'))] = true;
 
         settings[VSCODE_SETTINGS_KEYS.SKILLS_LOCS] = skillsLocs;
         settings[VSCODE_SETTINGS_KEYS.AGENTS_LOCS] = agentsLocs;
         settings[VSCODE_SETTINGS_KEYS.RULES_LOCS] = rulesLocs;
         settings[VSCODE_SETTINGS_KEYS.PROMPT_LOCS] = promptLocs;
+        settings[VSCODE_SETTINGS_KEYS.HOOKS_LOCS] = hooksLocs;
+        settings[VSCODE_SETTINGS_KEYS.USE_CLAUDE_HOOKS] = true;
       }
 
       // Exibe o diff antes de salvar
@@ -480,6 +499,7 @@ async function performVSCodeInstall(toolName: string, turbo: boolean, method: 'p
     await syncSymlinksGranular(join(bundleDir, 'agents'), join(agentsDir, 'agents'));
     await syncSymlinksGranular(join(bundleDir, 'rules'), join(agentsDir, 'rules'));
     await syncSymlinksGranular(join(bundleDir, 'workflows'), join(agentsDir, 'workflows'));
+    await syncSymlinksGranular(join(bundleDir, 'hooks'), join(agentsDir, 'hooks'));
   }
 }
 

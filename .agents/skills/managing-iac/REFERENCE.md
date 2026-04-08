@@ -1,11 +1,9 @@
-# IaC Specialist Reference
-
-## Common Tools and Commands
-
+# IaC Specialist Referência 📚
+## Ferramentas e Comandos Comuns
 ### 1. Terraform
 **Description:** Infrastructure as Code tool by HashiCorp using HCL (HashiCorp Configuration Language).
 
-**Common Commands:**
+**Comandos Comuns:**
 - `terraform init`: Initialize a new or existing Terraform working directory.
 - `terraform plan`: Generate and show an execution plan.
 - `terraform apply`: Builds or changes infrastructure.
@@ -16,7 +14,7 @@
 ### 2. Pulumi
 **Description:** Infrastructure as Code tool using general-purpose programming languages (Python, TypeScript, Go, etc.).
 
-**Common Commands:**
+**Comandos Comuns:**
 - `pulumi new`: Create a new Pulumi project.
 - `pulumi stack init`: Create a new stack.
 - `pulumi preview`: Show a preview of updates.

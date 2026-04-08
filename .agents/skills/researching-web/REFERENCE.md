@@ -1,5 +1,4 @@
-# Web Researcher Reference
-
+# Web Researcher Referência 📚
 ## Tools
 
 ### 1. `google_web_search`

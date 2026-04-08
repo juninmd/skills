@@ -1,38 +1,38 @@
 ---
 name: managing-localization
-description: Gerenciar internacionalização e localização da aplicação, incluindo extração de strings, arquivos de tradução e formatação específica de localidade.
+description: Manage application internationalization and localization, including string extraction, translation files, and locale-specific formatting.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[resource/project] [options]"
 ---
 
-# Localization Expert Skill
+# Localization Specialist
 
 ## Description
-This skill enables the agent to manage the internationalization (i18n) and localization (l10n) of applications. It handles extraction of translatable strings, management of translation files, and implementation of locale-specific formatting (dates, numbers, currency).
+This skill empowers the agent to manage internationalization (i18n) and localization (l10n) for applications. It includes extracting translatable strings, managing translation files, and locale-specific formatting (dates, numbers, and currency).
 
-## Workflow
+## Flow
 
-### 1. Internationalize (i18n)
+### 1. Internationalization (i18n)
 - Identify hardcoded strings in the codebase.
-- Replace hardcoded strings with calls to localization functions (e.g., `gettext`, `i18next.t`).
-- Ensure UI layouts can accommodate variable text lengths.
+- Replace them with localization calls (e.g., `gettext`, `i18next.t`).
+- Ensure layouts support text size variation.
 
-### 2. Extract & Manage Strings
-- Use tools to extract translatable strings into message catalogs (e.g., `.po`, `.json` files).
+### 2. String Extraction and Management
+- Use tools to extract translatable strings into catalogs (e.g., `.po`, `.json` files).
 - Organize translation files by locale (e.g., `en-US`, `pt-BR`, `ja-JP`).
-- Keep source strings and keys synchronized.
+- Maintain synchronization between keys and source text.
 
-### 3. Translate (l10n)
+### 3. Translation (l10n)
 - Provide context for translators.
-- Translate strings into target languages (using machine translation or human input).
-- Validate translations for placeholders and formatting codes.
+- Translate into target languages (machine or human translation).
+- Validate placeholders and formatting codes.
 
-### 4. Format & Configure
-- Implement locale-aware formatting for dates, times, numbers, and currencies.
-- Configure the application to detect and switch locales based on user preference.
+### 4. Formatting and Configuration
+- Implement locale-sensitive formatting for dates, times, numbers, and currencies.
+- Configure locale detection and switching based on user preference.
 
 ## Best Practices
-- **Keys vs. Source:** Use meaningful keys for translations (e.g., `welcome_message`) rather than the source text itself if possible.
-- **Pluralization:** Handle plural forms correctly, as they vary significantly between languages.
-- **Context:** Always provide context for ambiguous terms (e.g., "Open" as a verb vs. an adjective).
+- **Keys vs. Source:** Use meaningful keys (e.g., `welcome_message`) instead of the source text as the key.
+- **Pluralization:** Correct rules for plurals, which vary between languages.
+- **Context:** Always provide context for ambiguous terms (e.g., "Open" as a verb or an adjective).

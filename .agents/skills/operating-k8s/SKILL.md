@@ -1,6 +1,6 @@
 ---
 name: operating-k8s
-description: Operação e Troubleshooting avançado em Kubernetes (Magalu Cloud / GCP).
+description: Advanced operation and troubleshooting in Kubernetes (Magalu Cloud / GCP).
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[resource/cluster] [options]"
@@ -9,25 +9,25 @@ disable-model-invocation: true
 
 # Kubernetes Operations
 
-Esta skill define os requisitos mínimos para workloads de produção na Luizalabs, focando em estabilidade e segurança.
+This skill defines the minimum requirements for production workloads at Luizalabs, focusing on stability and security.
 
 ## Instructions
-1.  **Resilience (Probes):** NUNCA faça deploy sem Liveness e Readiness Probes.
-    *   **Liveness:** `httpGet /healthz`. Reinicia o pod se travar.
-    *   **Readiness:** `httpGet /ready`. Remove do Load Balancer se sobrecarregado.
-2.  **Resources (Quotas):** Defina obrigatoriamente `requests` e `limits`.
-    *   **Requests:** Garante alocação mínima.
-    *   **Limits:** Previne OOMKill de nós inteiros ("Noisy Neighbor").
+1.  **Resilience (Probes):** NEVER deploy without Liveness and Readiness Probes.
+    *   **Liveness:** `httpGet /healthz`. Restarts the pod if it hangs.
+    *   **Readiness:** `httpGet /ready`. Removes from the Load Balancer if overloaded.
+2.  **Resources (Quotas):** Mandatory definition of `requests` and `limits`.
+    *   **Requests:** Guarantees minimum allocation.
+    *   **Limits:** Prevents OOMKill of entire nodes ("Noisy Neighbor").
     *   **Example:** `requests: cpu: 100m, memory: 128Mi`, `limits: cpu: 500m, memory: 256Mi`.
-3.  **Security (Pod Context):** Rode pods com `securityContext: runAsNonRoot: true`.
-    *   **Reasoning:** Evita escalada de privilégios.
-4.  **Scaling (HPA):** Use Horizontal Pod Autoscaler baseado em CPU/Memória (target 70%).
+3.  **Security (Pod Context):** Run pods with `securityContext: runAsNonRoot: true`.
+    *   **Rationale:** Avoids privilege escalation.
+4.  **Scaling (HPA):** Use Horizontal Pod Autoscaler based on CPU/Memory (70% target).
 
 ## Common Tasks
-*   **Debug CrashLoopBackOff:** `kubectl logs -p <pod>` (Logs do pod anterior que morreu).
-*   **Check Resource Usage:** `kubectl top pod` (Verifique se está perto do limit).
-*   **Port Forward:** `kubectl port-forward <pod> 8080:80` (Acesso direto para debug).
-*   **Events:** `kubectl get events --sort-by=.metadata.creationTimestamp` (O que aconteceu recentemente no cluster?).
+*   **Debug CrashLoopBackOff:** `kubectl logs -p <pod>` (Logs from the previous dead pod).
+*   **Check Resource Usage:** `kubectl top pod` (Check if it's close to the limit).
+*   **Port Forward:** `kubectl port-forward <pod> 8080:80` (Direct access for debugging).
+*   **Events:** `kubectl get events --sort-by=.metadata.creationTimestamp` (What happened recently in the cluster?).
 
 ## Example: Production Deployment Spec
 ```yaml

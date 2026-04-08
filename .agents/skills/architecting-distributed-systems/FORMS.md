@@ -1,5 +1,4 @@
-# Distributed Systems Architect Forms
-
+# Distributed Systems Architect Formulários 📋
 ## 1. Architecture Design Request (arch_design.md)
 
 ### Goal
