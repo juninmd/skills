@@ -71,6 +71,22 @@ base-webapp:
       value: production
     - name: PORT
       value: '5000'
+
+  GatewayApi:
+    provider: "gke-gateway"
+    grpc:
+      enabled: false
+      port: 50051
+
+  rollouts:
+    enabled: false
+    strategy:
+      type: Canary
+
+  referenceGrant:
+    enabled: false
+    allowedNamespaces: []
+
   gmud: ''
   secretvault:
     enabled: true

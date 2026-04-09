@@ -42,6 +42,11 @@ graph LR
 - For GitHub pull requests, use `gh` CLI when repository context or the user request requires inspecting the PR, fetching diffs, or publishing the final review comment.
 - For GitLab merge requests, use `glab` CLI when repository context or the user request requires inspecting the MR, fetching diffs, or publishing the final review comment.
 - **GitLab Operations (MANDATORY)**: Always invoke the `operating-gitlab-cli` skill when interacting with GitLab. This skill contains the necessary knowledge for host configuration, PAT usage, and correct flag usage (like `-R` for dynamic repositories) within the Luizalabs infrastructure.
+- **⚠️ PAGER FIX (MANDATORY)**: `glab mr view` ALWAYS opens a pager — never use it, even with env overrides. Use `mcp_gitlab-labs_glab_api` for metadata. For diffs, always redirect to a file:
+  - ✅ CORRECT metadata: `mcp_gitlab-labs_glab_api` with `args: ["/projects/group%2Frepo/merge_requests/280"]`
+  - ✅ CORRECT diff: `NO_COLOR=1 GIT_PAGER=cat glab mr diff 280 -R https://... > /tmp/mr280.diff && cat /tmp/mr280.diff | head -300`
+  - ❌ WRONG: `glab mr view 280 -R https://...` (always hangs terminal)
+  - ❌ WRONG: `glab mr diff 280 -R https://...` without file redirect (may hang terminal)
 
 - **Portuguese-Only on Luizalabs MRs**: Always respond to MR comments in **pt-BR** to maintain team consistency. Frame findings using Luizalabs standards (DORA metrics, Kaizen principles, security-first mindset).
 
@@ -238,15 +243,32 @@ Before finalizing review, validate:
 
 **When given a PR/MR link (Luizalabs):**
 
-1. **Identify the platform**: Use `gh` for GitHub PRs. For GitLab MRs, **YOU MUST ACTIVATE** the `operating-gitlab-cli` skill.
-2. **Execute via Skill**: Follow the strict CLI execution rules provided by the `operating-gitlab-cli` skill (e.g., exact URL parsing, mandatory `-R` flag, and no shell variables).
-3. **Parse the diff** from GitHub/GitLab using the respective CLI or API.
-4. **Validate Luizalabs Standards**: Check adherence to Labs rules (CI/CD, SonarQube, Makefile, dependency.yaml, hangar-info.yaml, etc.).
-5. **Run parallel checks** by invoking reviewer subagents for Security, Architecture, Testing, Performance, and Quality.
-6. **Consolidate findings** into severity levels and remove duplicates across reviewer outputs.
-7. **Format the review comment** in **Portuguese (pt-BR)** with emojis, clear formatting, actionable fixes, and a single verdict.
-8. **Include Labs Context**: Reference DORA metrics, coverage floors (≥90%), and Luizalabs culture principles.
-9. **Post the comment** using the appropriate CLI only when explicitly asked by the user.
+1. **Batch Handling**: If multiple links are provided, **delegate each link to a separate subagent** (`Explore` or `labs-code-reviewer`) to perform the review in parallel. Each subagent reviews its assigned MR independently and returns findings. This is the required pattern for multi-MR reviews.
+2. **Identify the platform**: Use `gh` for GitHub PRs. For GitLab MRs, **YOU MUST ACTIVATE** the `operating-gitlab-cli` skill.
+3. **Execute via Skill**: Follow the strict CLI execution rules (mandatory `NO_COLOR=1 GIT_PAGER=cat` prefix, mandatory `-R` flag). See `operating-gitlab-cli` skill for full reference.
+4. **Collect MR data** in this sequence:
+   ```bash
+   # Step 1: Get MR metadata via MCP (no pager risk)
+   # Use: mcp_gitlab-labs_glab_api
+   # args: ["/projects/group%2Frepo/merge_requests/<MR_ID>"]
+   # flags: {"hostname": "gitlab.luizalabs.com"}
+   
+   # Step 2: Get diff (MUST redirect to file to avoid pager)
+   NO_COLOR=1 GIT_PAGER=cat glab mr diff <MR_ID> -R https://gitlab.luizalabs.com/group/repo > /tmp/mr<MR_ID>.diff 2>&1
+   cat /tmp/mr<MR_ID>.diff | head -300
+   ```
+5. **Validate Luizalabs Standards**: Check adherence to Labs rules (CI/CD, SonarQube, Makefile, dependency.yaml, hangar-info.yaml, etc.).
+6. **Run parallel checks** by invoking reviewer subagents for Security, Architecture, Testing, Performance, and Quality.
+7. **Consolidate findings** into severity levels and remove duplicates across reviewer outputs.
+8. **Format the review comment** in **Portuguese (pt-BR)** with emojis, clear formatting, actionable fixes, and a single verdict.
+9. **Include Labs Context**: Reference DORA metrics, coverage floors (≥90%), and Luizalabs culture principles.
+10. **Post the comment** (only when explicitly asked):
+    ```bash
+    cat > /tmp/mr_review.md << 'EOF'
+    <formatted review content>
+    EOF
+    NO_COLOR=1 GIT_PAGER=cat glab mr note <MR_ID> -R https://gitlab.luizalabs.com/group/repo --message "$(cat /tmp/mr_review.md)"
+    ```
 
 **Example Invocation:**
 ```
@@ -279,6 +301,11 @@ When identifying debt:
 ✅ Clear, prioritized findings (blocker → optional)  
 ✅ Specific file:line references with context  
 ✅ Actionable fixes, not vague criticism  
+✅ Risk assessments (what goes wrong if not fixed)  
+✅ Formatted PR/MR comment with emojis  
+✅ Positive findings highlighted  
+✅ Clear verdict: APPROVED / APPROVED_WITH_CHANGES / REJECTED
+riticism  
 ✅ Risk assessments (what goes wrong if not fixed)  
 ✅ Formatted PR/MR comment with emojis  
 ✅ Positive findings highlighted  

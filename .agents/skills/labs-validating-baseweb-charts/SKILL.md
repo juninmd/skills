@@ -27,6 +27,9 @@ Whenever analyzing the `Chart.yaml` and `values.yaml` files, the agent must appl
 - **Probes**: It is mandatory to declare the liveness and readiness paths (`livenessProbe.httpGet.path` and `readinessProbe.httpGet.path`).
 - **Scalability**: The HPA (Horizontal Pod Autoscaler) must have the `hpa.maxReplicas` field defined to avoid overload.
 - **Environment Variables**: The application variables must be listed under the `envs` key.
+- **Gateway API (v1.4.4+)**: If `GatewayApi.grpc.enabled` is `true`, a valid `port` must be defined. If `provider` is used, it should be one of `gke-gateway`, `envoy-gateway`, or `auto`.
+- **Cross-Namespace (ReferenceGrant)**: If `referenceGrant.enabled` is `true`, `allowedNamespaces` must not be empty for the receiving application.
+- **Deploy Strategies (Argo Rollouts)**: If `rollouts.enabled` is `true`, a valid `strategy` (Canary or BlueGreen) must be defined.
 - **Traceability and Metadata**: The `repositoryLink`, `author`, `date`, and `gmud` keys must be present for auditing and change management purposes.
 
 ## Best Practices

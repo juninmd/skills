@@ -32,15 +32,17 @@ This document provides a comprehensive list of core `glab` commands. Always use
 *   `glab issue board view` - View issue boards.
 
 ## Merge Requests (glab mr)
-**MANDATORY**: ALWAYS append `-R <FULL_URL>` (e.g., `-R https://gitlab.luizalabs.com/group/repo`) to all `mr` commands.
+**MANDATORY**: ALWAYS prefix with `NO_COLOR=1 GIT_PAGER=cat` AND append `-R <FULL_URL>` (e.g., `-R https://gitlab.luizalabs.com/group/repo`) to all `mr` commands. Omitting the prefix causes glab to open a pager that hangs the terminal.
 
-*   `glab mr list -R https://...` - List merge requests.
-*   `glab mr create -R https://...` - Create a new merge request.
-*   `glab mr view 280 -R https://...` - View information about a merge request.
-*   `glab mr merge 280 -R https://...` - Accept and merge a merge request.
-*   `glab mr approve 280 -R https://...` - Approve a merge request.
-*   `glab mr diff 280 -R https://...` - View changes in a merge request.
-*   `glab mr checkout 280 -R https://...` - Checkout a branch associated with a merge request.
+*   `NO_COLOR=1 GIT_PAGER=cat glab mr list -R https://...` - List merge requests.
+*   `NO_COLOR=1 GIT_PAGER=cat glab mr create -R https://...` - Create a new merge request.
+*   `NO_COLOR=1 GIT_PAGER=cat glab mr view 280 -R https://...` - View information about a merge request.
+*   `NO_COLOR=1 GIT_PAGER=cat glab mr merge 280 -R https://...` - Accept and merge a merge request.
+*   `NO_COLOR=1 GIT_PAGER=cat glab mr approve 280 -R https://...` - Approve a merge request.
+*   `NO_COLOR=1 GIT_PAGER=cat glab mr diff 280 -R https://...` - View changes in a merge request.
+*   `NO_COLOR=1 GIT_PAGER=cat glab mr diff 280 -R https://... | head -200` - View first 200 lines of diff (large diffs).
+*   `NO_COLOR=1 GIT_PAGER=cat glab mr checkout 280 -R https://...` - Checkout a branch associated with a merge request.
+*   `NO_COLOR=1 GIT_PAGER=cat glab mr note 280 -R https://... --message "$(cat /tmp/review.md)"` - Post a comment using content from a file.
 
 ## Repositories/Projects (glab repo)
 *   `glab repo list` - List repositories.

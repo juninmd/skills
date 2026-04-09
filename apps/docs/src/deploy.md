@@ -131,7 +131,7 @@ type: application # Define se é uma application ou uma library
 version: <VERSAO_DO_CHART> # Versão do Chart (incrementada a cada alteração)
 dependencies:
   - name: base-webapp # Chart base padrão do Luizalabs
-    version: <VERSAO_BASE_WEBAPP>
+    version: 1.4.4
     repository: https://chartmuseum.luizalabs.com
 annotations:
   rollback_version: <VERSAO_ANTERIOR> # Metadados para o processo de CI/CD

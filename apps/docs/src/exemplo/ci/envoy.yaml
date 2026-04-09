@@ -1,10 +1,10 @@
 # Guia de Configuração: Gateway API (GKE & Envoy)
 
-Este documento orienta os desenvolvedores na configuração do `base-webapp` (v1.4.2) para utilizar as novas funcionalidades da Gateway API, incluindo o suporte híbrido para **GKE Gateway** (Google Cloud) e **Envoy Gateway** (Magalu Cloud).
+Este documento orienta os desenvolvedores na configuração do `base-webapp` (v1.4.4) para utilizar as novas funcionalidades da Gateway API, incluindo o suporte híbrido para **GKE Gateway** (Google Cloud) e **Envoy Gateway** (Magalu Cloud).
 
 ## 🚀 Visão Geral
 
-A partir da versão 1.4.2, o chart suporta múltiplos *providers* de Gateway API. Isso permite que a mesma aplicação seja implantada em diferentes ambientes (GKE ou Clusters On-Prem/MGC) apenas alterando uma configuração no `values.yaml`, sem reescrever templates.
+A partir da versão 1.4.2, o chart suporta múltiplos *providers* de Gateway API. Na versão **1.4.4**, foram adicionados suportes nativos para gRPC, Cross-Namespace Traffic Splitting e Argo Rollouts.
 
 ### Providers Disponíveis
 
@@ -49,32 +49,65 @@ GatewayApi:
 ```
 *Comportamento:* Renderiza `BackendTrafficPolicy` e `HTTPRoute` otimizados para o Envoy.
 
-### Opção 3: Auto Detection
-Para ambientes híbridos onde você quer que o chart detecte automaticamente qual provider usar baseado nos CRDs disponíveis:
-
-```yaml
-# values.yaml
-GatewayApi:
-  provider: "auto"
-  internal:
-    enabled: true
-    hosts:
-      - host: minha-app.hibrido.luizalabs.com
-```
-*Comportamento:* Detecta automaticamente se deve usar GKE ou Envoy baseado na presença dos CRDs no cluster.
-
 ---
 
-## 🔥 Features Exclusivas do Envoy Gateway
+## 🔥 Features de Tráfego e Resiliência (Envoy Gateway)
 
 Ao utilizar `provider: "envoy-gateway"`, você desbloqueia configurações avançadas de tráfego e resiliência que são aplicadas via `BackendTrafficPolicy`.
 
-Essas configurações ficam dentro dos blocos `envoy` em `external` ou `internal`.
+### 1. gRPC Support (Novo v1.4.4)
+O `base-webapp` agora suporta exposição de serviços gRPC via Gateway API. Isso inclui a criação automática de `HTTPRoute` com protocolo gRPC e `HealthCheckPolicy` específica.
 
-### 1. Redirecionamento HTTP -> HTTPS
+```yaml
+GatewayApi:
+  grpc:
+    enabled: true
+    port: 50051
+    # healthCheck: true  # Opcional: Ativa health check específico para gRPC (GKE)
+```
+
+### 2. Cross-Namespace Traffic Splitting (Novo v1.4.4)
+Agora é possível fazer traffic split entre serviços em namespaces diferentes utilizando `ReferenceGrant`. Isso é útil para canary releases entre squads ou migrações graduais.
+
+```yaml
+# No Namespace RECEPTOR (quem recebe o tráfego)
+referenceGrant:
+  enabled: true
+  allowedNamespaces:
+    - namespace: "namespace-origem"
+
+# No Namespace ORIGEM (quem envia o tráfego)
+GatewayApi:
+  advanced: true
+  internal:
+    backendRefs:
+      - name: meu-servico-local
+        port: 80
+        weight: 90
+      - name: servico-remoto
+        namespace: namespace-receptor
+        port: 80
+        weight: 10
+```
+
+### 3. Argo Rollouts (Novo v1.4.4)
+Suporte integrado para estratégias de deployment **Canary** e **Blue-Green** via Argo Rollouts.
+
+```yaml
+rollouts:
+  enabled: true
+  strategy:
+    type: Canary
+    canary:
+      steps:
+        - setWeight: 20
+        - pause: { duration: 1h }
+        - setWeight: 50
+        - pause: { duration: 1h }
+```
+
+### 4. Redirecionamento HTTP -> HTTPS
 No Envoy Gateway, você pode forçar o redirecionamento de tráfego HTTP para HTTPS de forma simples, adicionando o parâmetro `httpRedirect: true` na definição do host.
-
-A implementação cria um filtro `RequestRedirect` com status `301` e scheme `https`.
 
 ```yaml
 GatewayApi:
@@ -83,15 +116,11 @@ GatewayApi:
     enabled: true
     hosts:
       - host: minha-app.magazineluiza.com.br
-        # Força redirect HTTP -> HTTPS (Status 301)
         httpRedirect: true
 ```
-*Nota:* Ao ativar, o chart gera duas rotas: uma para o tráfego seguro (HTTPS) e outra exclusiva para receber HTTP e responder com o Redirect.
 
-### 2. Resiliência e Timeouts (Atualizado v1.4.2)
+### 5. Resiliência e Timeouts (Atualizado v1.4.4)
 Controle granular sobre timeouts, proteção contra sobrecarga e retries automáticos.
-
-*Nota sobre Health Checks:* O Envoy Gateway **não** realiza health checks ativos separados. Ele utiliza o status dos pods do Kubernetes (Ready/NotReady) baseado no `livenessProbe` configurado. Isso evita duplicação de métricas no Datadog e requisições redundantes aos endpoints de saúde.
 
 ```yaml
 GatewayApi:
@@ -104,247 +133,55 @@ GatewayApi:
       backendPolicy:
         enabled: true
         timeout:
-          # Timeout total da requisição (do gateway até a app e volta)
           requestTimeout: 30s
-          # Timeout para estabelecer conexão TCP
-          tcp:
-            connectTimeout: 10ms
-          # Timeout de conexão ociosa (Keep-Alive) - Aumentado para conexões longas
           connectionIdleTimeout: 590s
-          # Máximo tempo de duração da conexão (draining)
-          maxConnectionDuration: 3600s
-
-        # Proteção contra efeito manada (Circuit Breaker) - Novo em v1.4.2
         circuitBreaker:
           enabled: true
-          maxConnections: 16384           # Máx conexões simultâneas (padrão: 16384)
-          maxPendingRequests: 16384       # Máx requisições na fila (padrão: 16384)
-          maxParallelRequests: 16384      # Máx requests paralelos (padrão: 16384)
-          maxParallelRetries: 16384       # Máx retries paralelos (padrão: 16384)
-
-        # Retry automático em falhas - HABILITADO POR PADRÃO em v1.4.2
-        retryOn:
-          enabled: true                   # Habilita/desabilita retries (padrão: true)
-          triggers:                       # Condições para retry
-            - "reset"                     # Connection reset (network glitch)
-            - "connect-failure"           # Failed to connect to upstream
-            - "refused-stream"            # Stream refused by upstream
-            - "retriable-status-codes"    # Retry specific HTTP status codes
-            - "retriable-4xx"             # Retry on 429 (rate limit)
-          httpStatusCodes:                # Status codes explícitos para retry
-            - 502                         # Bad Gateway (intermediate proxy error)
-            - 504                         # Gateway Timeout (upstream timeout)
-            # NOT 503 (Service Unavailable) - previne retry storm durante overload
-        numRetries: 1                     # Número de tentativas extras (total: 2 tentativas)
-
-*Nota:* A configuração de retry é **explícita e segura**:
-- **Retenta:** 502 (Bad Gateway), 504 (Gateway Timeout), 429 (Rate Limit), network issues (reset, connect-failure, refused-stream)
-- **NÃO retenta:** 503 (Service Unavailable) para prevenir retry storm durante Black Friday, 500 (pode ser bug da app), 409 (Conflict - evita operações duplicadas)
-```
-
-*Novidades v1.4.2:*
-- **Health Check Simplificado**: Removido active health checking do Envoy para evitar duplicação com Kubernetes livenessProbe.
-- **Retry Seguro**: Retry automático (1 tentativa extra) apenas em erros seguros (502, 504, network issues). **NÃO retenta 503** (previne retry storm).
-- **Circuit Breaker Global**: Limites altos (16384) para prevenir RST errors e latência variável.
-- **Timeouts Otimizados**: `connectionIdleTimeout: 600s` e `maxConnectionDuration: 3600s` para conexões longas em produção.
-
-### 3. Session Affinity (Sticky Sessions)
-
-Para aplicações que necessitam que um usuário seja sempre roteado para o mesmo pod (ex: aplicações stateful ou com caches locais), você pode ativar a afinidade de sessão.
-
-O Chart utiliza o algoritmo `ConsistentHash` baseado no IP de origem (`SourceIP`) do cliente.
-
-```yaml
-GatewayApi:
-  provider: "envoy-gateway"
-  internal:
-    enabled: true
-    hosts:
-      - host: app-stateful.interno.luizalabs.com
-    envoy:
-      backendPolicy:
-        enabled: true
-        # Ativa Sticky Session por IP de Origem
-        sessionAffinity: true
-```
-
-### 4. Manipulação de Headers
-Adicione ou remova headers nas respostas enviadas ao cliente.
-
-```yaml
-GatewayApi:
-  provider: "envoy-gateway"
-  external:
-    enabled: true
-    hosts:
-      - host: checkout.magazineluiza.com.br
-    envoy:
-      responseHeaders:
-        - name: "X-Powered-By"
-          value: "Magalu-Envoy"
-        - name: "Cache-Control"
-          value: "no-store"
-```
-
-### 5. Traffic Splitting (Modo Avançado)
-Para cenários avançados de deployment (canary releases, A/B testing, etc.), você pode habilitar o modo avançado para distribuir tráfego entre múltiplos backends com pesos específicos.
-
-```yaml
-GatewayApi:
-  provider: "envoy-gateway"
-  advanced: true  # Habilita modo avançado
-
-  external:
-    enabled: true
-    hosts:
-      - host: minha-app.magazineluiza.com.br
-    # No modo avançado, você define manualmente os backendRefs
-    backendRefs:
-      - name: minha-app-v1     # Service do backend principal
-        port: 80
-        weight: 90            # 90% do tráfego
-      - name: minha-app-v2     # Service do backend canary
-        port: 80
-        weight: 10            # 10% do tráfego
-```
-*Nota:* Quando `advanced: true`, o chart ignora o service padrão e usa apenas os `backendRefs` definidos.
-
----
-
-## 🛡️ Features do GKE Gateway
-
-Ao utilizar `provider: "gke-gateway"`, você tem acesso às funcionalidades nativas do Google Cloud Platform.
-
-### 1. Health Check Policy
-O GKE Gateway utiliza `HealthCheckPolicy` para configurar health checks ativos, similares aos do Envoy mas utilizando a infraestrutura do GCP.
-
-```yaml
-# Configurado automaticamente baseado no seu livenessProbe
-livenessProbe:
-  httpGet:
-    path: /health
-    port: 5000
-  periodSeconds: 10
-  timeoutSeconds: 5
-  successThreshold: 1
-  failureThreshold: 3
-```
-*Comportamento:* Cria uma `HealthCheckPolicy` que monitora o endpoint `/health` a cada 10 segundos.
-
-### 2. GCP Backend Policy
-Configurações avançadas de backend como timeout, logging e connection draining.
-
-```yaml
-# Configurações globais (aplicam a todos os gateways)
-GatewayApiBackend:
-  timeout:
-    enable: true
-    time: 30  # Timeout em segundos
-
-GatewayApiBackendLogging:
-  logging:
-    external:
-      enable: true
-      sampleRate: 0.1  # 10% das requests são logadas
-
-GatewayApiBackendDrainingTimeoutSec:
-  timeout:
-    external:
-      time: 30  # Tempo para draining de conexões
-```
-
-### 3. Cloud Armor (Security Policy)
-Integração com Google Cloud Armor para proteção contra ataques DDoS, SQL injection, XSS, etc.
-
-```yaml
-GatewayApiArmor:
-  armor:
-    enabled: true
-    policy:
-      - name: "my-security-policy"  # Nome da policy no Cloud Armor
-```
-
----
-
-##  Resumo de Migração (GKE -> Envoy)
-
-Se você deseja migrar uma aplicação do GKE para um cluster com Envoy Gateway:
-
-1.  Altere `GatewayApi.provider` para `"envoy-gateway"` ou `"auto"`.
-2.  Mantenha as configurações de `hosts`.
-3.  Se precisar de **HTTPS forçado** para rotas externas, adicione `httpRedirect: true`.
-4.  Adicione o bloco `envoy.backendPolicy` para configurar timeouts, circuit breakers ou sticky sessions.
-5.  **Atenção:** Se você usava `GatewayApiArmor` (Cloud Armor), ele **não** será renderizado no Envoy Gateway, pois é uma feature proprietária do Google.
-
-## ✅ Exemplo Completo (Values.yaml) - Atualizado v1.4.2
-
-```yaml
-GatewayApi:
-  provider: "envoy-gateway"
-  advanced: false  # false = usa service padrão, true = traffic splitting manual
-
-  # Exposição Interna (HTTP) + Sticky Session + Circuit Breaker + Retry
-  internal:
-    enabled: true
-    hosts:
-      - host: checkout-api.interno.luizalabs.com
-    envoy:
-      backendPolicy:
-        enabled: true
-        sessionAffinity: true
-        timeout:
-          requestTimeout: 30s
-          connectionIdleTimeout: 590s  # Aumentado para conexões longas
-        circuitBreaker:
-          enabled: true
-          maxConnections: 16384        # Proteção contra sobrecarga
+          maxConnections: 16384
         retryOn:
           enabled: true
           triggers:
             - "reset"
             - "connect-failure"
-            - "refused-stream"
             - "retriable-status-codes"
-            - "retriable-4xx"
           httpStatusCodes:
             - 502
             - 504
         numRetries: 1
+```
 
-  # Exposição Externa (HTTPS) + Redirect + Headers
-  external:
+---
+
+## ✅ Exemplo Completo (Values.yaml) - v1.4.4
+
+```yaml
+GatewayApi:
+  provider: "envoy-gateway"
+  grpc:
+    enabled: true
+    port: 50051
+
+  internal:
     enabled: true
     hosts:
-      - host: checkout.magazineluiza.com.br
-        httpRedirect: true
+      - host: api-grpc.interno.luizalabs.com
     envoy:
-      responseHeaders:
-        - name: Strict-Transport-Security
-          value: "max-age=31536000; includeSubDomains"
       backendPolicy:
         enabled: true
-        retryOn:
-          enabled: true
-          triggers:
-            - "reset"
-            - "connect-failure"
-            - "refused-stream"
-            - "retriable-status-codes"
-            - "retriable-4xx"
-          httpStatusCodes:
-            - 502
-            - 504
+        timeout:
+          requestTimeout: 30s
 
-# Configurações específicas do GKE (apenas quando provider="gke-gateway")
-GatewayApiArmor:
-  armor:
-    enabled: true
-    policy:
-      - name: "my-security-policy"
+rollouts:
+  enabled: true
+  strategy:
+    type: Canary
+    canary:
+      steps:
+        - setWeight: 10
+        - pause: { duration: 5m }
 
-GatewayApiBackendLogging:
-  logging:
-    external:
-      enable: true
-      sampleRate: 0.01  # 1% das requests
+referenceGrant:
+  enabled: true
+  allowedNamespaces:
+    - namespace: "squad-b-namespace"
 ```

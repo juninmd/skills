@@ -46,19 +46,48 @@ The GitLab CLI must be explicitly configured for the internal instance.
 ## ⚠️ EXECUTION GOLDEN RULES (MRs)
 When acting on a full GitLab URL (e.g., `https://gitlab.luizalabs.com/my-group/my-repo/-/merge_requests/280`), you **MUST strictly follow this format**:
 
-**FORMAT**: `glab mr <ACTION> <MR_ID> -R <FULL_URL_BEFORE_/-/ >`
-**EXAMPLE**: `glab mr view 280 -R https://gitlab.luizalabs.com/my-group/my-repo`
+**FORMAT**: `NO_COLOR=1 GIT_PAGER=cat glab mr <ACTION> <MR_ID> -R <FULL_URL_BEFORE_/-/>`
+**EXAMPLE (diff)**: `NO_COLOR=1 GIT_PAGER=cat glab mr diff 280 -R https://gitlab.luizalabs.com/my-group/my-repo > /tmp/mr280.diff`
+**EXAMPLE (metadata)**: Use `mcp_gitlab-labs_glab_api` → `args: ["/projects/my-group%2Fmy-repo/merge_requests/280"]`
 
 **🛑 ANTI-PATTERNS (NEVER DO THIS):**
 - ❌ No Shell Variables (`$id`, `$repo`)
 - ❌ No Missing Host/Context (Always use `-R <URL>`)
 - ❌ No Brackets (`<id>`, `{id}`)
+- ❌ Never run `glab mr view` — it ALWAYS opens a pager regardless of env vars. Use `mcp_gitlab-labs_glab_api` instead.
+- ❌ Never run `glab mr diff` without redirecting to a file or piping — e.g. `> /tmp/mr.diff` or `| head -N`
+
+## 🔑 MANDATORY APPROACH FOR DATA COLLECTION
+```
+MR Metadata → mcp_gitlab-labs_glab_api (zero pager risk)
+MR Diff     → glab mr diff <ID> -R <URL> > /tmp/mr<ID>.diff (redirect to file)
+```
+Without file redirect, `glab mr diff` may open the pager in terminal (hangs execution).
 
 ## Tips
-- **Obtaining MR Diff**: Use `mcp_gitlab-labs_glab_api` with GET on `/projects/123/merge_requests/456/changes` (use real IDs) or run `glab mr diff 456 -R https://...`.
+- **Obtaining MR metadata (PREFERRED — no pager)**: Use MCP tool `mcp_gitlab-labs_glab_api`:
+  ```
+  args: ["/projects/group%2Frepo/merge_requests/280"]
+  flags: {"hostname": "gitlab.luizalabs.com"}
+  ```
+  The `%2F` encodes `/` in the project path. Example: `luizalabs/base-webapp` → `luizalabs%2Fbase-webapp`
+- **Obtaining MR Diff (from terminal)**: Redirect output to a file to avoid pager:
+  ```bash
+  NO_COLOR=1 GIT_PAGER=cat glab mr diff 280 -R https://gitlab.luizalabs.com/group/repo > /tmp/mr280.diff 2>&1
+  cat /tmp/mr280.diff | head -300
+  ```
+  **⚠️ NEVER** run `glab mr view` or `glab mr diff` without `> file` redirect or `| head -N` pipe in the same command — glab opens a pager (alternate buffer) that hangs the terminal.
+- **Why `glab mr view` fails**: `glab mr view` always opens a pager when stdout is a TTY, regardless of env vars. Use `mcp_gitlab-labs_glab_api` instead for MR metadata.
 - When a review spans multiple perspectives, invoke parallel subagents.
 - Prefer non-interactive CLI usage and deterministic commands.
-- **Posting Comments**: Run `glab mr note 280 -R https://... --message "$(cat file)"` to avoid multiline string escaping issues.
+- **Posting Comments (multi-line)**: Write review to a temp file first, then post:
+  ```bash
+  cat > /tmp/mr_review.md << 'EOF'
+  Your review content here
+  EOF
+  NO_COLOR=1 GIT_PAGER=cat glab mr note 280 -R https://gitlab.luizalabs.com/group/repo --message "$(cat /tmp/mr_review.md)"
+  ```
+- **Posting Comments (single-line)**: `NO_COLOR=1 GIT_PAGER=cat glab mr note 280 -R https://... --message "Sua mensagem aqui"`
 
 ## Command Reference
 
