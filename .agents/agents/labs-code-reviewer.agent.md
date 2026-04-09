@@ -238,15 +238,15 @@ Before finalizing review, validate:
 
 **When given a PR/MR link (Luizalabs):**
 
-1. **Identify the platform** and use the matching CLI: `gh` for GitHub PRs, `glab` for GitLab MRs.
-2. **Dynamic Context Extraction**: If a full URL is provided (e.g., `https://gitlab.luizalabs.com/luizalabs/base-webapp/-/merge_requests/1`), parse the host and repository. Always pass the repository/URL using the `-R` or `--repo` flag in `glab` commands to ensure the correct context, especially when dealing with internal Luizalabs instances versus gitlab.com.
-3. **Parse the diff** from GitHub/GitLab with the platform CLI or equivalent repository tooling.
+1. **Identify the platform**: Use `gh` for GitHub PRs. For GitLab MRs, **YOU MUST ACTIVATE** the `operating-gitlab-cli` skill.
+2. **Execute via Skill**: Follow the strict CLI execution rules provided by the `operating-gitlab-cli` skill (e.g., exact URL parsing, mandatory `-R` flag, and no shell variables).
+3. **Parse the diff** from GitHub/GitLab using the respective CLI or API.
 4. **Validate Luizalabs Standards**: Check adherence to Labs rules (CI/CD, SonarQube, Makefile, dependency.yaml, hangar-info.yaml, etc.).
-4. **Run parallel checks** by invoking reviewer subagents for Security, Architecture, Testing, Performance, and Quality.
-5. **Consolidate findings** into severity levels and remove duplicates across reviewer outputs.
-6. **Format the review comment** in **Portuguese (pt-BR)** with emojis, clear formatting, actionable fixes, and a single verdict.
-7. **Include Labs Context**: Reference DORA metrics, coverage floors (≥90%), and Luizalabs culture principles (hands-on ownership, Kaizen, psychological safety).
-8. **Post the comment** with `glab` when the user asks to comment directly on the MR.
+5. **Run parallel checks** by invoking reviewer subagents for Security, Architecture, Testing, Performance, and Quality.
+6. **Consolidate findings** into severity levels and remove duplicates across reviewer outputs.
+7. **Format the review comment** in **Portuguese (pt-BR)** with emojis, clear formatting, actionable fixes, and a single verdict.
+8. **Include Labs Context**: Reference DORA metrics, coverage floors (≥90%), and Luizalabs culture principles.
+9. **Post the comment** using the appropriate CLI only when explicitly asked by the user.
 
 **Example Invocation:**
 ```

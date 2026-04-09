@@ -1,5 +1,7 @@
 # GitLab CLI (glab) Command Reference
 
+**CRITICAL**: All placeholders like `<id>`, `<repo>`, `<alias>`, etc., MUST be replaced with real values before executing any command. Never use these symbols literally in a terminal.
+
 This document provides a comprehensive list of core `glab` commands. Always use
 `--help` (e.g., `glab mr --help`) for specific sub-command flags.
 
@@ -8,11 +10,11 @@ This document provides a comprehensive list of core `glab` commands. Always use
 *   `glab auth status` - View authentication status.
 
 ## Aliases (glab alias)
-*   `glab alias set <alias> <command>` - Set an alias.
+*   `glab alias set my-alias "mr list"` - Set an alias.
 *   `glab alias list` - List configured aliases.
 
 ## API Interactivity (glab api)
-*   `glab api <endpoint>` - Make an authenticated request to the GitLab API.
+*   `glab api projects/123/merge_requests` - Make an authenticated request to the GitLab API.
 
 ## CI/CD Pipelines (glab ci)
 *   `glab ci status` - View the status of the current pipeline.
@@ -24,40 +26,42 @@ This document provides a comprehensive list of core `glab` commands. Always use
 ## Issues (glab issue)
 *   `glab issue list` - List project issues.
 *   `glab issue create` - Create a new issue.
-*   `glab issue view <id>` - Display the title, body, and other information about an issue.
-*   `glab issue close <id>` - Close an issue.
-*   `glab issue reopen <id>` - Reopen a closed issue.
+*   `glab issue view 123` - Display the title, body, and other information about an issue.
+*   `glab issue close 123` - Close an issue.
+*   `glab issue reopen 123` - Reopen a closed issue.
 *   `glab issue board view` - View issue boards.
 
 ## Merge Requests (glab mr)
-*   `glab mr list` - List merge requests.
-*   `glab mr create` - Create a new merge request.
-*   `glab mr view <id>` - View information about a merge request.
-*   `glab mr merge <id>` - Accept and merge a merge request.
-*   `glab mr approve <id>` - Approve a merge request.
-*   `glab mr diff <id>` - View changes in a merge request.
-*   `glab mr checkout <id>` - Checkout a branch associated with a merge request.
+**MANDATORY**: ALWAYS append `-R <FULL_URL>` (e.g., `-R https://gitlab.luizalabs.com/group/repo`) to all `mr` commands.
+
+*   `glab mr list -R https://...` - List merge requests.
+*   `glab mr create -R https://...` - Create a new merge request.
+*   `glab mr view 280 -R https://...` - View information about a merge request.
+*   `glab mr merge 280 -R https://...` - Accept and merge a merge request.
+*   `glab mr approve 280 -R https://...` - Approve a merge request.
+*   `glab mr diff 280 -R https://...` - View changes in a merge request.
+*   `glab mr checkout 280 -R https://...` - Checkout a branch associated with a merge request.
 
 ## Repositories/Projects (glab repo)
 *   `glab repo list` - List repositories.
-*   `glab repo clone <repo>` - Clone a repository locally.
-*   `glab repo create <name>` - Create a new repository.
-*   `glab repo view <repo>` - View a repository in the browser or terminal.
+*   `glab repo clone group/project` - Clone a repository locally.
+*   `glab repo create my-project` - Create a new repository.
+*   `glab repo view group/project` - View a repository in the browser or terminal.
 *   `glab repo archive` - Archive a repository.
 
 ## Releases (glab release)
 *   `glab release list` - List project releases.
-*   `glab release create <tag>` - Create a new release.
-*   `glab release upload <tag> <files>` - Upload assets to a release.
+*   `glab release create v1.0.0` - Create a new release.
+*   `glab release upload v1.0.0 file.zip` - Upload assets to a release.
 
 ## SSH Keys (glab ssh-key)
 *   `glab ssh-key list` - List SSH keys for your account.
-*   `glab ssh-key add <key_file>` - Add an SSH key to your GitLab account.
+*   `glab ssh-key add id_rsa.pub` - Add an SSH key to your GitLab account.
 
 ## Variables (glab variable)
 *   `glab variable list` - List project or group variables.
-*   `glab variable set <key> <value>` - Create a new project or group variable.
+*   `glab variable set MY_VAR "value"` - Create a new project or group variable.
 
 ## General Configuration (glab config)
-*   `glab config set <key> <value>` - Set configuration values (e.g., `host`, `editor`).
-*   `glab config get <key>` - Get a configuration value.
+*   `glab config set host gitlab.luizalabs.com` - Set configuration values (e.g., `host`, `editor`).
+*   `glab config get host` - Get a configuration value.

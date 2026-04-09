@@ -43,13 +43,22 @@ The GitLab CLI must be explicitly configured for the internal instance.
 3.  **Telemetry Note:**
   `401 Unauthorized` telemetry errors are expected because the internal instance blocks usage tracking. Authentication remains valid.
 
+## ⚠️ EXECUTION GOLDEN RULES (MRs)
+When acting on a full GitLab URL (e.g., `https://gitlab.luizalabs.com/my-group/my-repo/-/merge_requests/280`), you **MUST strictly follow this format**:
+
+**FORMAT**: `glab mr <ACTION> <MR_ID> -R <FULL_URL_BEFORE_/-/ >`
+**EXAMPLE**: `glab mr view 280 -R https://gitlab.luizalabs.com/my-group/my-repo`
+
+**🛑 ANTI-PATTERNS (NEVER DO THIS):**
+- ❌ No Shell Variables (`$id`, `$repo`)
+- ❌ No Missing Host/Context (Always use `-R <URL>`)
+- ❌ No Brackets (`<id>`, `{id}`)
+
 ## Tips
-- **Obtaining MR Content**: Use `mcp_gitlab-labs_glab_api` with GET on `/projects/<project>/merge_requests/<id>/changes` to fetch the diff JSON; alternatively, use `run_in_terminal` with `glab mr view <id>` for summary or `glab mr diff <id>` for diff output. The `glab` command will automatically use the correct repository and host context when executed within the project directory.
-- **Dynamic Host Resolution**: When the user provides a full GitLab URL (e.g., `https://gitlab.luizalabs.com/group/project/-/merge_requests/123`), extract the host and repository path. Use the `-R` or `--repo` flag with the full URL (or `namespace/repo`) to ensure `glab` targets the correct instance and project, regardless of the default configured host.
-- When a review spans multiple perspectives, invoke parallel subagents for Security, Architecture, Testing, Performance, and Quality, then consolidate the findings into a single verdict.
-- If the user explicitly asks to post the review, publish the final consolidated comment with the appropriate CLI instead of only drafting it in chat.
-- Prefer non-interactive CLI usage and deterministic commands so the review can be reproduced.
-- **Posting Comments**: Use `run_in_terminal` with `glab mr note <MR_ID> --message "<comment>"` for GitLab MRs. For cross-instance or specific repository targeting, always append `-R <URL_OR_PATH>` (e.g., `-R https://gitlab.luizalabs.com/luizalabs/base-webapp`) to ensure the command hits the correct target. For long comments, save to a temporary file and use `$(cat file)`.
+- **Obtaining MR Diff**: Use `mcp_gitlab-labs_glab_api` with GET on `/projects/123/merge_requests/456/changes` (use real IDs) or run `glab mr diff 456 -R https://...`.
+- When a review spans multiple perspectives, invoke parallel subagents.
+- Prefer non-interactive CLI usage and deterministic commands.
+- **Posting Comments**: Run `glab mr note 280 -R https://... --message "$(cat file)"` to avoid multiline string escaping issues.
 
 ## Command Reference
 
@@ -58,14 +67,14 @@ See the full command reference at [references/commands.md](references/commands.m
 ## Specific Luizalabs Workflows
 
 *   **List Squad Repos:** `glab repo list --per-page 20`
-*   **Check Pipeline Status:** `glab ci status` (crucial before merging)
-*   **Trace Job Logs:** `glab ci trace` (tail logs in real time)
+*   **Check Pipeline Status:** `glab ci status`
+*   **Trace Job Logs:** `glab ci trace`
 *   **Create MR:**
     ```bash
     glab mr create \
-      --title "feat: <description>" \
-      --description "Closes #<issue_id>" \
-      --label "<squad-name>"
+      --title "feat: add user authentication" \
+      --description "Closes #123" \
+      --label "squad-auth"
     ```
 
 ## MCP (Model Context Protocol) — GitHub Copilot
