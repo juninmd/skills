@@ -1,6 +1,6 @@
 {
   "name": "@luizalabs/padrao-labs-agents-docs",
-  "version": "1.54.0",
+  "version": "1.54.1",
   "private": true,
   "description": "VitePress documentation for Luizalabs Agents, Skills, Rules, and Workflows",
   "type": "module",
