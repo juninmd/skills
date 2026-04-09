@@ -1,0 +1,9 @@
+[Unit]
+Description=Atualiza VS Code via apt (official repo)
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+TimeoutStartSec=600
+ExecStart=/usr/local/bin/vscode-auto-update.sh
