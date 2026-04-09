@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.54.3](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.54.2...v1.54.3) (2026-04-09)
+
+
+### Bug Fixes
+
+* code review ([7718204](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/7718204))
+
 ## [1.54.2](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.54.1...v1.54.2) (2026-04-09)
 
 
