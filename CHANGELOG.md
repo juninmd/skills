@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.54.2](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.54.1...v1.54.2) (2026-04-09)
+
+
+### Bug Fixes
+
+* skills ([218f44f](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/218f44f))
+
 ## [1.54.1](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.54.0...v1.54.1) (2026-04-09)
 
 
