@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.54.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.53.0...v1.54.0) (2026-04-09)
+
+
+### Features
+
+* vscode update ([421afd8](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/421afd8))
+
 # [1.53.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.52.0...v1.53.0) (2026-04-08)
 
 

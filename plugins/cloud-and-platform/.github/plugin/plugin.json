@@ -1,7 +1,7 @@
 {
   "name": "cloud-and-platform",
   "description": "Infrastructure as Code, Kubernetes, CI/CD, and Cloud operations.",
-  "version": "1.53.0",
+  "version": "1.54.0",
   "skills": [
     "../../../../.agents/skills/operating-k8s",
     "../../../../.agents/skills/labs-operating-infrastructure",

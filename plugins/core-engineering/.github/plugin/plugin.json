@@ -1,7 +1,7 @@
 {
   "name": "core-engineering",
   "description": "Software architecture, backend development, design patterns, and core engineering best practices.",
-  "version": "1.53.0",
+  "version": "1.54.0",
   "skills": [
     "../../../../.agents/skills/applying-clean-code",
     "../../../../.agents/skills/applying-dry",
