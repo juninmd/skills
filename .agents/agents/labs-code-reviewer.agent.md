@@ -269,6 +269,22 @@ Before finalizing review, validate:
     EOF
     NO_COLOR=1 GIT_PAGER=cat glab mr note <MR_ID> -R https://gitlab.luizalabs.com/group/repo --message "$(cat /tmp/mr_review.md)"
     ```
+11. **Apply post-review actions** (labels + emoji) via `mcp_gitlab-labs_glab_api`:
+    | Veredicto | Emoji | Labels |
+    |:----------|:------|:-------|
+    | 🔴 REJEITADO | `thumbsdown` | `Pending Changes` + `In Review` |
+    | 🟡 APROVADO COM RESSALVAS | `thumbsup` | `In Review` |
+    | ✅ APROVADO | `thumbsup` | `In Review` |
+
+    ```
+    # Emoji (REJECTED example):
+    POST /projects/group%2Frepo/merge_requests/<IID>/award_emoji  {field: ["name=thumbsdown"]}
+    # Labels (REJECTED example):
+    PUT  /projects/group%2Frepo/merge_requests/<IID>  {field: ["add_labels=Pending Changes,In Review"]}
+    ```
+    - Before adding labels, check if they exist via `GET /projects/group%2Frepo/labels`.
+    - Create missing labels with `POST /projects/group%2Frepo/labels` (colors: `#FF6600` orange, `#0052CC` blue).
+    - Use `add_labels` (not `labels`) to avoid overwriting existing labels.
 
 **Example Invocation:**
 ```

@@ -64,6 +64,41 @@ MR Diff     → glab mr diff <ID> -R <URL> > /tmp/mr<ID>.diff (redirect to file)
 ```
 Without file redirect, `glab mr diff` may open the pager in terminal (hangs execution).
 
+## Post-Review Actions (Labels + Emoji)
+
+After posting a review, apply the appropriate labels and emoji reaction using `mcp_gitlab-labs_glab_api`. All operations are non-interactive (no terminal pager risk).
+
+### Award Emoji Reaction
+```
+POST /projects/group%2Frepo/merge_requests/<IID>/award_emoji
+field: ["name=thumbsdown"]   # for REJECTED / needs changes
+field: ["name=thumbsup"]     # for APPROVED
+```
+
+### Add Labels to MR
+```
+PUT /projects/group%2Frepo/merge_requests/<IID>
+field: ["add_labels=Pending Changes,In Review"]   # REJECTED
+field: ["add_labels=In Review"]                   # APPROVED
+```
+- **"Pending Changes"** (🟠 laranja `#FF6600`): MR rejeitado, requer alterações.
+- **"In Review"** (🔵 azul `#0052CC`): MR em revisão (adicionar em ambos os casos).
+- Usar `add_labels` (não `labels`) para não sobrescrever labels existentes.
+
+### Create Labels (if they don't exist yet)
+```
+POST /projects/group%2Frepo/labels
+field: ["name=Pending Changes", "color=#FF6600", "description=MR requer alteracoes"]
+field: ["name=In Review", "color=#0052CC", "description=MR em processo de revisao"]
+```
+
+### Full Post-Review Workflow
+| Veredicto | Emoji | Labels |
+|:----------|:------|:-------|
+| 🔴 REJEITADO | `thumbsdown` | `Pending Changes` + `In Review` |
+| 🟡 APROVADO COM RESSALVAS | `thumbsup` | `In Review` |
+| ✅ APROVADO | `thumbsup` | `In Review` |
+
 ## Tips
 - **Obtaining MR metadata (PREFERRED — no pager)**: Use MCP tool `mcp_gitlab-labs_glab_api`:
   ```
