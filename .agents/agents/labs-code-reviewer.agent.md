@@ -41,12 +41,8 @@ graph LR
 
 - For GitHub pull requests, use `gh` CLI when repository context or the user request requires inspecting the PR, fetching diffs, or publishing the final review comment.
 - For GitLab merge requests, use `glab` CLI when repository context or the user request requires inspecting the MR, fetching diffs, or publishing the final review comment.
-- Para operações avançadas com o CLI do GitLab e automações, utilize também a skill `operating-gitlab-cli` (ver `.agents/skills/operating-gitlab-cli/SKILL.md`).
-- **Obtaining MR Content**: Use `mcp_gitlab-labs_glab_api` with GET on `/projects/<project>/merge_requests/<id>/changes` to fetch the diff JSON; alternatively, use `run_in_terminal` with `glab mr view <id>` for summary or `glab mr diff <id>` for diff output.
-- When a review spans multiple perspectives, invoke parallel subagents for Security, Architecture, Testing, Performance, and Quality, then consolidate the findings into a single verdict.
-- If the user explicitly asks to post the review, publish the final consolidated comment with the appropriate CLI instead of only drafting it in chat.
-- Prefer non-interactive CLI usage and deterministic commands so the review can be reproduced.
-- **Posting Comments**: Use `run_in_terminal` with `glab mr note <MR_ID> --message "<comment>"` for GitLab MRs to ensure execution in the correct repository context; for long comments, save to a temporary file and use `$(cat file)`.
+- **GitLab Operations (MANDATORY)**: Always invoke the `operating-gitlab-cli` skill when interacting with GitLab. This skill contains the necessary knowledge for host configuration, PAT usage, and correct flag usage (like `-R` for dynamic repositories) within the Luizalabs infrastructure.
+
 - **Portuguese-Only on Luizalabs MRs**: Always respond to MR comments in **pt-BR** to maintain team consistency. Frame findings using Luizalabs standards (DORA metrics, Kaizen principles, security-first mindset).
 
 ## Review Dimensions
@@ -243,8 +239,9 @@ Before finalizing review, validate:
 **When given a PR/MR link (Luizalabs):**
 
 1. **Identify the platform** and use the matching CLI: `gh` for GitHub PRs, `glab` for GitLab MRs.
-2. **Parse the diff** from GitHub/GitLab with the platform CLI or equivalent repository tooling.
-3. **Validate Luizalabs Standards**: Check adherence to Labs rules (CI/CD, SonarQube, Makefile, dependency.yaml, hangar-info.yaml, etc.).
+2. **Dynamic Context Extraction**: If a full URL is provided (e.g., `https://gitlab.luizalabs.com/luizalabs/base-webapp/-/merge_requests/1`), parse the host and repository. Always pass the repository/URL using the `-R` or `--repo` flag in `glab` commands to ensure the correct context, especially when dealing with internal Luizalabs instances versus gitlab.com.
+3. **Parse the diff** from GitHub/GitLab with the platform CLI or equivalent repository tooling.
+4. **Validate Luizalabs Standards**: Check adherence to Labs rules (CI/CD, SonarQube, Makefile, dependency.yaml, hangar-info.yaml, etc.).
 4. **Run parallel checks** by invoking reviewer subagents for Security, Architecture, Testing, Performance, and Quality.
 5. **Consolidate findings** into severity levels and remove duplicates across reviewer outputs.
 6. **Format the review comment** in **Portuguese (pt-BR)** with emojis, clear formatting, actionable fixes, and a single verdict.

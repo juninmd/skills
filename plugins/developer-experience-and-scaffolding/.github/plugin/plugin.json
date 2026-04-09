@@ -11,6 +11,7 @@
     "../../../../.agents/skills/managing-git",
     "../../../../.agents/skills/developing-tooling",
     "../../../../.agents/skills/labs-applying-labs-standards",
-    "../../../../.agents/skills/setup-diagnose"
+    "../../../../.agents/skills/setup-diagnose",
+    "../../../../.agents/skills/vscode-auto-update"
   ]
 }

@@ -43,6 +43,14 @@ The GitLab CLI must be explicitly configured for the internal instance.
 3.  **Telemetry Note:**
   `401 Unauthorized` telemetry errors are expected because the internal instance blocks usage tracking. Authentication remains valid.
 
+## Tips
+- **Obtaining MR Content**: Use `mcp_gitlab-labs_glab_api` with GET on `/projects/<project>/merge_requests/<id>/changes` to fetch the diff JSON; alternatively, use `run_in_terminal` with `glab mr view <id>` for summary or `glab mr diff <id>` for diff output. The `glab` command will automatically use the correct repository and host context when executed within the project directory.
+- **Dynamic Host Resolution**: When the user provides a full GitLab URL (e.g., `https://gitlab.luizalabs.com/group/project/-/merge_requests/123`), extract the host and repository path. Use the `-R` or `--repo` flag with the full URL (or `namespace/repo`) to ensure `glab` targets the correct instance and project, regardless of the default configured host.
+- When a review spans multiple perspectives, invoke parallel subagents for Security, Architecture, Testing, Performance, and Quality, then consolidate the findings into a single verdict.
+- If the user explicitly asks to post the review, publish the final consolidated comment with the appropriate CLI instead of only drafting it in chat.
+- Prefer non-interactive CLI usage and deterministic commands so the review can be reproduced.
+- **Posting Comments**: Use `run_in_terminal` with `glab mr note <MR_ID> --message "<comment>"` for GitLab MRs. For cross-instance or specific repository targeting, always append `-R <URL_OR_PATH>` (e.g., `-R https://gitlab.luizalabs.com/luizalabs/base-webapp`) to ensure the command hits the correct target. For long comments, save to a temporary file and use `$(cat file)`.
+
 ## Command Reference
 
 See the full command reference at [references/commands.md](references/commands.md).
