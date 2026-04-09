@@ -1,6 +1,6 @@
 {
   "name": "@luizalabs/padrao-labs-agents",
-  "version": "1.54.1",
+  "version": "1.54.2",
   "description": "CLI para instalar skills, agents, rules e workflows do padrao Luizalabs globalmente",
   "type": "module",
   "bin": {
