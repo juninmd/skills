@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.55.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.54.3...v1.55.0) (2026-04-09)
+
+
+### Features
+
+* design ([e3144de](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/e3144de))
+
 ## [1.54.3](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.54.2...v1.54.3) (2026-04-09)
 
 

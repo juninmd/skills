@@ -1,7 +1,7 @@
 {
   "name": "documentation-and-governance",
   "description": "Project documentation, organizational navigation, and agent governance.",
-  "version": "1.54.3",
+  "version": "1.55.0",
   "skills": [
     "../../../../.agents/skills/documenting-markdown",
     "../../../../.agents/skills/generating-design-docs",
