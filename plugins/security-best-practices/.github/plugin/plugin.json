@@ -9,7 +9,8 @@
     "../../../../.agents/skills/triaging-incidents",
     "../../../../.agents/skills/auditing-code",
     "../../../../.agents/skills/labs-configuring-netskope",
-    "../../../../.agents/skills/labs-authenticating-sso-corp"
+    "../../../../.agents/skills/labs-authenticating-sso-corp",
+    "../../../../.agents/skills/fix-gitleaks"
   ],
   "agents": [
     "../../../../.agents/agents/labs-secops-agent.agent.md"
