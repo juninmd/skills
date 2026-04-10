@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.56.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.55.0...v1.56.0) (2026-04-10)
+
+
+### Features
+
+* git leaks ([d400748](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/commit/d400748))
+
 # [1.55.0](https://gitlab.luizalabs.com/luizalabs/padrao-labs-agents/compare/v1.54.3...v1.55.0) (2026-04-09)
 
 
