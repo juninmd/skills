@@ -1,85 +1,138 @@
-# Agent Plugins — Skills, Agents & Rules for AI Coding Assistants
+<div align="center">
 
-A curated collection of **skills**, **subagents**, **prompt templates**, and **governance rules** designed to extend AI coding assistants (Claude Code, Gemini CLI, Copilot CLI) with production-grade engineering knowledge.
+# Skills
 
-> Built for teams that want consistent, high-quality AI-assisted development across every language, framework, and infrastructure concern.
+![Agents Ecosystem](./docs/public/images/agents-ecosystem.png)
+
+Production-grade agents, skills, prompts, and engineering rules for AI coding assistants.
+
+[![VS Code Agent Plugin](https://img.shields.io/badge/VS%20Code-Agent%20Plugin-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white)](https://code.visualstudio.com/docs/copilot/customization/agent-plugins)
+[![Copilot CLI Ready](https://img.shields.io/badge/Copilot%20CLI-Ready-24292F?style=for-the-badge&logo=github&logoColor=white)](https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-plugin-reference)
+[![License MIT](https://img.shields.io/badge/License-MIT-16A34A?style=for-the-badge)](#license)
+
+**Install once. Give your assistant a senior engineering playbook.**
+
+</div>
 
 ---
 
-## What's Inside
+## Why This Exists
 
-| Category | Count | Description |
-|---|---|---|
-| [Skills](#skills) | 58 | Domain-specific knowledge modules (Node, Python, React, Docker, etc.) |
-| [Agents](#agents) | 4 | Autonomous subagents for complex multi-step tasks |
-| [Prompts](#prompts) | 4 | Reusable prompt templates for common operations |
-| [Rules](#rules) | 15 | Governance instructions enforced across all work |
+Most AI coding assistants are powerful but generic. This repository turns them into a more consistent engineering partner by packaging battle-tested guidance as installable agent customizations.
 
----
+It includes specialist agents, domain skills, reusable prompts, and governance rules for real software work: reviews, architecture, testing, infrastructure, frontend, mobile, backend, security, and delivery.
 
-## Quick Start
+## At a Glance
 
-### Using with Claude Code
+| Capability | Count | What you get |
+|---|---:|---|
+| [Skills](#skills) | 58 | Domain playbooks for Node, Python, React, Docker, mobile, cloud, databases, testing, and more |
+| [Agents](#agents) | 4 | Focused assistants for review, architecture, DevOps, and planning |
+| [Prompts](#prompts) | 4 | Ready-to-use workflows for explain, refactor, tests, and Dockerfiles |
+| [Rules](#rules) | 15 | Always-on engineering standards for security, testing, naming, privacy, and delivery |
 
-Skills and agents are loaded automatically from `.agents/` by Claude Code when present in your project. Clone this repo (or add it as a submodule) and the AI assistant will discover all plugins at session start.
+## Highlights
+
+- **VS Code Agent Plugin ready**: includes a root `plugin.json` and marketplace metadata.
+- **Copilot CLI compatible**: install from GitHub, local path, or marketplace.
+- **Claude/Gemini friendly**: keeps the `.agents/` layout for assistants that auto-discover local customizations.
+- **Engineering-first defaults**: security, type safety, clean design, observability, and test discipline.
+- **Practical scope**: focused instructions instead of giant generic prompts.
+
+## Quick Install
+
+### VS Code Agent Plugin
+
+Install from source:
+
+1. Enable `chat.plugins.enabled` in VS Code.
+2. Run `Chat: Install Plugin From Source`.
+3. Use this repository URL:
+
+```text
+https://github.com/juninmd/skills
+```
+
+For local development, register your checkout directly:
+
+```json
+{
+  "chat.pluginLocations": {
+    "C:\\path\\to\\skills": true
+  }
+}
+```
+
+Use this repository as a plugin marketplace:
+
+```json
+{
+  "chat.plugins.marketplaces": [
+    "juninmd/skills"
+  ]
+}
+```
+
+### Copilot CLI
+
+```bash
+copilot plugin install juninmd/skills
+copilot plugin install /path/to/skills
+```
+
+### Claude Code / Compatible Assistants
 
 ```bash
 # Clone into your project root
 git clone https://github.com/juninmd/skills .agents-plugins
 
-# Or as a git submodule
+# Or add as a submodule
 git submodule add https://github.com/juninmd/skills .agents
 ```
 
-### Invoking a Skill
+## Try It
 
-```
+Invoke a skill:
+
+```text
 /developing-node      # Node.js + TypeScript best practices
 /mastering-docker     # Production-ready Dockerfile generation
 /react-dev            # React 19+ patterns
-/flutter-dev          # Flutter 3 + Riverpod
+/flutter-dev          # Flutter + Riverpod guidance
 ```
 
-### Invoking an Agent
+Invoke an agent:
 
-```
+```text
 /code-reviewer        # Multi-perspective PR/MR review
 /principal-engineer   # Architecture and system design
-/devops-engineer      # CI/CD, IaC, and infrastructure
-/plan-specialist      # Task orchestration and planning
+/devops-engineer      # CI/CD, IaC, containers, cloud
+/plan-specialist      # Scope, planning, risk, quality gates
 ```
 
----
+## Plugin Layout
 
-## Directory Structure
+```text
+.
+|-- plugin.json                         # VS Code / Copilot plugin manifest
+|-- .github/plugin/marketplace.json     # Marketplace metadata
+|-- .agents/
+|   |-- agents/                         # 4 custom agents
+|   |-- prompts/                        # 4 reusable prompt templates
+|   |-- rules/                          # 15 governance instruction files
+|   |-- skills/                         # 58 domain skills
+|   `-- tools/                          # Validation scripts
+`-- docs/                               # VitePress documentation
+```
 
+## Validate
+
+```bash
+pnpm install
+pnpm run validate
 ```
-.agents/
-├── agents/          # Autonomous subagents (4)
-│   ├── code-reviewer.agent.md
-│   ├── devops-engineer.agent.md
-│   ├── plan-specialist.agent.md
-│   └── principal-engineer.agent.md
-│
-├── prompts/         # Reusable prompt templates (4)
-│   ├── explain.prompt.md
-│   ├── refactor.prompt.md
-│   ├── generate-tests.prompt.md
-│   └── generate-dockerfile.prompt.md
-│
-├── rules/           # Governance instructions (15)
-│   ├── security.instructions.md
-│   ├── git-workflow.instructions.md
-│   ├── testing.instructions.md
-│   └── ...
-│
-└── skills/          # Domain knowledge modules (58)
-    ├── developing-node/
-    ├── developing-python/
-    ├── react-dev/
-    ├── mastering-docker/
-    └── ...
-```
+
+The validation checks plugin metadata and all primary agent/skill files.
 
 ---
 
@@ -126,7 +179,7 @@ git submodule add https://github.com/juninmd/skills .agents
 | `mastering-docker` | Multi-stage builds, Distroless, non-root, healthchecks |
 | `managing-helm-charts` | Kubernetes Helm chart creation and optimization |
 | `managing-iac` | Infrastructure as Code: Terraform, Pulumi, Ansible |
-| `managing-cloud-infrastructure` | Resilient cloud architecture (AWS/GCP/Azure) |
+| `managing-cloud-infrastructure` | Resilient cloud architecture on AWS, GCP, and Azure |
 | `managing-serverless` | Lambda, Vercel, Cloudflare Workers deployment |
 | `configuring-ci-cd` | GitHub Actions and GitLab CI pipelines |
 | `managing-vector-databases` | Vector DBs for similarity search and RAG |
@@ -146,10 +199,10 @@ git submodule add https://github.com/juninmd/skills .agents
 | Skill | Description |
 |---|---|
 | `architecting-distributed-systems` | Microservices, message queues, distributed patterns |
-| `architecting-electron` | Electron apps with Main/Renderer/Native layers |
+| `architecting-electron` | Electron apps with Main, Renderer, and Native layers |
 | `developing-ai-agents` | Autonomous AI agents, tool calling, context management |
 | `developing-mcp-servers` | Model Context Protocol server implementation |
-| `mcp-builder` | Full MCP server build workflow (4-phase) |
+| `mcp-builder` | Full MCP server build workflow |
 
 ### Build Tools & Testing
 
@@ -180,79 +233,49 @@ git submodule add https://github.com/juninmd/skills .agents
 
 | Skill | Description |
 |---|---|
-| `implementing-accessibility` | Web accessibility (a11y) standards and auditing |
+| `implementing-accessibility` | Web accessibility standards and auditing |
 | `diagnosing-networks` | DNS, HTTP, connectivity troubleshooting |
 | `diagnosing-rabbitmq` | RabbitMQ queue diagnosis, consumers, DLQ |
 | `firebase-apk-scanner` | APK security misconfiguration scanning |
 | `using-superpowers` | Skill discovery and usage overview |
-| `trailmark-summary` | Quick codebase summary: language, entry points, graph |
+| `trailmark-summary` | Quick codebase summary: languages, entry points, graph |
 | `vscode-auto-update` | Auto-update VS Code on Debian/Ubuntu |
-| `caveman` | Respond tersely; substance over fluff |
+| `caveman` | Terse response mode: substance over fluff |
 
 ---
 
 ## Agents
 
-Autonomous subagents that coordinate complex multi-step work. Each agent runs specialized parallel sub-processes and consolidates findings.
-
 ### `code-reviewer`
 
-Principal-level code reviewer. Runs parallel Security, Architecture, and Performance reviewers, then consolidates into structured PR/MR comments.
-
-- Security audits (OWASP Top 10)
-- Architecture validation (SOLID, Clean Architecture)
-- Test coverage verification (>80% gate)
-- Performance bottleneck detection
-- Mentorship-focused feedback with severity levels
+Principal-level code reviewer for PR/MR review, security auditing, architecture feedback, regression spotting, and structured review comments.
 
 ### `principal-engineer`
 
-Architect-level guidance for system design, ADRs, and technology selection.
-
-- System architecture and design patterns (GoF)
-- Architecture Decision Records (ADRs)
-- Trade-off analysis and risk assessment
-- Technical debt strategy
-- Scalability and performance architecture
+Architecture-focused agent for system design, ADRs, trade-off analysis, technical debt strategy, and scalability planning.
 
 ### `devops-engineer`
 
-Infrastructure and CI/CD expert. Handles IaC, containerization, cloud, and observability.
-
-- IaC: Terraform, CloudFormation, Pulumi, Ansible
-- Containers: Docker, Kubernetes, Helm
-- CI/CD: GitHub Actions, GitLab CI, Jenkins
-- Cloud: AWS, GCP, Azure
-- Observability: Prometheus, Grafana, ELK
+Infrastructure agent for CI/CD, Docker, Kubernetes, Helm, IaC, cloud platforms, and observability.
 
 ### `plan-specialist`
 
-Senior orchestrator for multi-step tasks. Produces plans, Mermaid diagrams, quality gates, and risk registers — without writing production code.
-
-- Task triage and decomposition
-- Architecture diagramming (Mermaid)
-- Quality gate enforcement (>90% coverage gate)
-- Risk register and mitigation
-- Explicit scope definition (IN / OUT)
+Planning agent for decomposition, scope definition, Mermaid diagrams, quality gates, and risk registers.
 
 ---
 
 ## Prompts
 
-Reusable prompt templates invoked with `/explain`, `/refactor`, etc.
-
 | Prompt | Trigger | Description |
 |---|---|---|
 | `explain` | `/explain` | Step-by-step code explanation with context and edge cases |
 | `refactor` | `/refactor` | Clean Code refactoring without changing business logic |
-| `generate-tests` | `/generate-tests` | Comprehensive unit tests (Vitest/Jest) with edge cases |
+| `generate-tests` | `/generate-tests` | Unit tests with happy paths, edge cases, and errors |
 | `generate-dockerfile` | `/generate-dockerfile` | Production-ready multi-stage Dockerfiles |
 
 ---
 
 ## Rules
-
-Governance instructions automatically enforced across all AI-assisted work. No manual invocation required.
 
 | Rule | Enforces |
 |---|---|
@@ -269,14 +292,14 @@ Governance instructions automatically enforced across all AI-assisted work. No m
 | `env-secrets` | Environment variables for secrets, no hardcoding |
 | `shell-scripting` | Bash best practices, error handling, portability |
 | `command-safety` | Safe execution, no destructive ops without permission |
-| `context-efficiency` | Minimize token usage, efficient search patterns |
+| `context-efficiency` | Minimal context, targeted reads, efficient search |
 | `workspace-nav` | Codebase navigation, file finding, context awareness |
 
 ---
 
 ## Documentation
 
-Browse the full documentation locally:
+Browse the documentation locally:
 
 ```bash
 pnpm install
@@ -289,12 +312,13 @@ Then open [http://localhost:5173](http://localhost:5173).
 
 ## Contributing
 
-1. Fork the repository
-2. Add your skill/agent/rule to the appropriate folder under `.agents/`
-3. Follow the existing frontmatter format (see any `SKILL.md` for reference)
-4. Open a pull request with a description of what your plugin does and when it activates
+1. Fork the repository.
+2. Add your skill, agent, rule, or prompt under `.agents/`.
+3. Follow the existing frontmatter format.
+4. Run `pnpm run validate`.
+5. Open a pull request explaining when the customization should activate.
 
-### Skill Frontmatter Template
+### Skill Frontmatter
 
 ```yaml
 ---
@@ -304,7 +328,7 @@ argument-hint: "[optional] [args]"
 ---
 ```
 
-### Agent Frontmatter Template
+### Agent Frontmatter
 
 ```yaml
 ---
@@ -319,8 +343,8 @@ disable-model-invocation: false
 
 ## License
 
-MIT — free to use, fork, and adapt.
+MIT. Free to use, fork, and adapt.
 
 ---
 
-> Maintained by [Antonio Junior](https://github.com/juninmd). Contributions welcome.
+Maintained by [Antonio Junior](https://github.com/juninmd).

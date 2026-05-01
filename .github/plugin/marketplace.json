@@ -1,0 +1,43 @@
+{
+  "name": "juninmd-skills",
+  "owner": {
+    "name": "Antonio Junior"
+  },
+  "metadata": {
+    "description": "Marketplace for production-grade AI coding assistant agent plugins.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "agent-plugins",
+      "description": "Production-grade agent skills and custom agents for AI coding assistants.",
+      "version": "1.0.0",
+      "source": ".",
+      "author": {
+        "name": "Antonio Junior",
+        "url": "https://github.com/juninmd"
+      },
+      "homepage": "https://github.com/juninmd/skills",
+      "repository": "https://github.com/juninmd/skills",
+      "license": "MIT",
+      "keywords": [
+        "agents",
+        "skills",
+        "copilot",
+        "vscode",
+        "development"
+      ],
+      "category": "Productivity",
+      "tags": [
+        "engineering",
+        "code-review",
+        "devops",
+        "frontend",
+        "backend"
+      ],
+      "agents": ".agents/agents",
+      "skills": ".agents/skills",
+      "strict": true
+    }
+  ]
+}

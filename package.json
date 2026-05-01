@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Skills, agents, prompts and rules for AI coding assistants",
   "scripts": {
+    "plugin:validate": "node .agents/tools/validate-plugin.mjs",
+    "agents:validate": "node .agents/tools/validate-agents.mjs .agents",
+    "validate": "pnpm run plugin:validate && pnpm run agents:validate",
     "docs:dev": "npx vitepress dev docs",
     "docs:build": "npx vitepress build docs",
     "docs:preview": "npx vitepress preview docs"
