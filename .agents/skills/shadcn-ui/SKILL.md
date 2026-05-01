@@ -1,6 +1,6 @@
 ---
 name: shadcn-ui
-description: "Integrate and build with shadcn/ui components. Triggers: shadcn, UI."
+description: "Component composition with Radix primitives. Triggers: radix, components."
 argument-hint: "[context] [options]"
 ---
 

@@ -1,8 +1,8 @@
 ---
 name: developing-ai-agents
-description: "Create autonomous AI agents. Focus on prompts, tool calling, context. Triggers: AI agent, autonomy."
-
+description: "Prompts, tool calling, context. Triggers: prompts."
 argument-hint: "[agent-name/project] [options]"
+---
 ---
 
 # Developing AI Agents

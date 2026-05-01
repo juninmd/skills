@@ -1,6 +1,6 @@
 ---
 name: developing-mcp-servers
-description: "Design and implement MCP servers with clear tools, schemas, transports, and validation. Triggers: MCP, model context protocol, tool calling, stdio, SSE, JSON Schema."
+description: "MCP server development. Triggers: mcp, stdio, SSE."
 argument-hint: "[context] [options]"
 ---
 

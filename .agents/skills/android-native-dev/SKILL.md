@@ -1,8 +1,10 @@
 ---
 name: android-native-dev
-description: "Android project setup and delivery with Kotlin, Jetpack Compose, Gradle, and Material 3. Triggers: android setup, gradle wrapper, jetpack compose, material 3, kotlin android."
+description: "Kotlin, Jetpack Compose, coroutines, Hilt. Triggers: jetpack compose."
 argument-hint: "[context] [options]"
 license: MIT
+---
+---
 ---
 
 ## 1. Project Scenario Assessment

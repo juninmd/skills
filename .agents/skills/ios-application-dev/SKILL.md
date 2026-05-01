@@ -1,8 +1,10 @@
 ---
 name: ios-application-dev
-description: "iOS native development with Swift, SwiftUI, UIKit integration, and iPhone or iPad platform patterns. Triggers: ios, swift, swiftui, uikit, iphone, ipad."
+description: "Swift, SwiftUI, UIKit integration. Triggers: swiftui, uikit."
 argument-hint: "[context] [options]"
 license: MIT
+---
+---
 ---
 
 # iOS Application Development Guide

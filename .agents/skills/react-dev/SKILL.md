@@ -1,8 +1,9 @@
 ---
 name: react-dev
-description: "React 19 server-first patterns with Server Components, Server Actions, and TypeScript for App Router style applications. Triggers: react server components, server actions, app router, useActionState, react 19."
+description: "Server Components, useActionState, use(). Triggers: suspense."
 argument-hint: "[context] [options]"
 applyTo: '**/*.{tsx,jsx}'
+---
 ---
 
 # React Development (React 19+)

@@ -1,8 +1,8 @@
 ---
 name: managing-vector-databases
-description: "Manage vector DBs for similarity search and RAG. Triggers: vector, RAG."
-
+description: "Pinecone, Weaviate, Milvus, Qdrant. Triggers: pinecone, weaviate."
 argument-hint: "[resource/project] [options]"
+---
 ---
 
 # Vector Database Manager

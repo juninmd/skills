@@ -1,8 +1,8 @@
 ---
 name: managing-cloud-infrastructure
-description: "Design resilient cloud architectures (AWS/GCP/Azure). Triggers: cloud, AWS, infrastructure."
-
+description: "Multi-AZ, VPC, EKS clusters, RDS. Triggers: vpc, eks, rds."
 argument-hint: "[resource/project] [options]"
+---
 ---
 
 # Cloud Architecture

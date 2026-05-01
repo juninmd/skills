@@ -1,8 +1,8 @@
 ---
 name: managing-serverless
-description: "Deploy serverless: Lambda, Vercel, Cloudflare Workers. Triggers: serverless, lambda."
-
+description: "Lambda, Vercel, Cloudflare Workers cold start. Triggers: faas, edge."
 argument-hint: "[platform/resource] [options]"
+---
 ---
 
 # Managing Serverless Architecture

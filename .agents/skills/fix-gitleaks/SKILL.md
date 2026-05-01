@@ -1,7 +1,7 @@
 ---
 name: fix-gitleaks
-description: "Fix gitleaks CI failures, triage leaked secrets. Triggers: gitleaks, secrets."
-argument-hint: "Git job URL (optional) or 'local' to run locally"
+description: "Leak triage, .gitleaksignore, rot3 rotation. Triggers: gitleaksignore."
+argument-hint: "Git job URL or 'local'"
 ---
 
 # Fix Gitleaks

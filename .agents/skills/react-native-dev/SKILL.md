@@ -1,8 +1,10 @@
 ---
 name: react-native-dev
-description: "React Native and Expo development for iOS and Android, with guidance for navigation, performance, native capabilities, and testing. Triggers: react native, expo, expo router, mobile, eas."
+description: "Mobile with Expo Router and TanStack Query. Triggers: expo, tanstack."
 argument-hint: "[context] [options]"
 license: MIT
+---
+---
 ---
 
 # React Native & Expo Development Guide

@@ -1,8 +1,8 @@
 ---
 name: administrating-databases
-description: "Administer SQL (Postgres) and NoSQL (Mongo/Redis) databases. Focus on performance and integrity. Triggers: database, postgres, mongodb, redis."
-
+description: "Postgres EXPLAIN ANALYZE, Redis ops, Mongo indexes. Triggers: explain analyze."
 argument-hint: "[context] [options]"
+---
 ---
 
 # Database Administrator (DBA)

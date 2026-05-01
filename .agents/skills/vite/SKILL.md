@@ -1,6 +1,6 @@
 ---
 name: vite
-description: "Vite 8 tooling, configuration, and Tailwind CSS v4 integration for fast modern frontends. Triggers: vite, vite config, tailwind v4, bundler, dev server."
+description: "Rspack, SWC plugin, environment utils. Triggers: rspack."
 argument-hint: "[context] [options]"
 ---
 

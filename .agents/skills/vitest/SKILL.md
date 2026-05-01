@@ -1,6 +1,6 @@
 ---
 name: vitest
-description: "Write and maintain fast tests with Vitest, including coverage, mocks, snapshots, and Vite integration. Triggers: vitest, testing, unit tests, mocks, snapshots, coverage."
+description: "Vite-native testing with Jest-compatible API. Triggers: vite, jest."
 argument-hint: "[context] [options]"
 ---
 

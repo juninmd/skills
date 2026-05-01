@@ -1,8 +1,8 @@
 ---
 name: auditing-code
-description: "Static analysis linting and code smell detection in Python and JS/TS. Triggers: lint, code smell, static analysis."
-
+description: "Python and JS/TS linting with ruff and biome. Triggers: ruff, biome."
 argument-hint: "[file/module] [options]"
+---
 ---
 
 # Code Auditor and Linter

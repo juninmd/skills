@@ -1,6 +1,6 @@
 ---
 name: github-triage
-description: "Triage GitHub issues through label-based state machine. Triggers: GitHub, issues."
+description: "Label-based state machine via gh CLI. Triggers: labels."
 argument-hint: "[context] [options]"
 ---
 

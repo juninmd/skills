@@ -1,6 +1,6 @@
 ---
 name: vitepress
-description: "Build and customize VitePress documentation sites with Vue-powered markdown, routing, and theme configuration. Triggers: vitepress, docs, documentation site, vitepress theme, markdown docs."
+description: "Vue-powered SSG with .md routing. Triggers: vue, ssg."
 argument-hint: "[context] [options]"
 ---
 

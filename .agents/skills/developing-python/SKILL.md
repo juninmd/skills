@@ -1,6 +1,6 @@
 ---
 name: developing-python
-description: "Python with uv, pyproject.toml, type hints, pytest, ruff. Triggers: python, uv."
+description: "Python dev. Triggers: python, uv."
 argument-hint: "[file/module] [options]"
 ---
 

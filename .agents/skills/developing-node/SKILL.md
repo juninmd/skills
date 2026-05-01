@@ -1,8 +1,8 @@
 ---
 name: developing-node
-description: "Node.js/TypeScript with pnpm. Package management and scripting. Triggers: node, typescript."
-
+description: "pnpm, swc, Biome, Vitest stack. Triggers: swc, biome."
 argument-hint: "[file/module] [options]"
+---
 ---
 
 # Node.js Development

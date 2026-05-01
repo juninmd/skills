@@ -1,6 +1,6 @@
 ---
 name: architecting-distributed-systems
-description: "Design distributed systems with microservices and message queues. Triggers: distributed systems, microservices, message queue."
+description: "Kafka, Saga pattern, circuit breakers. Triggers: kafka, saga."
 argument-hint: "[component/feature] [options]"
 ---
 

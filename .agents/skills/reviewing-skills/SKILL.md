@@ -1,8 +1,8 @@
 ---
 name: reviewing-skills
-description: "Review skills for agentskills.io compliance. Triggers: skill review."
-
+description: "Frontmatter audit, YAML validation. Triggers: frontmatter."
 argument-hint: "[context] [options]"
+---
 ---
 
 # Reviewing Skills

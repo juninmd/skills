@@ -1,6 +1,6 @@
 ---
 name: finishing-a-development-branch
-description: "Complete development: merge, PR, cleanup options. Triggers: git, merge, PR."
+description: "PR/MR, squash, rebase, cleanup options. Triggers: squash, rebase."
 argument-hint: "[context] [options]"
 ---
 

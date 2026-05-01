@@ -1,8 +1,8 @@
 ---
 name: developing-ui-ux-components
-description: "Reusable accessible UI components for web. Triggers: UI components, frontend."
-
+description: "Reusable accessible web components. Triggers: a11y."
 argument-hint: "[file/module] [options]"
+---
 ---
 
 # UI/UX Component Development

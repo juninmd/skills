@@ -1,6 +1,6 @@
 ---
 name: mastering-docker
-description: "Secure production-ready Docker images and orchestration. Triggers: docker, container."
+description: "Multi-stage, non-root, BuildKit cache. Triggers: hadolint."
 argument-hint: "[Dockerfile/project path] [options]"
 ---
 

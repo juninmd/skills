@@ -1,8 +1,8 @@
 ---
-name: developing-react-native
-description: "React Native architecture and Expo delivery with Expo Router, EAS, TanStack Query, and Zustand. Triggers: react native architecture, expo, expo router, eas, mobile app."
-
-argument-hint: "[file/module] [options]"
+name: react-native-dev
+description: "Mobile with Expo Router and TanStack Query. Triggers: expo, tanstack."
+argument-hint: "[context] [options]"
+license: MIT
 ---
 
 # Development with React Native

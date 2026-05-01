@@ -1,6 +1,6 @@
 ---
 name: managing-helm-charts
-description: "Build and optimize Helm charts for Kubernetes. Triggers: helm, kubernetes."
+description: "Chart templating, dependencies, multi-env. Triggers: k8s, values."
 argument-hint: "[resource/project] [options]"
 ---
 

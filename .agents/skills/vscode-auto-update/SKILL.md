@@ -1,8 +1,10 @@
 ---
 name: vscode-auto-update
-description: "Auto-update VS Code on Debian/Ubuntu. Triggers: vscode, update."
+description: "apt-get install for Debian/Ubuntu. Triggers: deb, apt."
 argument-hint: "[options]"
 disable-model-invocation: true
+---
+---
 ---
 
 # Objective

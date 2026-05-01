@@ -1,6 +1,6 @@
 ---
 name: trailmark-summary
-description: "Run a quick Trailmark summary to detect languages, entry points, and graph shape before deeper analysis. Triggers: trailmark, trailmark summary, codebase summary, dependency graph."
+description: "trailmark analyze --summary. Triggers: trailmark."
 argument-hint: "[context] [options]"
 ---
 

@@ -1,7 +1,7 @@
 ---
 name: architecting-electron
-description: "Design cross-platform Electron apps with Main/Renderer/Native layers. Triggers: Electron, desktop app."
-argument-hint: "[component/feature] [layer: main|renderer|native]"
+description: "Main/Renderer IPC, native modules. Triggers: IPC, preload."
+argument-hint: "[component/feature] [layer]"
 ---
 
 # Architecting Electron Applications

@@ -1,6 +1,6 @@
 ---
 name: applying-design-principles
-description: "Refactor and design following Clean Code, SOLID, DRY, KISS, YAGNI. Triggers: clean code, refactor, design principles."
+description: "Clean Code, SOLID, DRY, KISS, YAGNI. Triggers: refactor."
 argument-hint: "[file/module] [options]"
 ---
 

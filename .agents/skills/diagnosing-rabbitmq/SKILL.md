@@ -1,8 +1,8 @@
 ---
 name: diagnosing-rabbitmq
-description: "Diagnose RabbitMQ queues, consumers, Dead Letter Queues. Triggers: rabbitmq, queue."
-
+description: "Queues, consumers, DLQ. Triggers: rabbitmqadmin."
 argument-hint: "[incident/alert] [options]"
+---
 ---
 
 # Diagnose RabbitMQ Health

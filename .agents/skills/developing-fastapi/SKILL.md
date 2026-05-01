@@ -1,6 +1,6 @@
 ---
 name: developing-fastapi
-description: "FastAPI with Pydantic v2, async, testing. Triggers: FastAPI, Python."
+description: "Pydantic v2, SQLAlchemy 2 async, Alembic migrations. Triggers: pydantic, alembic."
 argument-hint: "[module/router] [options]"
 ---
 

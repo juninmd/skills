@@ -1,8 +1,9 @@
 ---
 name: git-cleanup
-description: "Safely clean up local git branches and worktrees after categorizing merged, stale, and active work. Triggers: git cleanup, delete local branches, clean worktrees, stale branches."
+description: "Worktree isolation, merged branch deletion. Triggers: worktree."
 argument-hint: "[context] [options]"
 disable-model-invocation: true
+---
 ---
 
 # Git Cleanup

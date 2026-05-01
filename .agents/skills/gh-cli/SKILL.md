@@ -1,6 +1,6 @@
 ---
 name: gh-cli
-description: "Optimize GitHub workflows with the gh CLI for auth, repos, issues, pull requests, workflows, releases, and automation. Triggers: gh, github cli, gh auth, gh pr, gh issue, gh workflow, gh release."
+description: "pr create, issue comment, release. Triggers: pr create."
 argument-hint: "[context] [options]"
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: frontend-design
-description: "Create distinctive production-grade frontend interfaces. Triggers: frontend, UI, design."
+description: "Distinctive production-grade interfaces. Triggers: production UI."
 argument-hint: "[context] [options]"
 ---
 

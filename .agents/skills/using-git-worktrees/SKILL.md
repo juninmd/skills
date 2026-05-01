@@ -1,6 +1,6 @@
 ---
 name: using-git-worktrees
-description: "Create isolated git worktrees for feature work. Triggers: git, worktree."
+description: "Multiple branches, isolated working directories. Triggers: worktree."
 argument-hint: "[context] [options]"
 ---
 

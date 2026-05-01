@@ -1,8 +1,10 @@
 ---
 name: firebase-apk-scanner
-description: "Scan APKs for Firebase security misconfigs. Triggers: Firebase, APK, security."
+description: "Firebase URLs, permissions, Storage rules. Triggers: firebase-url."
 argument-hint: "apk-file-or-directory"
 disable-model-invocation: true
+---
+---
 ---
 
 # Firebase APK Security Scanner

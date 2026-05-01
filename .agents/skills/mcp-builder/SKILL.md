@@ -1,6 +1,6 @@
 ---
 name: mcp-builder
-description: "Build and harden end-to-end MCP servers, from planning and tool design to evaluation and delivery. Triggers: mcp builder, build mcp server, scaffold mcp server, evaluate mcp server."
+description: "Build servers with tools and transports. Triggers: tool calling, stdio, SSE."
 argument-hint: "[context] [options]"
 ---
 

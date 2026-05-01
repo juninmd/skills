@@ -1,6 +1,6 @@
 ---
 name: tsdown
-description: "Bundle TS/JS libs with Rolldown. Triggers: tsdown, bundler."
+description: "Library bundler via Rolldown and Oxc. Triggers: rolldown, npm lib."
 argument-hint: "[context] [options]"
 ---
 

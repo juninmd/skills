@@ -1,6 +1,6 @@
 ---
 name: pnpm
-description: "Manage Node.js dependencies with pnpm workspaces, catalogs, overrides, patches, and strict resolution. Triggers: pnpm, workspaces, catalogs, overrides, patches, dependency resolution."
+description: "Content-addressable store, strict deps, workspaces. Triggers: monorepo."
 argument-hint: "[context] [options]"
 ---
 

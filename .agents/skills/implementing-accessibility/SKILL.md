@@ -1,6 +1,6 @@
 ---
 name: implementing-accessibility
-description: "Audit and implement web accessibility (a11y) standards. Triggers: accessibility, a11y."
+description: "ARIA patterns, semantic HTML, keyboard nav. Triggers: aria, semantic HTML."
 argument-hint: "[file/module] [options]"
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: developing-rust
-description: "Rust with ownership, safety, Cargo tooling. Triggers: rust, systems."
+description: "Ownership, borrow checker, Cargo. Triggers: cargo."
 argument-hint: "[module/file] [options]"
 ---
 

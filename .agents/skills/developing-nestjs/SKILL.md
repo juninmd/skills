@@ -1,6 +1,6 @@
 ---
 name: developing-nestjs
-description: "NestJS with modular architecture, validation, auth, testing. Triggers: NestJS, Node."
+description: "Feature modules, class-validator, JWT guards. Triggers: class-validator, prisma."
 argument-hint: "[file/module] [options]"
 ---
 

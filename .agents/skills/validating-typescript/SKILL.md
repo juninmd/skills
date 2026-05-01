@@ -1,8 +1,8 @@
 ---
 name: validating-typescript
-description: "Validate TypeScript with strict type safety. Triggers: typescript, validation."
-
-argument-hint: "[file/module] [options: strict, types, patterns, lint, test]"
+description: "Strict mode and algorithm validation. Triggers: strict mode."
+argument-hint: "[file/module] [options]"
+---
 ---
 
 # TypeScript Validation & Best Practices (2025)

@@ -1,6 +1,6 @@
 ---
 name: modern-python
-description: "Python with uv, ruff, pyproject.toml. Triggers: python, uv."
+description: "uv, ruff, pyright, pytest-asyncio. Triggers: uv."
 argument-hint: "[context] [options]"
 ---
 

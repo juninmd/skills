@@ -1,8 +1,9 @@
 ---
 name: developing-dotnet
-description: ".NET with async/await, SOLID, DI, Entity Framework Core, xUnit. Triggers: dotnet, C#."
+description: "async/await, EF Core, xUnit, DI. Triggers: efcore, xunit."
 metadata: { works_on: [copilot] }
-argument-hint: "[feature/component] [options: testing, async, di, orm, api]"
+argument-hint: "[feature/component] [options]"
+---
 ---
 
 # Developing with .NET

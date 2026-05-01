@@ -1,8 +1,9 @@
 ---
 name: karpathy-guidelines
-description: "Guidelines to avoid common LLM coding mistakes. Triggers: LLM, coding mistakes."
+description: "Think before code, minimum code, surgical changes. Triggers: karpathy."
 argument-hint: "[context] [options]"
 license: MIT
+---
 ---
 
 # Karpathy Guidelines

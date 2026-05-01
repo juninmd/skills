@@ -1,6 +1,6 @@
 ---
 name: caveman
-description: "Respond terse like a smart caveman. All substance, no fluff. Triggers: caveman, terse."
+description: "Drop articles/fillers, arrows, fragments. Triggers: fragment."
 argument-hint: "[context] [options]"
 ---
 

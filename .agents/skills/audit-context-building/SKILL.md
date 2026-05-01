@@ -1,6 +1,6 @@
 ---
 name: audit-context-building
-description: "Ultra-granular code analysis for vulnerability finding. Line-by-line context building. Triggers: audit, security, analysis."
+description: "First Principles, 5 Whys, invariants. Triggers: invariants."
 argument-hint: "[context] [options]"
 ---
 

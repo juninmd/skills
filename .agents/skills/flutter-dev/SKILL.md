@@ -1,6 +1,6 @@
 ---
 name: flutter-dev
-description: "Flutter app development with Dart, Riverpod, GoRouter, Bloc, and widget testing for cross-platform mobile. Triggers: flutter, dart, riverpod, gorouter, bloc, widget test."
+description: "Cross-platform mobile with Riverpod and GoRouter. Triggers: riverpod, gorouter."
 argument-hint: "[context] [options]"
 license: MIT
 ---

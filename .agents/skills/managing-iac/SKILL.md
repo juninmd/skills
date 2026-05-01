@@ -1,8 +1,8 @@
 ---
 name: managing-iac
-description: "IaC provisioning with Terraform/Pulumi/Ansible. Triggers: terraform, iac."
-
+description: "Terraform modules, terratest, tfsec. Triggers: terraform, pulumi."
 argument-hint: "[resource/project] [options]"
+---
 disable-model-invocation: true
 ---
 

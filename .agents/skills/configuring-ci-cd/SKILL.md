@@ -1,6 +1,6 @@
 ---
 name: configuring-ci-cd
-description: "Write robust GitHub Actions and GitLab CI pipelines. Triggers: CI/CD, GitHub Actions."
+description: "GitHub Actions and GitLab CI patterns. Triggers: github actions, gitlab ci."
 argument-hint: "[workflow/pipeline file path] [options]"
 ---
 

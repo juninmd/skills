@@ -1,8 +1,8 @@
 ---
 name: developing-tooling
-description: "CLI tools, automation scripts, internal utilities. Triggers: CLI, tooling, automation."
-
+description: "Typer, commander, rich, structlog. Triggers: typer."
 argument-hint: "[file/module] [options]"
+---
 ---
 
 # Tooling Developer

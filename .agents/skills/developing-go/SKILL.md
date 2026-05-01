@@ -1,8 +1,8 @@
 ---
 name: developing-go
-description: "Go with modules, goroutines, clean architecture. For backend/CLI. Triggers: Go, golang."
-
+description: "go mod, golangci-lint, testify. Triggers: golangci."
 argument-hint: "[file/module] [options]"
+---
 ---
 
 # Development with Go

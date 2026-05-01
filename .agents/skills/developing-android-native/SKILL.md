@@ -1,6 +1,6 @@
 ---
 name: developing-android-native
-description: "Native Android architecture and implementation with Kotlin, Jetpack Compose, coroutines, Flow, and Hilt. Triggers: android architecture, jetpack compose, coroutines, hilt, kotlin android."
+description: "Android native development. Triggers: android, kotlin, jetpack compose."
 argument-hint: "[file/module] [options]"
 ---
 

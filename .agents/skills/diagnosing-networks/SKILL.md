@@ -1,6 +1,6 @@
 ---
 name: diagnosing-networks
-description: "Connectivity tests, HTTP inspection, DNS resolution, troubleshooting. Triggers: network, DNS, HTTP."
+description: "curl, SSL certs, DNS, HTTP headers. Triggers: curl, openssl."
 argument-hint: "[incident/alert] [options]"
 ---
 

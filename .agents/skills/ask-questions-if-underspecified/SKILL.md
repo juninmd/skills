@@ -1,6 +1,6 @@
 ---
 name: ask-questions-if-underspecified
-description: "Clarify requirements before implementing when doubts arise. Triggers: clarify, requirements, underspecified."
+description: "Small clarifying questions, multiple choice. Triggers: ambiguous."
 argument-hint: "[context] [options]"
 ---
 
