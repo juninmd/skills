@@ -1,5 +1,9 @@
 node_modules/
 docs/.vitepress/cache/
 docs/.vitepress/dist/
+.agents/benchmarks/results/
+.env
+.env.*
+!.env.example
 .DS_Store
 *.local

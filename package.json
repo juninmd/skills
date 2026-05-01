@@ -5,6 +5,7 @@
   "scripts": {
     "plugin:validate": "node .agents/tools/validate-plugin.mjs",
     "agents:validate": "node .agents/tools/validate-agents.mjs .agents",
+    "benchmark:agents": "node .agents/benchmarks/agent-effectiveness.benchmark.mjs",
     "validate": "pnpm run plugin:validate && pnpm run agents:validate",
     "docs:dev": "npx vitepress dev docs",
     "docs:build": "npx vitepress build docs",
