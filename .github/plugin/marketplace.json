@@ -9,7 +9,7 @@
   },
   "plugins": [
     {
-      "name": "agent-plugins",
+      "name": "juninmd-skills",
       "description": "Production-grade agent skills and custom agents for AI coding assistants.",
       "version": "1.0.0",
       "source": ".",
