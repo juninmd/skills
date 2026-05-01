@@ -1,5 +1,5 @@
 {
-  "name": "agent-plugins",
+  "name": "juninmd-skills",
   "version": "1.0.0",
   "description": "Skills, agents, prompts and rules for AI coding assistants",
   "scripts": {

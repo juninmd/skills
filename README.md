@@ -26,7 +26,7 @@ It includes specialist agents, domain skills, reusable prompts, and governance r
 
 | Capability | Count | What you get |
 |---|---:|---|
-| [Skills](#skills) | 58 | Domain playbooks for Node, Python, React, Docker, mobile, cloud, databases, testing, and more |
+| [Skills](#skills) | 59 | Domain playbooks for Node, Python, React, Docker, mobile, cloud, databases, testing, and more |
 | [Agents](#agents) | 4 | Focused assistants for review, architecture, DevOps, and planning |
 | [Prompts](#prompts) | 4 | Ready-to-use workflows for explain, refactor, tests, and Dockerfiles |
 | [Rules](#rules) | 15 | Always-on engineering standards for security, testing, naming, privacy, and delivery |
@@ -34,6 +34,7 @@ It includes specialist agents, domain skills, reusable prompts, and governance r
 ## Highlights
 
 - **VS Code Agent Plugin ready**: includes a root `plugin.json` and marketplace metadata.
+- **Skills CLI compatible**: install with `npx skills add` from GitHub or a local path.
 - **Copilot CLI compatible**: install from GitHub, local path, or marketplace.
 - **Claude/Gemini friendly**: keeps the `.agents/` layout for assistants that auto-discover local customizations.
 - **Engineering-first defaults**: security, type safety, clean design, observability, and test discipline.
@@ -73,6 +74,32 @@ Use this repository as a plugin marketplace:
 }
 ```
 
+### Skills CLI
+
+Install all skills:
+
+```bash
+npx skills add juninmd/skills --all
+```
+
+List available skills without installing:
+
+```bash
+npx skills add juninmd/skills --list
+```
+
+Install a specific skill:
+
+```bash
+npx skills add juninmd/skills --skill developing-node
+```
+
+Install from a local checkout:
+
+```bash
+npx skills add /path/to/skills --all
+```
+
 ### Copilot CLI
 
 ```bash
@@ -83,11 +110,11 @@ copilot plugin install /path/to/skills
 ### Claude Code / Compatible Assistants
 
 ```bash
-# Clone into your project root
-git clone https://github.com/juninmd/skills .agents-plugins
+# Install the skills into your project
+npx skills add juninmd/skills --all
 
-# Or add as a submodule
-git submodule add https://github.com/juninmd/skills .agents
+# Or install a specific skill
+npx skills add juninmd/skills --skill developing-node
 ```
 
 ## Try It
@@ -120,7 +147,7 @@ Invoke an agent:
 |   |-- agents/                         # 4 custom agents
 |   |-- prompts/                        # 4 reusable prompt templates
 |   |-- rules/                          # 15 governance instruction files
-|   |-- skills/                         # 58 domain skills
+|   |-- skills/                         # 59 domain skills
 |   `-- tools/                          # Validation scripts
 `-- docs/                               # VitePress documentation
 ```
@@ -156,7 +183,7 @@ The validation checks plugin metadata and all primary agent/skill files.
 | Skill | Description |
 |---|---|
 | `react-dev` | React 19+, Server Components, useActionState, use() hook |
-| `nextjs-dev` | Next.js 15+, App Router, Turbopack, uncached by default |
+| `nextjs-dev` | Next.js 16+, App Router, React 19, Turbopack |
 | `shadcn-ui` | shadcn/ui component discovery, installation, customization |
 | `vite` | Vite 8 + Tailwind CSS v4 build configuration |
 | `vitepress` | VitePress documentation sites with Vue |

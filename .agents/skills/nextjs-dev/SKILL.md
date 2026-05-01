@@ -1,6 +1,6 @@
 ---
 name: nextjs-dev
-description: Next.js 16+ development focusing on App Router, React 19, Server Components, and Turbopack. Triggers: nextjs, next, next15, next16, react19.
+description: "Next.js 16+ development focusing on App Router, React 19, Server Components, and Turbopack. Triggers: nextjs, next, next15, next16, react19."
 argument-hint: "[context] [options]"
 ---
 
