@@ -1,0 +1,10 @@
+[Unit]
+Description=Timer diário para atualizar VS Code (vscode-auto-update)
+
+[Timer]
+OnCalendar=*-*-* 12:00:00
+Persistent=true
+RandomizedDelaySec=1h
+
+[Install]
+WantedBy=timers.target
