@@ -124,6 +124,7 @@ Skills are loaded on demand when the task matches their domain. Invoke explicitl
 ### Code Quality
 - `/audit-context-building` — Line-by-line vulnerability analysis
 - `/auditing-code` — Static analysis, linting, code smells
+- `/diagnosing-bugs` — Evidence-driven debugging and regression loops
 - `/validating-typescript` — Strict TypeScript type safety
 - `/applying-design-principles` — Clean Code, SOLID, DRY, KISS
 - `/karpathy-guidelines` — Avoid common LLM coding mistakes
@@ -133,12 +134,14 @@ Skills are loaded on demand when the task matches their domain. Invoke explicitl
 - `/architecting-electron` — Electron Main/Renderer/Native
 - `/developing-ai-agents` — Autonomous AI agents, tool calling
 - `/developing-mcp-servers` — Model Context Protocol servers
+- `/improving-codebase-architecture` — Practical architecture improvements
 - `/mcp-builder` — Full MCP server build workflow
 
 ### Build & Testing
 - `/pnpm` — pnpm workspaces, strict resolution
 - `/tsdown` — TS/JS library bundling with Rolldown
 - `/vitest` — Vitest unit testing
+- `/test-driven-development` — Behavior-first red/green/refactor loop
 - `/developing-tooling` — CLI tools, automation
 
 ### Database

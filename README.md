@@ -30,7 +30,7 @@ The core is [`AGENTS.md`](./AGENTS.md): a compact operating contract that forces
 
 | Capability | Count | What you get |
 |---|---:|---|
-| [Skills](#skills) | 59 | Domain playbooks for Node, Python, React, Docker, mobile, cloud, databases, testing, and more |
+| [Skills](#skills) | 62 | Domain playbooks for Node, Python, React, Docker, mobile, cloud, databases, testing, and more |
 | [Agents](#agents) | 4 | Focused assistants for review, architecture, DevOps, and planning |
 | [Prompts](#prompts) | 4 | Ready-to-use workflows for explain, refactor, tests, and Dockerfiles |
 | [Rules](#rules) | 15 | Always-on engineering standards for security, testing, naming, privacy, and delivery |
@@ -163,7 +163,7 @@ Invoke an agent:
 |   |-- agents/                         # 4 custom agents
 |   |-- prompts/                        # 4 reusable prompt templates
 |   |-- rules/                          # 15 governance instruction files
-|   |-- skills/                         # 59 domain skills
+|   |-- skills/                         # 62 domain skills
 |   `-- tools/                          # Validation scripts
 `-- docs/                               # VitePress documentation
 ```
@@ -233,6 +233,7 @@ The validation checks plugin metadata and all primary agent/skill files.
 |---|---|
 | `audit-context-building` | Ultra-granular line-by-line vulnerability analysis |
 | `auditing-code` | Static analysis, linting, code smell detection |
+| `diagnosing-bugs` | Evidence-driven debugging for defects, flaky behavior, and regressions |
 | `validating-typescript` | Strict TypeScript type safety enforcement |
 | `applying-design-principles` | Clean Code, SOLID, DRY, KISS, YAGNI refactoring |
 | `karpathy-guidelines` | Avoid common LLM coding mistakes |
@@ -245,6 +246,7 @@ The validation checks plugin metadata and all primary agent/skill files.
 | `architecting-electron` | Electron apps with Main, Renderer, and Native layers |
 | `developing-ai-agents` | Autonomous AI agents, tool calling, context management |
 | `developing-mcp-servers` | Model Context Protocol server implementation |
+| `improving-codebase-architecture` | Practical architecture improvements for testability, locality, and change safety |
 | `mcp-builder` | Full MCP server build workflow |
 
 ### Build Tools & Testing
@@ -254,6 +256,7 @@ The validation checks plugin metadata and all primary agent/skill files.
 | `pnpm` | pnpm package manager, workspaces, strict resolution |
 | `tsdown` | Bundle TS/JS libraries with Rolldown |
 | `vitest` | Vitest unit testing, Jest-compatible API |
+| `test-driven-development` | Behavior-first red/green/refactor workflow with vertical slices |
 | `developing-tooling` | CLI tools, automation scripts, utilities |
 
 ### Database & Data
