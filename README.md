@@ -2,15 +2,17 @@
 
 # Skills
 
-![Agents Ecosystem](./docs/public/images/agents-ecosystem.png)
+<img src="./docs/public/images/agents-ecosystem.png" alt="Agents ecosystem" width="512" height="512" />
 
-Production-grade agents, skills, prompts, and engineering rules for AI coding assistants.
+### Production-grade agent customizations for serious software work.
+
+**Agents, skills, prompts, and rules that turn generic AI coding assistants into disciplined engineering partners.**
 
 [![VS Code Agent Plugin](https://img.shields.io/badge/VS%20Code-Agent%20Plugin-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white)](https://code.visualstudio.com/docs/copilot/customization/agent-plugins)
 [![Copilot CLI Ready](https://img.shields.io/badge/Copilot%20CLI-Ready-24292F?style=for-the-badge&logo=github&logoColor=white)](https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-plugin-reference)
 [![License MIT](https://img.shields.io/badge/License-MIT-16A34A?style=for-the-badge)](#license)
 
-**Install once. Give your assistant a senior engineering playbook.**
+**Install once. Enforce scope, safety, tests, and senior-level judgment everywhere.**
 
 </div>
 
@@ -22,6 +24,8 @@ Most AI coding assistants are powerful but generic. This repository turns them i
 
 It includes specialist agents, domain skills, reusable prompts, and governance rules for real software work: reviews, architecture, testing, infrastructure, frontend, mobile, backend, security, and delivery.
 
+The core is [`AGENTS.md`](./AGENTS.md): a compact operating contract that forces better defaults before code is written, while work is being changed, and before anything is considered done.
+
 ## At a Glance
 
 | Capability | Count | What you get |
@@ -31,14 +35,26 @@ It includes specialist agents, domain skills, reusable prompts, and governance r
 | [Prompts](#prompts) | 4 | Ready-to-use workflows for explain, refactor, tests, and Dockerfiles |
 | [Rules](#rules) | 15 | Always-on engineering standards for security, testing, naming, privacy, and delivery |
 
+## AGENTS.md Quality Contract
+
+[`AGENTS.md`](./AGENTS.md) is designed to make assistants act less like autocomplete and more like senior engineers with guardrails.
+
+| Quality | What it enforces |
+|---|---|
+| **Clear judgment** | State assumptions, ask when unclear, and push back on risky or overbuilt paths |
+| **Small diffs** | Touch only required files and keep every changed line tied to the request |
+| **Simplicity first** | Avoid speculative features, premature abstractions, and unnecessary configurability |
+| **Verified work** | Run lint, scoped tests, and a smoke check before marking work done |
+| **Safety by default** | No destructive commands, no secret exposure, no git mutations without confirmation |
+| **Efficient context** | Read narrowly, search with `rg`, cap noisy output, and avoid full-file dumps |
+
 ## Highlights
 
-- **VS Code Agent Plugin ready**: includes a root `plugin.json` and marketplace metadata.
-- **Skills CLI compatible**: install with `npx skills add` from GitHub or a local path.
-- **Copilot CLI compatible**: install from GitHub, local path, or marketplace.
-- **Claude/Gemini friendly**: keeps the `.agents/` layout for assistants that auto-discover local customizations.
-- **Engineering-first defaults**: security, type safety, clean design, observability, and test discipline.
-- **Practical scope**: focused instructions instead of giant generic prompts.
+- **One repository, many assistants**: VS Code Agent Plugin, Copilot CLI, Claude Code, Gemini CLI, and compatible tools.
+- **Senior-engineering defaults**: scope control, security, type safety, clean design, observability, and test discipline.
+- **Quality gates built in**: lint, tests, smoke checks, secrets handling, and command safety are explicit.
+- **Practical by design**: focused instructions, small patches, and domain skills instead of giant generic prompts.
+- **Easy to extend**: add agents, skills, prompts, and rules under the predictable `.agents/` layout.
 
 ## Quick Install
 
