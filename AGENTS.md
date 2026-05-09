@@ -171,7 +171,7 @@ The following rules are always active. They apply to all tasks without explicit 
 | Rule | What It Enforces |
 |---|---|
 | `security` | OWASP Top 10, Zod validation, no hardcoded secrets, parameterized queries |
-| `git-workflow` | Feature branches only; Conventional Commits; no direct commits to main |
+| `git-workflow` | Feature branches only; Conventional Commits; no direct commits to main; use `git status -s` |
 | `testing` | >80% coverage; unit + integration tests; meaningful assertions |
 | `code-design-principles` | Clean Code, SOLID, DRY, KISS, YAGNI |
 | `error-handling` | Meaningful errors, graceful degradation, no silent failures |

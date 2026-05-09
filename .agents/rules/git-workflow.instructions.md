@@ -16,6 +16,7 @@ trigger: always_on
 - ❌ **NEVER** commit directly to `main`, `master`, or protected branches
 - ✅ **ALWAYS** create a feature branch
 - ✅ **ALWAYS** use Conventional Commits: `type(scope): description`
+- ✅ **ALWAYS** use `git status -s` instead of plain `git status`
 - If user says "commit to main" → stop, ask for confirmation
 
 ## Branch Naming
@@ -39,7 +40,7 @@ Rules: imperative mood ("add" not "added"), max 72 chars, explain WHAT and WHY.
 ## Before Commit
 
 ```bash
-git status --short
+git status -s
 git diff --cached --name-only
 ```
 

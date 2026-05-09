@@ -27,6 +27,7 @@ Zero-vulnerability policy:
 - Never commit directly to `main` or `master`
 - Feature branches: `feat/`, `fix/`, `refactor/`, `docs/` prefixes
 - [Conventional Commits](https://conventionalcommits.org) format: `type(scope): description`
+- Use `git status -s` instead of plain `git status`
 - PR-first collaboration — all changes via pull request
 - Branch names: `feat/user-auth`, `fix/payment-timeout`
 
