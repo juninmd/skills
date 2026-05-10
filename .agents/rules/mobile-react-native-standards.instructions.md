@@ -1,6 +1,6 @@
 ---
 name: mobile-react-native-standards
-description: React Native coding standards focusing on performance, platform specifics, and offline support.
+description: "Use when writing or reviewing React Native code, Expo screens, mobile performance, platform-specific behavior, or offline support. Triggers: React Native, Expo, mobile, iOS, Android."
 applyTo: '**/*.tsx,**/*.jsx'
 paths:
   - "**/*.tsx"

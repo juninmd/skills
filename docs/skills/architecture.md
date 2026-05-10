@@ -80,3 +80,13 @@ Full MCP server build workflow — 4 phases:
 2. **Implementation** — build tools, resources, and prompts
 3. **Review & Test** — validate tool schemas, test with MCP Inspector
 4. **Evaluation** — measure real-world utility and iterate
+
+---
+
+## `spec-first-design`
+
+**Invoke:** `/spec-first-design`
+
+Validated temporary design specs and implementation plans before code changes.
+
+**Covers:** context inspection, blocker-only clarification, one chosen design, executable implementation tasks, temporary specs in `temp/specs/YYYY-MM-DD-<topic>-design.md`, required spec and plan checklists, self-review, and spec deletion after implementation.

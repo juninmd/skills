@@ -1,6 +1,6 @@
 ---
 name: typescript-standards
-description: Strict TypeScript coding standards including type safety, null-safety, and avoiding 'any'.
+description: "Use when writing or reviewing TypeScript code for strict typing, null-safety, API contracts, and avoiding any. Triggers: TypeScript, strict mode, type safety, no any."
 applyTo: '**/*.ts,**/*.tsx'
 paths:
   - "**/*.ts"

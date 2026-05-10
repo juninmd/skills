@@ -101,3 +101,10 @@ describe('Users (e2e)', () => {
 - [ ] Global exception filter
 - [ ] Tests: unit + e2e, coverage ≥80%
 - [ ] `app.enableShutdownHooks()` in main.ts
+
+## References
+
+- [NestJS Official Documentation](https://docs.nestjs.com/)
+- [Node.js Standards Rule](../../rules/nodejs-standards.instructions.md)
+- [TypeScript Standards Rule](../../rules/typescript-standards.instructions.md)
+- [Testing Rule](../../rules/testing.instructions.md)

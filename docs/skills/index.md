@@ -7,17 +7,17 @@ On-demand domain knowledge modules. Each skill is a focused knowledge set that l
 | Category | Skills | Description |
 |---|---|---|
 | [Backend](./backend) | 8 | Node.js, Python, FastAPI, Go, Rust, .NET, NestJS |
-| [Frontend](./frontend) | 7 | React, Next.js, shadcn/ui, Vite, VitePress |
+| [Frontend](./frontend) | 8 | React, Next.js, shadcn/ui, Vite, VitePress |
 | [Mobile](./mobile) | 4 | Flutter, React Native, Android, iOS |
-| [Infrastructure](./infrastructure) | 7 | Docker, Helm, IaC, Cloud, Serverless, CI/CD |
+| [Infrastructure](./infrastructure) | 8 | Docker, Helm, IaC, Cloud, Serverless, CI/CD |
 | [Code Quality](./code-quality) | 5 | Auditing, TypeScript, Design Principles |
-| [Architecture](./architecture) | 5 | Distributed Systems, Electron, AI Agents, MCP |
+| [Architecture](./architecture) | 6 | Distributed Systems, Electron, AI Agents, MCP |
 | [Build & Testing](./build-testing) | 4 | pnpm, tsdown, Vitest |
 | [Database](./database) | 1 | PostgreSQL, MongoDB, Redis |
-| [Git & Workflow](./git-workflow) | 5 | Cleanup, Worktrees, Gitleaks, Triage |
+| [Git & Workflow](./git-workflow) | 6 | Cleanup, Worktrees, Gitleaks, Triage |
 | [Specialized](./specialized) | 9 | Accessibility, Networking, RabbitMQ, APK scanning |
 
-**Total: 58 skills**
+**Total: 62 skills**
 
 ## How Skills Work
 

@@ -80,6 +80,16 @@ Production-grade distinctive UI interfaces.
 
 ---
 
+## `frontend-craftsmanship`
+
+**Invoke:** `/frontend-craftsmanship`
+
+Production frontend implementation and review across visual quality, React/Next.js performance, accessibility, and web interface guidelines.
+
+**Covers:** product-fit UI contracts, Server Component boundaries, waterfall and bundle reduction, render optimization, responsive polish, keyboard/focus validation, and UI review findings.
+
+---
+
 ## `developing-ui-ux-components`
 
 **Invoke:** `/developing-ui-ux-components`

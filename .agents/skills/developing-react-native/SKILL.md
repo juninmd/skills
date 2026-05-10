@@ -1,5 +1,5 @@
 ---
-name: react-native-dev
+name: developing-react-native
 description: "Mobile with Expo Router and TanStack Query. Triggers: expo, tanstack."
 argument-hint: "[context] [options]"
 license: MIT

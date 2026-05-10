@@ -1,6 +1,6 @@
 ---
 name: documentation-standards
-description: Documentation standards including README formatting, architecture documentation, and release notes.
+description: "Use when writing or reviewing README files, architecture docs, release notes, Markdown docs, and documentation structure. Triggers: documentation, README, docs, release notes, architecture documentation."
 applyTo: '**/*.md'
 paths:
   - "**/*.md"

@@ -1,6 +1,6 @@
 ---
 name: python-standards
-description: Python coding standards including type hints, Pydantic, and documentation.
+description: "Use when writing or reviewing Python code, type hints, Pydantic models, scripts, tests, or documentation. Triggers: Python, pyproject, Pydantic, type hints, pytest."
 applyTo: '**/*.py'
 paths:
   - "**/*.py"

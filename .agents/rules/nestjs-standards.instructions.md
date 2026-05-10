@@ -1,6 +1,6 @@
 ---
 name: nestjs-standards
-description: "NestJS coding standards focusing on modular architecture, feature-based modules, class-validator DTOs, Guards, and Interceptors. Apply when working in a NestJS project."
+description: "Use when working in a NestJS project with modular architecture, feature-based modules, class-validator DTOs, Guards, and Interceptors. Triggers: NestJS, nest, class-validator, guards, interceptors."
 applyTo: '**/*.ts'
 paths:
   - "**/*.ts"

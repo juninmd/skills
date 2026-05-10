@@ -204,6 +204,7 @@ The validation checks plugin metadata and all primary agent/skill files.
 | `vite` | Vite 8 + Tailwind CSS v4 build configuration |
 | `vitepress` | VitePress documentation sites with Vue |
 | `frontend-design` | Production-grade distinctive UI interfaces |
+| `frontend-craftsmanship` | React/Next performance, UI quality, accessibility review |
 | `developing-ui-ux-components` | Accessible, reusable UI components |
 
 ### Mobile
@@ -225,6 +226,7 @@ The validation checks plugin metadata and all primary agent/skill files.
 | `managing-cloud-infrastructure` | Resilient cloud architecture on AWS, GCP, and Azure |
 | `managing-serverless` | Lambda, Vercel, Cloudflare Workers deployment |
 | `configuring-ci-cd` | GitHub Actions and GitLab CI pipelines |
+| `github-actions-docs` | Official GitHub Actions documentation lookup and YAML guidance |
 | `managing-vector-databases` | Vector DBs for similarity search and RAG |
 
 ### Code Quality & Analysis
@@ -248,6 +250,7 @@ The validation checks plugin metadata and all primary agent/skill files.
 | `developing-mcp-servers` | Model Context Protocol server implementation |
 | `improving-codebase-architecture` | Practical architecture improvements for testability, locality, and change safety |
 | `mcp-builder` | Full MCP server build workflow |
+| `spec-first-design` | Temporary validated design specs and implementation plans before code changes |
 
 ### Build Tools & Testing
 
@@ -270,6 +273,7 @@ The validation checks plugin metadata and all primary agent/skill files.
 | Skill | Description |
 |---|---|
 | `git-cleanup` | Safe git branch and worktree cleanup |
+| `executing-plans` | Execute written implementation plans with validations and cleanup |
 | `finishing-a-development-branch` | Complete development cycle: merge, PR, cleanup |
 | `using-git-worktrees` | Isolated git worktrees for parallel feature work |
 | `fix-gitleaks` | Fix gitleaks CI failures and triage secrets |

@@ -1,6 +1,6 @@
 ---
 name: nodejs-standards
-description: Node.js coding standards focusing on architecture, module boundaries, and security.
+description: "Use when writing or reviewing Node.js and JavaScript/TypeScript backend code, module boundaries, package scripts, and security practices. Triggers: Node.js, node, backend JavaScript, module boundaries."
 applyTo: '**/*.ts,**/*.js'
 paths:
   - "**/*.ts"

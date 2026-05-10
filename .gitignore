@@ -2,6 +2,7 @@ node_modules/
 docs/.vitepress/cache/
 docs/.vitepress/dist/
 .agents/benchmarks/results/
+temp/
 .env
 .env.*
 !.env.example

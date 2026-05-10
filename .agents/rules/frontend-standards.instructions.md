@@ -1,6 +1,6 @@
 ---
 name: frontend-standards
-description: Frontend coding standards including accessibility, semantic HTML, and styling practices.
+description: "Use when writing or reviewing frontend code, accessibility, semantic HTML, CSS, React/Vue UI, or styling practices. Triggers: frontend, UI, accessibility, semantic HTML, CSS."
 applyTo: '**/*.tsx,**/*.jsx,**/*.vue,**/*.css'
 paths:
   - "**/*.tsx"

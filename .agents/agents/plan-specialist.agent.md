@@ -1,6 +1,7 @@
 ---
 name: plan-specialist
 description: "Use when planning multi-step tasks, orchestrating architecture decisions, designing features, breaking down complex work into milestones, running discovery with specialist subagents, creating Mermaid diagrams, or coordinating cross-cutting changes across backend, frontend, infrastructure, and database layers."
+user-invocable: true
 argument-hint: "A task to plan, a feature to design, or a system to analyze"
 handoffs: [{label: "Let's Rock", agent: 'principal-engineer', prompt: "Implement the approved plan persisted at /memories/session/plan.md. Follow the milestone checklist, respect scope boundaries, and run the Quality Gate before reporting back.", send: true}]
 ---

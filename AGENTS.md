@@ -104,6 +104,7 @@ Skills are loaded on demand when the task matches their domain. Invoke explicitl
 - `/vite` — Vite 8 + Tailwind CSS v4
 - `/vitepress` — VitePress documentation sites
 - `/frontend-design` — Production-grade UI interfaces
+- `/frontend-craftsmanship` — React/Next performance, UI quality, accessibility review
 - `/developing-ui-ux-components` — Accessible, reusable components
 
 ### Mobile
@@ -119,6 +120,7 @@ Skills are loaded on demand when the task matches their domain. Invoke explicitl
 - `/managing-cloud-infrastructure` — AWS/GCP/Azure resilient architecture
 - `/managing-serverless` — Lambda, Vercel, Cloudflare Workers
 - `/configuring-ci-cd` — GitHub Actions, GitLab CI
+- `/github-actions-docs` — Official GitHub Actions docs lookup
 - `/managing-vector-databases` — Vector DBs for RAG
 
 ### Code Quality
@@ -136,6 +138,7 @@ Skills are loaded on demand when the task matches their domain. Invoke explicitl
 - `/developing-mcp-servers` — Model Context Protocol servers
 - `/improving-codebase-architecture` — Practical architecture improvements
 - `/mcp-builder` — Full MCP server build workflow
+- `/spec-first-design` — Temporary validated specs and plans before implementation
 
 ### Build & Testing
 - `/pnpm` — pnpm workspaces, strict resolution
@@ -149,6 +152,7 @@ Skills are loaded on demand when the task matches their domain. Invoke explicitl
 
 ### Git & Workflow
 - `/git-cleanup` — Safe branch and worktree cleanup
+- `/executing-plans` — Execute written plans with validations and cleanup
 - `/finishing-a-development-branch` — Complete development cycle
 - `/using-git-worktrees` — Isolated parallel feature work
 - `/fix-gitleaks` — Fix gitleaks CI failures

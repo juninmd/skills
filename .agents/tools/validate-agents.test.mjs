@@ -46,6 +46,12 @@ test('parseFrontmatter extracts data and body', () => {
   assert.match(parsed.body, /# Body/);
 });
 
+test('parseFrontmatter supports simple list values', () => {
+  const parsed = parseFrontmatter('---\nname: demo\npaths:\n  - "**/*.ts"\n  - "**/*.tsx"\n---\n# Body\n');
+  assert.equal(parsed.error, null);
+  assert.deepEqual(parsed.data.paths, ['"**/*.ts"', '"**/*.tsx"']);
+});
+
 test('parseFrontmatter rejects malformed headers', () => {
   const noFence = parseFrontmatter('# hello');
   assert.match(noFence.error, /Missing opening/);
@@ -129,7 +135,7 @@ test('validatePluginFile accepts healthy files and ignores safe links', () => {
 test('validateAgentsRoot returns only files with issues', () => {
   const root = createFixture({
     'prompts/explain.prompt.md': '---\nname: explain\ndescription: "Explain code. Triggers: explain this code."\nargument-hint: "[file]"\n---\n',
-    'rules/testing.instructions.md': '---\nname: testing\ndescription: "Testing rule. Use when editing tests. Triggers: testing."\napplyTo: "**/*.test.ts"\n---\n',
+    'rules/testing.instructions.md': '---\nname: testing\ndescription: "Testing rule. Use when editing tests. Triggers: testing."\napplyTo: "**/*.test.ts"\npaths:\n  - "**/*.test.ts"\n---\n',
     'skills/demo/SKILL.md': '---\nname: demo\ndescription: "Missing trigger marker"\n---\n',
   });
 

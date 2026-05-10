@@ -106,6 +106,16 @@ lint → type-check → test → build → security-scan → deploy → notify
 
 ---
 
+## `github-actions-docs`
+
+**Invoke:** `/github-actions-docs`
+
+Official GitHub Actions documentation lookup and docs-grounded YAML guidance.
+
+**Covers:** workflow syntax, triggers, events, contexts, expressions, matrices, reusable workflows, artifacts, caching, runners, secrets, `GITHUB_TOKEN`, OIDC, environments, deployments, custom actions, Actions Runner Controller, migration, and troubleshooting references.
+
+---
+
 ## `managing-vector-databases`
 
 **Invoke:** `/managing-vector-databases`

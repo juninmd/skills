@@ -90,7 +90,20 @@ export function parseFrontmatter(content) {
       };
     }
 
-    data[match.groups.key] = (match.groups.value ?? '').trim();
+    const key = match.groups.key;
+    const value = (match.groups.value ?? '').trim();
+
+    if (!value && index + 1 < closingIndex && /^\s+-\s+/.test(lines[index + 1])) {
+      const items = [];
+      while (index + 1 < closingIndex && /^\s+-\s+/.test(lines[index + 1])) {
+        index += 1;
+        items.push(lines[index].replace(/^\s+-\s+/, '').trim());
+      }
+      data[key] = items;
+      continue;
+    }
+
+    data[key] = value;
   }
 
   const body = lines.slice(closingIndex + 1).join('\n');
@@ -181,7 +194,7 @@ function findMissingBaseDirToolPaths(absoluteFilePath, frontmatter) {
   const missingPaths = [];
   const allowedTools = frontmatter['allowed-tools'];
 
-  if (!allowedTools) {
+  if (!allowedTools || typeof allowedTools !== 'string') {
     return missingPaths;
   }
 

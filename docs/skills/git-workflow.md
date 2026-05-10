@@ -18,6 +18,16 @@ Safe cleanup of stale Git branches and worktrees.
 
 ---
 
+## `executing-plans`
+
+**Invoke:** `/executing-plans`
+
+Execute written implementation plans or temporary specs task-by-task.
+
+**Covers:** loading and reviewing a plan, one-active-task execution, test-first steps when planned, focused validations, plan drift handling, final broad checks, and deletion of completed temporary specs in `temp/specs/`.
+
+---
+
 ## `finishing-a-development-branch`
 
 **Invoke:** `/finishing-a-development-branch`
