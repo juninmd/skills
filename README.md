@@ -26,6 +26,8 @@ It includes specialist agents, domain skills, reusable prompts, and governance r
 
 The core is [`AGENTS.md`](./AGENTS.md): a compact operating contract that forces better defaults before code is written, while work is being changed, and before anything is considered done.
 
+> **Validated with Microsoft Waza:** All skills in this repository have been audited and optimized using the [Microsoft Waza](https://github.com/microsoft/waza) CLI framework to guarantee High Compliance, token budget efficiency, and test readiness.
+
 ## At a Glance
 
 | Capability | Count | What you get |
