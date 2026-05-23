@@ -1,119 +1,49 @@
 ---
 name: react-dev
-description: "Server Components, useActionState, use(). Triggers: suspense."
-argument-hint: "[context] [options]"
-applyTo: '**/*.{tsx,jsx}'
----
+description: |
+  **FRONTEND SKILL** - Build modern web apps with React 19 and Server Components.
+  USE FOR: React functional components, Server Components (RSC), React 19 hooks (use, useActionState, useOptimistic), Server Actions, Zustand state management, strict TS props.
+  DO NOT USE FOR: legacy Class components, non-React frameworks, React versions older than 18.
+  INVOKES: react, react-dom, zustand, typescript compiler.
+license: MIT
+metadata:
+  version: 1.0.0
+compatibility:
+  platforms: "React 19+, TypeScript"
+allowed-tools: [read_file, write_file, replace]
 ---
 
 # React Development (React 19+)
 
-> Server-First. Functional. Immutable. Typed. < 100 Lines per component.
+Expert methodology for building high-performance, type-safe web applications using React 19's server-first architecture and modern hook patterns.
+
+**USE FOR:**
+- Implementing async data fetching with Server Components and the `use()` hook.
+- Managing complex form states and transitions with `useActionState`.
+- Designing optimistic UI updates with `useOptimistic`.
+- Configuring modular client state with Zustand.
+- Enforcing strict TypeScript standards for component interfaces.
+
+**DO NOT USE FOR:**
+- Purely static sites without interaction (consider Next.js static export).
+- Projects requiring legacy Redux or Context-heavy state without a proven need.
+
+**INVOKES:**
+- `react`, `react-dom`, `typescript`, `vitest` tools.
+
+## Methodology and Guidelines
+Implementation details for principles, standards, and state are documented in:
+1. [Core Principles & RSC](references/react-core.md)
+2. [Standards & State Management](references/react-standards.md)
 
 ## Core Principles
-
-| Pattern | Default |
-|---------|---------|
-| **Memoization** | React Compiler (auto-memoization) |
-| **Data fetching** | Server Components (no `useEffect`) |
-| **Mutations** | Form Actions + `useActionState` |
-| **Async in client** | `use()` hook (replaces `useEffect + useState`) |
-| **Optimistic updates** | `useOptimistic()` |
-| **Loading states** | `Suspense` boundaries |
-
-## Server Components (Default)
-
-All components are Server Components unless interactivity is strictly required.
-
-```typescript
-// ✅ Server Component — no "use client"
-export default async function UsersPage() {
-  const users = await db.users.findMany();
-  return <UserList users={users} />;
-}
-```
-
-Add `"use client"` **only** when needed: `onClick`, `useState`, `useEffect`, browser APIs.
-
-## Client Component Patterns
-
-```typescript
-// ✅ React 19: use() hook for async data
-"use client";
-function UserProfile({ promise }: { promise: Promise<User> }) {
-  const user = use(promise); // Suspense-aware
-  return <div>{user.name}</div>;
-}
-
-// ✅ React 19: Form Actions
-async function updateUser(formData: FormData) {
-  "use server";
-  await db.users.update({ name: formData.get('name') });
-}
-```
-
-## File Structure
-
-```
-components/
-  UserCard/
-    UserCard.tsx        # < 100 lines — Server by default
-    UserCard.client.tsx # < 100 lines — only if interactive
-    UserCard.test.tsx
-    index.ts
-```
-
-## State Management
-
-| Scope | Tool |
-|-------|------|
-| Server state | React Server Components + `cache()` |
-| Client local | `useState` |
-| Client global | Zustand (< 100 lines per slice) |
-| Forms | `useActionState` + Server Actions |
-| Optimistic | `useOptimistic()` |
-
-## TypeScript Configuration
-
-```json
-{
-  "compilerOptions": {
-    "strict": true,
-    "strictNullChecks": true,
-    "noImplicitAny": true,
-    "noUncheckedIndexedAccess": true,
-    "esModuleInterop": true,
-    "moduleResolution": "bundler"
-  }
-}
-```
-
-**Rules:**
-- ✅ Zero `any` type (use `unknown` for truly unknown values)
-- ✅ Explicit types for all function parameters
-- ✅ Use `void` return type for callbacks (not `any`)
-- ✅ Never use boxed types (`Number`, `String`, `Boolean`)
-
-## Performance
-
-- **Memoize sparingly**: Profiler first, `useMemo`/`useCallback` only when proven expensive
-- **Code split**: `React.lazy` + `Suspense` at route level
-- **Images**: `next/image` with `loading="lazy"` + `sizes`
-- **Server-render**: Move expensive computation to Server Components
+1. **Server First:** Default to RSC; minimize the client bundle size.
+2. **Functional Purity:** Keep components functional, immutable, and typed.
+3. **Small Surface:** Maintain components under 100 lines to ensure maintainability.
 
 ## Checklist
-
-- [ ] Component < 100 lines (shard to `.client.tsx` if needed)
-- [ ] Props strictly typed with `interface` (no `any`)
-- [ ] No `useEffect` for data fetching (use Server Components or `use()`)
-- [ ] Form mutations use Server Actions
-- [ ] Suspense boundaries around async client components
-- [ ] Tests cover all user interactions
-
-## References
-
-- [React Official Documentation](https://react.dev)
-- [React 19 Release Notes](https://react.dev/blog/2024/12/05/react-19)
-- [Server Components Guide](https://react.dev/reference/rsc/server-components)
-- [useActionState Hook](https://react.dev/reference/react/useActionState)
-- [use Hook](https://react.dev/reference/react/use)
+- [ ] Component is functional and strictly typed (no `any`).
+- [ ] Data fetching utilizes Server Components or the `use()` hook.
+- [ ] Form mutations are implemented via Server Actions.
+- [ ] UI provides explicit loading states through Suspense boundaries.
+- [ ] Logic is sharded if component exceeds the 100-line guideline.

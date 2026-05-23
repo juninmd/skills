@@ -1,63 +1,47 @@
 ---
 name: developing-node
-description: "pnpm, swc, Biome, Vitest stack. Triggers: swc, biome."
-argument-hint: "[file/module] [options]"
----
+description: |
+  **DEVELOPMENT SKILL** - Build and manage modern Node.js applications.
+  USE FOR: dependency management (pnpm/npm), JS/TS build automation, lockfile reconciliation, pnpm migrations, Biome linting, Vite/SWC configurations.
+  DO NOT USE FOR: client-side-only tasks (without build context), non-JS scripting (use developing-python/developing-go).
+  INVOKES: pnpm, npm, npx, node, biome.
+license: MIT
+metadata:
+  version: 1.0.0
+compatibility:
+  platforms: "Node.js 20+"
+allowed-tools: [run_shell_command, read_file, write_file]
 ---
 
 # Node.js Development
 
-This skill focuses on efficient dependency management and JS/TS build automation, standardizing `pnpm` usage for new projects and migrations.
+Expert methodology for efficient dependency management, JS/TS build automation, and standardizing the 2026 Node.js toolchain.
 
-## 🧱 Recommended 2026 Stack
-- **Runtime:** Node.js 24 LTS.
-- **Package Manager:** pnpm (latest).
-- **Base Tooling:** TypeScript strict, **Biome** (replacing ESLint and Prettier for linting/formatting), Vitest.
-- **Build / Compiler:** **SWC** (Speedy Web Compiler) for fast execution, **Vite 8** for frontend and bundlers.
-- **Monorepo:** Turborepo (Nx when enterprise governance requires).
+**USE FOR:**
+- Managing project dependencies using `pnpm` or `npm`.
+- Implementing fast linting and formatting with Biome.
+- Configuring modern build pipelines with Vite 8 and SWC.
+- Automating JS/TS scripts and task execution.
+- Migrating legacy npm/yarn projects to pnpm.
 
-## Instructions
-1.  **Package Manager Strategy:**
-    *   **Standard:** Use `pnpm` for new projects. It is faster and more disk-efficient.
-    *   **Legacy:** If you find `package-lock.json`, use `npm` to maintain consistency, but plan migration.
-    *   **Validation:** Check project root.
-        *   `pnpm-lock.yaml` → Use `pnpm`.
-        *   `package-lock.json` → Use `npm` (and consider migrating).
-2.  **Tool Execution:**
-    *   **pnpm:** Use `pnpm dlx` for temporary tools.
-    *   **npm:** Use `npx`.
-3.  **Scripts:** Execute scripts via `pnpm run <script>` or `npm run <script>`.
+**DO NOT USE FOR:**
+- Pure frontend UI components (unless managing their build system).
+- Intensive CPU tasks better suited for Rust or Go.
 
-## Common Tasks
-*   **Install Dependencies:**
-    *   `pnpm install` (Ideal)
-    *   `npm ci` (For reproducible builds with npm)
-*   **Add Package:**
-    *   `pnpm add <package>`
-    *   `npm install <package>`
-*   **Run Tests:** `pnpm test` or `npm test`.
-*   **Migration (npm → pnpm):**
-    *   Run: `pnpm import` (Generates pnpm-lock.yaml from package-lock.json).
-    *   Run: `rm package-lock.json` and `rm -rf node_modules`.
-    *   Run: `pnpm install`.
+**INVOKES:**
+- `node`, `pnpm`, `npm`, `npx` CLI tools.
 
-## Troubleshooting
-*   **Error `EACCES`:** Never use `sudo` for global package installation. Use nvm/volta.
-*   **Phantom Dependencies:** If a package works but is not in `package.json`, `npm` may be "leaking" dependencies (hoisting). `pnpm` fixes this by default, which may break unintended imports after migration.
-*   **Certificates (Netskope):** `npm config set cafile /path/to/cert.pem` works for both (pnpm reads npm config).
+## Methodology and Guidelines
+Implementation details for setup, operations, and troubleshooting are documented in:
+1. [Node.js Environment and Stack](references/node-setup.md)
+2. [Node.js Operations and Troubleshooting](references/node-operations.md)
 
-## Resources
-- `assets/FORMS.md`: Checklist for new dependencies (Security/License).
+## Core Principles
+1. **Efficiency:** Prefer `pnpm` for its speed and content-addressable storage.
+2. **Determinism:** Always use lockfiles (`pnpm-lock.yaml`) and exact versions (`npm ci`).
+3. **Speed:** Utilize SWC and Biome to minimize feedback loops.
 
 ## Checklist
-
-- [ ] Inspect `package.json`, lockfiles, and workspace config before changing dependencies or scripts.
-- [ ] Prefer existing tooling and conventions over introducing a new package.
-- [ ] Re-run the narrowest install, build, lint, or test command that exercises the change.
-
-## References
-- [Node.js Official Documentation](https://nodejs.org/en/docs)
-- [pnpm Documentation](https://pnpm.io/motivation)
-- [Biome Linter/Formatter](https://biomejs.dev/)
-- [Vite Next Generation Frontend Tooling](https://vitejs.dev/)
-- [TypeScript Handbook](https://www.typescriptlang.org/docs/)
+- [ ] Inspect `package.json` and lockfiles before changing dependencies.
+- [ ] Prefer existing project tooling over introducing new packages.
+- [ ] Verify changes with the narrowest relevant install or test command.

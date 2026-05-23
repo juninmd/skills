@@ -1,79 +1,48 @@
 ---
 name: improving-codebase-architecture
-description: "Find practical architecture improvements that make code easier to test, change, and navigate. Triggers: architecture improvement, refactor architecture, module boundaries, coupling, testability, technical debt."
-argument-hint: "[area/module/feature]"
+description: |
+  **ARCHITECTURE SKILL** - Identify and implement practical improvements to codebase structure.
+  USE FOR: architectural debt, module boundaries, reducing coupling, improving testability, refactoring technical debt, finding design friction.
+  DO NOT USE FOR: low-level design principles (use applying-design-principles), implementing new features, fixing local bugs.
+  INVOKES: ADR creation, interface design, dependency analysis.
+license: MIT
+metadata:
+  version: 1.0.0
+compatibility:
+  platforms: "any"
+allowed-tools: [read_file, write_file, replace]
 ---
 
 # Improving Codebase Architecture
 
-Use this skill to find architecture changes that reduce real friction. The output should be a ranked set of practical opportunities, not a generic refactor wishlist.
+Expert methodology for identifying and resolving architectural friction to make code easier to test, change, and navigate through better module boundaries and deeper interfaces.
 
-## Vocabulary
+**USE FOR:**
+- Finding and ranking practical architecture improvements based on maintenance cost.
+- Redefining module boundaries to reduce the "change surface" of the system.
+- Designing deep interfaces that hide complexity from callers.
+- Decoupling tests from internal implementation details.
+- Documenting significant architectural decisions via ADRs.
 
-- **Module:** A function, class, package, route, service, or slice with callers and behavior.
-- **Interface:** Everything callers must understand: inputs, outputs, invariants, errors, ordering, configuration, and side effects.
-- **Implementation:** The hidden work behind the interface.
-- **Depth:** How much useful behavior is hidden behind a small interface.
-- **Change surface:** The number of places that must change when one concept changes.
-- **Test surface:** The public place where behavior can be verified without coupling tests to internals.
+**DO NOT USE FOR:**
+- Applying local code-smell fixes (use `applying-design-principles`).
+- Proposing generic refactors without evidence of real friction.
 
-## Workflow
+**INVOKES:**
+- Codebase mapping, dependency analysis, and ADR drafting.
 
-### 1. Read the local language first
-Before proposing architecture changes, inspect the nearest project documentation:
+## Methodology and Guidelines
+Implementation details for discovery, vocabulary, and ranking are documented in:
+1. [Architecture Vocabulary & Ranking](references/architecture-vocabulary.md)
+2. [Discovery & Design Workflow](references/architecture-workflow.md)
 
-- `AGENTS.md`, `README.md`, and relevant package docs.
-- `CONTEXT.md` or `CONTEXT-MAP.md` when present.
-- `docs/adr/` or local ADR folders when present.
-- Existing tests around the target area.
-
-Use the project's domain terms in recommendations. If no domain glossary exists, infer terms from user-facing names, routes, schemas, and tests.
-
-### 2. Explore for friction
-Look for evidence that maintainers pay too much cost for small changes:
-
-- Understanding one behavior requires jumping through many thin wrappers.
-- Callers know too much about ordering, setup, flags, or internal shape.
-- Tests target private helpers because public behavior is hard to reach.
-- One business rule is duplicated across handlers, UI, jobs, and tests.
-- A module's interface is almost as complex as its implementation.
-- A dependency is mocked everywhere because no stable boundary exists.
-- Error handling, validation, or observability is scattered across callers.
-
-Apply the deletion question: if this module disappeared, would complexity vanish, or would it reappear across several callers? If it only vanishes, the module may be a pass-through. If it would spread, the module is likely carrying useful depth.
-
-### 3. Rank opportunities
-Present candidates with concrete evidence:
-
-- **Files:** The main files or modules involved.
-- **Friction:** What makes the current design hard to change, test, or understand.
-- **Proposal:** What boundary, interface, or ownership change would improve it.
-- **Payoff:** How locality, testability, and future changes improve.
-- **Risk:** What could break and what verification would reduce that risk.
-
-Avoid proposing new abstractions before explaining the observed friction. Prefer fewer, higher-confidence candidates.
-
-### 4. Design the selected change
-When the user chooses an opportunity:
-
-- Define the public interface first.
-- Identify which callers should become simpler.
-- Decide what behavior moves behind the module.
-- Define tests at the new interface.
-- Keep migration incremental and reversible.
-
-Only create an ADR when the decision is hard to reverse, surprising without context, and based on a real trade-off.
+## Core Principles
+1. **Evidence-First:** Proposals must be grounded in observed maintenance friction or testing difficulty.
+2. **Depth over Breadth:** Prefer a few high-confidence changes that significantly simplify the system.
+3. **Incrementalism:** Keep architectural shifts reversible and testable at every step.
 
 ## Checklist
-
-- [ ] Recommendations are grounded in files, tests, or observed maintenance friction.
-- [ ] The proposed interface reduces caller knowledge instead of moving complexity around.
-- [ ] The testing strategy verifies behavior through the new public surface.
-- [ ] Existing ADRs or documented domain terms were respected or explicitly challenged.
-- [ ] The user gets ranked options before implementation begins.
-
-## References
-
-- [Workspace Agent Conventions](../../../AGENTS.md)
-- [Code Design Principles Rule](../../rules/code-design-principles.instructions.md)
-- [Applying Design Principles Skill](../applying-design-principles/SKILL.md)
+- [ ] Ground recommendations in existing files, tests, and ADRs.
+- [ ] Ensure the proposed interface reduces the knowledge required by callers.
+- [ ] Verify the testing strategy targets the new public surface.
+- [ ] Provide the user with ranked options before initiating implementation.

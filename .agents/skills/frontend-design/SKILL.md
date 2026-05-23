@@ -1,53 +1,48 @@
 ---
 name: frontend-design
-description: "Distinctive production-grade interfaces. Triggers: production UI."
-argument-hint: "[context] [options]"
+description: |
+  **DESIGN SKILL** - Create distinctive, production-grade frontend interfaces.
+  USE FOR: UI design direction, custom CSS/SASS, high-fidelity components, aesthetic refinement, typography/color systems, creative layouts.
+  DO NOT USE FOR: generic "AI slop" aesthetics, backend logic, basic HTML without styling requirements.
+  INVOKES: custom CSS variables, motion libraries, advanced layout techniques.
+license: MIT
+metadata:
+  version: 1.0.0
+compatibility:
+  platforms: "Web, React, Vue, HTML/CSS"
+allowed-tools: [read_file, write_file, replace]
 ---
 
-This skill guides creation of distinctive, production-grade frontend interfaces that avoid generic "AI slop" aesthetics. Implement real working code with exceptional attention to aesthetic details and creative choices.
+# Frontend Design
 
-The user provides frontend requirements: a component, page, application, or interface to build. They may include context about the purpose, audience, or technical constraints.
+Expert methodology for building visually striking and memorable web interfaces that avoid generic aesthetics and prioritize intentionality.
 
-## Design Thinking
+**USE FOR:**
+- Defining bold aesthetic directions (Minimalist, Maximalist, Editorial, etc.).
+- Implementing unique typography systems and color palettes.
+- Creating complex spatial compositions with overlapping or asymmetrical elements.
+- Orchestrating high-impact motion and micro-interactions.
+- Refining UI details with textures, noise, and layered transparencies.
 
-Before coding, understand the context and commit to a BOLD aesthetic direction:
-- **Purpose**: What problem does this interface solve? Who uses it?
-- **Tone**: Pick an extreme: brutally minimal, maximalist chaos, retro-futuristic, organic/natural, luxury/refined, playful/toy-like, editorial/magazine, brutalist/raw, art deco/geometric, soft/pastel, industrial/utilitarian, etc. There are so many flavors to choose from. Use these for inspiration but design one that is true to the aesthetic direction.
-- **Constraints**: Technical requirements (framework, performance, accessibility).
-- **Differentiation**: What makes this UNFORGETTABLE? What's the one thing someone will remember?
+**DO NOT USE FOR:**
+- Implementing repetitive "cookie-cutter" SaaS templates.
+- Backend service development or database modeling.
 
-**CRITICAL**: Choose a clear conceptual direction and execute it with precision. Bold maximalism and refined minimalism both work - the key is intentionality, not intensity.
+**INVOKES:**
+- Modern CSS (Grid, Flex, Variables), Motion libraries, and characterful font pairings.
 
-Then implement working code (HTML/CSS/JS, React, Vue, etc.) that is:
-- Production-grade and functional
-- Visually striking and memorable
-- Cohesive with a clear aesthetic point-of-view
-- Meticulously refined in every detail
+## Methodology and Guidelines
+Implementation details for design thinking and aesthetic execution are documented in:
+1. [Design Thinking & Directions](references/design-thinking.md)
+2. [Frontend Aesthetics Guidelines](references/design-aesthetics.md)
 
-## Frontend Aesthetics Guidelines
-
-Focus on:
-- **Typography**: Choose fonts that are beautiful, unique, and interesting. Avoid generic fonts like Arial and Inter; opt instead for distinctive choices that elevate the frontend's aesthetics; unexpected, characterful font choices. Pair a distinctive display font with a refined body font.
-- **Color & Theme**: Commit to a cohesive aesthetic. Use CSS variables for consistency. Dominant colors with sharp accents outperform timid, evenly-distributed palettes.
-- **Motion**: Use animations for effects and micro-interactions. Prioritize CSS-only solutions for HTML. Use Motion library for React when available. Focus on high-impact moments: one well-orchestrated page load with staggered reveals (animation-delay) creates more delight than scattered micro-interactions. Use scroll-triggering and hover states that surprise.
-- **Spatial Composition**: Unexpected layouts. Asymmetry. Overlap. Diagonal flow. Grid-breaking elements. Generous negative space OR controlled density.
-- **Backgrounds & Visual Details**: Create atmosphere and depth rather than defaulting to solid colors. Add contextual effects and textures that match the overall aesthetic. Apply creative forms like gradient meshes, noise textures, geometric patterns, layered transparencies, dramatic shadows, decorative borders, custom cursors, and grain overlays.
-
-NEVER use generic AI-generated aesthetics like overused font families (Inter, Roboto, Arial, system fonts), cliched color schemes (particularly purple gradients on white backgrounds), predictable layouts and component patterns, and cookie-cutter design that lacks context-specific character.
-
-Interpret creatively and make unexpected choices that feel genuinely designed for the context. No design should be the same. Vary between light and dark themes, different fonts, different aesthetics. NEVER converge on common choices (Space Grotesk, for example) across generations.
-
-**IMPORTANT**: Match implementation complexity to the aesthetic vision. Maximalist designs need elaborate code with extensive animations and effects. Minimalist or refined designs need restraint, precision, and careful attention to spacing, typography, and subtle details. Elegance comes from executing the vision well.
-
-Remember: this skill should produce extraordinary creative work. Commit fully to a distinctive vision instead of drifting toward generic layouts.
+## Core Principles
+1. **No Slop:** Explicitly avoid overused font families and cliched color schemes.
+2. **Intentionality:** Every visual choice (spacing, shadow, grain) must support the core vision.
+3. **Refinement:** Elegant implementation requires meticulously polished details.
 
 ## Checklist
-
-- [ ] Define the visual direction, typography, color system, and interaction model before building the UI.
-- [ ] Make the strongest moments intentional instead of spreading weak effects across the whole page.
-- [ ] Validate responsiveness, readability, and accessibility after the visual layer is in place.
-
-## References
-
-- [Workspace Agent Conventions](../../../AGENTS.md)
-- [Implementing Accessibility Skill](../implementing-accessibility/SKILL.md)
+- [ ] Commit to a clear visual direction before implementing code.
+- [ ] Ensure all typography and color choices are distinctive and cohesive.
+- [ ] Validate that the strongest visual moments are intentional and high-impact.
+- [ ] Check responsiveness and accessibility after the visual layer is complete.

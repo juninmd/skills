@@ -1,89 +1,48 @@
 ---
 name: developing-tooling
-description: "Typer, commander, rich, structlog. Triggers: typer."
-argument-hint: "[file/module] [options]"
----
+description: |
+  **DEVELOPMENT SKILL** - Build professional CLI tools and automation scripts.
+  USE FOR: CLI design, Typer/Commander scripts, Rich/Chalk formatting, structured logging, CLI testing, automation binaries.
+  DO NOT USE FOR: web application development, GUI/Desktop apps (use architecting-electron), simple one-off shell scripts (unless needing structure).
+  INVOKES: python, node, typer, commander, structlog.
+license: MIT
+metadata:
+  version: 1.0.0
+compatibility:
+  platforms: "Windows, Linux, macOS"
+allowed-tools: [run_shell_command, read_file, write_file]
 ---
 
 # Tooling Developer
 
-This skill guides the creation of high-quality command-line tools (CLI) and automation scripts, following software engineering standards (Testing, Logging, Documentation).
+Expert methodology for building high-quality command-line interfaces (CLI) and automation tools that follow modern engineering standards.
 
-## 🧱 Recommended Stack 2026
-- **Internal Python CLI:** `uv` + `typer` + `rich` + `structlog` + `pytest`.
-- **Internal Node CLI:** `pnpm` + `commander` + `zod` + `pino` + `vitest`.
-- **Distribution:** binaries with `PyOxidizer`/`shiv` (Python) or `pkg`/`nexe` (Node) when necessary.
-- **Observability:** OpenTelemetry SDK + structured JSON logs.
+**USE FOR:**
+- Designing user-friendly CLI interfaces with robust help and validation.
+- Implementing structured JSON logging for CI/CD observability.
+- Applying rich formatting and colors for interactive terminal usage.
+- Writing automated tests for CLI invocations and business logic.
+- Packaging tools for distribution as standalone binaries.
 
-## Instructions
-1.  **Interface Design:** Use robust libraries for CLI (Python: `typer`/`click`, Go: `cobra`, Node: `commander`).
-    *   **Help:** Every command must have a detailed `--help` with examples.
-    *   **Arguments:** Validate inputs rigorously (strong typing with Pydantic/Zod).
-2.  **Logging and Observability:**
-    *   **Structured Logs:** Use structured logs (JSON) for CI/CD execution (`structlog` in Python).
-    *   **Human Logs:** Use colored/formatted logs (`rich` or `chalk`) for interactive execution.
-    *   **Levels:** Clearly differentiate `DEBUG`, `INFO`, `WARNING`, `ERROR`.
-3.  **Error Handling:**
-    *   Never show stack traces to the end-user (except with `--debug`).
-    *   Use semantic exit codes (0=success, 1=general error, 2=incorrect usage).
-4.  **Testing Strategy:**
-    *   **Unit Tests:** Test isolated business logic (I/O mocking).
-    *   **Integration Tests:** Test CLI invocation (e.g., `typer.testing.CliRunner`).
-    *   **Coverage:** Aim for > 80% coverage.
+**DO NOT USE FOR:**
+- Complex backend API servers (use developing-fastapi/developing-nestjs).
+- Tasks better suited for pure Bash or PowerShell without library overhead.
 
-## Common Tasks
-*   **Create CLI (Python):** `uv init --app && uv add typer rich structlog`
-*   **Create CLI (Node):** `npm init && pnpm add commander chalk winston`
+**INVOKES:**
+- `typer`, `commander`, `uv`, `pnpm` CLI tools.
 
-## Examples
-### Valid Python CLI Example (Typer + Rich)
-```python
-import typer
-from rich.console import Console
-import structlog
+## Methodology and Guidelines
+Implementation details for stack, design principles, and examples are documented in:
+1. [CLI Tooling Best Practices](references/tooling-best-practices.md)
+2. [CLI Implementation Examples](references/tooling-examples.md)
 
-app = typer.Typer()
-console = Console()
-log = structlog.get_logger()
-
-@app.command()
-def deploy(env: str = typer.Option(..., help="Environment (dev/prod)")):
-    """Deploy application to specified environment."""
-    log.info("starting_deploy", env=env)
-    try:
-        # Business Logic...
-        console.print(f"[green]Deploy to {env} successful![/green]")
-    except Exception as e:
-        log.error("deploy_failed", error=str(e))
-        console.print(f"[red]Error:[/red] {e}")
-        raise typer.Exit(code=1)
-
-if __name__ == "__main__":
-    app()
-```
-
-### Valid Logging Configuration Example
-```python
-# Configure structlog for JSON output in CI, Console in Dev
-import sys
-import structlog
-
-def configure_logging(json_mode: bool):
-    processors = [structlog.processors.JSONRenderer()] if json_mode else [structlog.dev.ConsoleRenderer()]
-    structlog.configure(processors=processors, logger_factory=structlog.PrintLoggerFactory())
-```
-
-## Resources
-- **12-Factor CLI Apps:** Principles for building command-line apps (Config via Env Vars, Logs via Stdout).
+## Core Principles
+1. **Machine First:** Default to machine-readable output (JSON) in non-interactive environments.
+2. **Safety:** Never expose internal stack traces unless requested via `--debug`.
+3. **Determinism:** Use semantic exit codes to signal failure types.
 
 ## Checklist
-
-- [ ] Define the tool's inputs, outputs, and operator workflow before implementing commands.
-- [ ] Keep failure modes explicit with clear exit codes or structured errors.
-- [ ] Verify the happy path and one realistic failure path with a real invocation.
-
-## References
-
-- [The Twelve-Factor App](https://12factor.net/)
-- [Command Line Interface Guidelines](https://clig.dev/)
-
+- [ ] Define inputs, outputs, and operator workflow before implementation.
+- [ ] Ensure every command and option has clear documentation.
+- [ ] Verify exit codes for both success and realistic failure scenarios.
+- [ ] Validate that logs are structured (JSON) when running in CI.

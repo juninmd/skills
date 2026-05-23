@@ -1,78 +1,48 @@
 ---
 name: test-driven-development
-description: "Behavior-first development with red/green/refactor cycles and vertical slices. Triggers: TDD, test-first, red green refactor, regression test, acceptance criteria."
-argument-hint: "[feature/bug/module]"
+description: |
+  **STRATEGY SKILL** - Implement features and fixes using the Red/Green/Refactor cycle.
+  USE FOR: test-first implementation, TDD workflows, regression testing, defining behavior through tests, vertical slice development.
+  DO NOT USE FOR: pure unit testing without implementation (use vitest), non-coding tasks, speed-biased prototyping without verification.
+  INVOKES: red-green-refactor loops, behavior-based assertions.
+license: MIT
+metadata:
+  version: 1.0.0
+compatibility:
+  platforms: "any"
+allowed-tools: [read_file, write_file, replace, run_shell_command]
 ---
 
 # Test-Driven Development
 
-Use this skill when the user wants test-first implementation or when a change is risky enough that behavior should be specified before code.
+Expert methodology for building robust software by specifying behavior through tests before implementing code, ensuring maintainability and reducing regressions.
 
-## Principles
+**USE FOR:**
+- Implementing new features with a test-first approach.
+- Securing risky changes with concrete behavioral specifications.
+- Performing vertical slice development that crosses multiple layers.
+- Designing clean interfaces by forcing early "caller-first" thinking.
+- Establishing repeatable regression suites for reported bugs.
 
-- Tests describe observable behavior through public interfaces.
-- A useful test should survive internal refactors.
-- Prefer integration-style checks around real code paths over tests that mirror private structure.
-- Mock only unstable boundaries such as network, time, filesystem, randomness, or paid/external services.
-- Do not write a batch of imagined tests before the first implementation path exists.
+**DO NOT USE FOR:**
+- Trivial, low-risk changes where tests add no value.
+- Exploratory coding where the public interface is not yet stable.
 
-## Workflow
+**INVOKES:**
+- Project-specific test runners (e.g., `vitest`, `pytest`, `dotnet test`).
 
-### 1. Choose one vertical slice
-Pick the smallest end-to-end behavior that can be demonstrated or falsified. A slice should cross the necessary layers instead of finishing one layer in isolation.
+## Methodology and Guidelines
+Implementation details for the TDD cycle, principles, and anti-patterns are documented in:
+- [TDD Principles & Workflow](references/tdd-methodology.md)
 
-Before editing, identify:
-
-- Public interface or user action being exercised.
-- Behavior to prove.
-- Existing test style and helper patterns.
-- Minimal command that runs the affected tests.
-
-### 2. Red
-Write one failing test for one behavior. The assertion should name the outcome a user or caller cares about, not an internal implementation detail.
-
-Good targets:
-
-- Returned value or rendered UI state.
-- HTTP status/body through a route handler.
-- CLI exit code and output.
-- Persisted behavior through the public repository/service API.
-- Published event or side effect at an explicit boundary.
-
-### 3. Green
-Write the smallest implementation that makes the current test pass. Avoid anticipatory options, generalization, and extra edge cases not yet represented by behavior.
-
-### 4. Refactor
-Only refactor while tests are green. Keep the public behavior stable, then re-run the focused command after each meaningful cleanup.
-
-Look for:
-
-- Duplicate setup that hides intent.
-- Awkward interface shape revealed by the test.
-- Complex logic that belongs behind a smaller public surface.
-- Test helpers that improve readability without hiding assertions.
-
-### 5. Repeat
-Add the next behavior only after the current slice is green and readable. Continue until the acceptance criteria are covered by behavior tests.
-
-## Anti-Patterns
-
-- Writing all tests first, then all implementation.
-- Testing private functions because they are easier to reach.
-- Mocking internal collaborators that should be exercised together.
-- Encoding current object shapes instead of user-visible behavior.
-- Keeping a test that passes even when the feature is broken.
+## Core Principles
+1. **Behavior First:** Tests describe *what* the system does, not *how* it does it.
+2. **Minimalism:** Write only the code required to make the current failing test pass.
+3. **Refactor Safety:** Ensure the public surface remains stable while cleaning up internals.
 
 ## Checklist
-
-- [ ] Each test describes behavior through a public interface.
-- [ ] Only one new behavior is added per red/green cycle.
-- [ ] Implementation is minimal for the current failing test.
-- [ ] Refactoring happens only after tests are green.
-- [ ] The final focused test command was run and passed.
-
-## References
-
-- [Workspace Agent Conventions](../../../AGENTS.md)
-- [Testing Rule](../../rules/testing.instructions.md)
-- [Vitest Skill](../vitest/SKILL.md)
+- [ ] Choose exactly one small vertical slice to implement next.
+- [ ] Verify the test fails for the correct reason before starting implementation.
+- [ ] Implement only the minimal logic needed to reach a green state.
+- [ ] Refactor and clean up only after the current behavior is proven green.
+- [ ] Run the full suite of relevant tests before finalizing the slice.

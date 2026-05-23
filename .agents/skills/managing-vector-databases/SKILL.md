@@ -1,44 +1,48 @@
 ---
 name: managing-vector-databases
-description: "Pinecone, Weaviate, Milvus, Qdrant. Triggers: pinecone, weaviate."
-argument-hint: "[resource/project] [options]"
----
+description: |
+  **DATABASE SKILL** - Manage vector databases for RAG and semantic search.
+  USE FOR: vector index management, embeddings ingestion, similarity search, hybrid search, metadata filtering, Pinecone, Weaviate, Milvus, Qdrant, Chroma.
+  DO NOT USE FOR: traditional relational queries (use administrating-databases), training embedding models, non-vector data storage.
+  INVOKES: pinecone-client, weaviate-client, qdrant-client, chromadb.
+license: MIT
+metadata:
+  version: 1.0.0
+compatibility:
+  platforms: "Python, Node.js"
+allowed-tools: [read_file, write_file, run_shell_command]
 ---
 
 # Vector Database Manager
 
-## Description
-Specialized agent for managing vector databases (Pinecone, Weaviate, Milvus, Chroma, Qdrant). Capable of creating indices, ingesting embeddings, executing similarity searches, and managing vector metadata for RAG applications and semantic search.
+Expert methodology for managing vector databases to support Retrieval-Augmented Generation (RAG), semantic search, and recommendation systems through optimized indexing and querying.
 
-## Capabilities
-- **Index Management:** Create, configure, and remove vector indices/collections.
-- **Data Ingestion:** Perform upserts of vectors with metadata and sparse values.
-- **Similarity Search:** Query vectors via cosine similarity, dot product, or Euclidean distance.
-- **Hybrid Search:** Combine keyword search with semantic search (where supported).
-- **Metadata Filtering:** Filter results by metadata fields.
-- **Namespace Management:** Organize vectors into namespaces for multi-tenancy.
+**USE FOR:**
+- Creating and configuring vector indices with appropriate distance metrics (Cosine, Euclidean).
+- Ingesting and updating large-scale embeddings with rich metadata.
+- Implementing hybrid search (keyword + vector) for improved retrieval relevance.
+- Managing multi-tenant environments through namespaces and metadata filtering.
+- Benchmarking retrieval latency and recall quality.
 
-## Use Cases
-1.  **RAG Systems:** Store and retrieve document chunks for LLM context.
-2.  **Semantic Search:** Implement search functionality based on meaning.
-3.  **Recommendation Engines:** Find similar items (products, content) for users.
-4.  **Long-term Memory:** Store agent memories as vectors for retrieval.
+**DO NOT USE FOR:**
+- Normalizing relational data or complex SQL joins.
+- Fine-tuning or training the underlying LLMs or embedding models.
 
-## Dependencies
-- `pinecone-client` (Pinecone)
-- `weaviate-client` (Weaviate)
-- `pymilvus` (Milvus)
-- `chromadb` (Chroma)
-- `qdrant-client` (Qdrant)
+**INVOKES:**
+- Vector database SDKs and similarity search APIs.
+
+## Capabilities and Standards
+1. **Index Management:** Lifecycle control of vector collections and shard configurations.
+2. **Similarity Search:** Query optimization using filters and distance metrics.
+3. **Data Ingestion:** Batch upserting with metadata validation to prevent drift.
+
+## Core Principles
+1. **Model Alignment:** Ensure the distance metric matches the embedding model's training objective.
+2. **Metadata Integrity:** Validate all metadata fields used for production filtering.
+3. **Hybrid Balance:** Optimize the weight between keyword and semantic results based on domain requirements.
 
 ## Checklist
-
-- [ ] Confirm the embedding model, distance metric, and retrieval latency target before choosing a store.
-- [ ] Validate ingestion, filtering, and recall quality with representative queries.
-- [ ] Re-check metadata, chunking, and index settings before scaling up.
-
-## References
-
-- [Pinecone Documentation](https://docs.pinecone.io/)
-- [Qdrant Documentation](https://qdrant.tech/documentation/)
-
+- [ ] Confirm embedding model and distance metric before creating indices.
+- [ ] Validate recall quality with representative queries and filters.
+- [ ] Ensure metadata schemas are consistent across ingested documents.
+- [ ] Verify that indices have appropriate resource limits and scaling policies.

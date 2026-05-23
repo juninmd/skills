@@ -1,63 +1,48 @@
 ---
 name: applying-design-principles
-description: "Clean Code, SOLID, DRY, KISS, YAGNI. Triggers: refactor."
-argument-hint: "[file/module] [options]"
+description: |
+  **REFACTORING SKILL** - Apply Clean Code, SOLID, DRY, KISS, and YAGNI principles to code.
+  USE FOR: refactoring code, fixing code smells, reducing duplication, improving naming, applying SOLID.
+  DO NOT USE FOR: fixing bugs (use diagnosing-bugs), architecture restructuring, performance optimization.
+  INVOKES: file reading and editing tools.
+license: MIT
+metadata:
+  version: 1.0.0
+compatibility:
+  platforms: "any"
+allowed-tools: [read_file, replace, write_file]
 ---
 
 # Applying Design Principles
 
-## Concept
-High-quality software is built upon established design principles. By unifying these principles, developers can systematically evaluate and refactor code. This skill covers Clean Code, DRY (Don't Repeat Yourself), KISS (Keep It Simple, Stupid), SOLID, and YAGNI (You Aren't Gonna Need It).
+Systematically evaluate and refactor code using established software design principles to improve maintainability and readability.
 
-## Clean Code
-Code is read much more often than it is written. It should be simple, readable, and intent-oriented.
-1. **Meaningful Names:** Use intention-revealing names for variables, functions, and classes. Avoid abbreviations.
-2. **Small Functions:** Functions should be short (ideally under 20 lines) and do one thing.
-3. **No Magic Numbers:** Replace literals with named constants.
-4. **Purposeful Comments:** Comments should explain *why*, not *what*. Code should be self-explanatory.
-5. **Consistent Formatting:** Group related concepts vertically and ensure consistent indentation.
+**USE FOR:**
+- Refactoring complex or messy code to follow Clean Code standards.
+- Eliminating duplication using the DRY (Don't Repeat Yourself) principle.
+- Simplifying over-engineered logic using KISS and YAGNI.
+- Re-architecting classes and interfaces to follow SOLID principles.
+- Improving variable, function, and class naming for better intent disclosure.
 
-## DRY (Don't Repeat Yourself)
-Repeated knowledge increases maintenance costs and the risk of inconsistency.
-1. Extract exact or nearly identical duplications into reusable functions or modules.
-2. Parameterize small variations instead of copying blocks.
-3. Consolidate repeated constants and configurations.
-*Caution:* Avoid unifying sections that look similar but represent distinct business rules.
+**DO NOT USE FOR:**
+- Fixing behavioral bugs or runtime errors (use `diagnosing-bugs`).
+- Large-scale architecture migrations (use `improving-codebase-architecture`).
+- Performance tuning or low-level optimizations.
 
-## KISS (Keep It Simple, Stupid)
-Simple solutions are easier to maintain, test, and evolve.
-1. Avoid over-engineering for hypothetical scenarios.
-2. Prefer straightforward logic over "clever" constructs that are hard to maintain.
-3. Reduce nesting with guard clauses.
-4. Remove unused parameters and unnecessary flexibility.
+**INVOKES:**
+- File reading tools to inspect code, editing tools to apply refactors.
 
-## SOLID
-Five object-oriented design principles to make software understandable, flexible, and maintainable.
-1. **Single Responsibility (SRP):** A class should have only one reason to change. (If you use "and" to describe it, extract it).
-2. **Open/Closed (OCP):** Open for extension, closed for modification. Use interfaces/abstract classes.
-3. **Liskov Substitution (LSP):** Subclasses should be substitutable for their superclasses without breaking the application.
-4. **Interface Segregation (ISP):** Split large interfaces into smaller, more specific ones.
-5. **Dependency Inversion (DIP):** Depend on abstractions, not concretions. Use Dependency Injection.
-
-## YAGNI (You Aren't Gonna Need It)
-Implement only what is necessary now. Future-proofing increases complexity without immediate value.
-1. Delete classes, methods, and parameters with no actual use.
-2. Do not create abstract interfaces for non-existent requirements.
-3. Remove "just-in-case" logic flows.
+## Core Principles
+Implementation details for each principle are documented in:
+- [Design Principles Reference](references/design-principles.md)
 
 ## Execution
-- Review the targeted file or module.
-- Identify violations of Clean Code, DRY, KISS, SOLID, or YAGNI.
-- Refactor the code applying the appropriate principle.
-- Ensure all existing tests pass after refactoring.
+1. Review the targeted file or module.
+2. Identify violations of Clean Code, DRY, KISS, SOLID, or YAGNI.
+3. Apply behavior-preserving refactors using appropriate principles.
+4. Verify changes with available tests.
 
 ## Checklist
-
 - [ ] Identify the smallest design problem worth fixing before touching code.
-- [ ] Keep refactors behavior-preserving unless the task explicitly asks for logic changes.
-- [ ] Re-run the narrowest available tests or validation after each meaningful refactor.
-
-## References
-
-- [Workspace Agent Conventions](../../../AGENTS.md)
-- [Code Design Principles Rule](../../rules/code-design-principles.instructions.md)
+- [ ] Keep refactors behavior-preserving.
+- [ ] Re-run tests or validation after each meaningful refactor.

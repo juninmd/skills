@@ -1,54 +1,46 @@
 ---
 name: auditing-code
-description: "Python and JS/TS linting with ruff and biome. Triggers: ruff, biome."
-argument-hint: "[file/module] [options]"
----
+description: |
+  **AUDIT SKILL** - Run static analysis, linting, and security scans for Python and JS/TS.
+  USE FOR: linting code, formatting, type checking, security scans (Bandit/npm audit), cyclomatic complexity.
+  DO NOT USE FOR: refactoring logic (use applying-design-principles), runtime bugs (use diagnosing-bugs), dependency upgrades.
+  INVOKES: ruff, mypy, bandit, biome, tsc, pnpm audit.
+license: MIT
+metadata:
+  version: 1.0.0
+compatibility:
+  platforms: "any"
+allowed-tools: [run_shell_command, read_file]
 ---
 
 # Code Auditor and Linter
 
-This skill standardizes static code analysis to ensure quality and security before code review.
+Ensure code quality and security through standardized static analysis and automated linting procedures.
+
+**USE FOR:**
+- Running ultra-fast linting and formatting using `ruff` (Python) and `biome` (JS/TS).
+- Performing static type checking with `mypy` or `tsc`.
+- Executing security audits using `bandit` or `pnpm audit`.
+- Analyzing cyclomatic complexity to identify refactoring candidates.
+- Applying automated fixes for stylistic and trivial code issues.
+
+**DO NOT USE FOR:**
+- Complex logic refactoring beyond stylistic fixes.
+- Debugging runtime execution errors or race conditions.
+- Upgrading major dependency versions or migrating frameworks.
+
+**INVOKES:**
+- `ruff`, `biome`, `mypy`, `tsc`, `bandit` shell commands.
 
 ## Instructions
-1.  **Context Detection:** Identify the language (Python vs Node) and use the appropriate tool.
-    *   **Python:** Use `ruff` (linter + formatter) and `mypy` (type checking).
-    *   **Node.js/TS:** Use `biome` (replaces eslint and prettier for ultra-fast linting and formatting) and `tsc` for type checking.
-2.  **Fix First:** Run tools with the auto-fix flag before reporting errors.
-    *   **Rationale:** Automating trivial fixes (spacing, imports) saves human review time.
-3.  **Security Scan:** Use `bandit` (Python) or `npm audit` (Node) for known vulnerabilities in dependencies.
-    *   **Validation:** The output must be "No issues found" or similar.
-4.  **Complexity Check:** Monitor Cyclomatic Complexity. Functions with a complexity > 10 should be refactored.
+Refer to [Linting and Static Analysis Guide](references/linting-guides.md) for tool-specific commands, complexity targets, and troubleshooting tips.
 
-## Common Tasks
-### Python
-*   **Lint & Fix:** `ruff check --fix .`
-*   **Formatting:** `ruff format .`
-*   **Type Checking:** `mypy .`
-*   **Security:** `bandit -r . -c "bandit.yaml"`
-
-### Node.js / TypeScript
-*   **Lint & Formatting & Fix:** `biome check --write .`
-*   **Type Checking:** `tsc --noEmit`
-*   **Security:** `pnpm audit`
-
-## Examples
-### Refactoring Trigger
-If the linter reports:
-`C901 'process_data' is too complex (15)`
-**Action:** Break the `process_data` function into smaller sub-functions (`_validate_input`, `_transform_data`, `_save_result`).
-
-## Troubleshooting
-- **Configuration Conflicts:** If migrating, remove `.eslintrc` and `.prettierrc` and rely solely on `biome.json`.
-- **Ignored Files:** Always respect `.gitignore` and `.ruffignore`/`biome.json` ignore arrays to avoid analyzing generated/build files.
+## Core Rules
+1. **Fix First:** Always run tools with auto-fix flags (`--fix`, `--write`) before reporting results.
+2. **Context Detection:** Automatically detect project language and select the appropriate toolset.
+3. **Complexity Limit:** Flag functions with Cyclomatic Complexity > 10 for mandatory refactoring.
 
 ## Checklist
-
-- [ ] Confirm the target language, linter, and config files before running analysis.
-- [ ] Prioritize real defects, security issues, and maintainability risks over stylistic churn.
-- [ ] Re-run the exact analysis command after each remediation to prove the issue is closed.
-
-## References
-
-- [Ruff Documentation](https://docs.astral.sh/ruff/)
-- [Biome Documentation](https://biomejs.dev/)
-
+- [ ] Confirm target language and config files before running analysis.
+- [ ] Prioritize security and maintainability risks over stylistic churn.
+- [ ] Re-run analysis after remediation to verify the fix.

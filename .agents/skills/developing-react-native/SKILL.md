@@ -1,56 +1,47 @@
 ---
 name: developing-react-native
-description: "Mobile with Expo Router and TanStack Query. Triggers: expo, tanstack."
-argument-hint: "[context] [options]"
+description: |
+  **DEVELOPMENT SKILL** - Build cross-platform mobile apps with React Native and Expo.
+  USE FOR: React Native development, Expo SDK, Expo Router, TanStack Query integration, Zustand state management, mobile UI styling (NativeWind).
+  DO NOT USE FOR: native-only iOS/Android development (use ios-application-dev/android-native-dev), pure web development, Flutter apps.
+  INVOKES: expo cli, eas build, react-native commands.
 license: MIT
+metadata:
+  version: 1.0.0
+compatibility:
+  platforms: "iOS, Android, Expo"
+allowed-tools: [read_file, write_file, replace]
 ---
 
 # Development with React Native
 
-## Description
-This skill guides the development of cross-platform mobile applications with React Native, seeking a native experience for iOS and Android from a single codebase.
+Expert methodology for building high-performance cross-platform mobile applications with a single codebase and native user experience.
 
-## 🧱 Recommended Stack 2026
-- Runtime/App: Expo SDK + EAS Build/Update.
-- Navigation: Expo Router (file-based) as default.
-- Server State: TanStack Query.
-- Client State: Zustand (Redux Toolkit only when strictly necessary).
-- UI: NativeWind or Tamagui.
-- Testing: Jest + React Native Testing Library + Maestro/Detox.
-- Observability: Sentry + Crashlytics (when applicable).
+**USE FOR:**
+- Initializing and configuring projects using the Expo managed workflow.
+- Implementing file-based routing with Expo Router.
+- Managing asynchronous server state with TanStack Query.
+- Styling responsive mobile UIs with NativeWind or Tamagui.
+- Configuring EAS Build and EAS Update pipelines.
 
-## Flow
+**DO NOT USE FOR:**
+- Hybrid apps using Cordova or Capacitor.
+- High-performance 3D games (use Unity or Unreal).
 
-### 1. Project Setup
-- **Framework:** Prefer **Expo** (managed workflow) for fast development and OTA.
-- **Routing:** Use **Expo Router** (file-based) or **React Navigation**.
+**INVOKES:**
+- `npx expo`, `eas`, `jest` CLI tools.
 
-### 2. Architecture and State
-- **Server State:** Use **TanStack Query** for API calls, caching, and loading.
-- **Client State:** Use **Zustand** for lightweight global state (theme/preferences).
+## Methodology and Guidelines
+Implementation details for architecture, stack, and mobile-specific patterns are documented in:
+- [React Native Best Practices and Stack](references/react-native-best-practices.md)
 
-### 3. UI Implementation
-- **Styling:** Use **NativeWind** (Tailwind for RN) or **Tamagui**.
-- **Lists:** Prefer `FlatList` (virtualized) over `ScrollView`.
-
-### 4. Testing and Debugging
-- **Unit/Integration:** `Jest` + `React Native Testing Library`.
-- **E2E:** `Maestro` (simple YAML flows) or `Detox` (grey-box).
-- **Debugger:** Flipper or React Native Debugger.
-
-## Best Practices
-- **Performance:** Memoize expensive calculations and callbacks (`useMemo`, `useCallback`).
-- **Images:** Use `expo-image` for aggressive caching and better performance.
-- **Platform:** Apply OS-specific adjustments with `Platform.select({ ios: ..., android: ... })`.
+## Core Principles
+1. **Efficiency:** Prefer Expo managed workflow for rapid development and over-the-air (OTA) updates.
+2. **Determinism:** Use virtualized lists (`FlatList`) over `ScrollView` for large datasets.
+3. **Platform Integrity:** Ensure touch targets are 44-48dp+ and follow iOS/Android platform-specific UI conventions.
 
 ## Checklist
-
-- [ ] Confirm whether the project is plain React Native or Expo before choosing setup steps.
-- [ ] Keep navigation, data fetching, and native capability integration isolated behind clear module boundaries.
-- [ ] Validate the affected flow on the target platform emulator or device before finishing.
-
-## References
-
-- [React Native Documentation](https://reactnative.dev/docs/getting-started)
-- [Expo Documentation](https://docs.expo.dev/)
-
+- [ ] Confirm Expo vs. Bare React Native project type before implementation.
+- [ ] Isolate navigation and data-fetching logic behind clear hook boundaries.
+- [ ] Verify functionality on both iOS and Android emulators/devices.
+- [ ] Ensure all images use `expo-image` for optimized caching and performance.

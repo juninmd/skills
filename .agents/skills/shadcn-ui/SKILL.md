@@ -1,40 +1,45 @@
 ---
 name: shadcn-ui
-description: "Component composition with Radix primitives. Triggers: radix, components."
-argument-hint: "[context] [options]"
+description: |
+  **FRONTEND SKILL** - Build accessible React UIs using shadcn/ui and Radix.
+  USE FOR: shadcn/ui init, adding components, customization, Radix UI, Tailwind merging (cn), theme config.
+  DO NOT USE FOR: traditional npm libraries, non-React frameworks, legacy CSS-in-JS.
+  INVOKES: npx shadcn cli, radix-ui.
+license: MIT
+metadata:
+  version: 1.0.0
+compatibility:
+  platforms: "React, Next.js, Tailwind CSS"
+allowed-tools: [run_shell_command, read_file, write_file, replace]
 ---
 
 # shadcn/ui Integration
 
-Senior frontend guidance for building with shadcn/ui—beautiful, accessible, and customizable components.
+Expert methodology for building accessible web interfaces by composing Radix UI primitives with Tailwind CSS via the shadcn/ui CLI.
 
-## Core Principles
-- **Ownership:** Components live in your codebase.
-- **Customization:** Full control over styling and behavior.
-- **Efficiency:** Zero runtime overhead.
+**USE FOR:**
+- Bootstrapping component libraries with `shadcn init`.
+- Adding UI components (Dialog, Sheet, Table) directly.
+- Customizing component logic and styling in-repo.
+- Implementing dark mode and themes via CSS variables.
+- Using the `cn()` helper for Tailwind merging.
 
-## Quick Start
-1. **Initialize:** `npx shadcn@latest init`
-2. **Add Component:** `npx shadcn@latest add [name]`
-3. **Use Utility:** All components use the `cn()` helper for class merging.
+**INVOKES:**
+- `npx shadcn@latest`, `lucide-react`, `tailwind-merge`.
 
-## Guides
-- [Discovery & Installation](references/GUIDE_INSTALLATION.md)
-- [Architecture & Customization](references/GUIDE_ARCHITECTURE.md)
-- [Blocks & Accessibility](references/GUIDE_BLOCKS_A11Y.md)
+## Methodology
+Details are documented in:
+1. [Installation](references/GUIDE_INSTALLATION.md) | [Architecture](references/GUIDE_ARCHITECTURE.md)
+2. [Blocks & A11y](references/GUIDE_BLOCKS_A11Y.md) | [Best Practices](references/BEST_PRACTICES.md)
+3. [Available Components](references/AVAILABLE_COMPONENTS.md)
 
-## Validation
-- **Type check:** `tsc --noEmit`
-- **Lint:** Standard project linter.
-- **Visual:** Test in light/dark modes and responsive breakpoints.
+## Principles
+1. **Ownership:** Generated code is part of the project; refactor freely.
+2. **Accessibility:** Leverage Radix for keyboard and ARIA support.
+3. **Purity:** Zero runtime overhead via build-time Tailwind.
 
 ## Checklist
-
-- [ ] Confirm the project stack, styling system, and component ownership model before adding generators.
-- [ ] Keep generated shadcn/ui code aligned with local conventions instead of treating it as vendor code.
-- [ ] Validate accessibility, theming, and responsive behavior after integrating each component.
-
-## References
-
-- [shadcn/ui Documentation](https://ui.shadcn.com/docs)
-- [Radix UI Primitives](https://www.radix-ui.com/primitives)
+- [ ] Confirm project stack before initialization.
+- [ ] Align generated code with local coding standards.
+- [ ] Validate theme support and responsiveness.
+- [ ] Verify keyboard navigation for complex primitives.

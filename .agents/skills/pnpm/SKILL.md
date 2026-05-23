@@ -1,50 +1,42 @@
 ---
 name: pnpm
-description: "Content-addressable store, strict deps, workspaces. Triggers: monorepo."
-argument-hint: "[context] [options]"
+description: |
+  **PACKAGE MANAGER SKILL** - Efficiently manage Node.js dependencies and monorepos using pnpm.
+  USE FOR: pnpm, workspaces, frozen lockfiles, dependency overrides/patches, catalogs, disk space.
+  DO NOT USE FOR: non-Node.js packages, pure backend logic, cloud infrastructure.
+  INVOKES: pnpm cli, pnpm-workspace.yaml, .npmrc.
+license: MIT
+metadata:
+  version: 1.0.0
+compatibility:
+  platforms: "Node.js"
+allowed-tools: [run_shell_command, read_file, write_file]
 ---
 
-pnpm is a fast, disk space efficient package manager. It uses a content-addressable store to deduplicate packages across all projects on a machine, saving significant disk space. pnpm enforces strict dependency resolution by default, preventing phantom dependencies. Configuration should preferably be placed in `pnpm-workspace.yaml` for pnpm-specific settings.
+# pnpm Management
 
-**Important:** When working with pnpm projects, agents should check for `pnpm-workspace.yaml` and `.npmrc` files to understand workspace structure and configuration. Always use `--frozen-lockfile` in CI environments.
+Expert guide for fast, disk-efficient package management and monorepos using pnpm.
 
-> Verified against pnpm 10.33.2 official docs and npm registry on 2026-05-01.
+**USE FOR:**
+- Designing monorepos with `pnpm-workspace.yaml`.
+- Managing dependencies with overrides, patches, and aliases.
+- Optimizing CI/CD with frozen lockfiles and store caching.
+- Resolving phantom dependencies through strict symlinking.
+- Centralizing versions using pnpm Catalogs.
 
-## Core
+**INVOKES:**
+- `pnpm install`, `pnpm add`, `pnpm recursive`, `pnpm filter`.
 
-| Topic | Description | Reference |
-|-------|-------------|-----------|
-| CLI Commands | Install, add, remove, update, run, exec, dlx, and workspace commands | [core-cli](references/core-cli.md) |
-| Configuration | pnpm-workspace.yaml, .npmrc settings, and package.json fields | [core-config](references/core-config.md) |
-| Workspaces | Monorepo support with filtering, workspace protocol, and shared lockfile | [core-workspaces](references/core-workspaces.md) |
-| Store | Content-addressable storage, hard links, and disk efficiency | [core-store](references/core-store.md) |
-
-## Features
-
-| Topic | Description | Reference |
-|-------|-------------|-----------|
-| Catalogs | Centralized dependency version management for workspaces | [features-catalogs](references/features-catalogs.md) |
-| Overrides | Force specific versions of dependencies including transitive | [features-overrides](references/features-overrides.md) |
-| Patches | Modify third-party packages with custom fixes | [features-patches](references/features-patches.md) |
-| Aliases | Install packages under custom names using npm: protocol | [features-aliases](references/features-aliases.md) |
-| Hooks | Customize resolution with .pnpmfile.cjs hooks | [features-hooks](references/features-hooks.md) |
-| Peer Dependencies | Auto-install, strict mode, and dependency rules | [features-peer-deps](references/features-peer-deps.md) |
-
-## Best Practices
-
-| Topic | Description | Reference |
-|-------|-------------|-----------|
-| CI/CD Setup | GitHub Actions, GitLab CI, Docker, and caching strategies | [best-practices-ci](references/best-practices-ci.md) |
-| Migration | Migrating from npm/Yarn, handling phantom deps, monorepo migration | [best-practices-migration](references/best-practices-migration.md) |
-| Performance | Install optimizations, store caching, workspace parallelization | [best-practices-performance](references/best-practices-performance.md) |
+## Methodology
+Implementation details are documented in:
+1. [Features](references/pnpm-features.md) | [Standards](references/pnpm-standards.md) | [CLI](references/core-cli.md)
+2. [Config](references/core-config.md) | [Workspaces](references/core-workspaces.md) | [Store](references/core-store.md)
+3. [Catalogs](references/features-catalogs.md) | [Overrides](references/features-overrides.md) | [Aliases](references/features-aliases.md)
+4. [Hooks](references/features-hooks.md) | [Patches](references/features-patches.md) | [Peers](references/features-peer-deps.md)
+5. [CI/CD](references/best-practices-ci.md) | [Migration](references/best-practices-migration.md) | [Perf](references/best-practices-performance.md) | [Generation](references/GENERATION.md)
 
 ## Checklist
-
-- [ ] Inspect `pnpm-workspace.yaml`, lockfiles, and `.npmrc` before changing dependencies or scripts.
-- [ ] Prefer workspace-safe commands and keep overrides, catalogs, and patches intentional.
-- [ ] Re-run the narrowest install or script command that proves the dependency graph still works.
-
-## References
-
-- [pnpm Documentation](https://pnpm.io/)
-- [pnpm CLI](https://pnpm.io/cli/install)
+- [ ] Inspect workspace config and lockfiles before changes.
+- [ ] Use `--frozen-lockfile` in CI environments.
+- [ ] Prefer `workspace:*` for internal dependencies.
+- [ ] Validate the graph with a recursive install.

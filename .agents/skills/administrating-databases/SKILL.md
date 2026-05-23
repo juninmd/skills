@@ -1,53 +1,48 @@
 ---
 name: administrating-databases
-description: "Postgres EXPLAIN ANALYZE, Redis ops, Mongo indexes. Triggers: explain analyze."
-argument-hint: "[context] [options]"
----
+description: |
+  **DBA SKILL** - Administer and optimize Postgres, MongoDB, and Redis performance.
+  USE FOR: explain analyze, vacuum analyze, slow query, index usage, database locks, mongosh, redis-cli, psql.
+  DO NOT USE FOR: writing SQL for app logic, ORM setup, infrastructure provisioning, general SQL syntax questions.
+  INVOKES: psql, mongosh, redis-cli commands.
+license: MIT
+metadata:
+  version: 1.0.0
+compatibility:
+  platforms: "gemini-cli, terminal"
+allowed-tools:
+  - run_shell_command
+  - read_file
 ---
 
 # Database Administrator (DBA)
 
-This skill manages critical database operations.
+Manage and optimize Postgres, MongoDB, and Redis instances with a focus on performance, safety, and security.
+
+**USE FOR:**
+- Analyzing slow queries with `EXPLAIN ANALYZE` or `.explain()`.
+- Managing database indexes and checking index usage statistics.
+- Inspecting database locks and resolving performance bottlenecks.
+- Performing safe maintenance tasks like `VACUUM ANALYZE` or memory checks.
+- Executing administrative CLI commands via `psql`, `mongosh`, or `redis-cli`.
+
+**DO NOT USE FOR:**
+- General SQL syntax help or writing application-level business logic.
+- Setting up database servers from scratch or complex infrastructure provisioning.
+- ORM configuration (e.g., SQLAlchemy/Prisma models) without database access.
+
+**INVOKES:**
+- `psql`, `mongosh`, `redis-cli` shell commands.
 
 ## Instructions
-1.  **Safety First:** NEVER execute `DELETE` or `UPDATE` without a `WHERE` clause.
-    *   **Postgres:** Open a transaction (`BEGIN; ... ROLLBACK;`) to test first.
-2.  **Performance Analysis:**
-    *   **Postgres:** Use `EXPLAIN ANALYZE` to understand the execution plan of slow queries.
-    *   **Mongo:** Use `.explain("executionStats")` to check index usage.
-3.  **Connection Security:** Use SSH tunnels or IAM Auth (Cloud SQL Proxy) instead of exposing ports publicly.
-
-## Common Tasks
-
-### PostgreSQL (`psql`)
-*   **Connect:** `psql -h <host> -U <user> -d <db>`
-*   **List Tables:** `\dt`
-*   **Describe Table:** `\d <table_name>`
-*   **Check Locks:** Query `pg_locks` to identify locks.
-*   **Backup (Single Table):** `\copy (SELECT * FROM table) TO 'dump.csv' CSV HEADER`
-
-### MongoDB (`mongosh`)
-*   **Find:** `db.collection.find({ status: "active" }).limit(5)`
-*   **Stats:** `db.collection.stats()` (Size, indices).
-
-### Redis (`redis-cli`)
-*   **Monitor:** `redis-cli monitor` (Real-time debug - Be careful in prod!).
-*   **Memory Usage:** `redis-cli info memory`
+Critical database operations guidelines and safety protocols are defined in [Administrative Reference](references/REFERENCE.md). Maintenance templates for recurring tasks can be found in [Maintenance Forms](references/FORMS.md).
 
 ## Best Practices
-- **Migrations:** Use schema versioning tools (Flyway, Alembic, Prisma) instead of manual DDL.
-- **Maintenance:** Schedule `VACUUM ANALYZE` (Postgres) during off-peak hours.
-- **Least Privilege:** Create application users with DML permissions only (SELECT, INSERT, UPDATE), without DDL (DROP, TRUNCATE).
+- **Migrations:** Use schema versioning tools instead of manual DDL.
+- **Maintenance:** Schedule `VACUUM ANALYZE` during off-peak hours.
+- **Least Privilege:** Use application users with minimum required DML permissions.
 
 ## Checklist
-
-- [ ] Confirm which database engine and environment are in scope before running commands.
-- [ ] Prefer read-only inspection first, then apply the smallest safe change needed.
-- [ ] Validate the outcome with engine-native health checks, query plans, or targeted smoke queries.
-
-## References
-
-- [PostgreSQL Documentation](https://www.postgresql.org/docs/)
-- [MongoDB Documentation](https://www.mongodb.com/docs/)
-- [Redis Documentation](https://redis.io/docs/)
-
+- [ ] Confirm engine and environment before running commands.
+- [ ] Prefer read-only inspection first.
+- [ ] Validate outcomes with query plans or smoke queries.

@@ -1,110 +1,48 @@
 ---
 name: developing-nestjs
-description: "Feature modules, class-validator, JWT guards. Triggers: class-validator, prisma."
-argument-hint: "[file/module] [options]"
+description: |
+  **DEVELOPMENT SKILL** - Build enterprise-grade Node.js backends with NestJS.
+  USE FOR: NestJS modules, controllers, services, class-validator, DTOs, Prisma integration, JWT authentication, exception filters.
+  DO NOT USE FOR: frontend development, simple Express-like scripts without structure, non-Node.js backends.
+  INVOKES: nest cli, prisma, jest.
+license: MIT
+metadata:
+  version: 1.0.0
+compatibility:
+  platforms: "Node.js, TypeScript"
+allowed-tools: [read_file, write_file, replace]
 ---
 
 # NestJS Development
 
-**Stack:** NestJS + strict TypeScript, PostgreSQL + Prisma, Jest + Supertest.
+Expert methodology for building scalable, testable, and loosely coupled backend applications using NestJS and the modern TypeScript ecosystem.
 
-## Module Structure (Feature-Based)
+**USE FOR:**
+- Designing modular architectures using NestJS feature modules.
+- Implementing type-safe request validation with DTOs and `class-validator`.
+- Configuring database access using Prisma or TypeORM.
+- Implementing secure authentication and authorization using JWT guards.
+- Writing comprehensive unit and E2E tests with Jest and Supertest.
 
-```
-src/
-├── common/           # decorators, guards, filters, interceptors, pipes
-├── modules/
-│   ├── auth/         # controller, service, module, dto/
-│   ├── users/        # controller, service, module, dto/
-│   └── products/     # controller, service, module, dto/
-├── app.module.ts
-└── main.ts
-```
+**DO NOT USE FOR:**
+- Client-side application development.
+- One-off scripts that do not benefit from a structured framework.
 
-## Validation (DTOs + Pipes)
+**INVOKES:**
+- `nest`, `prisma`, `jest` CLI tools.
 
-```typescript
-// DTO
-export class CreateUserDto {
-  @IsEmail()
-  email: string;
+## Methodology and Guidelines
+Implementation details for module structure, validation, and testing are documented in:
+- [NestJS Best Practices and Patterns](references/nestjs-best-practices.md)
 
-  @IsString()
-  @MinLength(8)
-  password: string;
-}
-
-// main.ts
-app.useGlobalPipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }));
-```
-
-## Auth (JWT Guard)
-
-```typescript
-@Injectable()
-export class JwtGuard implements CanActivate {
-  canActivate(context: ExecutionContext): boolean {
-    const token = context.switchToHttp().getRequest().headers.authorization?.replace('Bearer ', '');
-    if (!token) throw new UnauthorizedException();
-    try {
-      request.user = this.jwtService.verify(token);
-      return true;
-    } catch {
-      throw new UnauthorizedException();
-    }
-  }
-}
-
-// Usage
-@UseGuards(JwtGuard)
-```
-
-## Error Handling (Exception Filter)
-
-```typescript
-@Catch()
-export class AllExceptionsFilter implements ExceptionFilter {
-  catch(exception: unknown, host: ArgumentsHost) {
-    const status = exception instanceof HttpException ? exception.getStatus() : 500;
-    response.status(status).json({
-      statusCode: status,
-      message: exception instanceof HttpException ? exception.getResponse() : 'Internal Server Error',
-    });
-  }
-}
-```
-
-## Testing
-
-```typescript
-// Unit
-describe('UsersService', () => {
-  it('should find user by email', async () => {
-    mockRepo.findOne.mockResolvedValue(user);
-    expect(await service.findByEmail('test@example.com')).toEqual(user);
-  });
-});
-
-// E2E
-describe('Users (e2e)', () => {
-  it('POST /users should create user', () => {
-    return request(app.getHttpServer()).post('/users').send({ email, password }).expect(201);
-  });
-});
-```
+## Core Principles
+1. **Separation of Concerns:** Keep business logic in services and routing in controllers.
+2. **Global Consistency:** Use global pipes and filters for standardized error handling and validation.
+3. **Dependency Inversion:** Rely on abstractions and constructor-based dependency injection.
 
 ## Checklist
-
-- [ ] Feature-based module structure
-- [ ] Global ValidationPipe ({ whitelist: true, forbidNonWhitelisted: true })
-- [ ] JWT Guard on protected endpoints
-- [ ] Global exception filter
-- [ ] Tests: unit + e2e, coverage ≥80%
-- [ ] `app.enableShutdownHooks()` in main.ts
-
-## References
-
-- [NestJS Official Documentation](https://docs.nestjs.com/)
-- [Node.js Standards Rule](../../rules/nodejs-standards.instructions.md)
-- [TypeScript Standards Rule](../../rules/typescript-standards.instructions.md)
-- [Testing Rule](../../rules/testing.instructions.md)
+- [ ] Use feature-based module structure for all new functionality.
+- [ ] Enable `ValidationPipe` with `whitelist: true` in `main.ts`.
+- [ ] Apply `JwtGuard` or appropriate security guards to protected routes.
+- [ ] Verify test coverage (>80%) for all services and critical controllers.
+- [ ] Ensure `app.enableShutdownHooks()` is called for clean termination.

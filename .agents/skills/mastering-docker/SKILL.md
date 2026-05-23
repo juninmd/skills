@@ -1,81 +1,48 @@
 ---
 name: mastering-docker
-description: "Multi-stage, non-root, BuildKit cache. Triggers: hadolint."
-argument-hint: "[Dockerfile/project path] [options]"
+description: |
+  **CONTAINER SKILL** - Design and manage secure, efficient Docker containers.
+  USE FOR: Dockerfile optimization, multi-stage builds, non-root users, layer caching, docker-compose orchestration, hadolint/trivy scanning.
+  DO NOT USE FOR: Kubernetes orchestration (use managing-helm-charts), cloud-managed container services (use managing-cloud-infrastructure).
+  INVOKES: docker cli, docker-compose, hadolint, trivy.
+license: MIT
+metadata:
+  version: 1.0.0
+compatibility:
+  platforms: "Linux, macOS, Windows (WSL2)"
+allowed-tools: [run_shell_command, read_file, write_file]
 ---
 
 # Mastering Docker
 
-This skill standardizes image creation and container management to ensure security, minimal size, and efficiency in production.
+Expert methodology for standardizing image creation and container orchestration to ensure production-grade security, minimal footprint, and build efficiency.
 
-## Instructions
-1. **Use Minimal Base Images:** Prefer Alpine, minimal Debian/Ubuntu variants (e.g., `alpine`, `debian:bullseye-slim`), or official slim images (e.g., `node:18-alpine`, `python:3.11-slim`). For Node.js production, consider Distroless images (e.g., `gcr.io/distroless/nodejs24-debian12`) to eliminate OS vulnerabilities.
-2. **Multi-Stage Builds:** Always use multi-stage builds to separate build dependencies from runtime dependencies. This drastically reduces the final image size (often by >60%).
-3. **Non-Root User:** Never run the application as the `root` user in production. Create a dedicated user and switch to it using the `USER` instruction to minimize the attack surface in case of Remote Code Execution (RCE).
-4. **Layer Caching:** Order instructions from least likely to change to most likely to change. Copy dependency files (e.g., `package.json`, `requirements.txt`) and install dependencies before copying the source code. This reuses cached layers when only code changes.
-5. **Security Scanning & Linting:** Validate the Dockerfile with `hadolint`. Run a security scan (e.g., `trivy image <image>`) on the final image before pushing.
-6. **Healthcheck:** Always define a `HEALTHCHECK` in the Dockerfile or a Kubernetes Probe.
-7. **Cache Mounts (BuildKit):** Use native BuildKit cache mounts in your Dockerfile for package managers (e.g., `RUN --mount=type=cache,target=/root/.local/share/pnpm/store pnpm install`) to speed up CI builds.
+**USE FOR:**
+- Creating and optimizing production Dockerfiles using multi-stage builds.
+- Hardening container security through non-root users and vulnerability scanning.
+- Managing local development environments with Docker Compose.
+- Implementing build-time optimizations using BuildKit cache mounts.
+- Troubleshooting containerized application lifecycle and performance.
 
-## Example: Secure Node.js Dockerfile
-```dockerfile
-# Stage 1: Build
-FROM node:24-alpine AS builder
-WORKDIR /app
-# Install dependencies first (Layer Caching)
-COPY package*.json ./
-RUN --mount=type=cache,target=/root/.npm npm ci
-# Copy source code only after deps are installed
-COPY . .
-RUN npm run build
+**DO NOT USE FOR:**
+- High-level cluster management or service mesh configuration.
+- Generic automation unrelated to containerization.
 
-# Stage 2: Runtime
-FROM node:24-alpine
-WORKDIR /app
-ENV NODE_ENV=production
-# Copy only necessary files from builder
-COPY --from=builder /app/package*.json ./
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/dist ./dist
-# Create and switch to non-root user
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
-USER appuser
-# Define a healthcheck
-HEALTHCHECK --interval=30s CMD wget -qO- http://localhost:3000/health || exit 1
-EXPOSE 3000
-CMD ["npm", "start"]
-```
+**INVOKES:**
+- `docker`, `docker-compose`, `hadolint`, `trivy` CLI tools.
 
-## Orchestration with Docker Compose
-Use `docker compose` for local environments and multi-container stacks (database, cache, app).
+## Methodology and Guidelines
+Implementation details for Dockerfile standards and orchestration operations are documented in:
+1. [Dockerfile Best Practices](references/dockerfile-standards.md)
+2. [Docker Operations & Orchestration](references/docker-operations.md)
 
-### Flow
-1. **Analyze requirements**: Identify services, ports, volumes, and required variables.
-2. **Check environment**: `docker info` to confirm the daemon is active.
-3. **Build & Deploy**: `docker compose up -d --build`
-4. **Monitor**: `docker compose ps`, `docker compose logs -f <service>`
-5. **Cleanup**: `docker compose down -v` (removes containers + volumes) or `docker system prune` to free up space.
-
-### Best Practices
-- **Secrets**: Never commit `.env` with real credentials. Use `.env.example` as a template.
-- **Persistence**: Use named `volumes` for critical data (e.g., `postgres_data`).
-- **Networking**: Use user-defined networks (`bridge`) for isolation and name resolution between services.
-- **Health Checks**: Define `healthcheck` on critical services (e.g., database) and use `depends_on: condition: service_healthy` in dependent services.
-
-## Validation Commands
-*   **Check User:** `docker run --rm <image> whoami` (Should return != root).
-*   **Check Size:** `docker images` (Compare base vs final image).
-*   **Lint Dockerfile:** `hadolint Dockerfile`
-*   **Scan Vulnerabilities:** `trivy image <image>`
+## Core Principles
+1. **Minimalism:** Use the smallest possible base images (Alpine/Distroless).
+2. **Security by Default:** Run as a non-privileged user and scan images before shipping.
+3. **Cache Efficiency:** Order layers to maximize reuse and minimize CI build times.
 
 ## Checklist
-
-- [ ] Keep the runtime image minimal and non-root unless a constraint requires otherwise.
-- [ ] Validate build reproducibility, secret handling, and health checks before shipping.
-- [ ] Scan the final image for size, user, and vulnerability regressions.
-
-## References
-
-- [Docker Documentation](https://docs.docker.com/)
-- [Trivy Documentation](https://aquasecurity.github.io/trivy/)
-- [Hadolint Repository](https://github.com/hadolint/hadolint)
+- [ ] Keep the runtime image minimal and use a non-root user.
+- [ ] Validate build reproducibility and health check configurations.
+- [ ] Scan the final image for size and vulnerability regressions.
+- [ ] Ensure all persistent data is mapped to named volumes.

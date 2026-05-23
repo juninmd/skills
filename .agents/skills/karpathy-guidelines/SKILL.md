@@ -1,80 +1,46 @@
 ---
 name: karpathy-guidelines
-description: "Think before code, minimum code, surgical changes. Triggers: karpathy."
-argument-hint: "[context] [options]"
+description: |
+  **BEHAVIOR SKILL** - Apply Karpathy's guidelines to reduce LLM coding mistakes.
+  USE FOR: complex task planning, simplifying over-engineered code, surgical refactoring, defining success criteria, minimizing change surface.
+  DO NOT USE FOR: trivial tasks, speed-biased prototyping, non-coding behavioral guidance.
+  INVOKES: thinking-first planning, surgical code editing, success criteria definitions.
 license: MIT
----
+metadata:
+  version: 1.0.0
+compatibility:
+  platforms: "any"
+allowed-tools: [read_file, write_file, replace]
 ---
 
 # Karpathy Guidelines
 
-Behavioral guidelines to reduce common LLM coding mistakes, derived from [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876) on LLM coding pitfalls.
+Expert behavioral methodology derived from Andrej Karpathy's observations on LLM pitfalls, biasing toward caution, simplicity, and surgical precision in code changes.
 
-**Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
+**USE FOR:**
+- Resolving requirements before implementation through "Thinking First".
+- Reducing technical debt by enforcing "Simplicity First" and rejecting speculative features.
+- Minimizing regression risk through "Surgical Changes" that touch only necessary lines.
+- Driving completion through "Goal-Driven Execution" with explicit success criteria.
 
-## 1. Think Before Coding
+**DO NOT USE FOR:**
+- Routine, low-risk edits where speed is the primary constraint.
+- Tasks unrelated to software engineering or code modification.
 
-**Don't assume. Don't hide confusion. Surface tradeoffs.**
+**INVOKES:**
+- Multi-step validation plans and falsifiable verification steps.
 
-Before implementing:
-- State your assumptions explicitly. If uncertain, ask.
-- If multiple interpretations exist, present them - don't pick silently.
-- If a simpler approach exists, say so. Push back when warranted.
-- If something is unclear, stop. Name what's confusing. Ask.
+## Methodology and Guidelines
+Implementation details for thinking, simplicity, and surgical precision are documented in:
+- [Karpathy Coding Methodology](references/karpathy-methodology.md)
 
-## 2. Simplicity First
-
-**Minimum code that solves the problem. Nothing speculative.**
-
-- No features beyond what was asked.
-- No abstractions for single-use code.
-- No "flexibility" or "configurability" that wasn't requested.
-- No error handling for impossible scenarios.
-- If you write 200 lines and it could be 50, rewrite it.
-
-Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
-
-## 3. Surgical Changes
-
-**Touch only what you must. Clean up only your own mess.**
-
-When editing existing code:
-- Don't "improve" adjacent code, comments, or formatting.
-- Don't refactor things that aren't broken.
-- Match existing style, even if you'd do it differently.
-- If you notice unrelated dead code, mention it - don't delete it.
-
-When your changes create orphans:
-- Remove imports/variables/functions that YOUR changes made unused.
-- Don't remove pre-existing dead code unless asked.
-
-The test: Every changed line should trace directly to the user's request.
-
-## 4. Goal-Driven Execution
-
-**Define success criteria. Loop until verified.**
-
-Transform tasks into verifiable goals:
-- "Add validation" → "Write tests for invalid inputs, then make them pass"
-- "Fix the bug" → "Write a test that reproduces it, then make it pass"
-- "Refactor X" → "Ensure tests pass before and after"
-
-For multi-step tasks, state a brief plan:
-```
-1. [Step] → verify: [check]
-2. [Step] → verify: [check]
-3. [Step] → verify: [check]
-```
-
-Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
+## Core Principles
+1. **Caution over Speed:** Prefer extra turns for clarification over incorrect implementation.
+2. **Minimalism:** Every line must trace directly to a user requirement.
+3. **Verification:** Changes are incomplete until behavioral correctness is proven.
 
 ## Checklist
-
-- [ ] Rewrite vague requests into explicit success criteria before implementation.
-- [ ] Make each step falsifiable with a concrete verification action.
-- [ ] Prefer reversible, testable changes over speculative rewrites.
-
-## References
-
-- [Workspace Agent Conventions](../../../AGENTS.md)
-- [Context Efficiency Rule](../../rules/context-efficiency.instructions.md)
+- [ ] Explicitly state assumptions and success criteria before implemention.
+- [ ] Minimize the change surface to only the lines required for the task.
+- [ ] Ensure all edits match the existing codebase style and formatting.
+- [ ] Verify that your changes did not introduce new orphans or unused code.

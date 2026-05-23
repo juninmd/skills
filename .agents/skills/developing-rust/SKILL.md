@@ -1,54 +1,46 @@
 ---
 name: developing-rust
-description: "Ownership, borrow checker, Cargo. Triggers: cargo."
-argument-hint: "[module/file] [options]"
+description: |
+  **DEVELOPMENT SKILL** - Build safe and performant systems using Rust.
+  USE FOR: Rust code, ownership/borrowing patterns, Cargo toolchain, Clippy lints, Rust error handling, zero-cost abstractions.
+  DO NOT USE FOR: pure frontend development (use JS/TS), garbage-collected scripting tasks, non-system-level rapid prototyping.
+  INVOKES: cargo, rustc, clippy.
+license: MIT
+metadata:
+  version: 1.0.0
+compatibility:
+  platforms: "Windows, Linux, macOS"
+allowed-tools: [run_shell_command, read_file, write_file]
 ---
 
 # Developing Rust
 
-## Concept
-Rust is a systems programming language that guarantees memory safety and thread safety without a garbage collector, primarily through its ownership model. This skill outlines best practices for writing idiomatic, safe, and performant Rust code.
+Expert methodology for writing idiomatic, safe, and efficient systems software using Rust's unique ownership model and robust toolchain.
 
-## Guidelines
-1. **Embrace Ownership and Borrowing:**
-   - Understand the rules of ownership: each value has a single owner, values are dropped when the owner goes out of scope.
-   - Prefer borrowing (`&T` or `&mut T`) over cloning or taking ownership unless necessary.
-   - Avoid `clone()` in performance-critical paths unless explicitly required to bypass borrow checker constraints.
-2. **Error Handling:**
-   - Use `Result<T, E>` for recoverable errors. Never use `unwrap()` or `expect()` in production code unless you can absolutely guarantee the operation will never fail.
-   - Use the `?` operator to propagate errors ergonomically.
-   - Consider crates like `anyhow` for application-level error handling and `thiserror` for library-level custom errors.
-3. **Immutability by Default:**
-   - Variables are immutable by default. Only use `mut` when a variable must be changed. This reduces side effects and reasoning complexity.
-4. **Tooling (Cargo):**
-   - Use `cargo fmt` to format code automatically.
-   - Use `cargo clippy` to catch common mistakes and improve idiomatic Rust usage. Address all clippy warnings.
-   - Manage dependencies using `cargo add` and keep `Cargo.toml` well-structured.
-5. **Testing:**
-   - Write inline unit tests in the same file as the code they test using `#[cfg(test)]` modules.
-   - Place integration tests in the `tests/` directory at the project root.
-   - Use `cargo test` to run all tests.
+**USE FOR:**
+- Implementing memory-safe and thread-safe logic without a garbage collector.
+- Managing Rust projects and dependencies using the Cargo toolchain.
+- Optimizing performance through zero-cost abstractions and borrow-checker patterns.
+- Enforcing code quality with `cargo clippy` and `cargo fmt`.
+- Implementing structured error handling with `Result` and the `?` operator.
 
-## Common Cargo Commands
-- **New Project:** `cargo new project_name`
-- **Build:** `cargo build` (use `--release` for production builds)
-- **Run:** `cargo run`
-- **Test:** `cargo test`
-- **Format:** `cargo fmt`
-- **Lint:** `cargo clippy`
+**DO NOT USE FOR:**
+- Tasks better suited for high-level scripting or managed runtimes.
+- Prototyping where memory safety and performance are not critical concerns.
 
-## Execution
-- When modifying Rust code, ensure it compiles (`cargo check`).
-- Address all compiler warnings and clippy lints.
-- Run tests (`cargo test`) to ensure no regressions.
+**INVOKES:**
+- `cargo build`, `cargo test`, `cargo clippy` commands.
+
+## Methodology and Guidelines
+Implementation details for ownership, borrowing, and toolchain usage are documented in:
+- [Rust Development Best Practices](references/rust-best-practices.md)
+
+## Core Principles
+1. **Safety First:** Variables are immutable by default; use `mut` and `unsafe` sparingly and with documentation.
+2. **Robustness:** Prefer explicit error propagation over panics or swallowing failures.
+3. **Idiomaticity:** Address all Clippy warnings to align with Rust community standards.
 
 ## Checklist
-
 - [ ] Model ownership and borrowing rules before adding shared mutable state.
 - [ ] Run `cargo check` and the narrowest relevant tests after each change.
-- [ ] Fix clippy warnings when they expose correctness or maintainability problems.
-
-## References
-
-- [The Rust Programming Language](https://doc.rust-lang.org/book/)
-- [The Cargo Book](https://doc.rust-lang.org/cargo/)
+- [ ] Fix all clippy warnings before submitting code.

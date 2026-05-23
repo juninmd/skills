@@ -1,34 +1,44 @@
 ---
 name: implementing-accessibility
-description: "ARIA patterns, semantic HTML, keyboard nav. Triggers: aria, semantic HTML."
-argument-hint: "[file/module] [options]"
+description: |
+  **FRONTEND SKILL** - Implement and audit web accessibility (a11y) standards.
+  USE FOR: semantic HTML, keyboard navigation, ARIA patterns, WCAG compliance, color contrast, focus management, screen reader optimization.
+  DO NOT USE FOR: visual design (use frontend-design), backend implementation, non-web UI platforms (unless specifically web-view based).
+  INVOKES: accessibility linters, contrast checkers, keyboard flow verification.
+license: MIT
+metadata:
+  version: 1.0.0
+compatibility:
+  platforms: "Web, Browser"
+allowed-tools: [read_file, write_file, replace]
 ---
 
 # Implementing Accessibility
 
-## Concept
-Accessibility (a11y) ensures that digital content can be navigated and understood by everyone, regardless of visual, auditory, motor, or cognitive disabilities.
+Expert methodology for ensuring digital content is navigable and perceivable by all users through strict adherence to semantic standards and interaction patterns.
 
-## Guidelines
-1. **Semantic HTML:** Use proper HTML tags (`<nav>`, `<main>`, `<article>`, `<button>`, `<a>`) instead of generic `<div>` or `<span>` elements. Semantic tags provide inherent meaning to screen readers.
-2. **Keyboard Navigation:** All interactive elements must be focusable and operable using only the keyboard (`Tab`, `Enter`, `Space`). Manage focus properly in modals and custom widgets.
-3. **ARIA Roles & Attributes:** Use Accessible Rich Internet Applications (ARIA) attributes only when semantic HTML falls short. Ensure state (e.g., `aria-expanded`, `aria-hidden`) is updated correctly.
-4. **Color Contrast:** Maintain a minimum contrast ratio of 4.5:1 for normal text and 3:1 for large text. Do not rely solely on color to convey information.
-5. **Alt Text:** Provide descriptive `alt` attributes for images. If an image is purely decorative, use `alt=""`.
-6. **Forms & Labels:** Every input must have an associated `<label>` (either wrapping the input or using `htmlFor`/`for`).
+**USE FOR:**
+- Auditing UI components for accessibility flaws using WCAG 2.2 standards.
+- Replacing generic `div`/`span` elements with semantic HTML5 tags.
+- Implementing robust keyboard navigation and focus trap management.
+- Applying appropriate ARIA roles and attributes when native elements are insufficient.
+- Verifying and correcting color contrast ratios and alt text.
 
-## Execution
-- Audit the target UI component for accessibility flaws.
-- Add necessary semantic tags, ARIA attributes, and keyboard event handlers.
-- Verify focus management and contrast requirements if applicable.
+**DO NOT USE FOR:**
+- General CSS styling unrelated to accessibility or visibility.
+- Implementing complex business logic or data transformations.
+
+**INVOKES:**
+- Semantic HTML tags, WAI-ARIA attributes, and keyboard interaction patterns.
+
+## Methodology and Guidelines
+1. **Semantic HTML:** Use inherent meaning tags over generic containers.
+2. **Keyboard Flow:** Ensure all interactive elements are focusable and operable via `Tab`, `Enter`, and `Space`.
+3. **ARIA Patterns:** Use only when native semantics fall short; manage state (expanded, hidden) dynamically.
+4. **Perception:** Maintain WCAG contrast ratios (4.5:1 for normal text) and provide descriptive `alt` text.
 
 ## Checklist
-
-- [ ] Audit semantics, focus order, keyboard behavior, and announcements before making changes.
-- [ ] Prefer native HTML and only add ARIA where semantics alone are insufficient.
-- [ ] Re-test the affected flow with keyboard navigation and accessible names after the fix.
-
-## References
-
-- [WCAG 2.2 Quick Reference](https://www.w3.org/WAI/WCAG22/quickref/)
-- [WAI-ARIA Authoring Practices Guide](https://www.w3.org/WAI/ARIA/apg/)
+- [ ] Audit semantics, focus order, and keyboard behavior before implementation.
+- [ ] Prefer native HTML elements over custom ARIA-heavy widgets.
+- [ ] Validate implementation with keyboard-only navigation and contrast checkers.
+- [ ] Ensure all form inputs have associated, descriptive labels.

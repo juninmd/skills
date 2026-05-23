@@ -1,60 +1,43 @@
 ---
 name: vitest
-description: "Vite-native testing with Jest-compatible API. Triggers: vite, jest."
-argument-hint: "[context] [options]"
+description: |
+  **TESTING SKILL** - Fast testing using Vitest (Vite-native).
+  USE FOR: unit/integration tests, React/Vue components, mocking (vi), snapshots, type-testing, Vitest config.
+  DO NOT USE FOR: end-to-end (use Playwright), non-Vite JS projects.
+  INVOKES: vitest cli, coverage.
+license: MIT
+metadata:
+  version: 1.0.0
+compatibility:
+  platforms: "Vite, Node.js, Browser"
+allowed-tools: [run_shell_command, read_file, write_file, replace]
 ---
 
-Vitest is a next-generation testing framework powered by Vite. It provides a Jest-compatible API with native ESM, TypeScript, and JSX support out of the box. Vitest shares the same config, transformers, resolvers, and plugins with your Vite app.
+# Vitest - Blazing Fast Testing
 
-**Key Features:**
-- Vite-native: Uses Vite's transformation pipeline for fast HMR-like test updates
-- Jest-compatible: Drop-in replacement for most Jest test suites
-- Smart watch mode: Only reruns affected tests based on module graph
-- Native ESM, TypeScript, JSX support without configuration
-- Multi-threaded workers for parallel test execution
-- Built-in coverage via V8 or Istanbul
-- Snapshot testing, mocking, and spy utilities
+Expert guide for authoring and executing efficient test suites using Vitest.
 
-> Verified against Vitest 4.1.5 official docs and npm registry on 2026-05-01.
+**USE FOR:**
+- Writing unit and integration tests.
+- Implementing mocks, spies, and fake timers via `vi`.
+- Verifying UI components in jsdom/happy-dom.
+- Generating code coverage reports.
+- Performing type-level testing.
 
-## Core
+**INVOKES:**
+- `vitest`, `vitest run`.
 
-| Topic | Description | Reference |
-|-------|-------------|-----------|
-| Configuration | Vitest and Vite config integration, defineConfig usage | [core-config](references/core-config.md) |
-| CLI | Command line interface, commands and options | [core-cli](references/core-cli.md) |
-| Test API | test/it function, modifiers like skip, only, concurrent | [core-test-api](references/core-test-api.md) |
-| Describe API | describe/suite for grouping tests and nested suites | [core-describe](references/core-describe.md) |
-| Expect API | Assertions with toBe, toEqual, matchers and asymmetric matchers | [core-expect](references/core-expect.md) |
-| Hooks | beforeEach, afterEach, beforeAll, afterAll, aroundEach | [core-hooks](references/core-hooks.md) |
+## Methodology
+Implementation details are in:
+1. [Core & Features](references/vitest-core.md) | [Mocking](references/vitest-features.md)
+2. [Complete Topic Map](references/TOPIC_MAP.md)
 
-## Features
-
-| Topic | Description | Reference |
-|-------|-------------|-----------|
-| Mocking | Mock functions, modules, timers, dates with vi utilities | [features-mocking](references/features-mocking.md) |
-| Snapshots | Snapshot testing with toMatchSnapshot and inline snapshots | [features-snapshots](references/features-snapshots.md) |
-| Coverage | Code coverage with V8 or Istanbul providers | [features-coverage](references/features-coverage.md) |
-| Test Context | Test fixtures, context.expect, test.extend for custom fixtures | [features-context](references/features-context.md) |
-| Concurrency | Concurrent tests, parallel execution, sharding | [features-concurrency](references/features-concurrency.md) |
-| Filtering | Filter tests by name, file patterns, tags | [features-filtering](references/features-filtering.md) |
-
-## Advanced
-
-| Topic | Description | Reference |
-|-------|-------------|-----------|
-| Vi Utilities | vi helper: mock, spyOn, fake timers, hoisted, waitFor | [advanced-vi](references/advanced-vi.md) |
-| Environments | Test environments: node, jsdom, happy-dom, custom | [advanced-environments](references/advanced-environments.md) |
-| Type Testing | Type-level testing with expectTypeOf and assertType | [advanced-type-testing](references/advanced-type-testing.md) |
-| Projects | Multi-project workspaces, different configs per project | [advanced-projects](references/advanced-projects.md) |
+## Core Principles
+1. **Isolation:** Restore mocks in `afterEach`.
+2. **Deterministic:** Avoid unstable I/O.
+3. **Behavioral:** Test what the system does.
 
 ## Checklist
-
-- [ ] Identify the smallest test slice that can falsify the current hypothesis before editing assertions.
-- [ ] Keep mocks and fixtures constrained to the behavior under test.
-- [ ] Re-run the affected Vitest command after each substantive change.
-
-## References
-
-- [Vitest Documentation](https://vitest.dev/guide/)
-- [Vite Documentation](https://vite.dev/guide/)
+- [ ] Ensure mocks are restored in `afterEach`.
+- [ ] Verify test correctness by making it fail first.
+- [ ] Validate coverage targets (> 80%).

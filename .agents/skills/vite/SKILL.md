@@ -1,193 +1,44 @@
 ---
 name: vite
-description: "Rspack, SWC plugin, environment utils. Triggers: rspack."
-argument-hint: "[context] [options]"
+description: |
+  **BUNDLER SKILL** - Frontend bundling with Vite 8 and Tailwind v4.
+  USE FOR: Vite config, Tailwind v4, dev server proxy, asset management, React/Vue plugins, Rolldown optimization.
+  DO NOT USE FOR: npm library bundling (use tsdown), non-web JS, legacy Webpack migration.
+  INVOKES: vite cli, tailwind v4, oxc.
+license: MIT
+metadata:
+  version: 1.0.0
+compatibility:
+  platforms: "Browser, Node.js"
+allowed-tools: [run_shell_command, read_file, write_file, replace]
 ---
 
 # Vite + Tailwind CSS
 
-> Vite 8 (Rolldown) + Tailwind CSS v4
->
-> Verified against Vite 8.0.10 official docs and npm registry on 2026-05-01.
+Expert guide for building web apps using Vite 8 (Rolldown/Oxc) and Tailwind CSS v4.
 
-## Tailwind CSS v4
+**USE FOR:**
+- Configuring dev servers with sub-ms HMR.
+- Implementing zero-config CSS with `@tailwindcss/vite`.
+- Managing environment variables and API proxies.
+- Optimizing builds with Rolldown options.
+- Integrating React, Vue, or Svelte plugins.
 
-v4 uses **CSS-first configuration** — no `tailwind.config.js`.
+**INVOKES:**
+- `vite`, `vite build`, `vite preview`.
 
-### Quick Setup with Vite
+## Methodology
+Implementation details are in:
+1. [Core & CLI](references/vite-core.md) | [Tailwind v4](references/vite-tailwind-v4.md)
+2. [Framework Patterns](references/vite-patterns.md)
 
-```bash
-npm install tailwindcss @tailwindcss/vite
-```
-
-```ts
-// vite.config.ts
-import { defineConfig } from 'vite'
-import tailwindcss from '@tailwindcss/vite'
-
-export default defineConfig({
-  plugins: [tailwindcss()],
-})
-```
-
-### CSS Config
-
-```css
-@import "tailwindcss";
-
-@theme {
-  --color-primary: #3b82f6;
-  --color-secondary: #64748b;
-}
-
-:root {
-  --color-brand: oklch(70% 0.2 250);
-}
-```
-
-### Theme via CSS Variables
-
-```css
-/* Define custom values */
-@theme {
-  --spacing-128: 32rem;
-  --font-display: 'Geist', sans-serif;
-}
-```
-
-### Color Functions
-
-```css
-/* OKLCH for perceptual color harmony */
-bg-primary: oklch(70% 0.15 250 / 80%);
-text-accent: oklch(65% 0.25 30);
-```
-
-### Arbitrary Values
-
-```css
-/* v4 uses [] for arbitrary */
-class="h-[calc(100vh-4rem)]"
-class="bg-[#1a1a2e]"
-class="grid-cols-[1fr,2fr,1fr]"
-```
-
-### Dark Mode
-
-```css
-@media (dark) {
-  :root { --bg: #0a0a0a; }
-}
-```
-
-## Vite CLI
-
-| Command | Purpose |
-|---------|---------|
-| `vite` | Dev server (native ESM) |
-| `vite build` | Production build (Rolldown) |
-| `vite preview` | Preview production build |
-| `vite build --ssr` | SSR build |
-
-## Vite 8 Changes
-
-| Vite 7 | Vite 8 |
-|--------|--------|
-| `rollupOptions` | `rolldownOptions` |
-| `esbuild` | `oxc` |
-
-```ts
-export default defineConfig({
-  build: {
-    rolldownOptions: { external: ['vue'] }
-  },
-  oxc: {
-    jsx: { runtime: 'automatic' }
-  }
-})
-```
-
-## Framework Setup
-
-### React + SWC
-
-```ts
-import react from '@vitejs/plugin-react-swc'
-
-export default defineConfig({
-  plugins: [react()],
-  resolve: { alias: { '@': '/src' } },
-})
-```
-
-### Vue
-
-```ts
-import vue from '@vitejs/plugin-vue'
-
-export default defineConfig({
-  plugins: [vue()],
-})
-```
-
-### Svelte
-
-```ts
-import svelte from '@sveltejs/vite-plugin-svelte'
-
-export default defineConfig({
-  plugins: [svelte()],
-})
-```
-
-## Common Patterns
-
-### Environment Variables
-
-```bash
-VITE_API_URL=https://api.example.com
-```
-
-```ts
-const apiUrl = import.meta.env.VITE_API_URL
-```
-
-### Asset Imports
-
-```ts
-import raw from './data?raw'
-import url from './icon?url'
-```
-
-### Proxy (Dev)
-
-```ts
-export default defineConfig({
-  server: {
-    proxy: { '/api': 'http://localhost:3000' }
-  }
-})
-```
-
-## Performance
-
-- **Dev**: Sub-ms HMR, native ESM
-- **Build**: Rolldown (Rust) 10-30x faster than Rollup
-- **CSS**: Tailwind v4 with `@tailwindcss/vite` (zero config)
-
-## UnoCSS
-
-For custom atomic CSS, UnoCSS is a superset of Tailwind. Use `presetWind4()` for Tailwind v4 compatibility.
-
-## References
-
-- [Tailwind v4 Docs](https://tailwindcss.com/docs/upgrade-guide)
-- [Vite 8 Rolldown](https://vite.dev/guide/migration.html)
-- [UnoCSS Preset Wind4](https://unocss.dev/presets/wind4)
-
+## Core Principles
+1. **Speed:** Use Rust-native tools to minimize feedback loops.
+2. **CSS-First:** Use `@theme` blocks; no `tailwind.config.js`.
+3. **Explicit:** Keep plugin orders and targets clear.
 
 ## Checklist
-
-- [ ] Confirm whether the project uses plain Vite, a framework plugin, or a monorepo wrapper before editing config.
-- [ ] Keep build target, plugin order, and CSS pipeline changes explicit and minimal.
-- [ ] Re-run the narrowest dev, build, or preview command that exercises the touched config.
+- [ ] Confirm framework plugin before editing `vite.config.ts`.
+- [ ] Verify Tailwind v4 imports in the CSS entry.
+- [ ] Test HMR after changing bundler options.
+- [ ] Validate env variable access via `import.meta.env`.

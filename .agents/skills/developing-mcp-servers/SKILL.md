@@ -1,82 +1,48 @@
 ---
 name: developing-mcp-servers
-description: "MCP server development. Triggers: mcp, stdio, SSE."
-argument-hint: "[context] [options]"
+description: |
+  **DEVELOPMENT SKILL** - Build and deploy Model Context Protocol (MCP) servers.
+  USE FOR: MCP tool definitions, JSON Schema for tools, Stdio/SSE transport, MCP SDK (TS/Python), debugging with MCP Inspector.
+  DO NOT USE FOR: general API development (unless MCP-wrapped), frontend agent UIs, prompt engineering for generic agents.
+  INVOKES: mcp sdk, npx @modelcontextprotocol/inspector.
+license: MIT
+metadata:
+  version: 1.0.0
+compatibility:
+  platforms: "any"
+allowed-tools: [read_file, write_file]
 ---
 
 # Developing MCP Servers
 
-This skill focuses on the architecture, implementation, and deployment of Model Context Protocol (MCP) servers, which allow AI assistants to interact with external tools, APIs, and data sources.
+Expert methodology for architecting and implementing Model Context Protocol (MCP) servers to extend AI capabilities with specialized tools and data.
+
+**USE FOR:**
+- Designing tool contracts with descriptive names and strict JSON schemas.
+- Implementing MCP servers in TypeScript (Node.js) or Python.
+- Configuring transports like Stdio (for local CLI) or SSE (for web).
+- Debugging tool execution using the MCP Inspector.
+- Implementing secure, stateless tool handlers.
+
+**DO NOT USE FOR:**
+- Traditional REST/GraphQL API design without MCP integration.
+- Building the agent's core reasoning engine.
+
+**INVOKES:**
+- `@modelcontextprotocol/sdk`, `mcp` (Python), `zod`, `pydantic`.
+
+## Methodology and Guidelines
+Implementation details for transport, validation, and testing are documented in:
+1. [MCP Development Guidelines](references/mcp-guidelines.md)
+2. [MCP Scenarios and Examples](references/mcp-examples.md)
 
 ## Core Principles
-1.  **Statelessness:** MCP servers should ideally be stateless, relying on the client to pass necessary context, or managing state transparently via a backend database.
-2.  **Clear Tool Definitions:** Tools exposed by the MCP server must have highly descriptive names and JSON Schema definitions. The AI uses these schemas to understand when and how to call the tool.
-3.  **Security First:** Never trust the client. Validate all inputs using strict schemas (e.g., Zod in TypeScript or Pydantic in Python) to prevent injection attacks or unauthorized access.
-
-## Implementation Guidelines
-### TypeScript / Node.js
-- **SDK:** Use the official `@modelcontextprotocol/sdk`.
-- **Validation:** Use `zod` for parsing and validating arguments.
-- **Transport:** Implement `StdioServerTransport` for local CLI tools and `SSEServerTransport` for web-based tools.
-
-### Python
-- **SDK:** Use `mcp` from PyPI.
-- **Validation:** Use `pydantic` for strict type checking and schema generation.
-- **Asynchronous:** Use `asyncio` for efficient handling of requests.
-
-## Common Tool Scenarios
-- **Data Retrieval:** Fetching data from an internal API, database, or knowledge base.
-- **Action Execution:** Triggering builds, creating tickets, or modifying remote resources.
-- **File System Access:** Safely reading/writing files within a restricted sandbox directory.
-
-## Testing and Debugging
-1.  **Local Testing:** Use the MCP Inspector (`npx @modelcontextprotocol/inspector`) to connect to your local server and manually trigger tools.
-2.  **Logging:** Implement structured logging (e.g., Winston, Pino) but route logs to `stderr` or a file, as `stdout` is reserved for the `stdio` transport.
-3.  **Error Handling:** Return meaningful error messages to the client. Do not crash the server on invalid input.
-
-## Example (TypeScript)
-```typescript
-import { Server } from "@modelcontextprotocol/sdk/server/index.js";
-import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-import { CallToolRequestSchema, ListToolsRequestSchema } from "@modelcontextprotocol/sdk/types.js";
-import { z } from "zod";
-
-const server = new Server({ name: "example-mcp", version: "1.0.0" }, { capabilities: { tools: {} } });
-
-server.setRequestHandler(ListToolsRequestSchema, async () => ({
-  tools: [{
-    name: "get_weather",
-    description: "Get the current weather for a city",
-    inputSchema: {
-      type: "object",
-      properties: { city: { type: "string" } },
-      required: ["city"]
-    }
-  }]
-}));
-
-server.setRequestHandler(CallToolRequestSchema, async (request) => {
-  if (request.params.name === "get_weather") {
-    const { city } = request.params.arguments as { city: string };
-    return { content: [{ type: "text", text: `Weather in ${city} is sunny.` }] };
-  }
-  throw new Error("Tool not found");
-});
-
-const transport = new StdioServerTransport();
-await server.connect(transport);
-```
+1. **Validation:** Never trust client input; use Zod or Pydantic to enforce schemas.
+2. **Observability:** Route all logs to `stderr` to avoid corrupting `stdio` transport.
+3. **Interoperability:** Follow the official MCP specification for capabilities and resources.
 
 ## Checklist
-
-- [ ] Define the transport, tool contracts, and validation rules before implementing handlers.
-- [ ] Keep tool schemas precise enough that incorrect inputs fail early and clearly.
-- [ ] Verify the server with a real client flow before considering the implementation done.
-
-## References
-
-- [Model Context Protocol Official Site](https://modelcontextprotocol.io/)
-- [MCP TypeScript SDK (GitHub)](https://github.com/modelcontextprotocol/typescript-sdk)
-- [MCP Python SDK (GitHub)](https://github.com/modelcontextprotocol/python-sdk)
-- [Anthropic MCP Documentation](https://docs.anthropic.com/en/docs/agents-and-tools/mcp)
-- [LangChain MCP Integration](https://docs.langchain.com/oss/python/langchain/mcp)
+- [ ] Define transport and tool contracts before implementation.
+- [ ] Ensure all tool descriptions are high-signal for LLM routing.
+- [ ] Verify server connection using the MCP Inspector.
+- [ ] Validate that errors return meaningful feedback without crashing.

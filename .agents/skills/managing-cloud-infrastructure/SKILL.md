@@ -1,52 +1,47 @@
 ---
 name: managing-cloud-infrastructure
-description: "Multi-AZ, VPC, EKS clusters, RDS. Triggers: vpc, eks, rds."
-argument-hint: "[resource/project] [options]"
----
+description: |
+  **ARCHITECTURE SKILL** - Design high-availability cloud infrastructure solutions.
+  USE FOR: VPC design, multi-AZ clusters, EKS/GKE orchestration, RDS/Cloud SQL architecture, networking subnets, security groups, disaster recovery (DR).
+  DO NOT USE FOR: serverless design (use managing-serverless), infrastructure as code implementation (use managing-iac), OS-level administration.
+  INVOKES: architecture diagrams (Mermaid), cloud cost calculators.
+license: MIT
+metadata:
+  version: 1.0.0
+compatibility:
+  platforms: "AWS, GCP, Azure"
+allowed-tools: [read_file, write_file]
 ---
 
 # Cloud Architecture
 
-This skill focuses on the **design** of core cloud infrastructure solutions (VPCs, VM clusters, Container Orchestration, Storage, and Databases), prioritizing High Availability (HA) and Disaster Recovery (DR) patterns.
+Expert methodology for designing core cloud infrastructure with a focus on High Availability (HA), security isolation, and operational scalability using managed services.
 
-*Note: For Serverless architectures (e.g. AWS Lambda, Vercel, Edge), refer to the `managing-serverless` skill instead.*
+**USE FOR:**
+- Designing complex VPC layouts with public, private, and isolated subnets.
+- Architecting container clusters using EKS, GKE, or AKS.
+- Implementing database strategies with managed services (RDS, Cloud SQL).
+- Configuring security perimeters using Security Groups and IAM roles.
+- Designing disaster recovery plans with defined RPO and RTO.
 
-## Instructions
-1.  **High Availability (HA):** Design for failure.
-    *   **Multi-AZ:** Distribute workloads across at least 2 Availability Zones.
-    *   **Stateless:** Applications should not store local state; use Redis/S3.
-2.  **Managed Services First:** Prefer PaaS/SaaS over IaaS.
-    *   **Example:** Use RDS/Cloud SQL instead of installing Postgres on a VM. Use EKS/GKE for containers instead of self-managed EC2.
-    *   **Rationale:** Lower operational overhead (patching, backups).
-3.  **Scalability:**
-    *   **Horizontal:** Add more nodes (Auto Scaling Groups/Node Groups) instead of increasing the machine size (Vertical).
-    *   **Load Balancing:** Always place an Application Load Balancer (ALB) or Network Load Balancer (NLB) in front of scalable clusters.
+**DO NOT USE FOR:**
+- Implementing the design via Terraform or Pulumi (use `managing-iac`).
+- Building Event-Driven or Serverless functions (use `managing-serverless`).
 
-## Common Architecture Patterns
-*   **Three-Tier Architecture:** Separate Presentation (Public Subnet), Application (Private Subnet), and Data (Isolated Subnet).
-*   **Circuit Breaker:** Protect calling services from cascading failures in microservice architectures.
-*   **Strangler Fig:** Migrate legacy monoliths by gradually extracting microservices and routing traffic via API Gateways.
+**INVOKES:**
+- Mermaid for architectural diagrams and infrastructure design checklists.
 
-## Tools and Artifacts
-*   **Diagrams as Code:** Use Mermaid or PlantUML to document architectures.
-    *   Example: `flowchart LR; User-->LB; LB-->App1; LB-->App2; App1-->DB;`
-*   **Cost Estimation:** Use the provider's official calculator before approving the design.
+## Methodology and Guidelines
+Implementation details for HA patterns, networking, and security are documented in:
+- [Cloud Architecture Patterns and Best Practices](references/cloud-patterns.md)
 
-## Best Practices
-- **Networking:** Place databases in isolated subnets with no direct internet access. Use NAT Gateways for private instances needing outbound access.
-- **Security Groups:** Principle of least privilege (allow-list, not deny-list).
-- **Encryption:** Data in transit (TLS) and at rest (KMS) must be encrypted by default.
-- **Backup Strategy:** Define RPO (Recovery Point Objective) and RTO (Recovery Time Objective).
+## Core Principles
+1. **Managed First:** Prioritize PaaS/SaaS to minimize patching and backup overhead.
+2. **Failure by Design:** Assume every component will fail; use Multi-AZ and health checks.
+3. **Defense in Depth:** Layered security through networking, encryption, and IAM.
 
 ## Checklist
-
-- [ ] Define workload boundaries, failure domains, and compliance constraints before choosing services.
-- [ ] Make networking, identity, encryption, and backup assumptions explicit.
-- [ ] Validate the design against cost, resilience, and operational ownership before approval.
-
-## References
-
-- [AWS Well-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html)
-- [Google Cloud Architecture Framework](https://cloud.google.com/architecture/framework)
-- [Azure Architecture Center](https://learn.microsoft.com/azure/architecture/)
-
+- [ ] Define failure domains and compliance constraints before service selection.
+- [ ] Explicitly map data flows between public and private subnets.
+- [ ] Validate the design against cost, resilience, and operational ownership.
+- [ ] Ensure all sensitive data at rest is encrypted via KMS or equivalent.

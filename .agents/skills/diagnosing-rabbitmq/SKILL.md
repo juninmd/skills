@@ -1,33 +1,47 @@
 ---
 name: diagnosing-rabbitmq
-description: "Queues, consumers, DLQ. Triggers: rabbitmqadmin."
-argument-hint: "[incident/alert] [options]"
----
+description: |
+  **DIAGNOSTIC SKILL** - Diagnose RabbitMQ health, queue bottlenecks, and consumer lag.
+  USE FOR: RabbitMQ inspection, queue status, DLQ analysis, consumer count, message unacknowledged, rabbitmqadmin commands.
+  DO NOT USE FOR: managing RabbitMQ clusters (use managing-cloud-infrastructure), application business logic, general system monitoring.
+  INVOKES: rabbitmqadmin CLI.
+license: MIT
+metadata:
+  version: 1.0.0
+compatibility:
+  platforms: "Linux, macOS, Windows"
+allowed-tools: [run_shell_command, read_file]
 ---
 
 # Diagnose RabbitMQ Health
 
-This skill inspects queues to identify bottlenecks and processing failures.
+Expert methodology for inspecting RabbitMQ queues to identify performance bottlenecks, consumer failures, and processing issues using the management CLI.
+
+**USE FOR:**
+- Getting real-time queue statistics (message count, status).
+- Identifying queues with zero active consumers.
+- Analyzing unacknowledged messages and consumer lag.
+- Inspecting Dead Letter Queues (DLQ) for root cause analysis.
+- Sampling messages from queues to debug processing logic.
+
+**DO NOT USE FOR:**
+- Provisioning or scaling RabbitMQ clusters.
+- Fixing application-level bugs without queue evidence.
+
+**INVOKES:**
+- `rabbitmqadmin` CLI tool.
 
 ## Instructions
-- Use `rabbitmqadmin` to collect metrics.
-- Analyze `consumer_count == 0` (Critical) and `messages_unacknowledged` (Slowness).
-
-## Capabilities
-- **Queue Stats**: Get message count and status.
-- **DLQ Inspection**: Sample dead messages for RCA (Root Cause Analysis).
+- **Metrics Collection:** Use `rabbitmqadmin` to gather queue and consumer metrics.
+- **Critical Alerts:** Prioritize `consumer_count == 0` for stuck processing.
+- **Slowness:** Investigate `messages_unacknowledged` for slow or failing consumers.
 
 ## Commands
-- `rabbitmqadmin get queue=<name> stat.messages stat.consumer_count`
+```bash
+rabbitmqadmin get queue=<name> stat.messages stat.consumer_count
+```
 
 ## Checklist
-
-- [ ] Identify the affected queue, exchange, bindings, and consumer group before proposing changes.
-- [ ] Distinguish publisher issues, broker pressure, and consumer lag with concrete queue metrics.
-- [ ] Re-check queue depth and consumer recovery after each remediation step.
-
-## References
-
-- [RabbitMQ Documentation](https://www.rabbitmq.com/docs)
-- [rabbitmqadmin Documentation](https://www.rabbitmq.com/docs/management-cli)
-
+- [ ] Identify the affected queue, exchange, and bindings before acting.
+- [ ] Use concrete metrics to distinguish between publisher issues and consumer lag.
+- [ ] Verify queue recovery after any remediation step.

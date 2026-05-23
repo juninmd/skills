@@ -1,126 +1,48 @@
 ---
 name: nextjs-dev
-description: "Async params, cookies(), turbopack. Triggers: turbopack."
-argument-hint: "[context] [options]"
+description: |
+  **DEVELOPMENT SKILL** - Build modern web apps with Next.js 16+ and React 19.
+  USE FOR: App Router implementation, Server Components (RSC), Asynchronous Request APIs (cookies/params), Server Actions, Next.js caching, Turbopack development.
+  DO NOT USE FOR: legacy Pages router, non-React frameworks, backend-only services (unless Next.js API routes are required).
+  INVOKES: next cli, react-dom, next/headers.
+license: MIT
+metadata:
+  version: 1.0.0
+compatibility:
+  platforms: "React 19, Next.js 15/16"
+allowed-tools: [read_file, write_file, replace]
 ---
 
 # Next.js Development (16+)
 
-> React 19. App Router. Turbopack. Asynchronous APIs. Uncached by Default.
->
-> Verified against Next.js 16.2.4 official docs on 2026-05-01.
+Expert methodology for building high-performance web applications using Next.js 16, React 19, and the App Router architecture.
+
+**USE FOR:**
+- Implementing route-based layouts and nested segments.
+- Managing asynchronous params, headers, and cookies in Server Components.
+- Leveraging React 19 features like `useActionState` and Server Actions.
+- Optimizing data fetching with explicit caching strategies.
+- Configuring fast development environments with Turbopack.
+
+**DO NOT USE FOR:**
+- Maintenance of legacy `pages/` directory projects.
+- Static sites without a React requirement.
+
+**INVOKES:**
+- `next dev`, `next build`, `next start` CLI tools.
+
+## Methodology and Guidelines
+Implementation details for core principles, async APIs, and patterns are documented in:
+1. [Core Principles & Async APIs](references/nextjs-core.md)
+2. [Caching & Form Patterns](references/nextjs-patterns.md)
 
 ## Core Principles
+1. **RSC First:** Default to Server Components to minimize client bundle size.
+2. **Async Integrity:** Always await request-based APIs (`cookies`, `headers`, `params`).
+3. **Explicit Caching:** Opt-in to `force-cache` for data that should persist.
 
-1.  **App Router Only**: Use the `app/` directory. The Pages router is considered legacy.
-2.  **React 19 Native**: Fully leverage React 19 features including `useActionState`, `useFormStatus`, and `use()`.
-3.  **Uncached by Default**: Fetch requests, GET route handlers, and client navigations are no longer cached by default in Next.js 15. Explicitly opt-in to caching where needed.
-4.  **Asynchronous Request APIs**: APIs that depend on the request (like `cookies`, `headers`, `params`, `searchParams`) are now asynchronous and must be `await`ed.
-5.  **Turbopack**: Used by default for faster development builds (`next dev --turbopack`).
-
-## Current Guidance for Next.js 16
-
-### Async Request APIs (Breaking Change)
-Previously synchronous APIs are now async and must be awaited.
-
-```typescript
-// ✅ Correct (Next.js 16+)
-import { cookies, headers } from 'next/headers';
-
-export default async function Page(props: { params: Promise<{ slug: string }> }) {
-  // Await the params
-  const params = await props.params;
-  const slug = params.slug;
-
-  // Await cookies and headers
-  const cookieStore = await cookies();
-  const token = cookieStore.get('token');
-
-  const headersList = await headers();
-  const userAgent = headersList.get('user-agent');
-
-  return <div>{slug}</div>;
-}
-```
-
-If used in a synchronous component (e.g., a Client Component), use React's `use()` hook to unwrap the Promise:
-
-```typescript
-'use client';
-import { use } from 'react';
-
-export default function ClientPage(props: { params: Promise<{ slug: string }> }) {
-  const params = use(props.params);
-  return <div>{params.slug}</div>;
-}
-```
-
-### Caching Changes
-
-In Next.js 15, `fetch` requests and `GET` Route Handlers are **uncached by default**.
-
-```typescript
-// ❌ Uncached by default
-const res = await fetch('https://api.example.com/data');
-
-// ✅ Opt-in to caching
-const res = await fetch('https://api.example.com/data', { cache: 'force-cache' });
-```
-
-For Route Handlers, use the segment config to opt-in:
-
-```typescript
-// app/api/route.ts
-export const dynamic = 'force-static'; // Opt-in to caching
-
-export async function GET() {
-  return Response.json({ data: 'cached' });
-}
-```
-
-### React 19 Forms
-
-Use `useActionState` (replacing `useFormState`) for handling form actions and server responses.
-
-```typescript
-'use client';
-import { useActionState } from 'react';
-import { createPost } from '@/app/actions';
-
-export function CreatePostForm() {
-  const [state, action, isPending] = useActionState(createPost, null);
-
-  return (
-    <form action={action}>
-      <input type="text" name="title" />
-      <button disabled={isPending}>Submit</button>
-      {state?.error && <p>{state.error}</p>}
-    </form>
-  );
-}
-```
-
-## Routing and Architecture
-
-| Concept | Pattern |
-|---------|---------|
-| Layouts | `layout.tsx` (Wraps pages, state preserved on navigation) |
-| Pages | `page.tsx` (Unique UI for a route) |
-| Loading | `loading.tsx` (React Suspense boundary) |
-| Error | `error.tsx` (React Error boundary) |
-| API | `route.ts` (Next.js Route Handlers) |
-
-## Performance Checklist
-
-- [ ] Fetch data in Server Components where possible.
-- [ ] Explicitly opt-in to caching (`force-cache`) for static data.
-- [ ] Use `<Image>` (`next/image`) for optimized images.
-- [ ] Use `<Link>` (`next/link`) for client-side navigation.
-- [ ] Ensure all `params`, `searchParams`, `cookies`, and `headers` are correctly awaited.
-- [ ] Use Server Actions for data mutations instead of manual API routes.
-
-## References
-
-- [Next.js Documentation](https://nextjs.org/docs)
-- [Next.js App Router Guide](https://nextjs.org/docs/app)
-- [React 19 Release Notes](https://react.dev/blog/2024/04/25/react-19)
+## Checklist
+- [ ] Ensure all request APIs (`params`, `cookies`) are correctly awaited.
+- [ ] Use `useActionState` for all client-side form handling.
+- [ ] Verify that data fetching is happening in Server Components where possible.
+- [ ] Validate responsive layouts and accessibility across primary routes.

@@ -1,115 +1,46 @@
 ---
 name: developing-go
-description: "go mod, golangci-lint, testify. Triggers: golangci."
-argument-hint: "[file/module] [options]"
----
+description: |
+  **DEVELOPMENT SKILL** - Build efficient and idiomatic applications with Go.
+  USE FOR: Go modules, idiomatic Go patterns, error wrapping, golangci-lint, go test, net/http APIs, microservices in Go.
+  DO NOT USE FOR: generic C-family programming, frontend development, heavy GUI applications.
+  INVOKES: go CLI, golangci-lint.
+license: MIT
+metadata:
+  version: 1.0.0
+compatibility:
+  platforms: "Windows, Linux, macOS"
+allowed-tools: [run_shell_command, read_file, write_file]
 ---
 
 # Development with Go
 
-This skill standardizes modern Go development utilizing go modules, idiomatic Go conventions, and robust testing.
+Expert guidance for building modern, high-performance applications using Go's idiomatic conventions and toolchain.
 
-## 🧱 Recommended Stack
-- **Runtime:** Go 1.23+
-- **Management:** `go mod`
-- **Quality:** `golangci-lint`, `go fmt`, `go vet`
-- **Testing:** `go test`, `testify` (optional for assertions)
-- **APIs:** `net/http` standard library, `chi`, or `gin`
+**USE FOR:**
+- Initializing and managing Go modules and dependencies.
+- Implementing RESTful APIs using `net/http`, `chi`, or `gin`.
+- Writing idiomatic Go code with proper error handling (`%w`) and structured logging (`slog`).
+- Designing internal package boundaries and project structures.
+- Configuring quality gates and automated testing suites.
 
-## Recommended Baseline
+**DO NOT USE FOR:**
+- Legacy GOPATH-based projects (unless migrating to modules).
+- Deep system integration tasks better suited for C/Rust (unless via cgo).
 
-- Go **1.23+** with structured logging (`slog`).
-- Dependency management exclusively via **`go mod`**.
-- Format code with **`go fmt`** and lint with **`golangci-lint`**.
-- Error handling must wrap errors using `fmt.Errorf` with the `%w` verb.
-- Testing with standard **`go test`**. Minimum coverage: **80%**.
+**INVOKES:**
+- `go build`, `go test`, `go fmt`, `golangci-lint` commands.
 
-## Instructions
+## Methodology and Guidelines
+Implementation details for project structure, error patterns, and testing are documented in:
+- [Go Development Best Practices](references/go-best-practices.md)
 
-### 1. Environment Setup
-
-```bash
-# Initialize a new project
-go mod init github.com/username/my-project
-
-# Add dependency
-go get github.com/stretchr/testify
-
-# Download dependencies
-go mod tidy
-```
-
-### 2. Project Structure (Standard)
-
-```text
-my-project/
-├── cmd/
-│   └── my-app/
-│       └── main.go
-├── internal/
-│   ├── api/
-│   ├── config/
-│   └── service/
-├── pkg/
-├── go.mod
-├── go.sum
-└── Makefile
-```
-
-### 3. Error Handling
-
-```go
-// ✅ Correct: wrapping errors
-if err != nil {
-    return fmt.Errorf("failed to process order %s: %w", orderID, err)
-}
-
-// ❌ Incorrect: swallowing errors
-if err != nil {
-    return err // Loses context
-}
-```
-
-### 4. Testing Patterns
-
-```go
-// internal/service/user_test.go
-package service_test
-
-import (
-    "testing"
-    "github.com/stretchr/testify/assert"
-)
-
-func TestGetUser(t *testing.T) {
-    // Arrange
-    service := NewUserService()
-
-    // Act
-    user, err := service.GetUser(1)
-
-    // Assert
-    assert.NoError(t, err)
-    assert.NotNil(t, user)
-}
-```
-
-### 5. Quality Gates
-
-| Tool | Command | Purpose |
-|---|---|---|
-| `go fmt` | `go fmt ./...` | Code formatting |
-| `go vet` | `go vet ./...` | Examine Go source code and report suspicious constructs |
-| `golangci-lint` | `golangci-lint run` | Comprehensive linting |
-| `go test` | `go test -cover ./...` | Unit testing and coverage |
+## Core Principles
+1. **Idiomaticity:** Follow "Effective Go" standards and use standard library whenever practical.
+2. **Error Safety:** Wrap all returned errors to maintain execution context.
+3. **Quality First:** Run `go fmt` and `go vet` after every significant code change.
 
 ## Checklist
-
-- [ ] Confirm the package layout and dependency boundaries before moving types or interfaces.
-- [ ] Run `go fmt`, `go vet`, and the narrowest relevant tests after each change.
-- [ ] Keep exported APIs small, explicit, and easy to test.
-
-## References
-
-- [Go Official Documentation](https://go.dev/doc/)
-- [Go 1.23 Release Notes](https://go.dev/doc/go1.23)
+- [ ] Confirm package layout and dependency boundaries before implementing logic.
+- [ ] Ensure all exported APIs have comprehensive unit tests.
+- [ ] Verify that errors are handled and wrapped, never ignored.

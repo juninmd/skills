@@ -1,77 +1,48 @@
 ---
 name: managing-iac
-description: "Terraform modules, terratest, tfsec. Triggers: terraform, pulumi."
-argument-hint: "[resource/project] [options]"
----
-disable-model-invocation: true
+description: |
+  **DEVOPS SKILL** - Build and maintain secure, reproducible infrastructure as code.
+  USE FOR: Terraform modules, Pulumi stacks, IaC testing (terratest), state management, security scanning (tfsec/checkov), policy as code (OPA).
+  DO NOT USE FOR: manual cloud console edits, OS-level administration, application deployment (use configuring-ci-cd).
+  INVOKES: terraform, tflint, checkov, terratest.
+license: MIT
+metadata:
+  version: 1.0.0
+compatibility:
+  platforms: "AWS, GCP, Azure, Terraform, Pulumi"
+allowed-tools: [run_shell_command, read_file, write_file]
 ---
 
 # Infrastructure as Code (IaC) Specialist
 
-This skill defines the standards for building and maintaining secure and reproducible infrastructure.
+Expert methodology for building and maintaining modular, secure, and reproducible infrastructure through code, with a focus on testing and automated validation.
 
-## Instructions
-1.  **Modularity First:** Divide the infrastructure into reusable and versioned modules.
-    *   **Rationale:** Avoids duplication (DRY), facilitates rollbacks, and allows for isolated unit testing.
-    *   **Structure:** `modules/vpc`, `modules/rds`, `modules/eks`. Each module must have `README.md`, `variables.tf`, and `outputs.tf`.
-2.  **Automated Testing:** Test infrastructure as software code.
-    *   **Validation:** Use `terraform validate` and `tflint` in PRs.
-    *   **Unit Tests:** Use `terratest` (Go) or `pytest-terraform` to validate resource creation in an ephemeral environment.
-    *   **Security:** Integrate `tfsec`, `checkov`, or `bridgecrew` into the pipeline.
-3.  **State Management:** Use remote backends (S3 + DynamoDB Locking, GCS, Terraform Cloud).
-  *   **Locking:** Never allow concurrent write access to the state.
-  *   **Isolation:** Separate states by environment (`prod`, `staging`, `dev`) using distinct workspaces or directories.
-4.  **Immutable Infrastructure:** Prefer recreating resources (Immutable) over modifying them in-place (Mutable), especially for servers.
+**USE FOR:**
+- Designing and implementing reusable Terraform or Pulumi modules.
+- Configuring remote state backends with locking and environment isolation.
+- Setting up automated IaC quality gates (linting, validation, security).
+- Implementing unit tests for infrastructure resources using Terratest.
+- Enforcing compliance through Policy as Code (OPA).
 
-## Common Tasks
-*   **Create Module:** Create `main.tf` (resources), `variables.tf` (typed inputs), and `outputs.tf` (returned values).
-*   **Run Linter:** `tflint --init && tflint` (validates best practices and provider errors).
-*   **Run Security Scan:** `checkov -d .` (validates CIS/AWS/GCP compliance).
-*   **Apply Plan:** `terraform plan -out=tfplan && terraform apply tfplan` (never apply without a saved plan).
+**DO NOT USE FOR:**
+- Ad-hoc infrastructure changes via cloud consoles.
+- Designing high-level architecture without implementation (use managing-cloud-infrastructure).
 
-## Examples
-### Valid Terraform Module Interface Example
-```hcl
-variable "vpc_cidr" {
-  description = "CIDR block for the VPC"
-  type        = string
-  default     = "10.0.0.0/16"
-  validation {
-    condition     = can(cidrnetmask(var.vpc_cidr))
-    error_message = "Must be a valid IPv4 CIDR block."
-  }
-}
+**INVOKES:**
+- `terraform`, `tflint`, `tfsec`, `checkov` CLI tools.
 
-output "vpc_id" {
-  description = "The ID of the VPC"
-  value       = aws_vpc.main.id
-}
-```
+## Methodology and Guidelines
+Implementation details for principles, state management, and operations are documented in:
+1. [IaC Principles & Security](references/iac-principles.md)
+2. [IaC Operations & Examples](references/iac-operations.md)
 
-### Invalid Example (Hardcoded/Unsafe)
-```hcl
-resource "aws_security_group" "allow_all" {
-  ingress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"] # SECURITY RISK
-  }
-}
-```
-
-## Resources
-- **Terraform Best Practices:** Use `modules`, `remote state`, and `variable validation`.
-- **Policy as Code:** Consider using OPA (Open Policy Agent) for complex compliance rules.
+## Core Principles
+1. **Modules First:** Every resource belongs in a versioned module with clear inputs/outputs.
+2. **Immutable Strategy:** Prefer recreating resources over in-place modifications.
+3. **Plan Before Apply:** Never apply changes without inspecting and saving a plan file.
 
 ## Checklist
-
-- [ ] Identify the desired state, provider boundaries, and blast radius before editing IaC.
-- [ ] Prefer reusable modules and validated inputs over copy-pasted resources.
-- [ ] Review the plan output and policy checks before applying changes.
-
-## References
-
-- [Terraform Documentation](https://developer.hashicorp.com/terraform/docs)
-- [Open Policy Agent Documentation](https://www.openpolicyagent.org/docs/latest/)
-
+- [ ] Identify the provider boundary and blast radius before implementation.
+- [ ] Verify that all variables have explicit types and validation blocks.
+- [ ] Ensure remote state locking is active and configured correctly.
+- [ ] Pass all security and linting checks before proposing a merge.

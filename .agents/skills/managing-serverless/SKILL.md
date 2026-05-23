@@ -1,61 +1,47 @@
 ---
 name: managing-serverless
-description: "Lambda, Vercel, Cloudflare Workers cold start. Triggers: faas, edge."
-argument-hint: "[platform/resource] [options]"
----
+description: |
+  **ARCHITECTURE SKILL** - Design and optimize serverless and edge workloads.
+  USE FOR: AWS Lambda, Cloudflare Workers, Vercel deployments, cold start optimization, event-driven architecture, serverless state management, idempotency patterns.
+  DO NOT USE FOR: long-running background processes (non-FaaS), heavy JVM/CLR runtimes (unless unavoidable), managing VPC infrastructure (use managing-cloud-infrastructure).
+  INVOKES: serverless client initialization, conditional data writes.
+license: MIT
+metadata:
+  version: 1.0.0
+compatibility:
+  platforms: "AWS, Cloudflare, Vercel"
+allowed-tools: [read_file, write_file]
 ---
 
 # Managing Serverless Architecture
 
-This skill defines the standards for designing, deploying, and optimizing serverless workloads. It covers Function-as-a-Service (FaaS) and Edge computing.
+Expert methodology for designing, deploying, and optimizing serverless workloads with a focus on minimizing latency, ensuring idempotency, and leveraging edge computing.
 
-## Instructions
-1.  **Platform Selection:**
-    *   **AWS Lambda / Google Cloud Functions:** Best for heavy backend processing, CRON jobs, and integrations with other cloud services (e.g., S3/DynamoDB triggers).
-    *   **Vercel / Netlify:** Best for frontend-heavy frameworks (Next.js, Nuxt) and Server-Side Rendering (SSR).
-    *   **Cloudflare Workers / Deno Deploy:** Best for ultra-low latency edge computing, lightweight proxies, and globally distributed state.
-2.  **Cold Start Optimization:**
-    *   **Bundle Size:** Minimize dependencies. Tree-shake code and exclude heavy libraries like AWS SDKs if they are pre-installed in the runtime.
-    *   **Initialization:** Initialize heavy clients (DB connections, SDKs) outside the handler function so they can be reused across warm invocations.
-    *   **Language Choice:** Prefer Node.js, Go, or Rust over Java or .NET for latency-sensitive APIs to minimize JVM/CLR spin-up time.
-3.  **Event-Driven Design:**
-    *   **Decoupling:** Use queues (SQS), pub/sub (SNS/EventBridge), or streams (Kinesis) to decouple components. Functions should ideally do one thing and emit an event.
-    *   **Idempotency:** Ensure functions are idempotent, meaning they can safely process the same event multiple times without side effects, as cloud providers guarantee "at-least-once" delivery.
-4.  **State Management:**
-    *   **Stateless Functions:** Never rely on local file systems (`/tmp` is ephemeral and shared across some warm starts, but not guaranteed).
-    *   **External State:** Use DynamoDB, Redis (Upstash/ElastiCache), or serverless SQL (PlanetScale/Neon) for state.
+**USE FOR:**
+- Selecting the appropriate serverless platform (Lambda vs. Workers vs. Vercel).
+- Implementing cold start reduction strategies through bundle optimization.
+- Designing event-driven flows using queues and pub/sub triggers.
+- Implementing robust idempotency patterns for "at-least-once" delivery.
+- Configuring external state management for stateless function environments.
 
-## Examples
+**DO NOT USE FOR:**
+- Designing monolithic architectures or long-lived server processes.
+- Low-level networking or cluster orchestration (use `managing-cloud-infrastructure`).
 
-### Global Initialization (AWS Lambda Node.js)
-```javascript
-// DO: Initialize connection outside the handler
-const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
-const client = new DynamoDBClient({ region: "us-east-1" });
+**INVOKES:**
+- Function handler patterns and cloud-provider specific optimization checklists.
 
-exports.handler = async (event) => {
-    // REUSE: client is reused across warm starts
-    // process event...
-};
-```
+## Methodology and Guidelines
+Implementation details for optimization, design patterns, and platform selection are documented in:
+- [Serverless Architecture Patterns and Optimization](references/serverless-patterns.md)
 
-### Idempotency Example (DynamoDB Conditional Put)
-```javascript
-// Ensure we don't process the same transaction twice
-await docClient.put({
-    TableName: 'Transactions',
-    Item: { transactionId: event.id, status: 'PROCESSED' },
-    ConditionExpression: 'attribute_not_exists(transactionId)'
-});
-```
+## Core Principles
+1. **Warm Initialization:** Always initialize expensive resources outside the handler.
+2. **Idempotency by Default:** Every function must be safe to re-run with the same event.
+3. **Dependency Discipline:** Minimize the function's deployment package to reduce spin-up time.
 
-## Validation Checklist
-- [ ] Is global state initialized outside the function handler?
-- [ ] Is the function idempotent?
-- [ ] Are dependencies minimized to reduce cold starts?
-- [ ] Is the database connection pooling handled correctly for serverless?
-
-## References
-
-- [AWS Lambda Documentation](https://docs.aws.amazon.com/lambda/)
-- [Cloudflare Workers Documentation](https://developers.cloudflare.com/workers/)
+## Checklist
+- [ ] Is global state (clients, configs) initialized outside the function handler?
+- [ ] Does the function handle duplicate event processing safely (idempotent)?
+- [ ] Have heavy dependencies been audited and minimized?
+- [ ] Is database connection pooling optimized for ephemeral FaaS environments?
