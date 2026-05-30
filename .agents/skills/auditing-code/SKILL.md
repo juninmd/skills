@@ -4,7 +4,7 @@ description: |
   **AUDIT SKILL** - Run static analysis, linting, and security scans for Python and JS/TS.
   USE FOR: linting code, formatting, type checking, security scans (Bandit/npm audit), cyclomatic complexity.
   DO NOT USE FOR: refactoring logic (use applying-design-principles), runtime bugs (use diagnosing-bugs), dependency upgrades.
-  INVOKES: ruff, mypy, bandit, biome, tsc, pnpm audit.
+  INVOKES: ai-code-review, applying-clean-code, security-scanning.
 license: MIT
 metadata:
   version: 1.0.0
@@ -23,6 +23,7 @@ Ensure code quality and security through standardized static analysis and automa
 - Executing security audits using `bandit` or `pnpm audit`.
 - Analyzing cyclomatic complexity to identify refactoring candidates.
 - Applying automated fixes for stylistic and trivial code issues.
+- Running AI-assisted code reviews to detect design violations, missing error handling, and code smells.
 
 **DO NOT USE FOR:**
 - Complex logic refactoring beyond stylistic fixes.
@@ -44,3 +45,5 @@ Refer to [Linting and Static Analysis Guide](references/linting-guides.md) for t
 - [ ] Confirm target language and config files before running analysis.
 - [ ] Prioritize security and maintainability risks over stylistic churn.
 - [ ] Re-run analysis after remediation to verify the fix.
+- [ ] Run static linters first (fast feedback); then AI review (comprehensive analysis).
+- [ ] Classify AI review findings by severity: blocker (security), high (design), medium (style).

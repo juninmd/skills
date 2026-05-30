@@ -4,7 +4,7 @@ description: |
   **DEVOPS SKILL** - Configure and optimize CI/CD pipelines for GitHub and GitLab.
   USE FOR: GitHub Actions, GitLab CI, pipeline configuration, YAML workflows, caching dependencies, automated testing, deployment gates.
   DO NOT USE FOR: infrastructure as code (use managing-iac), cloud provider configuration (use managing-cloud-infrastructure).
-  INVOKES: YAML editing tools, pipeline design checklists.
+  INVOKES: github-actions-docs, security-scanning, managing-cloud-infrastructure.
 license: MIT
 metadata:
   version: 1.0.0
@@ -23,6 +23,7 @@ Expert guidance for designing, implementing, and optimizing automated CI/CD pipe
 - Optimizing pipeline performance through dependency caching and parallel job execution.
 - Standardizing repetitive CI tasks using reusable workflows or includes.
 - Configuring secure environment secrets and deployment protection rules.
+- Integrating security scanning (CVE, secrets, SBOM) into CI/CD gates before deployment.
 
 **DO NOT USE FOR:**
 - Managing underlying infrastructure (e.g., AWS/GCP resources) without CI/CD context.
@@ -39,3 +40,5 @@ Implementation details for pipeline triggers, caching, and environment separatio
 - [ ] Define pipeline stages, triggers, and required secrets before writing YAML.
 - [ ] Fail fast on lint, typecheck, tests, and build instead of hiding errors.
 - [ ] Validate cache behavior, matrix coverage, and deployment gates.
+- [ ] Integrate security-scanning: dependency CVE checks, secrets pre-commit, container scans.
+- [ ] Block deployments if security gates fail; audit and require approval for overrides.

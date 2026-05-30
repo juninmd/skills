@@ -4,7 +4,7 @@ description: |
   **STRATEGY SKILL** - Implement features and fixes using the Red/Green/Refactor cycle.
   USE FOR: test-first implementation, TDD workflows, regression testing, defining behavior through tests, vertical slice development.
   DO NOT USE FOR: pure unit testing without implementation (use vitest), non-coding tasks, speed-biased prototyping without verification.
-  INVOKES: red-green-refactor loops, behavior-based assertions.
+  INVOKES: vitest, pytest, generative-testing, performance-profiling.
 license: MIT
 metadata:
   version: 1.0.0
@@ -23,6 +23,7 @@ Expert methodology for building robust software by specifying behavior through t
 - Performing vertical slice development that crosses multiple layers.
 - Designing clean interfaces by forcing early "caller-first" thinking.
 - Establishing repeatable regression suites for reported bugs.
+- Validating test robustness using mutation testing and property-based testing (generative-testing).
 
 **DO NOT USE FOR:**
 - Trivial, low-risk changes where tests add no value.
@@ -46,3 +47,5 @@ Implementation details for the TDD cycle, principles, and anti-patterns are docu
 - [ ] Implement only the minimal logic needed to reach a green state.
 - [ ] Refactor and clean up only after the current behavior is proven green.
 - [ ] Run the full suite of relevant tests before finalizing the slice.
+- [ ] Validate test robustness with mutation testing; ensure >80% mutation kill rate.
+- [ ] Use property-based tests for complex logic to discover edge cases automatically.

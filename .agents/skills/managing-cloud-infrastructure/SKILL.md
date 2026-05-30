@@ -4,7 +4,7 @@ description: |
   **ARCHITECTURE SKILL** - Design high-availability cloud infrastructure solutions.
   USE FOR: VPC design, multi-AZ clusters, EKS/GKE orchestration, RDS/Cloud SQL architecture, networking subnets, security groups, disaster recovery (DR).
   DO NOT USE FOR: serverless design (use managing-serverless), infrastructure as code implementation (use managing-iac), OS-level administration.
-  INVOKES: architecture diagrams (Mermaid), cloud cost calculators.
+  INVOKES: managing-iac, managing-serverless, observability-patterns, zero-trust-architecture.
 license: MIT
 metadata:
   version: 1.0.0
@@ -23,6 +23,7 @@ Expert methodology for designing core cloud infrastructure with a focus on High 
 - Implementing database strategies with managed services (RDS, Cloud SQL).
 - Configuring security perimeters using Security Groups and IAM roles.
 - Designing disaster recovery plans with defined RPO and RTO.
+- Planning observability integration (distributed tracing, metrics, dashboards, SLOs).
 
 **DO NOT USE FOR:**
 - Implementing the design via Terraform or Pulumi (use `managing-iac`).
@@ -45,3 +46,5 @@ Implementation details for HA patterns, networking, and security are documented 
 - [ ] Explicitly map data flows between public and private subnets.
 - [ ] Validate the design against cost, resilience, and operational ownership.
 - [ ] Ensure all sensitive data at rest is encrypted via KMS or equivalent.
+- [ ] Plan observability strategy: tracing, metrics, logs, dashboards, and SLO definitions.
+- [ ] Design zero-trust boundaries: mTLS, workload identity, secrets rotation, audit trails.
