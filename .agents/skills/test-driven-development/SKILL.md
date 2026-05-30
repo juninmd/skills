@@ -4,7 +4,7 @@ description: |
   **STRATEGY SKILL** - Implement features and fixes using the Red/Green/Refactor cycle.
   USE FOR: test-first implementation, TDD workflows, regression testing, defining behavior through tests, vertical slice development.
   DO NOT USE FOR: pure unit testing without implementation (use vitest), non-coding tasks, speed-biased prototyping without verification.
-  INVOKES: vitest, pytest, generative-testing, performance-profiling.
+  INVOKES: vitest, pytest, engineering-test-scenarios, generative-testing, verifying-changes, performance-profiling.
 license: MIT
 metadata:
   version: 1.0.0

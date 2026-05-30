@@ -4,7 +4,7 @@ layout: home
 hero:
   name: "Agent Plugins"
   text: "Skills, Agents & Rules"
-  tagline: Extend your AI coding assistant with production-grade engineering knowledge — 58 skills, 4 agents, 15 rules, 4 prompt templates.
+  tagline: Extend your AI coding assistant with production-grade engineering knowledge — 86 skills, 4 agents, 21 rules, 4 prompt templates.
   actions:
     - theme: brand
       text: Get Started
@@ -24,13 +24,13 @@ features:
     linkText: Browse agents
 
   - icon: ⚡
-    title: 58 Domain Skills
+    title: 86 Domain Skills
     details: On-demand knowledge modules covering Node.js, Python, React, Flutter, Docker, Kubernetes, and more — all following 2026 best practices.
     link: /skills/
     linkText: Browse skills
 
   - icon: 📋
-    title: 15 Governance Rules
+    title: 21 Governance Rules
     details: Always-on instructions enforcing security, testing standards, naming conventions, and Git workflow across every task.
     link: /rules/
     linkText: Browse rules

@@ -4,7 +4,7 @@ description: |
   **CODE QUALITY SKILL** - Apply Clean Code principles to production code.
   USE FOR: naming conventions, function length/complexity, abstraction levels, code reviews, refactoring guidance, identifying technical debt.
   DO NOT USE FOR: performance optimization (use performance-profiling), architectural patterns (use improving-codebase-architecture), testing (use test-driven-development).
-  INVOKES: improving-codebase-architecture, auditing-code, test-driven-development, validating-typescript.
+  INVOKES: improving-codebase-architecture, untangling-spaghetti-code, auditing-code, test-driven-development, validating-typescript.
 license: MIT
 metadata:
   version: 1.0.0

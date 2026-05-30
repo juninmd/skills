@@ -69,6 +69,33 @@ test('parseFrontmatter supports CRLF content', () => {
   assert.equal(parsed.data.name, 'demo');
 });
 
+test('parseFrontmatter supports block scalars and nested mappings', () => {
+  const parsed = parseFrontmatter([
+    '---',
+    'name: demo',
+    'description: |',
+    '  **DEMO SKILL** - Use for demo workflows.',
+    '  USE FOR: demos.',
+    'license: MIT',
+    'metadata:',
+    '  version: 1.0.0',
+    'compatibility:',
+    '  platforms: "any"',
+    'allowed-tools: [read_file, write_file]',
+    '---',
+    '# Body',
+    '',
+  ].join('\n'));
+  assert.equal(parsed.error, null);
+  assert.equal(parsed.data.name, 'demo');
+  assert.match(parsed.data.description, /USE FOR: demos\./);
+  assert.equal(parsed.data.license, 'MIT');
+  assert.deepEqual(parsed.data.metadata, { version: '1.0.0' });
+  assert.deepEqual(parsed.data.compatibility, { platforms: 'any' });
+  assert.equal(parsed.data['allowed-tools'], '[read_file, write_file]');
+  assert.match(parsed.body, /# Body/);
+});
+
 test('collectPrimaryFiles ignores reference markdown', () => {
   const root = createFixture({
     'agents/a.agent.md': '---\nname: a\ndescription: "Use for A. Triggers: a."\nuser-invocable: true\n---\n',
@@ -108,18 +135,43 @@ test('validatePluginFile detects missing baseDir tool paths and replacement char
   });
 
   const issues = validatePluginFile(root, path.join('skills', 'scanner', 'SKILL.md'));
-  assert.equal(issues.length, 3);
-  assert.deepEqual(issues.map((issue) => issue.rule).sort(), ['allowed-tools', 'encoding', 'missing-tool-path']);
+  assert.equal(issues.length, 2);
+  assert.deepEqual(issues.map((issue) => issue.rule).sort(), ['encoding', 'missing-tool-path']);
 });
 
-test('validatePluginFile requires checklist, references, and valid referenced skills', () => {
+test('validatePluginFile accepts the repository skill convention (block scalar + allowed-tools)', () => {
   const root = createFixture({
-    'skills/demo/SKILL.md': '---\nname: demo\ndescription: "Use for demo workflows. Triggers: demo."\n---\nSee the `real-skill` skill and the `missing-skill` skill.\n',
-    'skills/real-skill/SKILL.md': '---\nname: real-skill\ndescription: "Use for real workflows. Triggers: real."\n---\n## Checklist\n- [ ] Run\n\n## References\n- [Docs](https://example.com)\n',
+    'skills/demo/SKILL.md': [
+      '---',
+      'name: demo',
+      'description: |',
+      '  **DEMO SKILL** - Use for demo workflows. Triggers: demo.',
+      'license: MIT',
+      'metadata:',
+      '  version: 1.0.0',
+      'compatibility:',
+      '  platforms: "any"',
+      'allowed-tools: [read_file, write_file]',
+      '---',
+      '# Demo',
+      '## Checklist',
+      '- [ ] Validate',
+      '',
+    ].join('\n'),
   });
 
   const issues = validatePluginFile(root, path.join('skills', 'demo', 'SKILL.md'));
-  assert.deepEqual(issues.map((issue) => issue.rule).sort(), ['referenced-skill', 'skill-checklist', 'skill-references']);
+  assert.deepEqual(issues, []);
+});
+
+test('validatePluginFile requires a checklist and valid referenced skills', () => {
+  const root = createFixture({
+    'skills/demo/SKILL.md': '---\nname: demo\ndescription: "Use for demo workflows. Triggers: demo."\n---\nSee the `real-skill` skill and the `missing-skill` skill.\n',
+    'skills/real-skill/SKILL.md': '---\nname: real-skill\ndescription: "Use for real workflows. Triggers: real."\n---\n## Checklist\n- [ ] Run\n',
+  });
+
+  const issues = validatePluginFile(root, path.join('skills', 'demo', 'SKILL.md'));
+  assert.deepEqual(issues.map((issue) => issue.rule).sort(), ['referenced-skill', 'skill-checklist']);
 });
 
 test('validatePluginFile accepts healthy files and ignores safe links', () => {
@@ -142,7 +194,7 @@ test('validateAgentsRoot returns only files with issues', () => {
   const results = validateAgentsRoot(root);
   assert.equal(results.length, 1);
   assert.equal(results[0].relativePath, 'skills/demo/SKILL.md');
-  assert.deepEqual(results[0].issues.map((issue) => issue.rule).sort(), ['description-triggers', 'skill-checklist', 'skill-references']);
+  assert.deepEqual(results[0].issues.map((issue) => issue.rule).sort(), ['description-triggers', 'skill-checklist']);
 });
 
 test('validateAgentsRoot skips clean files and validates unknown shapes without crashing', () => {

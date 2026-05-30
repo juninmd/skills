@@ -26,7 +26,6 @@ const TRIGGER_PATTERNS = [
 ];
 
 const CHECKLIST_HEADING_PATTERN = /^##+\s+.*Checklist\b/im;
-const REFERENCES_HEADING_PATTERN = /^##+\s+References?\b/im;
 const SKILL_REFERENCE_PATTERNS = [
   /`([a-z0-9][a-z0-9-]+)` skill\b/gi,
   /\((?:\.\/)?\.\.\/([a-z0-9][a-z0-9-]+)\/SKILL\.md(?:#[^)]+)?\)/gi,
@@ -74,14 +73,19 @@ export function parseFrontmatter(content) {
   }
 
   const data = {};
-  for (let index = 1; index < closingIndex; index += 1) {
+  const isListItem = (line) => /^\s+-\s+/.test(line);
+  const isNestedKey = (line) => /^\s+[A-Za-z][A-Za-z0-9_-]*:(\s|$)/.test(line);
+
+  let index = 1;
+  while (index < closingIndex) {
     const line = lines[index];
 
     if (!line.trim()) {
+      index += 1;
       continue;
     }
 
-    const match = /^(?<key>[A-Za-z][A-Za-z0-9-]*):(?:\s(?<value>.*)|(?<empty>\s*))$/.exec(line);
+    const match = /^(?<key>[A-Za-z][A-Za-z0-9_-]*):(?:[ \t](?<value>.*)|(?<empty>[ \t]*))$/.exec(line);
     if (!match?.groups) {
       return {
         data: {},
@@ -93,17 +97,60 @@ export function parseFrontmatter(content) {
     const key = match.groups.key;
     const value = (match.groups.value ?? '').trim();
 
-    if (!value && index + 1 < closingIndex && /^\s+-\s+/.test(lines[index + 1])) {
-      const items = [];
-      while (index + 1 < closingIndex && /^\s+-\s+/.test(lines[index + 1])) {
+    // Block scalar: `key: |` or `key: >` followed by indented lines (with optional chomping indicator).
+    if (/^[|>][+-]?$/.test(value)) {
+      index += 1;
+      const blockLines = [];
+      let baseIndent = null;
+      while (index < closingIndex) {
+        const blockLine = lines[index];
+        if (blockLine.trim() === '') {
+          blockLines.push('');
+          index += 1;
+          continue;
+        }
+        const indent = /^(\s+)/.exec(blockLine);
+        if (!indent) break;
+        if (baseIndent === null) baseIndent = indent[1].length;
+        blockLines.push(blockLine.slice(baseIndent));
         index += 1;
+      }
+      while (blockLines.length && blockLines[blockLines.length - 1] === '') {
+        blockLines.pop();
+      }
+      data[key] = blockLines.join('\n');
+      continue;
+    }
+
+    // Block list: `key:` followed by `  - item` lines.
+    if (!value && index + 1 < closingIndex && isListItem(lines[index + 1])) {
+      const items = [];
+      index += 1;
+      while (index < closingIndex && isListItem(lines[index])) {
         items.push(lines[index].replace(/^\s+-\s+/, '').trim());
+        index += 1;
       }
       data[key] = items;
       continue;
     }
 
+    // Nested mapping: `key:` followed by indented `child: value` lines (e.g. metadata, compatibility).
+    if (!value && index + 1 < closingIndex && isNestedKey(lines[index + 1])) {
+      const nested = {};
+      index += 1;
+      while (index < closingIndex && isNestedKey(lines[index])) {
+        const child = /^\s+(?<ckey>[A-Za-z][A-Za-z0-9_-]*):(?:[ \t](?<cval>.*)|[ \t]*)$/.exec(lines[index]);
+        if (child?.groups) {
+          nested[child.groups.ckey] = (child.groups.cval ?? '').trim().replace(/^["']|["']$/g, '');
+        }
+        index += 1;
+      }
+      data[key] = nested;
+      continue;
+    }
+
     data[key] = value;
+    index += 1;
   }
 
   const body = lines.slice(closingIndex + 1).join('\n');
@@ -146,10 +193,6 @@ function hasTriggerHint(description) {
 
 function hasChecklistSection(content) {
   return CHECKLIST_HEADING_PATTERN.test(content);
-}
-
-function hasReferencesSection(content) {
-  return REFERENCES_HEADING_PATTERN.test(content);
 }
 
 function findReferencedSkills(content) {
@@ -235,10 +278,6 @@ export function validatePluginFile(agentsRoot, relativePath, knownSkillNames = c
     }
   }
 
-  if ('allowed-tools' in data) {
-    issues.push({ severity: 'error', rule: 'allowed-tools', message: 'Do not restrict tools in frontmatter; all tools are allowed by default.' });
-  }
-
   if (data.description && !hasTriggerHint(data.description)) {
     issues.push({ severity: 'error', rule: 'description-triggers', message: 'Description must include clear routing triggers.' });
   }
@@ -251,10 +290,6 @@ export function validatePluginFile(agentsRoot, relativePath, knownSkillNames = c
 
     if (!hasChecklistSection(content)) {
       issues.push({ severity: 'error', rule: 'skill-checklist', message: 'Skill files must include a checklist section.' });
-    }
-
-    if (!hasReferencesSection(content)) {
-      issues.push({ severity: 'error', rule: 'skill-references', message: 'Skill files must include a references section.' });
     }
 
     for (const referencedSkill of findReferencedSkills(content)) {

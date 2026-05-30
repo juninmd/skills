@@ -1,0 +1,73 @@
+<svg width="1200" height="360" viewBox="0 0 1200 360" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="skills — AI coding skills that prove the code works. Quality gates: reproduce, test the unhappy paths, lint, run, homologate, ship with evidence.">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="360" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0a0f1e"/>
+      <stop offset="0.55" stop-color="#0d1a2b"/>
+      <stop offset="1" stop-color="#08130f"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="742" y1="60" x2="742" y2="320" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#22d3ee" stop-opacity="0.25"/>
+      <stop offset="0.5" stop-color="#34d399" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#34d399"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#34d399" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#34d399" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="34" height="34" patternUnits="userSpaceOnUse">
+      <path d="M34 0H0V34" fill="none" stroke="#ffffff" stroke-opacity="0.04" stroke-width="1"/>
+    </pattern>
+    <filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="360" fill="url(#bg)"/>
+  <rect width="1200" height="360" fill="url(#grid)"/>
+  <circle cx="980" cy="120" r="240" fill="url(#glow)" opacity="0.5"/>
+  <circle cx="742" cy="308" r="60" fill="url(#glow)" opacity="0.7"/>
+
+  <!-- Left: wordmark + tagline -->
+  <text x="70" y="98" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="15" letter-spacing="4.5" font-weight="600" fill="#34d399">PRODUCTION-GRADE AGENT SKILLS</text>
+  <text x="66" y="188" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="98" font-weight="800" letter-spacing="-2">
+    <tspan fill="#34d399">/</tspan><tspan fill="#f8fafc">skills</tspan>
+  </text>
+  <text x="72" y="236" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="24" font-weight="500" fill="#cbd5e1">Code that's proven to run —</text>
+  <text x="72" y="270" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="24" font-weight="500" fill="#cbd5e1">tested, untangled &amp; homologated before it ships.</text>
+
+  <text x="72" y="322" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#64748b">
+    <tspan fill="#94a3b8">86</tspan> skills<tspan fill="#475569">&#160;&#160;•&#160;&#160;</tspan><tspan fill="#94a3b8">4</tspan> agents<tspan fill="#475569">&#160;&#160;•&#160;&#160;</tspan><tspan fill="#94a3b8">21</tspan> rules<tspan fill="#475569">&#160;&#160;•&#160;&#160;</tspan><tspan fill="#94a3b8">4</tspan> prompts<tspan fill="#475569">&#160;&#160;•&#160;&#160;</tspan>MIT</text>
+
+  <!-- Right: quality-gate timeline -->
+  <line x1="742" y1="74" x2="742" y2="308" stroke="url(#accent)" stroke-width="3"/>
+
+  <!-- Gate 1 -->
+  <circle cx="742" cy="82" r="13" fill="#0f2a22" stroke="#34d399" stroke-width="2"/>
+  <path d="M737 82 L740.5 85.5 L747.5 77.5" fill="none" stroke="#34d399" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="772" y="88" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="21" font-weight="500" fill="#e2e8f0">Reproduce the failure first</text>
+
+  <!-- Gate 2 -->
+  <circle cx="742" cy="128" r="13" fill="#0f2a22" stroke="#34d399" stroke-width="2"/>
+  <path d="M737 128 L740.5 131.5 L747.5 123.5" fill="none" stroke="#34d399" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="772" y="134" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="21" font-weight="500" fill="#e2e8f0">Test the unhappy paths</text>
+
+  <!-- Gate 3 -->
+  <circle cx="742" cy="174" r="13" fill="#0f2a22" stroke="#34d399" stroke-width="2"/>
+  <path d="M737 174 L740.5 177.5 L747.5 169.5" fill="none" stroke="#34d399" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="772" y="180" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="21" font-weight="500" fill="#e2e8f0">Lint &amp; type-check clean</text>
+
+  <!-- Gate 4 -->
+  <circle cx="742" cy="220" r="13" fill="#0f2a22" stroke="#34d399" stroke-width="2"/>
+  <path d="M737 220 L740.5 223.5 L747.5 215.5" fill="none" stroke="#34d399" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="772" y="226" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="21" font-weight="500" fill="#e2e8f0">Run it — smoke critical paths</text>
+
+  <!-- Gate 5 -->
+  <circle cx="742" cy="266" r="13" fill="#0f2a22" stroke="#34d399" stroke-width="2"/>
+  <path d="M737 266 L740.5 269.5 L747.5 261.5" fill="none" stroke="#34d399" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="772" y="272" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="21" font-weight="500" fill="#e2e8f0">Homologate on staging</text>
+
+  <!-- Gate 6: Ship (highlighted) -->
+  <circle cx="742" cy="308" r="16" fill="#34d399"/>
+  <path d="M735 308 L740 313 L750 301" fill="none" stroke="#08130f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="775" y="315" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="23" font-weight="700" fill="#6ee7b7">Ship with reproducible evidence</text>
+</svg>

@@ -1,7 +1,7 @@
 ﻿# Skills Directory (2026)
 
 **Last Updated**: May 30, 2026  
-**Total Skills**: 82  
+**Total Skills**: 86  
 **Status**: All High Compliance, Microsoft Waza validated
 
 Complete categorized listing of all available agent skills.
@@ -49,6 +49,17 @@ extjs-dev | Next.js 16+, App Router | Turbopack, Server Actions |
 | ndroid-native-dev | Kotlin, Jetpack Compose | Gradle, Material 3, Hilt |
 | developing-android-native | Android development | Coroutines, MVVM, Room |
 | ios-application-dev | Swift, SwiftUI | UIKit, Auto Layout, system integration |
+
+## Testing & Verification (6 skills)
+
+| Skill | Focus | Key Tools |
+|-------|-------|-----------|
+| verifying-changes | Prove a change runs before "done"; homologation gates | smoke, reproduce-before-fix, evidence |
+| engineering-test-scenarios | Design unhappy-path tests (boundary, null, race, timeout, fault) | BVA, equivalence partitioning, fault injection |
+| untangling-spaghetti-code | Detect & remediate spaghetti behind characterization tests | cyclomatic/cognitive complexity, strangler-fig |
+| test-driven-development | Red/green/refactor with vertical slices | vitest, pytest |
+| generative-testing | Property-based, mutation, fuzz testing | Hypothesis, Stryker, jqwik |
+| contract-testing | Consumer-driven API contracts | OpenAPI 3.1, Pact |
 
 ## Quick Reference by Use Case
 
