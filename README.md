@@ -32,7 +32,7 @@ The core is [`AGENTS.md`](./AGENTS.md): a compact operating contract that forces
 
 | Capability | Count | What you get |
 |---|---:|---|
-| [Skills](#skills) | 62 | Domain playbooks for Node, Python, React, Docker, mobile, cloud, databases, testing, and more |
+| [Skills](#skills) | 72 | Domain playbooks for Node, Python, React, Docker, mobile, cloud, databases, security, observability, testing, AI-assisted review, performance profiling, and more |
 | [Agents](#agents) | 4 | Focused assistants for review, architecture, DevOps, and planning |
 | [Prompts](#prompts) | 4 | Ready-to-use workflows for explain, refactor, tests, and Dockerfiles |
 | [Rules](#rules) | 15 | Always-on engineering standards for security, testing, naming, privacy, and delivery |
