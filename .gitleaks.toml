@@ -1,0 +1,8 @@
+# .gitleaks.toml
+[allowlist]
+paths = [
+  '''^\.agents/''',
+  '''^\.claude/''',
+  '''^\.claude-plugin/''',
+  '''^docs/'''
+]
