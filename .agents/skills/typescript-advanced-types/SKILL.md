@@ -8,6 +8,7 @@ description: |
 license: MIT
 metadata:
   version: 1.0.0
+  token_budget_exception: "Slight overage preserves advanced type examples and constraints."
 compatibility:
   platforms: "any"
 allowed-tools: [read_file, write_file]

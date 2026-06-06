@@ -359,9 +359,14 @@ On top of that, **21 always-on rules** apply to every task — including `securi
 ## Validate
 
 ```bash
-pnpm install
-pnpm run validate     # checks plugin metadata + every agent/skill file
+pnpm install --frozen-lockfile
+pnpm run validate       # metadata, routing, word budgets, eval coverage, catalog, tests
+pnpm run docs:build     # verifies the published documentation
 ```
+
+New skills require two positive routing cases and one negative case under
+`.agents/skills/evals/<skill>/`. Run `pnpm run evals:generate` to scaffold
+missing cases, then replace generic prompts with domain-specific scenarios.
 
 ---
 

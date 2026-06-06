@@ -26,6 +26,8 @@ const TRIGGER_PATTERNS = [
 ];
 
 const CHECKLIST_HEADING_PATTERN = /^##+\s+.*Checklist\b/im;
+const ROUTING_MARKERS = ['USE FOR:', 'DO NOT USE FOR:', 'INVOKES:'];
+const DEFAULT_SKILL_WORD_LIMIT = 500;
 const SKILL_REFERENCE_PATTERNS = [
   /`([a-z0-9][a-z0-9-]+)` skill\b/gi,
   /\((?:\.\/)?\.\.\/([a-z0-9][a-z0-9-]+)\/SKILL\.md(?:#[^)]+)?\)/gi,
@@ -195,6 +197,10 @@ function hasChecklistSection(content) {
   return CHECKLIST_HEADING_PATTERN.test(content);
 }
 
+function countWords(content) {
+  return content.match(/\S+/g)?.length ?? 0;
+}
+
 function findReferencedSkills(content) {
   const references = new Set();
 
@@ -290,6 +296,24 @@ export function validatePluginFile(agentsRoot, relativePath, knownSkillNames = c
 
     if (!hasChecklistSection(content)) {
       issues.push({ severity: 'error', rule: 'skill-checklist', message: 'Skill files must include a checklist section.' });
+    }
+
+    if (/^description:\s*[|>][+-]?\s*$/m.test(content)) {
+      for (const marker of ROUTING_MARKERS) {
+        if (!data.description.includes(marker)) {
+          issues.push({ severity: 'error', rule: 'skill-routing', message: `Description must include ${marker}` });
+        }
+      }
+    }
+
+    const wordCount = countWords(content);
+    const budgetException = data.metadata?.token_budget_exception;
+    if (wordCount > DEFAULT_SKILL_WORD_LIMIT && !budgetException) {
+      issues.push({
+        severity: 'error',
+        rule: 'skill-word-limit',
+        message: `Skill has ${wordCount} words; limit is ${DEFAULT_SKILL_WORD_LIMIT}. Move details to references or document metadata.token_budget_exception.`,
+      });
     }
 
     for (const referencedSkill of findReferencedSkills(content)) {

@@ -2,9 +2,9 @@
 name: modern-python
 description: |
   **DEVELOPMENT SKILL** - Build modern Python apps with uv and Ruff.
-  USE FOR: uv init, pyproject.toml, uv deps, Ruff linting, ty type checking, migration.
-  DO NOT USE FOR: Python older than 3.11, manual venv, legacy setup.py.
-  INVOKES: uv, ruff, ty.
+  USE FOR: Python toolchain setup, uv migration, pyproject.toml, dependency management, Ruff, and ty configuration.
+  DO NOT USE FOR: application feature implementation (use developing-python), Python older than 3.11, manual venv.
+  INVOKES: developing-python, uv, ruff, ty.
 license: MIT
 metadata:
   version: 1.0.0

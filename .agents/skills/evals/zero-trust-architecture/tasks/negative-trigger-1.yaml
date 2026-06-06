@@ -1,0 +1,17 @@
+id: negative-trigger-001
+name: Negative Trigger 1
+description: Generated negative-trigger routing task.
+tags:
+  - negative-trigger
+inputs:
+  prompt: "SSL certificate management (use managing-cloud-infrastructure)"
+expected:
+  should_trigger: false
+graders:
+  - type: text
+    name: omits-skill-keywords
+    config:
+      not_contains:
+        - "zero"
+        - "trust"
+        - "architecture"

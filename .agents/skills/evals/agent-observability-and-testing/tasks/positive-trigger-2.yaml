@@ -1,0 +1,18 @@
+id: positive-trigger-002
+name: Positive Trigger 2
+description: Generated positive-trigger routing task.
+tags:
+  - positive-trigger
+inputs:
+  prompt: "agent loop tracing"
+expected:
+  should_trigger: true
+graders:
+  - type: text
+    name: contains-keywords
+    config:
+      contains:
+        - "agent"
+        - "observability"
+        - "and"
+        - "testing"

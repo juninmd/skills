@@ -8,6 +8,7 @@ description: |
 license: MIT
 metadata:
   version: 1.0.0
+  token_budget_exception: "Failure scenario taxonomy requires concrete invariant examples."
 compatibility:
   platforms: "any"
 allowed-tools: [read_file, write_file, replace, run_shell_command]

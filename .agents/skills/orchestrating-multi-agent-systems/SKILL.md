@@ -8,6 +8,7 @@ description: |
 license: MIT
 metadata:
   version: 1.0.0
+  token_budget_exception: "Multi-agent orchestration requires topology, coordination, and failure controls."
 compatibility:
   platforms: "any"
 allowed-tools: [read_file, write_file]

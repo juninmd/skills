@@ -1,0 +1,18 @@
+id: negative-trigger-001
+name: Negative Trigger 1
+description: Generated negative-trigger routing task.
+tags:
+  - negative-trigger
+inputs:
+  prompt: "single-agent development (use developing-ai-agents)"
+expected:
+  should_trigger: false
+graders:
+  - type: text
+    name: omits-skill-keywords
+    config:
+      not_contains:
+        - "orchestrating"
+        - "multi"
+        - "agent"
+        - "systems"

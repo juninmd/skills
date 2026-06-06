@@ -2,9 +2,9 @@
 name: developing-python
 description: |
   **DEVELOPMENT SKILL** - Build modern Python applications using uv and Ruff.
-  USE FOR: Python 3.13+, uv package management, Ruff linting/formatting, Pyright type checking, pytest-asyncio, FastAPI.
-  DO NOT USE FOR: Python 2.x, legacy pip-only workflows (without uv), heavy frontend development.
-  INVOKES: uv, ruff, pyright, pytest.
+  USE FOR: implementing Python application logic, async services, FastAPI, pytest, and strict Pyright typing.
+  DO NOT USE FOR: toolchain migration or pyproject modernization (use modern-python), Python 2.x, frontend development.
+  INVOKES: modern-python, uv, ruff, pyright, pytest.
 license: MIT
 metadata:
   version: 1.0.0

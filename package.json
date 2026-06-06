@@ -5,8 +5,11 @@
   "scripts": {
     "plugin:validate": "node .agents/tools/validate-plugin.mjs",
     "agents:validate": "node .agents/tools/validate-agents.mjs .agents",
-    "benchmark:agents": "node .agents/benchmarks/agent-effectiveness.benchmark.mjs",
-    "validate": "pnpm run plugin:validate && pnpm run agents:validate",
+    "evals:generate": "node .agents/tools/generate-evals.mjs .agents",
+    "evals:validate": "node .agents/tools/validate-evals.mjs .agents",
+    "catalog:check": "node .agents/tools/check-catalog.mjs",
+    "test:validators": "node --test .agents/tools/*.test.mjs",
+    "validate": "pnpm run plugin:validate && pnpm run agents:validate && pnpm run evals:validate && pnpm run catalog:check && pnpm run test:validators",
     "docs:dev": "npx vitepress dev docs",
     "docs:build": "npx vitepress build docs",
     "docs:preview": "npx vitepress preview docs"

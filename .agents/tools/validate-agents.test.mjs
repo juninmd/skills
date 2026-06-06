@@ -145,7 +145,10 @@ test('validatePluginFile accepts the repository skill convention (block scalar +
       '---',
       'name: demo',
       'description: |',
-      '  **DEMO SKILL** - Use for demo workflows. Triggers: demo.',
+      '  **DEMO SKILL** - Demo workflows.',
+      '  USE FOR: demos.',
+      '  DO NOT USE FOR: production changes.',
+      '  INVOKES: demo tools.',
       'license: MIT',
       'metadata:',
       '  version: 1.0.0',
@@ -162,6 +165,28 @@ test('validatePluginFile accepts the repository skill convention (block scalar +
 
   const issues = validatePluginFile(root, path.join('skills', 'demo', 'SKILL.md'));
   assert.deepEqual(issues, []);
+});
+
+test('validatePluginFile enforces routing markers and skill word budget', () => {
+  const oversizedBody = Array.from({ length: 501 }, () => 'word').join(' ');
+  const root = createFixture({
+    'skills/demo/SKILL.md': [
+      '---',
+      'name: demo',
+      'description: |',
+      '  USE FOR: demos.',
+      '---',
+      '## Checklist',
+      '- [ ] Validate',
+      oversizedBody,
+    ].join('\n'),
+  });
+
+  const issues = validatePluginFile(root, path.join('skills', 'demo', 'SKILL.md'));
+  assert.deepEqual(
+    issues.map((issue) => issue.rule).sort(),
+    ['skill-routing', 'skill-routing', 'skill-word-limit'],
+  );
 });
 
 test('validatePluginFile requires a checklist and valid referenced skills', () => {
