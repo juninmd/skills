@@ -4,7 +4,7 @@ layout: home
 hero:
   name: "Agent Plugins"
   text: "Skills, Agents & Rules"
-  tagline: Extend your AI coding assistant with production-grade engineering knowledge — 86 skills, 4 agents, 21 rules, 4 prompt templates.
+  tagline: Extend your AI coding assistant with production-grade engineering knowledge — 100 skills, 4 agents, 21 rules, 4 prompt templates.
   actions:
     - theme: brand
       text: Get Started

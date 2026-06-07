@@ -4,11 +4,11 @@
 
 <h3>AI coding skills that don't just write code — they prove it works.</h3>
 
-<p><strong>86 skills · 4 agents · 21 rules · 4 prompts</strong> that turn a generic AI assistant into a disciplined engineer who reproduces failures, tests the unhappy paths, untangles spaghetti, and refuses to say <em>“done”</em> without reproducible evidence.</p>
+<p><strong>100 skills · 4 agents · 21 rules · 4 prompts</strong> that turn a generic AI assistant into a disciplined engineer who reproduces failures, tests the unhappy paths, untangles spaghetti, and refuses to say <em>“done”</em> without reproducible evidence.</p>
 
 <p>
 <img src="https://img.shields.io/github/stars/juninmd/skills?style=for-the-badge&color=34d399&labelColor=0d1a2b" alt="GitHub stars" />
-<img src="https://img.shields.io/badge/skills-86-34d399?style=for-the-badge&labelColor=0d1a2b" alt="86 skills" />
+<img src="https://img.shields.io/badge/skills-86-34d399?style=for-the-badge&labelColor=0d1a2b" alt="100 skills" />
 <img src="https://img.shields.io/badge/agents-4-38bdf8?style=for-the-badge&labelColor=0d1a2b" alt="4 agents" />
 <img src="https://img.shields.io/badge/license-MIT-a78bfa?style=for-the-badge&labelColor=0d1a2b" alt="MIT license" />
 </p>

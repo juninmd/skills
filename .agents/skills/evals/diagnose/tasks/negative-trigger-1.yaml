@@ -1,0 +1,15 @@
+id: negative-trigger-001
+name: Negative Trigger 1
+description: Auto-generated negative-trigger task.
+tags:
+  - negative-trigger
+inputs:
+  prompt: "implement this feature"
+expected:
+  should_trigger: false
+graders:
+  - type: text
+    name: no-skill-invocation
+    config:
+      not_contains:
+        - "diagnose"

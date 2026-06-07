@@ -17,7 +17,7 @@ On-demand domain knowledge modules. Each skill is a focused knowledge set that l
 | [Git & Workflow](./git-workflow) | 6 | Cleanup, Worktrees, Gitleaks, Triage |
 | [Specialized](./specialized) | 9 | Accessibility, Networking, RabbitMQ, APK scanning |
 
-**Total: 86 skills**
+**Total: 100 skills**
 
 ## How Skills Work
 
