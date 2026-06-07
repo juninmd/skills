@@ -8,6 +8,7 @@
     "evals:generate": "node .agents/tools/generate-evals.mjs .agents",
     "evals:validate": "node .agents/tools/validate-evals.mjs .agents",
     "catalog:check": "node .agents/tools/check-catalog.mjs",
+    "pr:check": "node .agents/tools/pr-skill-checks.mjs",
     "test:validators": "node --test .agents/tools/*.test.mjs",
     "validate": "pnpm run plugin:validate && pnpm run agents:validate && pnpm run evals:validate && pnpm run catalog:check && pnpm run test:validators",
     "docs:dev": "npx vitepress dev docs",

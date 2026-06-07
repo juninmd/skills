@@ -8,3 +8,5 @@ temp/
 !.env.example
 .DS_Store
 *.local
+pr-comment.md
+

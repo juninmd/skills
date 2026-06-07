@@ -40,7 +40,7 @@ Implementation details for thinking, simplicity, and surgical precision are docu
 3. **Verification:** Changes are incomplete until behavioral correctness is proven.
 
 ## Checklist
-- [ ] Explicitly state assumptions and success criteria before implemention.
+- [ ] Explicitly state assumptions and success criteria before implementation.
 - [ ] Minimize the change surface to only the lines required for the task.
 - [ ] Ensure all edits match the existing codebase style and formatting.
 - [ ] Verify that your changes did not introduce new orphans or unused code.
