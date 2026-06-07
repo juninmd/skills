@@ -1,4 +1,4 @@
-﻿name: Validate
+name: Validate
 on:
   pull_request:
   push:
@@ -9,15 +9,49 @@ concurrency:
 jobs:
   check:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+        with:
+          fetch-depth: 0
+
+      - name: Spell check skills
+        uses: streetsidesoftware/cspell-action@de2a73e963e7443969755b648a1008f77033c5b2 # v8.4.0
+        with:
+          files: ".agents/skills/**/*.md"
+
+      - name: Link check skills
+        uses: lycheeverse/lychee-action@f613c4a64e50d792e0b31ec34bbcbba12263c6a6 # v2.3.0
+        with:
+          args: --offline ".agents/skills/**/*.md"
+
       - uses: pnpm/action-setup@f40ffcd9367d9f12939873eb1018b921a783ffaa
         with:
           version: 10
+
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version: 24
           cache: pnpm
+
       - run: pnpm install --frozen-lockfile
       - run: pnpm run validate
       - run: pnpm run docs:build
+
+      - name: PR Skill completeness check and diff
+        if: github.event_name == 'pull_request'
+        run: pnpm run pr:check
+        env:
+          GITHUB_BASE_REF: ${{ github.base_ref }}
+
+      - name: Comment PR with Skill changes
+        if: github.event_name == 'pull_request' && (success() || failure())
+        run: |
+          if [ -f pr-comment.md ]; then
+            gh pr comment ${{ github.event.pull_request.number }} -F pr-comment.md
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
