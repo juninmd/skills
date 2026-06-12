@@ -1,10 +1,6 @@
 ---
 name: ai-code-review
-description: |
-  **DEVELOPMENT SKILL** - Leverage AI-assisted code review automation and diff analysis.
-  USE FOR: identifying bugs, style violations, performance issues, security concerns, suggesting refactors, consistency checks in diffs.
-  DO NOT USE FOR: architectural reviews (use improving-codebase-architecture), feature approval (requires human judgment), test coverage (use test-driven-development).
-  INVOKES: auditing-code, security-scanning, applying-clean-code, test-driven-development.
+description: "AI-Assisted Code Review for Identifying potential, Detecting security, Flagging performance via auditing-code, security-scanning."
 license: MIT
 metadata:
   version: 1.0.0
@@ -42,14 +38,15 @@ Professional guidance for using AI models and automation to augment code review 
 
 1. **Automated Pre-Review (Immediate)**
    - Lint checks, type safety, null safety.
-   - Security baseline checks (secrets, SQL injection patterns).
+   - Run ultra-fast linters first: `ruff` (Python), `biome` (JS/TS).
+   - Security baseline checks: `bandit`, `pnpm audit`, `gitleaks`.
    - Performance red flags (cycles in dependencies, large allocations).
    - Format and convention violations.
 
 2. **Diff-Based Analysis**
    - Analyze changed lines in context of entire function.
-   - Compare with similar patterns in codebase.
-   - Flag breaking changes to public APIs.
+   - Flag functions with Cyclomatic Complexity > 10 for refactoring.
+   - Detect design violations, missing error handling, and code smells.
    - Detect added technical debt.
 
 3. **Issue Classification**
@@ -63,13 +60,9 @@ Professional guidance for using AI models and automation to augment code review 
    - Reference similar working patterns in codebase.
 
 ## Best Practices
-
-- **Always require human review** for security and architectural changes.
-- **Feed AI context:** Full functions, related files, test cases—not isolated diffs.
-- **Classify findings by risk:** Distinguish blockers from suggestions.
-- **Learn from patterns:** If AI flags a pattern 10 times, add linting rule.
-- **Reduce false positives:** Tune prompts or rules that generate >30% false positives.
-- **Document decisions:** Why a pattern was accepted or rejected.
+- **Fix First:** Always run tools with auto-fix flags (`--fix`, `--write`) before reporting results.
+- **Context Detection:** Automatically detect project language and select appropriate toolset.
+- **Severity Classification:** Classify findings by severity: blocker (security), high (design), medium (style).
 
 ## Checklist
 

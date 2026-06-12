@@ -1,10 +1,6 @@
 ---
 name: cli-development
-description: |
-  **TOOLING SKILL** - Build production-grade CLIs with modern async/await patterns, argument parsing, and user experience.
-  USE FOR: modern CLI design (commander, yargs, clap), progress bars, interactive prompts, piping, help text, exit codes.
-  DO NOT USE FOR: shell scripting (use bash), GUI applications, simple node scripts without error handling.
-  INVOKES: commander, yargs, click, typer, clap, developing-tooling, test-driven-development.
+description: "Modern CLI Development for Designing CLI, Implementing interactive, Handling stdin/stdout via commander."
 license: MIT
 metadata:
   version: 1.0.0

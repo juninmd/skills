@@ -1,10 +1,6 @@
 ---
 name: pnpm
-description: |
-  **PACKAGE MANAGER SKILL** - Efficiently manage Node.js dependencies and monorepos using pnpm.
-  USE FOR: pnpm, workspaces, frozen lockfiles, dependency overrides/patches, catalogs, disk space.
-  DO NOT USE FOR: non-Node.js packages, pure backend logic, cloud infrastructure.
-  INVOKES: pnpm cli, pnpm-workspace.yaml, .npmrc.
+description: "pnpm Management for Designing monorepos, Managing dependencies, Optimizing CI/CD via pnpm install."
 license: MIT
 metadata:
   version: 1.0.0

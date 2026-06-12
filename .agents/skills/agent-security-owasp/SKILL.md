@@ -1,10 +1,6 @@
 ---
 name: agent-security-owasp
-description: |
-  **SECURITY SKILL** - Secure agentic AI systems against OWASP LLM Top 10 threats.
-  USE FOR: prompt injection prevention, tool permission isolation, supply chain security (AI-BOM), HITL checkpoints, agentic threat modeling, instruction injection defenses.
-  DO NOT USE FOR: general application security (use security-scanning), infrastructure hardening (use managing-cloud-infrastructure), data encryption at rest (use zero-trust-architecture).
-  INVOKES: security-scanning, zero-trust-architecture, ai-code-review, test-driven-development.
+description: "Agent Security & OWASP LLM Top 10 for Defending against, Implementing tool, Validating system via security-scanning, zero-trust-architecture."
 license: MIT
 metadata:
   version: 1.0.0

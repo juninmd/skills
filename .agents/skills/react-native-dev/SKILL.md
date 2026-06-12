@@ -1,10 +1,6 @@
 ---
 name: react-native-dev
-description: |
-  **DEVELOPMENT SKILL** - Build mobile apps with React Native and Expo Router.
-  USE FOR: Expo managed workflow, Expo Router, FlashList, Reanimated 3, TanStack Query, Zustand, EAS builds.
-  DO NOT USE FOR: native-only (Kotlin/Swift), pure web, 3D games.
-  INVOKES: expo cli, eas, react-native.
+description: "React Native & Expo Guide for Designing mobile, Optimizing lists, Implementing GPU-accelerated via npx expo."
 license: MIT
 metadata:
   version: 1.0.0

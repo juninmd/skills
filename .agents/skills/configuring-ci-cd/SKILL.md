@@ -1,10 +1,6 @@
 ---
 name: configuring-ci-cd
-description: |
-  **DEVOPS SKILL** - Configure and optimize CI/CD pipelines for GitHub and GitLab.
-  USE FOR: GitHub Actions, GitLab CI, pipeline configuration, YAML workflows, caching dependencies, automated testing, deployment gates.
-  DO NOT USE FOR: infrastructure as code (use managing-iac), cloud provider configuration (use managing-cloud-infrastructure).
-  INVOKES: github-actions-docs, security-scanning, managing-cloud-infrastructure.
+description: "Configuring CI/CD Pipelines for Authoring and, Implementing 'fail-fast', Optimizing pipeline via YAML configuration for GitHub Actions and GitLab CI."
 license: MIT
 metadata:
   version: 1.0.0

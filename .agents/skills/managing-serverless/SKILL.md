@@ -1,10 +1,6 @@
 ---
 name: managing-serverless
-description: |
-  **ARCHITECTURE SKILL** - Design and optimize serverless and edge workloads.
-  USE FOR: AWS Lambda, Cloudflare Workers, Vercel deployments, cold start optimization, event-driven architecture, serverless state management, idempotency patterns.
-  DO NOT USE FOR: long-running background processes (non-FaaS), heavy JVM/CLR runtimes (unless unavoidable), managing VPC infrastructure (use managing-cloud-infrastructure).
-  INVOKES: serverless client initialization, conditional data writes.
+description: "Managing Serverless Architecture for Selecting the, Implementing cold, Designing event-driven via Function handler patterns and cloud-provider specific optimization checklists."
 license: MIT
 metadata:
   version: 1.0.0

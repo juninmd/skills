@@ -1,10 +1,6 @@
 ---
 name: developing-node
-description: |
-  **DEVELOPMENT SKILL** - Build and manage modern Node.js applications.
-  USE FOR: dependency management (pnpm/npm), JS/TS build automation, lockfile reconciliation, pnpm migrations, Biome linting, Vite/SWC configurations.
-  DO NOT USE FOR: client-side-only tasks (without build context), non-JS scripting (use developing-python/developing-go).
-  INVOKES: pnpm, npm, npx, node, biome.
+description: "Node.js Development for Managing project, Implementing fast, Configuring modern via node."
 license: MIT
 metadata:
   version: 1.0.0
@@ -40,6 +36,14 @@ Implementation details for setup, operations, and troubleshooting are documented
 1. **Efficiency:** Prefer `pnpm` for its speed and content-addressable storage.
 2. **Determinism:** Always use lockfiles (`pnpm-lock.yaml`) and exact versions (`npm ci`).
 3. **Speed:** Utilize SWC and Biome to minimize feedback loops.
+
+## Development Standards
+1. **Architecture & Delivery Principles:**
+   - **Module boundaries:** Prefer clear modular boundaries; avoid cyclic dependencies.
+   - **Transport isolation:** Keep business rules out of HTTP/CLI adapters. Controllers/handlers should delegate to services, never contain logic.
+   - **Minimal abstractions:** Use the smallest viable abstraction. Remove speculative complexity (YAGNI).
+2. **Asynchronous Programming:**
+   - **Async/Await:** Check that asynchronous operations use `async/await` and handle Promise rejections appropriately. Avoid using raw `.then().catch()` chains unless absolutely necessary.
 
 ## Checklist
 - [ ] Inspect `package.json` and lockfiles before changing dependencies.

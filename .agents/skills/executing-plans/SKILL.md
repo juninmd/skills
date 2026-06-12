@@ -1,10 +1,6 @@
 ---
 name: executing-plans
-description: |
-  **STRATEGY SKILL** - Execute implementation plans, temporary specs, or task checklists.
-  USE FOR: following a plan, implementing a spec, executing a checklist, task-by-task implementation, continuing from design.
-  DO NOT USE FOR: creating a new plan (use spec-first-design), high-level architecture decisions, generic bug fixing (without a plan).
-  INVOKES: implementation checklists, incremental validation.
+description: "Executing Plans for Executing multi-step, Following task-by-task, Continuing work via Incremental validation loops and task-based checklists."
 license: MIT
 metadata:
   version: 1.0.0

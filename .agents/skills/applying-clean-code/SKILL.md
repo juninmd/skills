@@ -1,10 +1,6 @@
 ---
 name: applying-clean-code
-description: |
-  **CODE QUALITY SKILL** - Apply Clean Code principles to production code.
-  USE FOR: naming conventions, function length/complexity, abstraction levels, code reviews, refactoring guidance, identifying technical debt.
-  DO NOT USE FOR: performance optimization (use performance-profiling), architectural patterns (use improving-codebase-architecture), testing (use test-driven-development).
-  INVOKES: improving-codebase-architecture, untangling-spaghetti-code, auditing-code, test-driven-development, validating-typescript.
+description: "Applying Clean Code for Evaluating code, Identifying functions, Detecting abstraction via improving-codebase-architecture, auditing-code."
 license: MIT
 metadata:
   version: 1.0.0
@@ -67,6 +63,43 @@ Professional guidance for writing code that is readable, maintainable, and minim
 6. **Errors Should Be Exceptions, Not Return Codes**
    - Propagate errors cleanly; don't use magic values or tuples.
    - Use strongly-typed error objects.
+
+7. **Error Handling Best Practices**
+   - **Typed Errors:** Create specific error classes (e.g., `AppError` extending `Error` with `code` and `statusCode`).
+   - **Preserve Cause:** Always include the original error cause or context when re-throwing.
+   - **Result Pattern:** Use a Result type (e.g., `{ success: true, data: T } | { success: false, error: E }`) for *expected* domain failures.
+   - **Rules:** Never swallow exceptions silently. Include correlation IDs. Log errors once at the appropriate boundary. Retry transient failures with a circuit breaker.
+
+## Coding Standards & Limits
+- **File lines:** 200 max.
+- **Function lines:** 25 max.
+- **Nesting depth:** 3 levels max.
+- **Function parameters:** 5 max (use typed objects for more).
+
+## Naming Conventions by Language
+| Language | Variables/Functions | Classes | Constants |
+|----------|--------------------|---------|-----------|
+| Go | `camelCase` | `PascalCase` | `ALL_CAPS` or `PascalCase` |
+| Java/Kotlin | `camelCase` | `PascalCase` | `UPPER_SNAKE_CASE` |
+| C# | `camelCase` (local), `PascalCase` (public) | `PascalCase` | `PascalCase` |
+| Ruby | `snake_case` | `PascalCase` | `UPPER_SNAKE_CASE` |
+| PHP | `camelCase` (methods), `snake_case` (vars) | `PascalCase` | `UPPER_SNAKE_CASE` |
+
+## File & Directory Naming (TS/JS Ecosystem)
+| Type | Convention | Example |
+|---|---|---|
+| React Components | `kebab-case.tsx` | `user-profile.tsx` |
+| Hooks | `use-kebab-case.ts` | `use-auth-session.ts` |
+| Services / Utilities | `kebab-case.ts` | `format-currency.ts` |
+| Types / Interfaces | `kebab-case.ts` | `api-response.ts` |
+| Directories | `kebab-case/` | `user-profile/` |
+
+## TypeScript Identifiers
+- **Components:** PascalCase export (`export function UserProfile() {}`)
+- **Hooks:** always `use` prefix (`export function useAuthSession() {}`)
+- **Constants:** `UPPER_SNAKE_CASE`
+- **Booleans:** `is/has/can/should` prefix (`isLoading`, `hasPermission`)
+- **Event handlers:** `on` prefix for props (`onClick={onSubmit}`); `handle` for implementations (`function handleSubmit() {}`)
 
 ## Checklist
 

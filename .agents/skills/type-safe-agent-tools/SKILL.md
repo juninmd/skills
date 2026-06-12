@@ -1,10 +1,6 @@
 ---
 name: type-safe-agent-tools
-description: |
-  **TYPESCRIPT SKILL** - Design type-safe agent tools using branded types and schema inference.
-  USE FOR: branded types for tool IDs, IIMT patterns for tool schemas, const type parameters, discriminated unions for state, type-driven tool definition.
-  DO NOT USE FOR: general TypeScript patterns (use typescript-advanced-types), tool runtime validation (use agent-observability-and-testing), system prompts (use developing-ai-agents).
-  INVOKES: typescript-advanced-types, developing-ai-agents, agent-observability-and-testing.
+description: "Type-Safe Agent Tools for Creating branded, Using IIMT, Preserving literal via typescript-advanced-types, developing-ai-agents."
 license: MIT
 metadata:
   version: 1.0.0

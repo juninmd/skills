@@ -1,10 +1,6 @@
 ---
 name: using-git-worktrees
-description: |
-  **GIT SKILL** - Create and manage isolated workspaces with Git worktrees.
-  USE FOR: branch isolation, concurrent feature development, setting up clean build environments, avoiding branch switching, git worktree management.
-  DO NOT USE FOR: basic git clone, managing remote branches, finishing/merging work (use finishing-a-development-branch).
-  INVOKES: git worktree, .gitignore updates, baseline test runs.
+description: "Using Git Worktrees for Setting up, Ensuring worktree, Automating environment via git worktree add."
 license: MIT
 metadata:
   version: 1.0.0

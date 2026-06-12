@@ -1,10 +1,6 @@
 ---
 name: generative-testing
-description: |
-  **QA SKILL** - Generate test cases using property-based testing, mutation testing, and coverage analysis.
-  USE FOR: property-based testing (Hypothesis, QuickCheck), mutation testing, data-driven fuzz testing, coverage validation.
-  DO NOT USE FOR: manual test case writing (use test-driven-development), UI testing, end-to-end scenarios.
-  INVOKES: hypothesis, pytest-mutagen, stryker, vitest, jqwik, test-driven-development.
+description: "Generative Testing & Mutation Analysis for Defining invariants, Mutating code, Fuzzing untrusted via hypothesis."
 license: MIT
 metadata:
   version: 1.0.0

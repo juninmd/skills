@@ -1,10 +1,6 @@
 ---
 name: ios-application-dev
-description: |
-  **DEVELOPMENT SKILL** - Build native iOS apps with Swift, SwiftUI, and UIKit.
-  USE FOR: iOS dev, Swift, SwiftUI, UIKit, Auto Layout, iOS a11y, system integration.
-  DO NOT USE FOR: hybrid/web mobile (Flutter/RN), Android, macOS-only features.
-  INVOKES: xcodebuild, swift.
+description: "iOS Application Development Guide for Implementing interfaces, Managing layouts, Integrating system via swift."
 license: MIT
 metadata:
   version: 1.0.0

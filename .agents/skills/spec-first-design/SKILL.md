@@ -1,10 +1,6 @@
 ---
 name: spec-first-design
-description: |
-  **STRATEGY SKILL** - Create validated design specs and implementation plans before code changes.
-  USE FOR: brainstorming, planning non-trivial tasks, clarifying requirements, validating design choices, task-by-task execution plans.
-  DO NOT USE FOR: trivial code edits, direct implementation without planning, creating permanent documentation. For PRD output targeting an issue tracker use to-prd. For breaking into issues use to-issues.
-  INVOKES: temporary design specs, implementation checklists.
+description: "Spec-First Design for Designing new, Planning complex, Resolving requirement via temp/specs/YYYY-MM-DD-<topic>-design.md."
 license: MIT
 metadata:
   version: 1.1.0

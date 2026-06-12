@@ -1,10 +1,6 @@
 ---
 name: managing-cloud-infrastructure
-description: |
-  **ARCHITECTURE SKILL** - Design high-availability cloud infrastructure solutions.
-  USE FOR: VPC design, multi-AZ clusters, EKS/GKE orchestration, RDS/Cloud SQL architecture, networking subnets, security groups, disaster recovery (DR).
-  DO NOT USE FOR: serverless design (use managing-serverless), infrastructure as code implementation (use managing-iac), OS-level administration.
-  INVOKES: managing-iac, managing-serverless, observability-patterns, zero-trust-architecture.
+description: "Cloud Architecture for Designing complex, Architecting container, Implementing database via Mermaid for architectural diagrams and infrastructure design checklists."
 license: MIT
 metadata:
   version: 1.0.0

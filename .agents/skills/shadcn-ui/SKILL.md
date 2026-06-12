@@ -1,10 +1,6 @@
 ---
 name: shadcn-ui
-description: |
-  **FRONTEND SKILL** - Build accessible React UIs using shadcn/ui and Radix.
-  USE FOR: shadcn/ui init, adding components, customization, Radix UI, Tailwind merging (cn), theme config.
-  DO NOT USE FOR: traditional npm libraries, non-React frameworks, legacy CSS-in-JS.
-  INVOKES: npx shadcn cli, radix-ui.
+description: "shadcn/ui Integration for Bootstrapping component, Adding UI, Customizing component via npx shadcn@latest."
 license: MIT
 metadata:
   version: 1.0.0

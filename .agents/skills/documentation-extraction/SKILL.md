@@ -1,10 +1,6 @@
 ---
 name: documentation-extraction
-description: |
-  **DOCUMENTATION SKILL** - Generate and maintain API/code documentation as code using AI extraction and automation.
-  USE FOR: API docs generation (OpenAPI → docs), code comment extraction, type-driven docs (JSDoc, Sphinx), AI-powered summaries.
-  DO NOT USE FOR: manual content creation (use spec-first-design), marketing copy, visual design mockups.
-  INVOKES: typedoc, swagger-ui, mkdocs, sphinx, docusaurus, extracting-context, developing-ai-agents.
+description: "Documentation Extraction & Automation for Generating API, Extracting TypeScript/Python, Auto-generating changelogs via typedoc."
 license: MIT
 metadata:
   version: 1.0.0
@@ -39,6 +35,15 @@ Documentation is code-first: types are extracted, APIs are spec-driven, and pros
 1. **Single Source of Truth:** Types, API specs, and code comments are the source; docs are generated/validated.
 2. **Automation:** All non-prose (parameter lists, type tables, API specs) is auto-generated and validated in CI.
 3. **Freshness:** Docs versioning matches code versioning; breaking changes auto-flagged in changelog.
+
+## Documentation Standards
+1. **README.md (Mandatory at root):**
+   - Every project must have a `README.md` at the root.
+   - **Required Sections:** App description and core features, Architecture overview, Setup and usage instructions, Environment variables definitions, Run/build/test commands.
+2. **Technical Writing:**
+   - Use clear, professional, and concise language.
+   - Structure with clear headings and bullet points for readability.
+   - Maintain a `CHANGELOG.md` or Release Notes to document major versions and breaking changes.
 
 ## Checklist
 - [ ] API documentation generated from OpenAPI spec (Swagger UI, ReDoc, or Spectacle).

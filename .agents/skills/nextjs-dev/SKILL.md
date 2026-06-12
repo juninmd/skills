@@ -1,10 +1,6 @@
 ---
 name: nextjs-dev
-description: |
-  **DEVELOPMENT SKILL** - Build modern web apps with Next.js 16+ and React 19.
-  USE FOR: App Router implementation, Server Components (RSC), Asynchronous Request APIs (cookies/params), Server Actions, Next.js caching, Turbopack development.
-  DO NOT USE FOR: legacy Pages router, non-React frameworks, backend-only services (unless Next.js API routes are required).
-  INVOKES: next cli, react-dom, next/headers.
+description: "Next.js Development for Implementing route-based, Managing asynchronous, Leveraging React via next dev."
 license: MIT
 metadata:
   version: 1.0.0

@@ -1,10 +1,6 @@
 ---
 name: test-driven-development
-description: |
-  **STRATEGY SKILL** - Implement features and fixes using the Red/Green/Refactor cycle.
-  USE FOR: test-first implementation, TDD workflows, regression testing, defining behavior through tests, vertical slice development.
-  DO NOT USE FOR: pure unit testing without implementation (use vitest), non-coding tasks, speed-biased prototyping without verification.
-  INVOKES: vitest, pytest, engineering-test-scenarios, generative-testing, verifying-changes, performance-profiling.
+description: "Test-Driven Development for Implementing new, Securing risky, Performing vertical via vitest."
 license: MIT
 metadata:
   version: 1.0.0
@@ -40,6 +36,17 @@ Implementation details for the TDD cycle, principles, and anti-patterns are docu
 1. **Behavior First:** Tests describe *what* the system does, not *how* it does it.
 2. **Minimalism:** Write only the code required to make the current failing test pass.
 3. **Refactor Safety:** Ensure the public surface remains stable while cleaning up internals.
+
+## The Verification Ladder
+Before declaring a task "done", climb the ladder:
+1. **Compile/Lint:** Builds and lints clean.
+2. **Unit:** Scoped tests pass, exit 0.
+3. **Integration:** Cross-module/DB contracts hold.
+4. **Smoke/Run:** Launch the real app; exercise critical paths.
+5. **Evidence:** Capture reproducible proof (logs/output).
+
+## Reproduce-Before-Fix
+For bug fixes: Capture the failure (RED) → Change one thing → Re-run the same check (GREEN) → Confirm it now passes. A fix with no prior red state is unfalsifiable.
 
 ## Checklist
 - [ ] Choose exactly one small vertical slice to implement next.

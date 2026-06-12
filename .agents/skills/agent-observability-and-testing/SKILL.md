@@ -1,10 +1,6 @@
 ---
 name: agent-observability-and-testing
-description: |
-  **TESTING SKILL** - Test and observe agentic systems with ReAct loop instrumentation.
-  USE FOR: tool call unit testing, agent loop tracing, distributed tracing for agents, LLM-as-judge evaluation, error categorization, agent trace replay.
-  DO NOT USE FOR: general application testing (use test-driven-development), infrastructure monitoring (use observability-patterns), code review (use auditing-code).
-  INVOKES: test-driven-development, observability-patterns, agent-cost-benchmarking.
+description: "Agent Observability & Testing for Unit testing, Instrumenting agent, Distributed tracing via test-driven-development, observability-patterns."
 license: MIT
 metadata:
   version: 1.0.0

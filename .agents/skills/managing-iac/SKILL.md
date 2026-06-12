@@ -1,10 +1,6 @@
 ---
 name: managing-iac
-description: |
-  **DEVOPS SKILL** - Build and maintain secure, reproducible infrastructure as code.
-  USE FOR: Terraform modules, Pulumi stacks, IaC testing (terratest), state management, security scanning (tfsec/checkov), policy as code (OPA).
-  DO NOT USE FOR: manual cloud console edits, OS-level administration, application deployment (use configuring-ci-cd).
-  INVOKES: terraform, tflint, checkov, terratest.
+description: "Infrastructure as Code Specialist for Designing and, Configuring remote, Setting up via terraform."
 license: MIT
 metadata:
   version: 1.0.0

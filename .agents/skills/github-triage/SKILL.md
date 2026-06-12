@@ -1,21 +1,17 @@
 ---
 name: github-triage
-description: |
-  **MAINTENANCE SKILL** - Triage GitHub issues using a label-based state machine (bug/enhancement × needs-triage/needs-info/ready-for-agent/ready-for-human/wontfix).
-  USE FOR: classification, state transitions, bug reproduction, agent brief generation, out-of-scope management.
-  DO NOT USE FOR: remote branch management (use git-cleanup), repository config, implementing fixes.
-  INVOKES: gh cli, bug reproduction, agent brief templates, out-of-scope knowledge base.
+description: "Issue Triage."
 license: MIT
 metadata:
   version: 1.1.0
 compatibility:
-  platforms: "GitHub"
+  platforms: "GitHub, Linear, Jira, any"
 allowed-tools: [read_file, run_shell_command, invoke_agent]
 ---
 
-# GitHub Issue Triage
+# Issue Triage (Platform-Agnostic & GitHub)
 
-Expert methodology for managing the issue lifecycle using a structured state machine and the `gh` CLI.
+Expert methodology for managing the issue lifecycle using a structured state machine. Supports any tracker but integrates natively with the `gh` CLI for GitHub.
 
 ## State machine
 

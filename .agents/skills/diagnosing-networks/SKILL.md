@@ -1,10 +1,6 @@
 ---
 name: diagnosing-networks
-description: |
-  **DIAGNOSTIC SKILL** - Debug network connectivity, APIs, and SSL/TLS.
-  USE FOR: connectivity, HTTP headers, SSL certificates, DNS resolution, ports, firewalls.
-  DO NOT USE FOR: app-level bugs (use diagnosing-bugs), database administration.
-  INVOKES: curl, openssl, dig, ping, nc, traceroute.
+description: "Network & Diagnostics for Inspecting HTTP/HTTPS, Analyzing SSL/TLS, Diagnosing DNS via curl."
 license: MIT
 metadata:
   version: 1.0.0

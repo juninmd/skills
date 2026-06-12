@@ -1,10 +1,6 @@
 ---
 name: managing-vector-databases
-description: |
-  **DATABASE SKILL** - Manage vector databases for RAG and semantic search.
-  USE FOR: vector index management, embeddings ingestion, similarity search, hybrid search, metadata filtering, Pinecone, Weaviate, Milvus, Qdrant, Chroma.
-  DO NOT USE FOR: traditional relational queries (use administrating-databases), training embedding models, non-vector data storage.
-  INVOKES: pinecone-client, weaviate-client, qdrant-client, chromadb.
+description: "Vector Database Manager for Creating and, Ingesting and, Implementing hybrid via Vector database SDKs and similarity search APIs."
 license: MIT
 metadata:
   version: 1.0.0

@@ -1,16 +1,12 @@
 ---
 name: grill-me
-description: |
-  **INTERVIEWING SKILL** - Socratic questioning to stress-test a plan, design, or idea. Asks one tough question at a time until the user's thinking is fully validated.
-  USE FOR: when user says "grill me", "challenge my thinking", "stress-test this plan", "play devil's advocate". Also use proactively when a plan has obvious gaps.
-  DO NOT USE FOR: general code review, implementation, writing documentation. For doc-grounded questioning use grill-with-docs.
-  INVOKES: adversarial questioning, assumption surfacing, edge case probing.
+description: "Grill Me."
 license: MIT
 metadata:
   version: 1.0.0
 compatibility:
   platforms: "any"
-allowed-tools: [read_file]
+allowed-tools: [read_file, write_file, run_shell_command]
 ---
 
 # Grill Me
@@ -27,6 +23,7 @@ Good questions are:
 - **Falsifiable** — the answer either validates or invalidates a specific claim
 - **Concrete** — reference specific scenarios, not abstract principles
 - **Uncomfortable** — the user should have to think, not just confirm what they already believe
+- **Document-grounded** — read existing `CONTEXT.md` and ADRs. Point out when the user's plan contradicts their own terminology or architecture.
 
 Bad questions are:
 - Rhetorical ("Have you considered X?" when X is obvious)
@@ -42,6 +39,13 @@ Bad questions are:
 5. **Dependency check** — "This relies on [Y]. What if Y isn't available / changes / breaks?"
 6. **Reversal** — "What's the strongest argument against this approach?"
 7. **Second-order effect** — "What does this make harder or more expensive in 6 months?"
+8. **Terminology conflict** — "Your docs define X as A, but you seem to mean B — which is correct?"
+
+## Documentation Updates (Lazy Creation)
+If the questioning clarifies a concept or architectural decision:
+- Update `CONTEXT.md` as soon as a domain term resolves.
+- Create an ADR (`docs/adr/NNNN-slug.md`) **only** when all 3 threshold conditions hold: (1) Costly to reverse, (2) Surprising without context, (3) Result of genuine trade-offs.
+- See [document formats](references/doc-formats.md) for CONTEXT.md and ADR details.
 
 ## When to stop
 

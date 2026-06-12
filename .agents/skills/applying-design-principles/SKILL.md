@@ -1,10 +1,6 @@
 ---
 name: applying-design-principles
-description: |
-  **REFACTORING SKILL** - Apply Clean Code, SOLID, DRY, KISS, and YAGNI principles to code.
-  USE FOR: refactoring code, fixing code smells, reducing duplication, improving naming, applying SOLID.
-  DO NOT USE FOR: fixing bugs (use diagnosing-bugs), architecture restructuring, performance optimization.
-  INVOKES: file reading and editing tools.
+description: "Applying Design Principles for Refactoring complex, Eliminating duplication, Simplifying over-engineered via File reading tools to inspect code, editing tools to apply refactors."
 license: MIT
 metadata:
   version: 1.0.0
@@ -41,6 +37,15 @@ Implementation details for each principle are documented in:
 2. Identify violations of Clean Code, DRY, KISS, SOLID, or YAGNI.
 3. Apply behavior-preserving refactors using appropriate principles.
 4. Verify changes with available tests.
+
+## Untangling Spaghetti (Complexity)
+If code exceeds thresholds, prioritize untangling over principle application:
+- **Cyclomatic Complexity > 10:** Extract intention-revealing helpers.
+- **Function > 50 LOC:** Extract method per responsibility.
+- **Nesting > 3 levels:** Flatten with guard clauses/early returns.
+- **God Class (> 400 LOC):** Split by responsibility using composition.
+
+**Workflow:** Detect (rank hot spots) → Characterize (write behavior-locking tests) → Untangle (one move at a time) → Verify (re-run tests after every move).
 
 ## Checklist
 - [ ] Identify the smallest design problem worth fixing before touching code.

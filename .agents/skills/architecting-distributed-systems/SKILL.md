@@ -1,10 +1,6 @@
 ---
 name: architecting-distributed-systems
-description: |
-  **ARCHITECTURE SKILL** - Design and optimize distributed systems and microservices.
-  USE FOR: service boundaries, microservices, Kafka/RabbitMQ, Saga/Outbox patterns, circuit breakers, event-driven design.
-  DO NOT USE FOR: diagnosing RabbitMQ queues (use diagnosing-rabbitmq), database administration (use administrating-databases), single-service API design.
-  INVOKES: architecture design checklists, pattern selection guidance.
+description: "Distributed Systems Architecture for Defining microservice, Designing asynchronous, Implementing distributed via Design patterns, stack recommendations, and architecture checklists."
 license: MIT
 metadata:
   version: 1.0.0

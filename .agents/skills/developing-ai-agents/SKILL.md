@@ -1,10 +1,6 @@
 ---
 name: developing-ai-agents
-description: |
-  **DEVELOPMENT SKILL** - Build autonomous AI agents with tools and context management.
-  USE FOR: system prompts, function calling, tool schemas, context window management, RAG integration, agent routing, ReAct pattern.
-  DO NOT USE FOR: general machine learning (training/fine-tuning), data science, chatbot UI development.
-  INVOKES: prompt engineering techniques, JSON Schema for tools.
+description: "Developing AI Agents for Crafting structured, Defining strict, Implementing context via Prompt engineering, tool selection, and context-efficiency strategies."
 license: MIT
 metadata:
   version: 1.0.0

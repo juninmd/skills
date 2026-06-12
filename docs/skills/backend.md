@@ -38,19 +38,6 @@ Modern Python development workflow.
 
 ---
 
-## `modern-python`
-
-**Invoke:** `/modern-python`
-
-Python toolchain deep-dive for 2026.
-
-- **uv** — package and project management
-- **ruff** — linting and formatting
-- **ty** — type checking (next-gen mypy alternative)
-- **prek** — pre-commit hook management
-
----
-
 ## `developing-fastapi`
 
 **Invoke:** `/developing-fastapi`

@@ -1,10 +1,6 @@
 ---
 name: karpathy-guidelines
-description: |
-  **BEHAVIOR SKILL** - Apply Karpathy's guidelines to reduce LLM coding mistakes.
-  USE FOR: complex task planning, simplifying over-engineered code, surgical refactoring, defining success criteria, minimizing change surface.
-  DO NOT USE FOR: trivial tasks, speed-biased prototyping, non-coding behavioral guidance.
-  INVOKES: thinking-first planning, surgical code editing, success criteria definitions.
+description: "Karpathy Guidelines for Resolving requirements, Reducing technical, Minimizing regression via Multi-step validation plans and falsifiable verification steps."
 license: MIT
 metadata:
   version: 1.0.0

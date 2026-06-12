@@ -1,10 +1,6 @@
 ---
 name: improving-codebase-architecture
-description: |
-  **ARCHITECTURE SKILL** - Identify and implement practical improvements to codebase structure.
-  USE FOR: architectural debt, module boundaries, reducing coupling, improving testability, refactoring technical debt, finding design friction.
-  DO NOT USE FOR: low-level design principles (use applying-design-principles), implementing new features, fixing local bugs.
-  INVOKES: ADR creation, interface design, dependency analysis.
+description: "Improving Codebase Architecture for Finding and, Redefining module, Designing deep via Codebase mapping, dependency analysis, and ADR drafting."
 license: MIT
 metadata:
   version: 1.0.0

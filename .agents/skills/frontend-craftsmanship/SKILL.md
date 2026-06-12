@@ -1,10 +1,6 @@
 ---
 name: frontend-craftsmanship
-description: |
-  **FRONTEND SKILL** - Build fast, accessible, and visually intentional web UIs.
-  USE FOR: React/Next.js implementation, performance optimization (RSC/RCL), web accessibility (a11y), visual hierarchy, design system surfaces, dashboard UI, landing pages.
-  DO NOT USE FOR: backend business logic, native mobile apps (use developing-react-native), heavy data science, DevOps configuration.
-  INVOKES: react, nextjs, tailwind, accessibility audits, performance profiling.
+description: "Frontend Craftsmanship for Architecting React/Next.js, Hardening UI, Optimizing render via next."
 license: MIT
 metadata:
   version: 1.0.0

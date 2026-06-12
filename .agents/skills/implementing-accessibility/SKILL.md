@@ -1,10 +1,6 @@
 ---
 name: implementing-accessibility
-description: |
-  **FRONTEND SKILL** - Implement and audit web accessibility (a11y) standards.
-  USE FOR: semantic HTML, keyboard navigation, ARIA patterns, WCAG compliance, color contrast, focus management, screen reader optimization.
-  DO NOT USE FOR: visual design (use frontend-design), backend implementation, non-web UI platforms (unless specifically web-view based).
-  INVOKES: accessibility linters, contrast checkers, keyboard flow verification.
+description: "Implementing Accessibility for Auditing UI, Replacing generic, Implementing robust via Semantic HTML tags, WAI-ARIA attributes, and keyboard interaction patterns."
 license: MIT
 metadata:
   version: 1.0.0

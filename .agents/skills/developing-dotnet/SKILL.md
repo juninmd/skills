@@ -1,10 +1,6 @@
 ---
 name: developing-dotnet
-description: |
-  **DEVELOPMENT SKILL** - Build enterprise .NET apps with C#.
-  USE FOR: Web API, microservices, EF Core, async/await, xUnit, DI.
-  DO NOT USE FOR: cross-platform mobile (unless requested), legacy .NET 4.x.
-  INVOKES: dotnet CLI, C# compiler, NuGet.
+description: "Developing with .NET for Designing REST, Developing microservices, Configuring EF via dotnet build."
 license: MIT
 metadata:
   version: 1.0.0

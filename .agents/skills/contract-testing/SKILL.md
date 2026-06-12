@@ -1,10 +1,6 @@
 ---
 name: contract-testing
-description: |
-  **API TESTING SKILL** - Design and validate API contracts using OpenAPI, generated clients, and pact testing.
-  USE FOR: API contract definitions, consumer-driven testing, API versioning strategy, generated SDKs, breaking change detection.
-  DO NOT USE FOR: end-to-end integration tests (use test-driven-development), performance testing (use performance-profiling).
-  INVOKES: openapi-generator, pact, schemathesis, developing-node, configuring-ci-cd.
+description: "Contract Testing & API Maturity for Defining API, Implementing consumer-driven, Generating type-safe via openapi-generator."
 license: MIT
 metadata:
   version: 1.0.0

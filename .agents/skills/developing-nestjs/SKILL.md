@@ -1,10 +1,6 @@
 ---
 name: developing-nestjs
-description: |
-  **DEVELOPMENT SKILL** - Build enterprise-grade Node.js backends with NestJS.
-  USE FOR: NestJS modules, controllers, services, class-validator, DTOs, Prisma integration, JWT authentication, exception filters.
-  DO NOT USE FOR: frontend development, simple Express-like scripts without structure, non-Node.js backends.
-  INVOKES: nest cli, prisma, jest.
+description: "NestJS Development for Designing modular, Implementing type-safe, Configuring database via nest."
 license: MIT
 metadata:
   version: 1.0.0
@@ -39,6 +35,16 @@ Implementation details for module structure, validation, and testing are documen
 1. **Separation of Concerns:** Keep business logic in services and routing in controllers.
 2. **Global Consistency:** Use global pipes and filters for standardized error handling and validation.
 3. **Dependency Inversion:** Rely on abstractions and constructor-based dependency injection.
+
+## Development Standards
+1. **Architecture:**
+   - **Module Structure (Feature-Based):** Organize by business modules (feature-based), not by technical type.
+   - **Dependency Injection:** Verify cyclic dependencies are avoided and providers are scoped correctly.
+   - **Controllers:** Keep Controllers lean. Business logic must be isolated in Services/Providers.
+2. **Validation & Security:**
+   - **Validation:** Ensure DTOs use `class-validator` and `app.useGlobalPipes(new ValidationPipe())` is active.
+   - **Guards:** Confirm authentication endpoints use appropriate NestJS Guards.
+   - **Interceptors:** Follow the Pipes, Guards, and Interceptors pattern for cross-cutting concerns (logging, timeouts, caching).
 
 ## Checklist
 - [ ] Use feature-based module structure for all new functionality.

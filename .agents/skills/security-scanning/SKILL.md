@@ -1,10 +1,6 @@
 ---
 name: security-scanning
-description: |
-  **DEVOPS SKILL** - Implement security scanning for dependencies, secrets, and supply chain risks.
-  USE FOR: vulnerability scanning, SBOM generation, secrets detection, dependency auditing, CVE tracking, license compliance, artifact attestation.
-  DO NOT USE FOR: application security testing (use penetration testing skills), zero-trust architecture design (use zero-trust-architecture).
-  INVOKES: configuring-ci-cd, managing-cloud-infrastructure, fix-gitleaks.
+description: "Security Scanning for Scanning dependencies, Detecting secrets, Generating Software via configuring-ci-cd, managing-cloud-infrastructure."
 license: MIT
 metadata:
   version: 1.0.0
@@ -82,6 +78,25 @@ Registry: Image attestation
   ↓
 Deploy: Verify attestation before rollout
 ```
+
+## Application Security Coding Standards
+- **Input Validation:** Use schema validation (e.g., Zod) on all external inputs (API bodies, query params, env vars). Never bypass validation with `any`.
+- **SQL Injection Prevention:** Use parameterized queries exclusively. No string interpolation for SQL.
+- **Authentication & Authorization:** Require auth middleware on all protected routes. Verify permissions explicitly.
+- **XSS Prevention:** Ensure inputs are escaped. Avoid dangerous DOM APIs (e.g., `dangerouslySetInnerHTML`) with user input.
+- **Secret Management:** Never hardcode secrets. Access them via environment variables and ensure they are not logged.
+- **OWASP Top 10:** Enforce HTTPS, secure cookies, signed tokens, and explicit CORS origins.
+
+## Data Privacy & PII Handling
+- **PII Redaction:** Automatically sanitize logs to mask emails, names, IP addresses, API keys, tokens, phone numbers, SSNs, and credit cards before they are written.
+- **Context Isolation:** Never paste real user data into AI prompts; use placeholders (`<USER_EMAIL>`) and fake data.
+- **Data Minimization:** Collect only necessary data, encrypt it at rest and in transit, and support user data deletion flows (GDPR/LGPD).
+- **.gitignore:** Ensure environment files and key/pem files are excluded.
+
+## Environment & Secrets Management
+- **File Structure:** `.env` and `.env.local` must NEVER be committed. Maintain an `.env.example` with placeholder values (e.g., `OPENAI_API_KEY=sk-proj-xxxxxxxxxxxxxxxxxxxx`).
+- **Startup Validation:** Validate environment variables at application startup using a strict schema (e.g., Zod). Fail fast if required variables are missing or malformed.
+- **Production Secrets:** Do not use `.env` files in production; inject secrets via a secure vault (AWS Secrets Manager, HashiCorp Vault, etc.).
 
 ## Checklist
 

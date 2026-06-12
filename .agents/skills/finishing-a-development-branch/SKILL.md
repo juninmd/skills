@@ -1,10 +1,6 @@
 ---
 name: finishing-a-development-branch
-description: |
-  **GIT SKILL** - Finalize development work by merging, pushing PRs, or discarding branches.
-  USE FOR: branch cleanup, creating Pull Requests (gh cli), merging feature branches, squashing commits, closing worktrees.
-  DO NOT USE FOR: initial branch creation (use using-git-worktrees), general git troubleshooting, resolving merge conflicts (unless part of the merge task).
-  INVOKES: git, gh cli, project test runners.
+description: "Finishing a Development Branch for Verifying local, Creating Pull, Merging feature via git checkout."
 license: MIT
 metadata:
   version: 1.0.0

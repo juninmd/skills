@@ -1,10 +1,6 @@
 ---
 name: flutter-dev
-description: |
-  **DEVELOPMENT SKILL** - Build mobile apps with Flutter 3 and Dart.
-  USE FOR: Flutter, Riverpod, Bloc, GoRouter, responsive UI, mobile performance.
-  DO NOT USE FOR: native-only, pure web, React Native.
-  INVOKES: flutter cli, dart, devtools.
+description: "Flutter Development Guide for Designing UIs, Implementing state, Configuring routing via flutter build."
 license: MIT
 metadata:
   version: 1.0.0

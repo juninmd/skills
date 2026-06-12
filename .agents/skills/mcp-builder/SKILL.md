@@ -1,10 +1,6 @@
 ---
 name: mcp-builder
-description: |
-  **DEVELOPMENT SKILL** - Design and implement Model Context Protocol (MCP) servers.
-  USE FOR: architecting MCP servers, defining tool schemas (Zod/Pydantic), implementing transport (Stdio/SSE), building RAG tools, creating MCP evaluation suites.
-  DO NOT USE FOR: general API development (use developing-fastapi), building the agent's core model, frontend development.
-  INVOKES: mcp sdk, mcp inspector, pnpm/uv.
+description: "MCP Server Development Guide for Designing discoverable, Implementing robust, Building comprehensive via npx @modelcontextprotocol/inspector."
 license: MIT
 metadata:
   version: 1.0.0

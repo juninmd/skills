@@ -1,10 +1,6 @@
 ---
 name: managing-helm-charts
-description: |
-  **DEVOPS SKILL** - Build and manage Helm charts for Kubernetes.
-  USE FOR: chart scaffolding, Go templating, values hierarchy, dependency management, multi-environment orchestration, helm linting/testing.
-  DO NOT USE FOR: direct kubectl resource editing (unless troubleshooting), non-Kubernetes orchestration, managed cloud infrastructure (use managing-cloud-infrastructure).
-  INVOKES: helm cli, kubernetes manifest generation.
+description: "Helm Charts Management for Initializing charts, Implementing complex, Managing layered via helm install."
 license: MIT
 metadata:
   version: 1.0.0

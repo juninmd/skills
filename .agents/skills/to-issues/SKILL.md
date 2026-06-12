@@ -1,10 +1,6 @@
 ---
 name: to-issues
-description: |
-  **PLANNING SKILL** - Break a plan or PRD into independently-grabbable GitHub issues using vertical slices (tracer bullets).
-  USE FOR: converting a plan/PRD/discussion into structured GitHub issues, decomposing features into AFK/HITL slices.
-  DO NOT USE FOR: triaging existing issues (use github-triage), implementing code directly.
-  INVOKES: gh cli, vertical slice decomposition, issue templates.
+description: "To Issues."
 license: MIT
 metadata:
   version: 1.0.0

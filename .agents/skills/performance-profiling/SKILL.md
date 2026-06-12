@@ -1,10 +1,6 @@
 ---
 name: performance-profiling
-description: |
-  **DEVELOPMENT SKILL** - Profile and optimize runtime performance using industry-standard tools.
-  USE FOR: flame graphs, memory profiling, CPU profiling, trace analysis, bottleneck identification, optimization validation.
-  DO NOT USE FOR: frontend UX performance (use frontend-craftsmanship), database query optimization (use administrating-databases), code readability (use applying-clean-code).
-  INVOKES: diagnosing-bugs, frontend-craftsmanship, developing-tooling.
+description: "Performance Profiling for Generating CPU, Identifying hot, Detecting memory via diagnosing-bugs, frontend-craftsmanship."
 license: MIT
 metadata:
   version: 1.0.0

@@ -1,10 +1,6 @@
 ---
 name: developing-go
-description: |
-  **DEVELOPMENT SKILL** - Build efficient and idiomatic applications with Go.
-  USE FOR: Go modules, idiomatic Go patterns, error wrapping, golangci-lint, go test, net/http APIs, microservices in Go.
-  DO NOT USE FOR: generic C-family programming, frontend development, heavy GUI applications.
-  INVOKES: go CLI, golangci-lint.
+description: "Development with Go for Initializing and, Implementing RESTful, Writing idiomatic via go build."
 license: MIT
 metadata:
   version: 1.0.0

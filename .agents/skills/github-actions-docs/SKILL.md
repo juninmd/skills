@@ -1,10 +1,6 @@
 ---
 name: github-actions-docs
-description: |
-  **DOCS SKILL** - Official GitHub Actions documentation lookup and guidance.
-  USE FOR: Actions YAML syntax, triggers, reusable workflows, OIDC security, runner configuration, CI/CD migration, Action Runner Controller.
-  DO NOT USE FOR: repo-specific CI debugging (without docs context), general git commands, non-Actions GitHub features.
-  INVOKES: docs.github.com search, official documentation links.
+description: "GitHub Actions Docs for Resolving YAML, Designing secure, Implementing advanced via docs.github.com/en/actions."
 license: MIT
 metadata:
   version: 1.0.0

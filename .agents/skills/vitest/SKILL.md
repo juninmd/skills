@@ -1,10 +1,6 @@
 ---
 name: vitest
-description: |
-  **TESTING SKILL** - Fast testing using Vitest (Vite-native).
-  USE FOR: unit/integration tests, React/Vue components, mocking (vi), snapshots, type-testing, Vitest config.
-  DO NOT USE FOR: end-to-end (use Playwright), non-Vite JS projects.
-  INVOKES: vitest cli, coverage.
+description: "Vitest - Blazing Fast Testing for Writing unit, Implementing mocks,, Verifying UI via vitest."
 license: MIT
 metadata:
   version: 1.0.0

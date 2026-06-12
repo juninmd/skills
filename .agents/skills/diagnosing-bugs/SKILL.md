@@ -1,10 +1,6 @@
 ---
 name: diagnosing-bugs
-description: |
-  **DIAGNOSTIC SKILL** - Evidence-driven debugging for defects and performance regressions.
-  USE FOR: bug investigation, failing tests, flaky behavior, performance regressions, production errors, root cause analysis.
-  DO NOT USE FOR: implementing new features, general code refactoring (use applying-design-principles), infrastructure issues.
-  INVOKES: regression tests, log analysis, hypothesis testing, feedback loop construction.
+description: "Diagnosing Bugs."
 license: MIT
 metadata:
   version: 1.1.0
@@ -17,7 +13,7 @@ allowed-tools: [read_file, run_shell_command]
 
 Evidence-driven methodology for turning uncertainty into repeatable signals to identify and prove fixes for software defects and performance regressions.
 
-Full 6-phase methodology: [Evidence-Driven Debugging Workflow](references/debugging-workflow.md)
+Full 6-phase methodology: [Evidence-Driven Debugging Workflow](references/debugging-workflow.md) | [Debugging Phases](references/debugging-phases.md)
 
 ## Phase summary
 
@@ -29,6 +25,19 @@ Full 6-phase methodology: [Evidence-Driven Debugging Workflow](references/debugg
 | 4 — Instrument | One probe per prediction, tag logs `[DEBUG-xxxx]` | One variable changed at a time |
 | 5 — Fix | Regression test before fix (if correct seam exists) | Watch fail → fix → watch pass |
 | 6 — Cleanup | Remove instrumentation, post-mortem in commit | Re-run Phase 1 loop |
+
+## Quick reference — feedback loop options
+1. Failing test (unit / integration / e2e)
+2. Curl / HTTP script against dev server
+3. CLI invocation diffing stdout against snapshot
+4. Headless browser script (Playwright / Puppeteer)
+5. Replay captured trace
+6. Throwaway harness with mocked deps
+7. Property / fuzz loop (1000 random inputs)
+8. `git bisect run` bisection harness
+9. Differential loop (old vs new version)
+
+**Non-deterministic bugs:** goal is a higher reproduction rate, not a clean repro. Loop 100×, parallelise, add stress.
 
 ## Core Principles
 

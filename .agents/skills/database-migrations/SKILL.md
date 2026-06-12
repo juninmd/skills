@@ -1,10 +1,6 @@
 ---
 name: database-migrations
-description: |
-  **DATABASE SKILL** - Design and execute zero-downtime schema migrations with rollback safety.
-  USE FOR: schema versioning, zero-downtime migrations, rollback strategies, data seeding, migration testing, blue-green deployments.
-  DO NOT USE FOR: raw SQL execution without migration framework (use administrating-databases), performance optimization (use performance-profiling).
-  INVOKES: flyway, liquibase, typeorm, prisma, alembic, administrating-databases.
+description: "Database Migrations & Schema Evolution for Defining versioned,, Planning zero-downtime, Implementing backward-compatible via flyway."
 license: MIT
 metadata:
   version: 1.0.0

@@ -1,10 +1,6 @@
 ---
 name: developing-rust
-description: |
-  **DEVELOPMENT SKILL** - Build safe and performant systems using Rust.
-  USE FOR: Rust code, ownership/borrowing patterns, Cargo toolchain, Clippy lints, Rust error handling, zero-cost abstractions.
-  DO NOT USE FOR: pure frontend development (use JS/TS), garbage-collected scripting tasks, non-system-level rapid prototyping.
-  INVOKES: cargo, rustc, clippy.
+description: "Developing Rust for Implementing memory-safe, Managing Rust, Optimizing performance via cargo build."
 license: MIT
 metadata:
   version: 1.0.0

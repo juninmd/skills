@@ -1,10 +1,6 @@
 ---
 name: to-prd
-description: |
-  **PLANNING SKILL** - Synthesize current conversation context into a Product Requirements Document (PRD) without user interviews.
-  USE FOR: converting discussions and codebase understanding into a structured PRD for the issue tracker.
-  DO NOT USE FOR: trivial tasks, direct implementation, when requirements are already fully specified.
-  INVOKES: codebase exploration, domain glossary, PRD template, gh cli.
+description: "To PRD."
 license: MIT
 metadata:
   version: 1.0.0

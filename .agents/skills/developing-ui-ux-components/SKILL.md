@@ -1,10 +1,6 @@
 ---
 name: developing-ui-ux-components
-description: |
-  **FRONTEND SKILL** - Build reusable and accessible web components.
-  USE FOR: React components, accessible UI (a11y), design system implementation, Radix UI, Tailwind styling, Storybook catalogs.
-  DO NOT USE FOR: backend logic, native mobile UI (use developing-react-native), heavy data processing.
-  INVOKES: vite, storybook, vitest, radix-ui.
+description: "UI/UX Component Development for Creating declarative, Implementing accessible, Developing component via vite."
 license: MIT
 metadata:
   version: 1.0.0

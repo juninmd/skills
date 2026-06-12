@@ -1,10 +1,6 @@
 ---
 name: vercel-composition-patterns
-description: |
-  **FRAMEWORK SKILL** - Master React component composition in Next.js and Vercel deployments.
-  USE FOR: server vs. client components, component composition, streaming patterns, data fetching, server actions, React 19+ patterns.
-  DO NOT USE FOR: basic React (use react-dev), frontend design (use frontend-design), performance optimization (use frontend-craftsmanship).
-  INVOKES: react-dev, nextjs-dev, frontend-craftsmanship, vercel-react-best-practices.
+description: "Vercel Composition Patterns for Designing Server, Implementing Server, Building streaming via react-dev, nextjs-dev."
 license: MIT
 metadata:
   version: 1.0.0

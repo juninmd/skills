@@ -21,3 +21,20 @@ Guidelines for safe and efficient branch management.
 - Never proceed with failing tests.
 - Never force-push without an explicit user request.
 - Never delete work without verification and confirmation.
+- **NEVER** commit directly to `main`, `master`, or protected branches. If a user asks to do so, stop and ask for confirmation.
+
+## 4. Branch Naming
+- Use clear prefixes: `feat/add-user-profile`, `fix/login-redirect`, `refactor/api-client`.
+
+## 5. Conventional Commits (MANDATORY)
+- Format: `type(scope): description`
+- Examples:
+  - `feat(auth): add OAuth2 login`
+  - `fix(api): handle 429 rate limit`
+  - `docs(readme): update installation`
+- Use the imperative mood ("add" not "added"), max 72 characters. Explain WHAT and WHY.
+
+## 6. Before Commit Checks
+- ALWAYS verify the status using `git status -s`.
+- ALWAYS verify staged changes using `git diff --cached --name-only`.
+- Ensure no secrets are committed.

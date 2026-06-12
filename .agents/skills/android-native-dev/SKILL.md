@@ -1,10 +1,6 @@
 ---
 name: android-native-dev
-description: |
-  **DEVELOPMENT SKILL** - Build native Android apps (Kotlin/Compose).
-  USE FOR: project init, Gradle, Coroutines, Hilt, Compose, Material 3.
-  DO NOT USE FOR: cross-platform, iOS, non-Android Kotlin.
-  INVOKES: ./gradlew, adb.
+description: "Android Native Developer for Initializing Android, Configuring variants, Implementing Kotlin, via ./gradlew."
 license: MIT
 metadata:
   version: 1.0.0

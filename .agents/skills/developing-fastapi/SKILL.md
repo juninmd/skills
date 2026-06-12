@@ -1,10 +1,6 @@
 ---
 name: developing-fastapi
-description: |
-  **DEVELOPMENT SKILL** - Build modern APIs with FastAPI and Pydantic v2.
-  USE FOR: REST APIs, Pydantic validation, SQLAlchemy 2 async, Alembic migrations, async programming, FastAPI routers.
-  DO NOT USE FOR: synchronous-only Python apps, frontend development, data processing scripts without API context.
-  INVOKES: fastapi, pydantic, sqlalchemy, alembic, uvicorn.
+description: "FastAPI Development for Creating modular, Implementing request/response, Configuring asynchronous via uvicorn."
 license: MIT
 metadata:
   version: 1.0.0

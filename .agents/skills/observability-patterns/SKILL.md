@@ -1,10 +1,6 @@
 ---
 name: observability-patterns
-description: |
-  **DEVOPS SKILL** - Implement structured observability: logs, metrics, traces, and dashboards.
-  USE FOR: structured logging, distributed tracing, metrics collection, alerting strategy, dashboards, SLI/SLO definition.
-  DO NOT USE FOR: application debugging (use diagnosing-bugs), infrastructure provisioning (use managing-cloud-infrastructure), incident response playbooks.
-  INVOKES: configuring-ci-cd, managing-cloud-infrastructure, diagnosing-bugs.
+description: "Observability Patterns for Designing structured, Implementing distributed, Collecting business via configuring-ci-cd, managing-cloud-infrastructure."
 license: MIT
 metadata:
   version: 1.0.0
@@ -81,6 +77,56 @@ Alerts (AlertManager, PagerDuty)
   ↓
 On-Call Response
 ```
+
+## Practical Guidelines
+
+### 1. Structured Logging (Example)
+```typescript
+import pino from 'pino';
+
+const logger = pino({
+  level: process.env.LOG_LEVEL ?? 'info',
+  base: { service: 'checkout-api' },
+});
+
+// ✅ Structured with context
+logger.info({ orderId, userId, amount, durationMs }, 'Order completed');
+logger.error({ orderId, error: err.message, stack: err.stack }, 'Payment failed');
+```
+| Level | When |
+|---|---|
+| `trace` | Detailed debugging (local only) |
+| `debug` | Development debugging |
+| `info` | Normal operations |
+| `warn` | Recoverable issues |
+| `error` | Failed operations — always with context |
+| `fatal` | Process crash |
+
+### 2. OpenTelemetry Setup (Example)
+```typescript
+// instrumentation.ts — import BEFORE everything else in main.ts
+import { NodeSDK } from '@opentelemetry/sdk-node';
+import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentations-node';
+
+const sdk = new NodeSDK({
+  serviceName: process.env.OTEL_SERVICE_NAME ?? 'my-service',
+  instrumentations: [getNodeAutoInstrumentations({
+    '@opentelemetry/instrumentation-fs': { enabled: false },
+  })],
+});
+
+sdk.start();
+process.on('SIGTERM', () => sdk.shutdown());
+```
+
+### 3. Instrumentation Points
+| Point | Attributes to Record |
+|---|---|
+| HTTP endpoints | route, method, status_code, duration_ms |
+| Database queries | query_type, table, duration_ms, row_count |
+| External API calls | service, endpoint, status_code, duration_ms |
+| LLM calls | model, prompt_tokens, completion_tokens, duration_ms |
+| Background jobs | job_name, status, duration_ms |
 
 ## Checklist
 

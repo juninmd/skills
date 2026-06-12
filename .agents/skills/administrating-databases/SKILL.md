@@ -1,10 +1,6 @@
 ---
 name: administrating-databases
-description: |
-  **DBA SKILL** - Administer and optimize Postgres, MongoDB, and Redis performance.
-  USE FOR: explain analyze, vacuum analyze, slow query, index usage, database locks, mongosh, redis-cli, psql.
-  DO NOT USE FOR: writing SQL for app logic, ORM setup, infrastructure provisioning, general SQL syntax questions.
-  INVOKES: psql, mongosh, redis-cli commands.
+description: "Database Administrator for Analyzing slow, Managing database, Inspecting database via psql."
 license: MIT
 metadata:
   version: 1.0.0

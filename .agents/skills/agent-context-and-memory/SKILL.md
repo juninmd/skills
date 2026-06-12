@@ -1,10 +1,6 @@
 ---
 name: agent-context-and-memory
-description: |
-  **AGENTIC SKILL** - Manage agent context and memory for 1M+ token windows.
-  USE FOR: context pruning, sliding windows, hierarchical summarization, RAG for agent memory, token budget constraints, long-running agent state.
-  DO NOT USE FOR: general database design (use administrating-databases), frontend state (use developing-react-native), caching strategy (use performance-profiling).
-  INVOKES: developing-ai-agents, administrating-databases, observability-patterns.
+description: "Agent Context & Memory Management for Designing context, Implementing pruning, Building hierarchical via developing-ai-agents, administrating-databases."
 license: MIT
 metadata:
   version: 1.0.0

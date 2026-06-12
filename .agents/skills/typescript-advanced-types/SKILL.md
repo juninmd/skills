@@ -1,10 +1,6 @@
 ---
 name: typescript-advanced-types
-description: |
-  **TYPESCRIPT SKILL** - Master advanced type techniques and type-level programming.
-  USE FOR: generic constraints, utility types, conditional types, type inference, mapped types, recursive types, gradual typing strategies, type guards.
-  DO NOT USE FOR: JavaScript tooling (use developing-node), basic TypeScript setup (use validating-typescript), testing (use test-driven-development).
-  INVOKES: validating-typescript, developing-typescript, test-driven-development.
+description: "TypeScript Advanced Types for Designing generic, Building type-safe, Implementing type-level via validating-typescript, developing-typescript."
 license: MIT
 metadata:
   version: 1.0.0

@@ -1,10 +1,6 @@
 ---
 name: developing-tooling
-description: |
-  **DEVELOPMENT SKILL** - Build professional CLI tools and automation scripts.
-  USE FOR: CLI design, Typer/Commander scripts, Rich/Chalk formatting, structured logging, CLI testing, automation binaries.
-  DO NOT USE FOR: web application development, GUI/Desktop apps (use architecting-electron), simple one-off shell scripts (unless needing structure).
-  INVOKES: python, node, typer, commander, structlog.
+description: "Tooling Developer for Designing user-friendly, Implementing structured, Applying rich via typer."
 license: MIT
 metadata:
   version: 1.0.0

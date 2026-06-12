@@ -1,10 +1,6 @@
 ---
 name: mastering-docker
-description: |
-  **CONTAINER SKILL** - Design and manage secure, efficient Docker containers.
-  USE FOR: Dockerfile optimization, multi-stage builds, non-root users, layer caching, docker-compose orchestration, hadolint/trivy scanning.
-  DO NOT USE FOR: Kubernetes orchestration (use managing-helm-charts), cloud-managed container services (use managing-cloud-infrastructure).
-  INVOKES: docker cli, docker-compose, hadolint, trivy.
+description: "Mastering Docker for Creating and, Hardening container, Managing local via docker."
 license: MIT
 metadata:
   version: 1.0.0

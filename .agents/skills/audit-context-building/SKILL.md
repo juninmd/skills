@@ -1,10 +1,6 @@
 ---
 name: audit-context-building
-description: |
-  **STRATEGY SKILL** - Build ultra-granular codebase context for security audits.
-  USE FOR: deep comprehension before vulnerability hunting, bottom-up code understanding, First Principles analysis, identifying invariants.
-  DO NOT USE FOR: finding vulnerabilities, fix recommendations, exploit reasoning, severity/impact rating.
-  INVOKES: function-analyzer subagent, line-by-line code analysis.
+description: "Audit Context Builder for Deep comprehension, Bottom-up understanding, Reducing hallucinations via function-analyzer."
 license: MIT
 metadata:
   version: 1.0.0

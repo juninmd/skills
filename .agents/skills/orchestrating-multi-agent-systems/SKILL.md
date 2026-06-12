@@ -1,10 +1,6 @@
 ---
 name: orchestrating-multi-agent-systems
-description: |
-  **AGENTIC SKILL** - Compose and orchestrate multi-agent systems with LangGraph, CrewAI, and MCP ecosystems.
-  USE FOR: agent composition patterns, framework selection, state management, message routing, supervisor/worker coordination, cost optimization, A2A protocol (agent-to-agent).
-  DO NOT USE FOR: single-agent development (use developing-ai-agents), MCP server building (use developing-mcp-servers), performance optimization (use performance-profiling).
-  INVOKES: developing-ai-agents, developing-mcp-servers, agent-cost-benchmarking, agent-observability-and-testing.
+description: "Orchestrating Multi-Agent Systems for Selecting between, Designing agent, Managing agent via developing-ai-agents, developing-mcp-servers."
 license: MIT
 metadata:
   version: 1.0.0

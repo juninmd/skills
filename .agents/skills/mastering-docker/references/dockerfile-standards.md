@@ -12,6 +12,9 @@ Guidelines for creating secure, minimal, and efficient Docker images.
 - **BuildKit Cache:** Use `--mount=type=cache` for package manager stores (npm, pip, cargo).
 - **Healthchecks:** Define `HEALTHCHECK` for container-level observability.
 - **Scanning:** Lint with `hadolint` and scan for vulnerabilities with `trivy`.
+- **Pin Base Images:** Pin base images to an exact version (avoid floating tags like `:alpine`, use `:3.14-alpine`).
+- **No Secrets:** Never include secrets or `.env` files in the image. Use secret mounts or runtime injection.
+- **Strict Production Stage:** Avoid `COPY . .` in the final production stage.
 
 ## 3. Example: Secure Multi-Stage Dockerfile
 ```dockerfile

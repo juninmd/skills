@@ -1,10 +1,6 @@
 ---
 name: fix-gitleaks
-description: |
-  **SECURITY SKILL** - Triage and remediate Gitleaks findings (secrets).
-  USE FOR: secret investigation, .gitleaksignore, purging git history, credential rotation, false positive triage.
-  DO NOT USE FOR: general git issues, static analysis, initial configuration.
-  INVOKES: gitleaks, git-filter-repo, glab, curl.
+description: "Fix Gitleaks for Analyzing Gitleaks, Distinguishing real, Replacing secrets via gitleaks."
 license: MIT
 metadata:
   version: 1.0.0

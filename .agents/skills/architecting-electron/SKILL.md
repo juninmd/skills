@@ -1,10 +1,6 @@
 ---
 name: architecting-electron
-description: |
-  **ARCHITECTURE SKILL** - Design secure Electron apps.
-  USE FOR: Main/Renderer separation, IPC, contextBridge, security, native integration.
-  DO NOT USE FOR: packaging (use electron-best-practices), general feature implementation (use electron).
-  INVOKES: file reading tools, architecture checklists.
+description: "Architecting Electron Applications for Designing app, Implementing secure, Auditing security via contextBridge."
 license: MIT
 metadata:
   version: 1.0.0

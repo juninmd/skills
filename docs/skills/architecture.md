@@ -55,21 +55,6 @@ Autonomous AI agents with tool calling and context management.
 
 ---
 
-## `developing-mcp-servers`
-
-**Invoke:** `/developing-mcp-servers`
-
-Model Context Protocol (MCP) server implementation.
-
-**MCP primitives:**
-- **Tools** — callable functions the AI can invoke
-- **Resources** — data sources the AI can read
-- **Prompts** — reusable prompt templates
-
-**Covers:** `@modelcontextprotocol/sdk` setup, tool schema definition with Zod, error handling, stdio and SSE transports, authentication.
-
----
-
 ## `mcp-builder`
 
 **Invoke:** `/mcp-builder`

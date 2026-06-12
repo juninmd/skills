@@ -1,10 +1,6 @@
 ---
 name: engineering-test-scenarios
-description: |
-  **QA SKILL** - Deliberately design the unhappy-path tests that catch real defects, not just happy-path coverage.
-  USE FOR: boundary value analysis, equivalence partitioning, error/exception paths, null/empty/malformed input, concurrency & race conditions, timeout/retry, fault injection, security abuse cases.
-  DO NOT USE FOR: property/mutation/fuzz automation (use generative-testing), red/green cycle mechanics (use test-driven-development), runtime proof (use verifying-changes).
-  INVOKES: test-driven-development, generative-testing, verifying-changes.
+description: "Engineering Test Scenarios for Boundary value, Error/exception paths:, Concurrency: races, via test-driven-development, generative-testing."
 license: MIT
 metadata:
   version: 1.0.0

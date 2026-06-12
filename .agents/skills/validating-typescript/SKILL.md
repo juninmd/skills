@@ -1,10 +1,6 @@
 ---
 name: validating-typescript
-description: |
-  **DEVELOPMENT SKILL** - Validate TypeScript code quality, safety, and correctness.
-  USE FOR: type safety, tsconfig, advanced types, Biome linting, Vitest algorithms, strict-mode.
-  DO NOT USE FOR: non-TS JS (without migration), pure CSS/HTML, non-TS backends.
-  INVOKES: tsc, biome, vitest.
+description: "TypeScript Validation for Hardening type, Implementing complex, Standardizing code via tsc --noEmit."
 license: MIT
 metadata:
   version: 1.0.0
@@ -36,6 +32,18 @@ Implementation details are in:
 1. **Strict:** Enable all strict compiler checks.
 2. **Proven:** Algorithms must have automated tests.
 3. **Purity:** Avoid `any` and `@ts-ignore`.
+
+## Development Standards
+1. **Type Safety:**
+   - **No `any`:** The use of `any` is strictly prohibited. Use `unknown` if the type is truly not known ahead of time, and use type guards to narrow it down.
+   - **Explicit Returns:** Always declare return types for functions and methods to prevent unintended return values.
+   - **Strict Null Checks:** Always handle `null` and `undefined` explicitly. Use optional chaining (`?.`) and nullish coalescing (`??`).
+2. **Type Declarations:**
+   - **Interfaces over Types:** Prefer `interface` for object shapes as they are more extensible. Use `type` for unions, intersections, and utility types.
+   - **Enums:** Avoid `enum`; prefer union types (e.g., `type Status = 'open' | 'closed'`) or constant objects (`as const`).
+3. **General Practices:**
+   - Prefer `readonly` for properties that should not be mutated.
+   - Ensure all parameters in public APIs are typed.
 
 ## Checklist
 - [ ] Confirm `strict` and `noUncheckedIndexedAccess` in tsconfig.

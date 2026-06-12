@@ -1,10 +1,6 @@
 ---
 name: zero-trust-architecture
-description: |
-  **SECURITY SKILL** - Design and implement zero-trust infrastructure with secrets rotation, authentication, attestation, and audit logging.
-  USE FOR: secret rotation policies, OIDC federation, workload identity, encrypted transit, audit trails, compliance validation.
-  DO NOT USE FOR: SSL certificate management (use managing-cloud-infrastructure), vulnerability scanning (use security-scanning).
-  INVOKES: vault, sealed-secrets, spiffe, sigstore, security-scanning, managing-cloud-infrastructure.
+description: "Zero-Trust Architecture & Secrets Management for Implementing automated, Deploying OIDC, Establishing encryption-in-transit via vault."
 license: MIT
 metadata:
   version: 1.0.0

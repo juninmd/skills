@@ -1,10 +1,6 @@
 ---
 name: frontend-design
-description: |
-  **DESIGN SKILL** - Create distinctive, production-grade frontend interfaces.
-  USE FOR: UI design direction, custom CSS/SASS, high-fidelity components, aesthetic refinement, typography/color systems, creative layouts.
-  DO NOT USE FOR: generic "AI slop" aesthetics, backend logic, basic HTML without styling requirements.
-  INVOKES: custom CSS variables, motion libraries, advanced layout techniques.
+description: "Frontend Design for Defining bold, Implementing unique, Creating complex via Modern CSS (Grid, Flex, Variables), Motion libraries, and characterful font pairings."
 license: MIT
 metadata:
   version: 1.0.0

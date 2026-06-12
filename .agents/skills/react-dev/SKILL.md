@@ -1,10 +1,6 @@
 ---
 name: react-dev
-description: |
-  **FRONTEND SKILL** - Build modern web apps with React 19 and Server Components.
-  USE FOR: React functional components, Server Components (RSC), React 19 hooks (use, useActionState, useOptimistic), Server Actions, Zustand state management, strict TS props.
-  DO NOT USE FOR: legacy Class components, non-React frameworks, React versions older than 18.
-  INVOKES: react, react-dom, zustand, typescript compiler.
+description: "React Development for Implementing async, Managing complex, Designing optimistic via react."
 license: MIT
 metadata:
   version: 1.0.0

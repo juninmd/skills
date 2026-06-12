@@ -1,10 +1,6 @@
 ---
 name: vite
-description: |
-  **BUNDLER SKILL** - Frontend bundling with Vite 8 and Tailwind v4.
-  USE FOR: Vite config, Tailwind v4, dev server proxy, asset management, React/Vue plugins, Rolldown optimization.
-  DO NOT USE FOR: npm library bundling (use tsdown), non-web JS, legacy Webpack migration.
-  INVOKES: vite cli, tailwind v4, oxc.
+description: "Vite + Tailwind CSS for Configuring dev, Implementing zero-config, Managing environment via vite."
 license: MIT
 metadata:
   version: 1.0.0
