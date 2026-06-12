@@ -1,386 +1,133 @@
 <div align="center">
 
-<img src="./docs/public/images/hero-banner.svg" alt="skills — AI coding skills that prove the code works. Quality gates: reproduce, test the unhappy paths, lint, run, homologate, ship with evidence." width="100%" />
+<img src="./docs/public/images/hero-banner.svg" alt="Agent skills with reproducible engineering checks" width="100%" />
 
-<h3>AI coding skills that don't just write code — they prove it works.</h3>
+<h3>Compact engineering skills with focused procedures and reproducible checks.</h3>
 
-<p><strong>71 skills · 4 agents · 4 prompts</strong> that turn a generic AI assistant into a disciplined engineer who reproduces failures, tests the unhappy paths, and refuses to say <em>“done”</em> without reproducible evidence.</p>
-
-<p>
-<img src="https://img.shields.io/github/stars/juninmd/skills?style=for-the-badge&color=34d399&labelColor=0d1a2b" alt="GitHub stars" />
-<img src="https://img.shields.io/badge/skills-71-34d399?style=for-the-badge&labelColor=0d1a2b" alt="71 skills" />
-<img src="https://img.shields.io/badge/agents-4-38bdf8?style=for-the-badge&labelColor=0d1a2b" alt="4 agents" />
-<img src="https://img.shields.io/badge/license-MIT-a78bfa?style=for-the-badge&labelColor=0d1a2b" alt="MIT license" />
-</p>
-
-<p>
-<a href="https://code.visualstudio.com/docs/copilot/customization/agent-plugins"><img src="https://img.shields.io/badge/VS%20Code-Agent%20Plugin-007ACC?style=flat-square&logo=visualstudiocode&logoColor=white" alt="VS Code Agent Plugin" /></a>
-<a href="https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-plugin-reference"><img src="https://img.shields.io/badge/Copilot%20CLI-ready-24292F?style=flat-square&logo=github&logoColor=white" alt="Copilot CLI ready" /></a>
-<img src="https://img.shields.io/badge/Claude%20Code-compatible-D97757?style=flat-square&logo=anthropic&logoColor=white" alt="Claude Code compatible" />
-<img src="https://img.shields.io/badge/Gemini%20CLI-compatible-4285F4?style=flat-square&logo=google&logoColor=white" alt="Gemini CLI compatible" />
-</p>
+<p><strong>15 skills · 4 agents · 4 prompts</strong> for coding assistants that inspect first, change narrowly, and finish with evidence.</p>
 
 </div>
 
----
-
 ## Why this exists
 
-Generic AI assistants are fast — and they happily hand you code that compiles, demos once, and falls apart in production. The recurring failure modes are always the same:
+Generic skill catalogs often fail in two ways:
 
-| Generic AI output | What it actually means |
-|---|---|
-| “It compiles.” | …but nobody ran it. Runtime is untested. |
-| “Here are some tests.” | …happy path only. Null, timeout, race, and error paths are absent. |
-| “Done.” | …no homologation, no acceptance gate, no reproducible proof. |
-| “Refactored.” | …same spaghetti, new variable names. Complexity untouched. |
+- Many narrow skills overlap and waste context.
+- Broad skills contain generic advice, stale links, or no executable workflow.
 
-This repository fixes that at the source. Each skill is a compact, battle-tested playbook that forces senior-engineer behaviour **before** code is written, **while** it changes, and **before** anything is called done.
+This catalog uses 15 domain skills. Every skill has:
 
-### The guarantee, not just advice
+- Spec-compliant frontmatter containing only `name` and `description`.
+- A description that states what the skill does and when to use it.
+- A short operational workflow.
+- Conditional links to real local references.
+- A concise completion checklist.
+- A maximum of 400 words in `SKILL.md`.
 
-These skills converge on one contract: **a change is not finished until it is proven.** That contract is the same loop an agent runs every time:
-
-```mermaid
-flowchart TD
-    A([Change written]) --> B["Reproduce the failure first"]
-    B --> C["Lint &amp; type-check clean"]
-    C --> D["Unit + integration tests"]
-    D --> E{All green?}
-    E -- No --> F["Diagnose root cause"]
-    F --> B
-    E -- Yes --> G["Run it: smoke critical paths"]
-    G --> H["Homologate on staging"]
-    H --> I{Gates pass?}
-    I -- No --> F
-    I -- Yes --> J([Ship with reproducible evidence])
-
-    classDef gate fill:#0f2a22,stroke:#34d399,color:#e2e8f0;
-    classDef decision fill:#1e293b,stroke:#38bdf8,color:#e2e8f0;
-    classDef done fill:#34d399,stroke:#059669,color:#08130f;
-    class B,C,D,G,H gate;
-    class E,I decision;
-    class A,J done;
-```
-
----
-
-## The two guarantees
-
-Two skills were built specifically to kill the failure modes above. They cross-link into the rest of the library, so invoking one pulls in the right specialists automatically.
-
-| Guarantee | Skill | What it enforces |
-|---|---|---|
-| **The unhappy paths are tested** | [`engineering-test-scenarios`](.agents/skills/engineering-test-scenarios/SKILL.md) | For every happy path, 3–5 deliberate failure scenarios: boundaries, nulls, errors, races, timeouts, fault injection, abuse cases — each asserting exact error **and** unchanged state. |
-| **Real architecture** | [`improving-codebase-architecture`](.agents/skills/improving-codebase-architecture/SKILL.md) | Evidence-first module boundaries, deeper interfaces, decoupled tests, ADRs for decisions that matter. |
-
-> [!NOTE]
-> These two don't replace your test runner or linter — they orchestrate them. `improving-codebase-architecture` calls `engineering-test-scenarios` when coverage gaps appear.
-
----
-
-## Before / after
-
-What the same request produces with and without the skills installed:
-
-```text
-#  Without skills
-$  "add a money transfer endpoint"
-   → one happy-path handler
-   → one test: transfers $50 successfully
-   → "Done."
-
-#  With /engineering-test-scenarios
-$  "add a money transfer endpoint"
-   → handler + guard clauses
-   → tests: $0, overdraft, null recipient, DB timeout,
-            concurrent double-spend (invariant: balance >= 0)
-   → reproduced each failure, ran the suite twice (deterministic)
-```
-
----
-
-## What's inside
-
-```mermaid
-flowchart LR
-    S(("/skills")) --> G["Guarantee gates"]
-    S --> B["Backend"]
-    S --> F["Frontend & Mobile"]
-    S --> I["Infra & DevOps"]
-    S --> A["Agentic AI"]
-
-    G --> G1["engineering-test-scenarios"]
-    G --> G2["improving-codebase-architecture"]
-
-    B --> B1["Node · NestJS · FastAPI · Go · Rust · .NET"]
-    F --> F1["React · Next.js · Flutter · React Native"]
-    I --> I1["Docker · K8s · Terraform · CI/CD · Cloud"]
-    A --> A1["MCP · multi-agent · OWASP · observability"]
-
-    classDef root fill:#34d399,stroke:#059669,color:#08130f;
-    classDef cat fill:#0d1a2b,stroke:#38bdf8,color:#e2e8f0;
-    classDef leaf fill:#0f2a22,stroke:#34d399,color:#e2e8f0;
-    class S root;
-    class G,B,F,I,A cat;
-    class G1,G2 leaf;
-    class B1,F1,I1,A1 leaf;
-```
-
----
-
-## Quick install
-
-> [!TIP]
-> **Recommended:** the Skills CLI works for Claude Code, Copilot CLI, and any assistant that reads `.agents/`.
+## Install
 
 ```bash
 # Everything
 npx skills add juninmd/skills --all
 
-# Preview the catalog without installing
+# Inspect available skills
 npx skills add juninmd/skills --list
 
-# Just one skill
-npx skills add juninmd/skills --skill engineering-test-scenarios
+# Install one domain
+npx skills add juninmd/skills --skill diagnostics
 ```
 
-<details>
-<summary><strong>Other install paths</strong> — VS Code plugin · Copilot CLI · git submodule</summary>
-
-<br>
-
-**VS Code Agent Plugin**
-
-1. Enable `chat.plugins.enabled`.
-2. Run `Chat: Install Plugin From Source`.
-3. Use `https://github.com/juninmd/skills`.
-
-```jsonc
-// Use this repo as a marketplace
-{ "chat.plugins.marketplaces": ["juninmd/skills"] }
-```
-
-**Copilot CLI**
-
-```bash
-copilot plugin install juninmd/skills
-```
-
-**Git submodule (any assistant reading `.agents/`)**
+The repository also works as a VS Code/Copilot plugin or as an `.agents` directory:
 
 ```bash
 git submodule add https://github.com/juninmd/skills .agents
 ```
 
-</details>
+## Skill Catalog
 
-### Try it
+| Skill | Use it for |
+|---|---|
+| `agent-engineering` | Agents, MCP tools, context, memory, safety, tracing, evaluations |
+| `backend-node` | Node.js, TypeScript, NestJS, pnpm, API contracts |
+| `backend-python` | Python, uv, Ruff, FastAPI, Pydantic, pytest |
+| `backend-systems` | Go, Rust, and .NET backend systems |
+| `cloud-devops` | CI/CD, Docker, Kubernetes, Helm, IaC, cloud, observability |
+| `data-engineering` | Database operations, query tuning, migrations, vector storage |
+| `diagnostics` | Bugs, regressions, flaky tests, DNS, HTTP, TLS, timeouts |
+| `expert-review` | Code, diff, plan, and design review |
+| `frontend-engineering` | React, Next.js, Vite, UI systems, accessibility |
+| `mobile-engineering` | iOS, Android, React Native, and Flutter |
+| `project-lifecycle` | Specs, plans, issues, worktrees, PR preparation |
+| `security-ops` | CVEs, SBOMs, secrets, access control, security auditing |
+| `software-architecture` | Boundaries, technical debt, distributed systems, Electron |
+| `test-engineering` | TDD, Vitest, unhappy paths, property and performance tests |
+| `tooling-dev` | CLIs, automation, generators, documentation extraction |
 
-```text
-/engineering-test-scenarios # design the failure paths, not just happy ones
-/developing-node            # Node 24 + TypeScript best practices
-/mastering-docker           # production-ready, distroless, non-root images
-/code-reviewer              # principal-level multi-perspective review
+## Skill Example
+
+```yaml
+---
+name: diagnostics
+description: |
+  Reproduce and isolate software, test, performance, and network failures. Use for bugs, regressions, flaky tests, DNS, HTTP, TLS, timeouts, and root-cause analysis.
+---
 ```
 
----
+The description is the discovery signal. The body loads only after the skill is selected.
 
-## Capability catalog
+## Quality Contract
 
-The full library, grouped. The two guarantee skills are marked ⭐.
+[`AGENTS.md`](./AGENTS.md) defines the shared operating contract:
 
-<details open>
-<summary><strong>Testing &amp; Verification</strong></summary>
-
-| Skill | What you get |
-|---|---|
-| ⭐ `engineering-test-scenarios` | Boundary / null / error / concurrency / timeout / fault-injection / abuse scenario design |
-| `test-driven-development` | Red/green/refactor with vertical slices; tests encode intent |
-| `generative-testing` | Property-based, mutation, and fuzz testing; >80% mutation kill rate |
-| `contract-testing` | OpenAPI 3.1, Pact consumer-driven contracts, breaking-change detection |
-| `vitest` | Vitest unit testing, Jest-compatible API |
-
-</details>
-
-<details>
-<summary><strong>Code Quality &amp; Architecture</strong></summary>
-
-| Skill | What you get |
-|---|---|
-| ⭐ `improving-codebase-architecture` | Module boundaries, deep interfaces, ADRs, testability |
-| `applying-clean-code` | Naming, function size, abstraction levels, guard clauses |
-| `applying-design-principles` | SOLID, DRY, KISS, YAGNI refactoring |
-| `auditing-code` · `ai-code-review` | Static analysis, code smells, AI-assisted diff review |
-| `diagnosing-bugs` | Evidence-driven debugging for defects, flaky behaviour, regressions |
-| `validating-typescript` · `typescript-advanced-types` | Strict type safety; branded types, conditional & mapped types |
-| `performance-profiling` | Flame graphs, memory/CPU profiling, query and load analysis |
-| `karpathy-guidelines` · `audit-context-building` | Avoid common LLM coding mistakes; line-by-line vulnerability context |
-
-</details>
-
-<details>
-<summary><strong>Backend &amp; API</strong></summary>
-
-| Skill | Stack |
-|---|---|
-| `developing-node` | Node 24 · TypeScript · pnpm · Biome · Vite 8 |
-| `developing-nestjs` | NestJS modular, validation, auth |
-| `developing-fastapi` | FastAPI · Pydantic v2 · async |
-| `developing-python` | uv · ruff · ty · pyproject.toml |
-| `developing-go` · `developing-rust` · `developing-dotnet` | Go modules · Rust ownership · .NET + EF Core |
-| `administrating-databases` · `database-migrations` | PostgreSQL/MongoDB/Redis · zero-downtime schema evolution |
-| `managing-vector-databases` | Vector DBs for similarity search and RAG |
-
-</details>
-
-<details>
-<summary><strong>Frontend, UI &amp; Mobile</strong></summary>
-
-| Skill | Stack |
-|---|---|
-| `react-dev` · `nextjs-dev` | React 19+ · Server Components · App Router · Turbopack |
-| `frontend-design` · `frontend-craftsmanship` | Distinctive production UI; performance & accessibility review |
-| `shadcn-ui` · `developing-ui-ux-components` · `vite` | Component systems, build config, docs sites |
-| `vercel-composition-patterns` | Server/Client boundaries, streaming, Server Actions |
-| `flutter-dev` · `react-native-dev` · `android-native-dev` · `ios-application-dev` | Flutter+Riverpod · Expo · Jetpack Compose · SwiftUI |
-| `implementing-accessibility` | WCAG standards and auditing |
-
-</details>
-
-<details>
-<summary><strong>Infrastructure, DevOps &amp; Security</strong></summary>
-
-| Skill | What you get |
-|---|---|
-| `mastering-docker` | Multi-stage, distroless, non-root, healthchecks |
-| `managing-helm-charts` · `managing-iac` · `managing-serverless` | Helm · Terraform/Pulumi/Ansible · Lambda/Vercel/Workers |
-| `managing-cloud-infrastructure` | Resilient architecture on AWS, GCP, Azure |
-| `configuring-ci-cd` · `github-actions-docs` | GitHub Actions / GitLab CI pipelines |
-| `security-scanning` · `zero-trust-architecture` | CVE/secrets/SBOM scanning; OIDC, mTLS, attestation |
-| `observability-patterns` | Structured logs, distributed tracing, SLI/SLO |
-| `fix-gitleaks` | Secret-leak triage |
-
-</details>
-
-<details>
-<summary><strong>Agentic AI &amp; MCP</strong></summary>
-
-| Skill | What you get |
-|---|---|
-| `developing-ai-agents` | Autonomous agents, tool calling, context management |
-| `orchestrating-multi-agent-systems` | LangGraph / CrewAI selection, composition patterns, cost |
-| `agent-security-owasp` | OWASP LLM Top 10, prompt-injection defence, HITL gates |
-| `agent-context-and-memory` | 1M-token context lifecycle, pruning, RAG memory |
-| `agent-observability-and-testing` | ReAct-loop tracing, tool isolation, LLM-as-judge |
-| `type-safe-agent-tools` | Branded types, schema inference, discriminated state |
-| `mcp-builder` | Model Context Protocol servers, end-to-end |
-
-</details>
-
-<details>
-<summary><strong>Tooling, Git &amp; Workflow</strong></summary>
-
-| Skill | What you get |
-|---|---|
-| `pnpm` · `cli-development` · `developing-tooling` | Workspaces, modern CLIs, automation |
-| `using-git-worktrees` · `finishing-a-development-branch` | Parallel worktrees; merge/PR cycle |
-| `executing-plans` · `spec-first-design` · `github-triage` | Plan execution, validated specs, issue triage |
-| `documentation-extraction` | Docs-as-code; automatic generation |
-| `diagnosing-networks` | DNS/HTTP troubleshooting |
-
-</details>
-
-> Browse every skill in the [documentation site](#documentation).
-
----
-
-## Agents
-
-Four principal-level assistants, each with a clear lane.
-
-| Agent | Use it when | It answers |
-|---|---|---|
-| `code-reviewer` | Before merging a PR/MR | “Unhandled edge cases? Security risks? Dead code? Regressions?” |
-| `principal-engineer` | Designing a system or weighing trade-offs | “What's the right boundary, the ADR, the scalability path?” |
-| `devops-engineer` | CI/CD, containers, cloud, IaC | “How does this build, ship, scale, and stay observable?” |
-| `plan-specialist` | Scoping non-trivial work | “What's the decomposition, the risk register, the quality gates?” |
-
----
-
-## The Quality Contract
-
-[`AGENTS.md`](./AGENTS.md) is the operating contract every skill inherits — it makes the assistant act like a senior engineer with guardrails, not autocomplete.
-
-| The contract enforces | In practice |
-|---|---|
-| **Clear judgment** | State assumptions, ask when unclear, push back on risky or overbuilt paths |
-| **Small diffs** | Touch only required files; every changed line maps to the request |
-| **Simplicity first** | No speculative features, premature abstractions, or needless configurability |
-| **Verified work** | Lint, scoped tests, and a smoke check run before “done” |
-| **Safety by default** | No destructive commands, no secret exposure, no git mutations without confirmation |
-
-All engineering standards (Security, Testing, Observability, Clean Code) are now embedded directly into the relevant Domain Skills for maximum context efficiency.
-
----
-
-## Layout
-
-```text
-.
-├── plugin.json                      # VS Code / Copilot plugin manifest
-├── AGENTS.md                        # the quality contract every skill inherits
-├── .github/plugin/marketplace.json  # marketplace metadata
-├── .agents/
-│   ├── agents/                      # 4 custom agents
-│   ├── prompts/                     # 4 reusable prompt templates
-│   ├── skills/                      # Consolidated domain skills
-│   └── tools/                       # validation scripts
-└── docs/                            # VitePress documentation
-```
+- SecOps before QA, QA before DevOps, DevOps before SWE.
+- Read before write.
+- Minimum, surgical changes.
+- Reproduce bugs before fixing.
+- No destructive Git, database, or infrastructure operations without confirmation.
+- No claim of completion without lint, scoped tests, and a smoke check.
 
 ## Validate
 
 ```bash
 pnpm install --frozen-lockfile
-pnpm run validate       # metadata, routing, word budgets, eval coverage, catalog, tests
-pnpm run docs:build     # verifies the published documentation
+pnpm run validate
+pnpm run docs:build
 ```
 
-New skills require two positive routing cases and one negative case under
-`.agents/skills/evals/<skill>/`. Run `pnpm run evals:generate` to scaffold
-missing cases, then replace generic prompts with domain-specific scenarios.
+`pnpm run validate` checks:
 
----
+- Plugin manifest and referenced directories.
+- Skill name/folder consistency.
+- Frontmatter limited to `name` and `description`.
+- Useful description and valid skill name.
+- `## Checklist` presence.
+- 400-word skill budget.
+- Local reference links.
+- README catalog consistency.
+- Validator unit tests.
+
+## Layout
+
+```text
+.
+├── plugin.json
+├── AGENTS.md
+├── .agents/
+│   ├── agents/
+│   ├── prompts/
+│   ├── skills/
+│   └── tools/
+└── docs/
+```
 
 ## Contributing
 
-Contributions are welcome — especially:
-
-- **New quality gates** — lint rules, test patterns, verification recipes.
-- **New stacks** — a language, framework, or platform that isn't covered yet.
-- **Domain expertise** — fintech, healthcare, ML, embedded.
-- **Failing cases** — a real example where an AI assistant ships broken code is a great issue.
-
-1. Fork, then add your skill/agent/rule under `.agents/`.
-2. Match the existing frontmatter format (`name`, `description` with `USE FOR` / `DO NOT USE FOR` / `INVOKES`).
-3. Run `pnpm run validate`.
-4. Open a PR explaining when the customization should activate.
-
-## Documentation
-
-```bash
-pnpm install
-pnpm docs:dev     # then open http://localhost:5173
-```
-
----
+1. Add or update `.agents/skills/<name>/SKILL.md`.
+2. Keep `name` equal to the folder.
+3. State what the skill does and when to use it in `description`.
+4. Link detailed material from `references/`; do not duplicate it in `SKILL.md`.
+5. Run `pnpm run validate` and `pnpm run docs:build`.
 
 ## License
 
-MIT — free to use, fork, and adapt.
-
-<div align="center">
-<br>
-Maintained by <a href="https://github.com/juninmd">Antonio Junior</a> · built for engineers who make AI prove its work.
-</div>
+MIT.

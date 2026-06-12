@@ -2,9 +2,9 @@
 layout: home
 
 hero:
-  name: "Agent Plugins"
-  text: "Skills, Agents & Rules"
-  tagline: Extend your AI coding assistant with production-grade engineering knowledge — 100 skills, 4 agents, 21 rules, 4 prompt templates.
+  name: "Engineering Skills"
+  text: "Focused procedures. Small context. Reproducible proof."
+  tagline: 15 domain skills, 4 agents, and 4 prompt templates for production engineering work.
   actions:
     - theme: brand
       text: Get Started
@@ -17,68 +17,42 @@ hero:
       link: https://github.com/juninmd/skills
 
 features:
-  - icon: 🤖
-    title: 4 Autonomous Agents
-    details: Code Reviewer, Principal Engineer, DevOps Engineer, and Plan Specialist — each with parallel sub-processes and structured output.
-    link: /agents/
-    linkText: Browse agents
-
-  - icon: ⚡
-    title: 86 Domain Skills
-    details: On-demand knowledge modules covering Node.js, Python, React, Flutter, Docker, Kubernetes, and more — all following 2026 best practices.
+  - title: 15 Domain Skills
+    details: Broad enough to avoid overlap, procedural enough to improve execution.
     link: /skills/
     linkText: Browse skills
 
-  - icon: 📋
-    title: 21 Governance Rules
-    details: Always-on instructions enforcing security, testing standards, naming conventions, and Git workflow across every task.
-    link: /rules/
-    linkText: Browse rules
+  - title: 4 Engineering Agents
+    details: Code review, architecture, DevOps, and planning roles with explicit scopes.
+    link: /agents/
+    linkText: Browse agents
 
-  - icon: 📝
-    title: 4 Prompt Templates
-    details: Reusable templates for code explanation, refactoring, test generation, and Dockerfile creation.
-    link: /prompts/
-    linkText: Browse prompts
+  - title: Validation Built In
+    details: Spec frontmatter, word budgets, local links, catalog consistency, and tests.
+    link: /getting-started
+    linkText: Run the checks
 
-  - icon: 🔒
-    title: Security First
-    details: OWASP Top 10 enforcement, Zod validation, no hardcoded secrets, parameterized queries — baked into every skill and agent.
-
-  - icon: 🌐
-    title: Multi-Platform
-    details: Works with Claude Code, Gemini CLI, Copilot CLI, and any AI assistant that reads `.agents/` or `AGENTS.md`.
+  - title: Multi-Platform
+    details: Compatible with assistants that discover `.agents/skills/<name>/SKILL.md`.
 ---
 
 ## Quick Setup
 
 ```bash
-# Add as git submodule
+npx skills add juninmd/skills --all
+```
+
+Or add the repository as your project's `.agents` directory:
+
+```bash
 git submodule add https://github.com/juninmd/skills .agents
-
-# Or clone directly
-git clone https://github.com/juninmd/skills .agents-plugins
 ```
 
-Then in your AI assistant session, skills and agents are automatically discovered.
+## Example Routing
 
-## Invoke a Skill
-
+```text
+/diagnostics            # reproduce and isolate a failure
+/frontend-engineering   # implement or review a web UI
+/cloud-devops           # change CI, containers, Helm, or IaC
+/expert-review          # review a diff, plan, or design
 ```
-/developing-node       # Node.js + TypeScript best practices
-/mastering-docker      # Production-ready Dockerfiles
-/react-dev             # React 19+ patterns
-/flutter-dev           # Flutter 3 + Riverpod
-/code-reviewer         # Multi-perspective code review
-```
-
-## Stack Defaults (2026)
-
-| Domain | Stack |
-|---|---|
-| Node.js | pnpm · TypeScript strict · Biome · SWC · Vite 8 |
-| Python | uv · ruff · ty · pyproject.toml · pytest |
-| React | React 19+ · Server Components · useActionState |
-| Next.js | App Router · Turbopack · async APIs |
-| Docker | Multi-stage · Distroless · non-root · healthchecks |
-| Mobile | Flutter (Riverpod) · React Native (Expo) |

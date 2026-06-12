@@ -1,46 +1,32 @@
 ---
 name: backend-python
-description: "Comprehensive Python Backend Development covering modern tooling (uv, Ruff) and FastAPI."
-license: MIT
-metadata:
-  version: 1.0.0
-compatibility:
-  platforms: "Python 3.11+"
-allowed-tools: [read_file, write_file, replace, run_shell_command]
+description: |
+  Build modern Python applications and FastAPI services. Use for uv and pyproject setup, Ruff, typed Python, Pydantic v2, async boundaries, pytest, and Alembic integration.
 ---
 
-# Backend Python Engineering
+# Backend Python
 
-Expert methodology for building modern, high-performance Python applications and APIs. This skill unifies modern Python toolchain management (uv, Ruff, Pyright) and FastAPI backend development.
+## Workflow
+1. Inspect `pyproject.toml`, lockfiles, Python constraint, source layout, and existing quality scripts.
+2. Preserve the chosen environment manager and framework conventions; prefer `uv` for new projects.
+3. Model external data with Pydantic/dataclasses, keep I/O async only where the dependency chain is async, and isolate side effects.
+4. Test valid input, validation failure, dependency failure, timeout, cancellation, and transaction rollback.
+5. Run Ruff, the repository type checker, focused pytest targets, and an import/startup smoke.
 
-**USE FOR:**
-- Setting up modern Python projects using `uv` and `pyproject.toml`.
-- Building REST APIs and async services with FastAPI and Pydantic v2.
-- Implementing strict type checking with Pyright/mypy.
-- Managing database interactions with SQLAlchemy 2 (async) and Alembic.
-- Enforcing code quality with Ruff.
+## Reference Routing
+- New environment and stack: [python-setup.md](references/python-setup.md), [modern-python-setup.md](references/modern-python-setup.md)
+- Migration and patterns: [modern-python-migration.md](references/modern-python-migration.md), [modern-python-patterns.md](references/modern-python-patterns.md)
+- FastAPI: [fastapi-best-practices.md](references/fastapi-best-practices.md)
+- Quality gates: [python-operations.md](references/python-operations.md), [testing.md](references/testing.md)
+- Configuration details: [pyproject.md](references/pyproject.md), [ruff-config.md](references/ruff-config.md), [uv-commands.md](references/uv-commands.md)
 
-**DO NOT USE FOR:**
-- Legacy Python 2.x or pre-3.11 environments.
-- Frontend or Node.js development (use `backend-node` or `frontend-engineering`).
-
-**INVOKES:**
-- `uv`, `ruff`, `pytest`, `fastapi`, `uvicorn`, `alembic`.
-
-## Core Principles
-1. **Modern Tooling:** Use `uv` for lightning-fast dependency management and `ruff` for linting/formatting.
-2. **Strict Typing:** Python is dynamic, but your codebase shouldn't be. Enforce strict type hints.
-3. **Async First:** Leverage `asyncio` for I/O bound operations, especially in FastAPI.
-4. **Validation:** Push validation to the edges using Pydantic models.
-
-## Implementation Guides
-Refer to these specific domains for deep-dive instructions:
-- [Modern Python Toolchain](references/python-toolchain.md)
-- [FastAPI Architecture](references/fastapi-arch.md)
-- [Data Validation & Pydantic](references/pydantic-validation.md)
+## Rules
+- Do not mix sync database clients into async request paths.
+- Validate configuration at startup and redact secrets from logs and exceptions.
+- Keep migrations backward compatible; coordinate schema changes with `data-engineering`.
+- Prefer explicit dependency injection over module-level mutable state.
 
 ## Checklist
-- [ ] Ensure `uv` is used for environment and dependency management.
-- [ ] Verify that `ruff check .` passes before committing.
-- [ ] Confirm that all FastAPI endpoints have defined Pydantic request and response models.
-- [ ] Use `pytest` for all unit and integration testing.
+- [ ] Boundaries, configuration, and errors are typed.
+- [ ] Validation and dependency failures are tested.
+- [ ] Ruff, typecheck, pytest, and startup pass.

@@ -32,8 +32,8 @@ _Avoid_: [synonym1, synonym2]
 
 ## Contexts
 
-- [Ordering](./src/ordering/CONTEXT.md) — receives and tracks customer orders
-- [Billing](./src/billing/CONTEXT.md) — generates invoices and processes payments
+- `Ordering` (`src/ordering/CONTEXT.md`) — receives and tracks customer orders
+- `Billing` (`src/billing/CONTEXT.md`) — generates invoices and processes payments
 
 ## Relationships
 

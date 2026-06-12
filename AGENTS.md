@@ -1,4 +1,4 @@
 - **Validate before done:** `pnpm run validate` (or `node .agents/tools/validate-plugin.mjs && node .agents/tools/validate-agents.mjs .agents`). Keep it green; run the validator unit tests when touching `.agents/tools/`.
-- **Skill format:** one `.agents/skills/<name>/SKILL.md` per skill, with `name` equal to the folder. The `description: |` block must carry `USE FOR` / `DO NOT USE FOR` / `INVOKES` routing; the body must include a `## Checklist`. Keep skills token-lean (~≤500 tokens target).
-- **Cross-link, don't duplicate:** delegate to sibling skills via `INVOKES` and `DO NOT USE FOR` instead of repeating their content. Reuse existing skills/rules before inventing new workflows.
+- **Skill format:** one `.agents/skills/<name>/SKILL.md` per skill. Frontmatter contains only `name` and `description`; `name` equals the folder, and `description` states what the skill does and when to use it. The body must include a concise `## Checklist`.
+- **Token efficiency:** keep `SKILL.md` procedural and concise. Link detailed material from `references/` instead of duplicating it.
 - **Memory:** persist errors and learnings to your assistant's memory, and keep this contract improving each iteration.

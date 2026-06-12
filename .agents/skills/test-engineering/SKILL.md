@@ -1,48 +1,32 @@
 ---
 name: test-engineering
-description: "Comprehensive Test Engineering covering TDD, Vitest, Generative Testing, and Performance Profiling."
-license: MIT
-metadata:
-  version: 1.0.0
-compatibility:
-  platforms: "any"
-allowed-tools: [read_file, write_file, replace, run_shell_command]
+description: |
+  Design and implement reliable unit, integration, contract, property, mutation, and performance tests. Use for TDD, Vitest, pytest, unhappy paths, flaky tests, fixtures, mocks, fuzzing, coverage gaps, and regression benchmarks.
 ---
 
-# Test Engineering & Quality Assurance
+# Test Engineering
 
-Expert methodology for ensuring software reliability through robust testing strategies. This skill unifies Test-Driven Development (TDD), the Vitest framework, negative test scenarios, generative/fuzz testing, and runtime performance profiling.
+## Workflow
+1. Define the behavior, invariant, observable outcome, and failure modes before choosing test level.
+2. Reproduce the defect with a failing test when fixing a bug.
+3. Prefer the lowest test level that exercises the real contract; avoid mocking the subject under test.
+4. Cover boundaries, invalid input, dependency failure, timeout, retry, concurrency, and unchanged-state guarantees.
+5. Run focused tests, then the relevant suite; repeat flaky or concurrency-sensitive tests.
+6. Use coverage to find blind spots, mutation to assess assertion strength, and profiling to prove performance claims.
 
-**USE FOR:**
-- Implementing features using the Red/Green/Refactor cycle (TDD).
-- Designing unhappy-path tests (boundary values, fault injection, concurrency).
-- Authoring unit and integration tests using Vitest.
-- Implementing generative and property-based testing.
-- Profiling runtime performance (flame graphs, memory, CPU) and preventing regressions.
+## Reference Routing
+- TDD: [tdd-methodology.md](references/tdd-methodology.md)
+- Vitest basics: [vitest-core.md](references/vitest-core.md), [vitest-features.md](references/vitest-features.md)
+- Detailed API topics: use the matching `core-*`, `features-*`, or `advanced-*` file.
+- Topic selection: [TOPIC_MAP.md](references/TOPIC_MAP.md)
 
-**DO NOT USE FOR:**
-- Contract testing (use `backend-node` or `backend-python`).
-- UI component design (use `frontend-engineering`).
-
-**INVOKES:**
-- `vitest`, `pytest`, `stryker`, profiling tools.
-
-## Core Principles
-1. **Tests Encode Intent:** Tests should assert *why* behavior matters, not just state changes.
-2. **Deterministic:** Tests must be reliable; eliminate flaky tests immediately.
-3. **Negative Space:** Happy path is insufficient; explicitly test boundaries and failure modes.
-4. **Performance is a Feature:** Validate optimization claims with empirical profiling data.
-
-## Implementation Guides
-Refer to these specific domains for deep-dive instructions:
-- [Test-Driven Development (TDD)](references/tdd-best-practices.md)
-- [Vitest Framework](references/vitest-guide.md)
-- [Engineering Test Scenarios](references/test-scenarios.md)
-- [Generative & Property Testing](references/generative-testing.md)
-- [Performance Profiling](references/performance-profiling.md)
+## Rules
+- Assert externally meaningful behavior and exact failure semantics.
+- Restore mocks, timers, environment, and global state after every test.
+- Do not chase a coverage percentage with low-value assertions.
+- Benchmarks need warmup, stable inputs, multiple samples, and before/after comparison.
 
 ## Checklist
-- [ ] Define success criteria and failure scenarios before writing implementation code.
-- [ ] Ensure mocks and side-effects are isolated and restored after each test.
-- [ ] Run coverage tools to identify untested boundary conditions.
-- [ ] Profile performance before and after optimization attempts to prove impact.
+- [ ] Test fails for the intended reason first.
+- [ ] Important happy and unhappy paths are covered.
+- [ ] Focused and relevant suites pass deterministically.

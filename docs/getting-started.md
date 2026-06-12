@@ -1,140 +1,64 @@
 # Getting Started
 
-## What is this?
+## Install
 
-**Agent Plugins** is a curated plugin library for AI coding assistants. It packages production-grade engineering knowledge into reusable **skills**, **autonomous agents**, **prompt templates**, and **governance rules** that extend the assistant's capabilities beyond its defaults.
+```bash
+# Install all skills
+npx skills add juninmd/skills --all
 
-All plugins live under `.agents/` and are automatically discovered by Claude Code, Gemini CLI, Copilot CLI, and any compatible assistant.
+# Preview the catalog
+npx skills add juninmd/skills --list
 
-## Installation
+# Install one skill
+npx skills add juninmd/skills --skill backend-node
+```
 
-### Option 1 — Git Submodule (recommended)
-
-Add to an existing project so plugins stay versioned with your repo:
+For repository-local discovery:
 
 ```bash
 git submodule add https://github.com/juninmd/skills .agents
 git submodule update --init --recursive
 ```
 
-### Option 2 — Clone Directly
+## Invoke
 
-```bash
-git clone https://github.com/juninmd/skills
+Skills can activate from their frontmatter description or be invoked explicitly:
+
+```text
+/backend-node
+/diagnostics
+/test-engineering
+/project-lifecycle
 ```
 
-### Option 3 — Partial Copy
+## Skill Structure
 
-Copy only the categories you need into your project's `.agents/` folder. The structure is flat — each folder is self-contained.
-
-## Directory Layout
-
-```
-.agents/
-├── agents/          # Autonomous subagents
-├── prompts/         # Reusable prompt templates
-├── rules/           # Always-on governance rules
-└── skills/          # Domain knowledge modules
-    └── skill-name/
-        ├── SKILL.md         # Main skill content + frontmatter
-        └── assets/          # Optional diagrams, references
+```text
+.agents/skills/<name>/
+├── SKILL.md
+└── references/
 ```
 
-## Invoking Skills
+`SKILL.md` contains the discovery description, core workflow, reference selection, rules, and a concise checklist. Detailed knowledge stays in `references/` and is loaded only when relevant.
 
-In Claude Code, use the `/skill-name` syntax:
-
-```
-/developing-node
-/mastering-docker
-/react-dev
-/flutter-dev
-/code-reviewer
-/principal-engineer
-```
-
-Skills activate automatically when the task matches their trigger keywords. You can also invoke them explicitly to force-load a specific knowledge module.
-
-## Invoking Agents
-
-Agents are invoked the same way:
-
-```
-/code-reviewer        # Multi-perspective PR/MR review
-/principal-engineer   # Architecture and system design
-/devops-engineer      # Infrastructure and CI/CD
-/plan-specialist      # Task planning and orchestration
-```
-
-## Using Prompt Templates
-
-Prompt templates wrap a common task pattern:
-
-```
-/explain              # Explain selected code step by step
-/refactor             # Refactor using Clean Code principles
-/generate-tests       # Generate unit tests (Vitest/Jest)
-/generate-dockerfile  # Generate a production Dockerfile
-```
-
-## How Rules Work
-
-Rules are always active — no invocation needed. They constrain and guide all AI responses in the session:
-
-- `security.instructions.md` — blocks merges with OWASP Top 10 vulnerabilities
-- `git-workflow.instructions.md` — enforces feature branches and Conventional Commits
-- `testing.instructions.md` — requires >80% test coverage
-
-See [Rules](/rules/) for the full list.
-
-## Frontmatter Format
-
-Every plugin uses YAML frontmatter to declare its metadata.
-
-### Skill
+## Required Frontmatter
 
 ```yaml
 ---
 name: your-skill-name
-description: "Short description. Triggers: keyword1, keyword2."
-argument-hint: "[optional] [args]"
+description: |
+  What the skill does and the concrete tasks or contexts where it should be used.
 ---
 ```
 
-### Agent
+Only `name` and `description` are allowed in skill frontmatter.
 
-```yaml
----
-name: your-agent-name
-description: "What this agent does. When to invoke it."
-user-invocable: true
-disable-model-invocation: false
----
-```
-
-### Rule
-
-```yaml
----
-description: Brief rule summary
-globs: ["**/*.ts", "**/*.tsx"]
-alwaysApply: true
----
-```
-
-## Contributing
-
-1. Fork the repository
-2. Add your skill under `.agents/skills/your-skill-name/SKILL.md`
-3. Follow the frontmatter format above
-4. Run `pnpm docs:dev` to preview the docs locally
-5. Open a pull request
-
-## Browse the Docs
+## Validate
 
 ```bash
-pnpm install
-pnpm docs:dev
+pnpm install --frozen-lockfile
+pnpm run validate
+pnpm run docs:build
 ```
 
-Open `http://localhost:5173` in your browser.
+The gate checks frontmatter fields, naming, description quality, checklist presence, word budget, local links, catalog consistency, and validator tests.

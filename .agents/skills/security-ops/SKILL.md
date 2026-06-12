@@ -1,47 +1,31 @@
 ---
 name: security-ops
-description: "Comprehensive Security Operations covering Vulnerability Scanning, Zero-Trust Architecture, Secret Management, and Code Auditing."
-license: MIT
-metadata:
-  version: 1.0.0
-compatibility:
-  platforms: "any"
-allowed-tools: [read_file, write_file, replace, run_shell_command]
+description: |
+  Audit and harden code, dependencies, secrets, identities, pipelines, and infrastructure. Use for CVE or SBOM scans, Gitleaks findings, secret rotation, access control, injection risk, least privilege, and zero-trust reviews.
 ---
 
-# Security Operations & Auditing
+# Security Operations
 
-Expert methodology for implementing security controls, vulnerability scanning, and code auditing. This skill unifies dependency scanning, zero-trust infrastructure principles, secret detection/remediation (gitleaks), and AI-assisted code reviews for security compliance.
+## Workflow
+1. Define assets, trust boundaries, attacker capability, data sensitivity, and compliance constraints.
+2. Collect evidence with non-destructive scans; redact secret values and sensitive paths from output.
+3. Triage findings by exploitability, exposure, privilege, business impact, and confidence.
+4. Fix the root control failure: rotate exposed credentials, narrow permissions, validate input, patch dependencies, or isolate execution.
+5. Add regression checks and verify the control in the same path where the weakness existed.
 
-**USE FOR:**
-- Implementing vulnerability scanning (CVEs), SBOM generation, and license compliance.
-- Designing zero-trust infrastructure (secret rotation, workload identity, audit trails).
-- Triaging and remediating secret leaks (Gitleaks, git-filter-repo).
-- Performing automated and AI-assisted code reviews for security and style violations.
-- Building ultra-granular context for deep security audits.
+## Reference Routing
+- Gitleaks collection and triage: [gitleaks-setup.md](references/gitleaks-setup.md), [gitleaks-triage.md](references/gitleaks-triage.md)
+- Remediation execution: [gitleaks-actions.md](references/gitleaks-actions.md)
+- Completion criteria: [gitleaks-criteria.md](references/gitleaks-criteria.md)
 
-**DO NOT USE FOR:**
-- Setting up general CI/CD pipelines (use `cloud-devops`).
-- LLM prompt injection defenses (use `agent-engineering`).
-
-**INVOKES:**
-- `trivy`, `gitleaks`, `git-filter-repo`, static analysis tools.
-
-## Core Principles
-1. **Zero Trust:** Never trust, always verify. Apply least-privilege access universally.
-2. **Shift Left:** Detect vulnerabilities and secrets before they are committed or built.
-3. **Immutable History:** Purge leaked secrets from history, do not just delete them in the next commit.
-4. **Contextual Audits:** Understand the systemic invariants before hunting for logic flaws.
-
-## Implementation Guides
-Refer to these specific domains for deep-dive instructions:
-- [Security Scanning & SBOMs](references/security-scanning.md)
-- [Zero-Trust Architecture](references/zero-trust.md)
-- [Secret Remediation (Gitleaks)](references/secret-remediation.md)
-- [Code Auditing & Review](references/code-auditing.md)
+## Rules
+- Never print or commit a discovered secret; show only type, location, and redacted evidence.
+- Revocation/rotation comes before history cleanup.
+- Do not suppress a scanner finding until exploitability and provenance are understood.
+- Require explicit approval before history rewriting, credential mutation, or infrastructure changes.
+- Prefer short-lived identity and least privilege over stored credentials.
 
 ## Checklist
-- [ ] Ensure `.gitleaksignore` is correctly configured and pre-commit hooks are active.
-- [ ] Validate that all external dependencies are scanned for CVEs before deployment.
-- [ ] Confirm secrets are managed via a secure vault, not environment variables.
-- [ ] Review code diffs specifically for broken access control or injection vulnerabilities.
+- [ ] Assets and trust boundaries are identified.
+- [ ] Findings are prioritized by real risk.
+- [ ] Remediation and regression checks are verified.

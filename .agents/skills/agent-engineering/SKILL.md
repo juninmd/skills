@@ -1,50 +1,32 @@
 ---
 name: agent-engineering
-description: "Comprehensive Agent Engineering covering AI Agent Development, MCP, Context Management, Observability, and Security."
-license: MIT
-metadata:
-  version: 1.0.0
-compatibility:
-  platforms: "any"
-allowed-tools: [read_file, write_file, replace, run_shell_command]
+description: |
+  Design, implement, test, and secure AI agents, MCP tools, context pipelines, memory, and multi-agent orchestration. Use for agent loops, tool schemas, handoffs, prompt-injection defenses, tracing, and agent evaluations.
 ---
 
 # Agent Engineering
 
-Expert methodology for designing, building, and securing autonomous AI agents and Multi-Agent Systems. This skill unifies prompt engineering, tool integration, Model Context Protocol (MCP), context memory management, observability, and OWASP security for LLMs.
+## Workflow
+1. Define the agent goal, non-goals, authority boundary, and human approval points.
+2. Map each user intent to the smallest deterministic tool; use strict schemas and bounded outputs.
+3. Design state transitions, retries, timeouts, idempotency, and handoff criteria before prompts.
+4. Treat prompts, retrieved content, tool output, and remote resources as untrusted input.
+5. Add traces for requests, tool calls, latency, token use, failures, and final outcomes without logging secrets.
+6. Test valid calls, malformed input, prompt injection, tool denial, timeout, partial failure, and retry exhaustion.
 
-**USE FOR:**
-- Crafting structured system prompts, agent personas, and strict JSON schemas for tools.
-- Designing multi-agent systems and routing logic (e.g., using LangGraph or custom orchestrators).
-- Building Model Context Protocol (MCP) servers and tools.
-- Managing long-running agent context (sliding windows, summarization, RAG).
-- Securing agents against prompt injection and supply chain risks (OWASP LLM Top 10).
-- Instrumenting agent loops for tracing, testing, and evaluation (LLM-as-a-judge).
-- Designing type-safe agent tools using branded types and schema inference.
+## Reference Routing
+- Agent loops, tool contracts, and orchestration: [agent-development.md](references/agent-development.md)
+- Deep audit scope and evidence collection: [audit-phases.md](references/audit-phases.md)
+- Function-level trust-boundary analysis: [function-analysis.md](references/function-analysis.md)
+- Stable outputs and subagent isolation: [stability-rules.md](references/stability-rules.md)
 
-**DO NOT USE FOR:**
-- General application backend development (use `backend-node` or `backend-python`).
-- Training or fine-tuning underlying Large Language Models (LLMs).
-
-**INVOKES:**
-- Prompt engineering techniques, JSON Schema generation, testing, and profiling tools.
-
-## Core Principles
-1. **Deterministic Tools:** Design tools with strict inputs/outputs to guide the LLM effectively.
-2. **Context Efficiency:** Prune and summarize context proactively; token limits are a hard constraint.
-3. **Defense in Depth:** Treat all LLM inputs as untrusted; isolate tool execution environments.
-4. **Observable Reasoning:** Instrument the "thought" loop; log prompts, responses, and tool calls for debugging.
-
-## Implementation Guides
-Refer to these specific domains for deep-dive instructions:
-- [Agent Development & Orchestration](references/agent-development.md)
-- [Model Context Protocol (MCP)](references/mcp-builder.md)
-- [Context & Memory Management](references/context-memory.md)
-- [Agent Security & OWASP](references/agent-security.md)
-- [Observability & Testing](references/agent-testing.md)
+## Rules
+- Prefer code for routing, retries, parsing, and policy enforcement; use models for judgment-heavy work.
+- Give tools least privilege and deny destructive operations by default.
+- Keep memory provenance, retention, and deletion behavior explicit.
+- Never expose hidden reasoning; log concise decisions and observable evidence instead.
 
 ## Checklist
-- [ ] Define the agent's boundaries, tools, and handoff criteria before implementation.
-- [ ] Implement strict validation for all tool inputs (e.g., using Zod or Pydantic).
-- [ ] Ensure Human-In-The-Loop (HITL) for any destructive actions.
-- [ ] Setup tracing for the agent's core decision loop.
+- [ ] Boundaries, tools, and approvals are explicit.
+- [ ] Schemas and untrusted inputs are validated.
+- [ ] Failure, abuse, and trace checks pass.

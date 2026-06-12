@@ -1,0 +1,43 @@
+# Copy to .pre-commit-config.yaml.
+# Replace every <version> placeholder with a reviewed, pinned release.
+default_language_version:
+  python: python3.13
+
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: <version>
+    hooks:
+      - id: ruff-check
+        args: [--fix]
+      - id: ruff-format
+
+  - repo: builtin
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-toml
+      - id: check-merge-conflict
+
+  - repo: https://github.com/koalaman/shellcheck-precommit
+    rev: <version>
+    hooks:
+      - id: shellcheck
+        args: [--severity=error]
+
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: <version>
+    hooks:
+      - id: detect-secrets
+        args: [--baseline, .secrets.baseline]
+
+  - repo: https://github.com/rhysd/actionlint
+    rev: <version>
+    hooks:
+      - id: actionlint
+
+  - repo: https://github.com/zizmorcore/zizmor-pre-commit
+    rev: <version>
+    hooks:
+      - id: zizmor
+        args: [--persona=regular, --min-severity=medium, --min-confidence=medium]

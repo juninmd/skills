@@ -1,49 +1,31 @@
 ---
 name: frontend-engineering
-description: "Comprehensive Frontend Engineering covering React, Next.js, Vite, shadcn/ui, Accessibility, and UI/UX Design patterns."
-license: MIT
-metadata:
-  version: 1.0.0
-compatibility:
-  platforms: "React, Next.js, Browser, Tailwind CSS"
-allowed-tools: [read_file, write_file, replace, run_shell_command]
+description: |
+  Build and review accessible web interfaces. Use for React, Next.js, Vite, Tailwind, shadcn/ui, responsive design, component systems, browser performance, hydration, keyboard behavior, and accessibility.
 ---
 
 # Frontend Engineering
 
-Expert methodology for architecting and developing production-grade web interfaces. This skill unifies best practices for modern React, Next.js, Vite build tooling, accessible UI component design (shadcn/ui), and frontend craftsmanship.
+## Workflow
+1. Inspect framework/version, component system, route/data boundaries, styling, and existing test commands.
+2. Define the primary user task, states, responsive behavior, and accessibility contract.
+3. Keep server/client boundaries explicit; minimize client JavaScript and duplicated state.
+4. Implement loading, empty, error, disabled, overflow, and slow-network behavior with the happy path.
+5. Verify keyboard use, focus, labels, contrast, responsive layouts, browser console, tests, and production build.
 
-**USE FOR:**
-- Architecting and developing applications with React 19+ and Next.js (App Router, RSC).
-- Configuring and optimizing builds with Vite and Rolldown.
-- Implementing UI component libraries using shadcn/ui and Radix.
-- Hardening UI accessibility (A11y), keyboard navigation, and ARIA support.
-- Applying distinctive, polished UI designs and optimizing runtime performance.
-- Managing client/server component boundaries and state.
+## Reference Routing
+- Product-quality review and optimization: [frontend-review.md](references/frontend-review.md), [frontend-optimization.md](references/frontend-optimization.md)
+- UI composition: [ui-flow.md](references/ui-flow.md), [ui-best-practices.md](references/ui-best-practices.md), [ui-design-guidelines.md](references/ui-design-guidelines.md)
+- shadcn/ui: [GUIDE_INSTALLATION.md](references/GUIDE_INSTALLATION.md), [GUIDE_ARCHITECTURE.md](references/GUIDE_ARCHITECTURE.md), [GUIDE_BLOCKS_A11Y.md](references/GUIDE_BLOCKS_A11Y.md)
+- Vite/Tailwind: [vite-core.md](references/vite-core.md), [vite-patterns.md](references/vite-patterns.md), [vite-tailwind-v4.md](references/vite-tailwind-v4.md)
 
-**DO NOT USE FOR:**
-- Backend business logic or database migrations (use `backend-node` or `data-engineering`).
-- Native mobile app development (use `mobile-engineering`).
-
-**INVOKES:**
-- `react`, `next`, `vite`, `npx shadcn@latest`, `tailwind`, accessibility tools.
-
-## Core Principles
-1. **Product First:** Polish must support, not break, the primary user task.
-2. **Accessible by Design:** A11y is a core requirement, second only to functionality. Leverage Radix for complex primitives.
-3. **Runtime Quality:** Minimize waterfalls, hydration mismatches, and layout shifts.
-4. **Server-First Execution:** Maximize use of React Server Components; keep client components thin and interactive.
-5. **Purity in Styling:** Zero runtime overhead via build-time CSS (Tailwind v4 / CSS modules).
-
-## Implementation Guides
-Refer to these specific domains for deep-dive instructions:
-- [React & Next.js Architecture](references/react-nextjs-arch.md)
-- [Vite Build & Tooling](references/vite-tooling.md)
-- [UI Components & shadcn/ui](references/ui-components.md)
-- [Accessibility & Craftsmanship](references/accessibility-craftsmanship.md)
+## Rules
+- Preserve the repository design system; do not introduce a second component stack casually.
+- Prefer semantic HTML and native behavior before ARIA.
+- Avoid effects for derived state and avoid hydration-dependent initial rendering.
+- Visual polish cannot hide broken states or inaccessible controls.
 
 ## Checklist
-- [ ] Define the visual direction, component boundary, and state model before coding.
-- [ ] Verify accessibility (focus, contrast, ARIA) and responsive layout.
-- [ ] Minimize client-side code crossing the RSC boundary.
-- [ ] Test HMR and build performance if touching configuration.
+- [ ] Main, loading, empty, and error states work.
+- [ ] Keyboard, focus, contrast, and responsive checks pass.
+- [ ] Tests and production build pass cleanly.

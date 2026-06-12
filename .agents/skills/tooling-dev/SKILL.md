@@ -1,39 +1,30 @@
 ---
 name: tooling-dev
-description: "Comprehensive Tooling Development covering CLI design, Internal tools, and Documentation extraction."
-license: MIT
-metadata:
-  version: 1.0.0
-compatibility:
-  platforms: "any"
-allowed-tools: [read_file, write_file, replace, run_shell_command]
+description: |
+  Build and maintain command-line tools, developer automation, code generators, and documentation extraction. Use for CLI arguments, exit codes, non-interactive execution, config discovery, structured output, packaging, and integration tests.
 ---
 
-# Tooling & CLI Development
+# Tooling Development
 
-Expert methodology for building production-grade internal tools, CLI applications, and automated documentation extraction systems. This skill unifies CLI design patterns, automation scripting, and documentation-as-code.
+## Workflow
+1. Define users, invocation examples, stdin/stdout/stderr contract, exit codes, and automation requirements.
+2. Inspect repository runtime, packaging, config, logging, and distribution conventions.
+3. Separate command parsing from domain logic; make the core callable without a terminal.
+4. Support `--help`, non-interactive execution, machine-readable output when needed, and bounded cancellation.
+5. Test valid input, invalid flags, missing config, partial files, interrupted processes, and cross-platform paths.
+6. Run package/build checks and smoke the installed or packaged command, not only the source entry point.
 
-**USE FOR:**
-- Designing and implementing CLI applications (Commander, Typer, Click).
-- Building automation scripts for developer workflows.
-- Implementing documentation extraction from code (JSDoc, Javadoc, Sphinx).
-- Creating interactive prompts, progress bars, and structured logs for CLI tools.
+## Reference Routing
+- CLI behavior and operational standards: [tooling-best-practices.md](references/tooling-best-practices.md)
+- Implementation patterns: [tooling-examples.md](references/tooling-examples.md)
 
-**DO NOT USE FOR:**
-- General web backend development (use `backend-*`).
-- Frontend UI development (use `frontend-engineering`).
-
-**INVOKES:**
-- CLI frameworks, regex, documentation generators.
-
-## Core Principles
-1. **User Experience (UX):** CLIs are interfaces; prioritize help text, intuitive flags, and meaningful errors.
-2. **Fail Loudly:** Return appropriate exit codes and clear error messages to stderr.
-3. **Automation-Friendly:** Support non-interactive modes (`--yes`, `--quiet`) for CI/CD usage.
-4. **Self-Documenting:** Documentation should be derived from the code whenever possible.
+## Rules
+- Write primary results to stdout, diagnostics to stderr, and failures with non-zero exit codes.
+- Never prompt in CI; provide explicit flags for confirmation and quiet modes.
+- Avoid regex parsing when a structured parser exists.
+- Do not overwrite user files without preview, backup, or explicit force behavior.
 
 ## Checklist
-- [ ] Verify that `--help` provides clear and accurate information.
-- [ ] Ensure the tool handles invalid input gracefully with a non-zero exit code.
-- [ ] Test the tool in a non-interactive environment.
-- [ ] Validate that extracted documentation is complete and correctly formatted.
+- [ ] Help, output streams, and exit codes are accurate.
+- [ ] Non-interactive and failure paths are tested.
+- [ ] Packaged command smoke passes.

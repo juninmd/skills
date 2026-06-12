@@ -1,39 +1,33 @@
 ---
 name: diagnostics
-description: "Comprehensive Diagnostics for Debugging bugs and Networking issues."
-license: MIT
-metadata:
-  version: 1.0.0
-compatibility:
-  platforms: "any"
-allowed-tools: [read_file, write_file, replace, run_shell_command]
+description: |
+  Reproduce and isolate software, test, performance, and network failures with evidence-driven experiments. Use for bugs, regressions, flaky tests, crashes, timeouts, DNS, ports, HTTP, TLS, and root-cause analysis.
 ---
 
-# Diagnostics & Troubleshooting
+# Diagnostics
 
-Expert methodology for diagnosing software defects, performance regressions, and network connectivity issues. This skill unifies evidence-driven bug investigation and network protocol debugging.
+## Workflow
+1. Capture the exact symptom, environment, timing, expected behavior, and smallest reproduction.
+2. Establish the last known good state and compare code, config, data, dependency, and infrastructure changes.
+3. Trace the failing path and split the system at observable boundaries.
+4. State one falsifiable hypothesis; run the cheapest experiment that distinguishes it from alternatives.
+5. Fix the root cause, add a regression test, and rerun the original reproduction plus adjacent failure paths.
 
-**USE FOR:**
-- Investigating failing tests, flaky behavior, and production errors.
-- Performing root cause analysis using the 6-phase diagnosis loop.
-- Debugging network connectivity, HTTP headers, SSL/TLS certificates, and DNS.
-- Tracing data flow across distributed system boundaries.
+## Reference Routing
+- Full debugging sequence: [debugging-phases.md](references/debugging-phases.md)
+- Compact evidence workflow: [debugging-workflow.md](references/debugging-workflow.md)
+- DNS and connectivity: [network-connectivity.md](references/network-connectivity.md)
+- HTTP and TLS: [network-http-ssl.md](references/network-http-ssl.md)
+- Traffic and latency: [network-performance.md](references/network-performance.md)
+- Network triage: [network-troubleshooting.md](references/network-troubleshooting.md)
 
-**DO NOT USE FOR:**
-- Implementing the fix (use the relevant language/framework skill).
-- Monitoring infrastructure (use `cloud-devops`).
-
-**INVOKES:**
-- `curl`, `dig`, `ping`, `openssl`, diagnostic test suites.
-
-## Core Principles
-1. **Evidence First:** Never guess; gather logs, traces, and reproduction cases first.
-2. **Reproduce Before Fix:** A bug is only understood when it can be triggered reliably.
-3. **Isolate the Fault:** Use the method of halves to narrow down the failing component.
-4. **Network as a Service:** Verify basic connectivity (L3/L4) before debugging application logic (L7).
+## Rules
+- Preserve raw evidence, but summarize it in chat and redact secrets.
+- Change one variable per experiment.
+- Check L3/L4 reachability before L7 behavior.
+- Do not call correlation a root cause until the reproduction changes predictably.
 
 ## Checklist
-- [ ] Record the exact steps to reproduce the failure.
-- [ ] Check logs and traces for specific error messages or timeouts.
-- [ ] Verify network connectivity and port availability between components.
-- [ ] State a hypothesis and the experiment needed to validate it.
+- [ ] Failure and expected behavior are captured.
+- [ ] Hypothesis is tested with controlled evidence.
+- [ ] Regression proof covers the original symptom.

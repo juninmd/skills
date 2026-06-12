@@ -1,47 +1,32 @@
 ---
 name: software-architecture
-description: "Comprehensive guide for Software Architecture, Clean Code, Design Principles, and Distributed Systems."
-license: MIT
-metadata:
-  version: 1.0.0
-compatibility:
-  platforms: "any"
-allowed-tools: [read_file, write_file, replace, run_shell_command]
+description: |
+  Improve codebase structure and system design with simple, evidence-based boundaries. Use for modularization, dependency direction, technical debt, distributed systems, Electron architecture, failure modes, and ADRs.
 ---
 
-# Software Architecture & Design
+# Software Architecture
 
-Expert methodology for designing scalable systems and writing maintainable code. This skill unifies Clean Code practices, SOLID design principles, codebase architecture refactoring, and distributed systems design.
+## Workflow
+1. Map the current entry points, dependencies, ownership, runtime boundaries, and change pain.
+2. State the invariant or failure the design must improve; collect coupling, test, latency, or incident evidence.
+3. Compare the smallest viable options and their migration, operational, and reversibility costs.
+4. Protect behavior with characterization tests before moving boundaries.
+5. Change one boundary at a time and verify dependency direction, behavior, and deployability.
+6. Record an ADR only when the decision has meaningful alternatives or long-lived consequences.
 
-**USE FOR:**
-- Applying Clean Code, SOLID, DRY, KISS, and YAGNI principles.
-- Refactoring technical debt, reducing coupling, and untangling spaghetti code.
-- Designing system boundaries, service interfaces, and modular architectures.
-- Architecting distributed systems (Microservices, Event-Driven, Saga pattern).
-- Improving testability and defining domain terminology.
+## Reference Routing
+- Design principles: [design-principles.md](references/design-principles.md)
+- Distributed systems: [distributed-architecture.md](references/distributed-architecture.md)
+- Electron main/renderer/security: [main-process.md](references/main-process.md), [renderer-patterns.md](references/renderer-patterns.md), [security.md](references/security.md)
+- Native integration/performance: [native-performance.md](references/native-performance.md)
 
-**DO NOT USE FOR:**
-- Specific framework implementations (use `backend-node`, `frontend-engineering`, etc.).
-- DevOps pipeline creation (use `cloud-devops`).
-
-**INVOKES:**
-- Code reading and analysis tools.
-
-## Core Principles
-1. **Simplicity:** Favor the simplest solution that works. YAGNI (You Aren't Gonna Need It).
-2. **High Cohesion, Low Coupling:** Modules should have a single responsibility and minimize dependencies.
-3. **Understandability:** Code is read more often than written; optimize for the reader.
-4. **Boundary Enforcement:** Protect domain logic from infrastructure and framework details (Clean Architecture).
-
-## Implementation Guides
-Refer to these specific domains for deep-dive instructions:
-- [Clean Code & Refactoring](references/clean-code.md)
-- [Design Principles (SOLID)](references/design-principles.md)
-- [Codebase Architecture & Boundaries](references/architecture-refactoring.md)
-- [Distributed Systems](references/distributed-systems.md)
+## Rules
+- Prefer fewer, deeper modules over layers that only forward calls.
+- Do not introduce a service, queue, cache, or abstraction without a measured problem.
+- Distributed designs must define retries, idempotency, ordering, timeout, consistency, and observability.
+- Electron renderers must not receive unrestricted Node.js access.
 
 ## Checklist
-- [ ] Ensure changes decrease overall system complexity.
-- [ ] Validate that module boundaries are respected; no cross-domain leaking.
-- [ ] Check if the code reads like well-written prose.
-- [ ] For distributed systems, explicitly handle failure modes and eventual consistency.
+- [ ] Design solves an evidenced problem.
+- [ ] Migration is incremental and reversible.
+- [ ] Boundaries, failures, and tests are explicit.

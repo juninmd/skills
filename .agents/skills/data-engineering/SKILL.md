@@ -1,45 +1,29 @@
 ---
 name: data-engineering
-description: "Comprehensive Data Engineering covering Database Administration, Migrations, and Vector Databases."
-license: MIT
-metadata:
-  version: 1.0.0
-compatibility:
-  platforms: "PostgreSQL, MongoDB, Redis, Pinecone, Qdrant, Milvus"
-allowed-tools: [read_file, write_file, replace, run_shell_command]
+description: |
+  Diagnose and improve databases, caches, migrations, and vector-search storage. Use for PostgreSQL, MongoDB, Redis, query plans, indexes, locks, rollback, backups, and vector database performance.
 ---
 
-# Data Engineering & Databases
+# Data Engineering
 
-Expert methodology for administering, migrating, and optimizing databases. This skill unifies relational/NoSQL database administration, zero-downtime schema migrations, and managing vector databases for AI/RAG applications.
+## Workflow
+1. Identify engine/version, workload, data size, latency target, availability requirement, and backup state.
+2. Collect read-only evidence first: query plan, locks, waits, index use, cardinality, cache metrics, or vector recall/latency.
+3. Form one hypothesis and test it on representative data before changing schema or configuration.
+4. For migrations, use expand/migrate/contract phases with backward-compatible application releases.
+5. Verify correctness, rollback, latency, resource use, and replication/consumer lag after the change.
 
-**USE FOR:**
-- Administering and optimizing PostgreSQL, MongoDB, and Redis (indexes, slow queries, locks).
-- Designing and executing zero-downtime database schema migrations (Flyway, Prisma, Alembic).
-- Managing vector databases (embeddings ingestion, similarity search, metadata filtering).
-- Implementing data seeding and rollback strategies.
+## Reference Routing
+- Operational intake and DBA checks: [FORMS.md](references/FORMS.md)
+- PostgreSQL, MongoDB, Redis, query, index, and backup guidance: [REFERENCE.md](references/REFERENCE.md)
 
-**DO NOT USE FOR:**
-- Implementing application-level business logic (use `backend-*`).
-- Managing cloud infrastructure provisioning (use `cloud-devops`).
-
-**INVOKES:**
-- `psql`, `mongosh`, `redis-cli`, migration frameworks, vector DB clients.
-
-## Core Principles
-1. **Zero Downtime:** Migrations must be backward compatible; never lock production tables exclusively for long periods.
-2. **Data Integrity:** Always have a tested rollback plan before applying schema changes.
-3. **Performance First:** Explain and analyze queries before applying indexes.
-4. **Vector Strategy:** Co-locate metadata with embeddings to optimize hybrid search performance.
-
-## Implementation Guides
-Refer to these specific domains for deep-dive instructions:
-- [Database Administration & Tuning](references/db-admin.md)
-- [Schema Migrations & Rollbacks](references/db-migrations.md)
-- [Vector Databases & RAG](references/vector-databases.md)
+## Rules
+- Never infer index value without a query plan and realistic selectivity.
+- Never run destructive SQL, production migrations, cache flushes, or failovers without approval.
+- Backups are not a rollback plan until restore is tested.
+- For vector search, record embedding model/version, dimensions, metric, chunking, metadata filters, and recall evaluation.
 
 ## Checklist
-- [ ] Verify that a rollback script is present and tested for every migration.
-- [ ] Run `EXPLAIN ANALYZE` on new queries in a staging environment.
-- [ ] Confirm vector dimensions match the embedding model output before ingestion.
-- [ ] Ensure database credentials are not hardcoded in migration scripts.
+- [ ] Baseline and success metric are recorded.
+- [ ] Change and recovery paths are tested.
+- [ ] Correctness and performance are measured.

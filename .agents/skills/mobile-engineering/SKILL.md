@@ -1,47 +1,28 @@
 ---
 name: mobile-engineering
-description: "Comprehensive Mobile Engineering covering iOS, Android, React Native, and Flutter development."
-license: MIT
-metadata:
-  version: 1.0.0
-compatibility:
-  platforms: "iOS, Android, React Native, Flutter"
-allowed-tools: [read_file, write_file, replace, run_shell_command]
+description: |
+  Build and review native iOS, native Android, React Native or Expo, and Flutter applications. Use for mobile UI, lifecycle, navigation, permissions, offline behavior, accessibility, device integration, tests, and builds.
 ---
 
 # Mobile Engineering
 
-Expert methodology for building high-performance, native, and cross-platform mobile applications. This skill unifies native iOS (Swift/SwiftUI), native Android (Kotlin/Compose), React Native (Expo), and Flutter development.
+## Workflow
+1. Identify platform, framework/version, minimum OS, architecture, state/navigation, and build variants.
+2. Define lifecycle, permissions, offline behavior, deep links, accessibility, and device constraints.
+3. Keep heavy work off the UI thread and make cancellation/retry behavior explicit.
+4. Test loading, empty, error, denied permission, offline, background/foreground, rotation/resizing, and process restoration.
+5. Run formatter/analyzer, focused tests, build, and a simulator/device smoke.
 
-**USE FOR:**
-- Developing native iOS applications using Swift, SwiftUI, and UIKit.
-- Developing native Android applications using Kotlin, Jetpack Compose, and Material 3.
-- Building cross-platform apps with React Native, Expo Router, and Reanimated.
-- Building cross-platform apps with Flutter 3, Dart, and Riverpod/Bloc.
-- Managing mobile-specific architecture, state, and UI responsiveness.
+## Reference Routing
+- iOS: [ios-principles.md](references/ios-principles.md), [swift-coding-standards.md](references/swift-coding-standards.md), [swiftui-design-guidelines.md](references/swiftui-design-guidelines.md)
+- Android: [project-setup.md](references/project-setup.md), [kotlin-standards.md](references/kotlin-standards.md), [compose-standards.md](references/compose-standards.md)
+- React Native/Expo: [react-native-setup.md](references/react-native-setup.md), [react-native-best-practices.md](references/react-native-best-practices.md)
+- Flutter: [flutter-best-practices.md](references/flutter-best-practices.md), [flutter-checklist.md](references/flutter-checklist.md)
+- Cross-platform concerns: [accessibility.md](references/accessibility.md), [networking.md](references/networking.md), [performance-stability.md](references/performance-stability.md)
 
-**DO NOT USE FOR:**
-- Web-only frontend development (use `frontend-engineering`).
-- Backend API development (use `backend-*`).
-
-**INVOKES:**
-- `xcodebuild`, `./gradlew`, `expo cli`, `flutter cli`, native testing tools.
-
-## Core Principles
-1. **Platform Feel:** Respect platform-specific UI/UX paradigms even in cross-platform apps.
-2. **Performance:** Optimize for battery life, memory constraints, and smooth 60fps+ rendering.
-3. **Offline First:** Mobile apps must handle intermittent or zero network connectivity gracefully.
-4. **State Management:** Use robust, platform-appropriate state management (Zustand, Riverpod, Hilt, etc.).
-
-## Implementation Guides
-Refer to these specific domains for deep-dive instructions:
-- [iOS Native Development](references/ios-native.md)
-- [Android Native Development](references/android-native.md)
-- [React Native & Expo](references/react-native.md)
-- [Flutter Development](references/flutter-dev.md)
+Read only the platform references required for the task; this directory intentionally contains detailed platform material.
 
 ## Checklist
-- [ ] Verify that UI layouts are responsive across different screen sizes and orientations.
-- [ ] Test the application's behavior in airplane mode.
-- [ ] Ensure all heavy processing is moved off the main UI thread.
-- [ ] Check accessibility (VoiceOver/TalkBack) labels for all interactive elements.
+- [ ] Lifecycle, offline, and permission states work.
+- [ ] Accessibility and UI-thread constraints are verified.
+- [ ] Tests, build, and device smoke pass.

@@ -1,39 +1,30 @@
 ---
 name: expert-review
-description: "Expert Review sessions using Socratic questioning and AI diff analysis."
-license: MIT
-metadata:
-  version: 1.0.0
-compatibility:
-  platforms: "any"
-allowed-tools: [read_file, write_file, replace, run_shell_command]
+description: |
+  Review code, diffs, plans, and designs for defects, regressions, hidden assumptions, and missing proof. Use for pull-request review, design review, plan stress-testing, risk analysis, and evidence-based findings.
 ---
 
-# Expert Review & Socratic Dialogue
+# Expert Review
 
-Expert methodology for validating designs and auditing code via adversarial questioning and AI-assisted diff analysis. This skill unifies Socratic "Grill-me" sessions and automated code quality reviews.
+## Workflow
+1. Define the review artifact, intended behavior, constraints, and acceptance criteria.
+2. Read the changed path, callers, contracts, tests, and relevant documentation.
+3. Look first for correctness, security, data loss, compatibility, concurrency, and operational failure.
+4. Reproduce or prove each finding; separate confirmed defects from questions and residual risk.
+5. Report findings by severity with file/line, impact, evidence, and the smallest remediation.
 
-**USE FOR:**
-- Stress-testing plans, designs, or ideas via adversarial questioning.
-- Validating implementation plans against domain language and documentation.
-- Identifying bugs, style violations, and architectural drift in code diffs.
-- Surfacing hidden assumptions and edge cases in a proposal.
+For interactive Socratic review, ask one decision-relevant question at a time. Stop questioning when evidence is sufficient to recommend a path.
 
-**DO NOT USE FOR:**
-- Direct implementation of features (use the relevant technical skill).
-- Initial requirement gathering (use `project-lifecycle`).
+## Reference Routing
+- Use [doc-formats.md](references/doc-formats.md) when reviewing PRDs, specs, ADRs, plans, or other structured documents.
 
-**INVOKES:**
-- Socratic questioning, diff analysis, documentation cross-referencing.
-
-## Core Principles
-1. **Tough Questions:** One question at a time to force precision.
-2. **Adversarial Thinking:** Play devil's advocate to find failure modes early.
-3. **No Assumptions:** Surface and validate every "given" in a plan.
-4. **Holistic Review:** Analyze not just the lines changed, but the impact on the system.
+## Rules
+- Findings lead; summary comes after them.
+- Do not report style preferences as defects.
+- Do not infer a bug from a diff alone when runtime or contract evidence is available.
+- If no defect is found, say so and state remaining test gaps.
 
 ## Checklist
-- [ ] Define the scope of the review or dialogue clearly.
-- [ ] Ensure documentation is accessible for grounded questioning.
-- [ ] Flag architectural deviations as high-priority findings.
-- [ ] Conclude with a summary of validated points and remaining risks.
+- [ ] Scope and expected behavior are explicit.
+- [ ] Findings include severity, evidence, and impact.
+- [ ] Questions and residual risks are separate.

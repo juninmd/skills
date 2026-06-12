@@ -1,44 +1,31 @@
 ---
 name: backend-systems
-description: "Comprehensive Backend Systems Engineering covering Go, Rust, and .NET."
-license: MIT
-metadata:
-  version: 1.0.0
-compatibility:
-  platforms: "Go, Rust, .NET Core"
-allowed-tools: [read_file, write_file, replace, run_shell_command]
+description: |
+  Implement compiled backend services and libraries in Go, Rust, or .NET. Use for APIs, concurrency, cancellation, error handling, EF Core, resource lifetimes, performance-sensitive code, tests, and builds.
 ---
 
-# Backend Systems Engineering
+# Backend Systems
 
-Expert methodology for building high-performance, compiled backend systems. This skill unifies development in Go, Rust, and C# (.NET).
+## Workflow
+1. Detect the language, toolchain version, module/workspace layout, and repository quality commands.
+2. Follow the language's ownership, error, and concurrency idioms; avoid cross-language pattern transfer.
+3. Define cancellation, timeout, resource lifetime, and partial-failure behavior at I/O boundaries.
+4. Add focused unit/integration tests, then run formatter, linter, tests, and build.
+5. Benchmark only when performance is a requirement; compare before and after under the same workload.
 
-**USE FOR:**
-- Building efficient microservices and APIs with Go (net/http).
-- Developing safe, zero-cost abstraction systems with Rust (Cargo).
-- Building enterprise web applications with .NET (C#, EF Core).
-- Managing memory safety, concurrency, and cross-platform compilation.
+## Reference Routing
+- Go: [go-best-practices.md](references/go-best-practices.md)
+- Rust: [rust-best-practices.md](references/rust-best-practices.md)
+- .NET architecture and async: [dotnet-architecture.md](references/dotnet-architecture.md), [dotnet-async.md](references/dotnet-async.md)
+- EF Core and tests: [dotnet-efcore.md](references/dotnet-efcore.md), [dotnet-testing.md](references/dotnet-testing.md)
+- .NET examples: [dotnet-examples.md](references/dotnet-examples.md)
 
-**DO NOT USE FOR:**
-- Scripting or rapid prototyping (use `backend-python` or `backend-node`).
-- Frontend development (use `frontend-engineering`).
-
-**INVOKES:**
-- `go`, `cargo`, `rustc`, `dotnet`, `clippy`, `golangci-lint`.
-
-## Core Principles
-1. **Safety First:** Leverage compiler checks (Rust's borrow checker, Go's strict typing) to prevent runtime errors.
-2. **Concurrency:** Use native concurrency models (Goroutines, async/await, Rust async) appropriately.
-3. **Idiomatic Code:** Follow the standard formatting and conventions of the respective language (`gofmt`, `cargo fmt`).
-4. **Performance:** Optimize for low latency and minimal memory overhead.
-
-## Implementation Guides
-Refer to these specific domains for deep-dive instructions:
-- [Go Development](references/go-dev.md)
-- [Rust Development](references/rust-dev.md)
-- [.NET Development](references/dotnet-dev.md)
+## Rules
+- Go: wrap errors with context and propagate `context.Context`.
+- Rust: avoid `unsafe`; justify and test every unavoidable unsafe boundary.
+- .NET: flow `CancellationToken`, avoid sync-over-async, and use scoped resource lifetimes.
 
 ## Checklist
-- [ ] Ensure the correct compiler/toolchain version is specified (e.g., `go.mod`, `Cargo.toml`, `.csproj`).
-- [ ] Run language-specific linters (`clippy`, `golangci-lint`) and resolve all warnings.
-- [ ] Handle errors explicitly (e.g., Go's `if err != null`, Rust's `Result` type).
+- [ ] Errors, cancellation, and cleanup are explicit.
+- [ ] Formatter, linter, tests, and build pass.
+- [ ] Performance claims have repeatable evidence.
