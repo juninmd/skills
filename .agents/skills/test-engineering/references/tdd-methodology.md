@@ -79,7 +79,7 @@ it('test case 1')
 | Component | Vitest + Testing Library | React components |
 
 ## 7. Coverage Gate
-Configure tools to block CI below an 80% threshold across lines, branches, functions, and statements.
+Use the repository baseline and risk profile. Block unexplained regressions and require direct coverage of changed behavior and critical paths.
 
 ## 8. React Testing Library
 ```typescript

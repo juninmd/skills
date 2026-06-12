@@ -17,15 +17,28 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Spell check skills
+      - name: Spell check Markdown
         uses: streetsidesoftware/cspell-action@de2a73e963e7443969755b648a1008f77033c5b2 # v8.4.0
         with:
-          files: ".agents/skills/**/*.md"
+          files: |
+            README.md
+            docs/**/*.md
+            .agents/AGENTS.md
+            .agents/agents/**/*.md
+            .agents/prompts/**/*.md
+            .agents/skills/**/*.md
 
-      - name: Link check skills
+      - name: Link check Markdown
         uses: lycheeverse/lychee-action@f613c4a64e50d792e0b31ec34bbcbba12263c6a6 # v2.3.0
         with:
-          args: --offline ".agents/skills/**/*.md"
+          args: >-
+            --offline
+            README.md
+            "docs/**/*.md"
+            ".agents/AGENTS.md"
+            ".agents/agents/**/*.md"
+            ".agents/prompts/**/*.md"
+            ".agents/skills/**/*.md"
 
       - uses: pnpm/action-setup@f40ffcd9367d9f12939873eb1018b921a783ffaa
         with:

@@ -17,7 +17,7 @@ Guidelines for environment setup, project structure, and quality control in Go.
 - **Logging:** Use the standard library `log/slog` for structured logging.
 
 ## 3. Testing and Quality
-- **Unit Testing:** Use `go test ./...`. Aim for 80%+ coverage.
+- **Unit Testing:** Use `go test ./...`; cover changed behavior, critical paths, and regression cases.
 - **Assertions:** Prefer standard library checks or `testify/assert` for readability.
 - **Quality Gates:**
   - `go fmt`: Automatic formatting.

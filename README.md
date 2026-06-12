@@ -45,23 +45,25 @@ git submodule add https://github.com/juninmd/skills .agents
 
 ## Skill Catalog
 
+<!-- skill-catalog:start -->
 | Skill | Use it for |
 |---|---|
-| `agent-engineering` | Agents, MCP tools, context, memory, safety, tracing, evaluations |
-| `backend-node` | Node.js, TypeScript, NestJS, pnpm, API contracts |
-| `backend-python` | Python, uv, Ruff, FastAPI, Pydantic, pytest |
-| `backend-systems` | Go, Rust, and .NET backend systems |
-| `cloud-devops` | CI/CD, Docker, Kubernetes, Helm, IaC, cloud, observability |
-| `data-engineering` | Database operations, query tuning, migrations, vector storage |
-| `diagnostics` | Bugs, regressions, flaky tests, DNS, HTTP, TLS, timeouts |
-| `expert-review` | Code, diff, plan, and design review |
-| `frontend-engineering` | React, Next.js, Vite, UI systems, accessibility |
-| `mobile-engineering` | iOS, Android, React Native, and Flutter |
-| `project-lifecycle` | Specs, plans, issues, worktrees, PR preparation |
-| `security-ops` | CVEs, SBOMs, secrets, access control, security auditing |
-| `software-architecture` | Boundaries, technical debt, distributed systems, Electron |
-| `test-engineering` | TDD, Vitest, unhappy paths, property and performance tests |
-| `tooling-dev` | CLIs, automation, generators, documentation extraction |
+| `agent-engineering` | agent loops, tool schemas, handoffs, prompt-injection defenses, tracing, and agent evaluations |
+| `backend-node` | NestJS services, pnpm workspaces, strict TypeScript, REST or GraphQL APIs, DTO validation, tests, builds, and API contracts |
+| `backend-python` | uv and pyproject setup, Ruff, typed Python, Pydantic v2, async boundaries, pytest, and Alembic integration |
+| `backend-systems` | APIs, concurrency, cancellation, error handling, EF Core, resource lifetimes, performance-sensitive code, tests, and builds |
+| `cloud-devops` | pipelines, Dockerfiles, Terraform or Pulumi, deployment safety, logs, metrics, and traces |
+| `data-engineering` | PostgreSQL, MongoDB, Redis, query plans, indexes, locks, rollback, backups, and vector database performance |
+| `diagnostics` | bugs, regressions, flaky tests, crashes, timeouts, DNS, ports, HTTP, TLS, and root-cause analysis |
+| `expert-review` | pull-request review, design review, plan stress-testing, risk analysis, and evidence-based findings |
+| `frontend-engineering` | React, Next.js, Vite, Tailwind, shadcn/ui, responsive design, component systems, browser performance, hydration, keyboard behavior, and accessibility |
+| `mobile-engineering` | mobile UI, lifecycle, navigation, permissions, offline behavior, accessibility, device integration, tests, and builds |
+| `project-lifecycle` | PRDs, implementation plans, issue slicing, GitHub triage, worktrees, branch completion, and delivery documentation |
+| `security-ops` | CVE or SBOM scans, Gitleaks findings, secret rotation, access control, injection risk, least privilege, and zero-trust reviews |
+| `software-architecture` | modularization, dependency direction, technical debt, distributed systems, Electron architecture, failure modes, and ADRs |
+| `test-engineering` | TDD, Vitest, pytest, unhappy paths, flaky tests, fixtures, mocks, fuzzing, coverage gaps, and regression benchmarks |
+| `tooling-dev` | CLI arguments, exit codes, non-interactive execution, config discovery, structured output, packaging, and integration tests |
+<!-- skill-catalog:end -->
 
 ## Skill Example
 
@@ -98,12 +100,13 @@ pnpm run docs:build
 
 - Plugin manifest and referenced directories.
 - Skill name/folder consistency.
-- Frontmatter limited to `name` and `description`.
+- YAML-parsed frontmatter limited to `name` and `description`.
 - Useful description and valid skill name.
 - `## Checklist` presence.
 - 400-word skill budget.
 - Local reference links.
-- README catalog consistency.
+- Linked topic maps for large reference collections.
+- Generated README catalog consistency.
 - Validator unit tests.
 
 ## Layout
@@ -126,7 +129,8 @@ pnpm run docs:build
 2. Keep `name` equal to the folder.
 3. State what the skill does and when to use it in `description`.
 4. Link detailed material from `references/`; do not duplicate it in `SKILL.md`.
-5. Run `pnpm run validate` and `pnpm run docs:build`.
+5. Run `pnpm run catalog:generate` after adding or renaming a skill.
+6. Run `pnpm run validate` and `pnpm run docs:build`.
 
 ## License
 

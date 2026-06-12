@@ -33,7 +33,7 @@ Run Security, Architecture, and Performance reviewers in parallel, then consolid
 - Error handling completeness
 
 ### 📊 Testing — 🟡 MEDIUM
-- Coverage gate (>80% critical paths)
+- Changed behavior and critical paths covered without baseline regression
 - Meaningful assertions, AAA pattern
 - Edge case coverage, test isolation
 - Mock strategy soundness

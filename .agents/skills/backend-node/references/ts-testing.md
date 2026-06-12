@@ -8,7 +8,7 @@ Strategies for verifying logic correctness using Vitest.
 - **Assert:** Verify outcomes with descriptive expectations.
 
 ## 2. Coverage Targets
-- **Critical Code:** ≥ 80% coverage for algorithms and complex business rules.
+- **Critical Code:** Cover algorithms, complex business rules, changed behavior, and regression paths.
 - **Edge Cases:** Explicitly test `null`, `undefined`, empty arrays, and boundary values.
 - **Error Paths:** Test exception handling, timeouts, and validation failures.
 

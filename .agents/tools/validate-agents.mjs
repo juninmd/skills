@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { readSkill } from "./skill-metadata.mjs";
 
 const ALLOWED_FIELDS = new Set(["name", "description"]);
 
@@ -11,12 +12,15 @@ export function validateSkill(skillDirectory) {
 
   if (!fs.existsSync(skillFile)) return [`${skillName}: missing SKILL.md`];
 
-  const text = fs.readFileSync(skillFile, "utf8");
-  const frontmatterMatch = text.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n/);
-  if (!frontmatterMatch) return [`${skillName}: invalid or missing YAML frontmatter`];
+  let skill;
+  try {
+    skill = readSkill(skillDirectory);
+  } catch (error) {
+    return [error.message];
+  }
 
-  const frontmatter = frontmatterMatch[1];
-  const declaredName = frontmatter.match(/^name:\s*(.+)$/m)?.[1]?.trim();
+  const { metadata, text } = skill;
+  const declaredName = metadata.name;
   if (declaredName !== skillName) {
     errors.push(`${skillName}: frontmatter name must equal the folder name`);
   }
@@ -25,21 +29,14 @@ export function validateSkill(skillDirectory) {
     errors.push(`${skillName}: name must be lowercase hyphen-case and at most 64 characters`);
   }
 
-  const fields = [...frontmatter.matchAll(/^([A-Za-z][\w-]*):/gm)].map(
-    (match) => match[1],
-  );
-  for (const field of fields) {
+  for (const field of Object.keys(metadata)) {
     if (!ALLOWED_FIELDS.has(field)) {
       errors.push(`${skillName}: unsupported frontmatter field '${field}'`);
     }
   }
 
-  const descriptionMatch = frontmatter.match(
-    /^description:\s*(?:\|\s*\r?\n((?:[ \t]+.*(?:\r?\n|$))+)|(.+))$/m,
-  );
-  const description = (descriptionMatch?.[1] ?? descriptionMatch?.[2] ?? "")
-    .replace(/^\s+/gm, "")
-    .trim();
+  const description =
+    typeof metadata.description === "string" ? metadata.description.trim() : "";
   if (description.length < 40) {
     errors.push(`${skillName}: description must explain what the skill does and when to use it`);
   }
@@ -58,6 +55,22 @@ export function validateSkill(skillDirectory) {
     if (!target || /^[a-z]+:\/\//i.test(target) || target.startsWith("#")) continue;
     if (!fs.existsSync(path.resolve(skillDirectory, target))) {
       errors.push(`${skillName}: broken local link '${match[1]}'`);
+    }
+  }
+
+  const referencesRoot = path.join(skillDirectory, "references");
+  if (fs.existsSync(referencesRoot)) {
+    const referenceCount = fs
+      .readdirSync(referencesRoot, { withFileTypes: true })
+      .filter((entry) => entry.isFile() && entry.name.endsWith(".md")).length;
+    if (
+      referenceCount > 20 &&
+      (!fs.existsSync(path.join(referencesRoot, "TOPIC_MAP.md")) ||
+        !text.includes("(references/TOPIC_MAP.md)"))
+    ) {
+      errors.push(
+        `${skillName}: ${referenceCount} references require a linked references/TOPIC_MAP.md`,
+      );
     }
   }
 

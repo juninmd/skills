@@ -1,36 +1,38 @@
 import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { loadCatalog, replaceCatalog } from "./catalog.mjs";
+import { listSkills } from "./skill-metadata.mjs";
 
-const root = process.cwd();
-const skillsRoot = path.join(root, ".agents", "skills");
-const readme = fs.readFileSync(path.join(root, "README.md"), "utf8");
-const skillNames = fs
-  .readdirSync(skillsRoot, { withFileTypes: true })
-  .filter((entry) => entry.isDirectory())
-  .map((entry) => entry.name)
-  .sort();
-const errors = [];
+export function checkCatalog(root = process.cwd()) {
+  const readmePath = path.join(root, "README.md");
+  const readme = fs.readFileSync(readmePath, "utf8");
+  const skills = listSkills(path.join(root, ".agents", "skills"));
+  const errors = [];
 
-if (!readme.includes(`${skillNames.length} skills`)) {
-  errors.push(`README must state the current count: ${skillNames.length} skills`);
-}
-
-for (const match of readme.matchAll(/\.agents\/skills\/([^/]+)\/SKILL\.md/g)) {
-  if (match[1].includes("<") || match[1].includes(">")) continue;
-  if (!skillNames.includes(match[1])) {
-    errors.push(`README links to missing skill '${match[1]}'`);
+  if (!readme.includes(`${skills.length} skills`)) {
+    errors.push(`README must state the current count: ${skills.length} skills`);
   }
-}
 
-for (const name of skillNames) {
-  if (!readme.includes(`\`${name}\``) && !readme.includes(`skills/${name}/SKILL.md`)) {
-    errors.push(`README does not mention current skill '${name}'`);
+  try {
+    if (replaceCatalog(readme, loadCatalog(root)) !== readme) {
+      errors.push("README skill catalog is stale; run pnpm run catalog:generate");
+    }
+  } catch (error) {
+    errors.push(error.message);
   }
+
+  return errors;
 }
 
-if (errors.length) {
-  console.error(errors.map((error) => `ERROR: ${error}`).join("\n"));
-  process.exit(1);
+function main() {
+  const errors = checkCatalog();
+  if (errors.length) {
+    console.error(errors.map((error) => `ERROR: ${error}`).join("\n"));
+    process.exit(1);
+  }
+
+  console.log("README skill catalog is current.");
 }
 
-console.log(`Catalog matches ${skillNames.length} skills.`);
+if (process.argv[1] === fileURLToPath(import.meta.url)) main();

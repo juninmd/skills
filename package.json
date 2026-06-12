@@ -1,10 +1,11 @@
 {
   "name": "juninmd-skills",
   "version": "1.0.0",
-  "description": "Skills, agents, prompts and rules for AI coding assistants",
+  "description": "Skills, agents and prompts for AI coding assistants",
   "scripts": {
     "plugin:validate": "node .agents/tools/validate-plugin.mjs",
     "agents:validate": "node .agents/tools/validate-agents.mjs .agents",
+    "catalog:generate": "node .agents/tools/generate-catalog.mjs",
     "catalog:check": "node .agents/tools/check-catalog.mjs",
     "pr:check": "node .agents/tools/pr-skill-checks.mjs",
     "test:validators": "node --test .agents/tools/*.test.mjs",
@@ -14,7 +15,8 @@
     "docs:preview": "npx vitepress preview docs"
   },
   "devDependencies": {
-    "vitepress": "^1.6.3"
+    "vitepress": "^1.6.3",
+    "yaml": "^2.9.0"
   },
   "engines": {
     "node": ">=18.0.0"

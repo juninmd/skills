@@ -66,3 +66,22 @@ test("rejects broken local links", () => {
   const directory = createSkill(validSkill);
   assert.ok(validateSkill(directory).some((error) => error.includes("broken local link")));
 });
+
+test("rejects malformed YAML and duplicate fields", () => {
+  const malformed = createSkill(validSkill.replace("description: |", "description: ["));
+  assert.ok(validateSkill(malformed).some((error) => error.includes("invalid YAML")));
+
+  const duplicate = createSkill(
+    validSkill.replace("description: |", "name: duplicate\n description: |"),
+  );
+  assert.ok(validateSkill(duplicate).some((error) => error.includes("invalid YAML")));
+});
+
+test("requires a topic map for large reference collections", () => {
+  const references = Object.fromEntries(
+    Array.from({ length: 21 }, (_, index) => [`references/${index}.md`, "# Reference\n"]),
+  );
+  references["references/guide.md"] = "# Guide\n";
+  const directory = createSkill(validSkill, references);
+  assert.ok(validateSkill(directory).some((error) => error.includes("TOPIC_MAP")));
+});

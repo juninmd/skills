@@ -6,7 +6,7 @@ Standardized commands and patterns for maintaining Python code quality.
 - **Linting:** `uv run ruff check .`
 - **Formatting:** `uv run ruff format .`
 - **Type Checking:** `uv run pyright .`
-- **Test with Coverage:** `uv run pytest --cov=src` (Target: ≥90%).
+- **Test with Coverage:** `uv run pytest --cov=src`; inspect changed and critical paths rather than chasing a universal percentage.
 
 ## 2. Testing with pytest-asyncio
 Use `httpx.AsyncClient` for API integration tests:

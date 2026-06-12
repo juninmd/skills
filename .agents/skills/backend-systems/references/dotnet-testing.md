@@ -11,7 +11,7 @@ Strategies for building a comprehensive test suite with xUnit.
 - **Framework:** xUnit.
 - **Mocking:** Mock dependencies using libraries like `Moq` or `NSubstitute`.
 - **AAA Pattern:** Structure tests into **Arrange**, **Act**, and **Assert**.
-- **Coverage:** Aim for > 80% coverage on critical business logic.
+- **Coverage:** Use reports to find untested critical business logic and prevent baseline regression.
 
 ## 3. Commands
 ```bash

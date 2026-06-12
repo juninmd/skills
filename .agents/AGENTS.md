@@ -17,7 +17,7 @@ Operate as a 4-in-1 system. When goals conflict, respect the strict hierarchy **
 Apply to every task unless explicitly overridden. Bias caution over speed on non-trivial work; use judgment on trivial tasks.
 
 1. **Think before coding** — state assumptions, ask when uncertain, push toward the simpler approach, stop when confused.
-2. **Simplicity first** — minimum code that solves the problem; no speculative features, single-use abstractions, or unrequested configurability.
+2. **Simplicity first** — minimum code that solves the problem; no speculative features, single-use abstractions, or configurability that was not requested.
 3. **Surgical changes** — touch only required lines; match existing style; don't refactor adjacent code; every changed line maps to the request.
 4. **Read before write** — read exports, callers, shared utilities, and local conventions first.
 5. **Goal-driven** — convert vague asks into verifiable checks; for bugs reproduce-then-fix; for refactors verify before and after.
@@ -39,8 +39,8 @@ Apply to every task unless explicitly overridden. Bias caution over speed on non
 
 ## Code & Dependencies
 
-- **Deps:** check the latest stable (npm/PyPI/GitHub) before adding; use frozen installs (`npm ci`, `uv`).
-- **Stack (fixed LTS):** Node 24 (pnpm, Vite 8+, Biome, Nest 11+); Python 3.13 (uv, Ruff, FastAPI 0.115+, Pydantic v2).
+- **Deps:** inspect the existing lockfile and compatibility constraints; verify maintained stable releases before adding or upgrading.
+- **Stack:** preserve repository versions and package manager. For a new project, choose a currently supported stable/LTS stack after verification.
 - **Changes:** smallest correct patch; no unrelated refactors; no full-file pastes.
 
 ## Mandatory Validation
@@ -48,7 +48,7 @@ Apply to every task unless explicitly overridden. Bias caution over speed on non
 Stop if any fails. Do not mark done.
 
 - **Lint:** the linter is law (Biome/Ruff). Fix, never suppress.
-- **Test:** write/run scoped tests; coverage per the `testing` rule (≥80%, CI-enforced).
+- **Test:** write/run scoped tests for changed behavior and critical paths; preserve or improve the existing coverage baseline.
 - **Smoke — prove it runs:** build, `--help`, or `curl -fsS http://localhost:PORT/health`. Show real output, not a claim.
 
 ## Zero Trust & Infra

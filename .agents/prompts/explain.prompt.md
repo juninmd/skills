@@ -26,7 +26,7 @@ When the user invokes `/explain` $ARGUMENTS:
 
 4. **Edge Cases & Pitfalls**
    - Input values that could cause unexpected behavior (null, empty, negative, overflow)
-   - Security concerns (injection, unvalidated input, exposed secrets)
+   - Security concerns (injection, input without validation, exposed secrets)
    - Performance traps (N+1, unbounded loops, blocking calls)
 
 5. **Improvement Opportunities** *(only if obvious)*

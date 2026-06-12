@@ -2,12 +2,10 @@
 
 Guidelines for building modern, accessible, and reusable web components.
 
-## 1. Recommended 2026 Stack
-- **Build:** Vite 8 + SWC.
-- **Framework:** React + TypeScript.
-- **Primitives:** Radix UI + Tailwind CSS.
-- **Catalog:** Storybook.
-- **Quality:** Biome (lint/format), Vitest, React Testing Library.
+## 1. Stack Selection
+- Preserve the repository framework, bundler, styling system, package manager, and test runner.
+- For new projects, verify maintained versions and choose the smallest stack that meets accessibility, browser, and deployment requirements.
+- Add component catalogs or design-system tooling only when multiple consumers justify them.
 
 ## 2. Core Principles
 - **Atomic Design:** Build atoms before molecules and organisms.
