@@ -37,3 +37,4 @@ This skill manages navigation, file manipulation, and command execution in the o
 - **Token Efficiency:** Redirect long outputs to files (`cmd > /tmp/log.txt`) and read only what's necessary (`head -n 20 /tmp/log.txt`).
 - **Security:** Never hardcode passwords or API keys in commands. Use environment variables (`$MY_SECRET`).
 - **Cleanliness:** Remove temporary files after use.
+

@@ -1,7 +1,0 @@
-packages:
-  - apps/*
-  - cli
-
-onlyBuiltDependencies:
-  - '@parcel/watcher'
-  - esbuild

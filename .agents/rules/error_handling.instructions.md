@@ -20,3 +20,4 @@ applyTo: '**/*.{py,ts,tsx,js,jsx,go,java,kt}'
 ## Anti-Patterns
 - `catch`/`except` that only returns generic "unknown error".
 - Infinite retries without deadlines or circuit breakers.
+

@@ -1,6 +1,6 @@
 ---
 name: operating-k8s
-description: Advanced operation and troubleshooting in Kubernetes (Magalu Cloud / GCP).
+description: Advanced operation and troubleshooting in Kubernetes (platform Cloud / GCP).
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[resource/cluster] [options]"
@@ -9,7 +9,7 @@ disable-model-invocation: true
 
 # Kubernetes Operations
 
-This skill defines the minimum requirements for production workloads at Luizalabs, focusing on stability and security.
+This skill defines the minimum requirements for production workloads at MyProject, focusing on stability and security.
 
 ## Instructions
 1.  **Resilience (Probes):** NEVER deploy without Liveness and Readiness Probes.
@@ -54,3 +54,4 @@ spec:
             port: 8080
           initialDelaySeconds: 3
 ```
+

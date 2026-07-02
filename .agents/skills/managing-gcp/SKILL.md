@@ -1,6 +1,6 @@
 ---
 name: managing-gcp
-description: Operations on Google Cloud Platform and Magalu Cloud focusing on security (IAM), federated identity, and Serverless (Cloud Run).
+description: Operations on Google Cloud Platform and platform Cloud focusing on security (IAM), federated identity, and Serverless (Cloud Run).
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[resource/project] [options]"
@@ -43,3 +43,4 @@ resource "google_cloud_run_service_iam_member" "invoker" {
   member   = "serviceAccount:${google_service_account.frontend_sa.email}"
 }
 ```
+

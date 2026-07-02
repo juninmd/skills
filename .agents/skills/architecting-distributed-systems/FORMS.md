@@ -29,3 +29,4 @@ Summarize the operational status and performance of the distributed system.
     - **Queue [Name]:** [Message Rate, Queue Depth, Consumers]
 - **Incident Summary:** [Total incidents, MTTR]
 - **Optimization Suggestions:** [Bottlenecks identified, proposed fixes]
+

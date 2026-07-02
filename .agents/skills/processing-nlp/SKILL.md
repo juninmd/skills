@@ -21,7 +21,7 @@ This skill enables the agent to process and analyze natural language texts. It c
 
 ### 2. Analysis and Extraction
 - **Sentiment Analysis:** Determine emotional tone (positive, negative, neutral).
-- **NER:** Identify entities such as names, organizations, locations, and dates.
+- **NER:** Identify entities such as names, MyProjects, locations, and dates.
 - **Classification:** Categorize texts into predefined topics.
 
 ### 3. Generation and Transformation
@@ -36,3 +36,4 @@ This skill enables the agent to process and analyze natural language texts. It c
 - **Context Matters:** Consider the text domain (e.g., medical vs. financial) when selecting models.
 - **Privacy:** Be careful when processing PII (Personally Identifiable Information).
 - **Model Selection:** Choose the appropriate trade-off between model size and performance (e.g., spaCy vs. BERT).
+

@@ -31,3 +31,4 @@ Specialized agent for managing vector databases (Pinecone, Weaviate, Milvus, Chr
 - `pymilvus` (Milvus)
 - `chromadb` (Chroma)
 - `qdrant-client` (Qdrant)
+

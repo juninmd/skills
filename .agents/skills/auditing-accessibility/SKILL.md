@@ -45,3 +45,4 @@ This skill ensures that web interfaces are usable by people with disabilities, f
 ## Resources
 - **WCAG Checklist:** Consult the official or simplified checklist (A11y Project).
 - **WAI-ARIA:** Use `aria-label`, `aria-expanded`, etc., ONLY when native HTML is not sufficient.
+

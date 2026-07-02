@@ -1,4 +1,4 @@
-# Dockerfile Template (Luizalabs Standard)
+# Dockerfile Template (Repository Standard)
 
 ```dockerfile
 FROM python:3.12-bullseye
@@ -20,3 +20,4 @@ COPY . .
 # Comando padrão via Makefile
 CMD ["make", "server"]
 ```
+

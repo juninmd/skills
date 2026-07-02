@@ -30,3 +30,4 @@ Document the usage of an implemented component.
     | prop1 | string | "default" | The first prop |
 - **Variations:**
     - [Variation 1]: [Description]
+

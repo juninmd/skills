@@ -39,3 +39,4 @@ This skill focuses on waste reduction and infrastructure cost forecasting.
 - **Budgets:** Configure budget alerts (AWS Budgets / GCP Budgets) at 50%, 80%, and 100%.
 - **Lifecycle Policies:** Configure S3 Lifecycle to move old objects to Glacier.
 - **Cleanup:** Automatic scripts to delete dev environments at 8 PM (Cloud Scheduler).
+

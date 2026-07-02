@@ -19,3 +19,4 @@ applyTo: '**/*.{py,ts,js,go,java,kt}, **/openapi*.{yml,yaml,json}, **/swagger*.{
 ## Compatibility
 - Additive changes are preferred over breaking removals.
 - Deprecations must include migration guidance and timeline.
+

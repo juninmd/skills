@@ -17,3 +17,4 @@
 **Description:** Open-source, automated tool for improving the quality of web pages, including accessibility.
 **Comandos Comuns:**
 - `lighthouse http://example.com --only-categories=accessibility`: Run only accessibility checks.
+

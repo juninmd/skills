@@ -24,3 +24,4 @@ Create production-ready skills with high semantic signal and low ambiguity.
 6. Structure the body with sections: Objective, When to Use, Flow, Validation.
 7. Create `references/`, `scripts/`, and `assets/` only when necessary.
 8. Validate with the repository's linters/build.
+

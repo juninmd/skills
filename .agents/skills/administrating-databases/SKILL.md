@@ -39,3 +39,4 @@ This skill manages critical database operations.
 - **Migrations:** Use schema versioning tools (Flyway, Alembic, Prisma) instead of manual DDL.
 - **Maintenance:** Schedule `VACUUM ANALYZE` (Postgres) during off-peak hours.
 - **Least Privilege:** Create application users with DML permissions only (SELECT, INSERT, UPDATE), without DDL (DROP, TRUNCATE).
+

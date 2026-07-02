@@ -24,3 +24,4 @@ applyTo: '**/*.{py,ts,tsx,js,jsx,go,java,kt,cs,rb,php}'
 - Generic folders like `utils`, `helpers`, or `common` without domain context.
 - Deep inheritance trees for simple behavior composition.
 - Business logic coupled directly to controllers, views, or ORM models.
+

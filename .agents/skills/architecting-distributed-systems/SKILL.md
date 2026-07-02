@@ -48,3 +48,4 @@ This skill guides the design, analysis, and optimization of distributed systems,
 - **Eventual Consistency:** Use Saga/Outbox for distributed transactions.
 - **Fail Fast:** Detect failures early and degrade with control.
 - **Statelessness:** Prefer stateless services to simplify scaling and recovery.
+

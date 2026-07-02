@@ -15,3 +15,4 @@
 | Parameters | List of parameters with types and descriptions | Yes |
 | Return Value | Description of what is returned | Yes |
 | Example | Usage example code block | No |
+

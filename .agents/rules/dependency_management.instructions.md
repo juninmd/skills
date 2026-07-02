@@ -16,3 +16,4 @@ applyTo: '**/package.json, **/pnpm-lock.yaml, **/requirements*.txt, **/pyproject
 - Run dependency vulnerability scans in CI.
 - Patch critical vulnerabilities with priority.
 - Document accepted risk when temporary exceptions are required.
+

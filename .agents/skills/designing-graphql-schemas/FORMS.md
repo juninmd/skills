@@ -28,3 +28,4 @@ Document a defined GraphQL schema.
     - **Mutation Name:** [Name]
     - **Input Type:** [Type]
     - **Return Type:** [Type]
+

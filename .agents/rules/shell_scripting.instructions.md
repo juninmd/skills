@@ -34,3 +34,4 @@ applyTo: '**/*.sh, **/Makefile'
 
 - Always activate using `source .venv/bin/activate` or directly reference binaries (`.venv/bin/python`).
 - Use `source` with `SHELL := /bin/bash` in Makefiles.
+

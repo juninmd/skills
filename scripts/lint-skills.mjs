@@ -1,103 +1,77 @@
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 import matter from 'gray-matter';
 import { z } from 'zod';
+import { SKILLS_DIR } from './lib/catalog.mjs';
+import { extractFrontmatterRaw, findBlockArrayKeys } from './lib/frontmatter.mjs';
 
 const skillSchema = z.object({
   name: z.string()
     .min(1)
     .max(64)
-    .regex(/^[a-z0-9-]+$/, "Name must contain only lowercase alphanumeric characters and hyphens")
-    .refine((val) => !val.startsWith('-') && !val.endsWith('-'), {
-      message: "Name must not start or end with a hyphen",
-    })
-    .refine((val) => !val.includes('--'), {
-      message: "Name must not contain consecutive hyphens",
-    }),
+    .regex(/^[a-z0-9-]+$/)
+    .refine((value) => !value.startsWith('-') && !value.endsWith('-'))
+    .refine((value) => !value.includes('--')),
   description: z.string().min(1).max(1024),
   'argument-hint': z.string().min(1),
   'disable-model-invocation': z.boolean().optional(),
   license: z.string().optional(),
   compatibility: z.any().optional(),
   metadata: z.any().optional(),
-  'allowed-tools': z.string().optional()
+  'allowed-tools': z.string().optional(),
 });
 
-const skillsDir = path.join(process.cwd(), '.agents/skills');
-const skills = fs.readdirSync(skillsDir, { withFileTypes: true })
-  .filter(dirent => dirent.isDirectory())
-  .map(dirent => dirent.name);
-
 let hasErrors = false;
+const skillDirs = fs.readdirSync(SKILLS_DIR, { withFileTypes: true })
+  .filter((entry) => entry.isDirectory())
+  .map((entry) => entry.name)
+  .sort();
 
-function extractFrontmatterRaw(content) {
-  const match = content.match(/^---\n([\s\S]*?)\n---\n?/);
-  return match ? match[1] : '';
-}
-
-function findBlockArrayKeys(frontmatterRaw) {
-  const keys = new Set();
-  const topLevelRegex = /^([A-Za-z0-9_-]+):\s*\n\s*-\s+/gm;
-  const nestedRegex = /^\s{2}([A-Za-z0-9_-]+):\s*\n\s{4}-\s+/gm;
-
-  let match;
-  while ((match = topLevelRegex.exec(frontmatterRaw)) !== null) {
-    keys.add(match[1]);
-  }
-  while ((match = nestedRegex.exec(frontmatterRaw)) !== null) {
-    keys.add(match[1]);
-  }
-
-  return [...keys];
-}
-
-for (const skill of skills) {
-  const skillMdPath = path.join(skillsDir, skill, 'SKILL.md');
-  if (!fs.existsSync(skillMdPath)) {
-    console.error(`❌ [${skill}] Missing SKILL.md file.`);
+for (const skillName of skillDirs) {
+  const filePath = path.join(SKILLS_DIR, skillName, 'SKILL.md');
+  if (!fs.existsSync(filePath)) {
     hasErrors = true;
+    console.error(`[${skillName}] Missing SKILL.md.`);
     continue;
   }
 
-  const fileContent = fs.readFileSync(skillMdPath, 'utf8');
-  let frontmatter;
+  const text = fs.readFileSync(filePath, 'utf8');
+  const rawFrontmatter = extractFrontmatterRaw(text);
+  const blockArrayKeys = rawFrontmatter ? findBlockArrayKeys(rawFrontmatter) : [];
+
+  if (blockArrayKeys.length) {
+    hasErrors = true;
+    console.error(`[${skillName}] Inline arrays required for: ${blockArrayKeys.join(', ')}`);
+    continue;
+  }
+
+  let parsed;
   try {
-    const parsed = matter(fileContent);
-    frontmatter = parsed.data;
-
-    const rawFrontmatter = extractFrontmatterRaw(fileContent);
-    const blockArrayKeys = findBlockArrayKeys(rawFrontmatter);
-    if (blockArrayKeys.length > 0) {
-      console.error(`❌ [${skill}] Frontmatter arrays must be inline. Convert keys: ${blockArrayKeys.join(', ')}`);
-      hasErrors = true;
-      continue;
-    }
-  } catch (err) {
-    console.error(`❌ [${skill}] Failed to parse frontmatter: ${err.message}`);
+    parsed = matter(text);
+  } catch (error) {
     hasErrors = true;
+    console.error(`[${skillName}] Frontmatter parse failed: ${error.message}`);
     continue;
   }
 
-  const result = skillSchema.safeParse(frontmatter);
-
+  const result = skillSchema.safeParse(parsed.data);
   if (!result.success) {
-    console.error(`❌ [${skill}] Validation failed:`);
-    result.error.issues.forEach(issue => {
-      console.error(`   - ${issue.path.join('.')}: ${issue.message}`);
-    });
     hasErrors = true;
-  } else if (result.data.name !== skill) {
-    console.error(`❌ [${skill}] Validation failed:`);
-    console.error(`   - name: Must match the parent directory name ('${result.data.name}' !== '${skill}')`);
+    console.error(`[${skillName}] Invalid frontmatter.`);
+    for (const issue of result.error.issues) {
+      console.error(`  - ${issue.path.join('.')}: ${issue.message}`);
+    }
+    continue;
+  }
+
+  if (result.data.name !== skillName) {
     hasErrors = true;
-  } else {
-    console.log(`✅ [${skill}] Valid`);
+    console.error(`[${skillName}] Frontmatter name must match the directory.`);
   }
 }
 
 if (hasErrors) {
-  console.error('\\n🚨 Some skills failed validation.');
   process.exit(1);
-} else {
-  console.log('\\n🎉 All skills are valid according to agentskills.io/specification!');
 }
+
+console.log(`Validated ${skillDirs.length} skill(s).`);

@@ -238,3 +238,4 @@ async def test_get_user_returns_none_when_not_found() -> None:
 - **Wrong import in tests:** Ensure `PYTHONPATH=src` is in the `Makefile run` and in `pyproject.toml [tool.pytest.ini_options]`.
 - **Version conflict:** `rm -rf .venv uv.lock && uv venv && uv sync`.
 - **Pyright `reportMissingTypeStubs`:** Install stubs or add `# type: ignore` with a justifying comment.
+

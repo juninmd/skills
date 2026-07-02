@@ -18,3 +18,4 @@
 - Provide clear instructions in the prompt (e.g., "Summarize https://example.com/article").
 - Can handle multiple URLs in a single call.
 - Useful for extracting specific data points or getting a summary of a long article.
+

@@ -26,3 +26,4 @@ Protocol for environment variable management and protection of sensitive informa
 3. **Pre-Commit Check**: inspect staged files (`git diff --cached --name-only`) to ensure no secret was accidentally added.
 4. **Variable Warning**: if an `export TOKEN=...` command is suggested, include an immediate warning: "Do not persist this command in shell history if the token is sensitive."
 5. **Commit Prevention**: if a `.env` file is detected in staging, block the flow, alert the user, and suggest `git reset HEAD <file>`.
+

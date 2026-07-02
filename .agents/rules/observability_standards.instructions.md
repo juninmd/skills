@@ -22,3 +22,4 @@ applyTo: '**/*.{py,ts,tsx,js,jsx,go,java,kt}, **/Dockerfile, **/.gitlab-ci.yml'
 ## Operations
 - Provide healthcheck endpoint for liveness/readiness.
 - Alert on sustained error spikes and latency regressions.
+

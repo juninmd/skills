@@ -19,3 +19,4 @@ To perform a GraphQL operation, provide:
 | Query | The GraphQL query or mutation string | 'query { user(id: "1") { name email } }' |
 | Variables | JSON object of variables (optional) | '{"id": "1"}' |
 | Headers | JSON object of headers | '{"Authorization": "Bearer token"}' |
+

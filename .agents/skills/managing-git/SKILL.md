@@ -1,6 +1,6 @@
 ---
 name: managing-git
-description: Repository management, versioning, and collaborative workflows with Git following the Luizalabs Senior standard.
+description: Repository management, versioning, and collaborative workflows with Git following the MyProject Senior standard.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[repo/file] [options]"
@@ -36,3 +36,4 @@ This skill standardizes the development workflow, ensuring a clean, linear, and 
 
 ## Troubleshooting
 *   **Conflict:** If there is a rebase conflict, resolve the files, use `git add <file>`, and `git rebase --continue`. NEVER use `git rebase --skip` unless you know exactly what you are doing.
+

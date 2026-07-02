@@ -1,6 +1,6 @@
 ---
 name: workspace-nav
-description: Best practices for file system navigation and workspace organization.
+description: Best practices for file system navigation and workspace MyProject.
 applyTo: '**/*.sh, **/Makefile, **/Dockerfile, **/package.json, **/pyproject.toml'
 ---
 
@@ -8,7 +8,7 @@ applyTo: '**/*.sh, **/Makefile, **/Dockerfile, **/package.json, **/pyproject.tom
 # Identifier: workspace_nav
 
 ## Description
-Best practices for file system navigation and workspace organization.
+Best practices for file system navigation and workspace MyProject.
 
 ## Commands and Aliases
 - **Navigation**: `cd -` (go back to previous directory), `cd ..`.
@@ -24,3 +24,4 @@ Best practices for file system navigation and workspace organization.
 
 ## Protocol
 - Whenever a user enters a new project, suggest `ls -F` to quickly identify executable scripts and directories.
+

@@ -20,3 +20,4 @@ applyTo: '**/*.{py,ts,tsx,js,jsx,go,java,kt,sh}'
 - If a file exceeds 180 lines, split by feature or responsibility.
 - If a function exceeds 25 lines, extract intention-revealing helpers.
 - If nesting exceeds 3 levels, use guard clauses and early returns.
+

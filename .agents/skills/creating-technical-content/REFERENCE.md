@@ -17,3 +17,4 @@
 
 ### 3. `Hugo` / `Jekyll` / `Docusaurus`
 **Description:** Static site generators often used for technical documentation.
+

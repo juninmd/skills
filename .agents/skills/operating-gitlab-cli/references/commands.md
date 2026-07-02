@@ -32,7 +32,7 @@ This document provides a comprehensive list of core `glab` commands. Always use
 *   `glab issue board view` - View issue boards.
 
 ## Merge Requests (glab mr)
-**MANDATORY**: ALWAYS prefix with `NO_COLOR=1 GIT_PAGER=cat` AND append `-R <FULL_URL>` (e.g., `-R https://gitlab.luizalabs.com/group/repo`) to all `mr` commands. Omitting the prefix causes glab to open a pager that hangs the terminal.
+**MANDATORY**: ALWAYS prefix with `NO_COLOR=1 GIT_PAGER=cat` AND append `-R <FULL_URL>` (e.g., `-R https://gitlab.com/group/repo`) to all `mr` commands. Omitting the prefix causes glab to open a pager that hangs the terminal.
 
 *   `NO_COLOR=1 GIT_PAGER=cat glab mr list -R https://...` - List merge requests.
 *   `NO_COLOR=1 GIT_PAGER=cat glab mr create -R https://...` - Create a new merge request.
@@ -65,5 +65,6 @@ This document provides a comprehensive list of core `glab` commands. Always use
 *   `glab variable set MY_VAR "value"` - Create a new project or group variable.
 
 ## General Configuration (glab config)
-*   `glab config set host gitlab.luizalabs.com` - Set configuration values (e.g., `host`, `editor`).
+*   `glab config set host gitlab.com` - Set configuration values (e.g., `host`, `editor`).
 *   `glab config get host` - Get a configuration value.
+

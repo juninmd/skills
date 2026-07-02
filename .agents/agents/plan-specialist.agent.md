@@ -34,9 +34,9 @@ Every request starts with a Discovery phase. Dispatch the applicable specialist 
 
 | # | Specialist | Real Subagent(s) | Focus |
 |---|-----------|-------------------|-------|
-| 1 | **Global Reviewer** | `Explore`, `labs-code-reviewer` | Systemic review, reuse templates, hidden impacts |
+| 1 | **Global Reviewer** | `Explore`, `code-reviewer` | Systemic review, reuse templates, hidden impacts |
 | 2 | **Architect** | `principal-engineer`, `Brainiac Backend Architect` | Design patterns, scalability, folder structure |
-| 3 | **Security** | `labs-secops-agent` | Vulnerabilities, data exposure, auth |
+| 3 | **Security** | `secops-agent` | Vulnerabilities, data exposure, auth |
 | 4 | **Performance** | `Brainiac Reliability Commander` | Bottlenecks, observability, latency |
 | 5 | **QA / Test** | `Explore` | Test strategy, coverage, regression risks |
 | 6 | **DBA** | `dba-specialist` | Schema analysis, query performance, migrations, indexes |

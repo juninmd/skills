@@ -20,3 +20,4 @@ This skill guides the agent in the autonomous execution of tasks using a plan (`
 - `PROMPT.md`: Persona and execution protocol (dynamically generated).
 - `TODO_LIST.md`: Task list with checkboxes (dynamically generated).
 - `run_agent.sh`: Loop engine (dynamically generated).
+

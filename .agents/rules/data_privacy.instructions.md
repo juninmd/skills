@@ -1,21 +1,31 @@
----
-name: data-privacy
-description: Data privacy and sensitive-data handling rules aligned with LGPD principles.
-applyTo: '**/*.{py,ts,tsx,js,jsx,go,java,kt,sql}, **/*.md'
----
+# Data Privacy and Safety Standards
 
-# Rule: Data Privacy
+## Goal
+Ensure that no sensitive, personal, or corporate-confidential information is leaked through LLM prompts, logs, or command history.
 
-## Data Handling
-- Classify personal and sensitive fields in domain models.
-- Collect only data strictly necessary for the business purpose.
-- Define retention and deletion policy for personal data.
+## Rules
 
-## Protection Controls
-- Encrypt sensitive data in transit and at rest.
-- Restrict data access by least privilege.
-- Redact or anonymize sensitive data in logs and telemetry.
+### 1. PII Masking (Personal Identifiable Information)
+- **Email/Names**: Replace any real email addresses or user names with placeholders like `<USER_EMAIL>` or `<USER_NAME>`.
+- **IP Addresses**: Never print or include internal IP addresses (e.g., 10.x.x.x, 192.168.x.x) in prompts unless absolutely necessary for local debugging.
+- **Passwords/Tokens**: NEVER read files containing secrets (like `.env`, `.pem`, `id_rsa`) unless explicitly asked and the purpose is purely local.
 
-## Compliance Flow
-- Support data-subject rights flows (access, correction, deletion) where applicable.
-- Record audit trails for sensitive data operations.
+### 2. Context Isolation
+- When executing `run_shell_command`, avoid commands that output excessive environment variables (like `env` or `printenv`).
+- If you find a secret (API Key, JWT, Password) during a file read, you MUST immediately notify the user and suggest adding it to `.gitignore` or `.env`.
+
+### 3. Redaction in Logs
+- All logs produced by skills must be sanitized.
+- Personal file paths (e.g., `C:\Users\jr_ac\...`) should be redacted to `~\...` when possible to avoid leaking local system usernames.
+
+### 4. Zero Trust in Prompts
+- Do not assume that the LLM backend is private. Treat every prompt as potentially public if it's sent to an external API (like Gemini API, OpenAI, etc.).
+
+## Verification
+- Periodically run a scan for secrets using `gitleaks` or a similar tool.
+- Audit your `.gitignore` to ensure it contains:
+  - `.env`
+  - `*.pem`
+  - `id_rsa`
+  - `node_modules/`
+  - `coverage/`

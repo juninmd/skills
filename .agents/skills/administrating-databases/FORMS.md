@@ -19,3 +19,4 @@ To perform a NoSQL operation (e.g., MongoDB), provide:
 | Operation | The method to call | "find", "insertOne", "updateMany" |
 | Query/Filter | JSON object for filtering | '{"email": "john@example.com"}' |
 | Data/Update | JSON object for the operation data | '{"$set": {"status": "verified"}}' |
+

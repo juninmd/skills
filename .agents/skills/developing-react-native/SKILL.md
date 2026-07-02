@@ -43,3 +43,4 @@ This skill guides the development of cross-platform mobile applications with Rea
 - **Performance:** Memoize expensive calculations and callbacks (`useMemo`, `useCallback`).
 - **Images:** Use `expo-image` for aggressive caching and better performance.
 - **Platform:** Apply OS-specific adjustments with `Platform.select({ ios: ..., android: ... })`.
+

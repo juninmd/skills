@@ -16,7 +16,7 @@ if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
 const dirs = fs.readdirSync(skillsDir, { withFileTypes: true }).filter(d => d.isDirectory()).map(d => d.name);
 
 const indexLines = [];
-const REPO_URL = 'git@gitlab.luizalabs.com:luizalabs/padrao-labs-agents.git';
+const REPO_URL = 'git@gitlab.example.com:example-org/plugin-marketplace-tools.git';
 
 for (const dir of dirs) {
   const skillMdPath = path.join(skillsDir, dir, 'SKILL.md');

@@ -14,7 +14,7 @@ This skill establishes the "First Response" protocol for any anomaly.
 ## Mandatory Protocol (The 5 Steps)
 1.  **Check Status Pages:** Before blaming the code, check external dependencies.
     *   **External:** Google Cloud Status, GitHub Status, Payments Gateway.
-    *   **Internal:** Luizalabs Platform Status Page.
+    *   **Internal:** MyProject Platform Status Page.
 2.  **DNS Investigation (DNS First):** Is the problem connectivity or the application?
     *   **Command:** `dig +short <hostname>` (Does it resolve IP?).
     *   **Command:** `nc -zv <host> <port>` (Is the port open?).
@@ -40,3 +40,4 @@ This skill establishes the "First Response" protocol for any anomaly.
 - **Root Cause (Hypothesis):** Database connection pool exhaustion
 - **Action:** Restarting pods and increasing the pool size
 ```
+

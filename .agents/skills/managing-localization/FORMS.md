@@ -26,3 +26,4 @@ Report on the status of translations for the project.
 - **Missing Keys:**
     - **[Locale 1]:** [List of keys]
     - **[Locale 2]:** [List of keys]
+

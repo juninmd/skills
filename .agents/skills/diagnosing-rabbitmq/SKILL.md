@@ -20,3 +20,4 @@ This skill inspects queues to identify bottlenecks and processing failures.
 
 ## Commands
 - `rabbitmqadmin get queue=<name> stat.messages stat.consumer_count`
+

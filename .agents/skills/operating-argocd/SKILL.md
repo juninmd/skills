@@ -8,7 +8,7 @@ argument-hint: "[app-name] [options]"
 
 # ArgoCD Operations
 
-This skill provides advanced capabilities for managing deployments and troubleshooting applications via ArgoCD CLI, the standard for GitOps at Luizalabs.
+This skill provides advanced capabilities for managing deployments and troubleshooting applications via ArgoCD CLI, the standard for GitOps at MyProject.
 
 ## When to use this skill
 - Identifying why an application is "OutOfSync" or "Degraded" in ArgoCD.
@@ -94,3 +94,4 @@ argocd app rollback <app-name> <revision-id>
 - **Troubleshooting**: Diff analysis, event review, and health checks.
 - **History**: Rollbacks and revision management.
 - **Resource Analysis**: Inspection of K8s resources managed by ArgoCD.
+

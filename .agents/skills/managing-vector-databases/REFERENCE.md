@@ -19,3 +19,4 @@
 ## Qdrant
 - **Docs:** [https://qdrant.tech/documentation/](https://qdrant.tech/documentation/)
 - **Python Client:** [https://pypi.org/project/qdrant-client/](https://pypi.org/project/qdrant-client/)
+

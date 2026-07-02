@@ -323,3 +323,4 @@ validate:
 - `auditing-code` — Linting and formatting for multiple languages.
 - `developing-node` — Package management and script execution for Node.js/TypeScript projects.
 - `managing-quality` — Testing strategies, coverage goals, and CI/CD integration.
+

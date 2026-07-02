@@ -20,7 +20,7 @@ This skill provides a unified framework for building, organizing, and maintainin
 ## Step-by-Step Flow
 
 ### 1. Initialize and Structure
-Create a new chart using the standard structure to ensure consistency in organization.
+Create a new chart using the standard structure to ensure consistency in MyProject.
 ```bash
 helm create <chart-name>
 ```
@@ -86,3 +86,4 @@ Ensure reliability with rigorous validations before deployment:
 - **Rendering Issues**: Use `helm template` to see exactly what manifests Helm is generating.
 - **Release State**: Use `helm status` and `helm history` to diagnose failed upgrades or rollbacks.
 - **Namespace Conflicts**: Ensure the target namespace exists or use the `--create-namespace` flag.
+

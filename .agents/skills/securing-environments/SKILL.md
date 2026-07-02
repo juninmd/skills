@@ -16,3 +16,4 @@ This skill focuses on the protection of credentials and secrets in the repositor
 
 ## Resources
 - See `assets/FORMS.md` for the PR security checklist.
+

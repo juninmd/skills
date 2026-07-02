@@ -83,3 +83,4 @@ CMD ["node", "dist/main.js"]
   - **Advantage:** `pnpm install` time drops from minutes to seconds in CI, reusing the global package cache between pipeline executions.
 - **Distroless Images:** For production in Node.js, prefer Google images (e.g., `gcr.io/distroless/nodejs24-debian12`).
   - **Advantage:** They do not have a shell (`/bin/sh`), bash, or built-in package managers. This drastically reduces the attack surface, zeroing out critical OS vulnerabilities (CVEs) reported by scanners like Trivy or SonarQube, besides creating tiny images.
+

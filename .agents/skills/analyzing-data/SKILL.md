@@ -36,3 +36,4 @@ This skill allows for quick and deep exploration of datasets to extract insights
 - **Reproducibility:** Use versioned Jupyter Notebooks or Python scripts, never manual Excel.
 - **Privacy:** Remove PII (CPF, Email, Phone) before sharing analyses.
 - **Visuals:** Use simple charts (Bar, Line) with clear titles and axes (`matplotlib`, `seaborn`).
+

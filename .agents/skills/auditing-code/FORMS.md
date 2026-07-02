@@ -33,3 +33,4 @@ Document the findings and recommendations.
         - **Recommendation:** [Suggested fix]
     3. ...
 - **Overall Rating:** [Pass/Fail/Warning]
+

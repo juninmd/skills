@@ -1,116 +1,65 @@
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 import matter from 'gray-matter';
+import { AGENT_FILES_DIR, SKILLS_DIR } from './lib/catalog.mjs';
+import { extractFrontmatterRaw, findBlockArrayKeys } from './lib/frontmatter.mjs';
 
-const agentsDir = path.join(process.cwd(), '.agents/agents');
-const skillsDir = path.join(process.cwd(), '.agents/skills');
-
-const existingAgents = fs.readdirSync(agentsDir)
-  .filter(f => f.endsWith('.agent.md'))
-  .map(f => f.replace('.agent.md', ''));
-
-const existingSkills = fs.readdirSync(skillsDir, { withFileTypes: true })
-  .filter(dirent => dirent.isDirectory())
-  .map(dirent => dirent.name);
-
-function extractFrontmatterRaw(content) {
-  const match = content.match(/^---\n([\s\S]*?)\n---\n?/);
-  return match ? match[1] : '';
-}
-
-function findBlockArrayKeys(frontmatterRaw) {
-  const keys = new Set();
-  const topLevelRegex = /^([A-Za-z0-9_-]+):\s*\n\s*-\s+/gm;
-  const nestedRegex = /^\s{2}([A-Za-z0-9_-]+):\s*\n\s{4}-\s+/gm;
-
-  let match;
-  while ((match = topLevelRegex.exec(frontmatterRaw)) !== null) {
-    keys.add(match[1]);
-  }
-  while ((match = nestedRegex.exec(frontmatterRaw)) !== null) {
-    keys.add(match[1]);
-  }
-
-  return [...keys];
-}
-
-let globalHasErrors = false;
 const skillMentionPattern = /Skill:\s*`([^`]+)`/g;
+const existingAgents = fs.readdirSync(AGENT_FILES_DIR)
+  .filter((fileName) => fileName.endsWith('.agent.md'))
+  .map((fileName) => fileName.replace('.agent.md', ''));
+const existingSkills = fs.readdirSync(SKILLS_DIR, { withFileTypes: true })
+  .filter((entry) => entry.isDirectory())
+  .map((entry) => entry.name);
 
-for (const agentFile of fs.readdirSync(agentsDir).filter(f => f.endsWith('.agent.md'))) {
-  const agentPath = path.join(agentsDir, agentFile);
-  const fileContent = fs.readFileSync(agentPath, 'utf8');
+let hasErrors = false;
 
-  let hasErrors = false;
+for (const fileName of fs.readdirSync(AGENT_FILES_DIR).filter((name) => name.endsWith('.agent.md'))) {
+  const filePath = path.join(AGENT_FILES_DIR, fileName);
+  const text = fs.readFileSync(filePath, 'utf8');
+  const rawFrontmatter = extractFrontmatterRaw(text);
+  const blockArrayKeys = rawFrontmatter ? findBlockArrayKeys(rawFrontmatter) : [];
 
+  if (blockArrayKeys.length) {
+    hasErrors = true;
+    console.error(`[${fileName}] Inline arrays required for: ${blockArrayKeys.join(', ')}`);
+  }
+
+  let parsed;
   try {
-    const parsed = matter(fileContent);
-    const rawFrontmatter = extractFrontmatterRaw(fileContent);
-    const blockArrayKeys = findBlockArrayKeys(rawFrontmatter);
-    const { agents, skills } = parsed.data;
+    parsed = matter(text);
+  } catch (error) {
+    hasErrors = true;
+    console.error(`[${fileName}] Frontmatter parse failed: ${error.message}`);
+    continue;
+  }
 
-    if (blockArrayKeys.length > 0) {
-      console.error(`❌ [${agentFile}] Frontmatter arrays must be inline. Convert keys: ${blockArrayKeys.join(', ')}`);
+  for (const agentName of parsed.data.agents ?? []) {
+    if (!existingAgents.includes(agentName)) {
       hasErrors = true;
-      globalHasErrors = true;
+      console.error(`[${fileName}] Unknown agent reference: ${agentName}`);
     }
+  }
 
-    // Validate Subagents in Frontmatter
-    if (agents && Array.isArray(agents)) {
-      for (const subagent of agents) {
-        if (!existingAgents.includes(subagent)) {
-          console.error(`❌ [${agentFile}] Invalid subagent reference in frontmatter: '${subagent}'`);
-          hasErrors = true;
-          globalHasErrors = true;
-        }
-      }
-    } else if (agents) {
-      console.error(`❌ [${agentFile}] 'agents' property in frontmatter must be an array.`);
+  for (const skillName of parsed.data.skills ?? []) {
+    if (!existingSkills.includes(skillName)) {
       hasErrors = true;
-      globalHasErrors = true;
+      console.error(`[${fileName}] Unknown skill reference: ${skillName}`);
     }
+  }
 
-    // Validate Skills in Frontmatter
-    if (skills && Array.isArray(skills)) {
-      for (const skill of skills) {
-        if (!existingSkills.includes(skill)) {
-          console.error(`❌ [${agentFile}] Invalid skill reference in frontmatter 'skills' array: '${skill}'`);
-          hasErrors = true;
-          globalHasErrors = true;
-        }
-      }
-    } else if (skills) {
-      console.error(`❌ [${agentFile}] 'skills' property in frontmatter must be an array.`);
+  let match = skillMentionPattern.exec(parsed.content);
+  while (match) {
+    if (!existingSkills.includes(match[1])) {
       hasErrors = true;
-      globalHasErrors = true;
+      console.error(`[${fileName}] Unknown skill mention: ${match[1]}`);
     }
-
-    // Optional: Cross-validate markdown body mentions against the frontmatter
-    let match;
-    while ((match = skillMentionPattern.exec(parsed.content)) !== null) {
-      const skill = match[1];
-      if (!existingSkills.includes(skill)) {
-        console.error(`❌ [${agentFile}] Invalid skill reference in markdown body: '${skill}'`);
-        hasErrors = true;
-        globalHasErrors = true;
-      }
-      if (skills && Array.isArray(skills) && !skills.includes(skill)) {
-        console.warn(`⚠️  [${agentFile}] Skill '${skill}' mentioned in body but missing from 'skills' array in frontmatter.`);
-      }
-    }
-
-    if (!hasErrors) {
-      console.log(`✅ [${agentFile}] Valid`);
-    }
-  } catch (err) {
-    console.error(`❌ [${agentFile}] Failed to parse: ${err.message}`);
-    globalHasErrors = true;
+    match = skillMentionPattern.exec(parsed.content);
   }
 }
 
-if (globalHasErrors) {
-  console.error('\n🚨 Some agents failed validation (Invalid subagents or skills).');
+if (hasErrors) {
   process.exit(1);
-} else {
-  console.log('\n🎉 All agents contain valid subagent and skill references!');
 }
+
+console.log('Validated agent references.');

@@ -35,3 +35,4 @@ argument-hint: "[context] [options]"
 - **Rate Limiting:** Respect `X-RateLimit-*` headers.
 - **Security:** Never log request bodies containing PII or passwords.
 - **Idempotency:** Use `Idempotency-Key` in critical POST operations (payments).
+

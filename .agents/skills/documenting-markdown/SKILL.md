@@ -25,3 +25,4 @@ Generate clear, useful, and ready-to-use documentation from the code and project
 - Clarity over volume.
 - Consistent terminology throughout the document.
 - If evidence is missing in the code, explicitly record the assumption.
+

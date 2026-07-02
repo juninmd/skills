@@ -19,13 +19,13 @@ This skill provides tools and commands for debugging networks, APIs, and connect
 
 ## Instructions
 
-### Internal System Health Checks (Luizalabs)
+### Internal System Health Checks (MyProject)
 Use these specific endpoints to verify if critical internal platforms are operating normally:
 
 **GitLab (Git Provider):**
 ```bash
 # Check if GitLab is ready to accept traffic
-curl -I https://gitlab.luizalabs.com/-/readiness
+curl -I https://gitlab.com/-/readiness
 ```
 - Returns `HTTP/2 200` if the service is healthy.
 
@@ -240,3 +240,4 @@ EOF
 - **traceroute/mtr**: Network route analysis.
 - **tcpdump**: Packet capture.
 - **ss/netstat**: Port and connection analysis.
+

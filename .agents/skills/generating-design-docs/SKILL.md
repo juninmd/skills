@@ -26,6 +26,7 @@ Produce a complete, consistent Design Doc based on repository evidence.
 ## Minimum Checks
 - Health/readiness/liveness.
 - API contracts (OpenAPI/Swagger where applicable).
-- `dependency.yaml` and catalog metadata.
+- `service-catalog.yaml` and catalog metadata.
 - Logs, metrics, and tracing.
 - Authentication/authorization model and secrets management.
+

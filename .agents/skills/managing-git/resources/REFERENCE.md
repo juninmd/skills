@@ -7,3 +7,4 @@
 - `git reflog`: Ver histórico de todas as ações (mesmo após resets).
 - `git reset --soft HEAD~1`: Desfazer último commit mantendo alterações.
 - `git stash pop`: Recuperar alterações guardadas.
+

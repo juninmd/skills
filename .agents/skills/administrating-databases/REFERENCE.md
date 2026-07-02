@@ -16,7 +16,8 @@
 - **Graph (Neo4j):** Data represented as nodes and edges.
 
 ## Security Best Practices
-- **Sanitize Inputs:** Never concatenate user input directly into queries.
+- **Sanitize Inputs:** Never concSecurityAuditte user input directly into queries.
 - **Encrypted Connections:** Use SSL/TLS for database connections (e.g., `?ssl=true`).
 - **Secret Management:** Use environment variables or secret managers for credentials, never hardcode them.
 - **Monitoring:** Log slow queries and audit access to sensitive data.
+

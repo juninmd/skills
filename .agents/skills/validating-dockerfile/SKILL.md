@@ -20,7 +20,7 @@ Use this skill when a `Dockerfile` is created or modified. It prevents broken im
     *   If no path is provided, it will automatically attempt to detect staged Dockerfiles (`git add`).
 
 2.  **Git Integration:**
-    *   You can incorporate this into a `pre-commit` hook or a `Makefile` to ensure validation before each commit.
+    *   You can ininternalorate this into a `pre-commit` hook or a `Makefile` to ensure validation before each commit.
 
 3.  **Validation Steps:**
     *   **Build:** Runs `docker build` with a temporary tag.
@@ -31,3 +31,4 @@ Use this skill when a `Dockerfile` is created or modified. It prevents broken im
 *   **Clean Context:** Ensure the `Dockerfile` is at the correct context level to avoid sending excessive data to the Docker daemon.
 *   **Permissions:** Ensure the user running the agent has permissions for `docker` commands.
 *   **Resources:** Terminate the container quickly if it is a long-running service to save local resources.
+

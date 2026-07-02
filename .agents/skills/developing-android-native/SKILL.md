@@ -93,3 +93,4 @@ If the UI is stuttering during Scroll (Jank):
 2. In `LazyColumn`, ensure the item key is unique and stable.
 3. Avoid unnecessarily allocating new objects in each recomposition. Use `remember`.
 4. In debug, enable Android Studio's Layout Inspector to check Recomposition Counts.
+

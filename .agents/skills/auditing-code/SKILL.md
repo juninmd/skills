@@ -41,3 +41,4 @@ If the linter reports:
 ## Troubleshooting
 - **Configuration Conflicts:** If migrating, remove `.eslintrc` and `.prettierrc` and rely solely on `biome.json`.
 - **Ignored Files:** Always respect `.gitignore` and `.ruffignore`/`biome.json` ignore arrays to avoid analyzing generated/build files.
+

@@ -27,3 +27,4 @@
 ### 2. GraphQL over HTTP
 **Goal:** Standardizing how GraphQL should be served over HTTP.
 **Link:** https://github.com/graphql/graphql-over-http
+

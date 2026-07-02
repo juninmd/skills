@@ -25,3 +25,4 @@ applyTo: '**/*.{py,js,ts,tsx,sh,go,java,kt,md}'
 - **Avoid generic names**: do not create directories or modules like `utils`, `helpers`, `common`, or `misc` without explicit domain context.
 - **Environment variables**: always `UPPER_SNAKE_CASE` (for example, `DATABASE_URL`, `SONAR_TOKEN`).
 
+

@@ -32,3 +32,4 @@
 
 ### 3. Circuit Breaker
 - Prevents a service from making requests to another service that is likely to fail, allowing the failing service time to recover.
+

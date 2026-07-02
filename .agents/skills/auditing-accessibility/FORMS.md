@@ -27,3 +27,4 @@ Documentar os achados de uma auditoria de acessibilidade.
         - **Elemento:** [Trecho de código]
         - **Correção:** [Recomendação]
     - **Problema 2:** ...
+

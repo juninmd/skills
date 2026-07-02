@@ -28,3 +28,4 @@ Audit and improve skills in `.agents/skills/` with a focus on clarity, standardi
 2. Correct directly when within scope.
 3. Validate with repository lint/build.
 4. Report what was adjusted and remaining risks.
+

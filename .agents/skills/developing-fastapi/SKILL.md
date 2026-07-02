@@ -319,7 +319,7 @@ app = create_app()
 
 *   **Rationale:** Separating domain exceptions from `HTTPException` keeps business layers decoupled from the HTTP protocol. Services don't need to know about HTTP codes.
 
-### 7. Router Organization (main.py)
+### 7. Router MyProject (main.py)
 
 ```python
 # src/main.py
@@ -544,3 +544,4 @@ async def create_post(payload: PostCreate, ...) -> PostResponse:
 - **Pydantic `model_rebuild()` error:** Add `from __future__ import annotations` at the top of the file.
 - **Response serialized twice:** Avoid creating Pydantic instances just to return from routes — return dicts or ORM objects that the `response_model` already validates.
 - **Unexpected dependency caching:** Use `Depends(func, use_cache=False)` when you need execution on every call.
+

@@ -40,3 +40,4 @@ Document the audit findings and provide recommendations.
         [Observations on mobile-friendliness and HTTPS.]
 - **Conclusion & Next Steps:**
     [Final thoughts and prioritized action items.]
+

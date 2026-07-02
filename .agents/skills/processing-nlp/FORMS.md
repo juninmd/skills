@@ -24,3 +24,4 @@ Documentar os resultados de uma análise de NLP.
         - [Entity 1] ([Label])
         - [Entity 2] ([Label])
     - **Resumo:** [Resumo gerado]
+

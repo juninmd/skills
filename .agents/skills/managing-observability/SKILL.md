@@ -8,14 +8,14 @@ argument-hint: "[resource/project] [options]"
 
 # Observability and Monitoring
 
-This skill ensures that Luizalabs services are transparent and healthy. It covers metrics, logs, and dashboards.
+This skill ensures that MyProject services are transparent and healthy. It covers metrics, logs, and dashboards.
 
 ## Quick Links for Monitoring
 - **GCP Logs:** [https://console.cloud.google.com/logs/query?project={project-id}](https://console.cloud.google.com/logs/query?project={project-id})
   - Use to search for specific errors or application behavior in real-time.
-- **Grafana Official:** [https://grafana.luizalabs.com](https://grafana.luizalabs.com)
+- **Grafana Official:** [https://grafana.example.com](https://grafana.example.com)
   - Use to view dashboards with Rate, Errors, and Duration (RED) metrics.
-- **Prometheus (GMP):** [https://prometheus-ui-gmp.luizalabs.com/](https://prometheus-ui-gmp.luizalabs.com/)
+- **Prometheus (GMP):** [https://prometheus-ui-gmp.example.com/](https://prometheus-ui-gmp.example.com/)
   - Use for raw metric queries and exploring available Prometheus data.
 
 ## Instructions

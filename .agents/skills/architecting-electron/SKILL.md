@@ -472,3 +472,4 @@ ipcMain.handle("operation", async (event, data) => {
 - [Native Node Modules](https://www.electronjs.org/docs/latest/tutorial/using-native-node-modules)
 - [Angular Performance Guide](https://angular.io/guide/performance-best-practices)
 - [RxJS Operators Docs](https://rxjs.dev/api)
+

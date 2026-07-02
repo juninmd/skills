@@ -1,152 +1,61 @@
-import fs from 'fs';
-import path from 'path';
-
-/**
- * Linter para validar a estrutura e caminhos dos Agent Plugins
- * Garante que:
- * 1. Todos os plugins têm um plugin.json
- * 2. Todos os caminhos de 'skills' e 'agents' no JSON existem no disco
- * 3. A estrutura de diretórios do plugin está correta (.github/plugin/plugin.json)
- * 4. Todas as skills em .agents/skills/ estão referenciadas em pelo menos um plugin
- */
-
-const pluginsDir = path.join(process.cwd(), 'plugins');
+import fs from 'node:fs';
+import path from 'node:path';
+import {
+  PLUGINS_DIR,
+  findPluginManifestPaths,
+  listPluginDirectories,
+  readJson,
+} from './lib/catalog.mjs';
 
 let hasErrors = false;
+const manifestPaths = findPluginManifestPaths();
 
-console.log('🔍 Iniciando linting dos Agent Plugins...\n');
-
-// Função auxiliar para encontrar arquivos plugin.json recursivamente
-function findPluginFiles(dir, fileList = []) {
-    const files = fs.readdirSync(dir);
-    for (const file of files) {
-        const name = path.join(dir, file);
-        if (fs.statSync(name).isDirectory()) {
-            findPluginFiles(name, fileList);
-        } else if (file === 'plugin.json') {
-            fileList.push(name);
-        }
-    }
-    return fileList;
+if (!listPluginDirectories().length) {
+  console.error('No plugin directories were found.');
+  process.exit(1);
 }
 
-// 1. Verificar se cada pasta em plugins/ tem um plugin.json
-const pluginFolders = fs.readdirSync(pluginsDir, { withFileTypes: true })
-    .filter(dirent => dirent.isDirectory())
-    .map(dirent => dirent.name);
-
-for (const folder of pluginFolders) {
-    const jsonPath = path.join(pluginsDir, folder, '.github/plugin/plugin.json');
-    const folderPath = path.join(pluginsDir, folder);
-
-    if (!fs.existsSync(jsonPath)) {
-        // Verificar se a pasta tem conteúdo relevante
-        const folderContents = fs.readdirSync(folderPath, { withFileTypes: true });
-        const hasContent = folderContents.some(item => item.name !== '.github' && item.name !== 'README.md');
-
-        if (hasContent) {
-            console.error(`❌ [${folder}] Faltando arquivo de manifesto`);
-            console.error(`   📁 Caminho: ${jsonPath}`);
-            console.error(`   💡 Dica: Crie o arquivo plugin.json neste diretório com referências às skills e agents`);
-        } else {
-            console.warn(`⚠️  [${folder}] Pasta vazia ou sem conteúdo relevante`);
-            console.warn(`   📁 Caminho: ${folderPath}`);
-            console.warn(`   💡 Dica: Adicione skills/agents ou remova a pasta se não for usada`);
-        }
-        hasErrors = true;
-    }
-}
-
-// 2. Validar caminhos dentro de cada plugin.json
-const pluginFiles = findPluginFiles(pluginsDir);
-
-for (const jsonPath of pluginFiles) {
-    // Pegar o nome do plugin do caminho (plugins/<nome-do-plugin>/...)
-    const relativePath = path.relative(pluginsDir, jsonPath);
-    const pluginName = relativePath.split(path.sep)[0];
-
-    let content;
-    try {
-        content = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
-    } catch (err) {
-        console.error(`❌ [${pluginName}] Erro ao ler JSON em ${jsonPath}: ${err.message}`);
-        hasErrors = true;
-        continue;
-    }
-
-    const baseDir = path.dirname(jsonPath);
-
-    console.log(`📦 Validando plugin: ${pluginName}`);
-
-    // Validar Skills
-    if (content.skills && Array.isArray(content.skills)) {
-        for (const skillPath of content.skills) {
-            const fullPath = path.resolve(baseDir, skillPath);
-            if (!fs.existsSync(fullPath)) {
-                console.error(`   ❌ Skill não encontrada: ${skillPath} (Resolvido para: ${fullPath})`);
-                hasErrors = true;
-            } else {
-                console.log(`   ✅ Skill OK: ${skillPath}`);
-            }
-        }
-    }
-
-    // Validar Agents
-    if (content.agents && Array.isArray(content.agents)) {
-        for (const agentPath of content.agents) {
-            const fullPath = path.resolve(baseDir, agentPath);
-            if (!fs.existsSync(fullPath)) {
-                console.error(`   ❌ Agent não encontrado: ${agentPath} (Resolvido para: ${fullPath})`);
-                hasErrors = true;
-            } else {
-                console.log(`   ✅ Agent OK: ${agentPath}`);
-            }
-        }
-    }
-    console.log('');
-}
-
-// 3. Validar se todas as skills estão referenciadas em pelo menos um plugin
-const skillsDir = path.join(process.cwd(), '.agents', 'skills');
-const availableSkills = fs.readdirSync(skillsDir, { withFileTypes: true })
-    .filter(dirent => dirent.isDirectory())
-    .map(dirent => dirent.name);
-
-const referencedSkills = new Set();
-
-// Coletar todas as skills referenciadas em todos os plugins
-for (const jsonPath of pluginFiles) {
-    const content = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
-
-    if (content.skills && Array.isArray(content.skills)) {
-        for (const skillPath of content.skills) {
-            // Extrair o nome da skill do caminho (ex: ../../../../.agents/skills/validating-typescript -> validating-typescript)
-            const skillName = path.basename(skillPath);
-            referencedSkills.add(skillName);
-        }
-    }
-}
-
-// Encontrar skills não referenciadas
-console.log('\n📚 Validando cobertura de Skills...\n');
-const unreferencedSkills = availableSkills.filter(skill => !referencedSkills.has(skill));
-
-if (unreferencedSkills.length > 0) {
-    console.error(`❌ ${unreferencedSkills.length} skill(s) não referenciada(s) em nenhum plugin:`);
-    unreferencedSkills.forEach(skill => {
-        const skillPath = path.join(skillsDir, skill);
-        console.error(`   - ${skill}`);
-        console.error(`     📁 ${skillPath}`);
-    });
-    console.error(`\n   💡 Dica: Adicione cada uma dessas skills ao plugin.json correspondente`);
+for (const pluginDir of listPluginDirectories()) {
+  const manifestPath = path.join(pluginDir, '.github', 'plugin', 'plugin.json');
+  if (!fs.existsSync(manifestPath)) {
     hasErrors = true;
-} else {
-    console.log('✅ Todas as skills estão referenciadas em pelo menos um plugin');
+    console.error(`Missing manifest: ${path.relative(PLUGINS_DIR, manifestPath)}`);
+  }
+}
+
+for (const manifestPath of manifestPaths) {
+  const pluginName = path.basename(path.dirname(path.dirname(manifestPath)));
+  const baseDir = path.dirname(manifestPath);
+  let metadata;
+
+  try {
+    metadata = readJson(manifestPath);
+  } catch (error) {
+    hasErrors = true;
+    console.error(`[${pluginName}] Invalid JSON: ${error.message}`);
+    continue;
+  }
+
+  for (const category of ['skills', 'agents']) {
+    const entries = metadata[category] ?? [];
+    if (!Array.isArray(entries)) {
+      hasErrors = true;
+      console.error(`[${pluginName}] ${category} must be an array.`);
+      continue;
+    }
+
+    for (const relativePath of entries) {
+      const resolvedPath = path.resolve(baseDir, relativePath);
+      if (!fs.existsSync(resolvedPath)) {
+        hasErrors = true;
+        console.error(`[${pluginName}] Missing ${category.slice(0, -1)}: ${relativePath}`);
+      }
+    }
+  }
 }
 
 if (hasErrors) {
-    console.error('\n🚨 Erros encontrados nos Agent Plugins. Verifique os caminhos acima.');
-    process.exit(1);
-} else {
-    console.log('\n🎉 Todos os caminhos dos Agent Plugins foram validados com sucesso!');
+  process.exit(1);
 }
+
+console.log(`Validated ${manifestPaths.length} plugin manifest(s).`);

@@ -18,3 +18,4 @@
 - `npx expo start`: Start the development server.
 - `npx react-native run-android`: Run on Android device/emulator.
 - `npx react-native run-ios`: Run on iOS simulator.
+

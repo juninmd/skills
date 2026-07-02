@@ -1,51 +1,27 @@
 {
-  "name": "padrao-labs-agents-root",
-  "version": "1.56.0",
+  "name": "plugin-marketplace-tools",
+  "version": "1.0.0",
   "private": true,
-  "publisher": "luizalabs",
-  "description": "Luizalabs Agents, Skills, Rules, and Workflows",
-  "engines": {
-    "vscode": "^1.110.0"
-  },
-  "categories": [
-    "AI",
-    "Education"
-  ],
+  "description": "Minimal tools for generating plugins and a marketplace manifest from agent assets.",
   "type": "module",
   "scripts": {
-    "dev": "pnpm -r run dev",
-    "prebuild": "pnpm run gen:marketplace && pnpm run lint:code && pnpm run lint:yaml && pnpm run lint:shell && pnpm run lint:plugins && pnpm run lint:frontmatter:inline && pnpm run lint:agents && pnpm run lint:skills",
-    "build": "pnpm -r run build",
-    "start": "pnpm -r run start",
-    "lint:code": "eslint \"scripts/**/*.mjs\" \"cli/src/**/*.ts\" \"apps/docs/src/**/*.{js,mjs,ts}\" \"apps/docs/server.js\"",
+    "build": "pnpm run lint && pnpm run gen:marketplace",
+    "gen:marketplace": "node scripts/generate-marketplace.mjs",
+    "lint:code": "eslint \"scripts/**/*.mjs\"",
     "lint:yaml": "node scripts/lint-yaml.mjs",
     "lint:shell": "node scripts/lint-shell.mjs",
-    "lint:shell:strict": "REQUIRE_SHELLCHECK=1 node scripts/lint-shell.mjs",
-    "lint:md": "markdownlint '**/*.md' --ignore node_modules --ignore docs --ignore .",
-    "lint:md:fix": "markdownlint '**/*.md' --ignore node_modules --ignore docs --ignore . --fix",
+    "lint:plugins": "node scripts/lint-plugins.mjs",
+    "lint:frontmatter:inline": "node scripts/lint-frontmatter-inline.mjs",
     "lint:skills": "node scripts/lint-skills.mjs",
     "lint:agents": "node scripts/lint-agents.mjs",
-    "lint:frontmatter:inline": "node scripts/lint-frontmatter-inline.mjs",
-    "lint:plugins": "node scripts/lint-plugins.mjs",
-    "typecheck:cli": "pnpm --filter @luizalabs/padrao-labs-agents exec tsc --noEmit",
-    "gen:marketplace": "node scripts/generate-marketplace.mjs",
-    "test": "pnpm -r run test",
-    "test:run": "pnpm -r run test:run",
-    "test:ui": "pnpm -r run test:ui",
-    "test:coverage": "pnpm -r run test:coverage",
-    "lint": "pnpm run lint:code && pnpm run lint:yaml && pnpm run lint:shell && pnpm run lint:md && pnpm run lint:frontmatter:inline && pnpm run lint:skills && pnpm run lint:agents && pnpm run lint:plugins",
-    "typecheck": "pnpm run typecheck:cli"
+    "lint": "pnpm run lint:code && pnpm run lint:yaml && pnpm run lint:shell && pnpm run lint:frontmatter:inline && pnpm run lint:skills && pnpm run lint:agents && pnpm run lint:plugins",
+    "test": "node scripts/smoke-test.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^9.24.0",
-    "@vitest/coverage-v8": "^4.0.18",
-    "chokidar": "^3.6.0",
     "eslint": "^9.24.0",
     "globals": "^16.0.0",
     "gray-matter": "^4.0.3",
-    "markdownlint-cli": "^0.47.0",
-    "typescript-eslint": "^8.29.0",
-    "vitest": "^4.0.18",
     "yaml": "^2.8.1",
     "zod": "^4.3.6"
   }

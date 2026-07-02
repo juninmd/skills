@@ -32,3 +32,4 @@ Define the metrics and alerts for a deployed model.
 - **Alerting Rules:**
     - Rule 1: [Condition -> Severity -> Action]
     - Rule 2: [Condition -> Severity -> Action]
+

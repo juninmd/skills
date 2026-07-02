@@ -20,3 +20,4 @@ Code is read much more often than it is written. Clean Code should be simple, re
 - Rename variables and functions to expressive names.
 - Extract complex boolean expressions into variables/functions with clear names.
 - Remove redundant comments.
+

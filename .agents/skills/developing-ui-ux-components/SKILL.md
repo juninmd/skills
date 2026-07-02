@@ -56,3 +56,4 @@ This skill guides the design, implementation, and documentation of reusable, acc
 - **A11y by Default:** prefer native elements over ARIA; avoid positive `tabIndex`.
 - **Naming:** kebab-case for files/folders, `PascalCase` for exported components, and `use*` prefix for hooks.
 - **State Boundary:** keep business invariants out of UI stores.
+

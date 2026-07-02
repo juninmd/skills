@@ -357,3 +357,4 @@ npm run format
   - **How to use:** Run the application with `nest start -b swc`. Compilation time drops from ~10s to under 1 second.
 - **Graceful Shutdown in Kubernetes:** NestJS does not handle `SIGTERM` by default, which causes 502/504 errors during deployments when K8s kills pods.
   - **How to solve:** Enable `app.enableShutdownHooks()` in `main.ts`. This ensures database connections and ongoing requests are gracefully terminated before the pod dies.
+

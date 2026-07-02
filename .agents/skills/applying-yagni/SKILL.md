@@ -18,3 +18,4 @@ Implement only what is necessary now. Code created "just in case" increases comp
 - Identify code written for future features that have not yet materialized.
 - Remove "just-in-case" logic flows and error handling that cannot occur in the application's current state.
 - Simplify interfaces with a single implementation, unless abstraction is required by an external boundary.
+

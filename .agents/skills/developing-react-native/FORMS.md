@@ -23,3 +23,4 @@ Define a reusable React Native component.
     - [title]: [string] - [Button label]
     - [onPress]: [function] - [Action handler]
 - **Styles:** [Flexbox layout, specific colors]
+

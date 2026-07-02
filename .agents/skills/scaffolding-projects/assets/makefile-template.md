@@ -1,4 +1,4 @@
-# Makefile Template (Luizalabs Standard)
+# Makefile Template (Repository Standard)
 
 ```makefile
 .PHONY: coverage run server clean
@@ -37,3 +37,4 @@ coverage:
 	$(VENV_BIN)/coverage html --directory=./coverage && 
 	echo "✅ Relatório gerado em ./coverage/index.html"
 ```
+

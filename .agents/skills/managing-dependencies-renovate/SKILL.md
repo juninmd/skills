@@ -47,3 +47,4 @@ This skill orchestrates continuous code "cleanup", keeping dependencies always s
 ## Troubleshooting
 *   **Renovate Stuck:** Check the Renovate Dashboard (issue in the repo).
 *   **Configure Ignore:** If an update breaks, add `"ignoreDeps": ["package-name"]`.
+

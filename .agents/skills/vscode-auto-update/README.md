@@ -38,3 +38,4 @@ Observações:
 - O `systemd timer` é preferível ao `cron` em sistemas Ubuntu modernos porque integra-se melhor ao `systemd` (controle, logs, `RandomizedDelaySec`).
 - O agendamento padrão é diário às 12:00 com `RandomizedDelaySec=1h` para evitar picos nos servidores de download.
 - Se preferir que o sistema aplique atualizações de pacotes automaticamente (incluindo `code`), considere habilitar `unattended-upgrades` e incluir a origem do repositório Microsoft nas origens autorizadas.
+

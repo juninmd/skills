@@ -18,3 +18,4 @@
 ## GraphQL Standards
 - All requests are typically `POST` to a single `/graphql` endpoint.
 - Success or failure is often returned with a `200 OK` status, with errors detailed in the `errors` field of the response body.
+

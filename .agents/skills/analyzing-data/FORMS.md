@@ -26,3 +26,4 @@ Documentar os resultados da análise de dados.
     - [Link/Descrição do Gráfico 1]
     - [Link/Descrição do Gráfico 2]
 - **Metodologia:** [Ferramentas e métodos utilizados]
+

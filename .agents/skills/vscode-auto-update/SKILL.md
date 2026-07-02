@@ -116,3 +116,4 @@ Cron equivalent (daily at 12:00):
 - `/etc/systemd/system/vscode-auto-update.service`
 - `/etc/systemd/system/vscode-auto-update.timer`
 - `/var/log/vscode-auto-update.log`
+

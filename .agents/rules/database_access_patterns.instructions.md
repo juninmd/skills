@@ -20,3 +20,4 @@ applyTo: '**/*.{py,ts,js,go,java,kt,sql}, **/migrations/**/*'
 - Prefer backward-compatible migrations.
 - Split destructive changes into multiple deploy-safe steps.
 - Validate migration rollback strategy before production rollout.
+

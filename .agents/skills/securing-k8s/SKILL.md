@@ -32,6 +32,7 @@ This skill empowers the agent to protect Kubernetes clusters through security be
 
 ## Best Practices
 - **Least Privilege:** Grant only the minimum required permissions.
-- **Secrets Management:** Use Kubernetes Secrets or external secret managers (e.g., HashiCorp Vault) instead of environment variables/config maps for sensitive data.
+- **Secrets Management:** Use Kubernetes Secrets or external secret managers (e.g., HashiInternal Vault) instead of environment variables/config maps for sensitive data.
 - **Immutable Infrastructure:** Treat pods as immutable and avoid manual changes to running containers.
 - **Regular Updates:** Keep the control plane and workers updated and patched.
+

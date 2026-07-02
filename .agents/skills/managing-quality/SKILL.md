@@ -62,3 +62,4 @@ This skill standardizes testing strategy and software validation.
 - **Property-Based Testing (fast-check):** For critical algorithms and complex logic (parsers, financial calculations, scheduling), use property-based testing using `fast-check`.
   - **How it works:** Instead of providing the input `a=1` and `b=2`, you tell the lib that the test accepts "two integers". The framework will run the same test 10000 times generating giant, negative, 0, and crazy float random numbers.
   - **Advantage:** The library aggressively explores "edge cases" in fractions of a second to force a validation or logic break in your implementation, catching bugs that a dev would normally ignore creating in manual TDD.
+

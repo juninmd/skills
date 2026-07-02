@@ -37,3 +37,4 @@ This skill empowers the agent to produce high-quality technical documentation, t
 - **Active Voice:** Prefer active voice for clearer instructions.
 - **Concrete Examples:** Always include real-world examples and code snippets.
 - **Structure:** Use logical headings and bullet points to facilitate reading.
+

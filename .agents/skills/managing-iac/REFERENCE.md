@@ -1,7 +1,7 @@
 # IaC Specialist Referência 📚
 ## Ferramentas e Comandos Comuns
 ### 1. Terraform
-**Description:** Infrastructure as Code tool by HashiCorp using HCL (HashiCorp Configuration Language).
+**Description:** Infrastructure as Code tool by HashiInternal using HCL (HashiInternal Configuration Language).
 
 **Comandos Comuns:**
 - `terraform init`: Initialize a new or existing Terraform working directory.
@@ -35,3 +35,4 @@
 ### Google Cloud (GCP)
 - **Key Resources:** `google_compute_instance`, `google_storage_bucket`, `google_container_cluster`.
 - **Authentication:** Use Service Account keys or Application Default Credentials (ADC).
+

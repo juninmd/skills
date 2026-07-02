@@ -56,3 +56,4 @@ src/
 ## Recursos Externos- [Next.js Project Structure](https://nextjs.org/docs/getting-started/project-structure)
 - [Python Project Structure](https://docs.python-guide.org/writing/structure/)
 - [Standard Go Project Layout](https://github.com/golang-standards/project-layout)
+

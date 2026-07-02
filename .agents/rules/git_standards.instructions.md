@@ -56,3 +56,4 @@ Whenever starting a development task, ensure:
 - **Never** push directly to `main`/`master` without an approved branch and MR.
 - **Never** commit without a clear Conventional Commit message (`feat:`, `fix:`, `chore:`, etc.).
 - **Never** push with unresolved security failures, coverage below 90%, or known runtime errors.
+

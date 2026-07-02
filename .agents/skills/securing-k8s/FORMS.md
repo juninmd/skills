@@ -36,3 +36,4 @@ Documentar riscos de segurança identificados e passos de remediação.
 - **Achado:** [Descrição do problema]
 - **Impacto:** [O que pode acontecer se explorado]
 - **Remediação:** [Passos para corrigir]
+

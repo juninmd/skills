@@ -15,4 +15,5 @@
 | `chore` | Tarefas de build, auxiliares, etc. | `chore: update dependencies` |
 
 ## Breaking Changes
-Adicione `BREAKING CHANGE: description` no corpo do commit para indicar uma mudança que quebra compatibilidade (Major version).
+Adicione `BREAKING CHANGE: description` no internalo do commit para indicar uma mudança que quebra compatibilidade (Major version).
+

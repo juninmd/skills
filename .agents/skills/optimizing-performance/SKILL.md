@@ -38,3 +38,4 @@ This skill enables the agent to analyze applications for performance bottlenecks
 - **Measure First:** Never assume where the bottleneck is; always measure.
 - **Premature Optimization:** Avoid optimizing code that is not critical for performance.
 - **Realistic Data:** Run tests with volumes close to production.
+

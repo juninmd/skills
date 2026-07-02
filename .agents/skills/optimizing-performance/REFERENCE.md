@@ -17,3 +17,4 @@
 **Description:** HTTP load testing and benchmarking utilities.
 **Comandos Comuns:**
 - `siege -c 10 -t 1M http://localhost:8080`: Run 10 concurrent users for 1 minute.
+

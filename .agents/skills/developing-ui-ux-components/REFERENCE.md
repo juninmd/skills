@@ -18,3 +18,4 @@
 **Key Concepts:**
 - `Utility Classes`: Single-purpose classes (e.g., `flex`, `pt-4`, `text-center`).
 - `Config`: `tailwind.config.js` for customization.
+

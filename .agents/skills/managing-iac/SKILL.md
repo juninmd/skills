@@ -64,3 +64,4 @@ resource "aws_security_group" "allow_all" {
 ## Resources
 - **Terraform Best Practices:** Use `modules`, `remote state`, and `variable validation`.
 - **Policy as Code:** Consider using OPA (Open Policy Agent) for complex compliance rules.
+

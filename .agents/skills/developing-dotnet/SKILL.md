@@ -384,3 +384,4 @@ dotnet test /p:CollectCoverage=true
 - [Entity Framework Core Documentation](https://learn.microsoft.com/en-us/ef/core/)
 - [xUnit Documentation](https://xunit.net/)
 - [Microsoft Design Patterns](https://learn.microsoft.com/en-us/dotnet/core/whats-new)
+

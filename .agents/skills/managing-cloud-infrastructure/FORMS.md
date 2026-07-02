@@ -31,3 +31,4 @@ Document the outcome of an infrastructure deployment.
     - [Issue 1] - [Resolution]
     - [Issue 2] - [Resolution]
     - ...
+

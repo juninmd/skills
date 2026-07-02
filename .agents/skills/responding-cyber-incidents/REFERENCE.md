@@ -21,3 +21,4 @@
 - **Ransomware:** Encrypting files for ransom.
 - **Insider Threat:** Malicious or negligent employees.
 - **Advanced Persistent Threat (APT):** Sophisticated, long-term attacks.
+

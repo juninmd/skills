@@ -28,3 +28,4 @@ applyTo: '**/*.{py,js,ts,tsx,go,java,kt}'
 - **Never** reduce test coverage just to pass pipeline checks.
 - **Never** use hardcoded IPs; use environment variables or internal DNS.
 - **Never** log PII (for example CPF, email, phone, address) at any log level.
+

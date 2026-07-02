@@ -76,3 +76,4 @@ def configure_logging(json_mode: bool):
 
 ## Resources
 - **12-Factor CLI Apps:** Principles for building command-line apps (Config via Env Vars, Logs via Stdout).
+

@@ -47,3 +47,4 @@ This skill enables the agent to perform technical SEO audits on websites to iden
 - **Prioritization:** Focus first on high-impact issues, such as indexing blocks.
 - **Contextual Analysis:** Understand the site's goal to adapt the audit (e.g., e-commerce vs. blog).
 - **Data-Driven:** Use specific data (e.g., "the page size is 5MB") instead of vague statements.
+

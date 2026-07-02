@@ -30,3 +30,4 @@
 **Comandos Comuns:**
 - `rbac-lookup <subject-name>`: List all RBAC bindings for a subject.
 - `rbac-lookup --kind serviceaccount`: List all service accounts and their permissions.
+

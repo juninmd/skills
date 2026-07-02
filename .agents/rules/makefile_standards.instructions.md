@@ -53,3 +53,4 @@ coverage:
  $(VENV_BIN)/coverage html --directory=./coverage &&
  echo "Coverage report generated at ./coverage/index.html"
 ```
+

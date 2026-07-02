@@ -1,30 +1,26 @@
-*/node_modules/*
-*/dist/*
-*/cache/*
-
-# VitePress generated files and indexes
-docs/*
-
-# CLI build artifacts
-cli/dist/
-cli/agents-bundle/
-
-# Test Coverage
+node_modules/
 coverage/
-**/coverage/
-
-# Environment & IDE
-.env*
-.vscode/
-.idea/
+dist/
+.env
+.env.*
 *.log
 .DS_Store
-public/*
-**/__pycache__/**
+.vscode/
+.idea/
+plugins/*/agents/
+plugins/*/skills/
+.github/plugin/marketplace.json
 
-**/node_modules/**
-apps/docs/docs/**
-# Lockfiles
-uv.lock
-package-lock.json
-
+# --- Security / Credentials (Hardening) ---
+*.pem
+*.key
+id_rsa
+id_rsa.*
+id_ed25519
+id_ed25519.*
+*.p12
+*.pfx
+*.keystore
+secrets.json
+*.kdbx
+credentials.csv

@@ -1,4 +1,4 @@
-# 🤖 Agents — Luizalabs
+# 🤖 Agents
 
 Index of specialized agents. Each agent has its own persona, objectives, and capabilities.
 
@@ -14,10 +14,10 @@ Simplified catalog by high-value function and technology context.
 |---|---|
 | [principal-engineer](./principal-engineer.agent.md) | Principal-level engineering guidance, architecture review, SOLID patterns, technical leadership |
 | [design-doc](./design-doc.agent.md) | Architecture, ADR/RFC, Design Docs, evolution strategy |
-| [labs-code-reviewer](./labs-code-reviewer.agent.md) | Principal-level technical review for security, architecture, quality, design patterns (Luizalabs Standard) |
-| [labs-secops-agent](./labs-secops-agent.agent.md) | Security, secrets, compliance, and defensive controls |
+| [code-reviewer](./code-reviewer.agent.md) | Principal-level technical review for security, architecture, quality, design patterns (Repository Standard) |
+| [secops-agent](./secops-agent.agent.md) | Security, secrets, compliance, and defensive controls |
 | [terminal-operator](./terminal-operator.agent.md) | Infrastructure operations and safe shell execution |
-| [labs-python-engineer](./labs-python-engineer.agent.md) | Python/FastAPI engineering for production |
+| [python-engineer](./python-engineer.agent.md) | Python/FastAPI engineering for production |
 | [nodejs-engineer](./nodejs-engineer.agent.md) | Node.js backend/tooling engineering for production |
 | [dotnet-engineer](./dotnet-engineer.agent.md) | C#/.NET engineering with async patterns, SOLID, DI, and testing |
 | [frontend-expert](./frontend-expert.agent.md) | Web UI/UX, accessibility, React 19.2, and frontend performance |
@@ -53,6 +53,7 @@ graph LR
 ## Quick References
 
 - **VS Code + Copilot configuration skill**: `.agents/skills/configuring-vscode-copilot/SKILL.md`
-- **Netskope configuration (SSL)**: `.agents/skills/labs-configuring-netskope/SKILL.md`
+- **Netskope configuration (SSL)**: `.agents/skills/configuring-netskope/SKILL.md`
 - **Rules and standards**: `.agents/rules/index.md`
 - **Subagents documentation (VS Code)**: https://code.visualstudio.com/docs/copilot/agents/subagents
+

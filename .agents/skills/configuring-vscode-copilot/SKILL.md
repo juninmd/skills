@@ -180,7 +180,7 @@ Synthesize into a prioritized report.
 - **Never put secrets in files Copilot can read** — even if not committed, Copilot reads from disk.
 - **Keep `user-invocable: false` for internal helper agents** — keeps the chat dropdown clean.
 - **Use `agents: []` to prevent any subagent delegation** for security or cost-critical agents.
-- **Run `padrao-labs install --tool copilot`** after changes to automatically regenerate global settings.
+- **Run `pnpm build`** after changes to automatically regenerate global settings.
 - **Re-run after VS Code updates** — new versions may add new settings keys that need opt-in.
 
 ## Validation
@@ -195,3 +195,4 @@ cat ~/.config/Code/User/settings.json | python3 -m json.tool > /dev/null && echo
 # Verify copilotignore exists and has content
 cat ~/.copilotignore 2>/dev/null || cat .copilotignore 2>/dev/null
 ```
+

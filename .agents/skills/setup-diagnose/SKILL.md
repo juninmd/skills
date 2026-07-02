@@ -105,3 +105,4 @@ Possible statuses:
 
 - For `diagnose`: table report without system changes.
 - For `update`/`install`: summary of what was updated/installed/skipped/failed.
+

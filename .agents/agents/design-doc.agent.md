@@ -34,4 +34,5 @@ You are a principal software architect focused on system-level decisions, long-t
 8. Rollout plan, rollback strategy, and open questions.
 
 ## Collaboration Model
-Use `labs-secops-agent` to validate security controls, `terminal-operator` to validate operational feasibility, and `code-reviewer` to pre-validate implementation risk when needed.
+Use `secops-agent` to validate security controls, `terminal-operator` to validate operational feasibility, and `code-reviewer` to pre-validate implementation risk when needed.
+

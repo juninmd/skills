@@ -1,6 +1,6 @@
 ---
 name: scaffolding-projects
-description: Project structure standardization (Makefile, Dockerfile, README, Sonar, Hangar) following the Luizalabs Senior protocol.
+description: Project structure standardization (Makefile, Dockerfile, README, Sonar, ContainerRegistry) following the MyProject Senior protocol.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[context] [options]"
@@ -9,7 +9,7 @@ disable-model-invocation: true
 
 # Senior Project Scaffolding
 
-This skill ensures that every project follows the Luizalabs "Golden Path", ensuring governance, observability, and quality from "Day 1".
+This skill ensures that every project follows the MyProject "StandardizedTemplate", ensuring governance, observability, and quality from "Day 1".
 
 ## Principles for Simple and Clean Code
 - **Non-Developer Friendly:** Focus on clear documentation and simple, descriptive naming.
@@ -18,7 +18,7 @@ This skill ensures that every project follows the Luizalabs "Golden Path", ensur
 - **Linter Ready:** All delivered code must pass the project's linter (e.g., `ruff` for Python, `biome` for JS/TS).
 
 ## Mandatory Files
-1.  **`hangar-info.yaml` (Backstage):** MANDATORY for cataloging. Use `cataloging-backstage` skill for this.
+1.  **`service-metadata.yaml` (Backstage):** MANDATORY for cataloging. Use `cataloging-backstage` skill for this.
 2.  **`sonar-project.properties` (Quality Gate):** Defines the project key and coverage exclusions.
 3.  **`Makefile` (Automation):** Standard interface for any language.
 4.  **`Dockerfile` (Container):** Must use Multi-stage builds and MUST NOT run as root.
@@ -29,7 +29,7 @@ This skill ensures that every project follows the Luizalabs "Golden Path", ensur
     *   **Coverage:** Aim for 80%+ coverage.
     *   **Scenarios:** Test the "happy path", but also "edge cases" (missing files, empty inputs, invalid types).
 3.  **Validation Steps:**
-    *   **Check Hangar:** Ensure the project exists in the catalog.
+    *   **Check ContainerRegistry:** Ensure the project exists in the catalog.
     *   **Check Sonar:** Verify that metrics are being collected.
     *   **Check Makefile:** Ensure all standard targets (`test`, `lint`, `run`) are functional.
 
@@ -55,3 +55,4 @@ lint:
 	ruff check src/ tests/
 	ruff format --check src/ tests/
 ```
+

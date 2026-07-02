@@ -38,3 +38,4 @@ This skill enables the agent to design, optimize, and document GraphQL schemas. 
 - **Nullability:** Be explicit about nullability; prefer non-null (`!`) where appropriate.
 - **Pagination:** Prefer cursor-based pagination for large volumes.
 - **Input Types:** Use dedicated `Input` types for mutations with complex arguments.
+

@@ -12,10 +12,11 @@
 **Description:** Leading platform for building Python programs to work with human language data.
 **Comandos Comuns:**
 - `nltk.word_tokenize(text)`: Tokenize text.
-- `nltk.corpus.stopwords.words('english')`: Get stop words.
+- `nltk.internalus.stopwords.words('english')`: Get stop words.
 
 ### 3. `Transformers` (Hugging Face)
 **Description:** State-of-the-art Machine Learning for Pytorch, TensorFlow, and JAX.
 **Comandos Comuns:**
 - `pipeline("sentiment-analysis")`: Create a pipeline for sentiment analysis.
 - `pipeline("summarization")`: Create a pipeline for summarization.
+

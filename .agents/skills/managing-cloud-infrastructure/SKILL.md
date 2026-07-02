@@ -35,3 +35,4 @@ This skill focuses on the **design** of cloud solutions, prioritizing High Avail
 - **Security Groups:** Principle of least privilege (allow-list, not deny-list).
 - **Encryption:** Data in transit (TLS) and at rest (KMS) must be encrypted by default.
 - **Backup Strategy:** Define RPO (Recovery Point Objective) and RTO (Recovery Time Objective).
+

@@ -36,3 +36,4 @@ Record the results of an IaC execution.
     - ...
 - **Errors (if any):**
     [Error message and stack trace]
+

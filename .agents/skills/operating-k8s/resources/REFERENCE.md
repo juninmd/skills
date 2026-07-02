@@ -6,3 +6,4 @@
 ## Solução de Problemas
 - `kubectl get events --sort-by=.metadata.creationTimestamp`: Ver eventos recentes.
 - `kubectl top pods`: Ver consumo de CPU/Memória por pod.
+

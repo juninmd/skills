@@ -36,3 +36,4 @@ This skill empowers the agent to manage internationalization (i18n) and localiza
 - **Keys vs. Source:** Use meaningful keys (e.g., `welcome_message`) instead of the source text as the key.
 - **Pluralization:** Correct rules for plurals, which vary between languages.
 - **Context:** Always provide context for ambiguous terms (e.g., "Open" as a verb or an adjective).
+

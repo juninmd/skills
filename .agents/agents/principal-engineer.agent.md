@@ -248,3 +248,4 @@ Low Impact + High Effort    → Defer or never
 ✅ Technology selection rationale  
 ✅ Technical debt prioritization matrix  
 ✅ Mentoring and culture recommendations
+

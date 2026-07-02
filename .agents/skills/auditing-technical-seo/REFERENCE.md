@@ -34,3 +34,4 @@ A set of specific factors that Google considers important in a webpage's overall
 - **404 Not Found:** The page does not exist.
 - **500 Internal Server Error:** Server-side issues that prevent page loading.
 - **503 Service Unavailable:** Server is temporarily down for maintenance.
+

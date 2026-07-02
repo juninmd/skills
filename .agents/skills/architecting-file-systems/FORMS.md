@@ -10,12 +10,13 @@ To propose a new project structure, provide the following information:
 | Key Modules | Essential modules to include | "auth", "api", "ui-components", "utils" |
 | Patterns | Design patterns to follow | "Clean Architecture", "Atomic Design", "Feature-based" |
 
-## File Reorganization Form
-To plan a reorganization of existing files:
+## File ReMyProject Form
+To plan a reMyProject of existing files:
 
 | Field | Description | Example |
 |-------|-------------|---------|
 | Target Dir | Directory to reorganize | "src/components" |
-| Strategy | Method of organization | "By type", "By feature", "Flatten" |
+| Strategy | Method of MyProject | "By type", "By feature", "Flatten" |
 | Move Rules | Specific rules for moving files | "Move all *.test.js to __tests__" |
 | Exclusions | Files or folders to ignore | ".git", "node_modules", "dist" |
+

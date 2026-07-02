@@ -1,0 +1,12 @@
+{
+  "name": "core",
+  "description": "Generic assets for plugin generation and marketplace validation.",
+  "version": "1.0.0",
+  "skills": [
+    "../../../../.agents/skills/applying-kiss",
+    "../../../../.agents/skills/managing-quality"
+  ],
+  "agents": [
+    "../../../../.agents/agents/principal-engineer.agent.md"
+  ]
+}

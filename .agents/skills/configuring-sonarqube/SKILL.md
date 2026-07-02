@@ -1,6 +1,6 @@
 ---
 name: configuring-sonarqube
-description: Configuration and standardization of the sonar-project.properties file to ensure compliance with Labs quality metrics.
+description: Configuration and standardization of the sonar-project.properties file to ensure compliance with Enterprise quality metrics.
 metadata:
     works_on: [copilot, antigravity]
 argument-hint: "[config/tool] [options]"
@@ -8,10 +8,10 @@ argument-hint: "[config/tool] [options]"
 
 # Configuring SonarQube
 
-This skill provides the template and guidelines for configuring `sonar-project.properties` in Luizalabs repositories.
+This skill provides the template and guidelines for configuring `sonar-project.properties` in MyProject repositories.
 
 ## Concept
-SonarQube is the official tool at Labs for static code analysis and quality metrics (test coverage, code smells, vulnerabilities). Every repository must have the `sonar-project.properties` file correctly configured at the root.
+SonarQube is the official tool at Enterprise for static code analysis and quality metrics (test coverage, code smells, vulnerabilities). Every repository must have the `sonar-project.properties` file correctly configured at the root.
 
 ## Instructions
 1.  **Template:** Use the official template located at `assets/sonar-project.properties`.
@@ -24,5 +24,6 @@ SonarQube is the official tool at Labs for static code analysis and quality metr
 4.  **Exclusions:** Always ignore dependency folders (node_modules, venv) and build/dist files.
 
 ## Validation
-- Ensure that the project's test coverage meets organization limits (usually >= 90%).
+- Ensure that the project's test coverage meets MyProject limits (usually >= 90%).
 - The pipeline will run the `ci-knife sonar-scanner` command based on these properties.
+

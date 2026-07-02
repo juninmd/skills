@@ -74,7 +74,7 @@ glab ci trace $JOB_ID > /tmp/gitleaks_log.txt 2>&1
 
 # Alternative: via GitLab API
 curl --silent --header "PRIVATE-TOKEN: $GITLAB_TOKEN" \
-  "https://gitlab.luizalabs.com/api/v4/jobs/$JOB_ID/trace" \
+  "https://gitlab.com/api/v4/jobs/$JOB_ID/trace" \
   -o /tmp/gitleaks_log.txt
 ```
 
@@ -120,7 +120,7 @@ For **each finding**, display a decision block that includes full git metadata a
 │  Finding 1/3 — generic-api-key                                           │
 ├──────────────────────────────────────────────────────────────────────────┤
 │  File:         setup-oauth.sh:55                                         │
-│  Line link:    https://gitlab.luizalabs.com/<group>/<project>/-/blob/91f7ac1d/setup-oauth.sh#L55 │
+│  Line link:    https://gitlab.com/<group>/<project>/-/blob/91f7ac1d/setup-oauth.sh#L55 │
 │  Value:        AIzaSy...BcD123 (google api key)                          │
 │  Commit:       91f7ac1d — (link)                                          │
 │  Branch:       feature/remove-secrets                                    │
@@ -243,7 +243,7 @@ commit:file:ruleID:line
 Example:
 ```
 # False positive: example value in README
-91f7ac1db32cfa278ac61653e3de36ef3f5731a7:src/agents/luizalabs_code_quality_agent/README.md:generic-api-key:27
+91f7ac1db32cfa278ac61653e3de36ef3f5731a7:src/agents/example_org_code_quality_agent/README.md:generic-api-key:27
 ```
 
 Append to the end of `.gitleaksignore` with a comment explaining the reason:
@@ -310,3 +310,4 @@ Re-validate with gitleaks detect
         ↓
 Zero findings → CI will pass ✓
 ```
+

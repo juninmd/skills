@@ -20,3 +20,4 @@
 - `pybabel extract`: Extract messages.
 - `pybabel update`: Update message catalogs.
 - `pybabel compile`: Compile message catalogs.
+

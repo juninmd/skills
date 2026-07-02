@@ -32,7 +32,7 @@ stages:
 
 ### 2. Mandatory Quality & Security Jobs (Exact Snippets)
 
-#### Security Gate (Atena/ci-knife)
+#### Security Gate (SecurityAudit/ci-knife)
 This job is mandatory for scanning vulnerabilities and must run on all branches.
 ```yaml
 security_gate:
@@ -115,3 +115,4 @@ cache:
 - **CI/CD Lifecycle**: Full management from install to deploy.
 - **Standards Compliance**: Verification of mandatory steps and image usage.
 - **Troubleshooting**: Identifying failures in each stage of the pipeline.
+

@@ -20,3 +20,4 @@ applyTo: '**/*test*.{py,ts,tsx,js,jsx,go,java,kt}, **/tests/**/*, **/test/**/*'
 ## Coverage Guidance
 - Maintain minimum project coverage targets.
 - Prioritize critical paths: authentication, payments, data integrity, and error flows.
+
