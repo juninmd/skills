@@ -14,6 +14,7 @@ description: |
 5. Run Ruff, the repository type checker, focused pytest targets, and an import/startup smoke.
 
 ## Reference Routing
+- Real Python service cases: [real-world-cases.md](references/real-world-cases.md)
 - New environment and stack: [python-setup.md](references/python-setup.md), [modern-python-setup.md](references/modern-python-setup.md)
 - Migration and patterns: [modern-python-migration.md](references/modern-python-migration.md), [modern-python-patterns.md](references/modern-python-patterns.md)
 - FastAPI: [fastapi-best-practices.md](references/fastapi-best-practices.md)

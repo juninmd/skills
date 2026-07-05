@@ -15,6 +15,7 @@ description: |
 6. Run package/build checks and smoke the installed or packaged command, not only the source entry point.
 
 ## Reference Routing
+- Practical tooling cases: [real-world-cases.md](references/real-world-cases.md)
 - CLI behavior and operational standards: [tooling-best-practices.md](references/tooling-best-practices.md)
 - Implementation patterns: [tooling-examples.md](references/tooling-examples.md)
 

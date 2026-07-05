@@ -15,6 +15,7 @@ description: |
 
 ## Reference Routing
 - Start with the [topic map](references/TOPIC_MAP.md) when the task spans multiple Node.js or pnpm concerns.
+- Real service/API cases: [real-world-cases.md](references/real-world-cases.md)
 - Environment and runtime: [node-setup.md](references/node-setup.md), [node-operations.md](references/node-operations.md)
 - pnpm workspaces and policy: [pnpm-standards.md](references/pnpm-standards.md), [pnpm-features.md](references/pnpm-features.md)
 - NestJS structure: [nestjs-best-practices.md](references/nestjs-best-practices.md)

@@ -14,6 +14,7 @@ description: |
 5. Verify correctness, rollback, latency, resource use, and replication/consumer lag after the change.
 
 ## Reference Routing
+- Practical data cases: [real-world-cases.md](references/real-world-cases.md)
 - Operational intake and DBA checks: [FORMS.md](references/FORMS.md)
 - PostgreSQL, MongoDB, Redis, query, index, and backup guidance: [REFERENCE.md](references/REFERENCE.md)
 

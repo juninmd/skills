@@ -1,6 +1,6 @@
 # Mobile Engineering Reference Map
 
-Choose one platform group, then add only the cross-platform concerns involved.
+Choose one platform group, then add only the cross-platform concerns involved. Read `real-world-cases.md` for task shape and `reference-routing.md` before opening large references.
 
 | Area | References |
 |---|---|

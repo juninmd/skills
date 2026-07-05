@@ -15,6 +15,7 @@ description: |
 6. Use coverage to find blind spots, mutation to assess assertion strength, and profiling to prove performance claims.
 
 ## Reference Routing
+- Real test design cases: [real-world-cases.md](references/real-world-cases.md)
 - TDD: [tdd-methodology.md](references/tdd-methodology.md)
 - Vitest basics: [vitest-core.md](references/vitest-core.md), [vitest-features.md](references/vitest-features.md)
 - Detailed API topics: use the matching `core-*`, `features-*`, or `advanced-*` file.

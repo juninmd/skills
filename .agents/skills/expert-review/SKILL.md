@@ -16,6 +16,7 @@ description: |
 For interactive Socratic review, ask one decision-relevant question at a time. Stop questioning when evidence is sufficient to recommend a path.
 
 ## Reference Routing
+- Practical review cases: [real-world-cases.md](references/real-world-cases.md)
 - Use [doc-formats.md](references/doc-formats.md) when reviewing PRDs, specs, ADRs, plans, or other structured documents.
 
 ## Rules

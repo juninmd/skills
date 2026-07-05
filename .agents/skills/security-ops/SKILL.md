@@ -14,6 +14,7 @@ description: |
 5. Add regression checks and verify the control in the same path where the weakness existed.
 
 ## Reference Routing
+- Practical security cases: [real-world-cases.md](references/real-world-cases.md)
 - Gitleaks collection and triage: [gitleaks-setup.md](references/gitleaks-setup.md), [gitleaks-triage.md](references/gitleaks-triage.md)
 - Remediation execution: [gitleaks-actions.md](references/gitleaks-actions.md)
 - Completion criteria: [gitleaks-criteria.md](references/gitleaks-criteria.md)

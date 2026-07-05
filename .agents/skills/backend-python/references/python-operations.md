@@ -2,10 +2,10 @@
 
 Standardized commands and patterns for maintaining Python code quality.
 
-## 1. Quality Gates (uv + ruff/pyright)
+## 1. Quality Gates (uv + ruff + repo type checker)
 - **Linting:** `uv run ruff check .`
 - **Formatting:** `uv run ruff format .`
-- **Type Checking:** `uv run pyright .`
+- **Type Checking:** run the checker already configured in the repo (`ty`, Pyright, or mypy). For new projects, choose one deliberately and document it.
 - **Test with Coverage:** `uv run pytest --cov=src`; inspect changed and critical paths rather than chasing a universal percentage.
 
 ## 2. Testing with pytest-asyncio
@@ -20,5 +20,4 @@ async def test_api(client):
 ## References
 - [uv Documentation](https://docs.astral.sh/uv/)
 - [Ruff Documentation](https://docs.astral.sh/ruff/)
-- [Pyright Documentation](https://microsoft.github.io/pyright/)
 - [FastAPI Documentation](https://fastapi.tiangolo.com/)

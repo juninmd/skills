@@ -14,6 +14,7 @@ description: |
 5. Benchmark only when performance is a requirement; compare before and after under the same workload.
 
 ## Reference Routing
+- Practical systems cases: [real-world-cases.md](references/real-world-cases.md)
 - Go: [go-best-practices.md](references/go-best-practices.md)
 - Rust: [rust-best-practices.md](references/rust-best-practices.md)
 - .NET architecture and async: [dotnet-architecture.md](references/dotnet-architecture.md), [dotnet-async.md](references/dotnet-async.md)

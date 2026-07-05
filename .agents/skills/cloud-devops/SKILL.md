@@ -14,6 +14,7 @@ description: |
 5. Prove runtime health with deployment status, events, logs, metrics, and a workload smoke when access exists.
 
 ## Reference Routing
+- Practical operations cases: [real-world-cases.md](references/real-world-cases.md)
 - CI/CD: [ci-cd-best-practices.md](references/ci-cd-best-practices.md)
 - Docker: [dockerfile-standards.md](references/dockerfile-standards.md), [docker-operations.md](references/docker-operations.md)
 - Helm: [helm-standards.md](references/helm-standards.md), [helm-workflow.md](references/helm-workflow.md)

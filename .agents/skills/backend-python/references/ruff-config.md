@@ -169,17 +169,19 @@ docstring-code-line-length = 80
 
 ## Type Checking
 
-Ruff does NOT do type checking. Use **ty** (from Astral, the same team behind ruff and uv):
+Ruff does not do type checking. Preserve the type checker already configured in the repository. For a new `uv` project, `ty` is a strong default, but Pyright and mypy are still valid when the repo or ecosystem already depends on them.
 
 ```bash
-# Add ty to dev dependencies
+# New project default
 uv add --group dev ty
-
-# Run type checking
 uv run ty check src/
+
+# Existing repo examples
+uv run pyright .
+uv run mypy src/
 ```
 
-ty is significantly faster than mypy or pyright and integrates well with the modern Python toolchain.
+Do not enable Ruff preview rules or switch type checkers inside a bug fix. Make tool migrations explicit, staged, and separately validated.
 
 ## CI Configuration
 

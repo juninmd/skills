@@ -15,6 +15,7 @@ description: |
 6. Before PR/release, verify diff scope, tests, docs, migration/ops notes, and reviewer context.
 
 ## Reference Routing
+- Real delivery cases: [real-world-cases.md](references/real-world-cases.md)
 - Specs: [spec-workflow.md](references/spec-workflow.md), [spec-templates.md](references/spec-templates.md)
 - Execution: [execution-guidelines.md](references/execution-guidelines.md), [karpathy-methodology.md](references/karpathy-methodology.md)
 - Issues and triage: [to-issues-process.md](references/to-issues-process.md), [triage-workflow.md](references/triage-workflow.md)

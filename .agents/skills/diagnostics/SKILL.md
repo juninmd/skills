@@ -14,6 +14,7 @@ description: |
 5. Fix the root cause, add a regression test, and rerun the original reproduction plus adjacent failure paths.
 
 ## Reference Routing
+- Practical failure casebook: [real-world-cases.md](references/real-world-cases.md)
 - Full debugging sequence: [debugging-phases.md](references/debugging-phases.md)
 - Compact evidence workflow: [debugging-workflow.md](references/debugging-workflow.md)
 - DNS and connectivity: [network-connectivity.md](references/network-connectivity.md)

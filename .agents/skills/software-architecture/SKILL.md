@@ -15,6 +15,7 @@ description: |
 6. Record an ADR only when the decision has meaningful alternatives or long-lived consequences.
 
 ## Reference Routing
+- Practical architecture cases: [real-world-cases.md](references/real-world-cases.md)
 - Design principles: [design-principles.md](references/design-principles.md)
 - Distributed systems: [distributed-architecture.md](references/distributed-architecture.md)
 - Electron main/renderer/security: [main-process.md](references/main-process.md), [renderer-patterns.md](references/renderer-patterns.md), [security.md](references/security.md)

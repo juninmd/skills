@@ -15,6 +15,7 @@ description: |
 6. Test valid calls, malformed input, prompt injection, tool denial, timeout, partial failure, and retry exhaustion.
 
 ## Reference Routing
+- Practical agent failure cases: [real-world-cases.md](references/real-world-cases.md)
 - Agent loops, tool contracts, and orchestration: [agent-development.md](references/agent-development.md)
 - Deep audit scope and evidence collection: [audit-phases.md](references/audit-phases.md)
 - Function-level trust-boundary analysis: [function-analysis.md](references/function-analysis.md)

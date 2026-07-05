@@ -14,6 +14,7 @@ description: |
 5. Verify keyboard use, focus, labels, contrast, responsive layouts, browser console, tests, and production build.
 
 ## Reference Routing
+- Real development cases and current frontend traps: [real-world-cases.md](references/real-world-cases.md)
 - Product-quality review and optimization: [frontend-review.md](references/frontend-review.md), [frontend-optimization.md](references/frontend-optimization.md)
 - UI composition: [ui-flow.md](references/ui-flow.md), [ui-best-practices.md](references/ui-best-practices.md), [ui-design-guidelines.md](references/ui-design-guidelines.md)
 - shadcn/ui: [GUIDE_INSTALLATION.md](references/GUIDE_INSTALLATION.md), [GUIDE_ARCHITECTURE.md](references/GUIDE_ARCHITECTURE.md), [GUIDE_BLOCKS_A11Y.md](references/GUIDE_BLOCKS_A11Y.md)

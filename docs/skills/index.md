@@ -2,6 +2,8 @@
 
 The catalog contains 15 domain skills. They are intentionally broader than single-tool skills so the model has fewer overlapping routes, while reference files preserve depth.
 
+For optimization order and real development casebooks, see [Practical Skill Priorities](./practical-priorities.md).
+
 | Category | Skills |
 |---|---|
 | Backend | `backend-node`, `backend-python`, `backend-systems` |

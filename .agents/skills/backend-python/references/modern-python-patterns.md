@@ -10,7 +10,7 @@ Guidelines for leveraging the 2026 Python ecosystem and avoiding legacy pitfalls
 | Manual `.venv` activation | `uv run <cmd>` |
 | `setup.py` / `Poetry` | `uv` and `pyproject.toml` |
 | `requirements.txt` | PEP 723 (scripts) or `pyproject.toml` (projects) |
-| `mypy` / `pyright` | `ty` (faster, Astral-native) |
+| Unowned type-checker migration | Preserve repo checker; use `ty` for new `uv` projects |
 | `pre-commit` | `prek` (Rust-native) |
 
 ## 2. Core Principles
@@ -21,5 +21,5 @@ Guidelines for leveraging the 2026 Python ecosystem and avoiding legacy pitfalls
 ## 3. Tool Overview
 - **uv:** Replaces pip, virtualenv, pip-tools, pipx, and pyenv.
 - **ruff:** Replaces flake8, black, isort, and pyupgrade.
-- **ty:** Rapid type checking alternative to mypy/pyright.
+- **ty:** Rapid type checker option for new `uv` projects; preserve Pyright or mypy when already configured.
 - **prek:** Fast pre-commit hooks for secret detection and linting.

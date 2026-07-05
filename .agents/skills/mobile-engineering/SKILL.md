@@ -15,6 +15,8 @@ description: |
 
 ## Reference Routing
 - Start with the [topic map](references/TOPIC_MAP.md) when platform or concern selection is unclear.
+- For large mobile references, use [reference-routing.md](references/reference-routing.md) to choose sections before reading full files.
+- Practical mobile cases: [real-world-cases.md](references/real-world-cases.md)
 - iOS: [ios-principles.md](references/ios-principles.md), [swift-coding-standards.md](references/swift-coding-standards.md), [swiftui-design-guidelines.md](references/swiftui-design-guidelines.md)
 - Android: [project-setup.md](references/project-setup.md), [kotlin-standards.md](references/kotlin-standards.md), [compose-standards.md](references/compose-standards.md)
 - React Native/Expo: [react-native-setup.md](references/react-native-setup.md), [react-native-best-practices.md](references/react-native-best-practices.md)

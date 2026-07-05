@@ -38,3 +38,5 @@ Use `uv run` or a `Makefile` to standardize tasks:
 - `uv run ruff check .`
 - `uv run ty check src/`
 - `uv run pytest`
+
+For existing repositories, run the configured checker instead of adding `ty` casually.
