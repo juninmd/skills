@@ -16,7 +16,8 @@ description: |
 ## Reference Routing
 - Real Python service cases: [real-world-cases.md](references/real-world-cases.md)
 - New environment and stack: [python-setup.md](references/python-setup.md), [modern-python-setup.md](references/modern-python-setup.md)
-- Migration and patterns: [modern-python-migration.md](references/modern-python-migration.md), [modern-python-patterns.md](references/modern-python-patterns.md)
+- Migration and patterns: [modern-python-migration.md](references/modern-python-migration.md), [migration-checklist.md](references/migration-checklist.md), [modern-python-patterns.md](references/modern-python-patterns.md)
+- Single-file scripts (PEP 723): [pep723-scripts.md](references/pep723-scripts.md)
 - FastAPI: [fastapi-best-practices.md](references/fastapi-best-practices.md)
 - Quality gates: [python-operations.md](references/python-operations.md), [testing.md](references/testing.md)
 - Configuration details: [pyproject.md](references/pyproject.md), [ruff-config.md](references/ruff-config.md), [uv-commands.md](references/uv-commands.md)

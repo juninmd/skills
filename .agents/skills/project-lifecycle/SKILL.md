@@ -18,8 +18,10 @@ description: |
 - Real delivery cases: [real-world-cases.md](references/real-world-cases.md)
 - Specs: [spec-workflow.md](references/spec-workflow.md), [spec-templates.md](references/spec-templates.md)
 - Execution: [execution-guidelines.md](references/execution-guidelines.md), [karpathy-methodology.md](references/karpathy-methodology.md)
-- Issues and triage: [to-issues-process.md](references/to-issues-process.md), [triage-workflow.md](references/triage-workflow.md)
-- Worktrees: [worktree-setup.md](references/worktree-setup.md), [worktree-standards.md](references/worktree-standards.md)
+- Issues and triage: [to-issues-process.md](references/to-issues-process.md), [triage-workflow.md](references/triage-workflow.md), [triage-logic.md](references/triage-logic.md), [triage-standards.md](references/triage-standards.md), [OUT-OF-SCOPE.md](references/OUT-OF-SCOPE.md)
+- Worktrees: [worktree-setup.md](references/worktree-setup.md), [worktree-standards.md](references/worktree-standards.md), [worktree-workflow.md](references/worktree-workflow.md)
+- Docs strategy: [docs-strategy.md](references/docs-strategy.md), [docs-guidelines.md](references/docs-guidelines.md)
+- GitHub Actions docs map: [topic-map.md](references/topic-map.md)
 - Branch completion: [git-finish-workflow.md](references/git-finish-workflow.md), [git-best-practices.md](references/git-best-practices.md)
 - Agent briefs: [AGENT-BRIEF.md](references/AGENT-BRIEF.md)
 

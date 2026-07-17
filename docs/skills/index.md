@@ -1,6 +1,6 @@
 # Skills
 
-The catalog contains 15 domain skills. They are intentionally broader than single-tool skills so the model has fewer overlapping routes, while reference files preserve depth.
+The catalog contains 17 domain skills. They are intentionally broader than single-tool skills so the model has fewer overlapping routes, while reference files preserve depth.
 
 For optimization order and real development casebooks, see [Practical Skill Priorities](./practical-priorities.md).
 
@@ -9,8 +9,8 @@ For optimization order and real development casebooks, see [Practical Skill Prio
 | Backend | `backend-node`, `backend-python`, `backend-systems` |
 | Frontend | `frontend-engineering` |
 | Mobile | `mobile-engineering` |
-| Infrastructure | `cloud-devops`, `security-ops` |
-| Quality | `diagnostics`, `expert-review`, `test-engineering` |
+| Infrastructure | `cloud-devops`, `security-ops`, `incident-response` |
+| Quality | `diagnostics`, `expert-review`, `test-engineering`, `performance-engineering` |
 | Architecture | `software-architecture`, `agent-engineering` |
 | Data | `data-engineering` |
 | Lifecycle | `project-lifecycle` |

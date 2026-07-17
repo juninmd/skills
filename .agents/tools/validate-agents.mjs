@@ -40,6 +40,9 @@ export function validateSkill(skillDirectory) {
   if (description.length < 40) {
     errors.push(`${skillName}: description must explain what the skill does and when to use it`);
   }
+  if (description.length > 1024) {
+    errors.push(`${skillName}: description exceeds the 1024-character spec limit`);
+  }
 
   if (!/^## Checklist\s*$/m.test(text)) {
     errors.push(`${skillName}: body is missing '## Checklist'`);
@@ -72,7 +75,39 @@ export function validateSkill(skillDirectory) {
         `${skillName}: ${referenceCount} references require a linked references/TOPIC_MAP.md`,
       );
     }
+    errors.push(...findOrphanReferences(skillName, text, referencesRoot));
   }
+
+  return errors;
+}
+
+function findOrphanReferences(skillName, skillText, referencesRoot) {
+  const referenceFiles = fs
+    .readdirSync(referencesRoot, { withFileTypes: true })
+    .filter((entry) => entry.isFile() && entry.name.endsWith(".md"))
+    .map((entry) => entry.name);
+
+  const mentioned = new Set();
+  const collect = (text) => {
+    for (const match of text.matchAll(/\]\(([^)#]+)/g)) {
+      mentioned.add(path.basename(match[1].trim()));
+    }
+    for (const match of text.matchAll(/`([\w./-]+\.md)`/g)) {
+      mentioned.add(path.basename(match[1]));
+    }
+  };
+
+  collect(skillText);
+  for (const name of referenceFiles) {
+    collect(fs.readFileSync(path.join(referencesRoot, name), "utf8"));
+  }
+
+  return referenceFiles
+    .filter((name) => !mentioned.has(name))
+    .map(
+      (name) =>
+        `${skillName}: orphan reference 'references/${name}' is never linked or mentioned; route it or remove it`,
+    );
 
   return errors;
 }

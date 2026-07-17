@@ -4,7 +4,7 @@
 
 <h3>Compact engineering skills with focused procedures and reproducible checks.</h3>
 
-<p><strong>15 skills · 4 agents · 4 prompts</strong> for coding assistants that inspect first, change narrowly, and finish with evidence.</p>
+<p><strong>17 skills · 4 agents · 4 prompts</strong> for coding assistants that inspect first, change narrowly, and finish with evidence.</p>
 
 </div>
 
@@ -15,7 +15,7 @@ Generic skill catalogs often fail in two ways:
 - Many narrow skills overlap and waste context.
 - Broad skills contain generic advice, stale links, or no executable workflow.
 
-This catalog uses 15 domain skills. Every skill has:
+This catalog uses 17 domain skills. Every skill has:
 
 - Spec-compliant frontmatter containing only `name` and `description`.
 - A description that states what the skill does and when to use it.
@@ -57,7 +57,9 @@ git submodule add https://github.com/juninmd/skills .agents
 | `diagnostics` | bugs, regressions, flaky tests, crashes, timeouts, DNS, ports, HTTP, TLS, and root-cause analysis |
 | `expert-review` | pull-request review, design review, plan stress-testing, risk analysis, and evidence-based findings |
 | `frontend-engineering` | React, Next.js, Vite, Tailwind, shadcn/ui, responsive design, component systems, browser performance, hydration, keyboard behavior, and accessibility |
+| `incident-response` | outages, error spikes, failed deploys, rollback decisions, data-integrity incidents, on-call triage, severity assessment, and corrective-action follow-up |
 | `mobile-engineering` | mobile UI, lifecycle, navigation, permissions, offline behavior, accessibility, device integration, tests, and builds |
+| `performance-engineering` | slow endpoints, N+1 queries, memory leaks, event-loop blocking, bundle size, load testing, caching decisions, and performance regressions |
 | `project-lifecycle` | PRDs, implementation plans, issue slicing, GitHub triage, worktrees, branch completion, and delivery documentation |
 | `security-ops` | CVE or SBOM scans, Gitleaks findings, secret rotation, access control, injection risk, least privilege, and zero-trust reviews |
 | `software-architecture` | modularization, dependency direction, technical debt, distributed systems, Electron architecture, failure modes, and ADRs |
@@ -104,8 +106,10 @@ pnpm run docs:build
 - Useful description and valid skill name.
 - `## Checklist` presence.
 - 400-word skill budget.
-- Local reference links.
+- 1024-character description limit (Agent Skills spec).
+- Local reference links and no orphan reference files.
 - Linked topic maps for large reference collections.
+- Token budgets: tier-1 catalog ≤ 2000 tokens, each `SKILL.md` ≤ 700 tokens (`pnpm run tokens:report` for the full breakdown).
 - Generated README catalog consistency.
 - Validator unit tests.
 

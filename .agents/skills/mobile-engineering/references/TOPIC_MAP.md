@@ -12,7 +12,7 @@ Choose one platform group, then add only the cross-platform concerns involved. R
 | React Native and Expo | `react-native-setup.md`, `react-native-best-practices.md` |
 | Flutter foundations | `flutter-best-practices.md`, `flutter-checklist.md`, `widget-patterns.md` |
 | Flutter state and navigation | `bloc-state.md`, `riverpod-state.md`, `gorouter-navigation.md` |
-| UI and interaction | `adaptive-screens.md`, `forms.md`, `animations.md`, `motion-system.md`, `visual-design.md`, `styling.md` |
+| UI and interaction | `adaptive-screens.md`, `forms.md`, `animations.md`, `motion-system.md`, `visual-design.md`, `styling.md`, `design-style-guide.md`, `graphics-animation.md` |
 | App behavior | `state-management.md`, `navigation.md`, `networking.md`, `native-capabilities.md`, `platform-specific.md` |
 | Quality attributes | `accessibility.md`, `localization.md`, `privacy-security.md`, `performance.md`, `performance-stability.md` |
 | Testing and requirements | `testing.md`, `testing-standards.md`, `functional-requirements.md`, `engineering.md` |

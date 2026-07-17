@@ -20,6 +20,7 @@ description: |
 - Distributed systems: [distributed-architecture.md](references/distributed-architecture.md)
 - Electron main/renderer/security: [main-process.md](references/main-process.md), [renderer-patterns.md](references/renderer-patterns.md), [security.md](references/security.md)
 - Native integration/performance: [native-performance.md](references/native-performance.md)
+- Intake forms and consolidated reference: [FORMS.md](references/FORMS.md), [REFERENCE.md](references/REFERENCE.md)
 
 ## Rules
 - Prefer fewer, deeper modules over layers that only forward calls.

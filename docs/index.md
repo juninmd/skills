@@ -4,7 +4,7 @@ layout: home
 hero:
   name: "Engineering Skills"
   text: "Focused procedures. Small context. Reproducible proof."
-  tagline: 15 domain skills, 4 agents, and 4 prompt templates for production engineering work.
+  tagline: 17 domain skills, 4 agents, and 4 prompt templates for production engineering work.
   actions:
     - theme: brand
       text: Get Started

@@ -77,6 +77,33 @@ test("rejects malformed YAML and duplicate fields", () => {
   assert.ok(validateSkill(duplicate).some((error) => error.includes("invalid YAML")));
 });
 
+test("rejects a description above the 1024-character spec limit", () => {
+  const directory = createSkill(
+    validSkill.replace(
+      "Validate sample behavior and use this skill when testing skill metadata and local references.",
+      `Validate sample behavior. ${"x".repeat(1024)}`,
+    ),
+    { "references/guide.md": "# Guide\n" },
+  );
+  assert.ok(validateSkill(directory).some((error) => error.includes("1024-character")));
+});
+
+test("rejects orphan reference files", () => {
+  const directory = createSkill(validSkill, {
+    "references/guide.md": "# Guide\n",
+    "references/unlinked.md": "# Nobody links here\n",
+  });
+  assert.ok(validateSkill(directory).some((error) => error.includes("orphan reference")));
+});
+
+test("accepts references mentioned via backticks in a topic map", () => {
+  const directory = createSkill(validSkill, {
+    "references/guide.md": "# Guide\n\nSee `deep-dive.md` for details.\n",
+    "references/deep-dive.md": "# Deep Dive\n",
+  });
+  assert.deepEqual(validateSkill(directory), []);
+});
+
 test("requires a topic map for large reference collections", () => {
   const references = Object.fromEntries(
     Array.from({ length: 21 }, (_, index) => [`references/${index}.md`, "# Reference\n"]),
