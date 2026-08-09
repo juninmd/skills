@@ -1,18 +1,36 @@
 # Testing
 
-Detailed examples and patterns for each Android test layer. Read the section relevant to the layer you're working with.
+Detailed examples and patterns for each Android test layer, plus the project's testing standards. Read the section relevant to the layer you're working with.
 
 ## Table of Contents
 
-1. [Local Unit Tests (JUnit + Robolectric)](#1-local-unit-tests-junit--robolectric)
-2. [Instrumentation Tests (Espresso)](#2-instrumentation-tests-espresso)
-3. [UI Automator (Cross-App & System UI)](#3-ui-automator-cross-app--system-ui)
-4. [Compose UI Testing](#4-compose-ui-testing)
-5. [Gradle Managed Devices](#5-gradle-managed-devices)
+1. [Test Dependencies](#1-test-dependencies)
+2. [Testing Layers](#2-testing-layers)
+3. [Local Unit Tests (JUnit + Robolectric)](#3-local-unit-tests-junit--robolectric)
+4. [Instrumentation Tests (Espresso)](#4-instrumentation-tests-espresso)
+5. [UI Automator (Cross-App & System UI)](#5-ui-automator-cross-app--system-ui)
+6. [Compose UI Testing](#6-compose-ui-testing)
+7. [Gradle Managed Devices](#7-gradle-managed-devices)
+8. [Commands](#8-commands)
 
 ---
 
-## 1. Local Unit Tests (JUnit + Robolectric)
+## 1. Test Dependencies
+
+- Align `kotlinx-coroutines-test` with the project's coroutines version.
+- Use `Compose BOM` for UI test dependencies.
+- Match `mockk` with the project's Kotlin version.
+
+## 2. Testing Layers
+
+- **Unit (JUnit):** `src/test/`. Logic, ViewModels, Repositories.
+- **Robolectric:** `src/test/`. Logic needing Android Context or resources.
+- **Espresso:** `src/androidTest/`. View-based UI and integration.
+- **Compose UI:** `src/androidTest/` (device) or `src/test/` (Robolectric).
+
+---
+
+## 3. Local Unit Tests (JUnit + Robolectric)
 
 Local tests live in `src/test/` and run on the JVM — no emulator needed, so they're fast (milliseconds each). Use them for ViewModels, Repositories, mappers, validators, and any pure logic.
 
@@ -122,6 +140,16 @@ fun `repository calls api and caches`() = runTest {
 
 Robolectric simulates the Android framework on the JVM, so tests stay fast while accessing `Context`, `SharedPreferences`, resources, etc.
 
+Enable Robolectric support in `app/build.gradle.kts`:
+
+```kotlin
+android {
+    testOptions {
+        unitTests.isIncludeAndroidResources = true
+    }
+}
+```
+
 ```kotlin
 @RunWith(RobolectricTestRunner::class)
 @Config(sdk = [34])
@@ -167,7 +195,7 @@ fun `second call returns cached result without network`() = runTest {
 
 ---
 
-## 2. Instrumentation Tests (Espresso)
+## 4. Instrumentation Tests (Espresso)
 
 Instrumentation tests live in `src/androidTest/` and run on a real device or emulator. Slower than local tests, but they exercise the actual Android stack — use them for UI flows, database integration, and cross-component interaction.
 
@@ -273,7 +301,7 @@ fun unregisterIdling() {
 
 ---
 
-## 3. UI Automator (Cross-App & System UI)
+## 5. UI Automator (Cross-App & System UI)
 
 UI Automator can interact with any visible UI — system dialogs, notifications, other apps. Use it when Espresso can't reach outside your app's process.
 
@@ -328,7 +356,7 @@ class PermissionFlowTest {
 
 ---
 
-## 4. Compose UI Testing
+## 6. Compose UI Testing
 
 Compose has its own testing framework that works with the semantic tree rather than the view hierarchy. Tests can run as local tests (with Robolectric) or instrumentation tests — the API is the same.
 
@@ -471,7 +499,7 @@ composeTestRule.waitUntil(timeoutMillis = 3000) {
 
 ---
 
-## 5. Gradle Managed Devices
+## 7. Gradle Managed Devices
 
 Define emulator profiles in `build.gradle.kts` so anyone (including CI) can run instrumentation tests without manually creating AVDs. Gradle downloads the system image, creates the emulator, runs tests, and tears it down automatically.
 
@@ -552,3 +580,11 @@ ATD images boot faster and consume less memory because they strip out UI chrome 
 ```
 
 Test results are written to `app/build/reports/androidTests/managedDevice/`.
+
+---
+
+## 8. Commands
+
+- `./gradlew test` (Local)
+- `./gradlew connectedDebugAndroidTest` (Device)
+- `./gradlew :app:testDebugUnitTest --tests "ClassName"`

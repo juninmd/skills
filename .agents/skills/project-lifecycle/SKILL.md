@@ -29,6 +29,7 @@ description: |
 - No commit, push, rebase, merge, branch deletion, or PR mutation without explicit confirmation.
 - Do not create documentation artifacts the user did not request.
 - Plans must include checks, not just implementation prose.
+- If requirements are vague, interview before planning: ask one decision-relevant question at a time, state assumptions, and iterate until acceptance criteria are measurable.
 
 ## Checklist
 - [ ] Acceptance criteria and non-goals are explicit.

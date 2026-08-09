@@ -13,6 +13,7 @@ description: |
 4. Treat prompts, retrieved content, tool output, and remote resources as untrusted input.
 5. Add traces for requests, tool calls, latency, token use, failures, and final outcomes without logging secrets.
 6. Test valid calls, malformed input, prompt injection, tool denial, timeout, partial failure, and retry exhaustion.
+7. On handoff to another agent, pass intent, scope, current state, verification commands, and boundaries — never raw transcripts.
 
 ## Reference Routing
 - Practical agent failure cases: [real-world-cases.md](references/real-world-cases.md)
@@ -31,3 +32,4 @@ description: |
 - [ ] Boundaries, tools, and approvals are explicit.
 - [ ] Schemas and untrusted inputs are validated.
 - [ ] Failure, abuse, and trace checks pass.
+- [ ] Handoffs carry intent, scope, and verification.

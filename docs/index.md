@@ -4,7 +4,7 @@ layout: home
 hero:
   name: "Engineering Skills"
   text: "Focused procedures. Small context. Reproducible proof."
-  tagline: 17 domain skills, 4 agents, and 4 prompt templates for production engineering work.
+  tagline: 30 domain skills, 4 agents, and 4 prompt templates for production engineering work.
   actions:
     - theme: brand
       text: Get Started
@@ -17,7 +17,7 @@ hero:
       link: https://github.com/juninmd/skills
 
 features:
-  - title: 15 Domain Skills
+  - title: 30 Domain Skills
     details: Broad enough to avoid overlap, procedural enough to improve execution.
     link: /skills/
     linkText: Browse skills

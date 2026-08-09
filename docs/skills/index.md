@@ -1,20 +1,21 @@
 # Skills
 
-The catalog contains 17 domain skills. They are intentionally broader than single-tool skills so the model has fewer overlapping routes, while reference files preserve depth.
+The catalog contains 30 domain skills. They are intentionally broader than single-tool skills so the model has fewer overlapping routes, while reference files preserve depth.
 
 For optimization order and real development casebooks, see [Practical Skill Priorities](./practical-priorities.md).
 
 | Category | Skills |
 |---|---|
 | Backend | `backend-node`, `backend-python`, `backend-systems` |
-| Frontend | `frontend-engineering` |
+| Frontend | `frontend-engineering`, `frontend-design` |
 | Mobile | `mobile-engineering` |
 | Infrastructure | `cloud-devops`, `security-ops`, `incident-response` |
-| Quality | `diagnostics`, `expert-review`, `test-engineering`, `performance-engineering` |
-| Architecture | `software-architecture`, `agent-engineering` |
-| Data | `data-engineering` |
-| Lifecycle | `project-lifecycle` |
-| Tooling | `tooling-dev` |
+| Quality | `diagnostics`, `expert-review`, `test-engineering`, `performance-engineering`, `webapp-testing` |
+| Architecture | `software-architecture`, `agent-engineering`, `codebase-mapping`, `context-engineering` |
+| Data | `data-engineering`, `sql-authoring` |
+| Observability | `observability` |
+| Lifecycle | `project-lifecycle`, `git-workflow`, `pr-delivery`, `release-management`, `documentation` |
+| Tooling | `tooling-dev`, `skill-creator`, `document-generation`, `web-scraping` |
 
 ## How Discovery Works
 

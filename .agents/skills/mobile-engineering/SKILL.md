@@ -17,11 +17,11 @@ description: |
 - Start with the [topic map](references/TOPIC_MAP.md) when platform or concern selection is unclear.
 - For large mobile references, use [reference-routing.md](references/reference-routing.md) to choose sections before reading full files.
 - Practical mobile cases: [real-world-cases.md](references/real-world-cases.md)
-- iOS: [ios-principles.md](references/ios-principles.md), [swift-coding-standards.md](references/swift-coding-standards.md), [swiftui-design-guidelines.md](references/swiftui-design-guidelines.md)
-- Android: [project-setup.md](references/project-setup.md), [kotlin-standards.md](references/kotlin-standards.md), [compose-standards.md](references/compose-standards.md)
-- React Native/Expo: [react-native-setup.md](references/react-native-setup.md), [react-native-best-practices.md](references/react-native-best-practices.md)
-- Flutter: [flutter-best-practices.md](references/flutter-best-practices.md), [flutter-checklist.md](references/flutter-checklist.md)
-- Cross-platform concerns: [accessibility.md](references/accessibility.md), [networking.md](references/networking.md), [performance-stability.md](references/performance-stability.md)
+- iOS: [ios-guide.md](references/ios-guide.md), [swift-coding-standards.md](references/swift-coding-standards.md), [swiftui-design-guidelines.md](references/swiftui-design-guidelines.md)
+- Android: [android-standards.md](references/android-standards.md), [project-structure.md](references/project-structure.md)
+- React Native/Expo: [react-native.md](references/react-native.md)
+- Flutter: [flutter.md](references/flutter.md), [widget-patterns.md](references/widget-patterns.md)
+- Cross-platform concerns: [accessibility.md](references/accessibility.md), [networking.md](references/networking.md), [performance.md](references/performance.md)
 
 Read only the platform references required for the task; this directory intentionally contains detailed platform material.
 

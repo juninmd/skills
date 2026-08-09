@@ -22,7 +22,7 @@ Scan project files to determine language, runtime, and framework:
 | `*.csproj` / `*.sln` | .NET |
 | `pom.xml` / `build.gradle` | Java / Kotlin |
 
-If multiple runtimes are detected, ask which to target.
+If multiple runtimes are detected, pick the primary one from the main manifest and note the choice; do not prompt interactively in CI or non-interactive sessions.
 
 ## Step 2 — Generate Dockerfile
 
@@ -35,8 +35,8 @@ Apply all of the following without exception:
 ### Base Images (by runtime)
 | Runtime | Builder | Runner |
 |---|---|---|
-| Node.js | `node:<version>-alpine` | `gcr.io/distroless/nodejs<version>-debian12` or `node:<version>-alpine` |
-| Python | `python:<version>-slim` | `gcr.io/distroless/python3-debian12` or `python:<version>-slim` |
+| Node.js | `node:<version>-alpine` | `node:<version>-alpine` with non-root user, or `gcr.io/distroless/nodejs<version>-debian12` only when the runtime must be copied and the app is a compiled bundle |
+| Python | `python:<version>-slim` | `python:<version>-slim` with non-root user, or `gcr.io/distroless/python3-debian12` |
 | Go | `golang:<version>-alpine` | `gcr.io/distroless/static-debian12` (static binary) |
 | Rust | `rust:<version>-alpine` | `gcr.io/distroless/static-debian12` |
 | .NET | `mcr.microsoft.com/dotnet/sdk:<version>` | `mcr.microsoft.com/dotnet/aspnet:<version>` |
@@ -68,13 +68,11 @@ node_modules/        # Node
 __pycache__/         # Python
 *.pyc
 target/              # Rust / Java
-dist/                # if build output is separate
 *.log
-*.md
 .DS_Store
 ```
 
-Add runtime-specific entries as detected.
+Add runtime-specific entries as detected (for example `dist/` only when the final image does not copy that folder, `*.md` only when the app does not serve docs at runtime).
 
 ## Output Format
 
