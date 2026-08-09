@@ -4,7 +4,7 @@
 
 <h3>Compact engineering skills with focused procedures and reproducible checks.</h3>
 
-<p><strong>30 skills · 4 agents · 4 prompts</strong> for coding assistants that inspect first, change narrowly, and finish with evidence.</p>
+<p><strong>33 skills · 4 agents · 4 prompts</strong> for coding assistants that inspect first, change narrowly, and finish with evidence.</p>
 
 </div>
 
@@ -15,7 +15,7 @@ Generic skill catalogs often fail in two ways:
 - Many narrow skills overlap and waste context.
 - Broad skills contain generic advice, stale links, or no executable workflow.
 
-This catalog uses 30 domain skills. Every skill has:
+This catalog uses 33 domain skills. Every skill has:
 
 - Spec-compliant frontmatter containing only `name` and `description`.
 - A description that states what the skill does and when to use it.
@@ -57,6 +57,7 @@ git submodule add https://github.com/juninmd/skills .agents
 | `context-engineering` | long sessions, context overflow, memory strategies, sliding windows, and keeping the right files in context |
 | `data-engineering` | PostgreSQL, MongoDB, Redis, query plans, indexes, locks, rollback, backups, and vector database performance |
 | `diagnostics` | bugs, regressions, flaky tests, crashes, timeouts, DNS, ports, HTTP, TLS, and root-cause analysis |
+| `docs-verification` | checking if a library API, config, or best practice is outdated, reading docs before answering, and updating stale local knowledge |
 | `document-generation` | docx, xlsx, pptx, and pdf creation, templating, tables, charts, formatting, and document extraction |
 | `documentation` | project onboarding docs, OpenAPI-derived reference, decision records, release notes, and doc drift prevention |
 | `expert-review` | pull-request review, design review, plan stress-testing, risk analysis, and evidence-based findings |
@@ -64,6 +65,7 @@ git submodule add https://github.com/juninmd/skills .agents
 | `frontend-engineering` | React, Next.js, Vite, Tailwind, shadcn/ui, responsive design, component systems, browser performance, hydration, keyboard behavior, and accessibility |
 | `git-workflow` | bisect, cherry-pick, reflog, submodules, hooks, stash, rebase, amend, detached HEAD, conflict resolution, and history rewrite safety |
 | `incident-response` | outages, error spikes, failed deploys, rollback decisions, data-integrity incidents, on-call triage, severity assessment, and corrective-action follow-up |
+| `knowledge-freshness` | dependency checks before adding, upgrade planning, changelog tracking, and EOL detection |
 | `mobile-engineering` | mobile UI, lifecycle, navigation, permissions, offline behavior, accessibility, device integration, tests, and builds |
 | `observability` | structured logging, SLO/SLI definition, dashboard design, alert thresholds, tracing, log retention, and incident signal quality |
 | `performance-engineering` | slow endpoints, N+1 queries, memory leaks, event-loop blocking, bundle size, load testing, caching decisions, and performance regressions |
@@ -76,6 +78,7 @@ git submodule add https://github.com/juninmd/skills .agents
 | `sql-authoring` | PostgreSQL, MySQL, SQLite, and MongoDB query authoring, schema and index design, ORM query translation, window functions, CTEs, joins, and migration-safe model changes |
 | `test-engineering` | TDD, Vitest, pytest, unhappy paths, flaky tests, fixtures, mocks, fuzzing, coverage gaps, and regression benchmarks |
 | `tooling-dev` | CLI arguments, exit codes, non-interactive execution, config discovery, structured output, packaging, and integration tests |
+| `web-research` | multi-source web search, fetching pages, verifying claims, synthesizing findings, and citing sources. Keeps answers current instead of relying on memory |
 | `web-scraping` | HTML parsing, pagination, rate limiting, retries, selector stability, API fallbacks, and saving structured results |
 | `webapp-testing` | Playwright and browser automation, E2E flows, form submission, authentication flows, responsive checks, and visual regression |
 <!-- skill-catalog:end -->

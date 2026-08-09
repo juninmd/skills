@@ -1,6 +1,6 @@
 # Skills
 
-The catalog contains 30 domain skills. They are intentionally broader than single-tool skills so the model has fewer overlapping routes, while reference files preserve depth.
+The catalog contains 33 domain skills. They are intentionally broader than single-tool skills so the model has fewer overlapping routes, while reference files preserve depth.
 
 For optimization order and real development casebooks, see [Practical Skill Priorities](./practical-priorities.md).
 
@@ -14,8 +14,9 @@ For optimization order and real development casebooks, see [Practical Skill Prio
 | Architecture | `software-architecture`, `agent-engineering`, `codebase-mapping`, `context-engineering` |
 | Data | `data-engineering`, `sql-authoring` |
 | Observability | `observability` |
+| Research | `web-research`, `docs-verification`, `knowledge-freshness`, `web-scraping` |
 | Lifecycle | `project-lifecycle`, `git-workflow`, `pr-delivery`, `release-management`, `documentation` |
-| Tooling | `tooling-dev`, `skill-creator`, `document-generation`, `web-scraping` |
+| Tooling | `tooling-dev`, `skill-creator`, `document-generation` |
 
 ## How Discovery Works
 

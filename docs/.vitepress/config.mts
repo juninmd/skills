@@ -61,6 +61,7 @@ export default defineConfig({
           { text: 'Build & Testing', link: '/skills/build-testing' },
           { text: 'Database', link: '/skills/database' },
           { text: 'Git & Workflow', link: '/skills/git-workflow' },
+          { text: 'Research', link: '/skills/research' },
           { text: 'Specialized', link: '/skills/specialized' },
         ],
       },

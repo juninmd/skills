@@ -24,5 +24,8 @@ Use the narrowest domain that owns the outcome:
 | Manage agent context and tokens | `context-engineering` |
 | Collect data from websites | `web-scraping` |
 | Plan versions, tags, and releases | `release-management` |
+| Research with cited live sources | `web-research` |
+| Verify knowledge against live docs | `docs-verification` |
+| Check latest versions and upgrades | `knowledge-freshness` |
 
 When two skills apply, load the outcome-owning skill first and use the second only for its specialist checks.
