@@ -1,0 +1,29 @@
+{
+  "skill_name": "diagnostics",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "This test passes locally and fails in CI, find the root cause",
+        "top_k": 3
+      },
+      {
+        "prompt": "The app crashes with a TypeError when saving, reproduce and isolate it",
+        "top_k": 3
+      },
+      {
+        "prompt": "Requests intermittently time out, help me debug the DNS and TLS path",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Write the incident postmortem and severity assessment",
+        "owner": "incident-response"
+      },
+      {
+        "prompt": "Add structured logging and dashboards",
+        "owner": "observability"
+      }
+    ]
+  }
+}

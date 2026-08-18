@@ -1,0 +1,29 @@
+{
+  "skill_name": "sql-authoring",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Write a window function query that ranks orders per customer",
+        "top_k": 3
+      },
+      {
+        "prompt": "Translate this ORM call into an efficient SQL join with a CTE",
+        "top_k": 3
+      },
+      {
+        "prompt": "Design the schema and indexes for this MySQL table",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Diagnose lock contention on the production replica",
+        "owner": "data-engineering"
+      },
+      {
+        "prompt": "Backfill the new column without downtime",
+        "owner": "migration-engineering"
+      }
+    ]
+  }
+}

@@ -7,7 +7,11 @@ import { listSkills } from "./skill-metadata.mjs";
 export const estimateTokens = (text) => Math.ceil(text.length / 4);
 
 // Tier 1 is loaded for every conversation; keep the whole catalog cheap.
-export const TIER1_BUDGET = 2000;
+// The global ceiling bounds the always-loaded index. The per-skill ceiling is
+// what keeps it honest: the catalog is allowed to grow by adding skills, never
+// by letting individual descriptions get fatter.
+export const TIER1_BUDGET = 2600;
+export const TIER1_PER_SKILL_BUDGET = 70;
 // Tier 2 loads on activation; per-skill ceiling mirrors the 400-word rule.
 export const TIER2_BUDGET = 700;
 
@@ -47,6 +51,11 @@ export function checkBudgets(report) {
     );
   }
   for (const row of report.rows) {
+    if (row.tier1 > TIER1_PER_SKILL_BUDGET) {
+      errors.push(
+        `${row.name}: description costs ~${row.tier1} tier-1 tokens, over the ${TIER1_PER_SKILL_BUDGET}-token per-skill budget`,
+      );
+    }
     if (row.tier2 > TIER2_BUDGET) {
       errors.push(
         `${row.name}: SKILL.md costs ~${row.tier2} tokens, over the ${TIER2_BUDGET}-token budget`,
@@ -71,7 +80,8 @@ function main() {
     );
   }
   console.log(
-    `tier-1 total ~${report.tier1Total}/${TIER1_BUDGET} tokens; tier-2 budget ${TIER2_BUDGET} tokens per skill.`,
+    `tier-1 total ~${report.tier1Total}/${TIER1_BUDGET} tokens ` +
+      `(${TIER1_PER_SKILL_BUDGET} per skill); tier-2 budget ${TIER2_BUDGET} tokens per skill.`,
   );
 
   if (check) {

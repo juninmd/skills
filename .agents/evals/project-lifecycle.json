@@ -1,0 +1,29 @@
+{
+  "skill_name": "project-lifecycle",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Write the PRD and slice it into implementation issues",
+        "top_k": 3
+      },
+      {
+        "prompt": "Turn this idea into an implementation plan with GitHub issues",
+        "top_k": 3
+      },
+      {
+        "prompt": "Triage the backlog and set up worktrees for the planned work",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Draft the pull request body for this branch",
+        "owner": "pr-delivery"
+      },
+      {
+        "prompt": "Write the architecture decision record",
+        "owner": "software-architecture"
+      }
+    ]
+  }
+}

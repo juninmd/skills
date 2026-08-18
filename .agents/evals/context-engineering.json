@@ -1,0 +1,29 @@
+{
+  "skill_name": "context-engineering",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "This session is running out of context, what should I keep loaded",
+        "top_k": 3
+      },
+      {
+        "prompt": "Design a memory and sliding window strategy for a long agent session",
+        "top_k": 3
+      },
+      {
+        "prompt": "How do I stop context overflow from losing the important files",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Reduce our AWS bill for idle instances",
+        "owner": "cost-engineering"
+      },
+      {
+        "prompt": "Map the architecture of this unfamiliar repository",
+        "owner": "codebase-mapping"
+      }
+    ]
+  }
+}

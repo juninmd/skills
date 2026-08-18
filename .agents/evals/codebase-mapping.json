@@ -1,0 +1,29 @@
+{
+  "skill_name": "codebase-mapping",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "I am new to this repository, help me understand how it is organized",
+        "top_k": 3
+      },
+      {
+        "prompt": "Where in this codebase should a new payment feature live",
+        "top_k": 3
+      },
+      {
+        "prompt": "Build a dependency graph of the modules in this project",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Write the ADR for our modularization decision",
+        "owner": "software-architecture"
+      },
+      {
+        "prompt": "Draft the onboarding documentation for new contributors",
+        "owner": "documentation"
+      }
+    ]
+  }
+}

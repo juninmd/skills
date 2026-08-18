@@ -37,11 +37,41 @@ test("accepts spec frontmatter and valid links", () => {
   assert.deepEqual(validateSkill(directory), []);
 });
 
-test("rejects unsupported frontmatter fields", () => {
+test("accepts the optional spec frontmatter fields", () => {
   const directory = createSkill(
-    validSkill.replace("---\n\n# Sample", "license: MIT\n---\n\n# Sample"),
+    validSkill.replace(
+      "---\n\n# Sample",
+      'license: MIT\ncompatibility: Requires Node 18\nallowed-tools: [Read, Grep]\nmetadata:\n  owner: platform\n---\n\n# Sample',
+    ),
+    { "references/guide.md": "# Guide\n" },
+  );
+  assert.deepEqual(validateSkill(directory), []);
+});
+
+test("rejects frontmatter fields outside the spec", () => {
+  const directory = createSkill(
+    validSkill.replace("---\n\n# Sample", "version: 1.0.0\n---\n\n# Sample"),
   );
   assert.ok(validateSkill(directory).some((error) => error.includes("unsupported")));
+});
+
+test("rejects angle brackets in the description", () => {
+  const directory = createSkill(
+    validSkill.replace(
+      "local references.",
+      "local references in <SKILL> blocks.",
+    ),
+    { "references/guide.md": "# Guide\n" },
+  );
+  assert.ok(validateSkill(directory).some((error) => error.includes("angle brackets")));
+});
+
+test("rejects an over-long compatibility field", () => {
+  const directory = createSkill(
+    validSkill.replace("---\n\n# Sample", `compatibility: ${"x".repeat(501)}\n---\n\n# Sample`),
+    { "references/guide.md": "# Guide\n" },
+  );
+  assert.ok(validateSkill(directory).some((error) => error.includes("compatibility")));
 });
 
 test("rejects an uninformative description", () => {

@@ -1,0 +1,29 @@
+{
+  "skill_name": "performance-engineering",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "This endpoint is slow, find the N+1 query and fix it",
+        "top_k": 3
+      },
+      {
+        "prompt": "We have a memory leak and the event loop is blocked",
+        "top_k": 3
+      },
+      {
+        "prompt": "Run a load test and fix the throughput regression",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Reduce the cost per request of this service",
+        "owner": "cost-engineering"
+      },
+      {
+        "prompt": "Add an index to this PostgreSQL table",
+        "owner": "data-engineering"
+      }
+    ]
+  }
+}

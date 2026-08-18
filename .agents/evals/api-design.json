@@ -1,0 +1,29 @@
+{
+  "skill_name": "api-design",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Design the REST contract for a new orders endpoint with pagination",
+        "top_k": 3
+      },
+      {
+        "prompt": "Is adding a required field to this response a breaking change for consumers",
+        "top_k": 3
+      },
+      {
+        "prompt": "Define the error envelope and idempotency keys for our public HTTP API",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Write the SQL query that joins orders and customers",
+        "owner": "sql-authoring"
+      },
+      {
+        "prompt": "Our p99 endpoint latency regressed after the last deploy",
+        "owner": "performance-engineering"
+      }
+    ]
+  }
+}

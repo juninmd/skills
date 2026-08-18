@@ -1,0 +1,29 @@
+{
+  "skill_name": "git-workflow",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Use git bisect to find the commit that introduced this bug",
+        "top_k": 3
+      },
+      {
+        "prompt": "I am in detached HEAD with a botched rebase, recover with reflog",
+        "top_k": 3
+      },
+      {
+        "prompt": "Resolve these merge conflicts and clean up the branch history safely",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Cut the release tag and changelog",
+        "owner": "release-management"
+      },
+      {
+        "prompt": "Write the pull request description",
+        "owner": "pr-delivery"
+      }
+    ]
+  }
+}

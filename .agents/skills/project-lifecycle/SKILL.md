@@ -1,7 +1,7 @@
 ---
 name: project-lifecycle
 description: |
-  Turn product or engineering goals into validated specs, plans, issues, branches, and pull requests. Use for PRDs, implementation plans, issue slicing, GitHub triage, worktrees, branch completion, and delivery documentation.
+  Turn product or engineering goals into validated specs, plans, and tracked work items. Use for PRDs, implementation plans, issue slicing, scope cuts, GitHub backlog triage, and worktree setup for planned work.
 ---
 
 # Project Lifecycle

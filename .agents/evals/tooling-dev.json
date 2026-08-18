@@ -1,0 +1,29 @@
+{
+  "skill_name": "tooling-dev",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Build a CLI with proper argument parsing and exit codes",
+        "top_k": 3
+      },
+      {
+        "prompt": "Make this command non-interactive and emit structured output",
+        "top_k": 3
+      },
+      {
+        "prompt": "Add config discovery and packaging to our command line tool",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Write the GitHub Actions deployment workflow",
+        "owner": "cloud-devops"
+      },
+      {
+        "prompt": "Add unit tests for this module",
+        "owner": "test-engineering"
+      }
+    ]
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "skill_name": "data-engineering",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Tune the PostgreSQL index and query plan for this slow table",
+        "top_k": 3
+      },
+      {
+        "prompt": "Our Redis cache and MongoDB replica set need a backup and rollback plan",
+        "top_k": 3
+      },
+      {
+        "prompt": "Diagnose lock contention in the production database",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Write the migration to rename a column with zero downtime",
+        "owner": "migration-engineering"
+      },
+      {
+        "prompt": "Design the REST pagination contract",
+        "owner": "api-design"
+      }
+    ]
+  }
+}
