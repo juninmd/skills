@@ -9,9 +9,11 @@
     "catalog:check": "node .agents/tools/check-catalog.mjs",
     "tokens:report": "node .agents/tools/tokens-report.mjs .agents",
     "tokens:check": "node .agents/tools/tokens-report.mjs .agents --check",
+    "evals": "node .agents/tools/run-evals.mjs .agents",
+    "evals:check": "node .agents/tools/run-evals.mjs .agents --check --min-rank1 95",
     "pr:check": "node .agents/tools/pr-skill-checks.mjs",
     "test:validators": "node --test .agents/tools/*.test.mjs",
-    "validate": "pnpm run plugin:validate && pnpm run agents:validate && pnpm run catalog:check && pnpm run tokens:check && pnpm run test:validators",
+    "validate": "pnpm run plugin:validate && pnpm run agents:validate && pnpm run catalog:check && pnpm run tokens:check && pnpm run evals:check && pnpm run test:validators",
     "docs:dev": "npx vitepress dev docs",
     "docs:build": "npx vitepress build docs",
     "docs:preview": "npx vitepress preview docs"

@@ -1,0 +1,29 @@
+{
+  "skill_name": "cost-engineering",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Our cloud bill doubled, find where the spend is going",
+        "top_k": 3
+      },
+      {
+        "prompt": "Reduce the cost per request for this service without breaking latency",
+        "top_k": 3
+      },
+      {
+        "prompt": "Set a token budget and cheaper model routing for our LLM feature",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Speed up this slow database query",
+        "owner": "performance-engineering"
+      },
+      {
+        "prompt": "Provision the Kubernetes cluster with Terraform",
+        "owner": "cloud-devops"
+      }
+    ]
+  }
+}

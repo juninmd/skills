@@ -1,0 +1,29 @@
+{
+  "skill_name": "observability",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Define SLIs, SLO targets, and burn-rate alerts for this service",
+        "top_k": 3
+      },
+      {
+        "prompt": "Add structured logging with correlation IDs and design the dashboard",
+        "top_k": 3
+      },
+      {
+        "prompt": "Our alerts are noisy, fix the thresholds and log retention",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Find the root cause of this crash",
+        "owner": "diagnostics"
+      },
+      {
+        "prompt": "Reduce the monthly spend on log storage",
+        "owner": "cost-engineering"
+      }
+    ]
+  }
+}

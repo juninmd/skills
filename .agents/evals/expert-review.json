@@ -1,0 +1,29 @@
+{
+  "skill_name": "expert-review",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Review this pull request and give me evidence-based findings",
+        "top_k": 3
+      },
+      {
+        "prompt": "Stress-test my design plan and tell me the risks",
+        "top_k": 3
+      },
+      {
+        "prompt": "Do a critical design review of this proposal before we commit",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Write the failing test before fixing the bug",
+        "owner": "test-engineering"
+      },
+      {
+        "prompt": "Draft the PR description and delivery evidence",
+        "owner": "pr-delivery"
+      }
+    ]
+  }
+}

@@ -33,6 +33,7 @@ jobs:
         with:
           args: >-
             --offline
+            --fallback-extensions md
             README.md
             "docs/**/*.md"
             ".agents/AGENTS.md"

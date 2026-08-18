@@ -1,0 +1,29 @@
+{
+  "skill_name": "frontend-engineering",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Fix the React hydration mismatch in our Next.js app",
+        "top_k": 3
+      },
+      {
+        "prompt": "Set up Vite, Tailwind, and shadcn/ui for this component system",
+        "top_k": 3
+      },
+      {
+        "prompt": "Our bundle is huge and the browser is janky, fix the frontend build",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Pick the color palette and typographic scale",
+        "owner": "frontend-design"
+      },
+      {
+        "prompt": "Build the React Native navigation and permissions flow",
+        "owner": "mobile-engineering"
+      }
+    ]
+  }
+}

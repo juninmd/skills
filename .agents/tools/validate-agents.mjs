@@ -3,7 +3,17 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { readSkill } from "./skill-metadata.mjs";
 
-const ALLOWED_FIELDS = new Set(["name", "description"]);
+// The Agent Skills spec allows six top-level keys. Restricting the catalog to
+// name/description is a house style, not the spec, and it rejected valid skills
+// imported from other catalogs. Accept the full set and validate each one.
+const ALLOWED_FIELDS = new Set([
+  "name",
+  "description",
+  "license",
+  "allowed-tools",
+  "metadata",
+  "compatibility",
+]);
 
 export function validateSkill(skillDirectory) {
   const errors = [];
@@ -27,6 +37,10 @@ export function validateSkill(skillDirectory) {
 
   if (!/^[a-z0-9-]{1,64}$/.test(skillName)) {
     errors.push(`${skillName}: name must be lowercase hyphen-case and at most 64 characters`);
+  } else if (skillName.startsWith("-") || skillName.endsWith("-") || skillName.includes("--")) {
+    errors.push(
+      `${skillName}: name cannot start or end with a hyphen or contain consecutive hyphens`,
+    );
   }
 
   for (const field of Object.keys(metadata)) {
@@ -42,6 +56,25 @@ export function validateSkill(skillDirectory) {
   }
   if (description.length > 1024) {
     errors.push(`${skillName}: description exceeds the 1024-character spec limit`);
+  }
+  // Angle brackets can terminate the tags that wrap the catalog in a system
+  // prompt, so the spec forbids them outright.
+  if (/[<>]/.test(description)) {
+    errors.push(`${skillName}: description must not contain angle brackets`);
+  }
+
+  const compatibility = metadata.compatibility;
+  if (compatibility !== undefined) {
+    if (typeof compatibility !== "string") {
+      errors.push(`${skillName}: compatibility must be a string`);
+    } else if (compatibility.length > 500) {
+      errors.push(`${skillName}: compatibility exceeds the 500-character spec limit`);
+    }
+  }
+
+  const allowedTools = metadata["allowed-tools"];
+  if (allowedTools !== undefined && !Array.isArray(allowedTools) && typeof allowedTools !== "string") {
+    errors.push(`${skillName}: allowed-tools must be a string or a list of tool names`);
   }
 
   if (!/^## Checklist\s*$/m.test(text)) {
@@ -108,8 +141,6 @@ function findOrphanReferences(skillName, skillText, referencesRoot) {
       (name) =>
         `${skillName}: orphan reference 'references/${name}' is never linked or mentioned; route it or remove it`,
     );
-
-  return errors;
 }
 
 export function validateSkillsRoot(agentsRoot) {

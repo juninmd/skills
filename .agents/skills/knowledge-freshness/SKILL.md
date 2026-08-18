@@ -1,7 +1,7 @@
 ---
 name: knowledge-freshness
 description: |
-  Keep stack knowledge and dependencies current: verify latest stable versions, release dates, and breaking changes. Use for dependency checks before adding, upgrade planning, changelog tracking, and EOL detection.
+  Keep stack knowledge and dependencies current: verify latest stable versions, release dates, and breaking changes. Use for dependency and framework version checks before adding, upgrade planning, changelog tracking, and end-of-life dates.
 ---
 
 # Knowledge Freshness

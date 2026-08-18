@@ -1,0 +1,29 @@
+{
+  "skill_name": "mobile-engineering",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Build the navigation and permissions flow for our React Native app",
+        "top_k": 3
+      },
+      {
+        "prompt": "Handle offline behavior and lifecycle in this iOS SwiftUI screen",
+        "top_k": 3
+      },
+      {
+        "prompt": "Fix the Android device integration and build for this mobile app",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Fix the Next.js hydration error",
+        "owner": "frontend-engineering"
+      },
+      {
+        "prompt": "Run the Playwright browser test suite",
+        "owner": "webapp-testing"
+      }
+    ]
+  }
+}

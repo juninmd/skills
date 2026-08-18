@@ -1,0 +1,29 @@
+{
+  "skill_name": "documentation",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Write the onboarding guide and README for this project",
+        "top_k": 3
+      },
+      {
+        "prompt": "Generate API reference documentation from our OpenAPI schema",
+        "top_k": 3
+      },
+      {
+        "prompt": "Our docs drifted from the code, write a decision record and fix them",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Create a pptx deck from this outline",
+        "owner": "document-generation"
+      },
+      {
+        "prompt": "Review this pull request for risks",
+        "owner": "expert-review"
+      }
+    ]
+  }
+}

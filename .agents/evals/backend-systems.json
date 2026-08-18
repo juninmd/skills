@@ -1,0 +1,29 @@
+{
+  "skill_name": "backend-systems",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Fix the cancellation and disposal lifetimes in this C# service",
+        "top_k": 3
+      },
+      {
+        "prompt": "Add EF Core entities and tune the resource lifetime of this dotnet API",
+        "top_k": 3
+      },
+      {
+        "prompt": "Review concurrency and error handling in this performance-sensitive dotnet code",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Set up uv and Ruff for the Python service",
+        "owner": "backend-python"
+      },
+      {
+        "prompt": "Write the Playwright end-to-end test for login",
+        "owner": "webapp-testing"
+      }
+    ]
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "skill_name": "cloud-devops",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Write a Dockerfile and GitHub Actions pipeline for this service",
+        "top_k": 3
+      },
+      {
+        "prompt": "Set up Terraform modules for our staging infrastructure",
+        "top_k": 3
+      },
+      {
+        "prompt": "Make this deployment safe with health checks and a rollback path",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Define our SLOs and alert thresholds",
+        "owner": "observability"
+      },
+      {
+        "prompt": "Rotate the leaked credential Gitleaks found",
+        "owner": "security-ops"
+      }
+    ]
+  }
+}

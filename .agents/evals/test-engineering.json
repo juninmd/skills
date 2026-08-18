@@ -1,0 +1,29 @@
+{
+  "skill_name": "test-engineering",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Write failing tests first for this feature using Vitest",
+        "top_k": 3
+      },
+      {
+        "prompt": "Our test suite is flaky, fix the fixtures and mocks",
+        "top_k": 3
+      },
+      {
+        "prompt": "Find the coverage gaps and add unhappy-path pytest cases",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Drive the browser through the signup flow",
+        "owner": "webapp-testing"
+      },
+      {
+        "prompt": "Review this pull request for design risks",
+        "owner": "expert-review"
+      }
+    ]
+  }
+}

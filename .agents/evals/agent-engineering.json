@@ -1,0 +1,29 @@
+{
+  "skill_name": "agent-engineering",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Design the tool schemas and handoff rules for a multi-agent loop",
+        "top_k": 3
+      },
+      {
+        "prompt": "Our agent keeps looping forever, add guardrails and tracing to the agent runtime",
+        "top_k": 3
+      },
+      {
+        "prompt": "Write an evaluation harness for prompt-injection defenses in our agent",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Create a Word document from this report",
+        "owner": "document-generation"
+      },
+      {
+        "prompt": "Set up Terraform for the staging environment",
+        "owner": "cloud-devops"
+      }
+    ]
+  }
+}

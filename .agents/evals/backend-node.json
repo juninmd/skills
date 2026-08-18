@@ -1,0 +1,29 @@
+{
+  "skill_name": "backend-node",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Add a NestJS controller with DTO validation to our pnpm workspace",
+        "top_k": 3
+      },
+      {
+        "prompt": "Set up strict TypeScript and build scripts for this Node service",
+        "top_k": 3
+      },
+      {
+        "prompt": "Implement a GraphQL resolver in our TypeScript backend",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Style this React component with Tailwind",
+        "owner": "frontend-engineering"
+      },
+      {
+        "prompt": "Configure Ruff and pyproject for this project",
+        "owner": "backend-python"
+      }
+    ]
+  }
+}

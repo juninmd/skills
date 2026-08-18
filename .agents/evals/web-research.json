@@ -1,0 +1,29 @@
+{
+  "skill_name": "web-research",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Search multiple sources and synthesize what is current on this topic",
+        "top_k": 3
+      },
+      {
+        "prompt": "Find and cite recent sources answering this question",
+        "top_k": 3
+      },
+      {
+        "prompt": "Verify this claim across several websites and cite them",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Check the official library docs for this API signature",
+        "owner": "docs-verification"
+      },
+      {
+        "prompt": "Extract the product table from this page into CSV",
+        "owner": "web-scraping"
+      }
+    ]
+  }
+}
