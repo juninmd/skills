@@ -1,0 +1,29 @@
+{
+  "skill_name": "code-simplification",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "This function works but it is way too complicated, make it plainer",
+        "top_k": 3
+      },
+      {
+        "prompt": "Delete the dead branches and unused options in this module",
+        "top_k": 3
+      },
+      {
+        "prompt": "Collapse this premature abstraction, only one caller uses it",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Find the bugs and risks in this pull request",
+        "owner": "expert-review"
+      },
+      {
+        "prompt": "Add characterization tests before touching this untested class",
+        "owner": "legacy-refactoring"
+      }
+    ]
+  }
+}

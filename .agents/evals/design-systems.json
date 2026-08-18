@@ -1,0 +1,29 @@
+{
+  "skill_name": "design-systems",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Set up design tokens and theming for our shared component library",
+        "top_k": 3
+      },
+      {
+        "prompt": "Design the variant API for this button in our UI package",
+        "top_k": 3
+      },
+      {
+        "prompt": "Publish a breaking change to the component library with a migration path",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Pick the typography and color for this landing page",
+        "owner": "frontend-design"
+      },
+      {
+        "prompt": "Fix the Next.js hydration mismatch",
+        "owner": "frontend-engineering"
+      }
+    ]
+  }
+}

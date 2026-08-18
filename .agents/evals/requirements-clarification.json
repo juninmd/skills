@@ -1,0 +1,29 @@
+{
+  "skill_name": "requirements-clarification",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "This ticket is vague, what should I ask before building it",
+        "top_k": 3
+      },
+      {
+        "prompt": "Help me pin down the acceptance criteria and unstated assumptions",
+        "top_k": 3
+      },
+      {
+        "prompt": "Two stakeholders asked for conflicting behavior, clarify the request first",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Slice this epic into GitHub issues with a PRD",
+        "owner": "project-lifecycle"
+      },
+      {
+        "prompt": "Review my design document for hidden risks",
+        "owner": "expert-review"
+      }
+    ]
+  }
+}

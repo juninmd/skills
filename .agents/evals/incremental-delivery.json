@@ -1,0 +1,29 @@
+{
+  "skill_name": "incremental-delivery",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Break this big feature into steps that each ship on their own",
+        "top_k": 3
+      },
+      {
+        "prompt": "How do I slice this vertically instead of a big-bang merge",
+        "top_k": 3
+      },
+      {
+        "prompt": "Sequence this work as stacked pull requests behind a flag",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Write the PRD and cut scope for this quarter",
+        "owner": "project-lifecycle"
+      },
+      {
+        "prompt": "Backfill the column with expand and contract",
+        "owner": "migration-engineering"
+      }
+    ]
+  }
+}

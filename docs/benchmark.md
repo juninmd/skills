@@ -36,7 +36,7 @@ their READMEs. Two details matter for reading the table:
 | K-Dense-AI/scientific-agent-skills | 33.8k | 163 | 17,067 | 105 | 2870 | 7,368 | 0% | 0 |
 | deanpeters/Product-Manager-Skills | 6.5k | 77 | 3,648 | 47 | 3938 | 10,463 | 0% | 0 |
 | Jeffallan/claude-skills | 11.1k | 67 | 7,657 | 114 | 1279 | 1,859 | 0% | 0 |
-| **juninmd/skills** | — | **38** | **2,189** | **58** | **360** | **589** | **100%** | **39** |
+| **juninmd/skills** | — | **46** | **2,727** | **59** | **371** | **589** | **100%** | **47** |
 | mattpocock/skills | 220.4k | 35 | 1,465 | 42 | 1032 | 2,920 | 0% | 0 |
 | addyosmani/agent-skills | 88.1k | 24 | 1,785 | 74 | 3112 | 5,915 | 0% | 73 |
 | NVIDIA/SkillSpector | 14.7k | 24 | 475 | 20 | 166 | 1,734 | 0% | 0 |
@@ -63,19 +63,19 @@ the agent has read a single line of the user's code — and it is a *directory*,
 the intent is that you install a subset. But nothing in these repos measures or
 enforces that budget, which means the subset you install has an unknown price.
 
-This catalog costs **2,189 tokens** for all 38 skills — about 1% of a 200k
-window — and CI fails if that exceeds 2,600.
+This catalog costs **2,727 tokens** for all 46 skills — about 1.4% of a 200k
+window — and CI fails if that exceeds 3,000.
 
 ## Finding 2 — tier-2 discipline is where the gap is widest
 
 Tier-1 cost is roughly comparable across catalogs (40–126 tokens per skill).
-Tier-2 is not. On per-skill average this catalog is **2.9x leaner than the next
-best** engineering catalog (360 vs 1032 tokens) and **8.6x leaner** than
-`addyosmani/agent-skills` (360 vs 3112).
+Tier-2 is not. On per-skill average this catalog is **2.8x leaner than the next
+best** engineering catalog (371 vs 1032 tokens) and **8.4x leaner** than
+`addyosmani/agent-skills` (371 vs 3112).
 
 | Catalog | Tier-2 median | Tier-2 max |
 |---|---:|---:|
-| **juninmd/skills** | **377** | **589** |
+| **juninmd/skills** | **387** | **589** |
 | mattpocock/skills | 835 | 2,920 |
 | obra/superpowers | 1,727 | 7,995 |
 | anthropics/skills | 1,883 | 18,133 |
@@ -154,6 +154,8 @@ and no leading, trailing, or doubled hyphens in `name`.
 
 ## Gaps closed
 
+### First wave — domains competitors covered and this catalog did not
+
 Five domains were covered by competitors and absent here. Each was checked
 against the existing catalog before being added, and none collides above 0.35
 similarity with an existing description.
@@ -165,6 +167,29 @@ similarity with an existing description.
 | `accessibility` | WCAG, keyboard, ARIA, focus. Previously one bullet inside `frontend-engineering` and some mobile references. | none of the engineering catalogs owns this |
 | `mcp-integration` | Building and consuming MCP servers. `agent-engineering` covered tool schemas generically, not the protocol. | `anthropics/mcp-builder` |
 | `cost-engineering` | Cloud and LLM unit economics, budget guardrails. | **none** — no catalog surveyed has this |
+
+### Second wave — depth in the four areas used most
+
+Planning, code review, frontend UI, and performance each had one or two skills
+carrying the whole area. Eight more split those loads along real seams. Every
+one was added through the eval harness, and none collides above **0.141** with
+any existing description.
+
+| Area | Skill | Seam it splits off |
+|---|---|---|
+| Planning | `requirements-clarification` | Interrogating a vague request. `project-lifecycle` starts once the request is already known. |
+| Planning | `incremental-delivery` | Sequencing a change into shippable slices — the execution half of planning. |
+| Code review | `code-simplification` | Reducing complexity. `expert-review` hunts defects and risk; it does not make code smaller. |
+| Code review | `legacy-refactoring` | Changing code with no tests: characterization, seams, strangling. |
+| Frontend UI | `design-systems` | Tokens, component APIs, and versioning a shared library. |
+| Frontend UI | `ui-state-design` | Loading, empty, error, and offline states — where most UI bugs live. |
+| Performance | `web-performance` | Core Web Vitals and the rendering path, distinct from backend latency. |
+| Performance | `caching-strategy` | What to cache and how it becomes correct again. |
+
+Adding them pushed the tier-1 ceiling from 2,600 to 3,000 tokens. The 70-token
+per-skill cap did not move, and it did its job: `caching-strategy` and
+`code-simplification` both failed it on the first run and were trimmed rather
+than waved through.
 
 ## What the evals found on their first run
 
@@ -184,9 +209,16 @@ skill was unreachable for its own headline use case. The second:
 "branch completion, and delivery documentation", which stole prompts belonging
 to `pr-delivery`.
 
-Both were fixed in the descriptions, not the prompts. Routing went from 95.6% to
-**96.5% rank-1 across 114 prompts**, with a worst-case collision of 0.347 —
-comfortably under the 0.45 warning threshold.
+Both were fixed in the descriptions, not the prompts.
+
+The second wave caught a subtler failure: adding eight skills changed the
+inverse document frequency of shared terms, and `api-design` — which had passed
+cleanly the day it was written — regressed to rank 4 on its own breaking-change
+prompt. Nothing about that skill changed. The catalog around it did. That is the
+class of regression a ratchet exists to catch and no reviewer would have spotted.
+
+Routing across 138 prompts now sits at **96.4% rank-1**, with a worst-case
+collision of 0.289 — comfortably under the 0.45 warning threshold.
 
 That is the argument for the harness in one paragraph: two skills in a
 hand-curated, word-budgeted, spec-validated catalog were quietly broken, and no
