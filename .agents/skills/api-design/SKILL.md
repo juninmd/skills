@@ -1,7 +1,7 @@
 ---
 name: api-design
 description: |
-  Design and evolve HTTP, GraphQL, gRPC, and event contracts that stay compatible over time. Use for resource modeling, versioning, pagination, idempotency, error envelopes, breaking-change review, and deprecation policy.
+  Design and evolve HTTP, GraphQL, gRPC, and event contracts that stay compatible for consumers. Use for resource modeling, request and response shapes, versioning, pagination, idempotency, error envelopes, breaking-change review, and deprecation policy.
 ---
 
 # API Design

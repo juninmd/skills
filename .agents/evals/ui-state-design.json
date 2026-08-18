@@ -1,0 +1,29 @@
+{
+  "skill_name": "ui-state-design",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "This screen only handles the happy path, add loading and empty states",
+        "top_k": 3
+      },
+      {
+        "prompt": "Design the error and retry behavior for this async panel",
+        "top_k": 3
+      },
+      {
+        "prompt": "Add optimistic updates with rollback and a confirmation for delete",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Set up design tokens for the component library",
+        "owner": "design-systems"
+      },
+      {
+        "prompt": "Make the dialog reachable by screen reader",
+        "owner": "accessibility"
+      }
+    ]
+  }
+}
