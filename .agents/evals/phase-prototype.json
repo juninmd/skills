@@ -1,0 +1,14 @@
+{
+  "skill_name": "phase-prototype",
+  "trigger": {
+    "positive": [
+      { "prompt": "Run the prototype stage and give me three variants to pick from", "top_k": 3 },
+      { "prompt": "Show me throwaway variants A, B and C before we plan anything", "top_k": 3 },
+      { "prompt": "Another round of prototypes, variant B but with drag and drop", "top_k": 3 }
+    ],
+    "negative": [
+      { "prompt": "Design the visual system, typography and spacing for this page", "owner": "frontend-design" },
+      { "prompt": "Define loading, empty and error states for this component", "owner": "ui-state-design" }
+    ]
+  }
+}

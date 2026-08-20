@@ -1,0 +1,14 @@
+{
+  "skill_name": "phase-implement",
+  "trigger": {
+    "positive": [
+      { "prompt": "Run the implement stage and open the pull request when it works", "top_k": 3 },
+      { "prompt": "Execute the approved plan step by step and hand me a branch to test", "top_k": 3 },
+      { "prompt": "Another iterate round on the implement stage: drag and drop is broken", "top_k": 3 }
+    ],
+    "negative": [
+      { "prompt": "Write the PR description and delivery evidence", "owner": "pr-delivery" },
+      { "prompt": "Ship this in small slices behind a flag", "owner": "incremental-delivery" }
+    ]
+  }
+}

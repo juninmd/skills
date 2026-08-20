@@ -1,0 +1,14 @@
+{
+  "skill_name": "phase-research",
+  "trigger": {
+    "positive": [
+      { "prompt": "Run the research stage of the loop for this feature", "top_k": 3 },
+      { "prompt": "Open the tracking issue and research prior art before we build", "top_k": 3 },
+      { "prompt": "Kick off the loop with a research brief on the codebase and prior art", "top_k": 3 }
+    ],
+    "negative": [
+      { "prompt": "Map this unfamiliar repo so I know where a change belongs", "owner": "codebase-mapping" },
+      { "prompt": "Search the web and cite sources for this claim", "owner": "web-research" }
+    ]
+  }
+}

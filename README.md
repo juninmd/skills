@@ -4,7 +4,7 @@
 
 <h3>Compact engineering skills with focused procedures and reproducible checks.</h3>
 
-<p><strong>46 skills · 4 agents · 4 prompts</strong> for coding assistants that inspect first, change narrowly, and finish with evidence.</p>
+<p><strong>53 skills · 4 agents · 4 prompts</strong> for coding assistants that inspect first, change narrowly, and finish with evidence.</p>
 
 </div>
 
@@ -15,7 +15,7 @@ Generic skill catalogs often fail in two ways:
 - Many narrow skills overlap and waste context.
 - Broad skills contain generic advice, stale links, or no executable workflow.
 
-This catalog uses 46 domain skills. Every skill has:
+This catalog uses 53 domain skills. Every skill has:
 
 - Frontmatter limited to the fields the Agent Skills spec allows.
 - A description that states what the skill does and when to use it.
@@ -64,6 +64,7 @@ git submodule add https://github.com/juninmd/skills .agents
 | `cost-engineering` | cost attribution, rightsizing, egress and storage tiering, caching economics, token budgets, model routing, and budget guardrails |
 | `data-engineering` | PostgreSQL, MongoDB, Redis, query plans, indexes, locks, rollback, backups, and vector database performance |
 | `design-systems` | design tokens, theming and dark mode, component API and variant design, composition over configuration, Figma-to-code parity, library documentation, and versioning a published UI package |
+| `dev-loop` | starting a loop, resuming an interrupted one, or checking which stage is waiting on you |
 | `diagnostics` | bugs, regressions, flaky tests, crashes, timeouts, DNS, ports, HTTP, TLS, and root-cause analysis |
 | `docs-verification` | checking if a library API, config, or best practice is outdated, reading docs before answering, and updating stale local knowledge |
 | `document-generation` | docx, xlsx, pptx, and pdf creation, templating, tables, charts, formatting, and document extraction |
@@ -81,6 +82,12 @@ git submodule add https://github.com/juninmd/skills .agents
 | `mobile-engineering` | mobile UI, lifecycle, navigation, permissions, offline behavior, accessibility, device integration, tests, and builds |
 | `observability` | structured logging, SLO/SLI definition, dashboard design, alert thresholds, tracing, log retention, and incident signal quality |
 | `performance-engineering` | slow endpoints, N+1 queries, memory leaks, event-loop blocking, bundle size, load testing, caching decisions, and performance regressions |
+| `phase-done` | handing the pull request to human review, closing the tracking issue, filing follow-ups, and archiving the finished loop workspace |
+| `phase-finalize` | hardening a shipped pull request by making two reviewers spar over it, each refuting the other, and resolving whatever survives before code review |
+| `phase-implement` | executing the approved plan step by step, opening the pull request, handing over a branch to test locally, and iterating on comments until ship it |
+| `phase-plan` | asking every open decision in one batched questionnaire instead of one at a time, then writing the executable plan with its verification steps |
+| `phase-prototype` | building three throwaway variants A, B and C so a direction is chosen before any planning starts |
+| `phase-research` | opening the tracking issue and mapping the codebase and prior art before anything is built |
 | `pr-delivery` | finishing development work, PR descriptions, GitHub CLI, and delivery evidence |
 | `project-lifecycle` | PRDs, implementation plans, issue slicing, scope cuts, GitHub backlog triage, and worktree setup for planned work |
 | `release-management` | version bumps, conventional commits, changelog generation, release branches, and GitHub Releases |
@@ -143,7 +150,7 @@ pnpm run docs:build
 - Routing evals: every skill has positive and negative prompts, wins the ones it
   owns, never steals a sibling's, is reachable at all, and no two descriptions
   collide. Ratcheted at 95% rank-1 (`pnpm run evals` for the report).
-- Token budgets: tier-1 catalog ≤ 3000 tokens with a ≤ 70-token ceiling per
+- Token budgets: tier-1 catalog ≤ 3300 tokens with a ≤ 70-token ceiling per
   description, each `SKILL.md` ≤ 700 tokens (`pnpm run tokens:report` for the
   full breakdown). The catalog grows by adding skills, never by fattening
   descriptions.
