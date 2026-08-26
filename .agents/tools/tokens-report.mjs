@@ -10,7 +10,10 @@ export const estimateTokens = (text) => Math.ceil(text.length / 4);
 // The global ceiling bounds the always-loaded index. The per-skill ceiling is
 // what keeps it honest: the catalog is allowed to grow by adding skills, never
 // by letting individual descriptions get fatter.
-export const TIER1_BUDGET = 4300;
+// Ratchet: 4300 -> 4600 for the eight ops and GoldSrc skills. The per-skill
+// ceiling did not move, so the catalog grew by adding skills, not by letting
+// descriptions get fatter.
+export const TIER1_BUDGET = 4600;
 export const TIER1_PER_SKILL_BUDGET = 100;
 // Tier 2 loads on activation, so depth here costs nothing until a skill is
 // picked. This is where a skill earns the right not to be generic.
