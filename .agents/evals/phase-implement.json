@@ -7,7 +7,7 @@
       { "prompt": "Another iterate round on the implement stage: drag and drop is broken", "top_k": 3 }
     ],
     "negative": [
-      { "prompt": "Write the PR description and delivery evidence", "owner": "pr-delivery" },
+      { "prompt": "Write the PR description and delivery evidence", "owner": "finishing-dev" },
       { "prompt": "Ship this in small slices behind a flag", "owner": "incremental-delivery" }
     ]
   }

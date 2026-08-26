@@ -10,7 +10,7 @@ Commit, push, rebase, merge, branch deletion, and remote mutations require expli
 
 Safe day-to-day Git operations and history recovery: bisect, cherry-pick, reflog, stash, submodules, hooks, conflict resolution, and history-rewrite safety.
 
-## `pr-delivery`
+## `finishing-dev`
 
 Review the diff, create a branch, commit with a conventional message, push, and open a pull request with a description and evidence — screenshots when the change is user-visible, command output otherwise.
 

@@ -22,7 +22,7 @@
       },
       {
         "prompt": "The homepage takes 8 seconds to load, make it faster",
-        "owner": "performance-engineering"
+        "owner": "web-performance"
       }
     ]
   }

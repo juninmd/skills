@@ -22,27 +22,63 @@ const STOP = new Set([
 ]);
 
 // Light suffix stripping. Not a real stemmer: it only has to make the obvious
-// inflections of one word collide ("migrations" -> "migrat", "caching" -> "cach").
-export function stem(token) {
+// inflections of one word collide ("migrations" -> "migr", "caching" -> "cach").
+//
+// Abbreviations a user types interchangeably with the word they stand for. No
+// amount of suffix stripping makes "repo" and "repository" collide, so each is
+// declared here as a plain pair and both sides are run through the suffix rules
+// to build the lookup — writing post-stem forms by hand would couple every
+// future entry to the stemmer's current output.
+//
+// Left out on purpose: "auth", which stands for both authentication and
+// authorization, and "docs", where the split is what separates the
+// `documentation` skill from `docs-verification`.
+const ABBREVIATION_PAIRS = [
+  ["repo", "repository"],
+  ["k8s", "kubernetes"],
+  ["db", "database"],
+  ["deps", "dependencies"],
+  ["config", "configuration"],
+  ["a11y", "accessibility"],
+];
+
+function suffixStem(token) {
   let t = token;
   let stripped = false;
+  let verbal = false;
   for (const suffix of ["ations", "ation", "ically", "ally", "ings", "ing", "ed", "es", "al"]) {
     if (t.length > suffix.length + 2 && t.endsWith(suffix)) {
       t = t.slice(0, -suffix.length);
       stripped = true;
+      verbal = suffix === "ing" || suffix === "ings" || suffix === "ed";
       break;
     }
   }
-  if (t.length > 3 && t.endsWith("s") && !t.endsWith("ss")) t = t.slice(0, -1);
+  // Only when the loop above stripped nothing: "databases" already lost its
+  // "es" there, and taking the trailing "s" off "databas" would split it from
+  // "database". The plural is handled once, not twice.
+  if (!stripped && t.length > 3 && t.endsWith("s") && !t.endsWith("ss")) t = t.slice(0, -1);
   if (t.length > 4 && t.endsWith("e")) t = t.slice(0, -1);
-  // "committ" -> "commit", left behind by stripping -ing/-ed. Only after a real
-  // strip, so a word that simply ends in a double letter ("skill") survives.
-  if (stripped && t.length > 4 && t.at(-1) === t.at(-2) && !"aeiou".includes(t.at(-1))) {
+  // "committ" -> "commit", left behind by stripping -ing/-ed. Only for those
+  // suffixes: after an -es strip it would eat the stem ("classes" -> "clas"),
+  // and a word that simply ends in a double letter ("skill") must survive.
+  if (verbal && t.length > 4 && t.at(-1) === t.at(-2) && !"aeiou".includes(t.at(-1))) {
     t = t.slice(0, -1);
   }
   // "flaky"/"flakier" and "simplify"/"simplifies" should cluster.
   if (t.length > 3 && t.endsWith("y")) t = `${t.slice(0, -1)}i`;
   return t;
+}
+
+// Built from the plain pairs above, so the abbreviation collapses onto whatever
+// the suffix rules make of the full word.
+const ABBREVIATIONS = new Map(
+  ABBREVIATION_PAIRS.map(([short, long]) => [suffixStem(short), suffixStem(long)]),
+);
+
+export function stem(token) {
+  const t = suffixStem(token);
+  return ABBREVIATIONS.get(t) ?? t;
 }
 
 export function tokenize(text) {

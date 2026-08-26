@@ -1,0 +1,29 @@
+{
+  "skill_name": "screenshot-capture",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Capture a screenshot of the running frontend as evidence",
+        "top_k": 3
+      },
+      {
+        "prompt": "Take a full page shot of the dev server for the review",
+        "top_k": 3
+      },
+      {
+        "prompt": "Grab images of the affected routes without committing them",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Write Playwright end to end tests for the checkout flow",
+        "owner": "webapp-testing"
+      },
+      {
+        "prompt": "Make an image of this code snippet",
+        "owner": "code-snippet-images"
+      }
+    ]
+  }
+}

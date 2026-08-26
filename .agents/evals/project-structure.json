@@ -1,0 +1,29 @@
+{
+  "skill_name": "project-structure",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Where should this new module live in the repo",
+        "top_k": 3
+      },
+      {
+        "prompt": "Reorganize this project into a feature-first layout",
+        "top_k": 3
+      },
+      {
+        "prompt": "Our utils folder became a junk drawer, restructure it",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Should this be a separate service or stay a module",
+        "owner": "software-architecture"
+      },
+      {
+        "prompt": "Help me understand how this unfamiliar repo is organized",
+        "owner": "codebase-mapping"
+      }
+    ]
+  }
+}

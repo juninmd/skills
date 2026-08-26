@@ -10,10 +10,11 @@ export const estimateTokens = (text) => Math.ceil(text.length / 4);
 // The global ceiling bounds the always-loaded index. The per-skill ceiling is
 // what keeps it honest: the catalog is allowed to grow by adding skills, never
 // by letting individual descriptions get fatter.
-export const TIER1_BUDGET = 3300;
-export const TIER1_PER_SKILL_BUDGET = 70;
-// Tier 2 loads on activation; per-skill ceiling mirrors the 400-word rule.
-export const TIER2_BUDGET = 700;
+export const TIER1_BUDGET = 4300;
+export const TIER1_PER_SKILL_BUDGET = 100;
+// Tier 2 loads on activation, so depth here costs nothing until a skill is
+// picked. This is where a skill earns the right not to be generic.
+export const TIER2_BUDGET = 1650;
 
 export function buildReport(agentsRoot) {
   const skills = listSkills(path.join(agentsRoot, "skills"));

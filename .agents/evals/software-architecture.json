@@ -18,7 +18,7 @@
     "negative": [
       {
         "prompt": "Where does this feature belong in the repo",
-        "owner": "codebase-mapping"
+        "owner": "project-structure"
       },
       {
         "prompt": "Design the public REST contract",

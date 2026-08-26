@@ -131,6 +131,15 @@ export function evaluate(skills, cases, { topK = DEFAULT_TOP_K } = {}) {
           `${owner}: must not win '${truncate(prompt)}'` +
             (expectedOwner ? ` (belongs to '${expectedOwner}')` : ""),
         );
+      } else if (expectedOwner && ranked[0].name !== expectedOwner) {
+        // The negative passed — this skill stayed out of the way — but the skill
+        // the case says owns the prompt did not win it either. That `owner` is a
+        // boundary the catalog asserts out loud; leaving it unchecked let 20 of
+        // them drift until they disagreed with the descriptions they document.
+        errors.push(
+          `${owner}: '${truncate(prompt)}' is declared to belong to '${expectedOwner}', ` +
+            `but '${ranked[0].name}' wins it`,
+        );
       }
     }
 

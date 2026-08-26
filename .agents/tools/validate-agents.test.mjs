@@ -3,7 +3,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import test from "node:test";
-import { validateSkill } from "./validate-agents.mjs";
+import { validateSkill, checkSiblingHandoffs } from "./validate-agents.mjs";
 
 function createSkill(contents, references = {}) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "skill-validator-"));
@@ -26,7 +26,19 @@ description: |
 
 # Sample
 
+## Preflight
+${"`".repeat(3)}bash
+ls
+${"`".repeat(3)}
+
 See [guide](references/guide.md).
+
+| Symptom | Action |
+|---|---|
+| a | b |
+
+## Stop
+- Halt when the state is wrong.
 
 ## Checklist
 - [ ] Validate the sample.
@@ -141,4 +153,82 @@ test("requires a topic map for large reference collections", () => {
   references["references/guide.md"] = "# Guide\n";
   const directory = createSkill(validSkill, references);
   assert.ok(validateSkill(directory).some((error) => error.includes("TOPIC_MAP")));
+});
+
+test("a skill naming no sibling is reported", () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), "skill-siblings-"));
+  const write = (name, body) => {
+    fs.mkdirSync(path.join(root, name));
+    fs.writeFileSync(path.join(root, name, "SKILL.md"), body);
+  };
+  const frontmatter = (name) =>
+    `---\nname: ${name}\ndescription: |\n  Do the ${name} job and use this skill when that job comes up.\n---\n\n# ${name}\n\n## Checklist\n- [ ] done.\n`;
+  write("alpha-skill", frontmatter("alpha-skill").replace("## Checklist", "Hand off to `beta-skill`.\n\n## Checklist"));
+  write("beta-skill", frontmatter("beta-skill"));
+
+  const errors = checkSiblingHandoffs(root);
+  assert.deepEqual(errors, ["beta-skill: body names no sibling skill to hand work to"]);
+});
+
+test("a skill citing only itself does not count as a handoff", () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), "skill-siblings-self-"));
+  fs.mkdirSync(path.join(root, "lonely-skill"));
+  fs.writeFileSync(
+    path.join(root, "lonely-skill", "SKILL.md"),
+    "---\nname: lonely-skill\ndescription: |\n  Be lonely and use this skill when nobody else will.\n---\n\nRun `lonely-skill` again.\n\n## Checklist\n- [ ] done.\n",
+  );
+  assert.deepEqual(checkSiblingHandoffs(root), [
+    "lonely-skill: body names no sibling skill to hand work to",
+  ]);
+});
+
+test("a body missing any house section is reported", () => {
+  const FENCE = "`".repeat(3);
+  const lines = [
+    "---",
+    "name: sample-skill",
+    "description: |",
+    "  Validate sample behavior and use this skill when testing skill structure.",
+    "---",
+    "",
+    "# Sample",
+    "",
+    "## Preflight",
+    `${FENCE}bash`,
+    "ls",
+    FENCE,
+    "",
+    "## Workflow",
+    "1. Do it.",
+    "",
+    "| Symptom | Action |",
+    "|---|---|",
+    "| a | b |",
+    "",
+    "## Stop",
+    "- Halt when the state is wrong.",
+    "",
+    "## Checklist",
+    "- [ ] done.",
+    "",
+  ];
+  const build = (drop = []) =>
+    createSkill(lines.filter((l) => !drop.includes(l)).join("\n"));
+
+  assert.deepEqual(validateSkill(build()), []);
+  assert.ok(
+    validateSkill(build(["## Preflight"])).some((e) => e.includes("'## Preflight'")),
+  );
+  assert.ok(validateSkill(build(["## Stop"])).some((e) => e.includes("'## Stop'")));
+  assert.ok(
+    validateSkill(build(["## Checklist"])).some((e) => e.includes("'## Checklist'")),
+  );
+  assert.ok(
+    validateSkill(build([`${FENCE}bash`, FENCE])).some((e) => e.includes("a command block")),
+  );
+  assert.ok(
+    validateSkill(build(["| Symptom | Action |", "|---|---|", "| a | b |"])).some((e) =>
+      e.includes("a decision table"),
+    ),
+  );
 });

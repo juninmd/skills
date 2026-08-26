@@ -18,7 +18,7 @@
     "negative": [
       {
         "prompt": "Speed up this slow database query",
-        "owner": "performance-engineering"
+        "owner": "data-engineering"
       },
       {
         "prompt": "Provision the Kubernetes cluster with Terraform",

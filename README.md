@@ -4,7 +4,7 @@
 
 <h3>Compact engineering skills with focused procedures and reproducible checks.</h3>
 
-<p><strong>53 skills · 4 agents · 4 prompts</strong> for coding assistants that inspect first, change narrowly, and finish with evidence.</p>
+<p><strong>65 skills · 4 agents · 4 prompts</strong> for coding assistants that inspect first, change narrowly, and finish with evidence.</p>
 
 </div>
 
@@ -15,14 +15,14 @@ Generic skill catalogs often fail in two ways:
 - Many narrow skills overlap and waste context.
 - Broad skills contain generic advice, stale links, or no executable workflow.
 
-This catalog uses 53 domain skills. Every skill has:
+This catalog uses 65 domain skills. Every skill has:
 
 - Frontmatter limited to the fields the Agent Skills spec allows.
 - A description that states what the skill does and when to use it.
 - A short operational workflow.
 - Conditional links to real local references.
 - A concise completion checklist.
-- A maximum of 400 words in `SKILL.md`.
+- A maximum of 1000 words in `SKILL.md`.
 - [Routing evals](.agents/evals/README.md) proving the description reaches the
   prompts it owns and loses the prompts it does not.
 
@@ -52,57 +52,69 @@ git submodule add https://github.com/juninmd/skills .agents
 |---|---|
 | `accessibility` | WCAG conformance, semantic HTML, ARIA, focus management, color contrast, reduced motion, accessible forms, and a11y regression tests |
 | `agent-engineering` | agent loops, tool schemas, handoffs, prompt-injection defenses, tracing, and agent evaluations |
-| `api-design` | resource modeling, request and response shapes, versioning, pagination, idempotency, error envelopes, breaking-change review, and deprecation policy |
-| `backend-node` | NestJS services, pnpm workspaces, strict TypeScript, REST or GraphQL APIs, DTO validation, tests, builds, and API contracts |
+| `agents-md` | writing or trimming AGENTS.md, per-package context in a monorepo, and pointer files keeping one source of truth |
+| `api-design` | the OpenAPI contract for a public REST API, resource modeling, request and response shapes, versioning, pagination, idempotency, error envelopes, breaking-change review, and deprecation policy |
+| `backend-node` | NestJS modules and dependency injection, pnpm workspaces, strict TypeScript, REST or GraphQL APIs, DTO validation, tests, builds, and API contracts |
 | `backend-python` | uv and pyproject setup, Ruff, typed Python, Pydantic v2, async boundaries, pytest, and Alembic integration |
 | `backend-systems` | APIs, concurrency, cancellation, error handling, EF Core, resource lifetimes, performance-sensitive code, tests, and builds |
 | `caching-strategy` | cache key design, TTL and invalidation, stale-while-revalidate, stampede protection, CDN rules, and reasoning about acceptable staleness |
-| `cloud-devops` | pipelines, Dockerfiles, Terraform or Pulumi, deployment safety, logs, metrics, and traces |
+| `cloud-devops` | GitHub Actions deployment workflows, pipelines, Dockerfiles, Terraform or Pulumi modules, deployment safety, health checks, rollback paths, and release verification |
 | `code-simplification` | deleting dead paths, collapsing premature abstraction, removing speculative options, shortening long functions, and reviewing a diff for what could be less code |
-| `codebase-mapping` | onboarding to new repos, understanding architecture, finding where a change belongs, and dependency graphs |
+| `code-snippet-images` | README hero images, slide decks and PR descriptions, tuning theme, font, padding and window chrome, and capturing the export node |
+| `codebase-mapping` | onboarding to a new repository, understanding how it is organized, locating the code that owns a behavior, and dependency graphs |
 | `context-engineering` | long sessions, context overflow, memory strategies, sliding windows, and keeping the right files in context |
-| `cost-engineering` | cost attribution, rightsizing, egress and storage tiering, caching economics, token budgets, model routing, and budget guardrails |
+| `cost-engineering` | cutting the cloud bill, idle and orphaned resources, cost attribution, rightsizing, egress and storage tiering, caching economics, token budgets, model routing, and budget guardrails |
+| `data-analysis` | csvstat, csvlook, jq, describe, groupby, pivot tables, nulls and duplicates, and scrubbing identifiers before sharing |
 | `data-engineering` | PostgreSQL, MongoDB, Redis, query plans, indexes, locks, rollback, backups, and vector database performance |
-| `design-systems` | design tokens, theming and dark mode, component API and variant design, composition over configuration, Figma-to-code parity, library documentation, and versioning a published UI package |
+| `design-systems` | design tokens, theming and dark mode, component API and variant design, Figma-to-code parity, library documentation, and versioning a published UI package |
 | `dev-loop` | starting a loop, resuming an interrupted one, or checking which stage is waiting on you |
-| `diagnostics` | bugs, regressions, flaky tests, crashes, timeouts, DNS, ports, HTTP, TLS, and root-cause analysis |
+| `diagnostics` | bugs, regressions, flaky tests, crashes, a service refusing connections, timeouts, DNS, ports, HTTP, TLS, and root-cause analysis |
+| `diagrams-as-code` | .mmd files, the mermaid CLI, moving diagram blocks out of Markdown, updating one in place, and batch rendering |
 | `docs-verification` | checking if a library API, config, or best practice is outdated, reading docs before answering, and updating stale local knowledge |
 | `document-generation` | docx, xlsx, pptx, and pdf creation, templating, tables, charts, formatting, and document extraction |
 | `documentation` | project onboarding docs, OpenAPI-derived reference, decision records, release notes, and doc drift prevention |
+| `electron-architecture` | process boundaries, inter-process messaging, preload bridges, context isolation, sandboxing, native OS integration, and desktop startup cost |
 | `expert-review` | pull-request review, design review, plan stress-testing, risk analysis, and evidence-based findings |
-| `frontend-design` | layout, typography, color, spacing, visual hierarchy, motion, and avoiding generic AI slop |
-| `frontend-engineering` | React, Next.js, Vite, Tailwind, shadcn/ui, responsive design, component systems, browser performance, hydration, keyboard behavior, and accessibility |
-| `git-workflow` | bisect, cherry-pick, reflog, submodules, hooks, stash, rebase, amend, detached HEAD, conflict resolution, and history rewrite safety |
+| `finishing-dev` | finishing development work, drafting the pull request body and summarizing what changed, GitHub CLI, and delivery evidence |
+| `frontend-design` | layout, picking a color palette and type scale, typography, spacing, visual hierarchy, motion, and avoiding generic AI slop |
+| `frontend-engineering` | React, Next.js App Router, Vite, Tailwind, shadcn/ui, server and client boundaries, component systems, responsive layout, hydration mismatches, and keyboard behavior |
+| `git-workflow` | bisect, cherry-pick, reflog, cleaning up stale branches and worktrees, submodules, hooks, stash, rebase, amend, detached HEAD, conflict resolution, and history rewrite safety |
 | `incident-response` | outages, error spikes, failed deploys, rollback decisions, data-integrity incidents, on-call triage, severity assessment, and corrective-action follow-up |
 | `incremental-delivery` | vertical slicing, tracer bullets, sequencing dependent work, stacked pull requests, keeping trunk releasable, and avoiding a long-lived branch or a big-bang merge |
 | `knowledge-freshness` | dependency and framework version checks before adding, upgrade planning, changelog tracking, and end-of-life dates |
-| `legacy-refactoring` | characterization tests, finding seams, breaking hidden dependencies, sprout and wrap techniques, strangling a legacy subsystem behind a facade, and getting a feature into a module nobody dares to touch |
+| `legacy-discovery` | mapping an inherited codebase, recovering implicit business rules, writing retroactive decision records, producing design docs and API specs from source, or planning a rewrite |
+| `legacy-refactoring` | characterization tests, finding seams, breaking hidden dependencies, sprout and wrap, strangling a legacy subsystem behind a facade, and a feature in a module nobody dares to touch |
+| `llm-gateway-testing` | auditing which models emit tool calls, catching regressions after a gateway upgrade, screening a new model catalog, and triaging 4xx/429/5xx responses |
+| `masonry-layouts` | gallery and feed layouts, items splitting across columns, and a grid that jumps as images load |
 | `mcp-integration` | MCP tool and resource design, JSON Schema inputs, stdio and HTTP transports, authentication, pagination of large results, error contracts, and server testing |
 | `migration-engineering` | expand/contract rollouts, backfills, dual writes, codemods, framework upgrades, cutover planning, and rollback strategy |
 | `mobile-engineering` | mobile UI, lifecycle, navigation, permissions, offline behavior, accessibility, device integration, tests, and builds |
 | `observability` | structured logging, SLO/SLI definition, dashboard design, alert thresholds, tracing, log retention, and incident signal quality |
-| `performance-engineering` | slow endpoints, N+1 queries, memory leaks, event-loop blocking, bundle size, load testing, caching decisions, and performance regressions |
+| `performance-engineering` | slow endpoints, N+1 queries, memory leaks, event-loop blocking, load testing, and performance regressions |
 | `phase-done` | handing the pull request to human review, closing the tracking issue, filing follow-ups, and archiving the finished loop workspace |
 | `phase-finalize` | hardening a shipped pull request by making two reviewers spar over it, each refuting the other, and resolving whatever survives before code review |
 | `phase-implement` | executing the approved plan step by step, opening the pull request, handing over a branch to test locally, and iterating on comments until ship it |
 | `phase-plan` | asking every open decision in one batched questionnaire instead of one at a time, then writing the executable plan with its verification steps |
 | `phase-prototype` | building three throwaway variants A, B and C so a direction is chosen before any planning starts |
 | `phase-research` | opening the tracking issue and mapping the codebase and prior art before anything is built |
-| `pr-delivery` | finishing development work, PR descriptions, GitHub CLI, and delivery evidence |
 | `project-lifecycle` | PRDs, implementation plans, issue slicing, scope cuts, GitHub backlog triage, and worktree setup for planned work |
+| `project-structure` | new repository layout, deciding where a new module should live, feature-first frontend splits, Go and Python packages, junk-drawer folders, and safe restructuring |
 | `release-management` | version bumps, conventional commits, changelog generation, release branches, and GitHub Releases |
 | `requirements-clarification` | ambiguous tickets, unstated assumptions, missing acceptance criteria, conflicting stakeholder input, undefined edge cases, and deciding what questions to ask before any planning starts |
-| `security-ops` | CVE or SBOM scans, Gitleaks findings, secret rotation, access control, injection risk, least privilege, and zero-trust reviews |
+| `screenshot-capture` | visual evidence of a UI change, before and after layout comparisons, proving a page renders, or full-page capture of a route |
+| `security-ops` | CVE or SBOM scans, rotating a leaked credential Gitleaks found, access control, injection risk, least privilege, and zero-trust reviews |
+| `session-learnings` | recalling context at session start, recording an error and its fix, promoting recurring lessons into project rules, or purging them |
+| `shell-operations` | rm -rf safety, permissions, timeouts, shellcheck, PSScriptAnalyzer |
 | `skill-creator` | SKILL.md authoring, frontmatter, workflow and checklist design, reference routing, token budgets, and validating skills against the spec |
-| `software-architecture` | modularization, dependency direction, technical debt, distributed systems, Electron architecture, failure modes, and ADRs |
-| `sql-authoring` | PostgreSQL, MySQL, SQLite, and MongoDB query authoring, schema and index design, ORM query translation, window functions, CTEs, joins, and migration-safe model changes |
-| `test-engineering` | TDD, Vitest, pytest, unhappy paths, flaky tests, fixtures, mocks, fuzzing, coverage gaps, and regression benchmarks |
-| `tooling-dev` | CLI arguments, exit codes, non-interactive execution, config discovery, structured output, packaging, and integration tests |
-| `ui-state-design` | loading skeletons, empty states, error and retry, partial and stale data, offline behavior, optimistic updates, form validation feedback, and confirming destructive actions |
-| `web-performance` | Core Web Vitals, LCP, INP and CLS, the critical rendering path, image and font loading, code splitting, hydration cost, third-party scripts, and reading field data from RUM or Lighthouse |
-| `web-research` | multi-source web search, fetching pages, verifying claims, synthesizing findings, and citing sources. Keeps answers current instead of relying on memory |
-| `web-scraping` | HTML parsing, pagination, rate limiting, retries, selector stability, API fallbacks, and saving structured results |
-| `webapp-testing` | Playwright and browser automation, E2E flows, form submission, authentication flows, responsive checks, and visual regression |
+| `software-architecture` | deciding whether something is a separate service or stays a module, modularization, dependency direction, circular dependencies, technical debt, distributed systems, failure modes, and ADRs |
+| `sql-authoring` | PostgreSQL, MySQL, SQLite, and MongoDB query authoring, schema and index design, ORM query translation, window functions, CTEs, joins, and pagination |
+| `test-engineering` | TDD, writing the failing test before the fix, Vitest, pytest, unhappy paths, flaky tests, fixtures, mocks, fuzzing, coverage gaps, and regression benchmarks |
+| `tooling-dev` | CLI arguments, exit codes, non-interactive execution, config discovery, signals, structured output, packaging, and integration tests |
+| `ui-state-design` | loading skeletons, empty and forbidden states, error and retry, stale data, response races, offline behavior, optimistic updates, and undo |
+| `web-performance` | Core Web Vitals, improving LCP, INP and CLS on a slow page, critical rendering path, image and font loading, code splitting, hydration, third-party scripts, and RUM data |
+| `web-research` | multi-source web search, search operators, fetching pages, verifying claims, resolving conflicting sources, synthesizing findings, and citing them with dates |
+| `web-scraping` | extracting listings and tables into CSV or JSON, HTML parsing, JavaScript-rendered pages, pagination, rate limiting, retries, block detection, selectors that keep breaking, and structured output |
+| `webapp-testing` | Playwright and browser automation, E2E flows, reusing authenticated sessions, parallel isolation, responsive checks, visual regression, and CI-only failures |
 <!-- skill-catalog:end -->
 
 ## Skill Example
@@ -143,15 +155,15 @@ pnpm run docs:build
 - YAML-parsed frontmatter limited to `name` and `description`.
 - Useful description and valid skill name.
 - `## Checklist` presence.
-- 400-word skill budget.
+- 1000-word skill budget.
 - 1024-character description limit (Agent Skills spec).
 - Local reference links and no orphan reference files.
 - Linked topic maps for large reference collections.
 - Routing evals: every skill has positive and negative prompts, wins the ones it
   owns, never steals a sibling's, is reachable at all, and no two descriptions
   collide. Ratcheted at 95% rank-1 (`pnpm run evals` for the report).
-- Token budgets: tier-1 catalog ≤ 3300 tokens with a ≤ 70-token ceiling per
-  description, each `SKILL.md` ≤ 700 tokens (`pnpm run tokens:report` for the
+- Token budgets: tier-1 catalog ≤ 4300 tokens with a ≤ 100-token ceiling per
+  description, each `SKILL.md` ≤ 1650 tokens (`pnpm run tokens:report` for the
   full breakdown). The catalog grows by adding skills, never by fattening
   descriptions.
 - Generated README catalog consistency.
@@ -185,3 +197,4 @@ pnpm run docs:build
 ## License
 
 MIT.
+compare https://github.com/msitarzewski/agency-agents

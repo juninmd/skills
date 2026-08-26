@@ -74,4 +74,4 @@ If no correct seam exists, note it — the architecture is preventing the bug fr
 - [ ] Throwaway prototypes deleted
 - [ ] Correct hypothesis stated in commit/PR message
 
-**Then ask: what would have prevented this bug?** If architectural change is needed, hand off to `/improve-codebase-architecture` after the fix is in.
+**Then ask: what would have prevented this bug?** If architectural change is needed, hand off to the `software-architecture` skill after the fix is in.

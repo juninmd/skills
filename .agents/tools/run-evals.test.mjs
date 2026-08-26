@@ -71,6 +71,30 @@ test("stemming clusters obvious inflections", () => {
   assert.equal(stem("committed"), stem("commit"));
 });
 
+test("abbreviations collide with the word they stand for", () => {
+  assert.equal(stem("repository"), stem("repo"));
+  assert.equal(stem("repositories"), stem("repos"));
+  assert.equal(stem("repositories"), stem("repository"));
+  assert.equal(stem("kubernetes"), stem("k8s"));
+  assert.equal(stem("databases"), stem("db"));
+  assert.equal(stem("dependencies"), stem("deps"));
+  assert.equal(stem("configuration"), stem("config"));
+  assert.equal(stem("accessibility"), stem("a11y"));
+});
+
+test("a plural is stripped once, not twice", () => {
+  // "databases" loses "es" in the suffix loop; taking the trailing "s" off the
+  // result too would split it from "database".
+  assert.equal(stem("databases"), stem("database"));
+  assert.equal(stem("phases"), stem("phase"));
+  // The -ing/-ed double-letter rule must not fire after an -es strip.
+  assert.equal(stem("classes"), stem("class"));
+  assert.equal(stem("processes"), stem("process"));
+  // ...but it still does its own job.
+  assert.equal(stem("committed"), stem("commit"));
+  assert.equal(stem("skills"), stem("skill"));
+});
+
 test("tokenize drops stop words and splits hyphenated names", () => {
   assert.deepEqual(tokenize("Use the sql-authoring skill"), ["sql", "author", "skill"]);
 });
@@ -137,6 +161,19 @@ test("a negative prompt the skill wins is reported", () => {
   ]);
   const report = evaluate(SKILLS, wrong);
   assert.ok(report.errors.some((error) => error.includes("must not win")));
+});
+
+test("a negative prompt whose declared owner does not win is reported", () => {
+  const drifted = [...FULL_CASES];
+  drifted[0] = caseFile("sql-authoring", FULL_CASES[0].data.trigger.positive, [
+    // sql-authoring stays out of the way, so "must not win" does not fire — but
+    // the skill the case says owns the prompt does not win it either.
+    { prompt: "Run the Playwright suite", owner: "release-management" },
+    { prompt: "Cut the release branch", owner: "release-management" },
+  ]);
+  const report = evaluate(SKILLS, drifted);
+  assert.ok(report.errors.some((error) => error.includes("is declared to belong to")));
+  assert.ok(!report.errors.some((error) => error.includes("must not win")));
 });
 
 test("a negative prompt naming an unknown owner fails", () => {

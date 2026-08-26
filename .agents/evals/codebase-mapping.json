@@ -7,7 +7,7 @@
         "top_k": 3
       },
       {
-        "prompt": "Where in this codebase should a new payment feature live",
+        "prompt": "Find where the checkout flow is implemented in this codebase",
         "top_k": 3
       },
       {
@@ -18,11 +18,15 @@
     "negative": [
       {
         "prompt": "Write the ADR for our modularization decision",
-        "owner": "software-architecture"
+        "owner": "documentation"
       },
       {
         "prompt": "Draft the onboarding documentation for new contributors",
         "owner": "documentation"
+      },
+      {
+        "prompt": "Where in this codebase should a new payment feature live",
+        "owner": "project-structure"
       }
     ]
   }
