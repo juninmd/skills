@@ -2,6 +2,30 @@
 
 Comprehensive checklist for migrating Python projects to modern tooling.
 
+## Entry Points
+
+**From pip / requirements.txt**
+1. `uv init --bare`
+2. `grep -v '^#' requirements.txt | xargs -n 1 uv add`
+3. Delete `requirements.txt` and the old `.venv/`
+4. Commit `uv.lock`
+
+**From setup.py**
+1. `uv init --bare`
+2. Map each `install_requires` entry with `uv add`
+3. Delete `setup.py`, `setup.cfg`, `MANIFEST.in`
+
+| Command | Action |
+|---------|--------|
+| `uv init` | New project |
+| `uv add <pkg>` | Add dependency |
+| `uv sync` | Install everything |
+| `uv run <cmd>` | Run in the venv |
+| `uv run --with <pkg>` | Ad-hoc execution |
+| `uv build` | Package for distribution |
+
+Ad-hoc example: `uv run --with requests python -c "import requests; print(requests.get('https://api.github.com').status_code)"`
+
 ## Before Migration
 
 - [ ] **Determine layout**: `src/` or flat? Configure `[tool.uv.build-backend]` if flat

@@ -1,0 +1,29 @@
+{
+  "skill_name": "agents-md",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Write an AGENTS.md for this repository",
+        "top_k": 3
+      },
+      {
+        "prompt": "Our agent context file is bloated, trim it down",
+        "top_k": 3
+      },
+      {
+        "prompt": "Add per-package agent instructions to this monorepo",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Write the README for this project",
+        "owner": "documentation"
+      },
+      {
+        "prompt": "Create a new skill following the spec",
+        "owner": "skill-creator"
+      }
+    ]
+  }
+}

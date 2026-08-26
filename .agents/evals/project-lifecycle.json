@@ -18,11 +18,11 @@
     "negative": [
       {
         "prompt": "Draft the pull request body for this branch",
-        "owner": "pr-delivery"
+        "owner": "finishing-dev"
       },
       {
         "prompt": "Write the architecture decision record",
-        "owner": "software-architecture"
+        "owner": "documentation"
       }
     ]
   }

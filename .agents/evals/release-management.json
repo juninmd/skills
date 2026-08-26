@@ -18,7 +18,7 @@
     "negative": [
       {
         "prompt": "Write the PR description for this branch",
-        "owner": "pr-delivery"
+        "owner": "finishing-dev"
       },
       {
         "prompt": "Set up the deployment pipeline in GitHub Actions",

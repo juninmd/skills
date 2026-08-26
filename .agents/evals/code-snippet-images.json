@@ -1,0 +1,29 @@
+{
+  "skill_name": "code-snippet-images",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Turn this function into a shareable image for the slide deck",
+        "top_k": 3
+      },
+      {
+        "prompt": "Generate a syntax-highlighted picture of this snippet for the README",
+        "top_k": 3
+      },
+      {
+        "prompt": "Make a carbon-style code image for the release notes",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Take a screenshot of the running app",
+        "owner": "screenshot-capture"
+      },
+      {
+        "prompt": "Render the architecture diagram as a PNG",
+        "owner": "diagrams-as-code"
+      }
+    ]
+  }
+}

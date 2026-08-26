@@ -1,0 +1,29 @@
+{
+  "skill_name": "session-learnings",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Record what we learned in this session",
+        "top_k": 3
+      },
+      {
+        "prompt": "Promote the recurring lessons into the project context file",
+        "top_k": 3
+      },
+      {
+        "prompt": "Start tracking learnings across our sessions in this repo",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "We are running out of context, prune the session",
+        "owner": "context-engineering"
+      },
+      {
+        "prompt": "Check whether this library guidance is still current",
+        "owner": "docs-verification"
+      }
+    ]
+  }
+}

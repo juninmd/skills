@@ -87,7 +87,7 @@ skill; it is a document that happens to have frontmatter. Once a skill is
 selected its whole body enters context, so an unbounded tier-2 turns one routing
 decision into a third of a context window.
 
-The 400-word rule and the 700-token ceiling are the reason this column stays
+The 1000-word rule and the 1650-token ceiling are the reason this column stays
 flat here. That is the practice most worth copying from this repo.
 
 ## Finding 3 — nobody tests routing, and the spec is widely violated
@@ -200,14 +200,14 @@ touched. It failed immediately, on two real defects:
 ERROR: knowledge-freshness: 'Is this framework version approaching end of life'
        ranks 5 (needs top 3); winner was 'webapp-testing'
 ERROR: project-lifecycle: must not win 'Draft the pull request body for this branch'
-       (belongs to 'pr-delivery')
+       (belongs to 'finishing-dev')
 ```
 
 The first: the description said "EOL detection". No user types "EOL", so the
 skill was unreachable for its own headline use case. The second:
 `project-lifecycle` advertised "branches, and pull requests" and
 "branch completion, and delivery documentation", which stole prompts belonging
-to `pr-delivery`.
+to `finishing-dev`.
 
 Both were fixed in the descriptions, not the prompts.
 

@@ -1,0 +1,29 @@
+{
+  "skill_name": "masonry-layouts",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Build a Pinterest style grid where cards have different heights",
+        "top_k": 3
+      },
+      {
+        "prompt": "My cards are splitting across columns in the gallery",
+        "top_k": 3
+      },
+      {
+        "prompt": "The image grid jumps around while photos load",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Set up the design tokens and spacing scale",
+        "owner": "frontend-design"
+      },
+      {
+        "prompt": "Define the loading and empty states for this screen",
+        "owner": "ui-state-design"
+      }
+    ]
+  }
+}

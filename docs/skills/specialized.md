@@ -19,7 +19,7 @@ Use the narrowest domain that owns the outcome:
 | Test web apps in a real browser | `webapp-testing` |
 | Generate docx/xlsx/pptx/pdf | `document-generation` |
 | Author new agent skills | `skill-creator` |
-| Branch, commit, push, and open a PR | `pr-delivery` |
+| Branch, commit, push, and open a PR | `finishing-dev` |
 | Map an unfamiliar codebase | `codebase-mapping` |
 | Manage agent context and tokens | `context-engineering` |
 | Collect data from websites | `web-scraping` |

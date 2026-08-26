@@ -6,32 +6,84 @@ description: |
 
 # Stage 5 — Finalize
 
-## Contract
-- Entry: a shipped PR and `.workflow/<slug>/progress.md`.
-- Output: `evidence.md` with both critiques, refutations, fixes, and gate results.
-- Unattended stage; advance to `phase-done` when the diff is production-ready.
+## Preflight
+```bash
+git diff --stat <base>...HEAD
+git diff <base>...HEAD | rg -n 'console\.log|debugger|TODO|XXX|FIXME'   # debris before review
+```
 
-## Workflow
-1. Run two independent reviewers over the full PR diff with different lenses — correctness and regressions versus security, ops, and API contract.
-2. Have each reviewer attempt to refute the other's findings with evidence from the code. Drop refuted findings; keep survivors.
-3. Rank survivors as blocking, should-fix, or note.
-4. Fix blocking and should-fix items inside the same PR; leave notes as PR comments rather than silent scope creep.
-5. Re-read the final diff: remove debug output, stray comments, and anything the plan did not call for.
-6. Run the full gate — format, lint, type check, unit and integration tests, build — and capture the commands and output.
-7. Re-verify every acceptance criterion from `research.md`; each passes or is explicitly deferred.
-8. Check secrets, authz boundaries, migrations, backward compatibility, and observability.
-9. Write `evidence.md` and set `stage: "done"`.
+Both review passes run over the **full** PR diff, not over the last commit.
+
+## Contract
+- **Entry:** a shipped pull request and `.workflow/<slug>/progress.md`.
+- **Output:** `evidence.md` — both critiques, the refutations, the fixes, and the gate results.
+- **Unattended:** advance to `phase-done` when the diff is production-ready.
+
+## The Adversarial Pass
+Two reviews that agree prove only that they share a blind spot. Making each refute the other is what separates a real finding from a plausible one.
+
+| Step | Do |
+|---|---|
+| 1 | `expert-review` pass A: correctness and regressions |
+| 2 | `expert-review` pass B: security, operations, API contract |
+| — | The two passes **never see each other's output** while reviewing |
+| 3 | Feed each pass the other's findings; each must refute with evidence **from the code** |
+| 4 | Drop refuted findings. Keep survivors. |
+| 5 | Rank survivors: blocking · should-fix · note |
+
+No finding is accepted **or** dismissed without a refutation attempt. "Both reviewers flagged it" is not proof; both may be reading the same wrong assumption.
+
+## Disposition
+
+| Rank | Means | Action |
+|---|---|---|
+| Blocking | data loss, security, broken contract, broken build | fix in this PR |
+| Should-fix | wrong behavior on a real path, or untested risk | fix in this PR |
+| Note | preference, or debt this change did not create | PR comment, never a silent fix |
+
+Fixing a "note" quietly is scope creep with good intentions, and it makes the diff unreviewable.
+
+## The Full Gate
+Capture the commands **and** their output into `evidence.md`. A gate whose output you cannot show did not run.
+
+```bash
+pnpm format --check && pnpm lint && pnpm typecheck
+pnpm test --run && pnpm test:integration
+pnpm build
+```
+
+Then re-read the final diff and remove what the plan never called for: debug output, commented-out attempts, stray `console.log`, a rename that crept in.
+
+## Final Sweep
+
+| Check | Looking for |
+|---|---|
+| Secrets | anything in the diff, the logs, or the PR body |
+| Authorization | a new route or field without its check |
+| Migrations | destructive DDL, or one that cannot be rolled back |
+| Backward compatibility | N-1 still works during the rollout |
+| Observability | a new failure path with no log, metric, or trace |
+| Acceptance criteria | every one from `plan.md`, passed or explicitly deferred |
+
+`plan.md` supersedes `research.md` — and name any `research.md` criterion the plan dropped, so the drop is visible rather than lost.
+
+## Stop
+- A gate is red. Report it verbatim; never claim done while one is failing.
+- A finding was accepted or dismissed without a refutation attempt. Agreement is not proof.
+- A fix would reach outside the reviewed scope. Stop — it restarts the review that just finished.
 
 ## Rules
-- No finding is accepted or dismissed without a refutation attempt; agreement between reviewers is not proof.
-- Report red gates verbatim; never claim done while one is failing.
-- Fixes stay inside the reviewed scope.
-- Secrets stay out of commits, logs, and summaries.
+- Report red gates verbatim. Never claim done while one is failing, and never summarize a failure into something that sounds smaller.
+- Fixes stay inside the reviewed scope. A fix outside it restarts the review that just finished.
+- Secrets stay out of commits, logs, and summaries — including the evidence file.
+- State residual risk explicitly. A finalize pass that found nothing and says nothing about what remains untested is not finished.
 
 ## Checklist
-- [ ] Two independent critiques run with different lenses.
-- [ ] Each finding survived or was refuted with evidence.
-- [ ] Blocking and should-fix items resolved in the PR.
-- [ ] Full gate run with output captured in `evidence.md`.
-- [ ] Acceptance criteria passed or explicitly deferred.
+- [ ] `expert-review` run twice, blind to each other, on the two lenses.
+- [ ] Every finding either survived a refutation attempt or was dropped with a reason.
+- [ ] Survivors ranked; blocking and should-fix resolved in this PR; notes left as comments.
+- [ ] Final diff re-read; debug output and unplanned changes removed.
+- [ ] Full gate run with commands and output captured in `evidence.md`.
+- [ ] Secrets, authorization, migrations, compatibility, and observability all swept.
+- [ ] Every `plan.md` acceptance criterion passed or explicitly deferred; dropped criteria named.
 - [ ] Residual risk stated.

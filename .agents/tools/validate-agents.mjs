@@ -3,6 +3,10 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { readSkill } from "./skill-metadata.mjs";
 
+// A body long enough to skim past is a body an agent will skim past. The
+// ceiling is a ratchet: raise it deliberately, never to fit one more paragraph.
+export const WORD_BUDGET = 1000;
+
 // The Agent Skills spec allows six top-level keys. Restricting the catalog to
 // name/description is a house style, not the spec, and it rejected valid skills
 // imported from other catalogs. Accept the full set and validate each one.
@@ -77,13 +81,23 @@ export function validateSkill(skillDirectory) {
     errors.push(`${skillName}: allowed-tools must be a string or a list of tool names`);
   }
 
-  if (!/^## Checklist\s*$/m.test(text)) {
-    errors.push(`${skillName}: body is missing '## Checklist'`);
+  // The house structure. Each of these is the difference between a procedure an
+  // agent can execute and advice it already knows: state established before
+  // acting, a lookup instead of a paragraph, the real invocation instead of a
+  // description of one, the conditions that halt the work, and a verifiable end.
+  for (const [pattern, missing] of [
+    [/^## Preflight\s*$/m, "'## Preflight' — the checks that establish state before acting"],
+    [/^## Stop\s*$/m, "'## Stop' — the conditions that halt the work and get reported"],
+    [/^## Checklist\s*$/m, "'## Checklist' — the verifiable end state"],
+    [/^```/m, "a command block — show the real invocation, not a description of it"],
+    [/^\|.+\|\s*$/m, "a decision table — symptom to action, or option to tradeoff"],
+  ]) {
+    if (!pattern.test(text)) errors.push(`${skillName}: body is missing ${missing}`);
   }
 
   const wordCount = text.trim().split(/\s+/).length;
-  if (wordCount > 400) {
-    errors.push(`${skillName}: ${wordCount} words exceeds the 400-word budget`);
+  if (wordCount > WORD_BUDGET) {
+    errors.push(`${skillName}: ${wordCount} words exceeds the ${WORD_BUDGET}-word budget`);
   }
 
   for (const match of text.matchAll(/\[[^\]]+\]\(([^)]+)\)/g)) {
@@ -143,14 +157,44 @@ function findOrphanReferences(skillName, skillText, referencesRoot) {
     );
 }
 
+/**
+ * A skill that never names a sibling cannot route away from itself, so it
+ * quietly absorbs work a sharper skill owns. `skill-creator` states the rule;
+ * nothing enforced it, and 22 of 65 skills had drifted out of compliance.
+ * Names are matched in backticks, the convention the catalog already uses.
+ */
+export function checkSiblingHandoffs(skillsRoot) {
+  const names = fs
+    .readdirSync(skillsRoot, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => entry.name);
+  const known = new Set(names);
+  const errors = [];
+  for (const name of names) {
+    const file = path.join(skillsRoot, name, "SKILL.md");
+    if (!fs.existsSync(file)) continue;
+    const body = fs.readFileSync(file, "utf8");
+    const cites = [...body.matchAll(/`([a-z0-9-]+)`/g)].some(
+      (match) => match[1] !== name && known.has(match[1]),
+    );
+    if (!cites) {
+      errors.push(`${name}: body names no sibling skill to hand work to`);
+    }
+  }
+  return errors;
+}
+
 export function validateSkillsRoot(agentsRoot) {
   const skillsRoot = path.join(agentsRoot, "skills");
   if (!fs.existsSync(skillsRoot)) return [`Missing skills directory: ${skillsRoot}`];
 
-  return fs
-    .readdirSync(skillsRoot, { withFileTypes: true })
-    .filter((entry) => entry.isDirectory())
-    .flatMap((entry) => validateSkill(path.join(skillsRoot, entry.name)));
+  return [
+    ...fs
+      .readdirSync(skillsRoot, { withFileTypes: true })
+      .filter((entry) => entry.isDirectory())
+      .flatMap((entry) => validateSkill(path.join(skillsRoot, entry.name))),
+    ...checkSiblingHandoffs(skillsRoot),
+  ];
 }
 
 function main() {
