@@ -35,7 +35,28 @@ git remote -v && git remote show origin | grep 'HEAD branch'
 | Stale local branches | `git fetch --prune && git branch -vv \| grep ': gone]'` | `--prune` only drops remote-tracking refs, not your local branches |
 | Cherry-pick lands broken | `git cherry-pick -x <sha>` | `-x` records the origin; without it the duplicate is untraceable |
 
+## Conflicts: Resolve By Intent
+A conflict is two intents meeting, not two texts. Picking a side is a coin flip that compiles.
+
+```bash
+git log --merge -p -- <path>        # only the commits from both sides that touch this file
+git log --oneline HEAD..MERGE_HEAD  # what the incoming side was trying to do
+git diff --diff-filter=U --name-only  # exactly what is still unresolved
+```
+
+| Conflict shape | Resolve by |
+|---|---|
+| Both sides changed the same line for different reasons | Apply **both** intents; neither side is redundant |
+| One side deleted, the other edited | Read why it was deleted; a delete that lost is usually a revert waiting |
+| Rename against edit | `git log --follow` the new path, then replay the edit onto it |
+| Lockfile or generated file | Never hand-merge — take one side and regenerate |
+| Import or list block | Take the union, then let the formatter settle order |
+| The same conflict on every replayed commit | `git config rerere.enabled true`, then review each replay |
+
+Verify with build and tests **before** `git rebase --continue`, and never `--skip`, which silently drops the commit.
+
 ## Stop
+- A conflict is resolved by picking a side without reading why the other side existed.
 - The rewrite would touch a commit already on the remote. Stop and get explicit confirmation.
 - A destructive command has an unset or unverified target. Bind it and dry-run first.
 - Work appears lost. Check `git reflog` and `git fsck --lost-found` before concluding anything is gone.
@@ -43,7 +64,6 @@ git remote -v && git remote show origin | grep 'HEAD branch'
 ## Rules
 - Never rewrite pushed history without explicit confirmation.
 - Never `git push --force`. Fetch first, then `--force-with-lease --force-if-includes`: the lease only compares your remote-tracking ref, so an uninspected fetch makes it pass while overwriting unseen work.
-- On a rebase conflict, resolve each path toward the final intent, keep the change minimal, verify with build and tests, then `git rebase --continue`; never `--skip`, which silently drops the commit.
 - Two branches checked out at once (bisect, hotfix, comparing builds): `git worktree add ../<dir> <branch>` instead of stashing; clean up with `git worktree remove`; never point two worktrees at one branch.
 - Prefer `git stash push --include-untracked` and keep stashes short-lived — an unnamed stash is unrecoverable context after a week.
 - Submodules: update `--init --recursive`, pin by commit, never orphan the pointer. A submodule bump is a content change and belongs in its own commit.

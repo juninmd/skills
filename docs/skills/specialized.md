@@ -29,3 +29,8 @@ Use the narrowest domain that owns the outcome:
 | Check latest versions and upgrades | `knowledge-freshness` |
 
 When two skills apply, load the outcome-owning skill first and use the second only for its specialist checks.
+| Fan work out to parallel subagents | `parallel-subagents` |
+| Fix drifting names and write a glossary | `domain-modeling` |
+| Hand unfinished work to the next session | `session-handoff` |
+| Draw a plain-text figure for a write-up | `ascii-figures` |
+| Hand manual steps to a human and verify | `human-step-wizard` |

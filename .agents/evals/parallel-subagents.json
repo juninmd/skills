@@ -1,0 +1,29 @@
+{
+  "skill_name": "parallel-subagents",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Split this work across several concurrent workers and merge the results",
+        "top_k": 3
+      },
+      {
+        "prompt": "Can I fan out these independent fixes to subagents running in parallel",
+        "top_k": 3
+      },
+      {
+        "prompt": "Write the brief each parallel worker gets so they do not collide on the same files",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Design the tool schemas and guardrails for our agent runtime",
+        "owner": "agent-engineering"
+      },
+      {
+        "prompt": "This session is running out of context, what should I keep loaded",
+        "owner": "context-engineering"
+      }
+    ]
+  }
+}

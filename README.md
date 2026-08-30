@@ -4,7 +4,7 @@
 
 <h3>Compact engineering skills with focused procedures and reproducible checks.</h3>
 
-<p><strong>65 skills · 4 agents · 4 prompts</strong> for coding assistants that inspect first, change narrowly, and finish with evidence.</p>
+<p><strong>70 skills · 4 agents · 4 prompts</strong> for coding assistants that inspect first, change narrowly, and finish with evidence.</p>
 
 </div>
 
@@ -15,7 +15,7 @@ Generic skill catalogs often fail in two ways:
 - Many narrow skills overlap and waste context.
 - Broad skills contain generic advice, stale links, or no executable workflow.
 
-This catalog uses 65 domain skills. Every skill has:
+This catalog uses 70 domain skills. Every skill has:
 
 - Frontmatter limited to the fields the Agent Skills spec allows.
 - A description that states what the skill does and when to use it.
@@ -54,6 +54,7 @@ git submodule add https://github.com/juninmd/skills .agents
 | `agent-engineering` | agent loops, tool schemas, handoffs, prompt-injection defenses, tracing, and agent evaluations |
 | `agents-md` | writing or trimming AGENTS.md, per-package context in a monorepo, and pointer files keeping one source of truth |
 | `api-design` | the OpenAPI contract for a public REST API, resource modeling, request and response shapes, versioning, pagination, idempotency, error envelopes, breaking-change review, and deprecation policy |
+| `ascii-figures` | sketching a flow, a timeline, a before-and-after, or a hierarchy where no renderer is guaranteed |
 | `backend-node` | NestJS modules and dependency injection, pnpm workspaces, strict TypeScript, REST or GraphQL APIs, DTO validation, tests, builds, and API contracts |
 | `backend-python` | uv and pyproject setup, Ruff, typed Python, Pydantic v2, async boundaries, pytest, and Alembic integration |
 | `backend-systems` | APIs, concurrency, cancellation, error handling, EF Core, resource lifetimes, performance-sensitive code, tests, and builds |
@@ -73,12 +74,14 @@ git submodule add https://github.com/juninmd/skills .agents
 | `docs-verification` | checking if a library API, config, or best practice is outdated, reading docs before answering, and updating stale local knowledge |
 | `document-generation` | docx, xlsx, pptx, and pdf creation, templating, tables, charts, formatting, and document extraction |
 | `documentation` | project onboarding docs, OpenAPI-derived reference, decision records, release notes, and doc drift prevention |
+| `domain-modeling` | a glossary, naming a concept, the same thing called three names, business terms that do not match the types, and writing CONTEXT.md so people and tools share one language |
 | `electron-architecture` | process boundaries, inter-process messaging, preload bridges, context isolation, sandboxing, native OS integration, and desktop startup cost |
 | `expert-review` | pull-request review, design review, plan stress-testing, risk analysis, and evidence-based findings |
 | `finishing-dev` | finishing development work, drafting the pull request body and summarizing what changed, GitHub CLI, and delivery evidence |
 | `frontend-design` | layout, picking a color palette and type scale, typography, spacing, visual hierarchy, motion, and avoiding generic AI slop |
 | `frontend-engineering` | React, Next.js App Router, Vite, Tailwind, shadcn/ui, server and client boundaries, component systems, responsive layout, hydration mismatches, and keyboard behavior |
 | `git-workflow` | bisect, cherry-pick, reflog, cleaning up stale branches and worktrees, submodules, hooks, stash, rebase, amend, detached HEAD, conflict resolution, and history rewrite safety |
+| `human-step-wizard` | browser sign-in and consent screens, two-factor enrolment, vendor dashboards, hardware, and any manual step that must be handed to a human and then verified |
 | `incident-response` | outages, error spikes, failed deploys, rollback decisions, data-integrity incidents, on-call triage, severity assessment, and corrective-action follow-up |
 | `incremental-delivery` | vertical slicing, tracer bullets, sequencing dependent work, stacked pull requests, keeping trunk releasable, and avoiding a long-lived branch or a big-bang merge |
 | `knowledge-freshness` | dependency and framework version checks before adding, upgrade planning, changelog tracking, and end-of-life dates |
@@ -90,6 +93,7 @@ git submodule add https://github.com/juninmd/skills .agents
 | `migration-engineering` | expand/contract rollouts, backfills, dual writes, codemods, framework upgrades, cutover planning, and rollback strategy |
 | `mobile-engineering` | mobile UI, lifecycle, navigation, permissions, offline behavior, accessibility, device integration, tests, and builds |
 | `observability` | structured logging, SLO/SLI definition, dashboard design, alert thresholds, tracing, log retention, and incident signal quality |
+| `parallel-subagents` | fanning out independent fixes, writing the brief each parallel worker gets, isolating writers so they cannot collide on a file, and capping the spend |
 | `performance-engineering` | slow endpoints, N+1 queries, memory leaks, event-loop blocking, load testing, and performance regressions |
 | `phase-done` | handing the pull request to human review, closing the tracking issue, filing follow-ups, and archiving the finished loop workspace |
 | `phase-finalize` | hardening a shipped pull request by making two reviewers spar over it, each refuting the other, and resolving whatever survives before code review |
@@ -103,6 +107,7 @@ git submodule add https://github.com/juninmd/skills .agents
 | `requirements-clarification` | ambiguous tickets, unstated assumptions, missing acceptance criteria, conflicting stakeholder input, undefined edge cases, and deciding what questions to ask before any planning starts |
 | `screenshot-capture` | visual evidence of a UI change, before and after layout comparisons, proving a page renders, or full-page capture of a route |
 | `security-ops` | CVE or SBOM scans, rotating a leaked credential Gitleaks found, access control, injection risk, least privilege, and zero-trust reviews |
+| `session-handoff` | pausing mid-task, passing unfinished work to a teammate or a fresh window, and recording decisions, dead ends, and the exact next command |
 | `session-learnings` | recalling context at session start, recording an error and its fix, promoting recurring lessons into project rules, or purging them |
 | `shell-operations` | rm -rf safety, permissions, timeouts, shellcheck, PSScriptAnalyzer |
 | `skill-creator` | SKILL.md authoring, frontmatter, workflow and checklist design, reference routing, token budgets, and validating skills against the spec |
@@ -162,7 +167,7 @@ pnpm run docs:build
 - Routing evals: every skill has positive and negative prompts, wins the ones it
   owns, never steals a sibling's, is reachable at all, and no two descriptions
   collide. Ratcheted at 95% rank-1 (`pnpm run evals` for the report).
-- Token budgets: tier-1 catalog ≤ 4300 tokens with a ≤ 100-token ceiling per
+- Token budgets: tier-1 catalog ≤ 4400 tokens with a ≤ 100-token ceiling per
   description, each `SKILL.md` ≤ 1650 tokens (`pnpm run tokens:report` for the
   full breakdown). The catalog grows by adding skills, never by fattening
   descriptions.
