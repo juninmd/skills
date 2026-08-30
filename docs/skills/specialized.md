@@ -34,3 +34,5 @@ When two skills apply, load the outcome-owning skill first and use the second on
 | Hand unfinished work to the next session | `session-handoff` |
 | Draw a plain-text figure for a write-up | `ascii-figures` |
 | Hand manual steps to a human and verify | `human-step-wizard` |
+| Sweep for every sibling of a fixed bug | `variant-analysis` |
+| Vet a third-party plugin or MCP server | `plugin-vetting` |

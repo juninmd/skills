@@ -7,7 +7,7 @@ description: |
 # Git Workflow
 
 ## Preflight
-Run before any mutation. Never operate on a state you have not read.
+Never operate on a state you have not read.
 
 ```bash
 git status --porcelain          # dirty? untracked?
@@ -18,8 +18,8 @@ git remote -v && git remote show origin | grep 'HEAD branch'
 
 ## Workflow
 1. Read the state above, then pick the smallest command that expresses the intent. Prefer an operation that adds history over one that rewrites it.
-2. Before any rewrite (`rebase`, `commit --amend`, `reset`, `filter-repo`), prove nothing pushed is affected: `git log --oneline origin/<base>..HEAD` lists exactly what is still local. If a commit is not in that list, rewriting it is a public history change and needs explicit confirmation.
-3. Recover before you conclude anything is lost. `git reflog` holds every position HEAD held; `git reflog show <branch>` does the same per branch, and `git fsck --lost-found` finds dangling commits a reflog expiry dropped.
+2. Before any rewrite (`rebase`, `commit --amend`, `reset`, `filter-repo`), prove nothing pushed is affected: `git log --oneline origin/<base>..HEAD` lists what is still local. A commit missing from it is public history, and rewriting that needs explicit confirmation.
+3. Recover before concluding anything is lost: `git reflog` holds every position HEAD held, `git reflog show <branch>` the same per branch, and `git fsck --lost-found` catches what a reflog expiry dropped.
 4. Bisect mechanically, never by hand: `git bisect start <bad> <good>` then `git bisect run ./script`. The script exits 0 for good, 1 for bad, and **125 for untestable** so a broken build is excluded instead of scored bad. Finish with `git bisect reset`.
 5. Verify after every operation: `git status --porcelain`, `git diff --stat`, `git log --oneline -5`.
 
@@ -28,7 +28,7 @@ git remote -v && git remote show origin | grep 'HEAD branch'
 | Symptom | Command | Trap |
 |---|---|---|
 | Committed to the wrong branch | `git switch -c right && git switch - && git reset --hard @{u}` | reset destroys uncommitted work — stash first |
-| Need to undo a published merge | `git revert -m 1 <merge-sha>` | `reset` rewrites a branch others pulled; their next push resurrects it. Re-merging later needs the revert reverted |
+| Need to undo a published merge | `git revert -m 1 <merge-sha>` | `reset` resurrects it on their next push; re-merging later needs the revert reverted |
 | Wrong file in the last commit | `git restore --staged <f> && git commit --amend` | only while unpushed |
 | Detached HEAD with real work | `git switch -c rescue` | switching away first loses the commits to gc |
 | Rebase stuck on the same conflict | `git config rerere.enabled true` before restarting | review replayed hunks; rerere replays a wrong resolution just as happily |
@@ -64,12 +64,20 @@ Verify with build and tests **before** `git rebase --continue`, and never `--ski
 ## Rules
 - Never rewrite pushed history without explicit confirmation.
 - Never `git push --force`. Fetch first, then `--force-with-lease --force-if-includes`: the lease only compares your remote-tracking ref, so an uninspected fetch makes it pass while overwriting unseen work.
-- Two branches checked out at once (bisect, hotfix, comparing builds): `git worktree add ../<dir> <branch>` instead of stashing; clean up with `git worktree remove`; never point two worktrees at one branch.
-- Prefer `git stash push --include-untracked` and keep stashes short-lived — an unnamed stash is unrecoverable context after a week.
-- Submodules: update `--init --recursive`, pin by commit, never orphan the pointer. A submodule bump is a content change and belongs in its own commit.
-- Hooks live in-repo (`.githooks/` with `core.hooksPath`), never copied into `.git/hooks`. A local hook cannot enforce a convention; pair it with a check over the branch range in CI.
-- `git clean -fdx` deletes ignored files too — `.env`, local databases, build caches. Dry-run with `-n` first, always.
+- Two branches checked out at once (bisect, hotfix, comparing builds): `git worktree add ../<dir> <branch>` instead of stashing; remove it after, and never point two worktrees at one branch.
+- Prefer `git stash push --include-untracked`; an unnamed stash is unrecoverable context after a week.
+- Submodules: update `--init --recursive` and pin by commit; a bump is a content change and belongs in its own commit.
+- Hooks live in-repo (`.githooks/` with `core.hooksPath`), never in `.git/hooks`. A local hook cannot enforce a convention — pair it with a CI check over the branch range.
+- Never `--no-verify`, and never `-c core.hooksPath=`. The hook is the gate, not a suggestion; a slow or wrong hook is a hook to fix or delete, not to route around.
+- `git clean -fdx` deletes ignored files too — `.env`, local databases, build caches. Dry-run with `-n` first.
 - Branching, committing, and opening the pull request belong to `finishing-dev`; tags and releases to `release-management`.
+
+## Excuses
+
+| Excuse | Why it is false |
+|---|---|
+| "The hook is slow, --no-verify just this once" | The gate you skip is the one that was going to catch this |
+| "Just take their side and move on" | A conflict is two intents; the side you drop was somebody solving a problem |
 
 ## Checklist
 - [ ] State read before the mutation, and re-read after it.

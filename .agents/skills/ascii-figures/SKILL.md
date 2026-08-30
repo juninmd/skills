@@ -1,7 +1,7 @@
 ---
 name: ascii-figures
 description: |
-  Decide whether a write-up needs a figure, then draw it as a plain-text block that survives a README, a pull request comment, or a terminal. Use for sketching a flow, a timeline, a before-and-after, or a hierarchy where no renderer is guaranteed.
+  Decide whether a write-up needs a figure, then draw it as a plain-text block that survives a README, a pull request comment, or a terminal. Use for sketching a sequence, a timeline, a before-and-after, or a hierarchy where no renderer is guaranteed.
 ---
 
 # ASCII Figures

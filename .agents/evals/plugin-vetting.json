@@ -1,0 +1,29 @@
+{
+  "skill_name": "plugin-vetting",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Is this third-party plugin safe to install, check it before I add it",
+        "top_k": 3
+      },
+      {
+        "prompt": "Vet this MCP server from the marketplace for hidden instructions and exfiltration",
+        "top_k": 3
+      },
+      {
+        "prompt": "Someone shared an extension with me, review what permissions it asks for before installing",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Scan our dependencies for CVEs and generate an SBOM",
+        "owner": "security-ops"
+      },
+      {
+        "prompt": "Write a new SKILL.md with proper frontmatter and a checklist",
+        "owner": "skill-creator"
+      }
+    ]
+  }
+}

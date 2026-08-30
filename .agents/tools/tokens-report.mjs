@@ -7,13 +7,11 @@ import { listSkills } from "./skill-metadata.mjs";
 export const estimateTokens = (text) => Math.ceil(text.length / 4);
 
 // Tier 1 is loaded for every conversation; keep the whole catalog cheap.
-// The global ceiling bounds the always-loaded index. The per-skill ceiling is
-// what keeps it honest: the catalog is allowed to grow by adding skills, never
-// by letting individual descriptions get fatter.
-// Ratcheted 4300 -> 4400 when the catalog grew from 65 to 70 skills. The
-// catalog is allowed to grow by adding skills; the per-skill ceiling below is
-// what stops it growing by letting descriptions get fatter.
-export const TIER1_BUDGET = 4400;
+// The global ceiling bounds the always-loaded index; it is a ratchet, moved
+// 4300 -> 4400 -> 4500 as the catalog grew from 65 to 72 skills. The per-skill
+// ceiling below is what keeps that honest: the catalog may grow by adding
+// skills, never by letting individual descriptions get fatter.
+export const TIER1_BUDGET = 4500;
 export const TIER1_PER_SKILL_BUDGET = 100;
 // Tier 2 loads on activation, so depth here costs nothing until a skill is
 // picked. This is where a skill earns the right not to be generic.

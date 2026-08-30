@@ -4,7 +4,7 @@
 
 <h3>Compact engineering skills with focused procedures and reproducible checks.</h3>
 
-<p><strong>70 skills · 4 agents · 4 prompts</strong> for coding assistants that inspect first, change narrowly, and finish with evidence.</p>
+<p><strong>72 skills · 4 agents · 4 prompts</strong> for coding assistants that inspect first, change narrowly, and finish with evidence.</p>
 
 </div>
 
@@ -15,7 +15,7 @@ Generic skill catalogs often fail in two ways:
 - Many narrow skills overlap and waste context.
 - Broad skills contain generic advice, stale links, or no executable workflow.
 
-This catalog uses 70 domain skills. Every skill has:
+This catalog uses 72 domain skills. Every skill has:
 
 - Frontmatter limited to the fields the Agent Skills spec allows.
 - A description that states what the skill does and when to use it.
@@ -54,7 +54,7 @@ git submodule add https://github.com/juninmd/skills .agents
 | `agent-engineering` | agent loops, tool schemas, handoffs, prompt-injection defenses, tracing, and agent evaluations |
 | `agents-md` | writing or trimming AGENTS.md, per-package context in a monorepo, and pointer files keeping one source of truth |
 | `api-design` | the OpenAPI contract for a public REST API, resource modeling, request and response shapes, versioning, pagination, idempotency, error envelopes, breaking-change review, and deprecation policy |
-| `ascii-figures` | sketching a flow, a timeline, a before-and-after, or a hierarchy where no renderer is guaranteed |
+| `ascii-figures` | sketching a sequence, a timeline, a before-and-after, or a hierarchy where no renderer is guaranteed |
 | `backend-node` | NestJS modules and dependency injection, pnpm workspaces, strict TypeScript, REST or GraphQL APIs, DTO validation, tests, builds, and API contracts |
 | `backend-python` | uv and pyproject setup, Ruff, typed Python, Pydantic v2, async boundaries, pytest, and Alembic integration |
 | `backend-systems` | APIs, concurrency, cancellation, error handling, EF Core, resource lifetimes, performance-sensitive code, tests, and builds |
@@ -101,6 +101,7 @@ git submodule add https://github.com/juninmd/skills .agents
 | `phase-plan` | asking every open decision in one batched questionnaire instead of one at a time, then writing the executable plan with its verification steps |
 | `phase-prototype` | building three throwaway variants A, B and C so a direction is chosen before any planning starts |
 | `phase-research` | opening the tracking issue and mapping the codebase and prior art before anything is built |
+| `plugin-vetting` | reading it at a pinned commit, hunting hidden instructions and exfiltration, sizing the permissions it asks for, and re-checking it on every version bump |
 | `project-lifecycle` | PRDs, implementation plans, issue slicing, scope cuts, GitHub backlog triage, and worktree setup for planned work |
 | `project-structure` | new repository layout, deciding where a new module should live, feature-first frontend splits, Go and Python packages, junk-drawer folders, and safe restructuring |
 | `release-management` | version bumps, conventional commits, changelog generation, release branches, and GitHub Releases |
@@ -116,6 +117,7 @@ git submodule add https://github.com/juninmd/skills .agents
 | `test-engineering` | TDD, writing the failing test before the fix, Vitest, pytest, unhappy paths, flaky tests, fixtures, mocks, fuzzing, coverage gaps, and regression benchmarks |
 | `tooling-dev` | CLI arguments, exit codes, non-interactive execution, config discovery, signals, structured output, packaging, and integration tests |
 | `ui-state-design` | loading skeletons, empty and forbidden states, error and retry, stale data, response races, offline behavior, optimistic updates, and undo |
+| `variant-analysis` | the same mistake repeated elsewhere, copy-paste propagation, a misused API, and writing the lint rule that stops the pattern from returning |
 | `web-performance` | Core Web Vitals, improving LCP, INP and CLS on a slow page, critical rendering path, image and font loading, code splitting, hydration, third-party scripts, and RUM data |
 | `web-research` | multi-source web search, search operators, fetching pages, verifying claims, resolving conflicting sources, synthesizing findings, and citing them with dates |
 | `web-scraping` | extracting listings and tables into CSV or JSON, HTML parsing, JavaScript-rendered pages, pagination, rate limiting, retries, block detection, selectors that keep breaking, and structured output |
@@ -167,7 +169,7 @@ pnpm run docs:build
 - Routing evals: every skill has positive and negative prompts, wins the ones it
   owns, never steals a sibling's, is reachable at all, and no two descriptions
   collide. Ratcheted at 95% rank-1 (`pnpm run evals` for the report).
-- Token budgets: tier-1 catalog ≤ 4400 tokens with a ≤ 100-token ceiling per
+- Token budgets: tier-1 catalog ≤ 4500 tokens with a ≤ 100-token ceiling per
   description, each `SKILL.md` ≤ 1650 tokens (`pnpm run tokens:report` for the
   full breakdown). The catalog grows by adding skills, never by fattening
   descriptions.

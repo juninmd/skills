@@ -27,6 +27,7 @@ const ALLOWED_FIELDS = new Set([
 // steps nobody is tempted to skip.
 export const EXCUSES_REQUIRED = new Set([
   "code-simplification",
+  "git-workflow",
   "human-step-wizard",
   "parallel-subagents",
   "phase-done",

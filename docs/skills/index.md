@@ -1,6 +1,6 @@
 # Skills
 
-The catalog contains 70 domain skills. They are intentionally broader than single-tool skills so the model has fewer overlapping routes, while reference files preserve depth.
+The catalog contains 72 domain skills. They are intentionally broader than single-tool skills so the model has fewer overlapping routes, while reference files preserve depth.
 
 For optimization order and real development casebooks, see [Practical Skill Priorities](./practical-priorities.md).
 
@@ -9,8 +9,8 @@ For optimization order and real development casebooks, see [Practical Skill Prio
 | Backend | `backend-node`, `backend-python`, `backend-systems` |
 | Frontend | `frontend-engineering`, `frontend-design`, `design-systems`, `ui-state-design`, `accessibility`, `web-performance` |
 | Mobile | `mobile-engineering` |
-| Infrastructure | `cloud-devops`, `security-ops`, `incident-response`, `cost-engineering` |
-| Quality | `diagnostics`, `expert-review`, `test-engineering`, `performance-engineering`, `webapp-testing`, `code-simplification`, `legacy-refactoring` |
+| Infrastructure | `cloud-devops`, `security-ops`, `incident-response`, `cost-engineering`, `plugin-vetting` |
+| Quality | `diagnostics`, `expert-review`, `test-engineering`, `performance-engineering`, `webapp-testing`, `code-simplification`, `legacy-refactoring`, `variant-analysis` |
 | Architecture | `software-architecture`, `agent-engineering`, `codebase-mapping`, `context-engineering`, `api-design`, `mcp-integration`, `caching-strategy`, `parallel-subagents`, `domain-modeling` |
 | Data | `data-engineering`, `sql-authoring`, `migration-engineering` |
 | Observability | `observability` |

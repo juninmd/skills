@@ -395,6 +395,7 @@
     "scriptable",
     "scriptblock",
     "sdist",
+    "semgrep",
     "sessionmaker",
     "setattr",
     "sharesheet",
