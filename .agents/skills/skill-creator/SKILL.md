@@ -45,10 +45,13 @@ A workflow alone is generic. What makes a skill non-generic is the material the 
 | Command block | the real invocation, with the flags that matter | **yes**, at least one |
 | Trap table | the failure that looks like success | where the value usually is |
 | `## Stop` | the conditions that halt the work and get reported | **yes** |
+| `## Excuses` | excuse → why it is false | high-risk skills only |
 | `## Rules` | judgment specific to this domain | **yes** |
 | `## Checklist` | verifiable end state, not intentions | **yes** |
 
 The six marked required are enforced by `validate-agents.mjs`. A skill without them is a blog post the model already knows.
+
+Add `## Excuses` where the failure mode is **talking yourself out of a known step** — skipping the failing test, deleting on a clean grep, merging past an open comment. Another rule does not help; the rule was never missing. Phrase each excuse as it would be said, then the line that kills it. Opt in via `EXCUSES_REQUIRED`.
 
 ## Budgets
 

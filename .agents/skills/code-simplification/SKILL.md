@@ -66,6 +66,16 @@ Shorter is not automatically simpler. A clever one-liner trades reading time for
 - Measure branching rather than eyeballing length: a 200-line function with no branches reads fine; a 40-line one with eight independent conditions does not.
 - A diff that both simplifies and moves files is unreviewable. Land the move separately — `project-structure` owns it.
 
+## Excuses
+
+| Excuse | Why it is false |
+|---|---|
+| "Nothing covers it, so it must be dead" | Untested and unused are different claims; only the second justifies deletion |
+| "`rg` found no callers" | String dispatch, DI, reflection, feature flags, and monthly jobs do not grep |
+| "I will simplify while I am in here fixing the bug" | A diff that both fixes and simplifies proves neither to the reviewer |
+| "There are two call sites now, extract it" | The second one is usually coincidence; wait for the third |
+| "The one-liner is shorter, so it is simpler" | Reading happens far more often than writing |
+
 ## Checklist
 - [ ] Behavior covered by tests before the first edit; tests untouched throughout.
 - [ ] Every deletion proven dead across callers, strings, exports, flags, and scheduled work.

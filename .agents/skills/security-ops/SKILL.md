@@ -72,6 +72,16 @@ Blocking a merge on everything is how scanners get switched off. Split deliberat
 - Prefer short-lived identity (OIDC, workload identity) over stored credentials; a rotated long-lived secret is still a long-lived secret.
 - A live breach runs through `incident-response` first — a fast rollback destroys the evidence. Pipeline and infrastructure changes land through `cloud-devops`.
 
+## Excuses
+
+| Excuse | Why it is false |
+|---|---|
+| "It is a private repo" | Private today; forked, mirrored, or cloned yesterday. Check visibility before deciding anything |
+| "That key is low privilege" | Privilege is what the credential reaches, not what it was named for. Blast radius first |
+| "I will rewrite history and it is gone" | Everyone who already cloned still has it. Revoke, then rotate, then clean |
+| "It is only in a test fixture" | A credential in a fixture is a credential |
+| "The scanner rated it low" | Severity without reachability is a guess, in either direction |
+
 ## Checklist
 - [ ] Assets and trust boundaries identified before anything was rated.
 - [ ] Leaked-secret blast radius established, then revoke → rotate → purge, in that order.

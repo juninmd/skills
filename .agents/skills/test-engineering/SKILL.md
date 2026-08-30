@@ -76,6 +76,15 @@ Do not retry a flaky test — retrying hides a real bug about half the time. Att
 - Prefer a real containerized dependency over an in-memory substitute when fidelity to production matters — an in-memory SQLite that accepts SQL Postgres rejects is a false green.
 - Benchmarks need warmup, stable inputs, multiple samples, and a before/after comparison; report medians and tails, never a single run.
 
+## Excuses
+
+| Excuse | Why it is false |
+|---|---|
+| "This behavior is too obvious to test" | The test exists to fail when the rule changes, not to prove what you already know |
+| "I will add the test after the fix lands" | A test never seen failing asserts nothing; write it first and watch it fail for the intended reason |
+| "It only fails in CI, so it is a CI problem" | Order, seed, and concurrency are the product's problem — reproduce with `--sequence.shuffle` |
+| "Coverage is at 90%, that is enough" | Coverage grades what ran, not what was asserted; mutation grades the assertions |
+
 ## Checklist
 - [ ] The test failed first, for the intended reason.
 - [ ] Level chosen for the contract under test; the subject is not mocked.

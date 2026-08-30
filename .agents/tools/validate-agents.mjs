@@ -19,6 +19,21 @@ const ALLOWED_FIELDS = new Set([
   "compatibility",
 ]);
 
+// Skills where the failure mode is the agent talking itself out of a step it
+// knows about — skipping the failing test, deleting on a clean grep, merging
+// past an open comment. For those, an `## Excuses` table (excuse -> why it is
+// false) is worth more than another rule, because the rule was never the part
+// that was missing. Opt-in by name: the block is dead weight in a skill whose
+// steps nobody is tempted to skip.
+export const EXCUSES_REQUIRED = new Set([
+  "code-simplification",
+  "human-step-wizard",
+  "parallel-subagents",
+  "phase-done",
+  "security-ops",
+  "test-engineering",
+]);
+
 export function validateSkill(skillDirectory) {
   const errors = [];
   const skillName = path.basename(skillDirectory);
@@ -93,6 +108,12 @@ export function validateSkill(skillDirectory) {
     [/^\|.+\|\s*$/m, "a decision table — symptom to action, or option to tradeoff"],
   ]) {
     if (!pattern.test(text)) errors.push(`${skillName}: body is missing ${missing}`);
+  }
+
+  if (EXCUSES_REQUIRED.has(skillName) && !/^## Excuses\s*$/m.test(text)) {
+    errors.push(
+      `${skillName}: body is missing '## Excuses' — the table of excuses for skipping a step, and why each is false`,
+    );
   }
 
   const wordCount = text.trim().split(/\s+/).length;

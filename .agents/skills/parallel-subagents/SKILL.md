@@ -71,6 +71,16 @@ git worktree remove ../wt-slice-a           # after the merge, always
 - The orchestrator does not also do a slice. Split attention loses reports.
 - Building the agent runtime, its tool schemas, or its guardrails is a different job — that is `agent-engineering`.
 
+## Excuses
+
+| Excuse | Why it is false |
+|---|---|
+| "The slices barely overlap" | One shared file is a merge conflict you scheduled on purpose |
+| "The worker reported it finished" | A report is a claim; the diff and the test run are the evidence |
+| "More workers means it lands sooner" | Cost scales with workers; wall-clock only scales with disjoint slices |
+| "That slice failed, send a fresh worker" | Re-dispatching without reading the failure repeats the brief that caused it |
+| "I will cut the slices as I go" | A slice you cannot name yet is not a slice |
+
 ## Checklist
 - [ ] Slices named, disjoint by file, and cut before any worker launched.
 - [ ] Every writing worker isolated in its own worktree or branch; worktrees removed after merge.

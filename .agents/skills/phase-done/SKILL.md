@@ -83,6 +83,15 @@ Facts, not a diary. Non-obvious constraints, workflow exceptions, mistakes worth
 - No merge, branch deletion, or file removal without explicit confirmation.
 - Merge is the human's decision. This stage hands over; it does not finish the job on its own authority.
 
+## Excuses
+
+| Excuse | Why it is false |
+|---|---|
+| "CI is green, so it shipped" | Green checks are not a destination. Verify merged, deployed, or handed over |
+| "I will file the follow-ups later" | A follow-up nobody filed is a silent decision to drop it |
+| "The comment is minor, I will merge and address it after" | This stage hands over; it does not decide. Never self-approve |
+| "The scratch files are harmless" | They are the next session's false context |
+
 ## Checklist
 - [ ] Pull request handed to human review with `awaiting: "review"` set; merge left to the human.
 - [ ] Delivered state verified at its destination after merge, not assumed.

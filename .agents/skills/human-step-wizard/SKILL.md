@@ -65,6 +65,16 @@ step 2 'Copy the client id into .env as VENDOR_CLIENT_ID (never paste it here)' 
 - Time-box the human. If a step needs a support ticket or an approval queue, say so up front instead of blocking on it.
 - Automate the step the second the vendor ships an API. Track it as debt, not as documentation.
 
+## Excuses
+
+| Excuse | Why it is false |
+|---|---|
+| "There is no API for this" | Check the vendor CLI and its `--help` first; most manual steps are one flag away |
+| "They said they did it" | A person's "done" is a claim like any other. Run the check |
+| "A verification for this step is hard to write" | Then the outcome is unverified — say so plainly instead of implying it worked |
+| "Just paste the token here and I will use it" | Never. Environment variable or secret store, always |
+| "It is one click in the console" | A repeated production click is missing automation, not a wizard |
+
 ## Checklist
 - [ ] Every remaining step proven to have no automated path.
 - [ ] One action per step, with the exact URL or menu path.

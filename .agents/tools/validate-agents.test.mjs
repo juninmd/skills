@@ -3,7 +3,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import test from "node:test";
-import { validateSkill, checkSiblingHandoffs } from "./validate-agents.mjs";
+import { validateSkill, checkSiblingHandoffs, EXCUSES_REQUIRED } from "./validate-agents.mjs";
 
 function createSkill(contents, references = {}) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "skill-validator-"));
@@ -231,4 +231,26 @@ test("a body missing any house section is reported", () => {
       e.includes("a decision table"),
     ),
   );
+});
+
+test("a high-risk skill without an Excuses table fails", () => {
+  const name = [...EXCUSES_REQUIRED][0];
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), "skill-validator-"));
+  const directory = path.join(root, name);
+  fs.mkdirSync(directory);
+  const body = validSkill
+    .replace("name: sample-skill", `name: ${name}`)
+    .replace("See [guide](references/guide.md).\n\n", "");
+
+  fs.writeFileSync(path.join(directory, "SKILL.md"), body);
+  assert.deepEqual(validateSkill(directory), [
+    `${name}: body is missing '## Excuses' — the table of excuses for skipping a step, and why each is false`,
+  ]);
+
+  const withExcuses = body.replace(
+    "## Checklist",
+    "## Excuses\n\n| Excuse | Why it is false |\n|---|---|\n| \"later\" | later never arrives |\n\n## Checklist",
+  );
+  fs.writeFileSync(path.join(directory, "SKILL.md"), withExcuses);
+  assert.deepEqual(validateSkill(directory), []);
 });
