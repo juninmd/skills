@@ -1,0 +1,14 @@
+{
+  "skill_name": "goldsrc-map-compiling",
+  "trigger": {
+    "positive": [
+      { "prompt": "hlcsg fails with could not open wad file", "top_k": 3 },
+      { "prompt": "My compiled map is fullbright, what did I miss", "top_k": 3 },
+      { "prompt": "Run the ZHLT compile tools on Windows through Docker", "top_k": 3 }
+    ],
+    "negative": [
+      { "prompt": "Edit the entity lump of a bsp I have no source for", "owner": "goldsrc-bsp-maintenance" },
+      { "prompt": "How do I wind the planes of a brush correctly", "owner": "goldsrc-map-authoring" }
+    ]
+  }
+}
