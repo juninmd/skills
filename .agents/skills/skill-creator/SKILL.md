@@ -60,7 +60,7 @@ Add `## Excuses` where the failure mode is **talking yourself out of a known ste
 | Body words | 1000 | `validate-agents.mjs` |
 | Body tokens | 1650 | `tokens-report.mjs` |
 | Description tokens | 100 (1024 chars is the spec limit) | `tokens-report.mjs` |
-| Catalog tier-1 total | 4500 | `tokens-report.mjs` |
+| Catalog tier-1 total | 5100 | `tokens-report.mjs` |
 
 Tier 2 loads only on activation, so depth in the body costs nothing until the skill is picked. Tier 1 is re-sent every turn — that is the budget to defend.
 

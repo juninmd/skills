@@ -1,7 +1,7 @@
 ---
 name: codebase-mapping
 description: |
-  Map an unfamiliar codebase before changing it: entry points, modules, data flow, and conventions. Use for onboarding to a new repository, understanding how it is organized, locating the code that owns a behavior, and dependency graphs.
+  Map an unfamiliar codebase before changing it: entry points, modules, data flow, and conventions. Use for onboarding to a new repository, getting a quick map of an unfamiliar repo before touching it, understanding how it is organized, locating the code that owns a behavior, and dependency graphs.
 ---
 
 # Codebase Mapping

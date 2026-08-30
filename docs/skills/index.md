@@ -1,6 +1,6 @@
 # Skills
 
-The catalog contains 72 domain skills. They are intentionally broader than single-tool skills so the model has fewer overlapping routes, while reference files preserve depth.
+The catalog contains 80 domain skills. They are intentionally broader than single-tool skills so the model has fewer overlapping routes, while reference files preserve depth.
 
 For optimization order and real development casebooks, see [Practical Skill Priorities](./practical-priorities.md).
 
@@ -9,15 +9,16 @@ For optimization order and real development casebooks, see [Practical Skill Prio
 | Backend | `backend-node`, `backend-python`, `backend-systems` |
 | Frontend | `frontend-engineering`, `frontend-design`, `design-systems`, `ui-state-design`, `accessibility`, `web-performance` |
 | Mobile | `mobile-engineering` |
-| Infrastructure | `cloud-devops`, `security-ops`, `incident-response`, `cost-engineering`, `plugin-vetting` |
+| Infrastructure | `cloud-devops`, `security-ops`, `incident-response`, `cost-engineering`, `plugin-vetting`, `deploy-ghcr-manual`, `deploy-sync-guard` |
 | Quality | `diagnostics`, `expert-review`, `test-engineering`, `performance-engineering`, `webapp-testing`, `code-simplification`, `legacy-refactoring`, `variant-analysis` |
 | Architecture | `software-architecture`, `agent-engineering`, `codebase-mapping`, `context-engineering`, `api-design`, `mcp-integration`, `caching-strategy`, `parallel-subagents`, `domain-modeling` |
 | Data | `data-engineering`, `sql-authoring`, `migration-engineering` |
 | Observability | `observability` |
-| Research | `web-research`, `docs-verification`, `knowledge-freshness`, `web-scraping` |
+| Research | `web-research`, `docs-verification`, `knowledge-freshness`, `web-scraping`, `ai-ecosystem-radar` |
 | Lifecycle | `project-lifecycle`, `requirements-clarification`, `incremental-delivery`, `git-workflow`, `finishing-dev`, `release-management`, `documentation`, `session-handoff` |
 | Delivery loop | `dev-loop`, `phase-research`, `phase-prototype`, `phase-plan`, `phase-implement`, `phase-finalize`, `phase-done` |
-| Tooling | `tooling-dev`, `skill-creator`, `document-generation`, `ascii-figures`, `human-step-wizard` |
+| Tooling | `tooling-dev`, `skill-creator`, `document-generation`, `ascii-figures`, `human-step-wizard`, `headless-agent-supervision` |
+| GoldSrc mapping | `goldsrc-map-authoring`, `goldsrc-map-compiling`, `goldsrc-bsp-maintenance`, `cs16-map-gamemodes` |
 
 ## How Discovery Works
 

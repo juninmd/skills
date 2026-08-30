@@ -4,7 +4,7 @@
 
 <h3>Compact engineering skills with focused procedures and reproducible checks.</h3>
 
-<p><strong>72 skills · 4 agents · 4 prompts</strong> for coding assistants that inspect first, change narrowly, and finish with evidence.</p>
+<p><strong>80 skills · 4 agents · 4 prompts</strong> for coding assistants that inspect first, change narrowly, and finish with evidence.</p>
 
 </div>
 
@@ -15,7 +15,7 @@ Generic skill catalogs often fail in two ways:
 - Many narrow skills overlap and waste context.
 - Broad skills contain generic advice, stale links, or no executable workflow.
 
-This catalog uses 72 domain skills. Every skill has:
+This catalog uses 80 domain skills. Every skill has:
 
 - Frontmatter limited to the fields the Agent Skills spec allows.
 - A description that states what the skill does and when to use it.
@@ -53,6 +53,7 @@ git submodule add https://github.com/juninmd/skills .agents
 | `accessibility` | WCAG conformance, semantic HTML, ARIA, focus management, color contrast, reduced motion, accessible forms, and a11y regression tests |
 | `agent-engineering` | agent loops, tool schemas, handoffs, prompt-injection defenses, tracing, and agent evaluations |
 | `agents-md` | writing or trimming AGENTS.md, per-package context in a monorepo, and pointer files keeping one source of truth |
+| `ai-ecosystem-radar` | a daily or weekly radar backed by raw per-source dumps |
 | `api-design` | the OpenAPI contract for a public REST API, resource modeling, request and response shapes, versioning, pagination, idempotency, error envelopes, breaking-change review, and deprecation policy |
 | `ascii-figures` | sketching a sequence, a timeline, a before-and-after, or a hierarchy where no renderer is guaranteed |
 | `backend-node` | NestJS modules and dependency injection, pnpm workspaces, strict TypeScript, REST or GraphQL APIs, DTO validation, tests, builds, and API contracts |
@@ -62,11 +63,14 @@ git submodule add https://github.com/juninmd/skills .agents
 | `cloud-devops` | GitHub Actions deployment workflows, pipelines, Dockerfiles, Terraform or Pulumi modules, deployment safety, health checks, rollback paths, and release verification |
 | `code-simplification` | deleting dead paths, collapsing premature abstraction, removing speculative options, shortening long functions, and reviewing a diff for what could be less code |
 | `code-snippet-images` | README hero images, slide decks and PR descriptions, tuning theme, font, padding and window chrome, and capturing the export node |
-| `codebase-mapping` | onboarding to a new repository, understanding how it is organized, locating the code that owns a behavior, and dependency graphs |
+| `codebase-mapping` | onboarding to a new repository, getting a quick map of an unfamiliar repo before touching it, understanding how it is organized, locating the code that owns a behavior, and dependency graphs |
 | `context-engineering` | long sessions, context overflow, memory strategies, sliding windows, and keeping the right files in context |
 | `cost-engineering` | cutting the cloud bill, idle and orphaned resources, cost attribution, rightsizing, egress and storage tiering, caching economics, token budgets, model routing, and budget guardrails |
+| `cs16-map-gamemodes` | the as_, de_, cs_ and es_ prefixes, bomb targets, hostages, VIP escort, buy zones, spawn counts, and a round that never ends |
 | `data-analysis` | csvstat, csvlook, jq, describe, groupby, pivot tables, nulls and duplicates, and scrubbing identifiers before sharing |
 | `data-engineering` | PostgreSQL, MongoDB, Redis, query plans, indexes, locks, rollback, backups, and vector database performance |
+| `deploy-ghcr-manual` | Build a container, push it to a registry and roll it out by hand as an escape hatch, when CI cannot build at all |
+| `deploy-sync-guard` | verifying an app is deployed at the latest commit, and for the failure GitOps reports as Synced: a mutable latest tag plus a failed build, so the pod keeps old code |
 | `design-systems` | design tokens, theming and dark mode, component API and variant design, Figma-to-code parity, library documentation, and versioning a published UI package |
 | `dev-loop` | starting a loop, resuming an interrupted one, or checking which stage is waiting on you |
 | `diagnostics` | bugs, regressions, flaky tests, crashes, a service refusing connections, timeouts, DNS, ports, HTTP, TLS, and root-cause analysis |
@@ -81,6 +85,10 @@ git submodule add https://github.com/juninmd/skills .agents
 | `frontend-design` | layout, picking a color palette and type scale, typography, spacing, visual hierarchy, motion, and avoiding generic AI slop |
 | `frontend-engineering` | React, Next.js App Router, Vite, Tailwind, shadcn/ui, server and client boundaries, component systems, responsive layout, hydration mismatches, and keyboard behavior |
 | `git-workflow` | bisect, cherry-pick, reflog, cleaning up stale branches and worktrees, submodules, hooks, stash, rebase, amend, detached HEAD, conflict resolution, and history rewrite safety |
+| `goldsrc-bsp-maintenance` | ripent, editing the entity lump without recompiling, BSP30 parsing, engine limit audits, and spawn points buried inside geometry |
+| `goldsrc-map-authoring` | writing brushes, walls with door openings, plane winding, texture axes, mirrored sign text, textures tiling instead of fitting, CSG rules, and brushes that disappear |
+| `goldsrc-map-compiling` | hlcsg, hlbsp, hlvis and hlrad errors, a wad file it could not open, LEAK, AllocBlock full, a fullbright map, black outdoor shadows, and running the tools on Windows |
+| `headless-agent-supervision` | supervising an unattended batch run and for relaunch-on-401, sleep-until-reset-on-429 loops |
 | `human-step-wizard` | browser sign-in and consent screens, two-factor enrolment, vendor dashboards, hardware, and any manual step that must be handed to a human and then verified |
 | `incident-response` | outages, error spikes, failed deploys, rollback decisions, data-integrity incidents, on-call triage, severity assessment, and corrective-action follow-up |
 | `incremental-delivery` | vertical slicing, tracer bullets, sequencing dependent work, stacked pull requests, keeping trunk releasable, and avoiding a long-lived branch or a big-bang merge |
@@ -169,7 +177,7 @@ pnpm run docs:build
 - Routing evals: every skill has positive and negative prompts, wins the ones it
   owns, never steals a sibling's, is reachable at all, and no two descriptions
   collide. Ratcheted at 95% rank-1 (`pnpm run evals` for the report).
-- Token budgets: tier-1 catalog ≤ 4500 tokens with a ≤ 100-token ceiling per
+- Token budgets: tier-1 catalog ≤ 5100 tokens with a ≤ 100-token ceiling per
   description, each `SKILL.md` ≤ 1650 tokens (`pnpm run tokens:report` for the
   full breakdown). The catalog grows by adding skills, never by fattening
   descriptions.

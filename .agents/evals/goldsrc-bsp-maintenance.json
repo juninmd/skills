@@ -1,0 +1,14 @@
+{
+  "skill_name": "goldsrc-bsp-maintenance",
+  "trigger": {
+    "positive": [
+      { "prompt": "Use ripent to fix spawns in a bsp with no source", "top_k": 3 },
+      { "prompt": "Parse a BSP30 file and audit it against the engine limits", "top_k": 3 },
+      { "prompt": "Find spawn points buried inside geometry in this compiled map", "top_k": 3 }
+    ],
+    "negative": [
+      { "prompt": "hlvis is taking forever on my map", "owner": "goldsrc-map-compiling" },
+      { "prompt": "Which entities does an as_ prefixed map need", "owner": "cs16-map-gamemodes" }
+    ]
+  }
+}

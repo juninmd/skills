@@ -1,0 +1,14 @@
+{
+  "skill_name": "deploy-ghcr-manual",
+  "trigger": {
+    "positive": [
+      { "prompt": "CI cannot build at all, push the image to ghcr and roll it out myself", "top_k": 3 },
+      { "prompt": "Actions is blocked on billing but this fix has to reach production", "top_k": 3 },
+      { "prompt": "Build and push the container by hand and bump the pinned image sha", "top_k": 3 }
+    ],
+    "negative": [
+      { "prompt": "Check whether the running pod matches the latest commit", "owner": "deploy-sync-guard" },
+      { "prompt": "Design a Helm chart and pipeline for this new service", "owner": "cloud-devops" }
+    ]
+  }
+}

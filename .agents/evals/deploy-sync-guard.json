@@ -1,0 +1,14 @@
+{
+  "skill_name": "deploy-sync-guard",
+  "trigger": {
+    "positive": [
+      { "prompt": "ArgoCD says Synced but the pod is running old code", "top_k": 3 },
+      { "prompt": "Verify the cluster is actually running my latest commit", "top_k": 3 },
+      { "prompt": "Audit every deployed app for a stale image", "top_k": 3 }
+    ],
+    "negative": [
+      { "prompt": "Actions is billing blocked, deploy this commit by hand", "owner": "deploy-ghcr-manual" },
+      { "prompt": "Write the GitHub Actions workflow that deploys this service", "owner": "cloud-devops" }
+    ]
+  }
+}
