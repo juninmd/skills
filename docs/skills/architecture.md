@@ -15,3 +15,11 @@ Mapping unfamiliar codebases: entry points, modules, data flow, dependency direc
 ## `context-engineering`
 
 Managing agent context windows: pruning, summarization, token budgets, memory strategies, and keeping the right artifacts in context.
+
+## `parallel-subagents`
+
+Fanning work out to concurrent subagents: what actually parallelizes, the brief each worker gets, worktree isolation for writers, cost ceilings, and serial integration.
+
+## `domain-modeling`
+
+One vocabulary per project: glossary entries with boundaries, resolving name drift, renaming code to match the business, and keeping `CONTEXT.md` bound to the types.

@@ -8,7 +8,7 @@ Commit, push, rebase, merge, branch deletion, and remote mutations require expli
 
 ## `git-workflow`
 
-Safe day-to-day Git operations and history recovery: bisect, cherry-pick, reflog, stash, submodules, hooks, conflict resolution, and history-rewrite safety.
+Safe day-to-day Git operations and history recovery: bisect, cherry-pick, reflog, stash, submodules, hooks, resolving merge conflicts by traced intent, and history-rewrite safety.
 
 ## `finishing-dev`
 
@@ -21,3 +21,7 @@ Semantic versioning, changelogs, tags, release notes, and GitHub Releases planne
 ## `documentation`
 
 Docs-as-code that stays true: README, OpenAPI-derived API reference, ADRs, runbooks, changelogs, and doc-drift prevention.
+
+## `session-handoff`
+
+The note that lets the next person resume unfinished work: state, decisions with their reasons, dead ends, and one runnable next command.
