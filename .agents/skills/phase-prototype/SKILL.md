@@ -22,11 +22,11 @@ Three genuinely distinct approaches, derived from the research. If the user coul
 
 ## Workflow
 1. Derive three **genuinely distinct** approaches from the research and prior art.
-2. Build each as a self-contained artifact the user can open and click: fake data, hardcoded state, no production wiring.
+2. Build each as one self-contained HTML file the user can open and click — inline CSS and JS, fake data, hardcoded state, no build step, no production wiring.
 3. Show each in its key states — empty, populated, error, and the core interaction itself.
 4. Label them `A`, `B`, `C`, each with a one-line tradeoff so they compare at a glance.
 5. Increment `rounds.prototype`, set `awaiting: "prototype-selection"`, notify, and **stop working**.
-6. On comments: run another round, increment again, stop again. Do not advance.
+6. On comments: run another round, increment again, stop again. Do not advance. Serve the folder (`npx serve .workflow/<slug>/prototypes`) so the user iterates by pointing at an element in the preview; when they cannot open it, capture the states with `screenshot-capture`.
 7. On selection: record the choice, the rejections, and why in `prototype.md`.
 8. Set `stage: "plan"` and `awaiting: null` in one write.
 

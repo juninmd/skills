@@ -13,7 +13,7 @@ git worktree list                   # isolation that already exists
 rg -l 'sharedModule' src/ | wc -l   # files two slices would both edit — the collision count
 ```
 
-Fan-out is only free while the slices are disjoint. Count the overlap before spawning anything; one shared file turns concurrency into a merge you pay for twice.
+Count the overlap before spawning anything; one shared file turns concurrency into a merge you pay for twice.
 
 ## What Actually Parallelizes
 
@@ -29,12 +29,12 @@ Fan-out is only free while the slices are disjoint. Count the overlap before spa
 | Anything whose slices you cannot name yet | **no** | Cut the work first, then decide |
 
 ## Workflow
-1. Name every slice and its owned files. A slice you cannot describe in one sentence is not a slice.
+1. Name every slice, its owned files, and what blocks it. Slices form a task graph, not a list; the **frontier** is what nothing blocks, and only the frontier launches.
 2. Kill the overlaps: merge two slices that touch the same file into one, or serialize them.
 3. Write the brief per worker (table below). Ambiguity does not average out across workers — it multiplies.
 4. Give every **writing** worker its own worktree or branch. Read-only workers share the tree safely.
 5. Set the ceiling before launching: worker count, wall-clock, and what happens when one returns nothing.
-6. Launch the whole batch in one dispatch. Staggered launches serialize the wait for no benefit.
+6. Launch the whole frontier in one dispatch, and dispatch again as landed slices unblock new ones. Staggering inside a frontier serializes the wait for no benefit.
 7. Collect structured reports, then verify every claim against the tree, never against the report.
 8. Integrate serially, in dependency order, and run the full suite **once** after the last merge.
 
@@ -48,6 +48,7 @@ Fan-out is only free while the slices are disjoint. Count the overlap before spa
 | Done condition, as a command | `pnpm test path/to/file` beats "make it work" |
 | Report shape | Same fields from every worker, so results compare |
 | What to do when blocked | Report and stop, never improvise |
+| Pointers, not copies | Point at the spec, the ticket, the notes file; pasted context drifts from its source |
 
 ```bash
 git worktree add ../wt-slice-a -b slice-a   # one per writing worker
@@ -55,20 +56,20 @@ git worktree remove ../wt-slice-a           # after the merge, always
 ```
 
 ## Stop
-- Two slices write the same file. Serialize them; concurrent writes to one file are a conflict you scheduled on purpose.
+- Two slices write the same file. Serialize them.
 - A worker reports done with no command output behind it. Treat that as unverified, not done.
 - Slices came back contradicting each other. Reconcile the premise before merging — one worked from a wrong assumption.
 - The work is exploratory. One agent iterating beats five guessing in parallel; route back to `diagnostics`.
-- The fan-out is only to look fast. Cost scales linearly with workers; wall-clock does not.
+- Fan-out only to look fast. Cost scales with workers; wall-clock does not.
 
 ## Rules
 - A worker sees none of the others' context. Every fact it needs must be in its brief or reachable from the repo.
 - Verify before integrating. The report is a claim; the diff and the test run are the evidence.
-- The checker is never the worker that produced the thing. A worker asked to verify its own output re-runs the reasoning that made the mistake; give the check to a fresh worker or to the orchestrator.
-- Read-only fan-out is cheap and safe — reach for it first; it is also the primary lever for context pressure (`context-engineering` owns that side).
-- Never silently re-dispatch a failed slice. Read why it failed first; the brief is usually what was wrong.
+- The checker is never the worker that produced the thing; it re-runs the reasoning that made the mistake. Give the check to a fresh worker or the orchestrator.
+- Read-only fan-out is cheap and safe — reach for it first; it is also the main lever on context pressure (`context-engineering`).
+- Never silently re-dispatch a failed slice; the brief is usually what was wrong.
 - Depth beats width. Three well-briefed workers land more than ten vague ones, at half the cost.
-- Keep integration serial even when the work was parallel. Concurrent merges are how a green branch turns red with nobody at fault.
+- Keep integration serial even when the work was parallel; concurrent merges turn a green branch red with nobody at fault.
 - The orchestrator does not also do a slice. Split attention loses reports.
 - Building the agent runtime, its tool schemas, or its guardrails is a different job — that is `agent-engineering`.
 

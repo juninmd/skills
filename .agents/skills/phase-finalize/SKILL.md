@@ -25,7 +25,7 @@ Two reviews that agree prove only that they share a blind spot. Making each refu
 | Step | Do |
 |---|---|
 | 1 | `expert-review` pass A: correctness and regressions |
-| 2 | `expert-review` pass B: security, operations, API contract |
+| 2 | `expert-review` pass B: security, operations, API contract — on a **different model** when one is reachable |
 | — | The two passes **never see each other's output** while reviewing |
 | 3 | Feed each pass the other's findings; each must refute with evidence **from the code** |
 | 4 | Drop refuted findings. Keep survivors. |
@@ -73,6 +73,7 @@ Then re-read the final diff and remove what the plan never called for: debug out
 - A fix would reach outside the reviewed scope. Stop — it restarts the review that just finished.
 
 ## Rules
+- Two reviewers on one model share its blind spots; the refutation only bites when pass B runs on a second model. Record which model answered each pass in `evidence.md`.
 - Report red gates verbatim. Never claim done while one is failing, and never summarize a failure into something that sounds smaller.
 - Fixes stay inside the reviewed scope. A fix outside it restarts the review that just finished.
 - Secrets stay out of commits, logs, and summaries — including the evidence file.

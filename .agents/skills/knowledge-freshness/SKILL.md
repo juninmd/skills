@@ -72,6 +72,16 @@ Forced resolutions go stale silently — the parent ships a real fix and the pin
 
 Take the newest version whose constraints the project **already** satisfies. Upgrading the runtime to reach a dependency is a separate, larger decision.
 
+## Stale Prior, Current Shape
+A dependency can be current while the code written against it is not: a recalled API pattern that compiles is the one that ships wrong. Before coding against any API whose shape moved after your training cutoff, write the row first.
+
+| Recalled from training | Check instead |
+|---|---|
+| A parameter shape (`thinking.budget_tokens`, a beta header) | the SDK changelog at the installed version — `docs-verification` |
+| A default model id or a dated tool type string (`*_2025xxxx`) | the provider's current model list and changelog |
+| A `client.beta.*` namespace | whether it graduated to the stable namespace |
+| A CLI flag or config key | `--help` on the installed binary, never the tutorial |
+
 ## Stop
 - The candidate version demands a newer runtime or peer than the project satisfies. It is not a candidate; say so.
 - A major jump has not had its breaking-change notes read. Do not recommend it yet.

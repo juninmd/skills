@@ -76,6 +76,7 @@ Enter it **only** when the artifact is a plan or design with an unresolved decis
 - If no defect is found, say so plainly and state the remaining test gaps. "Looks good" with no gap analysis is not a review.
 - The reviewer is not the author. Whoever wrote the change cannot be the one who clears it — self-verification inherits the assumption that produced the defect. When the author is unavoidable, the finding stays open until something external confirms it: a test, a run, another reader.
 - One defect found is a class to sweep, not an instance to close — hand that to `variant-analysis`.
+- Two passes on one model share its blind spots. When a second model is reachable, run the independent pass on it and name which model answered. It is extra spend: offer it in one sentence and wait for the user; never run it as a habit.
 - Reproducing a finding's root cause belongs to `diagnostics`; writing the test it exposed to `test-engineering`; the delivery gate to `finishing-dev`.
 
 ## Checklist
