@@ -17,7 +17,7 @@ date -u                                             # timestamp everything from 
 
 Who is affected · what changed · is it spreading. Then declare, name the commander, and communicate — before opening a dashboard.
 
-## First Five Minutes
+## Workflow — First Five Minutes
 In order. Do not skip ahead to the interesting part.
 
 1. **Assess and declare.** User impact, blast radius, data risk, spreading or contained. Timestamp it.

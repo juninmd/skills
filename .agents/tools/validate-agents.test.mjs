@@ -33,12 +33,18 @@ ${"`".repeat(3)}
 
 See [guide](references/guide.md).
 
+## Workflow
+1. Do it.
+
 | Symptom | Action |
 |---|---|
 | a | b |
 
 ## Stop
 - Halt when the state is wrong.
+
+## Rules
+- Keep it small.
 
 ## Checklist
 - [ ] Validate the sample.
@@ -167,7 +173,28 @@ test("a skill naming no sibling is reported", () => {
   write("beta-skill", frontmatter("beta-skill"));
 
   const errors = checkSiblingHandoffs(root);
-  assert.deepEqual(errors, ["beta-skill: body names no sibling skill to hand work to"]);
+  assert.deepEqual(errors, [
+    "beta-skill: body names no sibling skill to hand work to",
+    "alpha-skill: no sibling skill hands work to it — cite it from the skill that would otherwise absorb its job",
+  ]);
+});
+
+test("a skill no sibling hands work to is reported as an island", () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), "skill-islands-"));
+  const write = (name, handoff) => {
+    fs.mkdirSync(path.join(root, name));
+    fs.writeFileSync(
+      path.join(root, name, "SKILL.md"),
+      `---\nname: ${name}\ndescription: |\n  Do the ${name} job and use this skill when that job comes up.\n---\n\nHand off to \`${handoff}\`.\n\n## Checklist\n- [ ] done.\n`,
+    );
+  };
+  write("alpha-skill", "beta-skill");
+  write("beta-skill", "alpha-skill");
+  write("gamma-skill", "alpha-skill");
+
+  assert.deepEqual(checkSiblingHandoffs(root), [
+    "gamma-skill: no sibling skill hands work to it — cite it from the skill that would otherwise absorb its job",
+  ]);
 });
 
 test("a skill citing only itself does not count as a handoff", () => {
@@ -179,6 +206,7 @@ test("a skill citing only itself does not count as a handoff", () => {
   );
   assert.deepEqual(checkSiblingHandoffs(root), [
     "lonely-skill: body names no sibling skill to hand work to",
+    "lonely-skill: no sibling skill hands work to it — cite it from the skill that would otherwise absorb its job",
   ]);
 });
 
@@ -208,6 +236,9 @@ test("a body missing any house section is reported", () => {
     "## Stop",
     "- Halt when the state is wrong.",
     "",
+    "## Rules",
+    "- Keep it small.",
+    "",
     "## Checklist",
     "- [ ] done.",
     "",
@@ -220,6 +251,8 @@ test("a body missing any house section is reported", () => {
     validateSkill(build(["## Preflight"])).some((e) => e.includes("'## Preflight'")),
   );
   assert.ok(validateSkill(build(["## Stop"])).some((e) => e.includes("'## Stop'")));
+  assert.ok(validateSkill(build(["## Workflow"])).some((e) => e.includes("'## Workflow'")));
+  assert.ok(validateSkill(build(["## Rules"])).some((e) => e.includes("'## Rules'")));
   assert.ok(
     validateSkill(build(["## Checklist"])).some((e) => e.includes("'## Checklist'")),
   );

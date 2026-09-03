@@ -16,7 +16,7 @@ jq '{slug, stage, awaiting, rounds, skipped}' .workflow/<slug>/loop-state.json
 
 The state file on disk is the truth. Never dispatch from what you remember it said.
 
-## Dispatch
+## Workflow — Dispatch
 1. A request with no matching workspace → start a new loop at `phase-research`.
 2. Later entry: work with no direction or UX decision (bugfix, refactor, mechanical change) may start at `plan`, or at a stage the user names. Record every bypassed stage in `skipped`.
 3. A slug, an issue number, or nothing → load `.workflow/<slug>/loop-state.json`. Several active and none named: list them and ask.
@@ -32,7 +32,7 @@ The state file on disk is the truth. Never dispatch from what you remember it sa
 | `finalize` | `phase-finalize` | chain automatically |
 | `done` | `phase-done` | **stop** — human review and merge |
 
-## Reading the State
+## Reference Routing
 
 ```bash
 ls .workflow/*/loop-state.json 2>/dev/null           # which loops exist
@@ -74,7 +74,7 @@ Contract, gates, and full recovery detail: [loop-state.md](references/loop-state
 - `stage` did not advance after the stage skill ran. That is a stall — report it, never retry.
 - Two workspaces match the same issue. List both and ask which is live.
 
-## Loop Rules
+## Rules
 - Re-read `loop-state.json` from disk after every stage. Never trust what you remember it said — a stage skill may have written to it.
 - One skill per stage per pass. Never reorder stages, and reopen an earlier one only when the user names it.
 - Never commit, push, merge, or deploy on the loop's own authority. Those gates belong to their stages and to the user.

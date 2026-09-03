@@ -75,7 +75,7 @@ Rank the elements on the screen before styling any of them. Exactly one primary 
 - Prefer asymmetry and whitespace over ornament. Whitespace is the cheapest quality signal there is.
 - Design for text expansion: layouts pinned to English string widths break on translation — German runs ~35% longer.
 - Design the empty and error states with the same care as the populated one. Users meet the empty state first.
-- Tokens for a library other teams consume belong to `design-systems`; implementation to `frontend-engineering`; the rendering cost of what you chose to `web-performance`.
+- Tokens for a library other teams consume belong to `design-systems`; implementation to `frontend-engineering`; the rendering cost of what you chose to `web-performance`; variable-height card grids to `masonry-layouts`.
 
 ## Checklist
 - [ ] Type scale, color roles, spacing rhythm, radius, elevation, and motion durations are explicit numbers.

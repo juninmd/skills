@@ -6,7 +6,7 @@
   3. **At least one decision table** — symptom → action, or option → tradeoff. A table the reader looks *into*, not a paragraph they read through.
   4. **At least one command block** — the real invocation with the flags that matter, never a description of one.
   5. `## Stop` — the conditions that halt the work and get reported instead of worked around. Then `## Rules` (judgment specific to this domain) and `## Checklist` (verifiable end state, not intentions).
-  The body must also name at least one sibling skill, in backticks, that it hands work to — a skill that names none cannot route away from itself.
+  The body must also name at least one sibling skill, in backticks, that it hands work to — a skill that names none cannot route away from itself — and every skill must be named by at least one sibling: an island only the router can reach is a job some neighbour is absorbing.
 - **Routing evals:** every skill owns `.agents/evals/<name>.json` with at least 3 positive and 2 negative prompts. Each negative declares the `owner` that should win it, and that claim is checked: `pnpm run evals` must stay green. When a prompt routes to the wrong skill, fix the description — editing the prompt to match the description deletes the signal and keeps the bug.
 - **Budgets:** tier 1 (the description) is re-sent every turn — defend it. Tier 2 (the body) loads only on activation, so depth there is nearly free; spend it on commands, tables, and traps rather than prose. Ceilings live in `tokens-report.mjs` and `validate-agents.mjs` and move only as a deliberate ratchet. Overflow goes to `references/` behind one routing line.
 - **Memory:** persist errors and learnings to your assistant's memory, and keep this contract improving each iteration.

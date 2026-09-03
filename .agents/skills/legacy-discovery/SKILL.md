@@ -32,7 +32,7 @@ git log --format='%an' --since='1 year ago' -- <module> | sort | uniq -c | sort 
 
 Sample from the top, then **agree a bound with the user**: which modules, how deep, which deliverables. Write it in the checklist.
 
-## The Five Phases
+## Workflow — The Five Phases
 
 | Phase | Produces | Method |
 |---|---|---|

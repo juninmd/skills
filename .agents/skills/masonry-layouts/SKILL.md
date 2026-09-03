@@ -14,7 +14,7 @@ rg -n '<img' src/ | rg -v 'width=|height=' | head    # images with no reserved b
 
 Answer first: **must visual order match DOM order?** Everything else follows from it.
 
-## The Question That Picks the Approach
+## Workflow — The Question That Picks the Approach
 **Must visual order match DOM order?** Everything else follows from that one answer.
 
 | Answer | Approach | Cost |

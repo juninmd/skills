@@ -29,7 +29,7 @@ git log --format= --name-only --since='6 months ago' | sort | uniq -c | sort -rn
 git log --format='%an' --since='1 year ago' | sort | uniq -c | sort -rn | head
 ```
 
-## Trace One Real Request
+## Workflow — Trace One Real Request
 A map built from folder names is fiction. Follow one flow end to end and record it as `file:line`:
 
 **entry point → routing → handler → domain → persistence → response.**

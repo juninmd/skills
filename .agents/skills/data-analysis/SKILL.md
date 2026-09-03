@@ -6,16 +6,6 @@ description: |
 
 # Data Analysis
 
-## Workflow
-1. Inspect from the terminal **before** opening a notebook. It catches encoding, delimiter, and header defects that pandas silently absorbs.
-2. Record shape, column types, null counts, and cardinality — and state the question the analysis must answer.
-3. Check file size before loading, and pick the strategy from it.
-4. Profile before concluding anything.
-5. Clean deliberately, with every decision visible in code.
-6. Aggregate, then verify the row counts survived the reshape.
-7. Scrub identifiers before sharing anything.
-8. Persist as versioned code plus output, and commit both with the finding.
-
 ## Preflight
 
 ```bash
@@ -27,6 +17,16 @@ jq '.[0] | keys' data.json            # shape without loading the file
 ```
 
 A delimiter or encoding defect found here costs a minute. Found after three hours of analysis, it costs the analysis.
+
+## Workflow
+1. Inspect from the terminal **before** opening a notebook. It catches encoding, delimiter, and header defects that pandas silently absorbs.
+2. Record shape, column types, null counts, and cardinality — and state the question the analysis must answer.
+3. Check file size before loading, and pick the strategy from it.
+4. Profile before concluding anything.
+5. Clean deliberately, with every decision visible in code.
+6. Aggregate, then verify the row counts survived the reshape.
+7. Scrub identifiers before sharing anything.
+8. Persist as versioned code plus output, and commit both with the finding.
 
 ## Size Decides the Strategy
 

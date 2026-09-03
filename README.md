@@ -66,7 +66,7 @@ git submodule add https://github.com/juninmd/skills .agents
 | `codebase-mapping` | onboarding to a new repository, getting a quick map of an unfamiliar repo before touching it, understanding how it is organized, locating the code that owns a behavior, and dependency graphs |
 | `context-engineering` | long sessions, context overflow, memory strategies, sliding windows, and keeping the right files in context |
 | `cost-engineering` | cutting the cloud bill, idle and orphaned resources, cost attribution, rightsizing, egress and storage tiering, caching economics, token budgets, model routing, and budget guardrails |
-| `cs16-map-gamemodes` | the as_, de_, cs_ and es_ prefixes, bomb targets, hostages, VIP escort, buy zones, spawn counts, and a round that never ends |
+| `cs16-map-gamemodes` | the as_, de_, cs_ and es_ prefixes, bomb targets, hostages, VIP escort, buy zones, spawn counts per team, and a round that never ends |
 | `data-analysis` | csvstat, csvlook, jq, describe, groupby, pivot tables, nulls and duplicates, and scrubbing identifiers before sharing |
 | `data-engineering` | PostgreSQL, MongoDB, Redis, query plans, indexes, locks, rollback, backups, and vector database performance |
 | `deploy-ghcr-manual` | Build a container, push it to a registry and roll it out by hand as an escape hatch, when CI cannot build at all |

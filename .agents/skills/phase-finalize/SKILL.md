@@ -19,7 +19,7 @@ Both review passes run over the **full** PR diff, not over the last commit.
 - **Output:** `evidence.md` — both critiques, the refutations, the fixes, and the gate results.
 - **Unattended:** advance to `phase-done` when the diff is production-ready.
 
-## The Adversarial Pass
+## Workflow — The Adversarial Pass
 Two reviews that agree prove only that they share a blind spot. Making each refute the other is what separates a real finding from a plausible one.
 
 | Step | Do |

@@ -75,6 +75,7 @@ That last row is the discipline. Fixing an unrelated bug opportunistically makes
 - A red lint, type check, or test blocks progress. Not "note it and continue".
 - The diff stays limited to the files the plan named. Anything else is drift that needs recording and confirming.
 - On comments: fix inside the same pull request, re-verify, increment again, notify. Never open a second PR for feedback on the first.
+- Independent slices of the plan fan out through `parallel-subagents`; a step only a person can perform — sign-in, consent, hardware — goes through `human-step-wizard` and is verified before the loop continues.
 
 ## Checklist
 - [ ] One step in progress at a time; test written first where behavior is observable.

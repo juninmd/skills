@@ -70,7 +70,7 @@ Blocking a merge on everything is how scanners get switched off. Split deliberat
 - An unreachable CVE is scheduled work. A reachable one on a request path is not. Reachability outranks CVSS.
 - Require explicit approval before history rewriting, credential mutation, or infrastructure changes.
 - Prefer short-lived identity (OIDC, workload identity) over stored credentials; a rotated long-lived secret is still a long-lived secret.
-- A live breach runs through `incident-response` first — a fast rollback destroys the evidence. Pipeline and infrastructure changes land through `cloud-devops`.
+- A live breach runs through `incident-response` first — a fast rollback destroys the evidence. Pipeline and infrastructure changes land through `cloud-devops`. Vetting a third-party skill, plugin, or MCP server before it is installed is `plugin-vetting`.
 
 ## Excuses
 

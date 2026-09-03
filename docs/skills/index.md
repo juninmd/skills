@@ -7,17 +7,17 @@ For optimization order and real development casebooks, see [Practical Skill Prio
 | Category | Skills |
 |---|---|
 | Backend | `backend-node`, `backend-python`, `backend-systems` |
-| Frontend | `frontend-engineering`, `frontend-design`, `design-systems`, `ui-state-design`, `accessibility`, `web-performance` |
+| Frontend | `frontend-engineering`, `frontend-design`, `design-systems`, `ui-state-design`, `accessibility`, `web-performance`, `masonry-layouts`, `electron-architecture` |
 | Mobile | `mobile-engineering` |
 | Infrastructure | `cloud-devops`, `security-ops`, `incident-response`, `cost-engineering`, `plugin-vetting`, `deploy-ghcr-manual`, `deploy-sync-guard` |
-| Quality | `diagnostics`, `expert-review`, `test-engineering`, `performance-engineering`, `webapp-testing`, `code-simplification`, `legacy-refactoring`, `variant-analysis` |
-| Architecture | `software-architecture`, `agent-engineering`, `codebase-mapping`, `context-engineering`, `api-design`, `mcp-integration`, `caching-strategy`, `parallel-subagents`, `domain-modeling` |
-| Data | `data-engineering`, `sql-authoring`, `migration-engineering` |
+| Quality | `diagnostics`, `expert-review`, `test-engineering`, `performance-engineering`, `webapp-testing`, `code-simplification`, `legacy-refactoring`, `legacy-discovery`, `variant-analysis`, `screenshot-capture` |
+| Architecture | `software-architecture`, `agent-engineering`, `codebase-mapping`, `context-engineering`, `api-design`, `mcp-integration`, `caching-strategy`, `parallel-subagents`, `domain-modeling`, `project-structure`, `llm-gateway-testing` |
+| Data | `data-engineering`, `sql-authoring`, `migration-engineering`, `data-analysis` |
 | Observability | `observability` |
 | Research | `web-research`, `docs-verification`, `knowledge-freshness`, `web-scraping`, `ai-ecosystem-radar` |
-| Lifecycle | `project-lifecycle`, `requirements-clarification`, `incremental-delivery`, `git-workflow`, `finishing-dev`, `release-management`, `documentation`, `session-handoff` |
+| Lifecycle | `project-lifecycle`, `requirements-clarification`, `incremental-delivery`, `git-workflow`, `finishing-dev`, `release-management`, `documentation`, `session-handoff`, `session-learnings`, `agents-md` |
 | Delivery loop | `dev-loop`, `phase-research`, `phase-prototype`, `phase-plan`, `phase-implement`, `phase-finalize`, `phase-done` |
-| Tooling | `tooling-dev`, `skill-creator`, `document-generation`, `ascii-figures`, `human-step-wizard`, `headless-agent-supervision` |
+| Tooling | `tooling-dev`, `skill-creator`, `document-generation`, `ascii-figures`, `human-step-wizard`, `headless-agent-supervision`, `shell-operations`, `diagrams-as-code`, `code-snippet-images` |
 | GoldSrc mapping | `goldsrc-map-authoring`, `goldsrc-map-compiling`, `goldsrc-bsp-maintenance`, `cs16-map-gamemodes` |
 
 ## How Discovery Works

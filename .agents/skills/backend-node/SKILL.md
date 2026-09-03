@@ -68,7 +68,7 @@ Keep liveness and readiness separate: readiness must fail **first** so the load 
 - Keep `strict` on. Narrow `unknown` instead of reaching for `any`; one `any` at a boundary erases the types of everything downstream of it.
 - Use frozen lockfiles in CI (`pnpm install --frozen-lockfile`, `npm ci`) and never rewrite a lockfile without a dependency change.
 - In NestJS, keep controllers thin, validate DTOs before the service runs, and register a global validation pipe that whitelists DTO fields and rejects unknown ones — without `forbidNonWhitelisted`, extra fields pass through silently.
-- Generate OpenAPI from the implemented contract, not by hand, and test breaking changes against it. Contract shape belongs to `api-design`.
+- Generate OpenAPI from the implemented contract, not by hand, and test breaking changes against it. Contract shape belongs to `api-design`. Go, Rust, and .NET services belong to `backend-systems`.
 - Migrating to a stricter package manager breaks imports that only worked through hoisting — phantom dependencies. Declare them explicitly before the migration, not after the build fails.
 - Never block the event loop: synchronous crypto, large `JSON.parse`, and `fs.readFileSync` on a request path stall every other request. Measure with `performance-engineering` before assuming which one it is.
 - Unhandled promise rejections terminate the process by default in modern Node. Attach a handler that logs and exits deliberately rather than letting the default kill a request mid-flight.

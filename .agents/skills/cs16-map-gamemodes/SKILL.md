@@ -1,7 +1,7 @@
 ---
 name: cs16-map-gamemodes
 description: |
-  Wire up Counter-Strike 1.6 game modes and gameplay entities so a map plays on a server. Use for the as_, de_, cs_ and es_ prefixes, bomb targets, hostages, VIP escort, buy zones, spawn counts, and a round that never ends.
+  Wire up Counter-Strike 1.6 game modes and gameplay entities so a map plays on a server. Use for the as_, de_, cs_ and es_ prefixes, bomb targets, hostages, VIP escort, buy zones, spawn counts per team, and a round that never ends.
 license: MIT
 ---
 

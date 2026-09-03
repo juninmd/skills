@@ -65,7 +65,7 @@ Open a file only when its trigger matches.
 - Preserve the repository's design system. Never add a second component stack casually — two stacks is a permanent tax on every future component.
 - A secret read in a client component ships to the browser. Environment variables without the public prefix are server-only for a reason; check before moving code across the boundary.
 - `key` on a list must be stable and identity-bearing. Array index as key corrupts state whenever the list reorders.
-- Delegate accessibility to `accessibility`, runtime and bundle cost to `web-performance`, and visual system decisions to `frontend-design`. Do not restate their rules here.
+- Delegate accessibility to `accessibility`, runtime and bundle cost to `web-performance`, visual system decisions to `frontend-design`, and native or cross-platform mobile apps to `mobile-engineering`. Do not restate their rules here.
 - Verify against the production build. Dev-only warnings, double-invoked effects in StrictMode, and unminified behavior all differ.
 
 ## Checklist

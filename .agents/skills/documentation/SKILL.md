@@ -75,7 +75,7 @@ Everything ends up in the README because it is the path of least resistance, and
 - When a document already exists, report its weak or missing sections and preserve the rest. Regenerating destroys the corrections people made by hand.
 - Prefer a small accurate document over a complete stale one. Coverage is not the goal; being true is.
 - Do not create documentation artifacts the user did not request.
-- Changelogs and release notes belong to `release-management`; diagrams as versioned source to `diagrams-as-code`; agent-facing repository context to `agents-md`.
+- Changelogs and release notes belong to `release-management`; diagrams as versioned source to `diagrams-as-code`; agent-facing repository context to `agents-md`; a figure that must survive plain text to `ascii-figures`; generated Office and PDF files to `document-generation`.
 
 ## Checklist
 - [ ] Reader and question named; the artifact type matches the job.

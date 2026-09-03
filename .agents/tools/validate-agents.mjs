@@ -103,7 +103,9 @@ export function validateSkill(skillDirectory) {
   // description of one, the conditions that halt the work, and a verifiable end.
   for (const [pattern, missing] of [
     [/^## Preflight\s*$/m, "'## Preflight' — the checks that establish state before acting"],
+    [/^## Workflow\b/m, "'## Workflow' — the numbered steps, in execution order"],
     [/^## Stop\s*$/m, "'## Stop' — the conditions that halt the work and get reported"],
+    [/^## Rules\s*$/m, "'## Rules' — the judgment specific to this domain"],
     [/^## Checklist\s*$/m, "'## Checklist' — the verifiable end state"],
     [/^```/m, "a command block — show the real invocation, not a description of it"],
     [/^\|.+\|\s*$/m, "a decision table — symptom to action, or option to tradeoff"],
@@ -184,6 +186,10 @@ function findOrphanReferences(skillName, skillText, referencesRoot) {
  * quietly absorbs work a sharper skill owns. `skill-creator` states the rule;
  * nothing enforced it, and 22 of 65 skills had drifted out of compliance.
  * Names are matched in backticks, the convention the catalog already uses.
+ *
+ * The inverse also holds: a skill no sibling ever hands work to is an island
+ * the router alone must find, and the sibling that should route there absorbs
+ * its job instead. 13 of 80 skills were islands when this check landed.
  */
 export function checkSiblingHandoffs(skillsRoot) {
   const names = fs
@@ -191,16 +197,25 @@ export function checkSiblingHandoffs(skillsRoot) {
     .filter((entry) => entry.isDirectory())
     .map((entry) => entry.name);
   const known = new Set(names);
+  const cited = new Set();
   const errors = [];
   for (const name of names) {
     const file = path.join(skillsRoot, name, "SKILL.md");
     if (!fs.existsSync(file)) continue;
     const body = fs.readFileSync(file, "utf8");
-    const cites = [...body.matchAll(/`([a-z0-9-]+)`/g)].some(
-      (match) => match[1] !== name && known.has(match[1]),
-    );
-    if (!cites) {
+    const siblings = [...body.matchAll(/`([a-z0-9-]+)`/g)]
+      .map((match) => match[1])
+      .filter((cite) => cite !== name && known.has(cite));
+    if (!siblings.length) {
       errors.push(`${name}: body names no sibling skill to hand work to`);
+    }
+    for (const sibling of siblings) cited.add(sibling);
+  }
+  for (const name of names) {
+    if (!cited.has(name)) {
+      errors.push(
+        `${name}: no sibling skill hands work to it — cite it from the skill that would otherwise absorb its job`,
+      );
     }
   }
   return errors;

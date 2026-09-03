@@ -92,7 +92,7 @@ Promote when the pattern repeats across two entries, or when it is critical and 
 - One file per entry. An append-only log produces a merge conflict on every parallel session.
 - An entry states the fact and how to apply it. A session diary is not a learning.
 - Purging is irreversible: confirm explicitly, and only inside `promoted/`.
-- Managing the window inside one session belongs to `context-engineering`; this skill is what survives the session boundary.
+- Managing the window inside one session belongs to `context-engineering`; this skill is what survives the session boundary; the note that lets the next session resume unfinished work is `session-handoff`.
 
 ## Checklist
 - [ ] Committed-or-ignored decision made and recorded in the README.

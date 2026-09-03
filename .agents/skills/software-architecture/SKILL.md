@@ -77,6 +77,7 @@ Choose the broker by requirement, never by habit: log-structured (Kafka) for hig
 - The design that is easy to undo beats the design that is slightly better and permanent.
 - An ADR records the alternatives **and why they were rejected**. Without that, it is a changelog entry pretending to be a decision.
 - Moving a boundary and changing behavior in one step makes the failure unattributable; sequence it with `incremental-delivery` and `migration-engineering`.
+- The names the boundaries carry belong to `domain-modeling`; a module diagram that lives in the repo to `diagrams-as-code`.
 
 ## Checklist
 - [ ] Current structure mapped from the code, with change-pain evidence.
