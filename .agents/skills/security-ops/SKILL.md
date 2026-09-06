@@ -70,6 +70,7 @@ Blocking a merge on everything is how scanners get switched off. Split deliberat
 - An unreachable CVE is scheduled work. A reachable one on a request path is not. Reachability outranks CVSS.
 - Require explicit approval before history rewriting, credential mutation, or infrastructure changes.
 - Prefer short-lived identity (OIDC, workload identity) over stored credentials; a rotated long-lived secret is still a long-lived secret.
+- Before any tool applies a migration or a destructive fixture, the database URL passes an **anchored** allowlist: host exactly `localhost`, `127.0.0.1`, or a container service name, or a database name ending in `_test` or `_ci`. A bare substring never qualifies — `test` matches inside `latest`, `ci` inside `precision` — and even an allowlisted URL needs explicit confirmation.
 - A live breach runs through `incident-response` first — a fast rollback destroys the evidence. Pipeline and infrastructure changes land through `cloud-devops`. Vetting a third-party skill, plugin, or MCP server before it is installed is `plugin-vetting`.
 
 ## Excuses

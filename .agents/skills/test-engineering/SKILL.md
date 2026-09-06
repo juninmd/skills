@@ -12,11 +12,11 @@ cat package.json | jq -r '.scripts | to_entries[] | select(.key|test("test|spec"
 rg -n 'randomly|shuffle|seed' package.json pytest.ini pyproject.toml 2>/dev/null
 ```
 
-Name the behavior, the invariant, and the failure modes before choosing a test level. The level follows from the contract under test, never from habit.
+The level follows from the contract under test, never from habit.
 
 ## Workflow
 1. Name the behavior, the invariant, the observable outcome, and the failure modes — before choosing a test level.
-2. Fixing a bug? Write the failing test first and watch it fail **for the intended reason**. A test that passes before the fix proves nothing; a test that fails for the wrong reason proves less.
+2. Fixing a bug? Write the failing test first and watch it fail **for the intended reason** — one that passes beforehand proves nothing.
 3. Pick the lowest level that exercises the real contract. Never mock the subject under test.
 4. Cover boundaries, invalid input, dependency failure, timeout, retry, concurrency, and the unchanged-state guarantee (on error, nothing was written).
 5. Run focused first, then the relevant suite, then shuffled.
@@ -46,7 +46,7 @@ pytest --lf                                          # last failed only
 ```
 
 ## Flake Attribution
-Do not retry a flaky test — retrying hides a real bug about half the time. Attribute it to exactly one source, then remove that source.
+Never retry a flaky test; attribute it to exactly one source and remove that source. Detecting a p-flake in n runs is `1-(1-p)^n` — five green runs at p=5% catch it about 23% of the time, so state n before calling a test stable.
 
 | Source | Tell | Fix |
 |---|---|---|
@@ -59,11 +59,11 @@ Do not retry a flaky test — retrying hides a real bug about half the time. Att
 
 ## Reference Routing
 - Every reference is indexed with its trigger in [TOPIC_MAP.md](references/TOPIC_MAP.md). Start there and open only the file it names.
-- Browser-level and end-to-end journeys belong to the `webapp-testing` skill; reproducing the underlying defect to `diagnostics`.
+- Browser journeys belong to `webapp-testing`; the underlying defect to `diagnostics`; a suite result judged against a captured baseline to `regression-gate`.
 
 ## Stop
 - The test passes before the fix. It proves nothing — make it fail for the intended reason first.
-- A test is flaky and about to be retried. Retrying hides a real bug roughly half the time; attribute the source instead.
+- A test is about to be retried instead of attributed. Retrying hides a real bug about half the time.
 - The subject under test is being mocked. Stop; the test now asserts the mock.
 
 ## Rules
@@ -71,9 +71,9 @@ Do not retry a flaky test — retrying hides a real bug about half the time. Att
 - Restore mocks, timers, environment, and global state after every test. A leaked timer fails a later, innocent test.
 - Order dependence is a defect, not a configuration preference. Run the suite shuffled in CI.
 - Concurrent tests sharing one fixture, database, or temp path will interleave. Give each worker its own, or mark those tests serial.
-- Do not chase a coverage percentage with low-value assertions; 100% coverage with weak assertions is worse than 70% with sharp ones, because it looks finished.
+- Do not chase a coverage percentage: 100% with weak assertions is worse than 70% with sharp ones, because it looks finished.
 - `connection refused` in a test run is not a network fault: a required service was not started, a call was left unmocked, or the environment differs from local.
-- Prefer a real containerized dependency over an in-memory substitute when fidelity to production matters — an in-memory SQLite that accepts SQL Postgres rejects is a false green.
+- Prefer a real containerized dependency when fidelity matters — an in-memory SQLite that accepts SQL Postgres rejects is a false green.
 - Benchmarks need warmup, stable inputs, multiple samples, and a before/after comparison; report medians and tails, never a single run.
 
 ## Excuses
@@ -84,6 +84,7 @@ Do not retry a flaky test — retrying hides a real bug about half the time. Att
 | "I will add the test after the fix lands" | A test never seen failing asserts nothing; write it first and watch it fail for the intended reason |
 | "It only fails in CI, so it is a CI problem" | Order, seed, and concurrency are the product's problem — reproduce with `--sequence.shuffle` |
 | "Coverage is at 90%, that is enough" | Coverage grades what ran, not what was asserted; mutation grades the assertions |
+| "It passed five times, so it is not flaky" | Five runs catch a 5% flake about a quarter of the time; the count is the claim |
 
 ## Checklist
 - [ ] The test failed first, for the intended reason.

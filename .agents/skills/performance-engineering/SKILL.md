@@ -55,6 +55,8 @@ A result inside run-to-run variance is not a result.
 | Report median **and** p95/p99 | A better median with a worse tail is a worse system |
 | Repeat the baseline, not just the fix | Machine drift is indistinguishable from your change |
 | Watch CPU quota and thermals | A throttled container fakes a regression perfectly |
+| Sample in independent processes | In-process iterations autocorrelate through JIT, GC, and thermal state; a significance test over them assumes independence it does not have |
+| Decide with a test, not an eyeball | Mann-Whitney U over 7+ samples per side, and an effect larger than `max(noise band, 2 x stdev)` — at n=7 only differences around 1 sigma are detectable |
 
 ## Reference Routing
 - Practical performance cases: [real-world-cases.md](references/real-world-cases.md)
@@ -75,6 +77,7 @@ A result inside run-to-run variance is not a result.
 - Load tests never run against production without explicit approval.
 - Test against production-sized data. A bottleneck that only appears at scale is invisible locally, and that is exactly the one that pages you.
 - Browser latency, bundle size, and Core Web Vitals belong to `web-performance`; spend to `cost-engineering`; a crash or wrong answer to `diagnostics`.
+- Turning a proven target into an unattended keep-or-revert loop is `metric-loop`; gating a branch on the benchmark delta is `regression-gate`.
 
 ## Checklist
 - [ ] Metric, percentile, target, load, and environment recorded before the first change.

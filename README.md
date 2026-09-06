@@ -4,7 +4,7 @@
 
 <h3>Compact engineering skills with focused procedures and reproducible checks.</h3>
 
-<p><strong>80 skills · 4 agents · 4 prompts</strong> for coding assistants that inspect first, change narrowly, and finish with evidence.</p>
+<p><strong>83 skills · 4 agents · 4 prompts</strong> for coding assistants that inspect first, change narrowly, and finish with evidence.</p>
 
 </div>
 
@@ -98,6 +98,7 @@ git submodule add https://github.com/juninmd/skills .agents
 | `llm-gateway-testing` | auditing which models emit tool calls, catching regressions after a gateway upgrade, screening a new model catalog, and triaging 4xx/429/5xx responses |
 | `masonry-layouts` | gallery and feed layouts, items splitting across columns, and a grid that jumps as images load |
 | `mcp-integration` | MCP tool and resource design, JSON Schema inputs, stdio and HTTP transports, authentication, pagination of large results, error contracts, and server testing |
+| `metric-loop` | optimizing against a mechanical metric such as a benchmark score, bundle size, latency or an error count, and for knowing when the loop has plateaued |
 | `migration-engineering` | expand/contract rollouts, backfills, dual writes, codemods, framework upgrades, cutover planning, and rollback strategy |
 | `mobile-engineering` | mobile UI, lifecycle, navigation, permissions, offline behavior, accessibility, device integration, tests, and builds |
 | `observability` | structured logging, SLO/SLI definition, dashboard design, alert thresholds, tracing, log retention, and incident signal quality |
@@ -112,6 +113,8 @@ git submodule add https://github.com/juninmd/skills .agents
 | `plugin-vetting` | reading it at a pinned commit, hunting hidden instructions and exfiltration, sizing the permissions it asks for, and re-checking it on every version bump |
 | `project-lifecycle` | PRDs, implementation plans, issue slicing, scope cuts, GitHub backlog triage, and worktree setup for planned work |
 | `project-structure` | new repository layout, deciding where a new module should live, feature-first frontend splits, Go and Python packages, junk-drawer folders, and safe restructuring |
+| `quiet-checks` | choosing the right --quiet, -q, --silent or reporter flag per tool, capping log output, keeping the exit status readable, and re-running only the failure verbosely |
+| `regression-gate` | a stability verdict before release, green-to-red detection, flaky versus real failures, and performance or size gates |
 | `release-management` | version bumps, conventional commits, changelog generation, release branches, and GitHub Releases |
 | `requirements-clarification` | ambiguous tickets, unstated assumptions, missing acceptance criteria, conflicting stakeholder input, undefined edge cases, and deciding what questions to ask before any planning starts |
 | `screenshot-capture` | visual evidence of a UI change, before and after layout comparisons, proving a page renders, or full-page capture of a route |

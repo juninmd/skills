@@ -72,6 +72,8 @@ Remove-Item -LiteralPath $Target -Recurse -Force -WhatIf   # drop -WhatIf once v
 ## Keeping Output Out of Context
 A dumped log is the largest avoidable token cost there is.
 
+Run every check in its quiet form first — the per-tool flags are `quiet-checks`.
+
 ```bash
 cmd > /tmp/run.log 2>&1 || true      # capture everything
 tail -n 40 /tmp/run.log              # read a slice

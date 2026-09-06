@@ -12,8 +12,6 @@ git diff --stat <base>...HEAD          # scope before opinions
 git diff <base>...HEAD -- '*test*' | head -40   # did the tests move with the code?
 ```
 
-Establish the intended behavior and the acceptance criteria first. A review without a stated intent degrades into taste.
-
 ## Workflow
 1. Establish the artifact, the intended behavior, the constraints, and the acceptance criteria. A review without a stated intent degrades into taste.
 2. Read the changed path **and its surroundings**: callers, contracts, tests, and the documentation that promises something about it.
@@ -55,8 +53,19 @@ severity:  Blocker (silent financial loss)
 smallest:  parse with the request locale, reject non-finite before charging
 ```
 
+## Aggregating Independent Passes
+Several passes, reviewers, or models merge mechanically, not by impression:
+
+| Step | Rule |
+|---|---|
+| Dedupe | same file:line, same defect: one finding, highest severity survives |
+| Rank | severity x confidence x how many passes found it |
+| Blind the labels | judge rival diffs under randomized labels, or authorship decides the vote |
+| Anti-herd | unanimity is not evidence; record one counter-argument before accepting it |
+| Converge | one candidate winning several rounds ends it; an incumbent that keeps flipping means decide, not iterate more |
+
 ## Socratic Mode
-Enter it **only** when the artifact is a plan or design with an unresolved decision, or the user asks. Then ask one decision-relevant question at a time and stop once the evidence supports recommending a path. On a code diff, report findings instead — questions there read as evasion.
+Enter it **only** for a plan or design with an unresolved decision, or on request. Ask one decision-relevant question at a time, stopping once the evidence supports a path. On a diff, report findings — questions there read as evasion.
 
 ## Reference Routing
 - Practical review cases: [real-world-cases.md](references/real-world-cases.md)
@@ -68,15 +77,15 @@ Enter it **only** when the artifact is a plan or design with an unresolved decis
 - A blocker is present. Say so first and plainly; do not bury it under a summary.
 
 ## Rules
-- Review the diff, not the file. Pre-existing debt the change merely touches is out of scope — list it as an observation, and raise it as a finding only when this change makes it materially worse.
-- Cap the output at ten findings. Report every blocker and major; if minors and nits exceed the cap, report the count and drop the rest. A review that lists everything is read as noise and actioned as nothing.
+- Review the diff, not the file. Pre-existing debt it merely touches is an observation, and a finding only when this change makes it materially worse.
+- Cap the output at ten findings: every blocker and major, then the count of the minors and nits that did not fit. A review listing everything is read as noise and actioned as nothing.
 - Findings lead, highest severity first. The summary comes after them, never before.
 - Do not infer a bug from a diff alone when runtime or contract evidence is available — go get it.
 - Do not report style preferences as defects, and never pad a review to look thorough.
-- If no defect is found, say so plainly and state the remaining test gaps. "Looks good" with no gap analysis is not a review.
-- The reviewer is not the author. Whoever wrote the change cannot be the one who clears it — self-verification inherits the assumption that produced the defect. When the author is unavoidable, the finding stays open until something external confirms it: a test, a run, another reader.
+- Found no defect? Say so plainly and state the remaining test gaps. "Looks good" with no gap analysis is not a review.
+- The reviewer is not the author: self-verification inherits the assumption that produced the defect. When the author is unavoidable, findings stay open until something external confirms them — a test, a run, another reader.
 - One defect found is a class to sweep, not an instance to close — hand that to `variant-analysis`.
-- Two passes on one model share its blind spots. When a second model is reachable, run the independent pass on it and name which model answered. It is extra spend: offer it in one sentence and wait for the user; never run it as a habit.
+- Two passes on one model share its blind spots. When a second model is reachable, run the independent pass there and name which answered — extra spend, so offer it and wait, never as a habit.
 - Reproducing a finding's root cause belongs to `diagnostics`; writing the test it exposed to `test-engineering`; the delivery gate to `finishing-dev`.
 
 ## Checklist

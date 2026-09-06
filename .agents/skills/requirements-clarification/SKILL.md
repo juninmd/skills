@@ -70,7 +70,11 @@ Observable behavior, in the place the work lives — the ticket body, or a note 
 
 Criteria that live only in chat are gone next session — that is the failure mode this step exists to prevent.
 
+## Saturation Is the Stop Condition
+Count the **net-new** constraints each round of questions produces — an answer that only restates something already pinned does not count. Two rounds under two net-new each means the requirement is saturated: stop asking and write the criteria. Without that counter, clarification ends when patience runs out instead of when the requirement is known.
+
 ## Stop
+- The last two rounds produced almost no net-new constraints. Saturated — write the acceptance criteria and start.
 - A question can be answered by the code, the ticket, or existing behavior. Go read it; do not ask.
 - No requester is available. Pick each default, record the decisions and their reversal cost, and proceed — do not stall.
 - Two stakeholders conflict. Surface it and make them decide; never average the two.
