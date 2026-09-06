@@ -1,7 +1,7 @@
 ---
 name: project-lifecycle
 description: |
-  Turn product or engineering goals into validated specs, plans, and tracked work items. Use for PRDs, implementation plans, issue slicing, scope cuts, GitHub backlog triage, and worktree setup for planned work.
+  Turn product or engineering goals into validated specs, plans, and tracked work items. Use for PRDs, implementation plans, issue slicing, scope cuts, GitHub backlog triage, and worktree setup for planned work. Defers to dev-loop.
 ---
 
 # Project Lifecycle

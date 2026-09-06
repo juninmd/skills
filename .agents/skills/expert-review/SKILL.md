@@ -1,7 +1,7 @@
 ---
 name: expert-review
 description: |
-  Review code, diffs, plans, and designs for defects, regressions, hidden assumptions, and missing proof. Use for pull-request review, design review, plan stress-testing, risk analysis, and evidence-based findings.
+  Review code, diffs, plans, and designs for defects, regressions, hidden assumptions, and missing proof. Use for pull-request review, design review, plan stress-testing, risk analysis, and evidence-based findings. See code-simplification to shrink code.
 ---
 
 # Expert Review

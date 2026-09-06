@@ -1,7 +1,7 @@
 ---
 name: incident-response
 description: |
-  Stabilize production incidents, mitigate impact fast, and drive blameless postmortems. Use for outages, error spikes, failed deploys, rollback decisions, data-integrity incidents, on-call triage, severity assessment, and corrective-action follow-up.
+  Stabilize production incidents, mitigate impact fast, and drive blameless postmortems. Use for outages, error spikes, failed deploys, rollback decisions, data-integrity incidents, on-call triage, severity assessment, and corrective-action follow-up. CI flaky tests: test-engineering.
 ---
 
 # Incident Response

@@ -1,7 +1,7 @@
 ---
 name: regression-gate
 description: |
-  Decide whether a change is safe to ship by replaying the project's own checks on a captured baseline and diffing the candidate against it. Use for a stability verdict before release, green-to-red detection, flaky versus real failures, and performance or size gates.
+  Decide if a change is safe to ship by replaying the project's checks on a captured baseline and diffing the candidate against it. Use for a one-shot stability verdict before release, green-to-red detection, flaky versus real failures, and performance or size gates. See metric-loop for tuning.
 ---
 
 # Regression Gate
@@ -77,7 +77,7 @@ Hard dimensions block on a single green-to-red. Score dimensions produce a 0-100
 - Bisect only what reproduces three times out of three; non-deterministic failures get differential root cause instead.
 - Cap total runs: dimensions times axes times samples grows fast, so project it and confirm before passing the ceiling.
 - Fix cycles are bounded: each pass must strictly shrink the blocking set, and the final re-gate runs the full battery, not the failing subset.
-- A stable verdict is not deploy approval: shipping is `release-management` and `finishing-dev`, the failing test `test-engineering`, a slow dimension `performance-engineering`, a confirmed root cause `diagnostics`.
+- A stable verdict is not deploy approval: shipping is `release-management`/`finishing-dev`, a failing test `test-engineering`, a slow dimension `performance-engineering`, a root cause `diagnostics`.
 - Protocol adapted from the autoresearch regression gate by uditgoenka (MIT).
 
 ## Checklist

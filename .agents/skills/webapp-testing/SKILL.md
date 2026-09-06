@@ -1,7 +1,7 @@
 ---
 name: webapp-testing
 description: |
-  Test web applications end to end in a real browser. Use for Playwright and browser automation, E2E flows, reusing authenticated sessions, parallel isolation, responsive checks, visual regression, and CI-only failures.
+  Test web applications end to end in a real browser. Use for Playwright and browser automation, E2E flows, reusing authenticated sessions, parallel isolation, responsive checks, visual regression, and CI-only failures. One-off shots: screenshot-capture.
 ---
 
 # Webapp Testing

@@ -1,7 +1,7 @@
 ---
 name: metric-loop
 description: |
-  Improve one measured number by autonomous iteration: baseline, one change, verify, keep or revert, log. Use for optimizing against a mechanical metric such as a benchmark score, bundle size, latency or an error count, and for knowing when the loop has plateaued.
+  Improve one measured number by autonomous iteration: baseline, one change, verify, keep or revert, log. Use for optimizing a mechanical metric such as a benchmark score, bundle size, latency or error count, and for knowing when the loop has plateaued. See regression-gate for ship verdicts.
 ---
 
 # Metric Loop
@@ -70,7 +70,7 @@ Header first, direction recorded: `# direction: lower_is_better`, then `iteratio
 - Never push, deploy, or publish from inside the loop. Delivery is `finishing-dev`, with a human in it.
 - Reverting is normal, not failure. A loop with no reverts is trying changes too timid to matter.
 - The log lives in the repository, not the transcript: the next session reads rows, not your summary.
-- Choosing *which* change to try comes from evidence — `performance-engineering` for a profile, `diagnostics` for a defect. Writing the benchmark that Verify runs is `test-engineering`; proving a kept series broke no behavior is `regression-gate`; durable lessons go to `session-learnings`.
+- Choosing *which* change to try comes from evidence — `performance-engineering` for a profile, `diagnostics` for a defect. `test-engineering` writes the benchmark Verify runs; `regression-gate` proves a kept series broke nothing; durable lessons go to `session-learnings`.
 - Protocol adapted from the autoresearch loop by uditgoenka (MIT).
 
 ## Checklist

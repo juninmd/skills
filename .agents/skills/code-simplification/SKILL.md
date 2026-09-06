@@ -1,7 +1,7 @@
 ---
 name: code-simplification
 description: |
-  Make working code smaller and plainer without changing what it does. Use for deleting dead paths, collapsing premature abstraction, removing speculative options, shortening long functions, and reviewing a diff for what could be less code.
+  Make working code smaller and plainer without changing what it does. Use for deleting dead paths, collapsing premature abstraction, removing speculative options, shortening long functions, and reviewing a diff for what could be less code. See expert-review for defects.
 ---
 
 # Code Simplification

@@ -61,7 +61,7 @@ git submodule add https://github.com/juninmd/skills .agents
 | `backend-systems` | APIs, concurrency, cancellation, error handling, EF Core, resource lifetimes, performance-sensitive code, tests, and builds |
 | `caching-strategy` | cache key design, TTL and invalidation, stale-while-revalidate, stampede protection, CDN rules, and reasoning about acceptable staleness |
 | `cloud-devops` | GitHub Actions deployment workflows, pipelines, Dockerfiles, Terraform or Pulumi modules, deployment safety, health checks, rollback paths, and release verification |
-| `code-simplification` | deleting dead paths, collapsing premature abstraction, removing speculative options, shortening long functions, and reviewing a diff for what could be less code |
+| `code-simplification` | deleting dead paths, collapsing premature abstraction, removing speculative options, shortening long functions, and reviewing a diff for what could be less code. See expert-review for defects |
 | `code-snippet-images` | README hero images, slide decks and PR descriptions, tuning theme, font, padding and window chrome, and capturing the export node |
 | `codebase-mapping` | onboarding to a new repository, getting a quick map of an unfamiliar repo before touching it, understanding how it is organized, locating the code that owns a behavior, and dependency graphs |
 | `context-engineering` | long sessions, context overflow, memory strategies, sliding windows, and keeping the right files in context |
@@ -75,12 +75,12 @@ git submodule add https://github.com/juninmd/skills .agents
 | `dev-loop` | starting a loop, resuming an interrupted one, or checking which stage is waiting on you |
 | `diagnostics` | bugs, regressions, flaky tests, crashes, a service refusing connections, timeouts, DNS, ports, HTTP, TLS, and root-cause analysis |
 | `diagrams-as-code` | .mmd files, the mermaid CLI, moving diagram blocks out of Markdown, updating one in place, and batch rendering |
-| `docs-verification` | checking if a library API, config, or best practice is outdated, reading docs before answering, and updating stale local knowledge |
+| `docs-verification` | checking if a library API, config, or best practice is outdated, reading docs before answering, and updating stale local knowledge. See knowledge-freshness |
 | `document-generation` | docx, xlsx, pptx, and pdf creation, templating, tables, charts, formatting, and document extraction |
 | `documentation` | project onboarding docs, OpenAPI-derived reference, decision records, release notes, and doc drift prevention |
 | `domain-modeling` | a glossary, naming a concept, the same thing called three names, business terms that do not match the types, and writing CONTEXT.md so people and tools share one language |
 | `electron-architecture` | process boundaries, inter-process messaging, preload bridges, context isolation, sandboxing, native OS integration, and desktop startup cost |
-| `expert-review` | pull-request review, design review, plan stress-testing, risk analysis, and evidence-based findings |
+| `expert-review` | pull-request review, design review, plan stress-testing, risk analysis, and evidence-based findings. See code-simplification to shrink code |
 | `finishing-dev` | finishing development work, drafting the pull request body and summarizing what changed, GitHub CLI, and delivery evidence |
 | `frontend-design` | layout, picking a color palette and type scale, typography, spacing, visual hierarchy, motion, and avoiding generic AI slop |
 | `frontend-engineering` | React, Next.js App Router, Vite, Tailwind, shadcn/ui, server and client boundaries, component systems, responsive layout, hydration mismatches, and keyboard behavior |
@@ -90,15 +90,15 @@ git submodule add https://github.com/juninmd/skills .agents
 | `goldsrc-map-compiling` | hlcsg, hlbsp, hlvis and hlrad errors, a wad file it could not open, LEAK, AllocBlock full, a fullbright map, black outdoor shadows, and running the tools on Windows |
 | `headless-agent-supervision` | supervising an unattended batch run and for relaunch-on-401, sleep-until-reset-on-429 loops |
 | `human-step-wizard` | browser sign-in and consent screens, two-factor enrolment, vendor dashboards, hardware, and any manual step that must be handed to a human and then verified |
-| `incident-response` | outages, error spikes, failed deploys, rollback decisions, data-integrity incidents, on-call triage, severity assessment, and corrective-action follow-up |
+| `incident-response` | outages, error spikes, failed deploys, rollback decisions, data-integrity incidents, on-call triage, severity assessment, and corrective-action follow-up. CI flaky tests: test-engineering |
 | `incremental-delivery` | vertical slicing, tracer bullets, sequencing dependent work, stacked pull requests, keeping trunk releasable, and avoiding a long-lived branch or a big-bang merge |
-| `knowledge-freshness` | dependency and framework version checks before adding, upgrade planning, changelog tracking, and end-of-life dates |
+| `knowledge-freshness` | dependency and framework version checks before adding, upgrade planning, changelog tracking, and end-of-life dates. See docs-verification for API checks |
 | `legacy-discovery` | mapping an inherited codebase, recovering implicit business rules, writing retroactive decision records, producing design docs and API specs from source, or planning a rewrite |
 | `legacy-refactoring` | characterization tests, finding seams, breaking hidden dependencies, sprout and wrap, strangling a legacy subsystem behind a facade, and a feature in a module nobody dares to touch |
 | `llm-gateway-testing` | auditing which models emit tool calls, catching regressions after a gateway upgrade, screening a new model catalog, and triaging 4xx/429/5xx responses |
 | `masonry-layouts` | gallery and feed layouts, items splitting across columns, and a grid that jumps as images load |
 | `mcp-integration` | MCP tool and resource design, JSON Schema inputs, stdio and HTTP transports, authentication, pagination of large results, error contracts, and server testing |
-| `metric-loop` | optimizing against a mechanical metric such as a benchmark score, bundle size, latency or an error count, and for knowing when the loop has plateaued |
+| `metric-loop` | optimizing a mechanical metric such as a benchmark score, bundle size, latency or error count, and for knowing when the loop has plateaued. See regression-gate for ship verdicts |
 | `migration-engineering` | expand/contract rollouts, backfills, dual writes, codemods, framework upgrades, cutover planning, and rollback strategy |
 | `mobile-engineering` | mobile UI, lifecycle, navigation, permissions, offline behavior, accessibility, device integration, tests, and builds |
 | `observability` | structured logging, SLO/SLI definition, dashboard design, alert thresholds, tracing, log retention, and incident signal quality |
@@ -111,13 +111,13 @@ git submodule add https://github.com/juninmd/skills .agents
 | `phase-prototype` | building three throwaway variants A, B and C so a direction is chosen before any planning starts |
 | `phase-research` | opening the tracking issue and mapping the codebase and prior art before anything is built |
 | `plugin-vetting` | reading it at a pinned commit, hunting hidden instructions and exfiltration, sizing the permissions it asks for, and re-checking it on every version bump |
-| `project-lifecycle` | PRDs, implementation plans, issue slicing, scope cuts, GitHub backlog triage, and worktree setup for planned work |
+| `project-lifecycle` | PRDs, implementation plans, issue slicing, scope cuts, GitHub backlog triage, and worktree setup for planned work. Defers to dev-loop |
 | `project-structure` | new repository layout, deciding where a new module should live, feature-first frontend splits, Go and Python packages, junk-drawer folders, and safe restructuring |
 | `quiet-checks` | choosing the right --quiet, -q, --silent or reporter flag per tool, capping log output, keeping the exit status readable, and re-running only the failure verbosely |
-| `regression-gate` | a stability verdict before release, green-to-red detection, flaky versus real failures, and performance or size gates |
+| `regression-gate` | a one-shot stability verdict before release, green-to-red detection, flaky versus real failures, and performance or size gates. See metric-loop for tuning |
 | `release-management` | version bumps, conventional commits, changelog generation, release branches, and GitHub Releases |
 | `requirements-clarification` | ambiguous tickets, unstated assumptions, missing acceptance criteria, conflicting stakeholder input, undefined edge cases, and deciding what questions to ask before any planning starts |
-| `screenshot-capture` | visual evidence of a UI change, before and after layout comparisons, proving a page renders, or full-page capture of a route |
+| `screenshot-capture` | visual evidence of a UI change, before and after layout comparisons, proving a page renders, or full-page capture of a route. E2E suites: webapp-testing |
 | `security-ops` | CVE or SBOM scans, rotating a leaked credential Gitleaks found, access control, injection risk, least privilege, and zero-trust reviews |
 | `session-handoff` | pausing mid-task, passing unfinished work to a teammate or a fresh window, and recording decisions, dead ends, and the exact next command |
 | `session-learnings` | recalling context at session start, recording an error and its fix, promoting recurring lessons into project rules, or purging them |
@@ -132,7 +132,7 @@ git submodule add https://github.com/juninmd/skills .agents
 | `web-performance` | Core Web Vitals, improving LCP, INP and CLS on a slow page, critical rendering path, image and font loading, code splitting, hydration, third-party scripts, and RUM data |
 | `web-research` | multi-source web search, search operators, fetching pages, verifying claims, resolving conflicting sources, synthesizing findings, and citing them with dates |
 | `web-scraping` | extracting listings and tables into CSV or JSON, HTML parsing, JavaScript-rendered pages, pagination, rate limiting, retries, block detection, selectors that keep breaking, and structured output |
-| `webapp-testing` | Playwright and browser automation, E2E flows, reusing authenticated sessions, parallel isolation, responsive checks, visual regression, and CI-only failures |
+| `webapp-testing` | Playwright and browser automation, E2E flows, reusing authenticated sessions, parallel isolation, responsive checks, visual regression, and CI-only failures. One-off shots: screenshot-capture |
 <!-- skill-catalog:end -->
 
 ## Skill Example

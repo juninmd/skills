@@ -1,7 +1,7 @@
 ---
 name: screenshot-capture
 description: |
-  Capture screenshots of a running frontend with Playwright without polluting the repository. Use for visual evidence of a UI change, before and after layout comparisons, proving a page renders, or full-page capture of a route.
+  Capture screenshots of a running frontend with Playwright without polluting the repository. Use for visual evidence of a UI change, before and after layout comparisons, proving a page renders, or full-page capture of a route. E2E suites: webapp-testing.
 ---
 
 # Screenshot Capture

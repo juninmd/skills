@@ -1,7 +1,7 @@
 ---
 name: docs-verification
 description: |
-  Verify knowledge against current official documentation before acting. Use for checking if a library API, config, or best practice is outdated, reading docs before answering, and updating stale local knowledge.
+  Verify knowledge against current official documentation before acting. Use for checking if a library API, config, or best practice is outdated, reading docs before answering, and updating stale local knowledge. See knowledge-freshness.
 ---
 
 # Docs Verification
