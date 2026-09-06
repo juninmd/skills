@@ -3,30 +3,26 @@
   "trigger": {
     "positive": [
       {
-        "prompt": "I am new to this repository, help me understand how it is organized",
+        "prompt": "Map entry points and trace execution flow in an unfamiliar legacy codebase",
         "top_k": 3
       },
       {
-        "prompt": "Find where the checkout flow is implemented in this codebase",
+        "prompt": "Onboard to new repository by charting module organization and conventions",
         "top_k": 3
       },
       {
-        "prompt": "Build a dependency graph of the modules in this project",
+        "prompt": "Generate codebase dependency map showing which packages own critical business logic",
         "top_k": 3
       }
     ],
     "negative": [
       {
-        "prompt": "Write the ADR for our modularization decision",
-        "owner": "documentation"
+        "prompt": "Design system architecture, module boundaries, and dependency directions",
+        "owner": "software-architecture"
       },
       {
-        "prompt": "Draft the onboarding documentation for new contributors",
-        "owner": "documentation"
-      },
-      {
-        "prompt": "Where in this codebase should a new payment feature live",
-        "owner": "project-structure"
+        "prompt": "Make working code simpler, collapse unnecessary abstractions, and delete dead code",
+        "owner": "code-simplification"
       }
     ]
   }

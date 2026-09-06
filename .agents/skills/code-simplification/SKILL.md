@@ -1,8 +1,9 @@
 ---
 name: code-simplification
 description: |
-  Make working code smaller and plainer without changing what it does. Use for deleting dead paths, collapsing premature abstraction, removing speculative options, shortening long functions, and reviewing a diff for what could be less code. See expert-review for defects.
+  Refactor, simplify, and review code for clarity, defects, and legacy modernization. Use for code reviews, collapsing abstractions, characterization tests, undocumented legacy recovery, bug sweeps, and deleting dead code.
 ---
+
 
 # Code Simplification
 
@@ -13,7 +14,7 @@ rg -w "symbolName" --glob '!*.min.*'         # callers by symbol
 rg -F "'symbolName'" -F '"symbolName"'       # callers by string: DI, reflection, dispatch
 ```
 
-For behavior-bearing simplification, establish characterization coverage first. Route genuinely untested behavior to `legacy-refactoring`; mechanical cleanup may proceed with focused checks.
+For behavior-bearing simplification, establish characterization coverage first. Route genuinely untested behavior to legacy-refactoring; mechanical cleanup may proceed with focused checks.
 
 ## Workflow
 1. For behavior-bearing changes, confirm coverage before touching it. For mechanical cleanup, use a focused check and proceed.
@@ -51,12 +52,15 @@ A grep for the symbol is not proof. These are the paths that make deleted-but-li
 
 Shorter is not automatically simpler. A clever one-liner trades reading time for line count, and reading happens far more often than writing.
 
+See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-domain guides.
+
 ## Stop
-- Behavior is uncertain and lacks coverage. Route characterization to `legacy-refactoring` before changing semantics.
+- Behavior is uncertain and lacks coverage. Route characterization to legacy-refactoring before changing semantics.
 - A deletion cannot be proven dead across callers, strings, exports, flags, and scheduled work. Leave it and say why.
 - Behavior changed. That is a bug fix or a feature, not a simplification — split it into its own commit.
 
 ## Rules
+- Hand off verification tests to `test-engineering`, codebase mapping to `codebase-mapping`, and system architecture to `software-architecture`.
 - Behavior must not change. If it does, that is a bug fix or a feature, and it belongs in its own commit with its own test.
 - The best simplification is deletion. Ask whether the code needs to exist before asking how to improve it.
 - One caller is not a pattern. Wait for the third before extracting a shared abstraction — the second one is usually a coincidence, and abstracting on it costs more than the duplication would have.
@@ -64,7 +68,7 @@ Shorter is not automatically simpler. A clever one-liner trades reading time for
 - Configuration nobody configures is dead weight with a support cost. Remove the option and hard-code the used value.
 - Leave the tests alone. Rewriting a test to match simplified code hides exactly the regression it exists to catch.
 - Measure branching rather than eyeballing length: a 200-line function with no branches reads fine; a 40-line one with eight independent conditions does not.
-- A diff that both simplifies and moves files is unreviewable. Land the move separately — `project-structure` owns it.
+- A diff that both simplifies and moves files is unreviewable. Land the move separately — project-structure owns it.
 
 ## Excuses
 

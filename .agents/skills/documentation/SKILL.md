@@ -1,8 +1,10 @@
 ---
 name: documentation
 description: |
-  Write and maintain documentation that stays true: README, API docs, ADRs, runbooks, changelogs, and docs-as-code. Use for project onboarding docs, OpenAPI-derived reference, decision records, release notes, and doc drift prevention.
+  Author and verify documentation, visual diagrams, and programmatic office documents. Use for README, docs verification, Mermaid diagrams as code, ASCII figures, terminal figures, code snippet images, PDF/DOCX generation, and OpenAPI reference.
 ---
+
+
 
 # Documentation
 
@@ -30,7 +32,7 @@ Name the reader and the single question the document answers before writing a li
 | Why is it built this way? | ADR | context, decision, **alternatives rejected and why**, consequences, status |
 | It is broken at 3am — what do I do? | Runbook | symptom and how it pages, verification, mitigation with exact commands, escalation threshold, rollback |
 | How do I call this API? | Generated reference | derived from OpenAPI/types/`--help`, never hand-written |
-| What changed? | Changelog | owned by `release-management` — not written here |
+| What changed? | Changelog | owned by release-management — not written here |
 | How do I do task X? | Guide in `docs/` | prerequisites, numbered steps, expected output, failure cases |
 
 ## Anti-Drift
@@ -62,12 +64,15 @@ An untested code block is a claim, not a fact — and it is the first thing a ne
 ## The README Trap
 Everything ends up in the README because it is the path of least resistance, and then nobody reads any of it. When a section grows past a screen, move it to `docs/` and leave one link. The README's job is to get someone running in under five minutes.
 
+See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-domain guides.
+
 ## Stop
 - A new or changed command has not been checked on a clean checkout when its prerequisites permit. Verify it or mark the prerequisite and limitation clearly.
 - The document would claim behavior the code does not have. Read the code first.
 - The user did not ask for this artifact. Do not create it.
 
 ## Rules
+- Hand off requirements clarification to `project-lifecycle`, web research to `web-research`, and UI components to `frontend-engineering`.
 - No document claims behavior the code does not have. Read the code, not the previous version of the doc.
 - New or changed commands should be executed on a clean checkout when practical; pin versions where drift is costly.
 - When a Quick Start exists, it must run end to end for a reader with no prior context and no tribal knowledge — including the environment variables nobody remembers needing.
@@ -75,8 +80,8 @@ Everything ends up in the README because it is the path of least resistance, and
 - When a document already exists, report its weak or missing sections and preserve the rest. Regenerating destroys the corrections people made by hand.
 - Prefer a small accurate document over a complete stale one. Coverage is not the goal; being true is.
 - Do not create documentation artifacts the user did not request.
-- Before publishing prose, audit it for AI-writing tells — chatbot openers, significance inflation, filler transitions, a generic closing line. The external `avoid-ai-writing` skill does this in detect or edit-in-place mode; install it only after `plugin-vetting` has read it at a pinned commit.
-- Changelogs and release notes belong to `release-management`; diagrams as versioned source to `diagrams-as-code`; agent-facing repository context to `agents-md`; a figure that must survive plain text to `ascii-figures`; generated Office and PDF files to `document-generation`.
+- Before publishing prose, audit it for AI-writing tells — chatbot openers, significance inflation, filler transitions, a generic closing line. The external `avoid-ai-writing` skill does this in detect or edit-in-place mode; install it only after plugin-vetting has read it at a pinned commit.
+- Changelogs and release notes belong to release-management; diagrams as versioned source to diagrams-as-code; agent-facing repository context to agents-md; a figure that must survive plain text to ascii-figures; generated Office and PDF files to document-generation.
 
 ## Checklist
 - [ ] Reader and question named; the artifact type matches the job.

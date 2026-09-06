@@ -1,8 +1,10 @@
 ---
 name: agent-engineering
 description: |
-  Design, implement, test, and secure AI agents, context pipelines, memory, and multi-agent orchestration. Use for agent loops, tool schemas, handoffs, prompt-injection defenses, tracing, and agent evaluations.
+  Design, orchestrate, and supervise AI agents, MCP servers, subagents, and context pipelines. Use for agent loops, MCP tools, context window pruning, parallel subagents, concurrent workspaces, headless resilience, and radar digests.
 ---
+
+
 
 # Agent Engineering
 
@@ -75,8 +77,10 @@ The defense is architectural: least privilege on tools, deny destructive by defa
 - Deep audit scope and evidence collection: [audit-phases.md](references/audit-phases.md)
 - Function-level trust-boundary analysis: [function-analysis.md](references/function-analysis.md)
 - Stable outputs and subagent isolation: [stability-rules.md](references/stability-rules.md)
-- Building or wiring MCP servers, transports, and tool exposure: delegate to `mcp-integration`.
-- Window budgets, pruning, and summarization strategy: delegate to `context-engineering`.
+- Building or wiring MCP servers, transports, and tool exposure: delegate to mcp-integration.
+- Window budgets, pruning, and summarization strategy: delegate to context-engineering.
+
+See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-domain guides.
 
 ## Stop
 - The loop has no hard step, token, and wall-clock bound. Bound it before running it anywhere real.
@@ -84,12 +88,13 @@ The defense is architectural: least privilege on tools, deny destructive by defa
 - Retrieved content is concatenated into the system prompt. Fix the architecture before shipping — no wording survives injection.
 
 ## Rules
+- Hand off security audits to `security-ops`, CLI automation to `tooling-dev`, and prompt documentation to `documentation`.
 - Give tools least privilege and deny destructive operations by default. A tool that can delete needs a human gate, not a careful prompt.
 - Keep memory provenance, retention, and deletion behavior explicit. Memory that cannot be inspected or deleted is a liability.
 - Never log the system prompt or chain-of-thought, and never echo unsanitized tool output back to the user.
 - On handoff to another agent, pass intent, scope, current state, verification commands, and boundaries — never raw transcripts. A transcript hands over noise and hides the contract.
 - An agent evaluation needs a fixed input set and a graded rubric. "It seemed better" is not a result, and it will reverse next week.
-- Whether every model behind an OpenAI-compatible gateway actually emits tool calls is `llm-gateway-testing`; auditing a third-party MCP server or plugin before installing it is `plugin-vetting`; keeping an unattended headless run alive across expiring tokens and quotas is `headless-agent-supervision`.
+- Whether every model behind an OpenAI-compatible gateway actually emits tool calls is llm-gateway-testing; auditing a third-party MCP server or plugin before installing it is plugin-vetting; keeping an unattended headless run alive across expiring tokens and quotas is headless-agent-supervision.
 
 ## Checklist
 - [ ] Goal, non-goals, authority boundary, and approval points written down.

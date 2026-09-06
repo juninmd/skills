@@ -1,8 +1,10 @@
 ---
 name: frontend-engineering
 description: |
-  Build, bundle, and review web UIs. Use for React, Next.js App Router, Vite, Tailwind, shadcn/ui, server and client boundaries, component systems, responsive layout, hydration mismatches, and keyboard behavior.
+  Build, design, and review web UIs, component design systems, and responsive layouts. Use for React, Next.js, Vite, Tailwind, WCAG accessibility, visual hierarchy, color palettes, anti-slop styling, UI states, and masonry.
 ---
+
+
 
 # Frontend Engineering
 
@@ -19,7 +21,7 @@ Framework and router decide where data may be fetched, where state may live, and
 ## Workflow
 1. Name the primary user task, its states, and its responsive behavior before building anything.
 2. Keep server/client boundaries explicit. `'use client'` is a leaf decision — put it on the smallest component that needs it, because everything imported below it becomes client code too.
-3. Implement loading, empty, error, disabled, overflow, and slow-network alongside the happy path. Enumerate them with `ui-state-design`.
+3. Implement loading, empty, error, disabled, overflow, and slow-network alongside the happy path. Enumerate them with ui-state-design.
 4. Keep the UI layer thin: calculations and business policy live in domain modules, services, or hooks — not in JSX.
 5. Verify keyboard, focus, responsive layout, a clean console, tests, and the production build. The dev build hides real failures.
 
@@ -56,16 +58,19 @@ Open a file only when its trigger matches.
 - Reviewing UI: [frontend-review.md](references/frontend-review.md); slow UI: [frontend-optimization.md](references/frontend-optimization.md).
 - Behavior that should work but does not: [real-world-cases.md](references/real-world-cases.md).
 
+See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-domain guides.
+
 ## Stop
 - A hydration warning appears in the console. Fix the divergence; never silence it with `suppressHydrationWarning`.
 - A secret or server-only value would cross into a client component. Stop before it ships to every browser.
 - Only the dev build was verified. Verify against the production build — StrictMode and minification change behavior.
 
 ## Rules
+- Hand off API contracts to `backend-systems`, end-to-end tests to `test-engineering`, mobile apps to `mobile-engineering`, and performance budgets to `performance-engineering`.
 - Preserve the repository's design system. Never add a second component stack casually — two stacks is a permanent tax on every future component.
 - A secret read in a client component ships to the browser. Environment variables without the public prefix are server-only for a reason; check before moving code across the boundary.
 - `key` on a list must be stable and identity-bearing. Array index as key corrupts state whenever the list reorders.
-- Delegate accessibility to `accessibility`, runtime and bundle cost to `web-performance`, visual system decisions to `frontend-design`, and native or cross-platform mobile apps to `mobile-engineering`. Do not restate their rules here.
+- Delegate accessibility to accessibility, runtime and bundle cost to web-performance, visual system decisions to frontend-design, and native or cross-platform mobile apps to `mobile-engineering`. Do not restate their rules here.
 - Verify against the production build. Dev-only warnings, double-invoked effects in StrictMode, and unminified behavior all differ.
 
 ## Checklist

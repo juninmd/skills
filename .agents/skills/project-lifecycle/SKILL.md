@@ -1,8 +1,10 @@
 ---
 name: project-lifecycle
 description: |
-  Turn product or engineering goals into validated specs, plans, and tracked work items. Use for PRDs, implementation plans, issue slicing, scope cuts, GitHub backlog triage, and worktree setup for planned work. Defers to dev-loop.
+  Plan project scope, clarify ambiguous requirements, guide human steps, and maintain context memory. Use for PRDs, vague requests, acceptance criteria, backlog triage, session handoffs, AGENTS.md authoring, interactive human wizards, and session learnings.
 ---
+
+
 
 # Project Lifecycle
 
@@ -15,7 +17,7 @@ ls .workflow/*/loop-state.json 2>/dev/null    # is a dev-loop already driving th
 An active loop state file means this skill defers — `dev-loop` and its stage skills own delivery there.
 
 ## Workflow
-1. Establish goal, users, constraints, non-goals, current evidence, and **measurable** acceptance criteria. Vague requirements go through `requirements-clarification` first — one batched round, never a question at a time.
+1. Establish goal, users, constraints, non-goals, current evidence, and **measurable** acceptance criteria. Vague requirements go through requirements-clarification first — one batched round, never a question at a time.
 2. Choose the smallest deliverable vertical slice, and name its dependencies and its rollback.
 3. Write an executable plan: every step names the files or surfaces it touches and the command that verifies it.
 4. Convert work into independently verifiable issues **only when issue tracking is requested**.
@@ -71,17 +73,20 @@ Only when issue tracking was requested. Each issue must be independently verifia
 - Branch completion: [git-finish-workflow.md](references/git-finish-workflow.md), [git-best-practices.md](references/git-best-practices.md)
 - Agent briefs: [AGENT-BRIEF.md](references/AGENT-BRIEF.md)
 
+See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-domain guides.
+
 ## Stop
-- Requirements are vague. Clarify with `requirements-clarification` before planning; a plan on assumptions is rework with a schedule.
+- Requirements are vague. Clarify with requirements-clarification before planning; a plan on assumptions is rework with a schedule.
 - A step has no verification command. It is an intention with a checkbox.
 - Scope grew without being surfaced. Say it out loud — silent expansion is how deadlines die.
 
 ## Rules
+- Hand off execution loop to `dev-loop`, domain architecture to `software-architecture`, and documentation to `documentation`.
 - No commit, push, rebase, merge, branch deletion, or pull-request mutation without explicit confirmation.
 - Do not create documentation artifacts the user did not request. A plan is not a deliverable unless someone asked for one.
 - With an active `dev-loop` state file, defer to the loop — its stage skills own delivery there. This skill is for standalone work.
 - Acceptance criteria live where the work lives — the issue, or a repository note linked from the pull request. Criteria that live only in chat are gone next session.
-- Slicing the delivery into shippable steps belongs to `incremental-delivery`; the pull request itself to `finishing-dev`.
+- Slicing the delivery into shippable steps belongs to incremental-delivery; the pull request itself to finishing-dev.
 
 ## Checklist
 - [ ] Goal, users, constraints, and **non-goals** written down.
