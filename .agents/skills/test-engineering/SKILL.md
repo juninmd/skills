@@ -1,8 +1,9 @@
 ---
 name: test-engineering
 description: |
-  Design and implement reliable unit, integration, contract, property, mutation, and performance tests. Use for TDD, writing the failing test before the fix, Vitest, pytest, unhappy paths, flaky tests, fixtures, mocks, fuzzing, coverage gaps, and regression benchmarks.
+  Design and run test suites, end-to-end browser flows, regression gates, and quiet checks. Use for unit/integration tests, Vitest, pytest, flaky test elimination, Playwright E2E, LLM gateway conformance, and test coverage.
 ---
+
 
 # Test Engineering
 
@@ -46,20 +47,19 @@ pytest --lf                                          # last failed only
 ```
 
 ## Flake Attribution
-Never retry a flaky test; attribute it to exactly one source and remove that source. Detecting a p-flake in n runs is `1-(1-p)^n` — five green runs at p=5% catch it about 23% of the time, so state n before calling a test stable.
+Never retry a flaky test; attribute it to exactly one source and remove that source. Detecting a p-flake in n runs is 1-(1-p)^n.
 
 | Source | Tell | Fix |
 |---|---|---|
 | Shared state | Passes alone, fails in suite | Own fixture, own schema/tenant, own temp path |
 | Order dependence | Passes in file order only | Shuffle in CI; it is asserting on residue |
-| Time | Fails near midnight, month end, or in another TZ | Freeze the clock; pin `TZ` |
+| Time | Fails near midnight, month end, or in another TZ | Freeze the clock; pin TZ |
 | Randomness | Fails ~1 run in N | Fixed seed, printed on failure |
-| Async | Fails on a faster or slower machine | Await the observable condition, never `sleep` |
+| Async | Fails on a faster or slower machine | Await the observable condition, never sleep |
 | Port or resource | Fails only in parallel | Per-worker port, or mark serial |
 
 ## Reference Routing
-- Every reference is indexed with its trigger in [TOPIC_MAP.md](references/TOPIC_MAP.md). Start there and open only the file it names.
-- Browser journeys belong to `webapp-testing`; the underlying defect to `diagnostics`; a suite result judged against a captured baseline to `regression-gate`.
+- Consult [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-domain guides.
 
 ## Stop
 - The test passes before the fix. It proves nothing — make it fail for the intended reason first.
@@ -67,14 +67,15 @@ Never retry a flaky test; attribute it to exactly one source and remove that sou
 - The subject under test is being mocked. Stop; the test now asserts the mock.
 
 ## Rules
+- Hand off refactoring and simplifications to `code-simplification`, UI issues to `frontend-engineering`, and service bugs to `backend-systems`.
 - Assert externally meaningful behavior and exact failure semantics — the error type and message, not just that it threw.
 - Restore mocks, timers, environment, and global state after every test. A leaked timer fails a later, innocent test.
 - Order dependence is a defect, not a configuration preference. Run the suite shuffled in CI.
 - Concurrent tests sharing one fixture, database, or temp path will interleave. Give each worker its own, or mark those tests serial.
 - Do not chase a coverage percentage: 100% with weak assertions is worse than 70% with sharp ones, because it looks finished.
-- `connection refused` in a test run is not a network fault: a required service was not started, a call was left unmocked, or the environment differs from local.
-- Prefer a real containerized dependency when fidelity matters — an in-memory SQLite that accepts SQL Postgres rejects is a false green.
-- Benchmarks need warmup, stable inputs, multiple samples, and a before/after comparison; report medians and tails, never a single run.
+- connection refused in a test run is not a network fault: a required service was not started or a call was left unmocked.
+- Prefer a real containerized dependency when fidelity matters.
+- Benchmarks need warmup, stable inputs, multiple samples, and a before/after comparison.
 
 ## Excuses
 
@@ -82,7 +83,7 @@ Never retry a flaky test; attribute it to exactly one source and remove that sou
 |---|---|
 | "This behavior is too obvious to test" | The test exists to fail when the rule changes, not to prove what you already know |
 | "I will add the test after the fix lands" | A test never seen failing asserts nothing; write it first and watch it fail for the intended reason |
-| "It only fails in CI, so it is a CI problem" | Order, seed, and concurrency are the product's problem — reproduce with `--sequence.shuffle` |
+| "It only fails in CI, so it is a CI problem" | Order, seed, and concurrency are the product's problem — reproduce with --sequence.shuffle |
 | "Coverage is at 90%, that is enough" | Coverage grades what ran, not what was asserted; mutation grades the assertions |
 | "It passed five times, so it is not flaky" | Five runs catch a 5% flake about a quarter of the time; the count is the claim |
 

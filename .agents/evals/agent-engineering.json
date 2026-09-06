@@ -3,26 +3,34 @@
   "trigger": {
     "positive": [
       {
-        "prompt": "Design the tool schemas and handoff rules for a multi-agent loop",
+        "prompt": "Design autonomous agent loop with strict tool schemas and execution bounds",
         "top_k": 3
       },
       {
-        "prompt": "Our agent keeps looping forever, add guardrails and tracing to the agent runtime",
+        "prompt": "Build Model Context Protocol MCP server with stdio or SSE transport",
         "top_k": 3
       },
       {
-        "prompt": "Write an evaluation harness for prompt-injection defenses in our agent",
+        "prompt": "Manage context window token budgets with pruning and sliding memory",
+        "top_k": 3
+      },
+      {
+        "prompt": "Orchestrate concurrent subagents with isolated workspaces",
+        "top_k": 3
+      },
+      {
+        "prompt": "Create new agent skill following the specification and eval benchmarks",
         "top_k": 3
       }
     ],
     "negative": [
       {
-        "prompt": "Create a Word document from this report",
-        "owner": "document-generation"
+        "prompt": "Scan repository for leaked credentials and hardcoded secrets with Gitleaks",
+        "owner": "security-ops"
       },
       {
-        "prompt": "Set up Terraform for the staging environment",
-        "owner": "cloud-devops"
+        "prompt": "Build command line CLI tool with argument parsing",
+        "owner": "tooling-dev"
       }
     ]
   }

@@ -1,0 +1,33 @@
+{
+  "skill_name": "goldsrc-modding",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Author Counter-Strike 1.6 map brushes and compile with ZHLT/VHLT tools",
+        "top_k": 3
+      },
+      {
+        "prompt": "Fix LEAK and AllocBlock full compile errors in GoldSrc map compilation",
+        "top_k": 3
+      },
+      {
+        "prompt": "Edit BSP30 entity lumps with ripent and configure de_ bomb target spawns",
+        "top_k": 3
+      },
+      {
+        "prompt": "Configure hostage rescue cs_ zones and VIP escort entities in GoldSrc",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Build command line CLI tool with argument parsing, exit codes, and quiet mode",
+        "owner": "tooling-dev"
+      },
+      {
+        "prompt": "Map entry points and trace execution flow in an unfamiliar legacy codebase",
+        "owner": "codebase-mapping"
+      }
+    ]
+  }
+}

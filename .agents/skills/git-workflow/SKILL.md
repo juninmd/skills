@@ -1,8 +1,9 @@
 ---
 name: git-workflow
 description: |
-  Operate Git safely and recover from history problems. Use for bisect, cherry-pick, reflog, cleaning up stale branches and worktrees, submodules, hooks, stash, rebase, amend, detached HEAD, conflict resolution, and history rewrite safety.
+  Operate Git safely, finish pull requests, and manage releases. Use for branches, rebase, reflog, stash, conflict resolution, PR drafting, conventional commit verification, version bumping, changelogs, and release tags.
 ---
+
 
 # Git Workflow
 
@@ -55,6 +56,8 @@ git diff --diff-filter=U --name-only  # exactly what is still unresolved
 
 Verify the resolved result before completing the rebase; never `--skip`, which drops the commit.
 
+See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-domain guides.
+
 ## Stop
 - A conflict is resolved by picking a side without reading why the other side existed.
 - The rewrite would touch a commit already on the remote. Stop and get explicit confirmation.
@@ -62,15 +65,16 @@ Verify the resolved result before completing the rebase; never `--skip`, which d
 - Work appears lost. Check `git reflog` and `git fsck --lost-found` before concluding anything is gone.
 
 ## Rules
+- Hand off CI pipelines to `cloud-devops`, loop automation to `dev-loop`, and project tracking to `project-lifecycle`.
 - Never rewrite pushed history without explicit confirmation.
-- Never `git push --force`. Fetch first, then `--force-with-lease --force-if-includes`: the lease only compares your remote-tracking ref, so an uninspected fetch makes it pass while overwriting unseen work.
-- Two branches checked out at once (bisect, hotfix, comparing builds): `git worktree add ../<dir> <branch>` instead of stashing; remove it after, and never point two worktrees at one branch.
+- Never `git push --force`. Use `--force-with-lease --force-if-includes` after fetching.
+- Two branches checked out at once: use `git worktree add ../<dir> <branch>`.
 - Prefer `git stash push --include-untracked`; an unnamed stash is unrecoverable context after a week.
 - Submodules: update `--init --recursive` and pin by commit; a bump is a content change and belongs in its own commit.
 - Hooks live in-repo (`.githooks/` with `core.hooksPath`), never in `.git/hooks`. A local hook cannot enforce a convention — pair it with a CI check over the branch range.
 - Never `--no-verify`, and never `-c core.hooksPath=`. The hook is the gate, not a suggestion; a slow or wrong hook is a hook to fix or delete, not to route around.
 - `git clean -fdx` deletes ignored files too — `.env`, local databases, build caches. Dry-run with `-n` first.
-- Branching, committing, and opening the pull request belong to `finishing-dev`; tags and releases to `release-management`.
+- Branching, committing, and opening the pull request belong to finishing-dev; tags and releases to release-management.
 
 ## Excuses
 

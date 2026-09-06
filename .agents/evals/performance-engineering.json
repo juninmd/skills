@@ -3,26 +3,30 @@
   "trigger": {
     "positive": [
       {
-        "prompt": "This endpoint is slow, find the N+1 query and fix it",
+        "prompt": "Profile slow endpoint latency and optimize bottleneck throughput",
         "top_k": 3
       },
       {
-        "prompt": "We have a memory leak and the event loop is blocked",
+        "prompt": "Optimize Core Web Vitals LCP, INP, and CLS on slow web page",
         "top_k": 3
       },
       {
-        "prompt": "Run a load test and fix the throughput regression",
+        "prompt": "Run autonomous metric loop to optimize benchmark throughput and memory footprint",
+        "top_k": 3
+      },
+      {
+        "prompt": "Reduce cloud spend and LLM token budget by rightsizing resources",
         "top_k": 3
       }
     ],
     "negative": [
       {
-        "prompt": "Reduce the cost per request of this service",
-        "owner": "cost-engineering"
+        "prompt": "Set up structured logging, metrics, and alerting for production",
+        "owner": "observability"
       },
       {
-        "prompt": "Add an index to this PostgreSQL table",
-        "owner": "data-engineering"
+        "prompt": "Fix the React hydration mismatch in our Next.js app",
+        "owner": "frontend-engineering"
       }
     ]
   }

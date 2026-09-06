@@ -11,18 +11,26 @@
         "top_k": 3
       },
       {
+        "prompt": "Make this web UI accessible with WCAG standards and keyboard navigation",
+        "top_k": 3
+      },
+      {
         "prompt": "Our bundle is huge and the browser is janky, fix the frontend build",
+        "top_k": 3
+      },
+      {
+        "prompt": "This UI looks like generic AI slop, give it real visual hierarchy, styling, and colors",
         "top_k": 3
       }
     ],
     "negative": [
       {
-        "prompt": "Pick the color palette and typographic scale",
-        "owner": "frontend-design"
-      },
-      {
         "prompt": "Build the React Native navigation and permissions flow",
         "owner": "mobile-engineering"
+      },
+      {
+        "prompt": "Implement the NestJS controller and database repository",
+        "owner": "backend-systems"
       }
     ]
   }

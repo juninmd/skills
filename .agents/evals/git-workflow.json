@@ -3,26 +3,30 @@
   "trigger": {
     "positive": [
       {
-        "prompt": "Use git bisect to find the commit that introduced this bug",
+        "prompt": "Recover lost commits from git reflog and resolve complicated git rebase conflicts",
         "top_k": 3
       },
       {
-        "prompt": "I am in detached HEAD with a botched rebase, recover with reflog",
+        "prompt": "Draft pull request with git commits, changelog entries, and release tags",
         "top_k": 3
       },
       {
-        "prompt": "Resolve these merge conflicts and clean up the branch history safely",
+        "prompt": "Run git bisect to locate the commit that introduced the regression",
+        "top_k": 3
+      },
+      {
+        "prompt": "Prepare semantic release version bump and tag on main branch",
         "top_k": 3
       }
     ],
     "negative": [
       {
-        "prompt": "Cut the release tag and changelog",
-        "owner": "release-management"
+        "prompt": "Write a GitHub Actions CI/CD workflow to build and deploy containers",
+        "owner": "cloud-devops"
       },
       {
-        "prompt": "Write the pull request description",
-        "owner": "finishing-dev"
+        "prompt": "Run the autonomous dev loop driver to advance the next task stage",
+        "owner": "dev-loop"
       }
     ]
   }

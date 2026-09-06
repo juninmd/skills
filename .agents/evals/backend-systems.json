@@ -3,26 +3,34 @@
   "trigger": {
     "positive": [
       {
-        "prompt": "Fix the cancellation and disposal lifetimes in this C# service",
+        "prompt": "Build a NestJS module with dependency injection and DTO validation",
         "top_k": 3
       },
       {
-        "prompt": "Add EF Core entities and tune the resource lifetime of this dotnet API",
+        "prompt": "Create a FastAPI endpoint with Pydantic v2 validation models and async controllers",
         "top_k": 3
       },
       {
-        "prompt": "Review concurrency and error handling in this performance-sensitive dotnet code",
+        "prompt": "Implement caching strategy with Redis, TTL and cache invalidation",
+        "top_k": 3
+      },
+      {
+        "prompt": "Design the REST API contract and OpenAPI spec for our backend service",
+        "top_k": 3
+      },
+      {
+        "prompt": "Implement compiled backend services and concurrent routines in Go, Rust, or .NET",
         "top_k": 3
       }
     ],
     "negative": [
       {
-        "prompt": "Set up uv and Ruff for the Python service",
-        "owner": "backend-python"
+        "prompt": "Set up Vite, Tailwind, and shadcn/ui for this component system",
+        "owner": "frontend-engineering"
       },
       {
-        "prompt": "Write the Playwright end-to-end test for login",
-        "owner": "webapp-testing"
+        "prompt": "Write a complex SQL migration with zero-downtime DDL in PostgreSQL",
+        "owner": "data-engineering"
       }
     ]
   }

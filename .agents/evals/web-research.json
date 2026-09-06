@@ -3,26 +3,30 @@
   "trigger": {
     "positive": [
       {
-        "prompt": "Search multiple sources and synthesize what is current on this topic",
+        "prompt": "Conduct live web research to verify recent library release facts and changelogs",
         "top_k": 3
       },
       {
-        "prompt": "Find and cite recent sources answering this question",
+        "prompt": "Extract table listings from websites using resilient web scraping with retries",
         "top_k": 3
       },
       {
-        "prompt": "Verify this claim across several websites and cite them",
+        "prompt": "Verify library dependency target version and check breaking changes before upgrade",
+        "top_k": 3
+      },
+      {
+        "prompt": "Perform multi-source web search and synthesize findings with cited URLs",
         "top_k": 3
       }
     ],
     "negative": [
       {
-        "prompt": "Check the official library docs for this API signature",
-        "owner": "docs-verification"
+        "prompt": "Write comprehensive README and API documentation from OpenAPI specifications",
+        "owner": "documentation"
       },
       {
-        "prompt": "Extract the product table from this page into CSV",
-        "owner": "web-scraping"
+        "prompt": "Design autonomous agent loop with strict tool schemas and execution bounds",
+        "owner": "agent-engineering"
       }
     ]
   }

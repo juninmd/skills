@@ -3,26 +3,30 @@
   "trigger": {
     "positive": [
       {
-        "prompt": "This function works but it is way too complicated, make it plainer",
+        "prompt": "Make working code simpler, collapse unnecessary abstractions, and delete dead code",
         "top_k": 3
       },
       {
-        "prompt": "Delete the dead branches and unused options in this module",
+        "prompt": "Perform an adversarial code review on this pull request to find hidden defects",
         "top_k": 3
       },
       {
-        "prompt": "Collapse this premature abstraction, only one caller uses it",
+        "prompt": "Refactor legacy undocumented code safely by adding characterization tests first",
+        "top_k": 3
+      },
+      {
+        "prompt": "Sweep the codebase for sibling variants of this fixed defect pattern",
         "top_k": 3
       }
     ],
     "negative": [
       {
-        "prompt": "Find the bugs and risks in this pull request",
-        "owner": "expert-review"
+        "prompt": "Write failing unit tests first with Vitest and reproduce the bug before fixing",
+        "owner": "test-engineering"
       },
       {
-        "prompt": "Add characterization tests before touching this untested class",
-        "owner": "legacy-refactoring"
+        "prompt": "Design system architecture, module boundaries, and dependency directions",
+        "owner": "software-architecture"
       }
     ]
   }

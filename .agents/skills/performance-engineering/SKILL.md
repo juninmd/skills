@@ -1,8 +1,10 @@
 ---
 name: performance-engineering
 description: |
-  Measure, diagnose, and improve latency, throughput, and memory with profile-driven evidence. Use for slow endpoints, N+1 queries, memory leaks, event-loop blocking, load testing, and performance regressions.
+  Measure, optimize, and reduce latency, memory, Core Web Vitals, and cloud/token spend. Use for endpoint profiling, latency bottlenecks, N+1 query bottlenecks, memory leaks, LCP/INP web vitals, autonomous metric loops, and rightsizing costs.
 ---
+
+
 
 # Performance Engineering
 
@@ -63,21 +65,24 @@ A result inside run-to-run variance is not a result.
 - Profiling by layer (Node, Python, browser, SQL): [profiling-playbook.md](references/profiling-playbook.md)
 - Caching, batching, and load-test design: [optimization-patterns.md](references/optimization-patterns.md)
 
+See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-domain guides.
+
 ## Stop
 - There is no profile. Stop guessing — intuition about hot paths is wrong often enough to be worthless.
 - The delta sits inside run-to-run variance. That is not a result; keep measuring or revert.
 - The profile points at structure, not code. Stop tuning and route it to `software-architecture`.
 
 ## Rules
+- Hand off production alerting to `observability`, frontend tuning to `frontend-engineering`, and backend bottlenecks to `backend-systems`.
 - No optimization without a profile. The bottleneck is measured, never guessed — intuition about hot paths is wrong often enough to be worthless.
 - Stop when the target is met, or when the next profile entry is smaller than the noise floor.
 - When the profile points at structure — chatty I/O across a boundary, needless synchronization, a fan-out that should be one call — stop tuning and delegate to `software-architecture`.
-- Caching is the wrong fix for avoidable work: a cache over an N+1 still fires on every miss and now serves stale rows. Fix the access pattern first, then delegate cache design to `caching-strategy`.
+- Caching is the wrong fix for avoidable work: a cache over an N+1 still fires on every miss and now serves stale rows. Fix the access pattern first, then delegate cache design to caching-strategy.
 - Reject micro-optimizations that complicate code without moving the user-visible metric.
 - Load tests never run against production without explicit approval.
 - Test against production-sized data. A bottleneck that only appears at scale is invisible locally, and that is exactly the one that pages you.
-- Browser latency, bundle size, and Core Web Vitals belong to `web-performance`; spend to `cost-engineering`; a crash or wrong answer to `diagnostics`.
-- Turning a proven target into an unattended keep-or-revert loop is `metric-loop`; gating a branch on the benchmark delta is `regression-gate`.
+- Browser latency, bundle size, and Core Web Vitals belong to web-performance; spend to cost-engineering; a crash or wrong answer to diagnostics.
+- Turning a proven target into an unattended keep-or-revert loop is metric-loop; gating a branch on the benchmark delta is regression-gate.
 
 ## Checklist
 - [ ] Metric, percentile, target, load, and environment recorded before the first change.

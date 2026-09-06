@@ -1,8 +1,9 @@
 ---
 name: security-ops
 description: |
-  Audit and harden code, dependencies, secrets, identities, pipelines, and infrastructure. Use for CVE or SBOM scans, rotating a leaked credential Gitleaks found, access control, injection risk, least privilege, and zero-trust reviews.
+  Audit and harden code, dependencies, secrets, access boundaries, and extensions. Use for CVE scans, Gitleaks remediation, zero-trust reviews, plugin vetting, least privilege, threat modeling, and third-party extension safety.
 ---
+
 
 # Security Operations
 
@@ -59,19 +60,22 @@ Blocking a merge on everything is how scanners get switched off. Split deliberat
 - **Blocks:** a reachable, attacker-exposed weakness in the changed code; any live secret; a control this change removes or weakens; a new dependency with a critical CVE that has a fix.
 - **Becomes a tracked issue:** unreachable or unexposed CVEs, findings with no upstream fix, pre-existing debt this change did not touch.
 
+See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-domain guides.
+
 ## Stop
 - A live secret is present. Revoke first — before rotation, before history cleanup, before anything else.
 - A finding is about to be suppressed without understanding exploitability and provenance. Do not suppress it.
 - History rewriting, credential mutation, or an infrastructure change is about to happen without explicit approval. Stop.
 
 ## Rules
+- Hand off CI pipeline hardening to `cloud-devops`, API contracts to `backend-systems`, and agent sandboxing to `agent-engineering`.
 - Never print or commit a discovered secret; show only type, location, and redacted evidence.
 - Do not suppress a scanner finding until exploitability and provenance are understood; record the reason next to the suppression, with an expiry.
 - An unreachable CVE is scheduled work. A reachable one on a request path is not. Reachability outranks CVSS.
 - Require explicit approval before history rewriting, credential mutation, or infrastructure changes.
 - Prefer short-lived identity (OIDC, workload identity) over stored credentials; a rotated long-lived secret is still a long-lived secret.
 - Before any tool applies a migration or a destructive fixture, the database URL passes an **anchored** allowlist: host exactly `localhost`, `127.0.0.1`, or a container service name, or a database name ending in `_test` or `_ci`. A bare substring never qualifies — `test` matches inside `latest`, `ci` inside `precision` — and even an allowlisted URL needs explicit confirmation.
-- A live breach runs through `incident-response` first — a fast rollback destroys the evidence. Pipeline and infrastructure changes land through `cloud-devops`. Vetting a third-party skill, plugin, or MCP server before it is installed is `plugin-vetting`.
+- A live breach runs through incident-response first — a fast rollback destroys the evidence. Pipeline and infrastructure changes land through `cloud-devops`. Vetting a third-party skill, plugin, or MCP server before it is installed is plugin-vetting.
 
 ## Excuses
 

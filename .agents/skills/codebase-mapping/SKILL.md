@@ -1,8 +1,10 @@
 ---
 name: codebase-mapping
 description: |
-  Map an unfamiliar codebase before changing it: entry points, modules, data flow, and conventions. Use for onboarding to a new repository, getting a quick map of an unfamiliar repo before touching it, understanding how it is organized, locating the code that owns a behavior, and dependency graphs.
+  Map an unfamiliar codebase before changing it: entry points, modules, dependency graphs, and conventions. Use for onboarding to a new repository, getting a quick map of an unfamiliar repo, package structure, and data flow.
 ---
+
+
 
 # Codebase Mapping
 
@@ -64,12 +66,13 @@ Record explicitly that the map is **unverified at runtime**.
 - The app cannot be run and the tests do not cover the path. Record the map as unverified at runtime, explicitly.
 
 ## Rules
+- Hand off code simplification to `code-simplification`, architecture planning to `software-architecture`, and dev loop tasks to `dev-loop`.
 - Prefer `rg`, glob, and reading exports over reading whole files. Reading a large file end to end is almost always the wrong first move.
 - Do not trust folder names. `utils/` holds domain logic in most repositories; verify ownership by following imports and callers.
 - Record `file:line` evidence for every mapping claim. An unattributed claim is a guess that will be repeated as fact.
 - Skip generated, vendored, and build-output paths (`node_modules`, `dist`, `build`, `target`, `vendor`, `.next`, generated clients). They inflate the graph and own no logic.
 - In a monorepo, map one workspace at a time from its own manifest, and record cross-workspace edges only as package names.
-- Where new code should live belongs to `project-structure`; a full documentation reconstruction to `legacy-discovery`; whether a boundary should move to `software-architecture`.
+- Where new code should live belongs to project-structure; a full documentation reconstruction to legacy-discovery; whether a boundary should move to `software-architecture`.
 
 ## Checklist
 - [ ] Build, test, and run commands taken from CI, not assumed.
