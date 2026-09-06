@@ -17,7 +17,7 @@ Take the snapshot **before** writing prose. A handoff note describing a tree you
 
 ## Workflow
 1. Write to a file, not to chat. `docs/handoff/<branch>.md` survives a closed window; a message does not.
-2. Commit or stash first, and name where the work sits. Work only in the note is work only you can find.
+2. Record the branch, worktree, commits, and changed paths. Commit or stash only when requested or needed to preserve the handoff.
 3. Fill the five sections below in order. The order is the reading order for someone with no history.
 4. Record commands and `file:line`, never summaries of them. "Fixed the parser" is unactionable; `src/parse.ts:88, run pnpm test parse` is not.
 5. Write the dead ends with their evidence. What was tried and failed is the most expensive thing to lose and the first thing omitted.
@@ -65,7 +65,7 @@ git diff --stat >> docs/handoff/$(git branch --show-current).md
 - Budgeting what stays loaded while the work is still running is a different job: `context-engineering`.
 
 ## Checklist
-- [ ] Work committed or stashed, and its location named in the note.
+- [ ] Worktree, branch, commits, and changed paths are named; any commit or stash is intentional.
 - [ ] All five sections present; every decision carries its reason.
 - [ ] Dead ends recorded with the evidence that closed them.
 - [ ] Claims anchored to commands and `file:line`, not summaries.

@@ -16,7 +16,7 @@ cmd > /tmp/out.log 2>&1; wc -l /tmp/out.log
 Know the current window pressure before deciding what to read. Estimating after the paste is not estimating.
 
 ## Workflow
-1. Estimate before reading. Never open a file whose cost you have not priced.
+1. Estimate large reads before opening them; use judgment for small, targeted reads.
 2. Route by volatility: invariants stay verbatim, volatile content becomes a conclusion.
 3. Isolate with subagents — this is the primary lever, ahead of pruning.
 4. Slide the window: recent verbatim, older folded into one running summary of decisions.
@@ -39,7 +39,7 @@ git diff --stat              # size before content
 cmd > /tmp/out.log 2>&1; wc -l /tmp/out.log   # never paste blind
 ```
 
-Anything past ~2k tokens gets read narrowly or summarized first. Never pasted whole.
+Large artifacts should be read narrowly or summarized when context pressure warrants it.
 
 ## Volatility Routing
 
@@ -86,7 +86,7 @@ Write durable state to disk **while you still have room to write it well** — a
 - Agent loops, tools, and handoffs belong to `agent-engineering`; notes that must outlive the session to `session-learnings`.
 
 ## Checklist
-- [ ] Token cost estimated before every large read.
+- [ ] Large reads were bounded or summarized when context pressure warranted it.
 - [ ] Wide searches delegated to subagents, not run inline.
 - [ ] Volatile content reduced to conclusions; invariants and exact values kept verbatim.
 - [ ] Durable state written to disk before the window gets tight.

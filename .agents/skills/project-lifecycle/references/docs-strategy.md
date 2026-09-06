@@ -14,5 +14,5 @@ Choose the closest bucket before searching:
 ## 2. Search Execution
 - Source: Always `docs.github.com/en/actions`.
 - Precision: Search using exact terms + category (e.g., `OIDC workflow syntax`).
-- Verification: Compare 2-3 pages; read the specific section before answering.
+- Verification: Read the applicable official section; compare additional pages when ambiguity or conflict remains.
 - Conflict: If docs conflict with local conventions, flag the discrepancy.

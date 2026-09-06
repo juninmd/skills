@@ -19,7 +19,7 @@ The level follows from the contract under test, never from habit.
 2. Fixing a bug? Write the failing test first and watch it fail **for the intended reason** — one that passes beforehand proves nothing.
 3. Pick the lowest level that exercises the real contract. Never mock the subject under test.
 4. Cover boundaries, invalid input, dependency failure, timeout, retry, concurrency, and the unchanged-state guarantee (on error, nothing was written).
-5. Run focused first, then the relevant suite, then shuffled.
+5. Run focused checks first; broaden when changed behavior or project policy warrants it.
 6. Use coverage to find blind spots, mutation to grade assertion strength, profiling to back a performance claim.
 
 ## Choosing the Level
@@ -90,5 +90,5 @@ Never retry a flaky test; attribute it to exactly one source and remove that sou
 - [ ] The test failed first, for the intended reason.
 - [ ] Level chosen for the contract under test; the subject is not mocked.
 - [ ] Unhappy paths covered: invalid input, dependency failure, timeout, unchanged state on error.
-- [ ] Suite passes shuffled and in parallel, not only in file order.
+- [ ] Ordering or parallelism checks run when relevant.
 - [ ] No global state, timer, or mock left standing after the run.

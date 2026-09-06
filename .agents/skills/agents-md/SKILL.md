@@ -73,7 +73,7 @@ When several exist and disagree, say which rule wins and which is discarded, con
 - Recurring lessons reach this file through `session-learnings`; hold its promoted rules to the same budget as the rest. Human-facing documentation belongs to `documentation`.
 
 ## Checklist
-- [ ] Every listed command extracted from scripts, task runner, or CI — and executed once to confirm.
+- [ ] New or changed commands extracted from scripts, task runner, or CI — and executed when their prerequisites permit.
 - [ ] Root file under 200 lines, covering all six sections.
 - [ ] Style expressed as snippets from this repository, not adjectives.
 - [ ] At least one negative constraint naming a concrete path or API.

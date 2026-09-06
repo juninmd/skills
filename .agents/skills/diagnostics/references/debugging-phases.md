@@ -4,7 +4,7 @@
 
 **This is the skill.** If you have a fast, deterministic, agent-runnable pass/fail signal, you will find the cause. Spend disproportionate effort here.
 
-### Construction strategies (try in order)
+### Construction strategies (choose the cheapest reliable loop)
 
 1. Failing test at whatever seam reaches the bug — unit, integration, e2e.
 2. Curl / HTTP script against a running dev server.
@@ -37,11 +37,11 @@ Run the loop. Confirm:
 
 ## Phase 3 — Hypothesise
 
-Generate **3–5 ranked hypotheses** before testing any. Each must be falsifiable:
+Generate falsifiable hypotheses proportionate to the uncertainty before testing:
 
 > "If `<X>` is the cause, then `<changing Y>` will make the bug disappear / `<changing Z>` will make it worse."
 
-Show the ranked list to the user before testing. Don't block if user is AFK.
+Keep the hypotheses visible in the investigation; do not block progress on presenting the list.
 
 ## Phase 4 — Instrument
 

@@ -6,7 +6,7 @@ description: |
 
 # Docs Verification
 
-Fire this **before** writing code against an API you have not verified this session, before answering a version-specific question, when an example was learned rather than read, and whenever a build error contradicts what you expect the API to be.
+Fire this for version-sensitive or unfamiliar APIs, explicit verification requests, and whenever a build error contradicts the expected API behavior.
 
 ## Preflight
 ```bash

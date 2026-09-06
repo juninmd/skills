@@ -21,7 +21,7 @@ git remote -v && git remote show origin | grep 'HEAD branch'
 2. Before any rewrite (`rebase`, `commit --amend`, `reset`, `filter-repo`), prove nothing pushed is affected: `git log --oneline origin/<base>..HEAD` lists what is still local. A commit missing from it is public history, and rewriting that needs explicit confirmation.
 3. Recover before concluding anything is lost: `git reflog` holds every position HEAD held, `git reflog show <branch>` the same per branch, and `git fsck --lost-found` catches what a reflog expiry dropped.
 4. Bisect mechanically, never by hand: `git bisect start <bad> <good>` then `git bisect run ./script`. The script exits 0 for good, 1 for bad, and **125 for untestable** so a broken build is excluded instead of scored bad. Finish with `git bisect reset`.
-5. Verify after every operation: `git status --porcelain`, `git diff --stat`, `git log --oneline -5`.
+5. After mutations, verify status and the relevant diff/log; check sooner for destructive or conflict-prone work.
 
 ## Symptom Routing
 
@@ -53,7 +53,7 @@ git diff --diff-filter=U --name-only  # exactly what is still unresolved
 | Import or list block | Take the union, then let the formatter settle order |
 | The same conflict on every replayed commit | `git config rerere.enabled true`, then review each replay |
 
-Verify with build and tests **before** `git rebase --continue`, and never `--skip`, which silently drops the commit.
+Verify the resolved result before completing the rebase; never `--skip`, which drops the commit.
 
 ## Stop
 - A conflict is resolved by picking a side without reading why the other side existed.
