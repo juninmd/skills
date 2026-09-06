@@ -3,26 +3,30 @@
   "trigger": {
     "positive": [
       {
-        "prompt": "Gitleaks found a secret in our history, rotate it and remediate",
+        "prompt": "Scan repository for leaked credentials and hardcoded secrets with Gitleaks",
         "top_k": 3
       },
       {
-        "prompt": "Run a CVE and SBOM scan and triage the findings by exploitability",
+        "prompt": "Audit third-party MCP server and extension for prompt injection or data exfiltration",
         "top_k": 3
       },
       {
-        "prompt": "Review this service for injection risk and least-privilege access control",
+        "prompt": "Harden API access boundaries, implement least privilege and zero-trust policies",
+        "top_k": 3
+      },
+      {
+        "prompt": "Scan dependencies for known CVE vulnerabilities and remediate supply chain risks",
         "top_k": 3
       }
     ],
     "negative": [
       {
-        "prompt": "Redact PII from our structured logs",
-        "owner": "observability"
+        "prompt": "Write a GitHub Actions CI/CD workflow to build and deploy containers",
+        "owner": "cloud-devops"
       },
       {
-        "prompt": "Sandbox the untrusted tool inputs in our MCP server",
-        "owner": "mcp-integration"
+        "prompt": "Design system architecture and module boundaries",
+        "owner": "software-architecture"
       }
     ]
   }

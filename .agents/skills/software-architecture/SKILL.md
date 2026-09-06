@@ -1,8 +1,9 @@
 ---
 name: software-architecture
 description: |
-  Improve codebase structure and system design with evidence-based boundaries. Use for deciding whether something is a separate service or stays a module, modularization, dependency direction, circular dependencies, technical debt, distributed systems, failure modes, and ADRs.
+  Design system architecture, domain models, modular structure, and desktop applications. Use for module boundaries, domain glossaries, repository layout, Electron multi-process security, ADRs, and circular dependency resolution.
 ---
+
 
 # Software Architecture
 
@@ -18,7 +19,7 @@ Map what exists with `codebase-mapping` first. Never redesign a system you have 
 1. Map what exists — entry points, dependencies, ownership, runtime boundaries, change pain — with `codebase-mapping`. Never redesign a system you have only read about.
 2. State the invariant or failure the design must improve, and collect the evidence: coupling metrics, test times, latency, incident history.
 3. Compare the smallest viable options against migration cost, operational cost, and reversibility. Reversibility is the tiebreaker.
-4. Protect behavior with characterization tests before moving a boundary — `legacy-refactoring` covers writing them.
+4. Protect behavior with characterization tests before moving a boundary — legacy-refactoring covers writing them.
 5. Move one boundary at a time and verify dependency direction, behavior, and deployability after each.
 6. Record an ADR only when the decision has real alternatives or long-lived consequences.
 
@@ -64,7 +65,9 @@ Choose the broker by requirement, never by habit: log-structured (Kafka) for hig
 - Design principles: [design-principles.md](references/design-principles.md)
 - Distributed systems: [distributed-architecture.md](references/distributed-architecture.md), [distributed-toolkit.md](references/distributed-toolkit.md)
 - Intake templates for design requests and health reports: [intake-templates.md](references/intake-templates.md)
-- Desktop main/renderer applications: use the `electron-architecture` skill.
+- Desktop main/renderer applications: use the electron-architecture skill.
+
+See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-domain guides.
 
 ## Stop
 - The split cannot be justified with change-pain evidence. It would be the same problem, distributed, plus a network.
@@ -72,12 +75,13 @@ Choose the broker by requirement, never by habit: log-structured (Kafka) for hig
 - A boundary move and a behavior change are in the same step. Sequence them; the failure would be unattributable.
 
 ## Rules
+- Hand off implementation tasks to `dev-loop`, codebase mapping to `codebase-mapping`, and game engine modding to `goldsrc-modding`.
 - Prefer fewer, deeper modules over layers that only forward calls. A layer that adds no decision adds only a hop and a file to open.
 - Do not introduce a service, queue, cache, or abstraction without a measured problem. Every one of them is a permanent operational cost.
 - The design that is easy to undo beats the design that is slightly better and permanent.
 - An ADR records the alternatives **and why they were rejected**. Without that, it is a changelog entry pretending to be a decision.
-- Moving a boundary and changing behavior in one step makes the failure unattributable; sequence it with `incremental-delivery` and `migration-engineering`.
-- The names the boundaries carry belong to `domain-modeling`; a module diagram that lives in the repo to `diagrams-as-code`.
+- Moving a boundary and changing behavior in one step makes the failure unattributable; sequence it with incremental-delivery and migration-engineering.
+- The names the boundaries carry belong to domain-modeling; a module diagram that lives in the repo to diagrams-as-code.
 
 ## Checklist
 - [ ] Current structure mapped from the code, with change-pain evidence.

@@ -28,9 +28,6 @@ const ALLOWED_FIELDS = new Set([
 export const EXCUSES_REQUIRED = new Set([
   "code-simplification",
   "git-workflow",
-  "human-step-wizard",
-  "parallel-subagents",
-  "phase-done",
   "security-ops",
   "test-engineering",
 ]);

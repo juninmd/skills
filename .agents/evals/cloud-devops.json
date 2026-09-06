@@ -3,25 +3,33 @@
   "trigger": {
     "positive": [
       {
-        "prompt": "Write a Dockerfile and GitHub Actions pipeline for this service",
+        "prompt": "Write a GitHub Actions CI/CD workflow to build and deploy containers",
         "top_k": 3
       },
       {
-        "prompt": "Set up Terraform modules for our staging infrastructure",
+        "prompt": "Create Terraform modules and Helm charts for Kubernetes cluster deployment",
         "top_k": 3
       },
       {
-        "prompt": "Make this deployment safe with health checks and a rollback path",
+        "prompt": "Push container image to GHCR manually and roll out the pod release",
+        "top_k": 3
+      },
+      {
+        "prompt": "Detect Kubernetes deployment sync drift between Git state and running cluster pods",
+        "top_k": 3
+      },
+      {
+        "prompt": "Write safe shell operations script with strict error handling in bash",
         "top_k": 3
       }
     ],
     "negative": [
       {
-        "prompt": "Define our SLOs and alert thresholds",
+        "prompt": "Set up structured logging, metrics, and alerting for production",
         "owner": "observability"
       },
       {
-        "prompt": "Rotate the leaked credential Gitleaks found",
+        "prompt": "Scan repository for leaked credentials and hardcoded secrets",
         "owner": "security-ops"
       }
     ]

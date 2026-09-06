@@ -3,26 +3,34 @@
   "trigger": {
     "positive": [
       {
-        "prompt": "Write the PRD and slice it into implementation issues",
+        "prompt": "Clarify ambiguous requirements and interview stakeholder before planning",
         "top_k": 3
       },
       {
-        "prompt": "Turn this idea into an implementation plan with GitHub issues",
+        "prompt": "Create PRD specification and break it into backlog task issues",
         "top_k": 3
       },
       {
-        "prompt": "Triage the backlog and set up worktrees for the planned work",
+        "prompt": "Author an AGENTS.md file to define project instructions, scope boundaries, and context rules",
+        "top_k": 3
+      },
+      {
+        "prompt": "Write session handoff notes so a teammate can resume uninterrupted",
+        "top_k": 3
+      },
+      {
+        "prompt": "Turn this vague request into actionable acceptance criteria",
         "top_k": 3
       }
     ],
     "negative": [
       {
-        "prompt": "Draft the pull request body for this branch",
-        "owner": "finishing-dev"
+        "prompt": "Run the autonomous dev loop driver to advance the next task stage",
+        "owner": "dev-loop"
       },
       {
-        "prompt": "Write the architecture decision record",
-        "owner": "documentation"
+        "prompt": "Draft pull request with git commits and release tags",
+        "owner": "git-workflow"
       }
     ]
   }

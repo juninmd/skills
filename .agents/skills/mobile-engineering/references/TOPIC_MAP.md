@@ -1,15 +1,37 @@
-# Mobile Engineering Reference Map
+# mobile-engineering Reference Map
 
-Choose one platform group, then add only the cross-platform concerns involved. Read `real-world-cases.md` for task shape and `reference-routing.md` before opening large references.
+Read only the files needed for the current task.
 
-| Area | References |
+| Reference | Topic / Description |
 |---|---|
-| iOS | `ios-guide.md`, `swift-coding-standards.md`, `swiftui-design-guidelines.md`, `uikit-components.md` |
-| iOS graphics and integration | `metal-shader.md`, `system-integration.md` |
-| Android | `android-standards.md`, `project-structure.md`, `components.md`, `layout-system.md` |
-| React Native and Expo | `react-native.md` |
-| Flutter | `flutter.md`, `widget-patterns.md` |
-| UI and interaction | `adaptive-screens.md`, `forms.md`, `animations.md`, `design-style.md` |
-| App behavior | `state-management.md`, `navigation.md`, `networking.md`, `native-capabilities.md`, `platform-specific.md` |
-| Quality attributes | `accessibility.md`, `localization.md`, `privacy-security.md`, `performance.md` |
-| Testing and requirements | `testing.md`, `functional-requirements.md`, `engineering.md` |
+| `accessibility.md` | Reference documentation for accessibility |
+| `adaptive-screens.md` | Reference documentation for adaptive-screens |
+| `android-standards.md` | Reference documentation for android-standards |
+| `animations.md` | Reference documentation for animations |
+| `components.md` | Reference documentation for components |
+| `design-style.md` | Reference documentation for design-style |
+| `engineering.md` | Reference documentation for engineering |
+| `flutter.md` | Reference documentation for flutter |
+| `forms.md` | Reference documentation for forms |
+| `functional-requirements.md` | Reference documentation for functional-requirements |
+| `ios-guide.md` | Reference documentation for ios-guide |
+| `layout-system.md` | Reference documentation for layout-system |
+| `localization.md` | Reference documentation for localization |
+| `metal-shader.md` | Reference documentation for metal-shader |
+| `native-capabilities.md` | Reference documentation for native-capabilities |
+| `navigation.md` | Reference documentation for navigation |
+| `networking.md` | Reference documentation for networking |
+| `performance.md` | Reference documentation for performance |
+| `platform-specific.md` | Reference documentation for platform-specific |
+| `privacy-security.md` | Reference documentation for privacy-security |
+| `project-structure.md` | Reference documentation for project-structure |
+| `react-native.md` | Reference documentation for react-native |
+| `real-world-cases.md` | Reference documentation for real-world-cases |
+| `reference-routing.md` | Reference documentation for reference-routing |
+| `state-management.md` | Reference documentation for state-management |
+| `swift-coding-standards.md` | Reference documentation for swift-coding-standards |
+| `swiftui-design-guidelines.md` | Reference documentation for swiftui-design-guidelines |
+| `system-integration.md` | Reference documentation for system-integration |
+| `testing.md` | Reference documentation for testing |
+| `uikit-components.md` | Reference documentation for uikit-components |
+| `widget-patterns.md` | Reference documentation for widget-patterns |

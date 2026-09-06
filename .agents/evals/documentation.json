@@ -3,26 +3,34 @@
   "trigger": {
     "positive": [
       {
-        "prompt": "Write the onboarding guide and README for this project",
+        "prompt": "Write comprehensive README and API documentation from OpenAPI specifications",
         "top_k": 3
       },
       {
-        "prompt": "Generate API reference documentation from our OpenAPI schema",
+        "prompt": "Create diagrams as code using Mermaid with rendered image exports",
         "top_k": 3
       },
       {
-        "prompt": "Our docs drifted from the code, write a decision record and fix them",
+        "prompt": "Draw plain-text ASCII figures for pull request explanation and terminal viewing",
+        "top_k": 3
+      },
+      {
+        "prompt": "Generate formatted PDF and DOCX office documents programmatically",
+        "top_k": 3
+      },
+      {
+        "prompt": "Render a clean code snippet image for presentation",
         "top_k": 3
       }
     ],
     "negative": [
       {
-        "prompt": "Create a pptx deck from this outline",
-        "owner": "document-generation"
+        "prompt": "Clarify ambiguous requirements and interview stakeholder before planning",
+        "owner": "project-lifecycle"
       },
       {
-        "prompt": "Review this pull request for risks",
-        "owner": "expert-review"
+        "prompt": "Conduct live web research to verify recent library release facts",
+        "owner": "web-research"
       }
     ]
   }

@@ -2,13 +2,32 @@
   "skill_name": "dev-loop",
   "trigger": {
     "positive": [
-      { "prompt": "Start the delivery loop for adding link grouping", "top_k": 3 },
-      { "prompt": "Resume my interrupted loop and continue where it stopped", "top_k": 3 },
-      { "prompt": "Which stage is the loop on and what is it waiting on from me", "top_k": 3 }
+      {
+        "prompt": "Run the autonomous dev loop driver to advance the next task stage",
+        "top_k": 3
+      },
+      {
+        "prompt": "Execute delivery loop through research, prototype, plan, and implement stages",
+        "top_k": 3
+      },
+      {
+        "prompt": "Create three throwaway prototype variants before deciding architecture",
+        "top_k": 3
+      },
+      {
+        "prompt": "Break down feature into vertical slices for incremental delivery",
+        "top_k": 3
+      }
     ],
     "negative": [
-      { "prompt": "Write the PRD and slice it into issues", "owner": "project-lifecycle" },
-      { "prompt": "Ship this behind a feature flag in small slices", "owner": "incremental-delivery" }
+      {
+        "prompt": "Clarify ambiguous requirements and interview stakeholder before planning",
+        "owner": "project-lifecycle"
+      },
+      {
+        "prompt": "Draft pull request with git commits and release tags",
+        "owner": "git-workflow"
+      }
     ]
   }
 }

@@ -1,8 +1,9 @@
 ---
 name: web-research
 description: |
-  Research questions with live web sources and cited evidence. Use for multi-source web search, search operators, fetching pages, verifying claims, resolving conflicting sources, synthesizing findings, and citing them with dates.
+  Conduct live web research, resilient data scraping, and documentation/version verification. Use for multi-source search, HTML table/listing scraping, verifying latest library stable versions, changelog tracking, and citations.
 ---
+
 
 # Web Research
 
@@ -67,17 +68,20 @@ Set the budget **before** starting — a source count or a time box — and stop
 ## Reference Routing
 - Operators, reformulation moves, date verification, source-independence checks, stopping and conflict rules: [search-technique.md](references/search-technique.md)
 
+See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-domain guides.
+
 ## Stop
 - Every supporting page is undated. It cannot support a currency claim — say so rather than dressing it as fact.
 - Sources agree but trace to one origin. That is replication, not confirmation; keep looking or report the uncertainty.
 - New sources have stopped changing the answer. Stop and report the remaining uncertainty.
 
 ## Rules
+- Hand off documentation updates to `documentation`, LLM agent pipelines to `agent-engineering`, and dataset storage to `data-engineering`.
 - Answer versioned, dated, or changing facts only from fetched sources. Stable conceptual questions can be answered directly — fetching for those is theatre.
 - Cite every factual claim with a source URL and its date. A synthesis without citations cannot be checked, and will be repeated as fact.
 - Never present a summary of search snippets as a verified answer. Fetch the page.
-- Respect robots and terms; no scraping of paywalled or blocked content — bulk extraction belongs to `web-scraping`.
-- Library API, config, and version specifics go to `docs-verification`; judging whether local knowledge is stale to `knowledge-freshness`; a recurring digest of the AI tooling ecosystem to `ai-ecosystem-radar`.
+- Respect robots and terms; no scraping of paywalled or blocked content — bulk extraction belongs to web-scraping.
+- Library API, config, and version specifics go to docs-verification; judging whether local knowledge is stale to knowledge-freshness; a recurring digest of the AI tooling ecosystem to ai-ecosystem-radar.
 
 ## Checklist
 - [ ] Question turned into operator-shaped queries, not a sentence.

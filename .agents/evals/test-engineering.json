@@ -3,26 +3,30 @@
   "trigger": {
     "positive": [
       {
-        "prompt": "Write failing tests first for this feature using Vitest",
+        "prompt": "Write failing unit tests first with Vitest and reproduce the bug before fixing",
         "top_k": 3
       },
       {
-        "prompt": "Our test suite is flaky, fix the fixtures and mocks",
+        "prompt": "Implement Playwright end-to-end browser automation tests for authentication flow",
         "top_k": 3
       },
       {
-        "prompt": "Find the coverage gaps and add unhappy-path pytest cases",
+        "prompt": "Set up test regression gate and quiet checks runner for CI pipeline",
+        "top_k": 3
+      },
+      {
+        "prompt": "Eliminate flaky test suite failures caused by execution order dependence and unpinned timers",
         "top_k": 3
       }
     ],
     "negative": [
       {
-        "prompt": "Drive the browser through the signup flow",
-        "owner": "webapp-testing"
+        "prompt": "Make working code simpler and delete dead functions",
+        "owner": "code-simplification"
       },
       {
-        "prompt": "Review this pull request for design risks",
-        "owner": "expert-review"
+        "prompt": "Fix the React hydration mismatch in our Next.js app",
+        "owner": "frontend-engineering"
       }
     ]
   }

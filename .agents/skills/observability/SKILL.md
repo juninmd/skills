@@ -1,8 +1,9 @@
 ---
 name: observability
 description: |
-  Design logging, metrics, tracing, and alerting so production behavior is provable. Use for structured logging, SLO/SLI definition, dashboard design, alert thresholds, tracing, log retention, and incident signal quality.
+  Monitor, diagnose, and stabilize production systems and incidents. Use for structured logging, metrics, distributed tracing, alerting, root-cause troubleshooting, postmortems, network failures, timeouts, and on-call response.
 ---
+
 
 # Observability
 
@@ -56,19 +57,22 @@ Multi-window burn rate beats a static threshold: a fast window (5m) catches the 
 | Tail (decide after completion) | Slow and failed traces | Needs a buffering collector, more memory |
 | Always-on for errors | Every failure | Nothing worth arguing about |
 
+See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-domain guides.
+
 ## Stop
 - A proposed label is unbounded — user id, request id, raw path, error string. Stop; that is the outage, not the metric.
 - An alert has no owner and no runbook. Do not enable it; it is noise with a pager attached.
 - A threshold is being widened to silence a page. Either the signal is wrong or the system is — fix one of them.
 
 ## Rules
+- Hand off root cause code fixes to `code-simplification`, performance optimization to `performance-engineering`, and infrastructure config to `cloud-devops`.
 - An alert without an owner and a runbook is noise. Write both **before** enabling it.
 - Never tune a threshold to silence a page. Either the signal is wrong or the system is; both need a fix, not a wider bound.
 - Test alert firing with a synthetic failure. An alert nobody has ever seen fire is an untested code path.
 - Log levels mean things: debug for diagnosis, info for lifecycle events, warn for recoverable anomalies, error for user-visible failure. Everything at `error` is the same as nothing at `error`.
-- Define retention and cost limits before the data grows; observability spend is the line item that surprises people, and `cost-engineering` owns the tradeoff.
+- Define retention and cost limits before the data grows; observability spend is the line item that surprises people, and cost-engineering owns the tradeoff.
 - Trace context must survive every hop — queues and background jobs included. A trace that stops at the async boundary hides exactly the latency you are hunting.
-- Live outage triage and postmortems belong to `incident-response`; design the signals they will read here.
+- Live outage triage and postmortems belong to incident-response; design the signals they will read here.
 
 ## Checklist
 - [ ] SLIs tie to user-visible outcomes; SLO targets and error budget explicit.

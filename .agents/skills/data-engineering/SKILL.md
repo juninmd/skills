@@ -1,8 +1,9 @@
 ---
 name: data-engineering
 description: |
-  Diagnose and improve databases, caches, migrations, and vector-search storage. Use for PostgreSQL, MongoDB, Redis, query plans, indexes, locks, rollback, backups, and vector database performance.
+  Design and diagnose databases, SQL queries, migrations, analytics, and vector storage. Use for PostgreSQL, MySQL, Redis, schema migrations, zero-downtime DDL, pandas profiling, query plans, indexes, and aggregation.
 ---
+
 
 # Data Engineering
 
@@ -81,13 +82,16 @@ Check `pg_stat_activity` for long transactions first. Build indexes with `CREATE
 - Operational intake and DBA checks: [FORMS.md](references/FORMS.md)
 - PostgreSQL, MongoDB, Redis, query, index, and backup guidance: [REFERENCE.md](references/REFERENCE.md)
 
+See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-domain guides.
+
 ## Stop
 - No tested restore exists. Say so before any change that could need one; a backup is a belief until it is restored.
 - A long transaction is open and DDL is queued behind it. Stop — the table is about to become unavailable.
 - `EXPLAIN ANALYZE` is about to run against a write. Wrap it in a transaction and roll back, or plan the `SELECT`.
 
 ## Rules
-- Query and index design belong to `sql-authoring`; expand/migrate/contract phasing to `migration-engineering`. Keep plan-based diagnosis, operations, locks, backup, and restore here.
+- Hand off backend APIs to `backend-systems`, infrastructure deployment to `cloud-devops`, and telemetry metrics to `observability`.
+- Query and index design belong to sql-authoring; expand/migrate/contract phasing to migration-engineering. Keep plan-based diagnosis, operations, locks, backup, and restore here.
 - Never infer index value without a query plan and realistic selectivity. An index that helps a 100-row table may be ignored at a million rows.
 - Never run destructive SQL, production migrations, cache flushes, or failovers without approval. `FLUSHALL` on a shared Redis is an outage, not a cleanup.
 - Backups are not a rollback plan until a restore has been tested, timed, and written down. An untested backup is a belief.

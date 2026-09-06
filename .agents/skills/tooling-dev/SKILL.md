@@ -4,6 +4,7 @@ description: |
   Build and maintain command-line tools, developer automation, and code generators. Use for CLI arguments, exit codes, non-interactive execution, config discovery, signals, structured output, packaging, and integration tests.
 ---
 
+
 # Tooling Development
 
 ## Preflight
@@ -70,18 +71,21 @@ Config precedence, highest first: **command flag → environment variable → pr
 - Implementation patterns: [tooling-examples.md](references/tooling-examples.md)
 - Reference docs generated from code or schemas: use the `documentation` skill.
 
+See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-domain guides.
+
 ## Stop
 - The tool would prompt in a non-TTY context. Never prompt in CI; require an explicit flag.
 - A partial output file would survive an interruption. Write to a temp path and rename atomically instead.
 - Only the source entry point was smoked. Test the packaged command — packaging is where tools break.
 
 ## Rules
+- Hand off deployment pipelines to `cloud-devops`, testing to `test-engineering`, and agent tools to `agent-engineering`.
 - A truncated artifact that looks complete is worse than no artifact. Write to a temp path and rename atomically on success.
 - Never prompt in CI. Provide explicit flags for confirmation and for quiet mode.
 - Avoid regex parsing when a structured parser exists — the regex works until the first quoted comma.
 - Version the output format. A tool whose JSON shape drifts silently breaks every script built on it; `--format-version` or a `schema` field costs nothing now and everything later.
 - `--help` is the primary documentation. If a behavior is not in it, the behavior does not exist for most users.
-- Shell scripts and one-off command safety belong to `shell-operations`; publishing and versioning the tool to `release-management`.
+- Shell scripts and one-off command safety belong to shell-operations; publishing and versioning the tool to release-management.
 
 ## Checklist
 - [ ] Invocation examples written first, including the CI and piped cases.

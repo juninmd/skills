@@ -4,6 +4,7 @@ description: |
   Build and review native iOS, native Android, React Native or Expo, and Flutter applications. Use for mobile UI, lifecycle, navigation, permissions, offline behavior, accessibility, device integration, tests, and builds.
 ---
 
+
 # Mobile Engineering
 
 ## Preflight
@@ -69,13 +70,14 @@ Anything touching those is proven on hardware or not proven at all.
 - Process death loses user input. Fix restoration before shipping; it is the state everyone skips.
 
 ## Rules
+- Hand off web interfaces to `frontend-engineering`, API endpoints to `backend-systems`, and test engineering to `test-engineering`.
 - Nothing blocking on the main thread: disk, JSON, image decode, and crypto move off it, or the frame budget is gone and the UI stutters visibly.
 - Break retain cycles in every closure and delegate that captures self. A leaked screen keeps its timers, observers, and network callbacks running forever.
 - Background execution is metered and killed. Use the platform's scheduled-work API, assume the process dies mid-task, and make the work resumable.
 - Watch binary size per dependency — assets and duplicated native libraries dominate it, and app-store size limits are hard.
 - Code signing, provisioning, and entitlements live in CI with secrets out of the repository. A signing mismatch surfaces only at install time, usually the day of the release.
 - Release builds differ from debug in ways that break working code. Build release and run it on hardware before shipping.
-- Delegate profiling methodology to `performance-engineering`, accessibility auditing to `accessibility`, and screen-state design to `ui-state-design`.
+- Delegate profiling methodology to `performance-engineering`, accessibility auditing to accessibility, and screen-state design to ui-state-design.
 
 ## Checklist
 - [ ] Platform, minimum OS, and build variants identified before writing.

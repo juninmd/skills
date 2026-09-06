@@ -24,14 +24,14 @@ Consulted hats, activated by trigger; load the named skill when installed, other
 
 | Hat | Trigger | Owns | Skill |
 |---|---|---|---|
-| Architect | new module, boundary, contract, data model | tradeoffs, ADR, coupling | `software-architecture`, `api-design` |
-| SRE | anything that runs in prod | logs, metrics, alerts, runbook, incident | `observability`, `incident-response` |
-| Data | schema, migration, query, index | reversibility, plan, backup | `data-engineering`, `migration-engineering` |
-| Reviewer | multi-file diff, before done | adversarial pass in fresh context | `expert-review` |
+| Architect | new module, boundary, contract, data model | tradeoffs, ADR, coupling | `software-architecture`, `backend-systems` |
+| SRE | anything that runs in prod | logs, metrics, alerts, runbook, incident | `observability` |
+| Data | schema, migration, query, index | reversibility, plan, backup | `data-engineering` |
+| Reviewer | multi-file diff, before done | adversarial pass in fresh context | `code-simplification` |
 | Performance | hot path, latency, cost regression | measure before/after, budget | `performance-engineering` |
-| UX/A11y | any UI | keyboard, screen reader, contrast | `accessibility`, `frontend-design` |
+| UX/A11y | any UI | keyboard, screen reader, contrast | `frontend-engineering` |
 | Tech Writer | public behavior change | README, CHANGELOG, OpenAPI | `documentation` |
-| FinOps | cloud or token spend | attribution, rightsizing, routing | `cost-engineering` |
+| FinOps | cloud or token spend | attribution, rightsizing, routing | `performance-engineering` |
 | AI Engineer | prompts, tools, agents | injection, schemas, evals | `agent-engineering`, `security-ops` |
 
 ## Actions and Confirmation

@@ -3,26 +3,30 @@
   "trigger": {
     "positive": [
       {
-        "prompt": "Define SLIs, SLO targets, and burn-rate alerts for this service",
+        "prompt": "Set up structured logging, metrics, and alerting for production",
         "top_k": 3
       },
       {
-        "prompt": "Add structured logging with correlation IDs and design the dashboard",
+        "prompt": "Investigate production outage, assess incident severity, and coordinate on-call triage",
         "top_k": 3
       },
       {
-        "prompt": "Our alerts are noisy, fix the thresholds and log retention",
+        "prompt": "Trace distributed request timeouts, network failures, and latency spikes across microservices",
+        "top_k": 3
+      },
+      {
+        "prompt": "Write a blameless postmortem for the production service downtime",
         "top_k": 3
       }
     ],
     "negative": [
       {
-        "prompt": "Find the root cause of this crash",
-        "owner": "diagnostics"
+        "prompt": "Write a GitHub Actions CI/CD workflow to build and deploy containers",
+        "owner": "cloud-devops"
       },
       {
-        "prompt": "Reduce the monthly spend on log storage",
-        "owner": "cost-engineering"
+        "prompt": "Profile slow endpoint latency and optimize bottleneck throughput",
+        "owner": "performance-engineering"
       }
     ]
   }

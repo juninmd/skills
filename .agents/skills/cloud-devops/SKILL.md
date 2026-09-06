@@ -1,8 +1,9 @@
 ---
 name: cloud-devops
 description: |
-  Design and validate CI/CD, containers, Kubernetes, Helm, IaC, cloud, and serverless changes. Use for GitHub Actions deployment workflows, pipelines, Dockerfiles, Terraform or Pulumi modules, deployment safety, health checks, rollback paths, and release verification.
+  Design and automate CI/CD, Kubernetes, containers, IaC, deployment verification, and shell scripts. Use for GitHub Actions, Dockerfiles, Terraform, Helm, manual GHCR rollout, deployment sync drift, and safe bash/PowerShell.
 ---
+
 
 # Cloud DevOps
 
@@ -62,19 +63,22 @@ Open a file only when its trigger fires.
 - Terraform or Pulumi structure: [iac-principles.md](references/iac-principles.md); plan, state, or drift: [iac-operations.md](references/iac-operations.md)
 - Picking managed services: [cloud-patterns.md](references/cloud-patterns.md); functions or cold starts: [serverless-patterns.md](references/serverless-patterns.md)
 
+See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-domain guides.
+
 ## Stop
 - The kube context or Terraform workspace is not the one you intended. Stop before any command that mutates.
 - No rollback path exists for this change. Define it first; a deploy without a reversal is a cutover.
 - The running digest does not match the artifact just built. The deploy did not happen — do not report success.
 
 ## Rules
+- Hand off security scans to `security-ops`, telemetry and incident response to `observability`, and git delivery to `git-workflow`.
 - No `apply`, deploy, deletion, or production mutation without explicit confirmation.
 - Use short-lived identity/OIDC; never place credentials in manifests or workflow logs. A secret echoed by a debug step is a leaked secret.
 - Build once and promote the same immutable artifact by digest across environments.
 - Kubernetes workloads need resource requests and limits, liveness and readiness probes, and a PodDisruptionBudget so a node drain cannot evict the last replica. Liveness that duplicates readiness restarts a healthy pod under load.
 - Under a GitOps controller (Argo CD, Flux): inspect the desired-versus-live diff, fix desired state in the repository instead of forcing a sync by hand, and treat pruning as dangerous for shared objects.
 - Terraform state is production data: remote backend, locking, versioned, never edited by hand. `terraform apply` without a saved plan applies something nobody reviewed.
-- Logs, metrics, traces, SLOs, and alerting belong to `observability`; a live outage to `incident-response`. Keep rollout mechanics here.
+- Logs, metrics, traces, SLOs, and alerting belong to `observability`; a live outage to incident-response. Keep rollout mechanics here.
 
 ## Checklist
 - [ ] Blast radius, secret flow, and rollback path stated before the change.

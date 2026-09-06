@@ -3,26 +3,30 @@
   "trigger": {
     "positive": [
       {
-        "prompt": "Write an ADR for how we split these modules and their dependency direction",
+        "prompt": "Design system architecture, module boundaries, and dependency directions",
         "top_k": 3
       },
       {
-        "prompt": "Our distributed system has unclear failure modes, review the architecture",
+        "prompt": "Establish ubiquitous language domain vocabulary and write CONTEXT.md",
         "top_k": 3
       },
       {
-        "prompt": "We have too much technical debt, plan the modularization",
+        "prompt": "Restructure repository layout and decouple circular module dependencies",
+        "top_k": 3
+      },
+      {
+        "prompt": "Architect secure Electron desktop application splitting main and renderer processes",
         "top_k": 3
       }
     ],
     "negative": [
       {
-        "prompt": "Where does this feature belong in the repo",
-        "owner": "project-structure"
+        "prompt": "Map entry points and trace execution flow in an unfamiliar legacy codebase",
+        "owner": "codebase-mapping"
       },
       {
-        "prompt": "Design the public REST contract",
-        "owner": "api-design"
+        "prompt": "Make working code simpler and delete dead functions",
+        "owner": "code-simplification"
       }
     ]
   }

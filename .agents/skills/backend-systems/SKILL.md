@@ -1,8 +1,10 @@
 ---
 name: backend-systems
 description: |
-  Implement compiled backend services and libraries in Go, Rust, or .NET. Use for APIs, concurrency, cancellation, error handling, EF Core, resource lifetimes, performance-sensitive code, tests, and builds.
+  Implement backend services, APIs, and caching in Node.js, Python, Go, Rust, or .NET. Use for NestJS, FastAPI, REST/GraphQL contracts, endpoints, controllers, pnpm, uv, async handlers, cache invalidation, EF Core, Pydantic, and backend builds.
 ---
+
+
 
 # Backend Systems
 
@@ -77,19 +79,22 @@ Leaking a dependency's error type across your public API makes that dependency p
 - EF Core and tests: [dotnet-efcore.md](references/dotnet-efcore.md), [dotnet-testing.md](references/dotnet-testing.md)
 - .NET examples: [dotnet-examples.md](references/dotnet-examples.md)
 
+See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-domain guides.
+
 ## Stop
 - `go test -race` fails, or was not run on concurrent code. It is not optional; the race will be found in production instead.
 - A goroutine has no termination path, or a `CancellationToken` is not flowed. Fix before shipping — both leak silently.
 - A dependency error type crosses the public API. Convert it at the edge, or that dependency becomes permanent.
 
 ## Rules
+- Hand off data schemas and migrations to `data-engineering`, cloud deployment to `cloud-devops`, test suites to `test-engineering`, and architectural boundaries to `software-architecture`.
 - Go: propagate `context.Context` to every I/O call, as the first parameter, always. A function that cannot be cancelled is a function that will hang a request.
 - Go: never start a goroutine whose exit nobody waits on.
 - Rust: avoid `unsafe`; justify and test every unavoidable unsafe boundary, and keep it as small as the invariant requires.
 - Rust: prefer a channel over a shared `Mutex` for ownership handoff; reach for a lock only for genuinely shared state.
 - .NET: use scoped resource lifetimes, and never resolve a scoped service from a singleton — the captured dependency outlives its scope and holds a dead connection.
 - EF Core: a lazy-loaded navigation inside a loop is an N+1 that only appears with real data. Project explicitly or `Include` deliberately.
-- HTTP contract shape belongs to `api-design`; database operation to `data-engineering`; delivery to `finishing-dev`.
+- HTTP contract shape belongs to api-design; database operation to `data-engineering`; delivery to finishing-dev.
 
 ## Checklist
 - [ ] Toolchain version and repository commands detected before writing.

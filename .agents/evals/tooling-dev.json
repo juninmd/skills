@@ -3,26 +3,26 @@
   "trigger": {
     "positive": [
       {
-        "prompt": "Build a CLI with proper argument parsing and exit codes",
+        "prompt": "Build command line CLI tool with argument parsing, exit codes, and quiet mode",
         "top_k": 3
       },
       {
-        "prompt": "Make this command non-interactive and emit structured output",
+        "prompt": "Create developer automation code generator script for repository scaffolding",
         "top_k": 3
       },
       {
-        "prompt": "Add config discovery and packaging to our command line tool",
+        "prompt": "Package internal developer CLI tool with configuration discovery",
         "top_k": 3
       }
     ],
     "negative": [
       {
-        "prompt": "Write the GitHub Actions deployment workflow",
-        "owner": "cloud-devops"
+        "prompt": "Design autonomous agent loop with strict tool schemas and execution bounds",
+        "owner": "agent-engineering"
       },
       {
-        "prompt": "Add unit tests for this module",
-        "owner": "test-engineering"
+        "prompt": "Write a GitHub Actions CI/CD workflow to build and deploy containers",
+        "owner": "cloud-devops"
       }
     ]
   }
