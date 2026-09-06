@@ -65,12 +65,12 @@ git worktree remove ../wt-slice-a           # after the merge, always
 ## Rules
 - A worker sees none of the others' context. Every fact it needs must be in its brief or reachable from the repo.
 - Verify before integrating. The report is a claim; the diff and the test run are the evidence.
-- The checker is never the worker that produced the thing; it re-runs the reasoning that made the mistake. Give the check to a fresh worker or the orchestrator.
+- Use an independent checker when risk, uncertainty, or conflicting findings justify it; otherwise a reproducible scoped check is sufficient.
 - Read-only fan-out is cheap and safe — reach for it first; it is also the main lever on context pressure (`context-engineering`).
 - Never silently re-dispatch a failed slice; the brief is usually what was wrong.
 - Depth beats width. Three well-briefed workers land more than ten vague ones, at half the cost.
 - Keep integration serial even when the work was parallel; concurrent merges turn a green branch red with nobody at fault.
-- The orchestrator does not also do a slice. Split attention loses reports.
+- The orchestrator may do independent read-only work when it can still track worker ownership and reports.
 - Building the agent runtime, its tool schemas, or its guardrails is a different job — that is `agent-engineering`.
 
 ## Excuses

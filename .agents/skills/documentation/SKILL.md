@@ -63,13 +63,13 @@ An untested code block is a claim, not a fact — and it is the first thing a ne
 Everything ends up in the README because it is the path of least resistance, and then nobody reads any of it. When a section grows past a screen, move it to `docs/` and leave one link. The README's job is to get someone running in under five minutes.
 
 ## Stop
-- A command in the document has not been executed on a clean checkout. Run it or delete it; a wrong command is worse than a missing one.
+- A new or changed command has not been checked on a clean checkout when its prerequisites permit. Verify it or mark the prerequisite and limitation clearly.
 - The document would claim behavior the code does not have. Read the code first.
 - The user did not ask for this artifact. Do not create it.
 
 ## Rules
 - No document claims behavior the code does not have. Read the code, not the previous version of the doc.
-- Commands in documents must have been executed recently, on a clean checkout, by the person writing them. Pin versions where drift is costly.
+- New or changed commands should be executed on a clean checkout when practical; pin versions where drift is costly.
 - When a Quick Start exists, it must run end to end for a reader with no prior context and no tribal knowledge — including the environment variables nobody remembers needing.
 - Document environment variables in a table of name, purpose, required-or-default, and example value. Never a real secret, not even a revoked one.
 - When a document already exists, report its weak or missing sections and preserve the rest. Regenerating destroys the corrections people made by hand.
@@ -80,7 +80,7 @@ Everything ends up in the README because it is the path of least resistance, and
 
 ## Checklist
 - [ ] Reader and question named; the artifact type matches the job.
-- [ ] Every command executed on a clean checkout before being written down.
+- [ ] New or changed commands checked on a clean checkout when practical, with prerequisites recorded.
 - [ ] Links checked; generated reference regenerated and diffed.
 - [ ] Something in CI fails when this document becomes false.
 - [ ] Stale content deleted, not annotated.

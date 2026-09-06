@@ -70,7 +70,7 @@ git push origin "v$VERSION"
 - A wrong tag is already pushed. Never force-move it; ship the next patch and deprecate the bad release.
 
 ## Rules
-- No tag, release, or version bump without explicit confirmation.
+- No tag or release publication without explicit confirmation. Local, reversible version and changelog preparation may proceed when authorized by the task.
 - Never change history after tagging. Fix forward, always.
 - Monorepo: fixed versioning ships every package together (simple, noisy); independent versioning ships only what changed (precise, needs per-package changelogs). Pick one and keep it — mixing produces version numbers nobody can reason about.
 - The changelog is for users, not for the team. "Refactored internals" belongs in the commit log; "Fixed timestamps shifting by one hour in non-UTC zones" belongs in the changelog.

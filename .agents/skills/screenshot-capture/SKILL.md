@@ -11,7 +11,7 @@ description: |
 ```bash
 cat package.json | jq -r '.scripts | keys[]' | rg 'dev|start|preview|serve'
 node -p "require('os').tmpdir()"       # portable temp root — never hardcode /tmp
-git status --porcelain                 # must be clean before, and after
+git status --porcelain                 # record baseline; compare after capture
 ```
 
 No frontend in `package.json` means there is nothing to capture. Stop and report rather than inventing a server.
@@ -76,7 +76,7 @@ A dev server left running holds the port and confuses the next run.
 
 ## Stop
 - No frontend exists in `package.json`. Report it; do not invent a server to point a browser at.
-- `git status --porcelain` is non-empty after the run. Something landed in the tree — remove it before reporting paths.
+- Capture-created files remain in the tree after the run. Remove only those artifacts before reporting paths.
 - A capture would wait on a fixed timeout. Wait on a selector; a fixed wait is flake in both directions.
 
 ## Rules

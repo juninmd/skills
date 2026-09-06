@@ -38,7 +38,7 @@ Work bottom-up. An L7 symptom with an L3 cause wastes every minute spent in the 
 
 ## Flaky Failures
 The deterministic method above does not work on flake; raise the reproduction rate first.
-1. Run the test 50+ times with a pinned seed. A failure that survives a fixed seed is a real bug, not flake.
+1. Repeat the test with a pinned seed when statistical evidence is needed; choose the count from the suspected flake rate and risk.
 2. Run it alone, then in suite order, then reversed or shuffled, to expose ordering coupling.
 3. Attribute the remaining nondeterminism to exactly one source: time and timezone, concurrency and async ordering, or shared state (database rows, temp files, module singletons, ports).
 
@@ -49,7 +49,7 @@ The deterministic method above does not work on flake; raise the reproduction ra
 - HTTP and TLS: [network-http-ssl.md](references/network-http-ssl.md)
 
 ## Stop
-- Three hypotheses have been refuted. The system model is wrong — rebuild it from observed behavior, or escalate with what has been eliminated.
+- Experiments stop reducing uncertainty. Rebuild the system model from observed behavior, or escalate with what has been eliminated.
 - The symptom disappeared and you cannot say why. That is a coincidence, not a fix; it will return.
 - This is production and users are affected. Mitigate through `incident-response` first, then resume here.
 

@@ -13,15 +13,15 @@ rg -w "symbolName" --glob '!*.min.*'         # callers by symbol
 rg -F "'symbolName'" -F '"symbolName"'       # callers by string: DI, reflection, dispatch
 ```
 
-Confirm the behavior is covered by tests before touching anything. Untested code goes to `legacy-refactoring` first.
+For behavior-bearing simplification, establish characterization coverage first. Route genuinely untested behavior to `legacy-refactoring`; mechanical cleanup may proceed with focused checks.
 
 ## Workflow
-1. Confirm the behavior is covered before touching it. Untested? Stop and route the characterization work to `legacy-refactoring` first — simplification without a safety net is just editing.
+1. For behavior-bearing changes, confirm coverage before touching it. For mechanical cleanup, use a focused check and proceed.
 2. Delete before you rewrite: unreachable branches, unused exports, commented-out blocks, options nobody passes.
 3. Collapse indirection with exactly one caller and no second one on the horizon.
 4. Replace conditional thickets with early returns; replace flag parameters with two named functions.
 5. Rename until the comment explaining the code is redundant, then delete the comment.
-6. Re-run the tests after each step, and keep the steps in separate commits so any one can be reverted alone.
+6. Re-run relevant tests after meaningful changes; keep separate commits when independent rollback matters.
 
 ## Proving Code Is Dead
 A grep for the symbol is not proof. These are the paths that make deleted-but-live code an incident.
@@ -52,7 +52,7 @@ A grep for the symbol is not proof. These are the paths that make deleted-but-li
 Shorter is not automatically simpler. A clever one-liner trades reading time for line count, and reading happens far more often than writing.
 
 ## Stop
-- The behavior has no test coverage. Stop; build the safety net with `legacy-refactoring` before simplifying.
+- Behavior is uncertain and lacks coverage. Route characterization to `legacy-refactoring` before changing semantics.
 - A deletion cannot be proven dead across callers, strings, exports, flags, and scheduled work. Leave it and say why.
 - Behavior changed. That is a bug fix or a feature, not a simplification — split it into its own commit.
 

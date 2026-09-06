@@ -7,7 +7,7 @@ description: |
 # Codebase Mapping
 
 ## Preflight
-Ten commands, in order. Each one narrows the next.
+Use the probes below selectively; choose the smallest set that answers the mapping question.
 
 ```bash
 # 1. What is this, and how is it run?

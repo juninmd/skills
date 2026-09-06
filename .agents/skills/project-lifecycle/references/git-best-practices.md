@@ -13,7 +13,7 @@ Guidelines for safe and efficient branch management.
 
 ## 2. Common Mistakes to Avoid
 - **Skipping Tests:** Never merge broken code.
-- **Ambiguous Options:** Always present the 4 structured options.
+- **Ambiguous Options:** Present structured options when the branch disposition is undecided.
 - **Auto-Cleanup:** Only remove worktrees when work is merged or explicitly discarded.
 - **Silent Deletion:** Always require a typed confirmation before force-deleting a branch.
 
@@ -21,7 +21,7 @@ Guidelines for safe and efficient branch management.
 - Never proceed with failing tests.
 - Never force-push without an explicit user request.
 - Never delete work without verification and confirmation.
-- **NEVER** commit directly to `main`, `master`, or protected branches. If a user asks to do so, stop and ask for confirmation.
+- **NEVER** commit directly to `main`, `master`, or protected branches without explicit authorization and a check of actual branch policy.
 
 ## 4. Branch Naming
 - Use clear prefixes: `feat/add-user-profile`, `fix/login-redirect`, `refactor/api-client`.
