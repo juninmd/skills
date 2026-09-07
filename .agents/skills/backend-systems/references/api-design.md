@@ -74,7 +74,7 @@ Paginate every collection from day one. An unbounded list is an outage waiting f
 - gRPC: protobuf field numbers and wire types are immutable. `reserved` anything removed; renumbering corrupts old clients silently, with no error anywhere.
 - Events: register payload schemas with an enforced compatibility mode (usually backward), and require consumers to tolerate unknown fields.
 - Announce deprecation in the schema and in response headers before removal, with a date and a migration path. A deprecation nobody was told about is a removal.
-- Implementation belongs to `backend-node` and `backend-python`; rolling a breaking change out to live consumers to `migration-engineering`.
+- Implementation belongs to [backend-node](backend-node.md) and [backend-python](backend-python.md); rolling a breaking change out to live consumers to `data-engineering`.
 
 ## Checklist
 - [ ] Consumers, use cases, and volume named before modeling.

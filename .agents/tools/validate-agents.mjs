@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { readSkill } from "./skill-metadata.mjs";
+import { checkRetiredHandoffs } from "./retired-handoffs.mjs";
 
 // A body long enough to skim past is a body an agent will skim past. The
 // ceiling is a ratchet: raise it deliberately, never to fit one more paragraph.
@@ -26,7 +27,8 @@ const ALLOWED_FIELDS = new Set([
 // that was missing. Opt-in by name: the block is dead weight in a skill whose
 // steps nobody is tempted to skip.
 export const EXCUSES_REQUIRED = new Set([
-  "code-simplification",
+  "code-review",
+  "finishing-dev",
   "git-workflow",
   "security-ops",
   "test-engineering",
@@ -178,46 +180,6 @@ function findOrphanReferences(skillName, skillText, referencesRoot) {
     );
 }
 
-/**
- * A skill that never names a sibling cannot route away from itself, so it
- * quietly absorbs work a sharper skill owns. `skill-creator` states the rule;
- * nothing enforced it, and 22 of 65 skills had drifted out of compliance.
- * Names are matched in backticks, the convention the catalog already uses.
- *
- * The inverse also holds: a skill no sibling ever hands work to is an island
- * the router alone must find, and the sibling that should route there absorbs
- * its job instead. 13 of 80 skills were islands when this check landed.
- */
-export function checkSiblingHandoffs(skillsRoot) {
-  const names = fs
-    .readdirSync(skillsRoot, { withFileTypes: true })
-    .filter((entry) => entry.isDirectory())
-    .map((entry) => entry.name);
-  const known = new Set(names);
-  const cited = new Set();
-  const errors = [];
-  for (const name of names) {
-    const file = path.join(skillsRoot, name, "SKILL.md");
-    if (!fs.existsSync(file)) continue;
-    const body = fs.readFileSync(file, "utf8");
-    const siblings = [...body.matchAll(/`([a-z0-9-]+)`/g)]
-      .map((match) => match[1])
-      .filter((cite) => cite !== name && known.has(cite));
-    if (!siblings.length) {
-      errors.push(`${name}: body names no sibling skill to hand work to`);
-    }
-    for (const sibling of siblings) cited.add(sibling);
-  }
-  for (const name of names) {
-    if (!cited.has(name)) {
-      errors.push(
-        `${name}: no sibling skill hands work to it — cite it from the skill that would otherwise absorb its job`,
-      );
-    }
-  }
-  return errors;
-}
-
 export function validateSkillsRoot(agentsRoot) {
   const skillsRoot = path.join(agentsRoot, "skills");
   if (!fs.existsSync(skillsRoot)) return [`Missing skills directory: ${skillsRoot}`];
@@ -227,7 +189,7 @@ export function validateSkillsRoot(agentsRoot) {
       .readdirSync(skillsRoot, { withFileTypes: true })
       .filter((entry) => entry.isDirectory())
       .flatMap((entry) => validateSkill(path.join(skillsRoot, entry.name))),
-    ...checkSiblingHandoffs(skillsRoot),
+    ...checkRetiredHandoffs(agentsRoot),
   ];
 }
 

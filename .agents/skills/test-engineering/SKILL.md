@@ -67,7 +67,7 @@ Never retry a flaky test; attribute it to exactly one source and remove that sou
 - The subject under test is being mocked. Stop; the test now asserts the mock.
 
 ## Rules
-- Hand off refactoring and simplifications to `code-simplification`, UI issues to `frontend-engineering`, and service bugs to `backend-systems`.
+- Hand off refactoring and simplifications to `code-review`, UI issues to `frontend-engineering`, and service bugs to `backend-systems`.
 - Assert externally meaningful behavior and exact failure semantics — the error type and message, not just that it threw.
 - Restore mocks, timers, environment, and global state after every test. A leaked timer fails a later, innocent test.
 - Order dependence is a defect, not a configuration preference. Run the suite shuffled in CI.

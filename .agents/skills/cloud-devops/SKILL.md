@@ -78,7 +78,7 @@ See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-
 - Kubernetes workloads need resource requests and limits, liveness and readiness probes, and a PodDisruptionBudget so a node drain cannot evict the last replica. Liveness that duplicates readiness restarts a healthy pod under load.
 - Under a GitOps controller (Argo CD, Flux): inspect the desired-versus-live diff, fix desired state in the repository instead of forcing a sync by hand, and treat pruning as dangerous for shared objects.
 - Terraform state is production data: remote backend, locking, versioned, never edited by hand. `terraform apply` without a saved plan applies something nobody reviewed.
-- Logs, metrics, traces, SLOs, and alerting belong to `observability`; a live outage to incident-response. Keep rollout mechanics here.
+- Logs, metrics, traces, SLOs, and alerting and live outage response belong to `observability`. Keep rollout mechanics here.
 
 ## Checklist
 - [ ] Blast radius, secret flow, and rollback path stated before the change.

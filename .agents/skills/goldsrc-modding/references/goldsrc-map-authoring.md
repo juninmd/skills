@@ -18,7 +18,7 @@ A `.map` is plain text: a brush is a set of planes, each defined by three points
 5. Decompose props into at least three brushes each — a single box textured "wood" reads as a concrete block.
 6. Generate walls as segments around openings plus a lintel. Never try to subtract.
 7. Render a contact sheet of the `.wad` and choose textures by looking, not by name.
-8. Compile with `goldsrc-map-compiling`, then place the gameplay entities with `cs16-map-gamemodes`.
+8. Compile with [goldsrc-map-compiling](goldsrc-map-compiling.md), then place the gameplay entities with [cs16-map-gamemodes](cs16-map-gamemodes.md).
 
 ## Face syntax
 ```
@@ -72,4 +72,4 @@ voff   =  z1 / vscale        # V = (0,0,-1), texel 0 at the top edge
 - [ ] every brush winds clockwise from outside; no brush fully inside another
 - [ ] signs read correctly and fit exactly once; prop textures show at least one repeat
 - [ ] openings built as segments plus lintel, doors at least 128 tall
-- [ ] compiles clean through `goldsrc-map-compiling` with no LEAK
+- [ ] compiles clean through [goldsrc-map-compiling](goldsrc-map-compiling.md) with no LEAK

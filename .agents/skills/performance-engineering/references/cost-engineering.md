@@ -78,7 +78,7 @@ Billing is retroactive. The alert fires long after the runaway loop has been pai
 
 ## Rules
 - Never optimize cost before correctness and latency. When they conflict, state the tradeoff and let the user decide.
-- Cache only what is expensive **and** reused; a low hit rate adds cost, latency, and staleness at once — `caching-strategy` owns that calculus.
+- Cache only what is expensive **and** reused; a low hit rate adds cost, latency, and staleness at once — `backend-systems` owns that calculus.
 - Measure the delta at a stated traffic level. A saving that came from a quiet week is not a saving.
 - Latency and throughput belong to `performance-engineering`; the instrumentation that attributes spend to `observability`; rightsizing the cluster to `cloud-devops`.
 

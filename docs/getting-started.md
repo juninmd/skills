@@ -1,34 +1,41 @@
 # Getting Started
 
-## Install
+## Install via symlink
+
+The supported install links one checkout into every client, so edits in the repository are live without a reinstall.
 
 ```bash
-# Install all skills
-npx skills add juninmd/skills --all
-
-# Preview the catalog
-npx skills add juninmd/skills --list
-
-# Install one skill
-npx skills add juninmd/skills --skill backend-node
+git clone https://github.com/juninmd/skills && cd skills
+node .agents/tools/install.mjs --dry-run   # show the plan
+node .agents/tools/install.mjs all         # or: claude | codex | agy
 ```
 
-For repository-local discovery:
+| Client | Skills | Instructions | Config |
+|---|---|---|---|
+| Claude Code | `~/.claude/skills/<name>` | `~/.claude/CLAUDE.md` | `~/.claude/settings.json` |
+| Codex | `~/.codex/skills/<name>` | `~/.codex/AGENTS.md` | `~/.codex/config.toml` |
+| Antigravity (agy) | `~/.gemini/config/skills/<name>` | `~/.gemini/GEMINI.md` | — |
+
+Existing real files are renamed to `*.bak-<timestamp>` before linking. Links that point at retired skills are pruned. `--no-config` links skills and instructions only. On Windows, skill directories become junctions (no privilege needed); file links need Developer Mode or an elevated shell. Without it, `CLAUDE.md` and `GEMINI.md` get a one-line `@path` import stub that tracks the repo the same way, and the config files are left untouched until you rerun elevated.
+
+## Install by copy
 
 ```bash
-git submodule add https://github.com/juninmd/skills .agents
-git submodule update --init --recursive
+npx skills add juninmd/skills --list                    # preview the catalog
+npx skills add juninmd/skills --skill backend-systems   # copy one skill
 ```
+
+Copies do not follow the repository and do not include the agents or operating instructions.
 
 ## Invoke
 
-Skills can activate from their frontmatter description or be invoked explicitly:
+Skills activate from their frontmatter description or explicitly:
 
 ```text
-/backend-node
-/diagnostics
+/backend-systems
+/observability
 /test-engineering
-/project-lifecycle
+/starting-dev
 ```
 
 ## Skill Structure
@@ -39,19 +46,23 @@ Skills can activate from their frontmatter description or be invoked explicitly:
 └── references/
 ```
 
-`SKILL.md` contains the discovery description, core workflow, reference selection, rules, and a concise checklist. Detailed knowledge stays in `references/` and is loaded only when relevant.
+`SKILL.md` holds the discovery description, preflight, numbered workflow, a decision table, a real command block, stop conditions, rules, and a checklist. Detailed knowledge stays in `references/` and is loaded only when relevant.
 
-## Required Frontmatter
+## Frontmatter
 
 ```yaml
 ---
 name: your-skill-name
 description: |
   What the skill does and the concrete tasks or contexts where it should be used.
+license: MIT
+metadata:
+  version: 1.0.0
+compatibility: any notes on required tools or platforms
 ---
 ```
 
-Only `name` and `description` are allowed in skill frontmatter.
+Allowed fields: `name`, `description`, `license`, `allowed-tools`, `metadata`, `compatibility`. The name must equal the folder name.
 
 ## Validate
 
@@ -61,4 +72,4 @@ pnpm run validate
 pnpm run docs:build
 ```
 
-The gate checks frontmatter fields, naming, description quality, checklist presence, word budget, local links, catalog consistency, and validator tests.
+The gate checks frontmatter, required sections, token budgets, routing evals, retired skill names, catalog consistency, spelling, local links, and validator tests.

@@ -1,0 +1,69 @@
+{
+  "skill_name": "starting-dev",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Clarify ambiguous requirements and interview stakeholder before planning",
+        "top_k": 3
+      },
+      {
+        "prompt": "Create PRD specification and break it into backlog task issues",
+        "top_k": 3
+      },
+      {
+        "prompt": "Author an AGENTS.md file to define project instructions, scope boundaries, and context rules",
+        "top_k": 3
+      },
+      {
+        "prompt": "Write session handoff notes so a teammate can resume uninterrupted",
+        "top_k": 3
+      },
+      {
+        "prompt": "Turn this vague request into actionable acceptance criteria",
+        "top_k": 3
+      },
+      {
+        "prompt": "Run the autonomous dev loop driver to advance the next task stage",
+        "top_k": 3
+      },
+      {
+        "prompt": "Map entry points and trace execution flow in an unfamiliar legacy codebase",
+        "top_k": 3
+      },
+      {
+        "prompt": "Onboard to new repository by charting module organization and conventions",
+        "top_k": 3
+      },
+      {
+        "prompt": "Generate codebase dependency map showing which packages own critical business logic",
+        "top_k": 3
+      },
+      {
+        "prompt": "Execute delivery loop through research, prototype, plan, and implement stages",
+        "top_k": 3
+      },
+      {
+        "prompt": "Create three throwaway prototype variants before deciding architecture",
+        "top_k": 3
+      },
+      {
+        "prompt": "Break down feature into vertical slices for incremental delivery",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Draft pull request with git commits and release tags",
+        "owner": "git-workflow"
+      },
+      {
+        "prompt": "Design system architecture, module boundaries, and dependency directions",
+        "owner": "software-architecture"
+      },
+      {
+        "prompt": "Make working code simpler, collapse unnecessary abstractions, and delete dead code",
+        "owner": "code-review"
+      }
+    ]
+  }
+}

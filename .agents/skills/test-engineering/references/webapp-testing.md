@@ -83,7 +83,7 @@ npx playwright show-trace test-results/<name>/trace.zip
 - Visual baselines are per platform and browser — font rendering differs. Generate them in the image CI uses, allow a small pixel threshold, mask timestamps, avatars, and ads, and disable animations before capturing.
 - Never run an E2E suite against production without explicit approval; these tests write data.
 - Keep the suite narrow. Push logic assertions down to `test-engineering`; every journey you add here you pay for on every run, forever.
-- Screenshots as evidence for a human, outside a test run, belong to `screenshot-capture`.
+- Screenshots as evidence for a human, outside a test run, belong to `frontend-engineering`.
 
 ## Checklist
 - [ ] Auth state saved once and reused; one test still exercises the real login.

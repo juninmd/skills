@@ -69,7 +69,7 @@ A popular key expires, N concurrent requests all miss, and all N hit the origin 
 - Cache negative results deliberately: without a short-TTL "not found" entry, every miss on a missing key hits the origin — which is exactly what an enumeration attack produces.
 - Invalidation is asynchronous and best-effort. A CDN purge takes seconds to propagate. Layers multiply: know the worst-case age across every hop, not per layer.
 - A cache with no memory limit and no eviction policy is a pending outage. Set both, and know which policy the store actually applies.
-- Profile with `performance-engineering` before caching avoidable work — a cache over an N+1 still fires on every miss. Browser and CDN delivery belongs to `web-performance`.
+- Profile with `performance-engineering` before caching avoidable work — a cache over an N+1 still fires on every miss; browser and CDN delivery belong there too.
 
 ## Checklist
 - [ ] Acceptable staleness stated in seconds before any layer was chosen.

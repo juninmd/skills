@@ -84,7 +84,7 @@ Listings shift between requests — an item moves to page 2 while you read page 
 - Cache before refetching, and log every request and failure. A scrape you cannot audit is one you cannot defend.
 - Prefer the data contract over selector magic: document what each field means and where it comes from, so a layout change is a small fix instead of an archaeology project.
 - Do not run heavy scrapes against production systems without approval.
-- Answering a question from sources belongs to `web-research`; profiling the extracted rows to `data-analysis`.
+- Answering a question from sources belongs to `web-research`; profiling the extracted rows to `data-engineering`.
 
 ## Checklist
 - [ ] API, sitemap, embedded JSON, and the page's own endpoint all checked before rendering.

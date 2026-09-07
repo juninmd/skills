@@ -17,7 +17,7 @@ Four programs run in order on the same map name, each reading what the last wrot
 4. Run `hlrad`. Skipping it leaves the map fullbright.
 5. Audit the output lumps against the engine caps, then verify in game.
 6. When only entities moved, re-import with `hlcsg -onlyents` instead of rebuilding.
-7. Hand the `.bsp` to `goldsrc-bsp-maintenance` for entity-only edits from here on.
+7. Hand the `.bsp` to [goldsrc-bsp-maintenance](goldsrc-bsp-maintenance.md) for entity-only edits from here on.
 
 ## Stage table
 
@@ -62,7 +62,7 @@ Drive Docker from PowerShell or Python, never from Git Bash — MSYS mangles the
 Sky brushes do seal. An open courtyard is sealed with a `sky`-textured brush over it, not by leaving it open.
 
 ## Stop
-- A LEAK that the pointfile traces outside the map bounds: the geometry is wrong, not the compiler. Return to `goldsrc-map-authoring`.
+- A LEAK that the pointfile traces outside the map bounds: the geometry is wrong, not the compiler. Return to [goldsrc-map-authoring](goldsrc-map-authoring.md).
 - Any lump over its engine cap. `leaves` (8192) blows first; `-chart` prints the table. Cut detail rather than shipping a map that crashes on load.
 - A rebuild changes the `.bsp` size with no source change — the toolchain or the WADs moved under you. Same `.map` plus same flags is byte-identical, so treat a diff as a real change to find.
 
@@ -77,4 +77,4 @@ Sky brushes do seal. An open courtyard is sealed with a `sky`-textured brush ove
 - [ ] `visibility` and `lighting` lumps non-empty
 - [ ] every lump under its cap per `-chart`, `leaves` well under 8192
 - [ ] no missing textures, no LEAK
-- [ ] gameplay entities verified with `cs16-map-gamemodes`
+- [ ] gameplay entities verified with [cs16-map-gamemodes](cs16-map-gamemodes.md)

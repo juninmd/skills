@@ -13,7 +13,7 @@ Settle where the text lands before choosing a form. The same block that renders 
 
 | Where it lands | Renders a diagram block? | Use |
 |---|---|---|
-| GitHub Markdown, issues, pull requests | yes | A rendered diagram — `diagrams-as-code` owns it |
+| GitHub Markdown, issues, pull requests | yes | A rendered diagram — [diagrams-as-code](diagrams-as-code.md) owns it |
 | npm package page, most wikis, plain email | no | Fenced ASCII |
 | Terminal output, `--help`, CLI docs | no | Fenced ASCII |
 | Code comment, commit message | no | Fenced ASCII, narrow |
@@ -49,7 +49,7 @@ Settle where the text lands before choosing a form. The same block that renders 
 ```
 
 ## Stop
-- The drawing needs more than 72 columns or three levels of nesting. It is a real diagram now — hand it to `diagrams-as-code`.
+- The drawing needs more than 72 columns or three levels of nesting. It is a real diagram now — hand it to [diagrams-as-code](diagrams-as-code.md).
 - Alignment only holds in your editor. Check it at 72 columns in a monospace block or drop it.
 - The figure needs a legend to be read. A figure that needs explaining has failed at the one thing it does better than prose.
 - Content is numbers. Use a table; a bar chart made of hyphens is a table with a reading tax.
@@ -61,7 +61,7 @@ Settle where the text lands before choosing a form. The same block that renders 
 - One accent idea per figure. A second visual dimension needs a second figure.
 - Keep the figure next to the claim it proves. A figure two paragraphs from its sentence is decoration.
 - Prose carries the argument; the figure only compresses it. Anything the reader must know cannot live in the drawing alone.
-- Screenshots of real interfaces are a different tool — `screenshot-capture` owns those, and `documentation` owns where any of it belongs.
+- Screenshots of real interfaces are a different tool — `frontend-engineering` owns those, and `documentation` owns where any of it belongs.
 
 ## Checklist
 - [ ] Each figure proves one named claim, stated in prose directly above it.

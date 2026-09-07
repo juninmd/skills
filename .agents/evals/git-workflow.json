@@ -7,10 +7,6 @@
         "top_k": 3
       },
       {
-        "prompt": "Draft pull request with git commits, changelog entries, and release tags",
-        "top_k": 3
-      },
-      {
         "prompt": "Run git bisect to locate the commit that introduced the regression",
         "top_k": 3
       },
@@ -26,7 +22,11 @@
       },
       {
         "prompt": "Run the autonomous dev loop driver to advance the next task stage",
-        "owner": "dev-loop"
+        "owner": "starting-dev"
+      },
+      {
+        "prompt": "Run review subagents and prepare the pull request after verification",
+        "owner": "finishing-dev"
       }
     ]
   }

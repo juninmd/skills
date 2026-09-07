@@ -80,12 +80,12 @@ Not "over 200 items". Virtualize when you measure one of: DOM nodes in the thous
 - Virtualization is being added on a guessed threshold. Measure first; it breaks find-in-page, anchors, and print.
 
 ## Rules
-- Multi-column and absolute positioning detach the visual picture from the DOM, and both focus order and screen-reader order follow the **DOM**. Keep DOM order meaningful; route the audit to `accessibility`.
+- Multi-column and absolute positioning detach the visual picture from the DOM, and both focus order and screen-reader order follow the **DOM**. Keep DOM order meaningful; route the audit to [accessibility](accessibility.md).
 - Native grid masonry support is narrow. Treat it as progressive enhancement inside a feature query, never as the only path.
 - Set `break-inside: avoid` on the item, never on the container — on the container it does nothing.
-- Every image reserves its box before it loads, or the layout shifts and `web-performance` will bill you for the CLS.
+- Every image reserves its box before it loads, or the layout shifts and `performance-engineering` will bill you for the CLS.
 - Column counts get verified at mobile, tablet, and desktop. A three-column grid at 360px is one unreadable column of slivers.
-- The visual system — spacing, radius, card treatment — belongs to `frontend-design`; the component implementation to `frontend-engineering`.
+- The visual system — spacing, radius, card treatment — belongs to [frontend-design](frontend-design.md); the component implementation to `frontend-engineering`.
 
 ## Checklist
 - [ ] Order-sensitivity answered first, and the approach follows from it.

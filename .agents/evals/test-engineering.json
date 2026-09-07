@@ -22,7 +22,7 @@
     "negative": [
       {
         "prompt": "Make working code simpler and delete dead functions",
-        "owner": "code-simplification"
+        "owner": "code-review"
       },
       {
         "prompt": "Fix the React hydration mismatch in our Next.js app",

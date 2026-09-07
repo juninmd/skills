@@ -65,7 +65,7 @@ Typings and `--help` are the fastest ground truth available, and both come from 
 - The live doc outranks memory and outranks any stale local reference file.
 - Never patch local reference material with unverified content. Link to the source instead — a wrong local note propagates further than a missing one.
 - A version-specific answer with no version stated is not an answer.
-- Dependency currency, upgrade planning, and EOL dates belong to `knowledge-freshness`; multi-source research and citation to `web-research`. This skill verifies behavior at the version installed right now.
+- Dependency currency, upgrade planning, EOL dates, multi-source research, and citation belong to `web-research`. This skill verifies behavior at the version installed right now.
 
 ## Checklist
 - [ ] Installed version identified before anything was checked.

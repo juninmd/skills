@@ -7,12 +7,12 @@ Read only the files needed for the current task.
 | `design-principles.md` | Reference documentation for design-principles |
 | `distributed-architecture.md` | Reference documentation for distributed-architecture |
 | `distributed-toolkit.md` | Reference documentation for distributed-toolkit |
-| `domain-modeling.md` | Reference documentation for domain-modeling |
-| `electron-architecture.md` | Reference documentation for electron-architecture |
+| `domain-modeling.md` | Reference documentation for [domain-modeling](domain-modeling.md) |
+| `electron-architecture.md` | Reference documentation for [electron-architecture](electron-architecture.md) |
 | `intake-templates.md` | Reference documentation for intake-templates |
 | `main-process.md` | Reference documentation for main-process |
 | `native-performance.md` | Reference documentation for native-performance |
-| `project-structure.md` | Reference documentation for project-structure |
+| `project-structure.md` | Reference documentation for [project-structure](project-structure.md) |
 | `real-world-cases.md` | Reference documentation for real-world-cases |
 | `renderer-patterns.md` | Reference documentation for renderer-patterns |
 | `security.md` | Reference documentation for security |

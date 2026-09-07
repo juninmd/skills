@@ -72,7 +72,7 @@ A dependency can be current while the code written against it is not: a recalled
 
 | Recalled from training | Check instead |
 |---|---|
-| A parameter shape (`thinking.budget_tokens`, a beta header) | the SDK changelog at the installed version — `docs-verification` |
+| A parameter shape (`thinking.budget_tokens`, a beta header) | the SDK changelog at the installed version — `documentation` |
 | A default model id or a dated tool type string (`*_2025xxxx`) | the provider's current model list and changelog |
 | A `client.beta.*` namespace | whether it graduated to the stable namespace |
 | A CLI flag or config key | `--help` on the installed binary, never the tutorial |
@@ -88,7 +88,7 @@ A dependency can be current while the code written against it is not: a recalled
 - Reinstall from the lockfile after any dependency change: `npm ci`, `pnpm install --frozen-lockfile`, `uv sync --frozen` — never a bare install that can drift.
 - Prefer stable over bleeding-edge unless explicitly requested. A release candidate in production is an unpaid support contract.
 - Record the checked date with every finding. "Latest is 4.2.1" with no date is false within weeks.
-- API behavior at the installed version belongs to `docs-verification`; CVE triage to `security-ops`; the upgrade rollout to `migration-engineering`.
+- API behavior at the installed version belongs to `documentation`; CVE triage to `security-ops`; the upgrade rollout to `data-engineering`.
 
 ## Checklist
 - [ ] Every version verified against a live registry, not from memory.

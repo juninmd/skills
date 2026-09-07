@@ -16,7 +16,7 @@ A BSP30 is a plain container: a 124-byte header of 15 `(offset, length)` pairs, 
 4. Re-import by rebuilding the file with every non-entity lump in its original order, 4-byte aligned, the new entity text appended, and the header offsets rewritten.
 5. Verify losslessness by comparing every other lump byte for byte against the backup.
 6. Audit the engine limits and run the point-in-world query over every spawn.
-7. When the fix needs new geometry, stop and go back through `goldsrc-map-compiling`.
+7. When the fix needs new geometry, stop and go back through [goldsrc-map-compiling](goldsrc-map-compiling.md).
 
 ## Lump table
 
@@ -64,7 +64,7 @@ Test the eight corners of the 32x32x72 player box around each spawn origin, with
 ## Stop
 - The import needs a `"model" "*N"` that does not exist in the `models` lump. You cannot create a brush entity by ripent; a tool that emits it produces a `.bsp` that crashes clients. Recompile instead.
 - Version is not 30, or a lump offset points past end of file. Do not repair in place.
-- Any lump over its cap — report it; a map at the limit needs geometry cuts from `goldsrc-map-authoring`.
+- Any lump over its cap — report it; a map at the limit needs geometry cuts from [goldsrc-map-authoring](goldsrc-map-authoring.md).
 
 ## Rules
 - Write the `.bak` before the import, every time.

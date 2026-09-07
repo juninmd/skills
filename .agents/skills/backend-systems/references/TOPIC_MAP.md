@@ -5,15 +5,15 @@ Read only the files needed for the current task.
 | Reference | Topic / Description |
 |---|---|
 | `GENERATION.md` | Reference documentation for GENERATION |
-| `api-design.md` | Reference documentation for api-design |
+| `api-design.md` | Reference documentation for [api-design](api-design.md) |
 | `backend-node-real-world-cases.md` | Reference documentation for backend-node-real-world-cases |
-| `backend-node.md` | Reference documentation for backend-node |
+| `backend-node.md` | Reference documentation for [backend-node](backend-node.md) |
 | `backend-python-real-world-cases.md` | Reference documentation for backend-python-real-world-cases |
-| `backend-python.md` | Reference documentation for backend-python |
+| `backend-python.md` | Reference documentation for [backend-python](backend-python.md) |
 | `best-practices-ci.md` | Reference documentation for best-practices-ci |
 | `best-practices-migration.md` | Reference documentation for best-practices-migration |
 | `best-practices-performance.md` | Reference documentation for best-practices-performance |
-| `caching-strategy.md` | Reference documentation for caching-strategy |
+| `caching-strategy.md` | Reference documentation for [caching-strategy](caching-strategy.md) |
 | `core-cli.md` | Reference documentation for core-cli |
 | `core-config.md` | Reference documentation for core-config |
 | `core-store.md` | Reference documentation for core-store |

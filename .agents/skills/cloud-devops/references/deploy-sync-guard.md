@@ -26,7 +26,7 @@ Build drift is the dangerous, silent one: the push succeeded, the PR merged, and
 3. Resolve the registry digest for the deployed tag and compare it to the pod's `imageID`.
 4. When paranoid after a subtle fix, grep the changed symbol inside the container.
 5. Remediate per the table, then re-verify step 3.
-6. If CI can never go green, hand over to `deploy-ghcr-manual`.
+6. If CI can never go green, hand over to [deploy-ghcr-manual](deploy-ghcr-manual.md).
 
 ```bash
 # pod digest

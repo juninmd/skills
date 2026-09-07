@@ -71,7 +71,7 @@ An index earns its place by query shape and selectivity, never by hope. Composit
 - Never run ad-hoc destructive SQL — `DROP`, `TRUNCATE`, or `UPDATE`/`DELETE` without `WHERE` — without a verified backup and explicit approval. Write the `SELECT` first and read its count.
 - CTEs are an optimization fence in older PostgreSQL (pre-12) and still materialize when marked `MATERIALIZED`; check the plan before assuming they inline.
 - For MongoDB, model documents around the read path — the shape you query is the shape you store.
-- Schema change rollout — expand, migrate, contract — belongs to `migration-engineering`; lock behavior, DDL blocking, and online-change mechanics to `data-engineering`.
+- Schema change rollout — expand, migrate, contract — belongs to [migration-engineering](migration-engineering.md); lock behavior, DDL blocking, and online-change mechanics to `data-engineering`.
 
 ## Checklist
 - [ ] Intent, expected shape, and uniqueness guarantee stated before writing.

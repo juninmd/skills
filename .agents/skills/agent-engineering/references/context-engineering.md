@@ -78,7 +78,7 @@ Write durable state to disk **while you still have room to write it well** — a
 - Record the conclusion, not the artifact. "The build fails because `tsconfig` targets ES5" beats 400 lines of build log.
 - Prefer targeted `rg` with line caps and ranged reads over full-file reads.
 - Re-reading a file you already summarized is correct when a decision must change. Refusing to re-read in order to save tokens is how a wrong summary becomes permanent.
-- Agent loops, tools, and handoffs belong to `agent-engineering`; notes that must outlive the session to `session-learnings`.
+- Agent loops, tools, and handoffs belong to `agent-engineering`; notes that must outlive the session to `starting-dev`.
 
 ## Checklist
 - [ ] Large reads were bounded or summarized when context pressure warranted it.

@@ -46,7 +46,7 @@ The deterministic method above does not work on flake; raise the reproduction ra
 ## Stop
 - Experiments stop reducing uncertainty. Rebuild the system model from observed behavior, or escalate with what has been eliminated.
 - The symptom disappeared and you cannot say why. That is a coincidence, not a fix; it will return.
-- This is production and users are affected. Mitigate through `incident-response` first, then resume here.
+- This is production and users are affected. Mitigate through [incident-response](incident-response.md) first, then resume here.
 
 ## Rules
 - Preserve raw evidence, but summarize it in chat and redact secrets. Never paste a full log into context.
@@ -54,8 +54,8 @@ The deterministic method above does not work on flake; raise the reproduction ra
 - Do not call correlation a root cause until the reproduction changes predictably when you change the suspected cause.
 - Stopping rule: after three refuted hypotheses, stop generating more. The system model is wrong. Rebuild it from observed behavior, or escalate with the explicit list of what has been eliminated.
 - A fix you cannot explain is a coincidence you have not caught yet. If the symptom disappeared and you do not know why, it will come back.
-- In production, mitigate first and diagnose second: run the outage through the `incident-response` skill, then resume diagnosis against the evidence it captured.
-- A profile-shaped problem — slow but correct — belongs to `performance-engineering`; browser-side slowness to `web-performance`.
+- In production, mitigate first and diagnose second: run the outage through the [incident-response](incident-response.md) skill, then resume diagnosis against the evidence it captured.
+- A profile-shaped problem — slow but correct — and browser-side slowness belong to `performance-engineering`.
 
 ## Checklist
 - [ ] Symptom, environment, and smallest reproduction captured.

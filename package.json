@@ -1,7 +1,7 @@
 {
   "name": "juninmd-skills",
   "version": "1.0.0",
-  "description": "Skills, agents and prompts for AI coding assistants",
+  "description": "Skills and agents for AI coding assistants",
   "scripts": {
     "plugin:validate": "node .agents/tools/validate-plugin.mjs",
     "agents:validate": "node .agents/tools/validate-agents.mjs .agents",
@@ -17,8 +17,9 @@
     "docs:dev": "npx vitepress dev docs",
     "docs:build": "npx vitepress build docs",
     "docs:preview": "npx vitepress preview docs",
-    "spell": "cspell --config cspell.json --no-progress README.md \"docs/**/*.md\" .agents/AGENTS.md \".agents/agents/**/*.md\" \".agents/prompts/**/*.md\" \".agents/skills/**/*.md\"",
-    "links": "node .agents/tools/check-links.mjs"
+    "spell": "cspell --config cspell.json --no-progress README.md \"docs/**/*.md\" .agents/AGENTS.md \".agents/agents/**/*.md\" \".agents/skills/**/*.md\"",
+    "links": "node .agents/tools/check-links.mjs",
+    "install:clients": "node .agents/tools/install.mjs"
   },
   "devDependencies": {
     "cspell": "^8.19.4",

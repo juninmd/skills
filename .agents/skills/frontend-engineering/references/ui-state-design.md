@@ -80,7 +80,7 @@ if (responseKey !== currentKey) return;
 - Optimistic updates need a defined rollback **and** a visible failure. A silent reversion reads to the user as data loss, and they will not trust the screen again.
 - Destructive actions get a confirmation that names the target, or an undo window. Prefer undo — confirmations are clicked through reflexively.
 - Disable a control only when you can say why; a disabled button with no explanation is a dead end. Prefer enabled-with-feedback.
-- Announce state changes to assistive technology, not only visually — `accessibility` owns the semantics; the visual treatment belongs to `frontend-design`; the implementation to `frontend-engineering`.
+- Announce state changes to assistive technology, not only visually — [accessibility](accessibility.md) owns the semantics; the visual treatment belongs to [frontend-design](frontend-design.md); the implementation to `frontend-engineering`.
 
 ## Reference Routing
 - State union, races, permission copy, duration bands, announcements, form rules: [state-recipes.md](state-recipes.md)

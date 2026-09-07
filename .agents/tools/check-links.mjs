@@ -15,7 +15,6 @@ export const LINK_ROOTS = [
   "docs",
   ".agents/AGENTS.md",
   ".agents/agents",
-  ".agents/prompts",
   ".agents/skills",
 ];
 

@@ -4,7 +4,7 @@ layout: home
 hero:
   name: "Engineering Skills"
   text: "Focused procedures. Small context. Reproducible proof."
-  tagline: 33 domain skills, 4 agents, and 4 prompt templates for production engineering work.
+  tagline: 22 domain skills, 4 agents, and shared operating instructions for production engineering work.
   actions:
     - theme: brand
       text: Get Started
@@ -17,8 +17,8 @@ hero:
       link: https://github.com/juninmd/skills
 
 features:
-  - title: 33 Domain Skills
-    details: Broad enough to avoid overlap, procedural enough to improve execution.
+  - title: 22 Domain Skills
+    details: Broad enough to avoid overlap, procedural enough to improve execution. Depth lives in per-skill references.
     link: /skills/
     linkText: Browse skills
 
@@ -27,32 +27,30 @@ features:
     link: /agents/
     linkText: Browse agents
 
+  - title: Symlink Install
+    details: One checkout linked into Claude Code, Codex, and Antigravity. Edits are live everywhere.
+    link: /getting-started
+    linkText: Install
+
   - title: Validation Built In
-    details: Spec frontmatter, word budgets, local links, catalog consistency, and tests.
+    details: Spec frontmatter, token budgets, routing evals, retired-name checks, local links, and tests.
     link: /getting-started
     linkText: Run the checks
-
-  - title: Multi-Platform
-    details: Compatible with assistants that discover `.agents/skills/<name>/SKILL.md`.
 ---
 
 ## Quick Setup
 
 ```bash
-npx skills add juninmd/skills --all
-```
-
-Or add the repository as your project's `.agents` directory:
-
-```bash
-git submodule add https://github.com/juninmd/skills .agents
+git clone https://github.com/juninmd/skills && cd skills
+node .agents/tools/install.mjs all
 ```
 
 ## Example Routing
 
 ```text
-/diagnostics            # reproduce and isolate a failure
+/starting-dev           # clarify a request, map a repository, plan slices
 /frontend-engineering   # implement or review a web UI
 /cloud-devops           # change CI, containers, Helm, or IaC
-/expert-review          # review a diff, plan, or design
+/code-review            # adversarial review of a diff or plan
+/finishing-dev          # review, fix, and open the PR
 ```

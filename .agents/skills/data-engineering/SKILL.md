@@ -91,7 +91,7 @@ See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-
 
 ## Rules
 - Hand off backend APIs to `backend-systems`, infrastructure deployment to `cloud-devops`, and telemetry metrics to `observability`.
-- Query and index design belong to sql-authoring; expand/migrate/contract phasing to migration-engineering. Keep plan-based diagnosis, operations, locks, backup, and restore here.
+- Query and index design belong to [sql-authoring](references/sql-authoring.md); expand/migrate/contract phasing to [migration-engineering](references/migration-engineering.md). Keep plan-based diagnosis, operations, locks, backup, and restore here.
 - Never infer index value without a query plan and realistic selectivity. An index that helps a 100-row table may be ignored at a million rows.
 - Never run destructive SQL, production migrations, cache flushes, or failovers without approval. `FLUSHALL` on a shared Redis is an outage, not a cleanup.
 - Backups are not a rollback plan until a restore has been tested, timed, and written down. An untested backup is a belief.

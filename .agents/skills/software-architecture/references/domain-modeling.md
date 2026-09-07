@@ -43,9 +43,9 @@ Never called: membership, plan (that is the priced template).
 Definition, example, boundary, forbidden synonyms. An entry without the boundary is a label; the boundary is the part that stops the next drift.
 
 ## Stop
-- The business owner of a term disagrees with your definition. Their word wins — this is `requirements-clarification` work, not a naming preference.
+- The business owner of a term disagrees with your definition. Their word wins — this is `starting-dev` work, not a naming preference.
 - One word genuinely needs two meanings in two subsystems. Stop renaming; that is a context boundary, and forcing one name across it corrupts both sides.
-- The rename touches generated code, a public API, or a persisted schema. Those need a migration path, not a find-and-replace — `migration-engineering` owns it.
+- The rename touches generated code, a public API, or a persisted schema. Those need a migration path, not a find-and-replace — `data-engineering` owns it.
 - Nobody outside the code uses the term. It is an implementation detail, not domain vocabulary; leave it out of the glossary.
 
 ## Rules
@@ -54,7 +54,7 @@ Definition, example, boundary, forbidden synonyms. An entry without the boundary
 - The plural matters. If the business says "policies" and the table says `policy_records`, the model has drifted already.
 - Do not encode the type in the name. `customerList` re-states what the type says and lies the day it becomes a set.
 - Ambiguity is a modeling bug, not a documentation bug. Fix it in the type, then describe it.
-- Write the entry for a newcomer and for an agent reading `CONTEXT.md` cold — the same audience, in practice. `agents-md` owns the operational half of that file.
+- Write the entry for a newcomer and for an agent reading `CONTEXT.md` cold — the same audience, in practice. `starting-dev` owns the operational half of that file.
 - Update the vocabulary in the pull request that changes the concept. A separate glossary chore is a chore nobody does.
 - Short is not the goal; unambiguous is. A longer name that survives the next quarter costs nothing to read.
 

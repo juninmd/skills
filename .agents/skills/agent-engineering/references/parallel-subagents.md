@@ -54,14 +54,14 @@ git worktree remove ../wt-slice-a           # after the merge, always
 - Two slices write the same file. Serialize them.
 - A worker reports done with no command output behind it. Treat that as unverified, not done.
 - Slices came back contradicting each other. Reconcile the premise before merging — one worked from a wrong assumption.
-- The work is exploratory. One agent iterating beats five guessing in parallel; route back to `diagnostics`.
+- The work is exploratory. One agent iterating beats five guessing in parallel; route back to defect diagnosis in `observability`.
 - Fan-out only to look fast. Cost scales with workers; wall-clock does not.
 
 ## Rules
 - A worker sees none of the others' context. Every fact it needs must be in its brief or reachable from the repo.
 - Verify before integrating. The report is a claim; the diff and the test run are the evidence.
 - Use an independent checker when risk, uncertainty, or conflicting findings justify it; otherwise a reproducible scoped check is sufficient.
-- Read-only fan-out is cheap and safe — reach for it first; it is also the main lever on context pressure (`context-engineering`).
+- Read-only fan-out is cheap and safe — reach for it first; it is also the main lever on context pressure ([context-engineering](context-engineering.md)).
 - Never silently re-dispatch a failed slice; the brief is usually what was wrong.
 - Depth beats width. Three well-briefed workers land more than ten vague ones, at half the cost.
 - Keep integration serial even when the work was parallel; concurrent merges turn a green branch red with nobody at fault.

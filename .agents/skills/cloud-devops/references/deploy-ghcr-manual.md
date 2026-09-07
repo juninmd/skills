@@ -9,7 +9,7 @@ docker info >/dev/null 2>&1 || echo 'docker daemon down'
 kubectl -n "$NS" get deploy "$APP" -o jsonpath='{.spec.template.spec.containers[0].image}{"\n"}'
 ```
 
-Confirm CI genuinely cannot build before bypassing it. A red build that a fix would turn green belongs to `deploy-sync-guard`, not here. Billing blocks and Actions outages are the cases this skill exists for, and they show up in the check-run annotations, not the logs.
+Confirm CI genuinely cannot build before bypassing it. A red build that a fix would turn green belongs to [deploy-sync-guard](deploy-sync-guard.md), not here. Billing blocks and Actions outages are the cases this skill exists for, and they show up in the check-run annotations, not the logs.
 
 ## Two deploy models
 
@@ -27,7 +27,7 @@ Pick by reading the live manifest, not by memory. Pinning a SHA on a `:latest` a
 4. Push both `:<sha>` and `:latest`.
 5. **Pinned model:** rewrite the image tag in the manifest repo and commit it. **Latest model:** skip to the restart.
 6. Force the GitOps controller to reconcile now instead of at its next poll.
-7. Verify the running pod actually reports the new SHA, then re-audit with `deploy-sync-guard`.
+7. Verify the running pod actually reports the new SHA, then re-audit with [deploy-sync-guard](deploy-sync-guard.md).
 
 ```bash
 SHA=$(git rev-parse HEAD)

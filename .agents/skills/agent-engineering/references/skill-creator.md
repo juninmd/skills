@@ -87,7 +87,7 @@ Every skill needs `.agents/evals/<name>.json` with at least 3 positive and 2 neg
 - Every skill names at least one sibling it hands work to, by exact folder name — a skill that names none cannot route away from itself.
 - Keep references lazy: link, never inline. Group them so one task needs one read.
 - Match the shells and tooling the repository actually uses.
-- Repository-wide agent context belongs to `agents-md`, never to a skill.
+- Repository-wide agent context belongs to `starting-dev`, never to a skill.
 
 ## Checklist
 - [ ] The wrong decision this skill prevents is named.

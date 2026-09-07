@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { loadCatalog, replaceCatalog } from "./catalog.mjs";
+import { catalogFiles, loadCatalog, replaceCatalog } from "./catalog.mjs";
 import { listSkills } from "./skill-metadata.mjs";
 
 export function checkCatalog(root = process.cwd()) {
@@ -14,12 +14,16 @@ export function checkCatalog(root = process.cwd()) {
     errors.push(`README must state the current count: ${skills.length} skills`);
   }
 
-  try {
-    if (replaceCatalog(readme, loadCatalog(root)) !== readme) {
-      errors.push("README skill catalog is stale; run pnpm run catalog:generate");
+  const catalog = loadCatalog(root);
+  for (const file of catalogFiles(root)) {
+    const text = file === readmePath ? readme : fs.readFileSync(file, "utf8");
+    try {
+      if (replaceCatalog(text, catalog) !== text) {
+        errors.push(`${path.relative(root, file)} skill catalog is stale; run pnpm run catalog:generate`);
+      }
+    } catch (error) {
+      errors.push(`${path.relative(root, file)}: ${error.message}`);
     }
-  } catch (error) {
-    errors.push(error.message);
   }
 
   return errors;

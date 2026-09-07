@@ -71,7 +71,7 @@ Declaring the endpoint `def` instead of `async def` is a legitimate fix: the fra
 - Never swallow bare `Exception` in domain code. Define typed domain exceptions and map them at the boundary; a catch-all belongs only at the process edge, logging and re-raising.
 - Mutable default arguments (`def f(x=[])`) are shared across calls. Use `None` and build inside.
 - Organize new modules by domain feature, not technical layer; in existing code, follow the layout already there.
-- Keep migrations backward compatible and run them through Alembic, never by hand; schema rollout belongs to `migration-engineering` and database operation to `data-engineering`.
+- Keep migrations backward compatible and run them through Alembic, never by hand; schema rollout (expand, migrate, contract) and database operation belong to `data-engineering`.
 
 ## Checklist
 - [ ] Environment manager and Python constraint read before changing dependencies.

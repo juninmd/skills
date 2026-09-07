@@ -21,13 +21,13 @@ Read only the files needed for the current task.
 | `features-filtering.md` | Reference documentation for features-filtering |
 | `features-mocking.md` | Reference documentation for features-mocking |
 | `features-snapshots.md` | Reference documentation for features-snapshots |
-| `llm-gateway-testing.md` | Reference documentation for llm-gateway-testing |
+| `llm-gateway-testing.md` | Reference documentation for [llm-gateway-testing](llm-gateway-testing.md) |
 | `probe-contract.md` | Reference documentation for probe-contract |
 | `pytest-property-mutation.md` | Reference documentation for pytest-property-mutation |
-| `quiet-checks.md` | Reference documentation for quiet-checks |
+| `quiet-checks.md` | Reference documentation for [quiet-checks](quiet-checks.md) |
 | `real-world-cases.md` | Reference documentation for real-world-cases |
-| `regression-gate.md` | Reference documentation for regression-gate |
+| `regression-gate.md` | Reference documentation for [regression-gate](regression-gate.md) |
 | `tdd-methodology.md` | Reference documentation for tdd-methodology |
 | `vitest-core.md` | Reference documentation for vitest-core |
 | `vitest-features.md` | Reference documentation for vitest-features |
-| `webapp-testing.md` | Reference documentation for webapp-testing |
+| `webapp-testing.md` | Reference documentation for [webapp-testing](webapp-testing.md) |

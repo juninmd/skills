@@ -56,7 +56,7 @@ done
 - Watchdog on output age, not process liveness.
 - Launch from the session shell where credentials are live; a detached scheduler task typically starts without full auth and dies on the first call with no progress.
 - The supervisor is bound to the session that started it. Say so, and re-check on the next session instead of assuming it survived.
-- Bound every wait and every attempt count — see `shell-operations`. Designing the agent loop itself is `agent-engineering`.
+- Bound every wait and every attempt count — see `cloud-devops`. Designing the agent loop itself is `agent-engineering`.
 
 ## Checklist
 - [ ] job resumes from the last completed item

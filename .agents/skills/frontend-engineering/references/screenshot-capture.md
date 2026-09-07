@@ -77,8 +77,8 @@ A dev server left running holds the port and confuses the next run.
 ## Rules
 - Never write images into the source tree and never `git add` an image file. Share them out of band — pull request comment, chat, issue attachment.
 - Credentials come from the environment. A storage-state file holds live session cookies: keep it in the temp directory and never commit it.
-- Never screenshot code. A code image is unreadable to search, screen readers, and diffs — `code-snippet-images` exists for the deliberate cases.
-- This skill produces **ephemeral evidence** only. Committed visual-regression suites, `@playwright/test` as a real dependency, and snapshot baselines belong to `webapp-testing`.
+- Never screenshot code. A code image is unreadable to search, screen readers, and diffs — `documentation` exists for the deliberate cases.
+- This skill produces **ephemeral evidence** only. Committed visual-regression suites, `@playwright/test` as a real dependency, and snapshot baselines belong to `test-engineering`.
 - Attaching the result to a pull request belongs to `finishing-dev`.
 
 ## Checklist

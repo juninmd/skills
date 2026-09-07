@@ -72,7 +72,7 @@ Hard dimensions block on a single green-to-red. Score dimensions produce a 0-100
 - Bisect only what reproduces three times out of three; non-deterministic failures get differential root cause instead.
 - Cap total runs: dimensions times axes times samples grows fast, so project it and confirm before passing the ceiling.
 - Fix cycles are bounded: each pass must strictly shrink the blocking set, and the final re-gate runs the full battery, not the failing subset.
-- A stable verdict is not deploy approval: shipping is `release-management`/`finishing-dev`, a failing test `test-engineering`, a slow dimension `performance-engineering`, a root cause `diagnostics`.
+- A stable verdict is not deploy approval: shipping is `git-workflow`/`finishing-dev`, a failing test `test-engineering`, a slow dimension `performance-engineering`, a root cause `observability`.
 - Protocol adapted from the autoresearch regression gate by uditgoenka (MIT).
 
 ## Checklist

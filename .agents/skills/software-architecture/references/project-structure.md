@@ -73,7 +73,7 @@ Aliases, path mappings, test-discovery globs, Docker `COPY` lines, and CI paths 
 - One naming convention per repository. Mixed casing is a structural bug, and it breaks on case-insensitive filesystems in ways CI will not reproduce.
 - Never delete a file during a restructure without explicit confirmation or a verified backup.
 - Restructures land alone, never folded into a feature commit. A diff that both moves and changes code is unreviewable, and `git log --follow` stops working through it.
-- Map the tree with `codebase-mapping` before moving it; whether something becomes a separate service belongs to `software-architecture`.
+- Map the tree with `starting-dev` before moving it; whether something becomes a separate service belongs to `software-architecture`.
 
 ## Checklist
 - [ ] Import graph read before the move was proposed.

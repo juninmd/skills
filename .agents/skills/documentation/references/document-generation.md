@@ -82,7 +82,7 @@ Visual inspection misses the unfilled placeholder on page 7.
 - For PDF output, embed every font used. A missing font substitutes silently, shifting metrics and breaking pagination — assert the page count after generation.
 - Give images and tables explicit dimensions; a document that reflows differently per viewer is not a deliverable.
 - Never inline a secret, an internal hostname, or customer data into a template that will be shared.
-- Authoring the content itself belongs to `documentation`; charts and data shaping to `data-analysis`.
+- Authoring the content itself belongs to `documentation`; charts and data shaping to `data-engineering`.
 
 ## Checklist
 - [ ] Format, template, and data source explicit before coding.

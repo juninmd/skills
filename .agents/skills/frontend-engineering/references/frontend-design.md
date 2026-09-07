@@ -15,7 +15,7 @@ Name the visual goal, the audience, and a reference quality bar. Without a refer
 3. Emit the system as code — CSS custom properties or theme config — before any component. Never leave a raw hex, px, or duration literal in markup.
 4. Sketch the layout hierarchy on a grid and push visual weight toward the primary action.
 5. Choose at most two typefaces, with clear contrast in scale and weight.
-6. Enumerate every state with `ui-state-design`, then verify each one visually beside the happy path.
+6. Enumerate every state with [ui-state-design](ui-state-design.md), then verify each one visually beside the happy path.
 7. Add motion only where it communicates state or sequence.
 
 ## The System, as Numbers
@@ -65,12 +65,12 @@ Rank the elements on the screen before styling any of them. Exactly one primary 
 - The result carries an anti-slop tell. That means no system was chosen; go back and choose one.
 
 ## Rules
-- Contrast minimums are non-negotiable: 4.5:1 body text, 3:1 large text, UI boundaries, and focus rings. Delegate the audit and reduced-motion detail to `accessibility`.
+- Contrast minimums are non-negotiable: 4.5:1 body text, 3:1 large text, UI boundaries, and focus rings. Delegate the audit and reduced-motion detail to [accessibility](accessibility.md).
 - Use color for state and meaning, not decoration. An accent used everywhere is not an accent.
 - Prefer asymmetry and whitespace over ornament. Whitespace is the cheapest quality signal there is.
 - Design for text expansion: layouts pinned to English string widths break on translation — German runs ~35% longer.
 - Design the empty and error states with the same care as the populated one. Users meet the empty state first.
-- Tokens for a library other teams consume belong to `design-systems`; implementation to `frontend-engineering`; the rendering cost of what you chose to `web-performance`; variable-height card grids to `masonry-layouts`.
+- Tokens for a library other teams consume belong to [design-systems](design-systems.md); implementation to `frontend-engineering`; the rendering cost of what you chose to `performance-engineering`; variable-height card grids to [masonry-layouts](masonry-layouts.md).
 
 ## Checklist
 - [ ] Type scale, color roles, spacing rhythm, radius, elevation, and motion durations are explicit numbers.

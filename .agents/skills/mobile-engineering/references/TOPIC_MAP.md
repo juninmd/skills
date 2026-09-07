@@ -24,7 +24,7 @@ Read only the files needed for the current task.
 | `performance.md` | Reference documentation for performance |
 | `platform-specific.md` | Reference documentation for platform-specific |
 | `privacy-security.md` | Reference documentation for privacy-security |
-| `project-structure.md` | Reference documentation for project-structure |
+| `project-structure.md` | Reference documentation for [project-structure](project-structure.md) |
 | `react-native.md` | Reference documentation for react-native |
 | `real-world-cases.md` | Reference documentation for real-world-cases |
 | `reference-routing.md` | Reference documentation for reference-routing |

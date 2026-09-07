@@ -21,6 +21,10 @@
       {
         "prompt": "Implement compiled backend services and concurrent routines in Go, Rust, or .NET",
         "top_k": 3
+      },
+      {
+        "prompt": "Implement a Bun TypeScript backend endpoint with request validation and graceful shutdown",
+        "top_k": 1
       }
     ],
     "negative": [

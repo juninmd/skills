@@ -37,7 +37,7 @@ which hlcsg hlbsp hlvis hlrad 2>/dev/null || which ripent 2>/dev/null || echo "G
 - Do not ship decompiled maps without checking coplanar brush degradation.
 
 ## Rules
-- Hand off build tools to `tooling-dev`, map exploration to `codebase-mapping`, and engine architecture to `software-architecture`.
+- Hand off build tools to `tooling-dev`, map exploration to `starting-dev`, and engine architecture to `software-architecture`.
 - Always keep world brushes convex and grid-aligned (minimum 1 unit).
 - Consult [Reference Map](references/TOPIC_MAP.md) before diagnosing compile errors or lump formats.
 

@@ -1,90 +1,82 @@
 ---
 name: git-workflow
 description: |
-  Operate Git safely, finish pull requests, and manage releases. Use for branches, rebase, reflog, stash, conflict resolution, PR drafting, conventional commit verification, version bumping, changelogs, and release tags.
+  Operate Git safely and manage releases. Use for branches, worktrees, rebase conflicts, reflog recovery, stash, bisect, conventional commits, semantic version bumps, changelogs, and release tags. PR review and delivery use finishing-dev.
 ---
-
 
 # Git Workflow
 
 ## Preflight
-Never operate on a state you have not read.
 
 ```bash
-git status --porcelain          # dirty? untracked?
-git branch --show-current       # detached HEAD prints nothing
-git log --oneline -5            # where HEAD actually is
-git remote -v && git remote show origin | grep 'HEAD branch'
+git status --porcelain
+git branch --show-current
+git log --oneline -5
+git branch -vv
+git remote -v
+git worktree list
 ```
+
+Read tracking configuration and the requested operation; do not assume origin, main, or an upstream. Remote URLs may contain credentials: redact before reporting.
 
 ## Workflow
-1. Read the state above, then pick the smallest command that expresses the intent. Prefer an operation that adds history over one that rewrites it.
-2. Before any rewrite (`rebase`, `commit --amend`, `reset`, `filter-repo`), prove nothing pushed is affected: `git log --oneline origin/<base>..HEAD` lists what is still local. A commit missing from it is public history, and rewriting that needs explicit confirmation.
-3. Recover before concluding anything is lost: `git reflog` holds every position HEAD held, `git reflog show <branch>` the same per branch, and `git fsck --lost-found` catches what a reflog expiry dropped.
-4. Bisect mechanically, never by hand: `git bisect start <bad> <good>` then `git bisect run ./script`. The script exits 0 for good, 1 for bad, and **125 for untestable** so a broken build is excluded instead of scored bad. Finish with `git bisect reset`.
-5. After mutations, verify status and the relevant diff/log; check sooner for destructive or conflict-prone work.
 
-## Symptom Routing
+1. Establish ownership of the dirty worktree, intended branch and base. Read-only inspection and preparing a scoped diff need no new approval.
+2. Before a rewrite, refresh relevant remote refs with `git fetch <remote>` and inspect `git log --oneline HEAD --not --remotes`. This identifies commits absent from the fetched remote-tracking refs; it cannot prove they were never published. `origin/<base>..HEAD` describes branch divergence, not publication. For each affected commit use `git branch -r --contains <sha>`; if remote state is incomplete, report uncertainty.
+3. Prepare the smallest operation. Require authorization for commits, pushes and rewrites within the user's requested scope. Preserve a named backup branch before an authorized rewrite; a backup does not protect uncommitted files, so isolate or save those separately.
+4. Resolve conflicts by reading both changes' intent, regenerate generated files with the owning tool, and run relevant checks before continuation. Skip a commit only when its change is demonstrably already present or explicitly unwanted.
+5. Verify status, relevant diff and resulting log. For a requested push, compare local SHA with the advertised remote ref. Use `finishing-dev` for reviewed PR delivery.
 
-| Symptom | Command | Trap |
+## Operation Decisions
+
+| Situation | Action | Verify |
 |---|---|---|
-| Committed to the wrong branch | `git switch -c right && git switch - && git reset --hard @{u}` | reset destroys uncommitted work — stash first |
-| Need to undo a published merge | `git revert -m 1 <merge-sha>` | `reset` resurrects it on their next push; re-merging later needs the revert reverted |
-| Wrong file in the last commit | `git restore --staged <f> && git commit --amend` | only while unpushed |
-| Detached HEAD with real work | `git switch -c rescue` | switching away first loses the commits to gc |
-| Rebase stuck on the same conflict | `git config rerere.enabled true` before restarting | review replayed hunks; rerere replays a wrong resolution just as happily |
-| Stale local branches | `git fetch --prune && git branch -vv \| grep ': gone]'` | `--prune` only drops remote-tracking refs, not your local branches |
-| Cherry-pick lands broken | `git cherry-pick -x <sha>` | `-x` records the origin; without it the duplicate is untraceable |
+| Commits on wrong branch | Create a named rescue branch at HEAD; inspect worktree and desired base before proposing any branch move | Rescue ref contains all intended commits; no automatic hard reset |
+| Existing file accidentally changed in latest commit | After rewrite authorization: `git restore --source=HEAD^ --staged -- path/to/file`, inspect `git diff --cached`, then `git commit --amend --no-edit` | Parent exists; worktree content preserved; other staged changes excluded |
+| Newly added file should remain local | After rewrite authorization: `git rm --cached -- path/to/file`, inspect index, then amend | File remains on disk; root commits require this route rather than HEAD^ |
+| Published change must be undone | Prepare `git revert <sha>`; for merge inspect parents before choosing `-m` | Run affected checks; record mainline choice |
+| Detached HEAD with work | `git switch -c rescue-name` | Branch points at the expected commit |
+| Lost commit | `git reflog --all`; inspect candidate with `git show <sha>`; create rescue ref | Reflogs are local and expire; absence is not proof of destruction |
+| Locate regression | `git bisect start <bad> <good>` then `git bisect run ./check` | Script exits 0 good, 1 bad, 125 untestable; finish `git bisect reset` |
+| Release version/tag/changelog | Read [release procedure](references/release-management.md) | Version and tag identify the tested artifact; publication authorized |
 
-## Conflicts: Resolve By Intent
-A conflict is two intents meeting, not two texts. Picking a side is a coin flip that compiles.
+## Conflict Evidence
 
 ```bash
-git log --merge -p -- <path>        # only the commits from both sides that touch this file
-git log --oneline HEAD..MERGE_HEAD  # what the incoming side was trying to do
-git diff --diff-filter=U --name-only  # exactly what is still unresolved
+git diff --diff-filter=U --name-only
+git log --merge -p -- path/to/file
 ```
 
-| Conflict shape | Resolve by |
-|---|---|
-| Both sides changed the same line for different reasons | Apply **both** intents; neither side is redundant |
-| One side deleted, the other edited | Read why it was deleted; a delete that lost is usually a revert waiting |
-| Rename against edit | `git log --follow` the new path, then replay the edit onto it |
-| Lockfile or generated file | Never hand-merge — take one side and regenerate |
-| Import or list block | Take the union, then let the formatter settle order |
-| The same conflict on every replayed commit | `git config rerere.enabled true`, then review each replay |
+Use merge-specific refs only while a merge exists; inspect rebase status and the current patch during rebase. Do not blindly union imports or choose one side of a lockfile without checking the final manifests.
 
-Verify the resolved result before completing the rebase; never `--skip`, which drops the commit.
-
-See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-domain guides.
+See [Reference Map](references/TOPIC_MAP.md) for release and GitHub troubleshooting.
 
 ## Stop
-- A conflict is resolved by picking a side without reading why the other side existed.
-- The rewrite would touch a commit already on the remote. Stop and get explicit confirmation.
-- A destructive command has an unset or unverified target. Bind it and dry-run first.
-- Work appears lost. Check `git reflog` and `git fsck --lost-found` before concluding anything is gone.
+
+- Rewrite authorization or target ownership is missing, remote state is uncertain, or unrelated changes would be included.
+- Conflict resolution loses required behavior or verification fails.
+- A destructive target is unverified: report the exact proposed target and consequence first.
 
 ## Rules
-- Hand off CI pipelines to `cloud-devops`, loop automation to `dev-loop`, and project tracking to `project-lifecycle`.
-- Never rewrite pushed history without explicit confirmation.
-- Never `git push --force`. Use `--force-with-lease --force-if-includes` after fetching.
-- Two branches checked out at once: use `git worktree add ../<dir> <branch>`.
-- Prefer `git stash push --include-untracked`; an unnamed stash is unrecoverable context after a week.
-- Submodules: update `--init --recursive` and pin by commit; a bump is a content change and belongs in its own commit.
-- Hooks live in-repo (`.githooks/` with `core.hooksPath`), never in `.git/hooks`. A local hook cannot enforce a convention — pair it with a CI check over the branch range.
-- Never `--no-verify`, and never `-c core.hooksPath=`. The hook is the gate, not a suggestion; a slow or wrong hook is a hook to fix or delete, not to route around.
-- `git clean -fdx` deletes ignored files too — `.env`, local databases, build caches. Dry-run with `-n` first.
-- Branching, committing, and opening the pull request belong to finishing-dev; tags and releases to release-management.
+
+- CI pipelines belong to `cloud-devops`; repository setup to `starting-dev`; independent review and PR creation to `finishing-dev`.
+- Prefer revert for shared history. Never use plain `--force`; an authorized rewrite uses a lease tied to the expected remote SHA and checks concurrent updates.
+- Scope staging by file or hunk; inspect the complete index before committing or amending.
+- Use worktrees for simultaneous branches; inspect ownership before pruning or removing one.
+- Do not bypass hooks to make a check appear green. Report a broken gate and repair it within scope.
 
 ## Excuses
 
 | Excuse | Why it is false |
 |---|---|
-| "The hook is slow, --no-verify just this once" | The gate you skip is the one that was going to catch this |
-| "Just take their side and move on" | A conflict is two intents; the side you drop was somebody solving a problem |
+| Force push is fine on my branch | Ownership and remote state must be verified; use a lease, never plain force |
+| Reflog will save us | Reflog is local and expires; verify the target before rewriting |
+| The hook is flaky, skip it | A broken gate is repaired in scope, never bypassed |
+| Add everything, it is all related | Inspect the full index; unrelated files never ride along |
 
 ## Checklist
-- [ ] State read before the mutation, and re-read after it.
-- [ ] Intent maps to the smallest safe command.
-- [ ] No pushed history rewritten without confirmation; shared branches undone by revert, not reset.
-- [ ] Destructive commands dry-run first where a dry-run exists.
+
+- [ ] Worktree, branch, tracking refs and authorization established.
+- [ ] Publication status assessed against refreshed refs with limitations stated.
+- [ ] Unrelated work preserved; diff and checks reviewed after mutation.
+- [ ] Requested remote operation verified by SHA, or remaining blocker reported.

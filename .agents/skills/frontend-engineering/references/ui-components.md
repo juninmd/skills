@@ -2,7 +2,7 @@
 
 Consolidated guidance for building reusable web components. Replaces the former `ui-flow.md`, `ui-best-practices.md`, `ui-design-guidelines.md`, and the shadcn `BEST_PRACTICES.md`.
 
-Accessibility rules are not repeated here — use the `accessibility` skill. Runtime and bundle cost belong to `web-performance`. Visual system decisions (type scale, palette, motion durations) belong to `frontend-design`.
+Accessibility rules are not repeated here — use the [accessibility](accessibility.md) skill. Runtime and bundle cost belong to `performance-engineering`. Visual system decisions (type scale, palette, motion durations) belong to [frontend-design](frontend-design.md).
 
 ## 1. Stack Selection
 - Preserve the repository framework, bundler, styling system, package manager, and test runner.

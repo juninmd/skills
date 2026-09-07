@@ -22,11 +22,11 @@
     "negative": [
       {
         "prompt": "Map entry points and trace execution flow in an unfamiliar legacy codebase",
-        "owner": "codebase-mapping"
+        "owner": "starting-dev"
       },
       {
         "prompt": "Make working code simpler and delete dead functions",
-        "owner": "code-simplification"
+        "owner": "code-review"
       }
     ]
   }

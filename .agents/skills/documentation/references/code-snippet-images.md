@@ -67,7 +67,7 @@ It can be down, rename its export element, or reject a long URL — query string
 - Symmetric padding with the shadow on for standalone shares; drop shadow and chrome when the image sits inside another frame.
 - Line numbers only when the surrounding text cites specific lines.
 - Keep theme, font, and padding identical across a document set. Mismatched snippet images look like they were pasted from three different articles, because they were.
-- Screenshots of a running UI belong to `screenshot-capture`; the prose around the image to `documentation`.
+- Screenshots of a running UI belong to `frontend-engineering`; the prose around the image to `documentation`.
 
 ## Checklist
 - [ ] The code is decoration here, not content — a fenced block exists wherever it must be copied.

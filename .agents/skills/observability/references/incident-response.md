@@ -70,7 +70,7 @@ df -h && free -m
 - Timeline entries are facts with timestamps, not interpretations. "Deploy 3f2a at 14:02" not "the deploy probably broke it".
 - Declare resolved only after the detecting signal stays healthy for a stated window — 30 minutes, or a full traffic cycle — never at the first green point.
 - A suspected security incident inverts this order: preserve state, rotate credentials, contain access. A fast rollback destroys the evidence. Delegate to `security-ops`.
-- Hand root-cause analysis to `diagnostics` after stabilization, then come back for the postmortem. The signals you are reading are designed by `observability`.
+- Hand root-cause analysis to [diagnostics](diagnostics.md) after stabilization, then come back for the postmortem. The signals you are reading are designed by `observability`.
 - Blameless means the writeup names systems and gaps, never people. A postmortem that produces no corrective action with an owner and a verification is not closed.
 
 ## Checklist

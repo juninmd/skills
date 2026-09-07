@@ -15,7 +15,7 @@ A green run has exactly one useful bit: the exit status. Everything printed on t
 3. Run it and read the **exit status**, not the output.
 4. Exit 0 → report "passed" and move on. Do not paste the summary to prove it.
 5. Non-zero → read a bounded slice of the tail, identify the failing target, then re-run **only that target** verbosely.
-6. Record the quiet invocations in the project's `AGENTS.md` so the next session starts with them — that is `agents-md`.
+6. Record the quiet invocations in the project's `AGENTS.md` so the next session starts with them — that is `starting-dev`.
 
 ## Quiet Form by Tool
 
@@ -36,7 +36,7 @@ A green run has exactly one useful bit: the exit status. Everything printed on t
 | git | `git checkout -q` · `git status --porcelain` | machine-readable, no prose |
 | curl | `curl -sS` | errors, never the progress meter |
 
-No quiet flag? Redirect and slice instead — `shell-operations` owns that mechanic.
+No quiet flag? Redirect and slice instead — `cloud-devops` owns that mechanic.
 
 ## The Pipe Eats the Exit Status
 ```bash
@@ -56,7 +56,7 @@ tail -n 30 /tmp/test.log; exit $status
 | Run passed | none — the exit status is the whole result |
 | Run failed | last ~30 lines, then the failing target re-run verbosely |
 | Failure is not in the tail (early error, hang) | grep the log for `error|fail|timeout`, still bounded |
-| Diagnosing, not verifying | go verbose deliberately, scoped to one test or one file — that is `diagnostics` |
+| Diagnosing, not verifying | go verbose deliberately, scoped to one test or one file — that is `observability` |
 | Flaky or nondeterministic | keep the seed and the run count, not the log — `test-engineering` |
 
 ## Stop
@@ -71,8 +71,8 @@ tail -n 30 /tmp/test.log; exit $status
 - Failures stay loud, and stay complete: never truncate a stack trace or a diff into uselessness to save tokens.
 - Prefer the project's script (`pnpm -s test`) over a hand-built invocation, so the quiet run and CI stay the same run.
 - Bound every check with a timeout; a hung silent command looks exactly like a slow passing one.
-- Background and long-running processes redirect to a file: `shell-operations` owns that mechanic, and delivery evidence belongs to `finishing-dev`.
-- Inside an unattended loop the same rule holds harder: one number or one status per iteration, never a log — see `metric-loop`.
+- Background and long-running processes redirect to a file: `cloud-devops` owns that mechanic, and delivery evidence belongs to `finishing-dev`.
+- Inside an unattended loop the same rule holds harder: one number or one status per iteration, never a log — see `performance-engineering`.
 
 ## Checklist
 - [ ] Project's own scripts read before any invocation was chosen.

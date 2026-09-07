@@ -1,0 +1,29 @@
+{
+  "skill_name": "agy-image-babysitter",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Deixar o agy gerando imagens do meu-livro em background enquanto eu durmo",
+        "top_k": 3
+      },
+      {
+        "prompt": "Reativar a babá do agy depois que a quota 429 do Antigravity resetar",
+        "top_k": 3
+      },
+      {
+        "prompt": "Retomar a geração de imagens do meu-livro após quota esgotada e token 401 expirado no agy",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Supervise a headless agent run and make its tool loop resilient to restarts",
+        "owner": "agent-engineering"
+      },
+      {
+        "prompt": "Build the image gallery component with lazy loading in React",
+        "owner": "frontend-engineering"
+      }
+    ]
+  }
+}

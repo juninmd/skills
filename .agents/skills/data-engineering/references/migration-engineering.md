@@ -68,8 +68,8 @@ Dual write is **not atomic**: a crash between the two writes diverges exactly th
 - Prefer a deterministic codemod plus review over hand-editing call sites, and commit the script — the next repository needs it too.
 - Verify on a production-sized copy. Counts, null rates, and checksums are evidence; a passing test on 50 seed rows is not.
 - Time-box the dual-write window and schedule the contract phase before starting. A half-done migration is permanent debt that everyone learns to work around.
-- API deprecation follows the same shape: add the new field, dual-serve, announce with a date, then remove — `api-design` owns the contract rules.
-- Lock behavior and database operation belong to `data-engineering`; slicing the rollout into shippable steps to `incremental-delivery`.
+- API deprecation follows the same shape: add the new field, dual-serve, announce with a date, then remove — `backend-systems` owns the contract rules.
+- Lock behavior and database operation belong to `data-engineering`; slicing the rollout into shippable steps to `starting-dev`.
 
 ## Reference Routing
 - Online DDL, reconciliation detail, and API deprecation/sunset windows: [online-ddl-and-api-migration.md](online-ddl-and-api-migration.md)

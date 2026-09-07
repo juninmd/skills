@@ -1,10 +1,8 @@
 ---
 name: agent-engineering
 description: |
-  Design, orchestrate, and supervise AI agents, MCP servers, subagents, and context pipelines. Use for agent loops, MCP tools, context window pruning, parallel subagents, concurrent workspaces, headless resilience, and radar digests.
+  Design, orchestrate, and supervise AI agents, MCP servers, subagents, and context pipelines. Use for agent loops, MCP tools, context window pruning, parallel subagents, concurrent workspaces, headless resilience, and authoring new skills with eval benchmarks.
 ---
-
-
 
 # Agent Engineering
 
@@ -77,8 +75,8 @@ The defense is architectural: least privilege on tools, deny destructive by defa
 - Deep audit scope and evidence collection: [audit-phases.md](references/audit-phases.md)
 - Function-level trust-boundary analysis: [function-analysis.md](references/function-analysis.md)
 - Stable outputs and subagent isolation: [stability-rules.md](references/stability-rules.md)
-- Building or wiring MCP servers, transports, and tool exposure: delegate to mcp-integration.
-- Window budgets, pruning, and summarization strategy: delegate to context-engineering.
+- Building or wiring MCP servers, transports, and tool exposure: delegate to [mcp-integration](references/mcp-integration.md).
+- Window budgets, pruning, and summarization strategy: delegate to [context-engineering](references/context-engineering.md).
 
 See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-domain guides.
 
@@ -92,9 +90,9 @@ See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-
 - Give tools least privilege and deny destructive operations by default. A tool that can delete needs a human gate, not a careful prompt.
 - Keep memory provenance, retention, and deletion behavior explicit. Memory that cannot be inspected or deleted is a liability.
 - Never log the system prompt or chain-of-thought, and never echo unsanitized tool output back to the user.
-- On handoff to another agent, pass intent, scope, current state, verification commands, and boundaries — never raw transcripts. A transcript hands over noise and hides the contract.
-- An agent evaluation needs a fixed input set and a graded rubric. "It seemed better" is not a result, and it will reverse next week.
-- Whether every model behind an OpenAI-compatible gateway actually emits tool calls is llm-gateway-testing; auditing a third-party MCP server or plugin before installing it is plugin-vetting; keeping an unattended headless run alive across expiring tokens and quotas is headless-agent-supervision.
+- On handoff to another agent, pass intent, scope, current state, verification commands, and boundaries — never raw transcripts, which hand over noise and hide the contract.
+- An agent evaluation needs a fixed input set and a graded rubric; "it seemed better" is not a result.
+- Whether every model behind an OpenAI-compatible gateway actually emits tool calls is `test-engineering`; auditing a third-party MCP server or plugin before installing it is `security-ops`; keeping an unattended headless run alive across expiring tokens and quotas is [headless-agent-supervision](references/headless-agent-supervision.md).
 
 ## Checklist
 - [ ] Goal, non-goals, authority boundary, and approval points written down.

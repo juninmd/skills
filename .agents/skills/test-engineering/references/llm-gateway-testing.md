@@ -68,7 +68,7 @@ An unthrottled sweep manufactures exactly the 429s it was built to measure, and 
 - The suite passes only if **at least one** model returned `tool_calls` above zero. Zero across the whole catalog means the harness is broken, not the gateway.
 - Truncate previews before persisting, and never log the bearer token, the request headers, or the full response body.
 - Every candidate model gets exactly one record with the full field set — a missing record is indistinguishable from a model that was never probed.
-- Designing the tool schemas under test belongs to `agent-engineering`; the spend a full sweep incurs to `cost-engineering`; the MCP-side contract to `mcp-integration`.
+- Designing the tool schemas under test and the MCP-side contract belong to `agent-engineering`; the spend a full sweep incurs to `performance-engineering`.
 
 ## Checklist
 - [ ] Environment and `/models` verified before any spend.

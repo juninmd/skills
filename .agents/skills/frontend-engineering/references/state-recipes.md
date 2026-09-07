@@ -59,4 +59,4 @@ None of these are errors (nothing failed) and none are empty (there is data, it 
 
 ## Announcing changes
 
-Visual-only state changes are invisible to screen readers. Route status text through a polite live region, move focus to the error summary on a failed submit, and mark in-flight controls as busy. The `accessibility` skill owns the exact roles, focus order, and live-region semantics.
+Visual-only state changes are invisible to screen readers. Route status text through a polite live region, move focus to the error summary on a failed submit, and mark in-flight controls as busy. The [accessibility](accessibility.md) skill owns the exact roles, focus order, and live-region semantics.

@@ -77,7 +77,7 @@ A plain hash is **not** anonymization — an email or a phone number is dictiona
 - State null and duplicate handling explicitly. An unexplained `dropna` invalidates every number after it.
 - Treat row-level output as identifying until proven otherwise; aggregate or mask before sharing.
 - Report figures over the full dataset, not the sample used while iterating.
-- The query itself belongs to `sql-authoring` and database operation to `data-engineering`; extracting the data from a site to `web-scraping`.
+- The query itself belongs to [sql-authoring](sql-authoring.md) and database operation to `data-engineering`; extracting the data from a site to `web-research`.
 
 ## Checklist
 - [ ] CLI inspection ran before any notebook work; encoding and delimiter confirmed.

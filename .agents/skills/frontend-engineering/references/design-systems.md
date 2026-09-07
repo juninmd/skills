@@ -77,11 +77,11 @@ Consumers cannot migrate on your schedule. Ship the codemod in the same release,
 
 ## Rules
 - Tokens are the theming boundary. A component that hard-codes a hex value cannot be themed and will not survive dark mode.
-- Accessibility is part of the component contract, not the consumer's problem: label association, focus, roles, and keyboard behavior ship with the component. `accessibility` sets the bar.
+- Accessibility is part of the component contract, not the consumer's problem: label association, focus, roles, and keyboard behavior ship with the component. [accessibility](accessibility.md) sets the bar.
 - Every documented variant and state needs a story, and the story **is** the test — visual and interaction assertions run against it. An undocumented state is an untested one.
 - Design-tool parity means shared token **names**, not pixel matching. Sync the names first; pixel comparison without shared names is an endless argument.
 - The system serves products. When a product needs an escape hatch, give it one instead of blocking their release — a blocked team forks, and the fork never comes back.
-- Enumerate the states a component owes with `ui-state-design`; the visual system itself is decided by `frontend-design`; consuming the library is `frontend-engineering`.
+- Enumerate the states a component owes with [ui-state-design](ui-state-design.md); the visual system itself is decided by [frontend-design](frontend-design.md); consuming the library is `frontend-engineering`.
 
 ## Checklist
 - [ ] Components read semantic tokens only; no primitive or hex leaks (grep proves it).

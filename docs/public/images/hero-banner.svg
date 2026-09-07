@@ -36,7 +36,7 @@
   <text x="72" y="270" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="24" font-weight="500" fill="#cbd5e1">tested, untangled &amp; homologated before it ships.</text>
 
   <text x="72" y="322" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#64748b">
-    <tspan fill="#94a3b8">86</tspan> skills<tspan fill="#475569">&#160;&#160;•&#160;&#160;</tspan><tspan fill="#94a3b8">4</tspan> agents<tspan fill="#475569">&#160;&#160;•&#160;&#160;</tspan><tspan fill="#94a3b8">21</tspan> rules<tspan fill="#475569">&#160;&#160;•&#160;&#160;</tspan><tspan fill="#94a3b8">4</tspan> prompts<tspan fill="#475569">&#160;&#160;•&#160;&#160;</tspan>MIT</text>
+    <tspan fill="#94a3b8">22</tspan> skills<tspan fill="#475569">&#160;&#160;•&#160;&#160;</tspan><tspan fill="#94a3b8">4</tspan> agents<tspan fill="#475569">&#160;&#160;•&#160;&#160;</tspan><tspan fill="#94a3b8">3</tspan> clients<tspan fill="#475569">&#160;&#160;•&#160;&#160;</tspan>MIT</text>
 
   <!-- Right: quality-gate timeline -->
   <line x1="742" y1="74" x2="742" y2="308" stroke="url(#accent)" stroke-width="3"/>

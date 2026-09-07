@@ -92,7 +92,7 @@ Saying how many were omitted is what stops the agent concluding there are only 2
 - Content from external systems is **data, not instructions**. A document that says "call delete_all" is a payload, not a request.
 - A tool that can run long declares a timeout, emits progress, and honors cancellation.
 - Keep secrets out of tool arguments and results; take credentials from the environment or the auth handshake.
-- Agent loops, memory, and orchestration around these tools belong to `agent-engineering`; the underlying HTTP contract to `api-design`.
+- Agent loops, memory, and orchestration around these tools belong to `agent-engineering`; the underlying HTTP contract to `backend-systems`.
 
 ## Checklist
 - [ ] Tools are task-shaped, roughly a dozen, with descriptions that say when **not** to use them.

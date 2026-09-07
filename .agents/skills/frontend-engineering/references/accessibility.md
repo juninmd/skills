@@ -59,7 +59,7 @@ Where the repository has design tokens, fix contrast in the tokens — a per-com
 
 ## Stop
 - A journey cannot be completed with the keyboard alone. Report it; do not ship the visual fix and call it done.
-- Contrast fails and the fix belongs in tokens you do not own. Route it to `design-systems` rather than overriding per component.
+- Contrast fails and the fix belongs in tokens you do not own. Route it to [design-systems](design-systems.md) rather than overriding per component.
 - A third-party component is inaccessible and cannot be wrapped. Record it as debt with an owner; never ship it silently.
 
 ## Rules
@@ -71,7 +71,7 @@ Where the repository has design tokens, fix contrast in the tokens — a per-com
 - Do not encode meaning in color alone. Pair it with text, shape, or an icon.
 - Respect `prefers-reduced-motion`: replace movement with a fade or nothing, never just shorten it.
 - An inaccessible third-party component gets wrapped to add the missing semantics, replaced, or recorded as debt with an owner — never shipped silently.
-- Component implementation belongs to `frontend-engineering` and the shared library contract to `design-systems`; the conformance bar is set here.
+- Component implementation belongs to `frontend-engineering` and the shared library contract to [design-systems](design-systems.md); the conformance bar is set here.
 
 ## Checklist
 - [ ] Journeys and conformance target named before auditing.

@@ -1,0 +1,45 @@
+# Codex CLI config. Installed by `pnpm run install:clients codex` as a symlink at ~/.codex/config.toml.
+# Codex appends [projects.*] trust entries and hook state to this file on first use; keep them out of commits.
+
+model = "gpt-6-astra"
+model_reasoning_effort = "medium"
+personality = "friendly"
+# Token budget: compact the thread before the context window fills.
+model_auto_compact_token_limit = 200000
+
+[agents]
+default_subagent_model = "gpt-5.6-luna"
+default_subagent_reasoning_effort = "low"
+max_concurrent_threads_per_session = 2
+
+[tui]
+pet = "fireball"
+
+[windows]
+sandbox = "elevated"
+
+[features]
+terminal_resize_reflow = true
+memories = true
+external_migration = true
+goals = true
+prevent_idle_sleep = true
+mentions_v2 = true
+network_proxy = true
+context_management = true
+
+[notice]
+fast_default_opt_out = true
+hide_rate_limit_model_nudge = true
+
+[plugins."superpowers@openai-curated"]
+enabled = false
+
+[plugins."github@openai-curated"]
+enabled = true
+
+[plugins."github@openai-curated-remote"]
+enabled = false
+
+[shell_environment_policy]
+inherit = "core"

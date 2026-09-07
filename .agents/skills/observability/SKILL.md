@@ -65,14 +65,14 @@ See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-
 - A threshold is being widened to silence a page. Either the signal is wrong or the system is — fix one of them.
 
 ## Rules
-- Hand off root cause code fixes to `code-simplification`, performance optimization to `performance-engineering`, and infrastructure config to `cloud-devops`.
+- Hand off root cause code fixes to `code-review`, performance optimization to `performance-engineering`, and infrastructure config to `cloud-devops`.
 - An alert without an owner and a runbook is noise. Write both **before** enabling it.
 - Never tune a threshold to silence a page. Either the signal is wrong or the system is; both need a fix, not a wider bound.
 - Test alert firing with a synthetic failure. An alert nobody has ever seen fire is an untested code path.
 - Log levels mean things: debug for diagnosis, info for lifecycle events, warn for recoverable anomalies, error for user-visible failure. Everything at `error` is the same as nothing at `error`.
-- Define retention and cost limits before the data grows; observability spend is the line item that surprises people, and cost-engineering owns the tradeoff.
+- Define retention and cost limits before the data grows; observability spend is the line item that surprises people, and `performance-engineering` owns the tradeoff.
 - Trace context must survive every hop — queues and background jobs included. A trace that stops at the async boundary hides exactly the latency you are hunting.
-- Live outage triage and postmortems belong to incident-response; design the signals they will read here.
+- Live outage triage and postmortems belong to [incident-response](references/incident-response.md); design the signals they will read here.
 
 ## Checklist
 - [ ] SLIs tie to user-visible outcomes; SLO targets and error budget explicit.

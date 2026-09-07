@@ -16,7 +16,7 @@ Compare that entity list against the **filename prefix**. The engine picks the m
 3. Place the objective entities the prefix requires.
 4. Place buy zones, or `info_map_parameters` with `"buying" "0"`.
 5. Add lighting entities, or the map ships fullbright.
-6. Verify every spawn is in open space with floor under it, programmatically — use `goldsrc-bsp-maintenance`.
+6. Verify every spawn is in open space with floor under it, programmatically — use [goldsrc-bsp-maintenance](goldsrc-bsp-maintenance.md).
 7. Ship the custom WADs to server **and** clients, or the map renders entirely purple.
 
 ## Prefix to entities
@@ -56,10 +56,10 @@ The entity layer is text in lump 0, so most of this needs no recompile:
 3. Point entities — `info_vip_start`, spawns — can be added freely.
 4. Brush entities — `func_vip_safetyzone`, `func_bomb_target`, `func_buyzone` — need a `"model" "*N"` that already exists in the BSP.
 
-So reusing an existing trigger volume for a new purpose is a pure ripent job; needing a *new* volume means going back to the `.map` and `goldsrc-map-authoring`.
+So reusing an existing trigger volume for a new purpose is a pure ripent job; needing a *new* volume means going back to the `.map` and [goldsrc-map-authoring](goldsrc-map-authoring.md).
 
 ## Stop
-- The conversion needs a brush volume the BSP does not have. Recompile through `goldsrc-map-compiling`; do not fabricate a `*N`.
+- The conversion needs a brush volume the BSP does not have. Recompile through [goldsrc-map-compiling](goldsrc-map-compiling.md); do not fabricate a `*N`.
 - `zhlt.wad` is a 12-byte empty stub. You then have no `AAATRIGGER`, `NULL`, `CLIP` or `ORIGIN` and cannot build trigger volumes at all — generate a real one first.
 - Start-to-objective distance is trivially short. A VIP that spawns beside the safety zone ends the round instantly; that is a design failure, not a wiring one.
 

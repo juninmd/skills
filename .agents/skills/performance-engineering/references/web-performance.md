@@ -72,7 +72,7 @@ curl -sS -o /dev/null -w 'dns %{time_namelookup} connect %{time_connect} tls %{t
 - Hydration is real work. Prefer server-rendered static regions; hydrate only what is interactive.
 - Set a CI budget on bundle size and vitals so a regression fails a build, not a quarterly review.
 - A percentage improvement without an absolute number is marketing. Report before and after in milliseconds at p75.
-- Server, query, and general profiling belong to `performance-engineering`; the component work to `frontend-engineering`; spend to `cost-engineering`.
+- Server, query, and general profiling belong to `performance-engineering`; the component work to `frontend-engineering`; spend to [cost-engineering](cost-engineering.md).
 
 ## Checklist
 - [ ] One failing vital identified from field data at p75, not from a lab score.

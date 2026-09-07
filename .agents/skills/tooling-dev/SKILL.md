@@ -29,7 +29,7 @@ This split is the entire reason a tool composes.
 | Stream | Carries | Rule |
 |---|---|---|
 | stdout | the result — the thing a pipe consumes | machine-readable when not a TTY |
-| stderr | progress, warnings, diagnostics | never part of the result |
+| stderr | progress, warnings, diagnostic output | never part of the result |
 | exit code | success or the class of failure | 0 only when the work actually happened |
 
 | Code | Means |
@@ -85,12 +85,12 @@ See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-
 - Avoid regex parsing when a structured parser exists — the regex works until the first quoted comma.
 - Version the output format. A tool whose JSON shape drifts silently breaks every script built on it; `--format-version` or a `schema` field costs nothing now and everything later.
 - `--help` is the primary documentation. If a behavior is not in it, the behavior does not exist for most users.
-- Shell scripts and one-off command safety belong to shell-operations; publishing and versioning the tool to release-management.
+- Shell scripts and one-off command safety belong to `cloud-devops`; publishing and versioning the tool to `git-workflow`.
 
 ## Checklist
 - [ ] Invocation examples written first, including the CI and piped cases.
 - [ ] Core logic callable without a terminal.
-- [ ] stdout carries only the result; diagnostics on stderr; exit codes distinguish usage from runtime failure.
+- [ ] stdout carries only the result; diagnostic output on stderr; exit codes distinguish usage from runtime failure.
 - [ ] TTY detection, `NO_COLOR`, signals, and `EPIPE` all handled.
 - [ ] Config precedence documented and inspectable.
 - [ ] Partial output never left behind; the packaged command smoke-tested.

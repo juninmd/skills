@@ -36,8 +36,16 @@ export function loadCatalog(root = process.cwd()) {
   return renderCatalog(listSkills(path.join(root, ".agents", "skills")));
 }
 
+// Every file carrying catalog markers; docs/skills/index.md is optional so tests can use a bare README.
+export function catalogFiles(root = process.cwd()) {
+  return ["README.md", path.join("docs", "skills", "index.md")]
+    .map((file) => path.join(root, file))
+    .filter((file, index) => index === 0 || fs.existsSync(file));
+}
+
 export function writeCatalog(root = process.cwd()) {
-  const readmePath = path.join(root, "README.md");
-  const readme = fs.readFileSync(readmePath, "utf8");
-  fs.writeFileSync(readmePath, replaceCatalog(readme, loadCatalog(root)));
+  const catalog = loadCatalog(root);
+  for (const file of catalogFiles(root)) {
+    fs.writeFileSync(file, replaceCatalog(fs.readFileSync(file, "utf8"), catalog));
+  }
 }

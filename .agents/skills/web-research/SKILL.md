@@ -80,8 +80,8 @@ See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-
 - Answer versioned, dated, or changing facts only from fetched sources. Stable conceptual questions can be answered directly — fetching for those is theatre.
 - Cite every factual claim with a source URL and its date. A synthesis without citations cannot be checked, and will be repeated as fact.
 - Never present a summary of search snippets as a verified answer. Fetch the page.
-- Respect robots and terms; no scraping of paywalled or blocked content — bulk extraction belongs to web-scraping.
-- Library API, config, and version specifics go to docs-verification; judging whether local knowledge is stale to knowledge-freshness; a recurring digest of the AI tooling ecosystem to ai-ecosystem-radar.
+- Respect robots and terms; no scraping of paywalled or blocked content — bulk extraction belongs to [web-scraping](references/web-scraping.md).
+- Library API, config, and version specifics go to `documentation`; judging whether local knowledge is stale to [knowledge-freshness](references/knowledge-freshness.md); a recurring digest of the AI tooling ecosystem to `radar-ia`.
 
 ## Checklist
 - [ ] Question turned into operator-shaped queries, not a sentence.

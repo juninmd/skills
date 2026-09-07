@@ -8,7 +8,7 @@ bash -c "$VERIFY" | tail -1                         # must print exactly one num
 bash -c "$VERIFY" | tail -1                         # same tree, same number — otherwise the metric is noise
 ```
 
-Fix all of it before iteration 0 or there is no loop: **Goal**, **Scope** (globs the loop may touch), **Metric** and its direction, **Verify** (a command printing one number), and a **Guard** that must keep passing whatever the metric does. Anything missing gets asked in one batch — `requirements-clarification`, not a guess.
+Fix all of it before iteration 0 or there is no loop: **Goal**, **Scope** (globs the loop may touch), **Metric** and its direction, **Verify** (a command printing one number), and a **Guard** that must keep passing whatever the metric does. Anything missing gets asked in one batch — `starting-dev`, not a guess.
 
 ## Workflow
 1. Screen Verify and Guard before the first run — they execute unattended, every iteration. Refuse `rm -rf`, `curl | sh`, credentials, and anything writing outside the repository.
@@ -65,7 +65,7 @@ Header first, direction recorded: `# direction: lower_is_better`, then `iteratio
 - Never push, deploy, or publish from inside the loop. Delivery is `finishing-dev`, with a human in it.
 - Reverting is normal, not failure. A loop with no reverts is trying changes too timid to matter.
 - The log lives in the repository, not the transcript: the next session reads rows, not your summary.
-- Choosing *which* change to try comes from evidence — `performance-engineering` for a profile, `diagnostics` for a defect. `test-engineering` writes the benchmark Verify runs; `regression-gate` proves a kept series broke nothing; durable lessons go to `session-learnings`.
+- Choosing *which* change to try comes from evidence — `performance-engineering` for a profile, `observability` for a defect. `test-engineering` writes the benchmark Verify runs and proves a kept series broke nothing; durable lessons go to `starting-dev`.
 - Protocol adapted from the autoresearch loop by uditgoenka (MIT).
 
 ## Checklist

@@ -2,7 +2,7 @@ import { defineConfig } from 'vitepress'
 
 export default defineConfig({
   title: 'Agent Plugins',
-  description: 'Skills, agents, prompts and rules for AI coding assistants',
+  description: 'Skills and agents for AI coding assistants',
   cleanUrls: true,
   lastUpdated: true,
 
@@ -22,8 +22,6 @@ export default defineConfig({
         items: [
           { text: 'Agents', link: '/agents/' },
           { text: 'Skills', link: '/skills/' },
-          { text: 'Prompts', link: '/prompts/' },
-          { text: 'Rules', link: '/rules/' },
         ],
       },
       { text: 'GitHub', link: 'https://github.com/juninmd/skills' },
@@ -54,31 +52,6 @@ export default defineConfig({
         collapsed: false,
         items: [
           { text: 'Overview', link: '/skills/' },
-          { text: 'Backend', link: '/skills/backend' },
-          { text: 'Frontend', link: '/skills/frontend' },
-          { text: 'Mobile', link: '/skills/mobile' },
-          { text: 'Infrastructure', link: '/skills/infrastructure' },
-          { text: 'Code Quality', link: '/skills/code-quality' },
-          { text: 'Architecture', link: '/skills/architecture' },
-          { text: 'Build & Testing', link: '/skills/build-testing' },
-          { text: 'Database', link: '/skills/database' },
-          { text: 'Git & Workflow', link: '/skills/git-workflow' },
-          { text: 'Research', link: '/skills/research' },
-          { text: 'Specialized', link: '/skills/specialized' },
-        ],
-      },
-      {
-        text: 'Prompts',
-        collapsed: false,
-        items: [
-          { text: 'Overview', link: '/prompts/' },
-        ],
-      },
-      {
-        text: 'Rules',
-        collapsed: false,
-        items: [
-          { text: 'Overview', link: '/rules/' },
         ],
       },
     ],

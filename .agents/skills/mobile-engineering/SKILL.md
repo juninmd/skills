@@ -77,7 +77,7 @@ Anything touching those is proven on hardware or not proven at all.
 - Watch binary size per dependency — assets and duplicated native libraries dominate it, and app-store size limits are hard.
 - Code signing, provisioning, and entitlements live in CI with secrets out of the repository. A signing mismatch surfaces only at install time, usually the day of the release.
 - Release builds differ from debug in ways that break working code. Build release and run it on hardware before shipping.
-- Delegate profiling methodology to `performance-engineering`, accessibility auditing to accessibility, and screen-state design to ui-state-design.
+- Delegate profiling methodology to `performance-engineering`, accessibility auditing to [accessibility](references/accessibility.md), and screen-state design to `frontend-engineering`.
 
 ## Checklist
 - [ ] Platform, minimum OS, and build variants identified before writing.

@@ -1,0 +1,33 @@
+{
+  "skill_name": "finishing-dev",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Finish this feature branch: run independent code and security subagent reviews before creating the PR",
+        "top_k": 3
+      },
+      {
+        "prompt": "Prepare a pull request description with final acceptance evidence after tests and review",
+        "top_k": 3
+      },
+      {
+        "prompt": "Fix pre-PR review findings, rerun checks, and create a draft PR for the completed change",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Design system architecture, module boundaries, and dependency directions",
+        "owner": "software-architecture"
+      },
+      {
+        "prompt": "Create PRD specification and break it into backlog task issues",
+        "owner": "starting-dev"
+      },
+      {
+        "prompt": "Resolve a git rebase conflict and restore the lost commit using reflog",
+        "owner": "git-workflow"
+      }
+    ]
+  }
+}

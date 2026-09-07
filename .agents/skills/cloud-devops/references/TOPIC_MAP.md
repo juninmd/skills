@@ -6,8 +6,8 @@ Read only the files needed for the current task.
 |---|---|
 | `ci-cd-best-practices.md` | Reference documentation for ci-cd-best-practices |
 | `cloud-patterns.md` | Reference documentation for cloud-patterns |
-| `deploy-ghcr-manual.md` | Reference documentation for deploy-ghcr-manual |
-| `deploy-sync-guard.md` | Reference documentation for deploy-sync-guard |
+| `deploy-ghcr-manual.md` | Reference documentation for [deploy-ghcr-manual](deploy-ghcr-manual.md) |
+| `deploy-sync-guard.md` | Reference documentation for [deploy-sync-guard](deploy-sync-guard.md) |
 | `docker-operations.md` | Reference documentation for docker-operations |
 | `dockerfile-standards.md` | Reference documentation for dockerfile-standards |
 | `helm-standards.md` | Reference documentation for helm-standards |
@@ -16,5 +16,5 @@ Read only the files needed for the current task.
 | `iac-principles.md` | Reference documentation for iac-principles |
 | `real-world-cases.md` | Reference documentation for real-world-cases |
 | `serverless-patterns.md` | Reference documentation for serverless-patterns |
-| `shell-operations.md` | Reference documentation for shell-operations |
+| `shell-operations.md` | Reference documentation for [shell-operations](shell-operations.md) |
 | `strict-shell.md` | Reference documentation for strict-shell |

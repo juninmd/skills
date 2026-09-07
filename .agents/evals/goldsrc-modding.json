@@ -26,7 +26,7 @@
       },
       {
         "prompt": "Map entry points and trace execution flow in an unfamiliar legacy codebase",
-        "owner": "codebase-mapping"
+        "owner": "starting-dev"
       }
     ]
   }
