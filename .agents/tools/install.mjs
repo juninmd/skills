@@ -1,7 +1,7 @@
-// Install this repo into Claude Code, Codex, and Antigravity (agy) via symlinks, so every
-// client reads the canonical source and picks up edits without a reinstall.
+// Install this repo into Claude Code, Codex, Antigravity (agy), and opencode via symlinks, so
+// every client reads the canonical source and picks up edits without a reinstall.
 // Claude skill links are skipped (and removed) while the juninmd Claude Code plugin is installed.
-//   node .agents/tools/install.mjs [claude|codex|agy|all]... [--dry-run] [--no-config]
+//   node .agents/tools/install.mjs [claude|codex|agy|opencode|all]... [--dry-run] [--no-config]
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
@@ -34,6 +34,10 @@ const CLIENTS = {
   agy: {
     skills: path.join(HOME, ".gemini", "config", "skills"),
     files: [[path.join(HOME, ".gemini", "GEMINI.md"), INSTRUCTIONS]],
+  },
+  opencode: {
+    skills: path.join(HOME, ".config", "opencode", "skills"),
+    files: [],
   },
 };
 
