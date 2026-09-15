@@ -42,6 +42,18 @@ node .agents/tools/install.mjs all         # or: claude | codex | agy
 
 Instruction files link to [`.agents/AGENTS.md`](.agents/AGENTS.md); configs link to [`.agents/clients/`](.agents/clients/), tuned for low token use (collapsed skill listings, bounded tool output, 1h prompt cache, auto-compact). Existing real files are renamed to `*.bak-<timestamp>` first; links to retired skills are pruned. Pass `--no-config` to link skills and instructions only. On Windows, skill directories become junctions (no privilege needed); file links need Developer Mode or an elevated shell. Without it, `CLAUDE.md` and `GEMINI.md` get a one-line `@path` import stub that tracks the repo the same way, and the config files are left untouched until you rerun elevated.
 
+### Claude Code plugin
+
+Installs all skills and the 4 agents as one plugin (`juninmd:<name>`). The marketplace is [`.claude-plugin/marketplace.json`](.claude-plugin/marketplace.json); the plugin root is `.agents/`.
+
+```bash
+claude plugin marketplace add juninmd/skills            # or a local checkout path
+claude plugin install juninmd@skills                    # --scope user | project | local
+claude plugin details juninmd@skills                    # inventory and always-on token cost
+```
+
+Claude Code copies plugins into `~/.claude/plugins/cache`, so run `claude plugin marketplace update skills` and reinstall to pick up repo edits. Updates follow the default branch unpinned: read the diff before updating. Plugin skills are namespaced and coexist with symlinked personal skills; use one install method per client to avoid loading every skill description twice.
+
 ### Skills CLI
 
 ```bash

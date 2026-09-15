@@ -1,0 +1,20 @@
+{
+  "name": "juninmd",
+  "displayName": "JuninMD Skills",
+  "description": "Production-grade agent skills and custom agents for AI coding assistants.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Antonio Junior",
+    "url": "https://github.com/juninmd"
+  },
+  "homepage": "https://github.com/juninmd/skills",
+  "repository": "https://github.com/juninmd/skills",
+  "license": "MIT",
+  "keywords": [
+    "skills",
+    "agents",
+    "engineering",
+    "code-review",
+    "devops"
+  ]
+}
