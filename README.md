@@ -52,7 +52,7 @@ claude plugin install juninmd@skills                    # --scope user | project
 claude plugin details juninmd@skills                    # inventory and always-on token cost
 ```
 
-Claude Code copies plugins into `~/.claude/plugins/cache`, so run `claude plugin marketplace update skills` and reinstall to pick up repo edits. Updates follow the default branch unpinned: read the diff before updating. Plugin skills are namespaced and coexist with symlinked personal skills; use one install method per client to avoid loading every skill description twice.
+Claude Code copies plugins into `~/.claude/plugins/cache`, so run `claude plugin marketplace update skills` and reinstall to pick up repo edits. Updates follow the default branch unpinned: read the diff before updating. Claude Code uses one install method at a time: while `juninmd@skills` is installed, `install.mjs claude` removes the skill links that point into this repo and skips creating new ones, so no skill loads twice. To switch back, run `claude plugin uninstall juninmd@skills`, then `node .agents/tools/install.mjs claude`.
 
 ### Skills CLI
 
