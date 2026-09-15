@@ -16,6 +16,7 @@
   "promptCacheTtl": "1h",
   "subagentPromptCacheTtl": "1h",
   "skillOverrides": {
+    "3d-models": "collapsed",
     "agent-engineering": "collapsed",
     "agy-image-babysitter": "collapsed",
     "backend-systems": "collapsed",

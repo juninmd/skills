@@ -48,7 +48,7 @@ Adapt the source path to the repository. Read the installed Three.js and optiona
 - Removing objects from a scene does not free GPU resources. Material disposal does not dispose its textures. Close owned ImageBitmap data only after all consumers are done.
 - Use `renderer.info` for counts and trends, not total GPU memory or proof that all internal caches must reach zero.
 - Keep accessible product information outside the canvas; honor reduced motion and avoid trapping keyboard focus in controls.
-- Hand general component work to `frontend-engineering`, application boundaries to `software-architecture`, and measured optimization to `performance-engineering`.
+- Hand general component work to `frontend-engineering`, application boundaries to `software-architecture`, measured optimization to `performance-engineering`, and VRM/Blender asset preparation to `3d-models`.
 
 ## Sources
 
