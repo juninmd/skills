@@ -24,14 +24,14 @@ The catalog consolidates 83 skills into 22 domains. Detailed procedures live bes
 
 ## Get started
 
-### Symlink install (Claude Code, Codex, Antigravity)
+### Symlink install (Claude Code, Codex, Antigravity, opencode)
 
 One canonical checkout, linked into every client. Edits in the repo are live everywhere; nothing is copied.
 
 ```bash
 git clone https://github.com/juninmd/skills && cd skills
 node .agents/tools/install.mjs --dry-run   # show the plan
-node .agents/tools/install.mjs all         # or: claude | codex | agy
+node .agents/tools/install.mjs all         # or: claude | codex | agy | opencode
 ```
 
 | Client | Skills | Instructions | Config |
@@ -39,6 +39,7 @@ node .agents/tools/install.mjs all         # or: claude | codex | agy
 | Claude Code | `~/.claude/skills/<name>` | `~/.claude/CLAUDE.md` | `~/.claude/settings.json` |
 | Codex | `~/.codex/skills/<name>` | `~/.codex/AGENTS.md` | `~/.codex/config.toml` |
 | Antigravity (agy) | `~/.gemini/config/skills/<name>` | `~/.gemini/GEMINI.md` | — |
+| opencode | `~/.config/opencode/skills/<name>` | — | — |
 
 Instruction files link to [`.agents/AGENTS.md`](.agents/AGENTS.md); configs link to [`.agents/clients/`](.agents/clients/), tuned for low token use (collapsed skill listings, bounded tool output, 1h prompt cache, auto-compact). Existing real files are renamed to `*.bak-<timestamp>` first; links to retired skills are pruned. Pass `--no-config` to link skills and instructions only. On Windows, skill directories become junctions (no privilege needed); file links need Developer Mode or an elevated shell. Without it, `CLAUDE.md` and `GEMINI.md` get a one-line `@path` import stub that tracks the repo the same way, and the config files are left untouched until you rerun elevated.
 
@@ -52,7 +53,7 @@ claude plugin install juninmd@skills                    # --scope user | project
 claude plugin details juninmd@skills                    # inventory and always-on token cost
 ```
 
-Claude Code copies plugins into `~/.claude/plugins/cache`, so run `claude plugin marketplace update skills` and reinstall to pick up repo edits. Updates follow the default branch unpinned: read the diff before updating. Plugin skills are namespaced and coexist with symlinked personal skills; use one install method per client to avoid loading every skill description twice.
+Claude Code copies plugins into `~/.claude/plugins/cache`, so run `claude plugin marketplace update skills` and reinstall to pick up repo edits. Updates follow the default branch unpinned: read the diff before updating. Claude Code uses one install method at a time: while `juninmd@skills` is installed, `install.mjs claude` removes the skill links that point into this repo and skips creating new ones, so no skill loads twice. To switch back, run `claude plugin uninstall juninmd@skills`, then `node .agents/tools/install.mjs claude`.
 
 ### Skills CLI
 

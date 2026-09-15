@@ -1,10 +1,12 @@
-// Install this repo into Claude Code, Codex, and Antigravity (agy) via symlinks, so every
-// client reads the canonical source and picks up edits without a reinstall.
-//   node .agents/tools/install.mjs [claude|codex|agy|all]... [--dry-run] [--no-config]
+// Install this repo into Claude Code, Codex, Antigravity (agy), and opencode via symlinks, so
+// every client reads the canonical source and picks up edits without a reinstall.
+// Claude skill links are skipped (and removed) while the juninmd Claude Code plugin is installed.
+//   node .agents/tools/install.mjs [claude|codex|agy|opencode|all]... [--dry-run] [--no-config]
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { isPluginInstalled, pluginId, unlinkRepoSkills } from "./claude-plugin-guard.mjs";
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const AGENTS_ROOT = path.join(REPO, ".agents");
@@ -32,6 +34,10 @@ const CLIENTS = {
   agy: {
     skills: path.join(HOME, ".gemini", "config", "skills"),
     files: [[path.join(HOME, ".gemini", "GEMINI.md"), INSTRUCTIONS]],
+  },
+  opencode: {
+    skills: path.join(HOME, ".config", "opencode", "skills"),
+    files: [],
   },
 };
 
@@ -106,12 +112,20 @@ function pruneStale(skillsDir, dryRun, log) {
 export function install(clients, { dryRun = false, config = true, log = console.log } = {}) {
   const skills = listSkills();
   const failures = [];
+  const viaPlugin = [];
   for (const client of clients) {
     const spec = CLIENTS[client];
     if (!spec) throw new Error(`Unknown client '${client}'; use ${Object.keys(CLIENTS).join(", ")} or all`);
     log(`# ${client}`);
     pruneStale(spec.skills, dryRun, log);
-    for (const name of skills) link(path.join(spec.skills, name), path.join(SKILLS_ROOT, name), "dir", dryRun, log);
+    const id = client === "claude" ? pluginId(REPO) : undefined;
+    if (id && isPluginInstalled(HOME, id)) {
+      viaPlugin.push(client);
+      unlinkRepoSkills(spec.skills, SKILLS_ROOT, skills, { dryRun, log });
+      log(`skip    skill links: plugin ${id} is installed (claude plugin uninstall ${id} to switch back)`);
+    } else {
+      for (const name of skills) link(path.join(spec.skills, name), path.join(SKILLS_ROOT, name), "dir", dryRun, log);
+    }
     for (const [target, source] of spec.files) {
       if (!config && !source.endsWith("AGENTS.md")) continue;
       try {
@@ -121,7 +135,7 @@ export function install(clients, { dryRun = false, config = true, log = console.
       }
     }
   }
-  return { skills: skills.length, failures };
+  return { skills: skills.length, failures, viaPlugin };
 }
 
 function main() {
@@ -131,8 +145,10 @@ function main() {
   const named = args.filter((arg) => !arg.startsWith("--"));
   const clients = !named.length || named.includes("all") ? Object.keys(CLIENTS) : named;
   try {
-    const { skills, failures } = install(clients, { dryRun, config });
-    console.log(`${dryRun ? "Planned" : "Linked"} ${skills} skills into ${clients.join(", ")}.`);
+    const { skills, failures, viaPlugin } = install(clients, { dryRun, config });
+    const linked = clients.filter((client) => !viaPlugin.includes(client));
+    if (linked.length) console.log(`${dryRun ? "Planned" : "Linked"} ${skills} skills into ${linked.join(", ")}.`);
+    if (viaPlugin.length) console.log(`${viaPlugin.join(", ")}: skills come from the Claude Code plugin; no skill links kept.`);
     if (failures.length) {
       console.error(failures.map((line) => `FAILED  ${line}`).join("\n"));
       if (WINDOWS) console.error("File symlinks on Windows need Developer Mode or an elevated shell; rerun there to link the config files.");
