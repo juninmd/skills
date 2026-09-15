@@ -1,7 +1,7 @@
 ---
 name: security-ops
 description: |
-  Audit and harden code, dependencies, secrets, access boundaries, and extensions. Use for CVE scans, Gitleaks remediation, zero-trust reviews, plugin vetting, least privilege, threat modeling, and third-party extension safety.
+  Audit and harden code, dependencies, secrets, access boundaries, and extensions. Use for end-to-end vulnerability audits, pen tests, CVE scans, Gitleaks remediation, zero-trust reviews, plugin vetting, least privilege, threat modeling, and third-party extension safety.
 ---
 
 # Security Operations
@@ -57,6 +57,7 @@ Audit tools may resolve dependencies or invoke package metadata processing. Insp
 - Route-by-role authorization and ownership tests: [api-authorization.md](references/api-authorization.md).
 - Third-party skill, plugin or MCP installation assessment: [plugin-vetting.md](references/plugin-vetting.md).
 - Prior examples: [real-world-cases.md](references/real-world-cases.md).
+- Codebase audit or pen test: [audit-workflow.md](references/security-audit/audit-workflow.md).
 
 ## Stop
 
