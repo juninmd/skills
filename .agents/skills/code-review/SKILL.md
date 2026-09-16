@@ -40,18 +40,26 @@ Substitute the actual symbol. Resolve the base rather than assuming a branch nam
 
 ## Reference routing
 [Reference map](references/TOPIC_MAP.md) selects undocumented-system recovery, output formats, safe refactoring, and defect sweeps. These files are local procedures, not installed skills.
+- Diff signals that precede an outage — contracts, deleted guards, retries, plans, test edits: [regression-review.md](references/regression-review.md). Verdict arithmetic stays with `test-engineering` and its `regression-gate.md`.
+- Anything that renders, web or desktop: [ui-review.md](references/ui-review.md).
+- How big a review may be and what it provably misses: [review-effectiveness.md](references/review-effectiveness.md).
 
 ## Stop
 - Review scope or base cannot be determined; report what evidence is missing.
 - A cleanup would change uncharacterized behavior, break a public contract, or delete code without usage evidence.
 - A test or verification fails after a fix; diagnose before reporting completion.
 - A credible security issue requires broader investigation; hand it to `security-ops` without disclosing secrets.
+- The diff changes what renders and carries no Playwright coverage, and no unchanged visual baseline covers it; block and name the missing spec.
+- Screenshots or traces exist, images are readable here, and none were opened; the rendered output is unreviewed.
+- The change is too large to hold in one pass; say so instead of skimming it.
 
 ## Rules
 - Findings must explain a real consequence and a reachable condition.
 - A review is read-only unless changes were requested or already authorized.
 - Smaller code is not automatically clearer; do not trade explicit behavior for clever compression.
 - Never rewrite tests merely to fit changed behavior or remove safeguards to make checks pass.
+- Frontend tests are Playwright, web and desktop alike; a documented driver exception is required for Tauri, never a renamed one.
+- A vision claim from a screenshot is triage. Contrast, ARIA, and focus findings need an axe or ARIA-snapshot assertion.
 - Keep semantic fixes distinguishable from cleanup. Commits require existing user authorization.
 
 ## Excuses

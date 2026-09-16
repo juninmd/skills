@@ -73,6 +73,7 @@ Never retry a flaky test; attribute it to exactly one source and remove that sou
 - Order dependence is a defect, not a configuration preference. Run the suite shuffled in CI.
 - Concurrent tests sharing one fixture, database, or temp path will interleave. Give each worker its own, or mark those tests serial.
 - Do not chase a coverage percentage: 100% with weak assertions is worse than 70% with sharp ones, because it looks finished.
+- Frontend end-to-end is Playwright, web and desktop alike; Electron support is official but experimental, and Tauri needs a documented driver exception. Review rules live in `code-review` and `ui-review.md`.
 - connection refused in a test run is not a network fault: a required service was not started or a call was left unmocked.
 - Prefer a real containerized dependency when fidelity matters.
 - Benchmarks need warmup, stable inputs, multiple samples, and a before/after comparison.
