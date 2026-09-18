@@ -34,6 +34,8 @@ Use the host shell and bounded searches. Keep secrets and private logs out of ou
 
 Keep client packaging derived from this source. Do not fork skill content per assistant.
 
+No `AGENTS.md` names a skill. Skills are routed by their own descriptions; naming them in an instruction file duplicates that routing and goes stale on every rename or retirement.
+
 ## Skill acceptance
 
 - Frontmatter uses only supported fields: `name`, `description`, `license`, `allowed-tools`, `metadata`, and `compatibility`. The name equals its folder.
