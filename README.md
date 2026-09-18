@@ -4,11 +4,15 @@
 
 # Engineering skills. Evidence first.
 
+[![Validate](https://github.com/juninmd/skills/actions/workflows/validate.yml/badge.svg)](https://github.com/juninmd/skills/actions/workflows/validate.yml)
+[![Security Scan](https://github.com/juninmd/skills/actions/workflows/security.yml/badge.svg)](https://github.com/juninmd/skills/actions/workflows/security.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+
 **23 skills · 4 agents · shared operating instructions**
 
 Practical workflows for assistants that inspect the system, make focused changes, and verify the result.
 
-[Explore the catalog](#skill-catalog) · [Get started](#get-started) · [Quality checks](#quality-checks) · [Contribute](#contributing)
+[Skill catalog](#skill-catalog) · [Get started](#get-started) · [Pick a starting point](#pick-a-starting-point) · [Quality checks](#quality-checks) · [Contributing](#contributing)
 
 </div>
 
@@ -16,15 +20,27 @@ Practical workflows for assistants that inspect the system, make focused changes
 
 ## From request to evidence
 
-| Discover | Execute | Verify |
-|---|---|---|
-| Short descriptions select the domain. | Workflows and references guide the task. | Commands, failure cases, and stop conditions define the evidence. |
+```mermaid
+flowchart LR
+    R([Request]) --> D["Discover<br/>a short description<br/>selects the domain"]
+    D --> E["Execute<br/>workflow plus the<br/>references it needs"]
+    E --> V["Verify<br/>commands, failure cases,<br/>stop conditions"]
+    V --> P([Evidence])
+```
 
-The catalog consolidates 83 skills into 22 domains. Detailed procedures live beside each skill in `references/`, ready to load when the task needs them.
+Each skill covers a whole domain instead of a single trick. Its main workflow stays short; detailed procedures live beside it in `references/` and load only when the task needs them.
 
 ## Get started
 
-### Symlink install (Claude Code, Codex, Antigravity, opencode)
+Pick **one** install method per client.
+
+| Method | Clients | Stays in sync with the repo | Includes agents and instructions |
+|---|---|---|---|
+| [Symlink install](#symlink-install) | Claude Code, Codex, Antigravity, opencode | yes, live | instructions and configs |
+| [Claude Code plugin](#claude-code-plugin) | Claude Code | after `marketplace update` and reinstall | agents |
+| [Skills CLI](#skills-cli) | any client the CLI supports | no, files are copied | no |
+
+### Symlink install
 
 One canonical checkout, linked into every client. Edits in the repo are live everywhere; nothing is copied.
 
@@ -41,7 +57,19 @@ node .agents/tools/install.mjs all         # or: claude | codex | agy | opencode
 | Antigravity (agy) | `~/.gemini/config/skills/<name>` | `~/.gemini/GEMINI.md` | — |
 | opencode | `~/.config/opencode/skills/<name>` | — | — |
 
-Instruction files link to [`.agents/AGENTS.md`](.agents/AGENTS.md); configs link to [`.agents/clients/`](.agents/clients/), tuned for low token use (collapsed skill listings, bounded tool output, 1h prompt cache, auto-compact). Existing real files are renamed to `*.bak-<timestamp>` first; links to retired skills are pruned. Pass `--no-config` to link skills and instructions only. On Windows, skill directories become junctions (no privilege needed); file links need Developer Mode or an elevated shell. Without it, `CLAUDE.md` and `GEMINI.md` get a one-line `@path` import stub that tracks the repo the same way, and the config files are left untouched until you rerun elevated.
+> [!NOTE]
+> Instruction files link to [`.agents/AGENTS.md`](.agents/AGENTS.md); configs link to [`.agents/clients/`](.agents/clients/), tuned for low token use. Existing real files are renamed to `*.bak-<timestamp>` first. Pass `--no-config` to link skills and instructions only.
+
+<details>
+<summary><b>What the installer changes, and Windows specifics</b></summary>
+
+<br/>
+
+- Configs are tuned for low token use: collapsed skill listings, bounded tool output, 1h prompt cache, auto-compact.
+- Links to retired skills are pruned on every run.
+- On Windows, skill directories become junctions, which need no privilege. File links need Developer Mode or an elevated shell. Without either, `CLAUDE.md` and `GEMINI.md` get a one-line `@path` import stub that tracks the repo the same way, and the config files are left untouched until you rerun elevated.
+
+</details>
 
 ### Claude Code plugin
 
@@ -53,7 +81,10 @@ claude plugin install juninmd@skills                    # --scope user | project
 claude plugin details juninmd@skills                    # inventory and always-on token cost
 ```
 
-Claude Code copies plugins into `~/.claude/plugins/cache`, so run `claude plugin marketplace update skills` and reinstall to pick up repo edits. Updates follow the default branch unpinned: read the diff before updating. Claude Code uses one install method at a time: while `juninmd@skills` is installed, `install.mjs claude` removes the skill links that point into this repo and skips creating new ones, so no skill loads twice. To switch back, run `claude plugin uninstall juninmd@skills`, then `node .agents/tools/install.mjs claude`.
+> [!IMPORTANT]
+> Claude Code copies plugins into `~/.claude/plugins/cache`. To pick up repo edits, run `claude plugin marketplace update skills` and reinstall. Updates follow the default branch unpinned, so read the diff before updating.
+
+Claude Code uses one install method at a time. While `juninmd@skills` is installed, `install.mjs claude` removes the skill links that point into this repo and skips creating new ones, so no skill loads twice. To switch back, run `claude plugin uninstall juninmd@skills`, then `node .agents/tools/install.mjs claude`.
 
 ### Skills CLI
 
@@ -66,15 +97,15 @@ The CLI copies files; it does not track the repo or install the agents and opera
 
 ## Pick a starting point
 
-| Your task | Start with |
-|---|---|
-| Understand an unfamiliar repository or clarify a request | [starting-dev](.agents/skills/starting-dev/SKILL.md) |
-| Build a service or endpoint | [backend-systems](.agents/skills/backend-systems/SKILL.md) |
-| Build an accessible web interface | [frontend-engineering](.agents/skills/frontend-engineering/SKILL.md) |
-| Investigate failures and incidents | [observability](.agents/skills/observability/SKILL.md) |
-| Review a change or simplify code | [code-review](.agents/skills/code-review/SKILL.md) |
-| Audit credentials and trust boundaries | [security-ops](.agents/skills/security-ops/SKILL.md) |
-| Ship a finished branch as a PR | [finishing-dev](.agents/skills/finishing-dev/SKILL.md) |
+| | Your task | Start with |
+|---|---|---|
+| 🧭 | Understand an unfamiliar repository or clarify a request | [starting-dev](.agents/skills/starting-dev/SKILL.md) |
+| 🛠️ | Build a service or endpoint | [backend-systems](.agents/skills/backend-systems/SKILL.md) |
+| 🎨 | Build an accessible web interface | [frontend-engineering](.agents/skills/frontend-engineering/SKILL.md) |
+| 🔎 | Investigate failures and incidents | [observability](.agents/skills/observability/SKILL.md) |
+| 🧐 | Review a change or simplify code | [code-review](.agents/skills/code-review/SKILL.md) |
+| 🔐 | Audit credentials and trust boundaries | [security-ops](.agents/skills/security-ops/SKILL.md) |
+| 🚢 | Ship a finished branch as a PR | [finishing-dev](.agents/skills/finishing-dev/SKILL.md) |
 
 ## Skill catalog
 
@@ -111,7 +142,7 @@ The CLI copies files; it does not track the repo or install the agents and opera
 | Resource | Purpose |
 |---|---|
 | [Specialist agents](.agents/agents/) | Code review, planning, principal engineering, and DevOps roles |
-| [Shared operating instructions](.agents/AGENTS.md) | Precedence, hats, confirmation table, rules, and definition of done |
+| [Shared operating instructions](.agents/AGENTS.md) | Hats, confirmation table, rules, validation gates, and the final report format |
 | [Client configs](.agents/clients/) | Token-optimized `settings.json` (Claude Code) and `config.toml` (Codex) |
 | [Repository contract](./AGENTS.md) | How to maintain and validate this catalog |
 
@@ -135,9 +166,10 @@ pnpm run docs:build
 | Documentation | Spelling, relative links, and a buildable documentation site |
 | Validator tests | Regression checks for the validation tools |
 
-**Passing checks are necessary, but do not prove assistant behavior.** Routing uses a deterministic lexical scorer; it does not run the target assistants. Exercise representative tasks in each client before claiming compatibility.
+> [!WARNING]
+> Passing checks are necessary, but they do not prove assistant behavior. Routing uses a deterministic lexical scorer and does not run the target assistants. Exercise representative tasks in each client before claiming compatibility.
 
-Inspect detailed reports with `pnpm run evals` and `pnpm run tokens:report`. Budget limits live in the validation tools rather than a duplicated table here.
+Inspect detailed reports with `pnpm run evals` and `pnpm run tokens:report`. Budget limits live in the validation tools rather than in a duplicated table here.
 
 ## Contributing
 
