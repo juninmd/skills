@@ -1,12 +1,13 @@
 <div align="center">
 
-<img src="./docs/public/images/hero-banner.svg" alt="Engineering skills for AI coding assistants" width="100%" />
+<img src="./docs/public/images/readme-header.svg" alt="skills: engineering workflows for AI coding assistants. A terminal shows a request moving through discover, execute, and verify, ending with evidence." width="100%" />
 
 # Engineering skills. Evidence first.
 
 [![Validate](https://github.com/juninmd/skills/actions/workflows/validate.yml/badge.svg)](https://github.com/juninmd/skills/actions/workflows/validate.yml)
 [![Security Scan](https://github.com/juninmd/skills/actions/workflows/security.yml/badge.svg)](https://github.com/juninmd/skills/actions/workflows/security.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+[![Claude Code plugin](https://img.shields.io/badge/Claude_Code-plugin-8b5cf6.svg)](#claude-code-plugin)
 
 **23 skills · 4 agents · shared operating instructions**
 
@@ -29,6 +30,32 @@ flowchart LR
 ```
 
 Each skill covers a whole domain instead of a single trick. Its main workflow stays short; detailed procedures live beside it in `references/` and load only when the task needs them.
+
+<table>
+<tr>
+<td width="33%" valign="top">
+
+**🧭 Routed, not recited**
+
+A one-line description picks the domain. No instruction file has to name a skill for it to load.
+
+</td>
+<td width="33%" valign="top">
+
+**📦 Loaded on demand**
+
+Short workflows up front, deep references beside them. Token budgets are enforced in CI.
+
+</td>
+<td width="33%" valign="top">
+
+**✅ Done means proven**
+
+Workflows end in a check you run: a test, a smoke command, or an explicit stop condition.
+
+</td>
+</tr>
+</table>
 
 ## Get started
 

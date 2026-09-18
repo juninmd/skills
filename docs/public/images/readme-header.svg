@@ -1,0 +1,81 @@
+<svg width="1280" height="400" viewBox="0 0 1280 400" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">skills: engineering workflows for AI coding assistants</title>
+  <desc id="desc">A terminal shows one request moving through discover, execute, and verify, ending with evidence attached.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1280" y2="400" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0b1020"/>
+      <stop offset="0.6" stop-color="#111a33"/>
+      <stop offset="1" stop-color="#0c1f1f"/>
+    </linearGradient>
+    <linearGradient id="brand" x1="80" y1="0" x2="520" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7dd3fc"/>
+      <stop offset="0.5" stop-color="#a78bfa"/>
+      <stop offset="1" stop-color="#34d399"/>
+    </linearGradient>
+    <radialGradient id="glowL" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#6366f1" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#6366f1" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowR" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#10b981" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#10b981" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.2" fill="#ffffff" fill-opacity="0.06"/>
+    </pattern>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <rect width="1280" height="400" rx="24" fill="url(#bg)"/>
+  <rect width="1280" height="400" rx="24" fill="url(#dots)"/>
+  <circle cx="260" cy="120" r="260" fill="url(#glowL)"/>
+  <circle cx="1030" cy="330" r="280" fill="url(#glowR)"/>
+
+  <g font-family="Segoe UI, system-ui, -apple-system, Helvetica, Arial, sans-serif">
+    <rect x="80" y="84" width="196" height="32" rx="16" fill="#ffffff" fill-opacity="0.06" stroke="#ffffff" stroke-opacity="0.14"/>
+    <circle cx="100" cy="100" r="5" fill="#34d399"/>
+    <text x="114" y="106" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="15" fill="#cbd5e1">.agents/skills</text>
+
+    <text x="76" y="212" font-size="104" font-weight="800" letter-spacing="-3" fill="url(#brand)">skills</text>
+    <text x="80" y="260" font-size="26" font-weight="600" fill="#e2e8f0">Engineering workflows for AI coding assistants</text>
+    <text x="80" y="298" font-size="20" fill="#94a3b8">Inspect the system. Change what matters. <tspan fill="#34d399" font-weight="700">Prove it works.</tspan></text>
+
+    <g font-size="14" font-weight="600">
+      <rect x="80" y="324" width="116" height="30" rx="8" fill="#7dd3fc" fill-opacity="0.12"/>
+      <text x="138" y="344" text-anchor="middle" fill="#7dd3fc">Claude Code</text>
+      <rect x="206" y="324" width="76" height="30" rx="8" fill="#a78bfa" fill-opacity="0.14"/>
+      <text x="244" y="344" text-anchor="middle" fill="#c4b5fd">Codex</text>
+      <rect x="292" y="324" width="116" height="30" rx="8" fill="#f472b6" fill-opacity="0.12"/>
+      <text x="350" y="344" text-anchor="middle" fill="#f9a8d4">Antigravity</text>
+      <rect x="418" y="324" width="96" height="30" rx="8" fill="#34d399" fill-opacity="0.12"/>
+      <text x="466" y="344" text-anchor="middle" fill="#6ee7b7">opencode</text>
+    </g>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="690" y="64" width="520" height="272" rx="16" fill="#0a0e1a" stroke="#ffffff" stroke-opacity="0.12"/>
+    <path d="M690 80a16 16 0 0 1 16-16h488a16 16 0 0 1 16 16v20H690z" fill="#ffffff" fill-opacity="0.05"/>
+  </g>
+  <circle cx="714" cy="82" r="6" fill="#f87171"/>
+  <circle cx="734" cy="82" r="6" fill="#fbbf24"/>
+  <circle cx="754" cy="82" r="6" fill="#34d399"/>
+
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="17">
+    <text x="716" y="138" fill="#e2e8f0"><tspan fill="#34d399">❯</tspan> fix the flaky checkout test</text>
+
+    <text x="716" y="184" fill="#64748b">discover</text>
+    <text x="826" y="184" fill="#7dd3fc">test-engineering</text>
+
+    <text x="716" y="220" fill="#64748b">execute</text>
+    <text x="826" y="220" fill="#c4b5fd">reproduce → patch race</text>
+
+    <text x="716" y="256" fill="#64748b">verify</text>
+    <text x="826" y="256" fill="#e2e8f0">50 runs <tspan fill="#34d399">✔ 0 flaky</tspan></text>
+
+    <line x1="716" y1="280" x2="1186" y2="280" stroke="#ffffff" stroke-opacity="0.08"/>
+    <text x="716" y="312" fill="#34d399" font-weight="700">✔ evidence attached</text>
+    <rect x="910" y="297" width="10" height="20" fill="#34d399" fill-opacity="0.8"/>
+  </g>
+</svg>
