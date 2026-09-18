@@ -23,8 +23,8 @@ gate de orphan-ref verde, `UPSTREAM.md` preenchido.
 | 4 | `security-ops/references/fuzzing/` | `aflpp`, `libfuzzer`, `cargo-fuzz`, `atheris`, `address-sanitizer`, `ossfuzz` (Trail of Bits) | CC BY-SA 4.0: subdiretório com LICENSE, não inline no repo MIT |
 | 5 | `security-ops/references/gha-security-review.md` | `gha-security-review` (Sentry) | pwn-request, expression injection, credential escalation |
 | 6 | `agent-engineering/references/skill-scanner.md` | `skill-scanner` (Sentry) | audita skills de terceiros — o gate que falta para os 418 |
-| 7 | `git-workflow/references/worktrees.md`, `merge-conflicts.md` | `using-git-worktrees`, `resolving-merge-conflicts` | 4 refs apenas, mas a description promete worktrees, rebase conflicts, bisect, reflog |
-| 8 | `software-architecture/references/deep-modules.md` | `codebase-design` (Matt Pocock) | vocabulário de módulo profundo / seam; não coberto por `design-principles.md` |
+| 7 | PARCIAL — worktrees resolvido por patch nas 3 refs de `starting-dev` (ver `roadmap-imports.md`, item 16); `merge-conflicts.md` segue aberto | `using-git-worktrees`, `resolving-merge-conflicts` | 4 refs apenas, mas a description promete worktrees, rebase conflicts, bisect, reflog |
+| 8 | DONE — `software-architecture/references/deep-modules/` (vendor MIT de mattpocock/skills, ver `roadmap-imports.md`, item 10) | `codebase-design` (Matt Pocock) | vocabulário de módulo profundo / seam; não coberto por `design-principles.md` |
 | 9 | `code-review/references/panel-review.md` | `panel-review` (Trail of Bits) | revisão multi-perspectiva; complementa `expert-review.md`. CC BY-SA |
 | 10 | `cloud-devops/references/renovate.md` | `managing-dependencies-renovate` | bump automatizado de dependência; hoje só regra manual |
 
