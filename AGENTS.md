@@ -46,6 +46,7 @@ No `AGENTS.md` names a skill. Skills are routed by their own descriptions; namin
 - Reference maps explain when to open each file. Repeating filenames as descriptions is insufficient.
 - Keep the main workflow within the enforced budget. Load references selectively.
 - Preserve attribution and license notices in imported material.
+- Every http(s) host a skill cites is approved, with a reason, in `.agents/approved-domains.toml`; placeholders use reserved names such as `example.com`. `pnpm run domains:check` fails on an unapproved host and on an approval nothing cites.
 
 ## Consolidation and routing
 

@@ -163,6 +163,7 @@ pnpm run docs:build
 | Budgets | Descriptions and skill bodies stay within the configured limits |
 | Routing | Offline lexical ranking of positive and negative prompts |
 | Retired names | No skill or instruction still hands off to a merged skill by its old name |
+| Approved domains | Every http(s) host a skill cites is listed, with a reason, in [`.agents/approved-domains.toml`](.agents/approved-domains.toml) |
 | Documentation | Spelling, relative links, and a buildable documentation site |
 | Validator tests | Regression checks for the validation tools |
 
