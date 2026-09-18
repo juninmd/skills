@@ -7,6 +7,7 @@ Open only the procedure matching the current subtask. These are files, not stand
 | [AGENT-BRIEF.md](AGENT-BRIEF.md) | Prepare a bounded implementation brief when authorized issue tracking hands work to an agent |
 | [agents-md.md](agents-md.md) | Generate repository instructions from observed tooling, ownership, and real commands |
 | [codebase-mapping.md](codebase-mapping.md) | Trace entry points, imports, and one real request before planning changes |
+| [directory-guides.md](directory-guides.md) | Opt-in only: a committed `ARCHITECTURE.md` per core directory plus a root index for a large repository, updated only where file hashes changed |
 | [docs-guidelines.md](docs-guidelines.md) | Select documentation types and evidence expectations during project setup |
 | [docs-strategy.md](docs-strategy.md) | Choose audience and scope before reconstructing or extending repository docs |
 | [entry-format.md](entry-format.md) | Format an explicitly requested durable learning entry with provenance and tags |
@@ -20,6 +21,7 @@ Open only the procedure matching the current subtask. These are files, not stand
 | [phase-plan.md](phase-plan.md) | Convert accepted direction into file-scoped steps and observable checks |
 | [phase-prototype.md](phase-prototype.md) | Compare disposable variants when a real product direction is unresolved |
 | [phase-research.md](phase-research.md) | Gather source-backed repository and API constraints before choosing an approach |
+| [proof-design.md](proof-design.md) | Decide how to prove a change before writing it: outcomes and risks, a proof chosen from what the system exposes, one deciding check per outcome, test hooks, Proven/Conditional/Disproven verdicts |
 | [real-world-cases.md](real-world-cases.md) | Compare concrete examples when choosing a planning or review approach |
 | [requirements-clarification.md](requirements-clarification.md) | Batch material unanswered product and acceptance questions before dependent work |
 | [session-handoff.md](session-handoff.md) | Capture resumable state, evidence, and next actions for unfinished work |

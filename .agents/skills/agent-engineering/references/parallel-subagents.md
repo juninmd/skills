@@ -50,6 +50,18 @@ git worktree add ../wt-slice-a -b slice-a   # one per writing worker
 git worktree remove ../wt-slice-a           # after the merge, always
 ```
 
+## Staged Delivery with Checkpoints
+
+Reserve this for big, risky changes: stages that depend on each other, a change that cuts across the codebase, or a migration that must not land partially. A high file count alone does not qualify.
+
+1. The coordinating agent plans, dispatches, and merges results; implementation goes to workers by default.
+2. Split the work into a few stages that follow real dependencies and shippable boundaries, and end each stage with a required review checkpoint. Never cut a stage smaller only to make its review easier.
+3. Do not start the next stage while a worker it depends on is still running or a returned result has not been merged into the plan. With nothing independent left to do, wait for the completion notice instead of polling.
+4. Give the checkpoint reviewer the stage goal, the changed paths, the validation output, the research already accepted, and file pointers, so it judges known context instead of rediscovering it.
+5. **One review per checkpoint, plus at most two follow-up reviews.** Ask for a follow-up only when the fix changes what was reviewed in substance, or the original concern could not be checked. Needing a third means the brief or the plan is wrong: stop and report.
+6. Commit at the end of every stage that can ship on its own.
+7. Keep the stage-progress file out of the project diff and ignored by git.
+
 ## Stop
 - Two slices write the same file. Serialize them.
 - A worker reports done with no command output behind it. Treat that as unverified, not done.

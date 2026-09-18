@@ -9,6 +9,8 @@ rg -l 'description:' .agents/skills/*/SKILL.md | wc -l  # what already exists
 
 Name the decision the agent gets wrong today without this skill. If you cannot name one, there is no skill here.
 
+Whether repeated work deserves an asset at all, and whether a skill is the right form, comes first: [automation-candidates.md](automation-candidates.md).
+
 ## Workflow
 1. Name the decision the agent gets **wrong today** without this skill. If you cannot name one, there is no skill here.
 2. Deduplicate before writing: search existing descriptions, name the closest two, and justify why this is a separate decision domain rather than a section inside one of them.

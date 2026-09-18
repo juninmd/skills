@@ -16,3 +16,8 @@ Guidelines for maintaining reliable workspace isolation.
 - Never force-create a worktree if it already exists at the target path.
 - Never assume a directory location when the repository is ambiguous.
 - Never skip the `fetch` to ensure the base branch is up to date.
+
+## 4. Parallel Workstreams
+- **Ask Before Any Git Change:** Confirm with the user before creating, moving, merging, or removing a workstream's worktree, after checking whether it already exists, whether its base branch is fetched, and whether its path matches the project's convention.
+- **Single Writer:** Each workstream has one owner and a declared list of paths. No two workstreams write to the same path; overlapping work becomes one workstream or runs one after the other.
+- **Keep a Register:** Record workstreams in the register described in [worktree-workflow.md](worktree-workflow.md), so merging and cleanup rely on facts, not memory.

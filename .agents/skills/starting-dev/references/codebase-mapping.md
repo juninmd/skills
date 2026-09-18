@@ -46,6 +46,7 @@ This is a working document, not documentation. One screen, roughly 40 lines.
 | Where the change belongs | 1 | the module, with the reason |
 
 Past the cap, cut the least load-bearing entry rather than adding a section.
+Committed per-directory architecture guides for a large repository are a separate, opt-in deliverable: [directory-guides.md](directory-guides.md).
 
 ## When You Cannot Run It
 No credentials, no environment, no seed data â€” do not guess. The test suite and CI config are the next-best oracle:

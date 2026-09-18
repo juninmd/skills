@@ -6,6 +6,7 @@ Read only the files needed for the current task.
 |---|---|
 | `agent-development.md` | Reference documentation for agent-development |
 | `audit-phases.md` | Reference documentation for audit-phases |
+| `automation-candidates.md` | Decide whether a recurring task needs an agent asset, and the lightest option that does the job, before writing a skill: [automation-candidates](automation-candidates.md) |
 | `context-engineering.md` | Reference documentation for [context-engineering](context-engineering.md) |
 | `function-analysis.md` | Reference documentation for function-analysis |
 | `headless-agent-supervision.md` | Reference documentation for [headless-agent-supervision](headless-agent-supervision.md) |
