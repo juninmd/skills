@@ -12,9 +12,9 @@ CI must be green **on the exact SHA** you are about to tag, not on the branch he
 
 ## Workflow
 1. Review merged changes since the last tag and classify them by conventional commit type.
-2. Pick the next version from the highest-impact change present.
+2. Pick the next version from the highest-impact change present. When the version or bump level the user asked for disagrees with that classification, stop and confirm; never adjust it silently in either direction.
 3. Update the changelog with **user-facing** changes grouped by type, linking issues and pull requests.
-4. Pass the pre-tag gate before anything is tagged.
+4. Pass the pre-tag gate before anything is tagged. A release branch is rebased onto the default branch first; when several pull requests landed since the last tag, audit the combined tree per [untrusted-contribution.md](../../code-review/references/untrusted-contribution.md).
 5. Commit the version bump, tag that exact SHA, push the tag.
 6. Let CI build and publish the artifact from the tag. Never publish from a laptop.
 7. Publish release notes generated from the changelog, then verify the whole chain.
@@ -63,6 +63,7 @@ git push origin "v$VERSION"
 - CI is not green on the exact SHA being tagged. Stop; the branch may have moved since the check.
 - The version already exists on the registry. It is immutable — bump instead of trying to replace it.
 - A wrong tag is already pushed. Never force-move it; ship the next patch and deprecate the bad release.
+- The requested version disagrees with the classified changes (for example a minor bump requested while the range holds a breaking change, or a major bump with none). Confirm before bumping.
 
 ## Rules
 - No tag or release publication without explicit confirmation. Local, reversible version and changelog preparation may proceed when authorized by the task.

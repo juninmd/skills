@@ -4,6 +4,7 @@ Read only the files needed for the current task.
 
 | Reference | Topic / Description |
 |---|---|
+| `deep-modules/codebase-design.md` | Deep-module vocabulary (module, interface, seam, adapter, depth), the deletion test, deepening by dependency category: [codebase-design](deep-modules/codebase-design.md); find candidates with [improve-codebase-architecture](deep-modules/improve-codebase-architecture.md) (Matt Pocock, MIT; see [UPSTREAM.md](deep-modules/UPSTREAM.md)) |
 | `design-principles.md` | Reference documentation for design-principles |
 | `distributed-architecture.md` | Reference documentation for distributed-architecture |
 | `distributed-toolkit.md` | Reference documentation for distributed-toolkit |
