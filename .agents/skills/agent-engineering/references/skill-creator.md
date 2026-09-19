@@ -54,8 +54,8 @@ Add `## Excuses` where the failure mode is **talking yourself out of a known ste
 
 | Limit | Value | Enforced by |
 |---|---|---|
-| Body words | 1000 | `validate-agents.mjs` |
-| Body tokens | 1650 | `tokens-report.mjs` |
+| Body words | 1800 | `validate-agents.mjs` |
+| Body tokens | 3000 | `tokens-report.mjs` |
 | Description tokens | 100 (1024 chars is the spec limit) | `tokens-report.mjs` |
 | Catalog tier-1 total | 5100 | `tokens-report.mjs` |
 

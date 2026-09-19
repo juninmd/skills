@@ -14,8 +14,10 @@ export const estimateTokens = (text) => Math.ceil(text.length / 4);
 export const TIER1_BUDGET = 5350;
 export const TIER1_PER_SKILL_BUDGET = 100;
 // Tier 2 loads on activation, so depth here costs nothing until a skill is
-// picked. This is where a skill earns the right not to be generic.
-export const TIER2_BUDGET = 1650;
+// picked. This is where a skill earns the right not to be generic. The ceiling
+// is a ratchet, moved 1650 -> 3000 so a decision table can carry the whole
+// option space instead of deferring every row to a reference.
+export const TIER2_BUDGET = 3000;
 
 export function buildReport(agentsRoot) {
   const skills = listSkills(path.join(agentsRoot, "skills"));

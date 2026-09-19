@@ -87,7 +87,7 @@ skill; it is a document that happens to have frontmatter. Once a skill is
 selected its whole body enters context, so an unbounded tier-2 turns one routing
 decision into a third of a context window.
 
-The 1000-word rule and the 1650-token ceiling are the reason this column stays
+The 1800-word rule and the 3000-token ceiling are the reason this column stays
 flat here. That is the practice most worth copying from this repo.
 
 ## Finding 3 — nobody tests routing, and the spec is widely violated

@@ -33,25 +33,42 @@ Identify the runtime, package manager, linter, test runner, and data store actua
 | JS package manager | pnpm | Bun's own installer inside a Bun-only project |
 | Python | uv for env and deps | Existing poetry/pip repos stay until a deliberate migration |
 | HTTP API (TS) | NestJS | Hono or Fastify for a small edge or single-purpose service |
+| Edge or serverless function | Hono | The platform's own handler when there is a single route |
 | API documentation | Scalar over an OpenAPI document | Swagger UI only where it is already embedded and pinned |
 | Lint and format (TS) | Biome | ESLint when a required plugin has no Biome equivalent |
 | Lint and format (Python) | Ruff | — |
 | Test runner | Vitest (TS), pytest (Python) | Jest only in a repo already standardized on it |
 | End-to-end | Playwright | — |
 | Validation | Zod (TS), Pydantic (Python) | — |
+| Typed contract | OpenAPI with a generated client | tRPC when producer and consumer live in one repo |
+| HTTP client | Native `fetch` with explicit timeout and backoff | Axios only where a repo is already standardized on it |
+| Environment config | Parsed and validated at boot, fail fast | — |
+| Secrets | The host's secrets manager | `.env` local only, never committed |
 | ORM | Sequelize | Raw SQL for analytical or hot-path queries |
 | Relational database | PostgreSQL | SQLite for local, embedded, or single-writer |
 | Cache, queue, rate limit | Redis | Postgres-backed queue when Redis is not worth operating |
+| Background jobs | BullMQ on Redis | pg-boss when Redis is not already running |
+| Migrations | Versioned and reversible (Umzug, Alembic) | Never schema autosync outside local development |
+| Money, time, identifiers | Integer cents with `numeric`, UTC with the zone at the edge, UUIDv7 | ULID when a short readable id is required |
+| Object storage | S3-compatible with pre-signed URLs | — |
 | Vector search | pgvector | A dedicated vector store above roughly ten million vectors |
 | LLM integration | AI SDK | The provider SDK directly when a feature has no AI SDK surface |
+| Multi-provider or self-hosted models | LiteLLM as the gateway | Direct provider calls for a single provider with no routing need |
+| Retrieval | pgvector with hybrid search and reranking | A dedicated store past roughly ten million vectors |
 | Desktop app | Tauri | Electron when a required native Chromium integration blocks Tauri |
 | Mobile | React Native with Expo | Native when a platform API or performance budget demands it |
 | Web app | React with Vite | Next.js when SSR, routing, or ISR is a requirement, not a habit |
-| Styling | Tailwind | — |
+| Styling and components | Tailwind with shadcn/ui on Radix | — |
+| Server state, forms | TanStack Query, React Hook Form with Zod | — |
 | Monorepo | pnpm workspaces with Turborepo | A single package until a second consumer exists |
 | CI | GitHub Actions | The platform's own CI when the repo lives there |
-| Containers | Multi-stage Docker, minimal base | — |
-| Telemetry | OpenTelemetry with structured JSON logs | — |
+| Containers | Multi-stage Docker, minimal base pinned by digest | — |
+| Kubernetes | k3s for self-hosted, edge, and on-prem | A managed control plane when the cloud already runs one |
+| Deployment | Argo CD, git as the desired state | The platform's own deploy for a single managed service |
+| Release | Conventional commits with Changesets | semantic-release for a library publishing continuously |
+| Feature rollout | Flag with a kill switch, decoupled from deploy | — |
+| Telemetry | OpenTelemetry with structured JSON logs, PII redacted | — |
+| Error tracking | Sentry or an OpenTelemetry-compatible equivalent | — |
 | Auth | A managed OIDC provider | Never a hand-rolled session and password stack |
 
 Open [stack rationale](references/stack-rationale.md) for why each default holds and what evidence reverses it.
