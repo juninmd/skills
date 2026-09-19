@@ -9,7 +9,7 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 [![Claude Code plugin](https://img.shields.io/badge/Claude_Code-plugin-8b5cf6.svg)](#claude-code-plugin)
 
-**23 skills · 4 agents · shared operating instructions**
+**24 skills · 4 agents · shared operating instructions**
 
 Practical workflows for assistants that inspect the system, make focused changes, and verify the result.
 
@@ -157,6 +157,7 @@ The CLI copies files; it does not track the repo or install the agents and opera
 | `radar-ia` | the daily AI radar and best-posts digests; not for one-paper research or debugging |
 | `security-ops` | end-to-end vulnerability audits, pen tests, CVE scans, Gitleaks remediation, zero-trust reviews, plugin vetting, least privilege, threat modeling, and third-party extension safety |
 | `software-architecture` | module boundaries, domain glossaries, repository layout, Electron multi-process security, ADRs, and circular dependency resolution |
+| `stack-selection` | "which should we use", picking a package manager, framework, ORM, linter, or desktop shell, adopting or replacing a dependency, and justifying a deviation |
 | `starting-dev` | repository onboarding, backlog issues, task stages, and session handoffs |
 | `test-engineering` | unit/integration tests, Vitest, pytest, flaky test elimination, Playwright E2E, LLM gateway conformance, and test coverage |
 | `threejs` | canvas 3D graphics, scene performance, and asset loading |

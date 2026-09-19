@@ -6,7 +6,8 @@ import { checkRetiredHandoffs } from "./retired-handoffs.mjs";
 
 // A body long enough to skim past is a body an agent will skim past. The
 // ceiling is a ratchet: raise it deliberately, never to fit one more paragraph.
-export const WORD_BUDGET = 1000;
+// Moved 1000 -> 1800 alongside the tier-2 token ceiling.
+export const WORD_BUDGET = 1800;
 
 // The Agent Skills spec allows six top-level keys. Restricting the catalog to
 // name/description is a house style, not the spec, and it rejected valid skills
