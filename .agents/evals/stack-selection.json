@@ -1,0 +1,61 @@
+{
+  "skill_name": "stack-selection",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Which stack should I choose for a new TypeScript API service?",
+        "top_k": 3
+      },
+      {
+        "prompt": "Should we use pnpm or npm, and Bun or Node, for this project?",
+        "top_k": 3
+      },
+      {
+        "prompt": "Pick a default ORM and database for a greenfield backend",
+        "top_k": 3
+      },
+      {
+        "prompt": "Recommend a linter and formatter: Biome or ESLint with Prettier?",
+        "top_k": 3
+      },
+      {
+        "prompt": "Is Tauri or Electron the better default for a desktop app?",
+        "top_k": 3
+      },
+      {
+        "prompt": "Evaluate whether to adopt this library or replace the current one",
+        "top_k": 3
+      },
+      {
+        "prompt": "Which SDK should we standardize on for LLM integration?",
+        "top_k": 3
+      },
+      {
+        "prompt": "Choose between Scalar and Swagger UI for API reference documentation",
+        "top_k": 3
+      },
+      {
+        "prompt": "Decide the default Python dependency manager and test runner for new repositories",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Implement a NestJS module with dependency injection and DTO validation",
+        "owner": "backend-systems"
+      },
+      {
+        "prompt": "Write the PRD and break the feature into backlog tasks before coding",
+        "owner": "starting-dev"
+      },
+      {
+        "prompt": "Design module boundaries and dependency directions for this system",
+        "owner": "software-architecture"
+      },
+      {
+        "prompt": "Optimize this slow PostgreSQL query and its indexes",
+        "owner": "data-engineering"
+      }
+    ]
+  }
+}
