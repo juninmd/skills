@@ -66,7 +66,7 @@ Bias caution over speed on non-trivial work; judgment on trivial tasks (one file
 - **Thrash guard:** 3 failed attempts on the same error -> stop, report hypotheses and evidence.
 - **Generated files:** never hand-edit lockfiles, generated clients, snapshots. Regenerate.
 - **Language:** reply in the user's language; code, identifiers, comments, and commits always in English.
-- **Files** under 200 lines; near the limit means a missing boundary: split by responsibility. **Comments** only when extremely necessary: one short line on *why*, never *what*. **Commits** one concern, conventional prefix, body says why. **Patches** smallest correct diff, shown as a diff, no full-file pastes.
+- **Files** under 300 lines; near the limit means a missing boundary: split by responsibility. **Comments** only when extremely necessary: one short line on *why*, never *what*. **Commits** one concern, conventional prefix, body says why. **Patches** smallest correct diff, shown as a diff, no full-file pastes.
 
 ## Execution
 
