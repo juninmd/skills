@@ -1,0 +1,81 @@
+# PR Evidence: Screenshots and Payloads
+
+Every pull request body carries proof of the change. Which proof depends on what the diff touches; a PR that changes visible behaviour or a contract and shows neither is incomplete.
+
+## Decide what the diff requires
+
+| Changed surface | Required evidence |
+|---|---|
+| Web UI, component, style, layout, page | Screenshot of the rendered result; before/after pair when the change modifies existing UI |
+| Terminal / CLI output, TUI, log format, help text | Fenced block with the real captured session output |
+| Markdown, docs, README, generated report, diagram | Rendered screenshot or the rendered excerpt, not only the source diff |
+| Mobile or desktop app screen | Screenshot per affected screen and state |
+| Email template, PDF, chart, image pipeline | Rendered artifact screenshot |
+| HTTP/RPC endpoint, event, webhook, queue message, schema, DTO | Request and response payload of every new or modified contract |
+| Database or config schema | Resulting schema excerpt plus a sample record |
+| Pure refactor with no observable change | State that explicitly, with the gates that prove behaviour is unchanged |
+
+A change can require both: an endpoint that also renders a screen gets the payload and the screenshot.
+
+## Visual evidence
+
+1. Capture from the change actually running, never from a mockup or a description. Frontend capture procedure lives in the `frontend-engineering` screenshot reference.
+2. One image per affected state that differs: empty, loaded, error, and the responsive or dark variant when the diff touches it.
+3. Before/after uses the same route, same viewport, same seeded data, same theme. Only the change may differ.
+4. Attach images to the PR body; a path inside a temp directory is not evidence a reviewer can open.
+5. Redact real credentials, tokens, customer names, and personal data before attaching.
+6. Terminal evidence is pasted as text in a fenced block, not as a screenshot of text: it stays searchable and diffable.
+
+~~~markdown
+## Evidence
+
+### Before
+<!-- image of the empty state, referenced by its uploaded URL -->
+
+### After
+<!-- same route, same viewport, after the change -->
+
+### CLI
+```console
+$ mytool sync --dry-run
+✔ 3 records planned, 0 conflicts
+```
+~~~
+
+## Payload evidence
+
+Show the payload of every contract the diff adds or modifies, as JSON (or the transport's real format), with realistic but synthetic values.
+
+- New contract: full request and full response, plus the status code and relevant headers when they are part of the contract.
+- Modified contract: the payload with the changed fields marked, and what a previous client receives — say whether the change is backward compatible.
+- Removed field or endpoint: state the removal and the migration path.
+- Errors: the error payload shape for the new failure modes.
+- Events and messages: the published body plus its key/topic and schema version.
+
+~~~markdown
+### `POST /v1/orders` (new)
+
+Request
+```json
+{ "customerId": "cus_123", "items": [{ "sku": "ABC-1", "quantity": 2 }] }
+```
+
+Response `201`
+```json
+{ "id": "ord_789", "status": "pending", "total": 4990, "currency": "BRL" }
+```
+
+Error `422`
+```json
+{ "error": "invalid_sku", "message": "Unknown sku ABC-1", "field": "items[0].sku" }
+```
+
+Compatibility: additive; existing clients ignore `currency`.
+~~~
+
+Derive payloads from the code or a real captured call. Never invent a field the implementation does not produce, and never paste a payload containing production data or secrets.
+
+## Stop
+
+- Evidence cannot be captured (no runnable environment, missing credentials): say so explicitly in the PR body, name the blocker, and do not substitute a written description presented as proof.
+- A capture shows behaviour that contradicts the claimed change: fix the change, then re-capture.
