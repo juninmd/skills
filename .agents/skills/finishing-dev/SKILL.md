@@ -6,6 +6,34 @@ description: |
 
 # Finishing Development
 
+## The Iron Law
+
+```
+NO COMPLETION CLAIM WITHOUT FRESH EVIDENCE FROM THIS SESSION
+```
+
+A gate that ran before the last edit proves nothing about the current candidate.
+
+## The Gate
+
+Before writing ready, passing, fixed, or opening a PR:
+
+1. **IDENTIFY** the command that proves the claim.
+2. **RUN** it complete and fresh, over the whole affected scope.
+3. **READ** the full output: exit code, failure count, unexpected skips.
+4. **VERIFY** the output confirms the claim; if it does not, report the real status with that output.
+5. **THEN** claim it, quoting the line that proves it.
+
+| Claim | Requires | Not sufficient |
+|---|---|---|
+| Tests pass | Test output: 0 failures, no unexpected skips | An earlier run, "should pass" |
+| Lint clean | Linter exit 0 over the full scope | The changed file alone |
+| Build works | Build exit 0 | Types passing, logs looking fine |
+| Bug fixed | The original symptom reproduced, then passing | Code changed, assumed fixed |
+| CI green | Every check on the pushed SHA | An open PR with checks pending |
+
+**Not this skill:** work still in progress (its domain skill), or Git surgery on branches and history (`git-workflow`).
+
 ## Preflight
 Read the request's existing commit, push, and PR authorization. Inspect repository instructions, remotes, base branch, worktree changes, test scripts, and CI. Resolve the actual PR base; never assume `main` or compare only the last commit.
 

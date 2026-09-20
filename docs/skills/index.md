@@ -1,6 +1,6 @@
 # Skills
 
-The catalog contains 23 domain skills. They are intentionally broader than single-tool skills so the model has fewer overlapping routes, while reference files preserve depth. Retired skill names are mapped to their owner in `.agents/retired-skills.json`.
+The catalog contains 24 domain skills. They are intentionally broader than single-tool skills so the model has fewer overlapping routes, while reference files preserve depth. Retired skill names are mapped to their owner in `.agents/retired-skills.json`.
 
 <!-- skill-catalog:start -->
 | Skill | Use it for |
@@ -23,6 +23,7 @@ The catalog contains 23 domain skills. They are intentionally broader than singl
 | `radar-ia` | the daily AI radar and best-posts digests; not for one-paper research or debugging |
 | `security-ops` | end-to-end vulnerability audits, pen tests, CVE scans, Gitleaks remediation, zero-trust reviews, plugin vetting, least privilege, threat modeling, and third-party extension safety |
 | `software-architecture` | module boundaries, domain glossaries, repository layout, Electron multi-process security, ADRs, and circular dependency resolution |
+| `stack-selection` | "which should we use", picking a package manager, framework, ORM, linter, or desktop shell, adopting or replacing a dependency, and justifying a deviation |
 | `starting-dev` | repository onboarding, backlog issues, task stages, and session handoffs |
 | `test-engineering` | unit/integration tests, Vitest, pytest, flaky test elimination, Playwright E2E, LLM gateway conformance, and test coverage |
 | `threejs` | canvas 3D graphics, scene performance, and asset loading |

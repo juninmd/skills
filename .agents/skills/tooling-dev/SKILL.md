@@ -7,6 +7,8 @@ description: |
 
 # Tooling Development
 
+**Not this skill:** a user-facing service or endpoint (`backend-systems`), or CI pipeline steps (`cloud-devops`).
+
 ## Preflight
 ```bash
 cat package.json | jq '{bin, files, engines}'   # what actually ships

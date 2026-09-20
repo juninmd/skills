@@ -9,7 +9,7 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 [![Claude Code plugin](https://img.shields.io/badge/Claude_Code-plugin-8b5cf6.svg)](#claude-code-plugin)
 
-**23 skills · 4 agents · shared operating instructions**
+**24 skills · 4 agents · shared operating instructions**
 
 Practical workflows for assistants that inspect the system, make focused changes, and verify the result.
 
@@ -134,6 +134,73 @@ The CLI copies files; it does not track the repo or install the agents and opera
 | 🔐 | Audit credentials and trust boundaries | [security-ops](.agents/skills/security-ops/SKILL.md) |
 | 🚢 | Ship a finished branch as a PR | [finishing-dev](.agents/skills/finishing-dev/SKILL.md) |
 
+## Where each skill fits in the cycle
+
+You never invoke a skill by name: a one-line description routes the request. What
+follows is *when* each domain owns the work, so you can tell whether the right one
+picked up the task, and name it yourself when it did not.
+
+```mermaid
+flowchart LR
+    A["1 · Decide<br/>stack-selection<br/>software-architecture"] --> B["2 · Frame<br/>starting-dev<br/>web-research"]
+    B --> C["3 · Build<br/>backend · frontend · mobile<br/>data · tooling · agents"]
+    C --> D["4 · Prove<br/>test-engineering<br/>performance-engineering"]
+    D --> E["5 · Review<br/>code-review<br/>security-ops"]
+    E --> F["6 · Ship<br/>finishing-dev<br/>git-workflow · cloud-devops"]
+    F --> G["7 · Operate<br/>observability<br/>documentation"]
+    G -->|regression, incident, next ask| B
+```
+
+| Stage | You are about to | Skill | It leaves behind |
+|---|---|---|---|
+| **1 · Decide** | Pick a language, runtime, framework, database, or replace a dependency | [`stack-selection`](.agents/skills/stack-selection/SKILL.md) | The pick, the rejected alternative, and the condition that reverses it |
+| | Draw module boundaries, a domain model, or an ADR | [`software-architecture`](.agents/skills/software-architecture/SKILL.md) | Boundaries and dependency directions |
+| **2 · Frame** | Turn a vague ask into acceptance criteria, a PRD, or vertical slices; onboard to an unfamiliar repo | [`starting-dev`](.agents/skills/starting-dev/SKILL.md) | Criteria you can test against |
+| | Verify a claim, a version, or prior art before committing to it | [`web-research`](.agents/skills/web-research/SKILL.md) | Cited, dated evidence |
+| **3 · Build** | Write a service, endpoint, or background job | [`backend-systems`](.agents/skills/backend-systems/SKILL.md) | Working code and its contract |
+| | Write web UI, components, or layout | [`frontend-engineering`](.agents/skills/frontend-engineering/SKILL.md) | An accessible, state-complete interface |
+| | Write a mobile screen or device integration | [`mobile-engineering`](.agents/skills/mobile-engineering/SKILL.md) | A screen that survives lifecycle and permissions |
+| | Write queries, schema, or migrations | [`data-engineering`](.agents/skills/data-engineering/SKILL.md) | A reversible migration and a checked query plan |
+| | Build a CLI, generator, or internal automation | [`tooling-dev`](.agents/skills/tooling-dev/SKILL.md) | A non-interactive tool with honest exit codes |
+| | Build agents, MCP servers, or a new skill | [`agent-engineering`](.agents/skills/agent-engineering/SKILL.md) | Tool schemas, bounded loops, and evals |
+| **4 · Prove** | Add or repair tests, eliminate a flake | [`test-engineering`](.agents/skills/test-engineering/SKILL.md) | A test that fails for the right reason |
+| | Chase latency, memory, Core Web Vitals, or spend | [`performance-engineering`](.agents/skills/performance-engineering/SKILL.md) | Before and after against a budget |
+| **5 · Review** | Review a diff adversarially, or simplify working code | [`code-review`](.agents/skills/code-review/SKILL.md) | Findings with file, line, and impact |
+| | Audit secrets, permissions, dependencies, trust boundaries | [`security-ops`](.agents/skills/security-ops/SKILL.md) | The threat surface and the safer fix |
+| **6 · Ship** | Prepare and open the pull request with its evidence | [`finishing-dev`](.agents/skills/finishing-dev/SKILL.md) | A PR body carrying screenshots and payloads |
+| | Rebase, recover a commit, resolve a conflict, tag a release | [`git-workflow`](.agents/skills/git-workflow/SKILL.md) | A verified remote SHA |
+| | CI, containers, infrastructure, rollout | [`cloud-devops`](.agents/skills/cloud-devops/SKILL.md) | A pipeline and a rollback path |
+| **7 · Operate** | Instrument, read a trace, diagnose an incident | [`observability`](.agents/skills/observability/SKILL.md) | Log, metric, alert, runbook |
+| | Write the README, diagram, or API reference the change requires | [`documentation`](.agents/skills/documentation/SKILL.md) | Docs that match the shipped behavior |
+
+Five skills sit outside the cycle and load whenever their subject appears:
+[`radar-ia`](.agents/skills/radar-ia/SKILL.md) for AI ecosystem digests,
+[`3d-models`](.agents/skills/3d-models/SKILL.md) and [`threejs`](.agents/skills/threejs/SKILL.md)
+for 3D assets and scenes, [`goldsrc-modding`](.agents/skills/goldsrc-modding/SKILL.md),
+and [`agy-image-babysitter`](.agents/skills/agy-image-babysitter/SKILL.md).
+
+Every skill body opens with a **Not this skill** line naming the neighbors that own
+the work it does not. When a handoff is wrong, that line is where to look first.
+
+### One request, end to end
+
+```text
+"I need a screen showing each customer's orders"
+  starting-dev           who reads it, what counts as an order, what success is
+  stack-selection        TanStack Query is already here; no new dependency
+  data-engineering       index on (customer_id, created_at), query plan checked
+  backend-systems        GET /v1/customers/:id/orders, paginated, validated at the edge
+  frontend-engineering   loading, empty, error, and offline states
+  test-engineering       a test that fails without the index and passes with it
+  code-review            defects and contract regressions
+  security-ops           can one customer read another one's orders?
+  finishing-dev          a PR with a screenshot per state and the endpoint payload
+  observability          a latency metric and an alert on the new endpoint
+```
+
+Each step is a handoff the skills make themselves: a workflow ends by naming the
+domain that owns what comes next. You keep writing prose.
+
 ## Skill catalog
 
 <!-- skill-catalog:start -->
@@ -157,6 +224,7 @@ The CLI copies files; it does not track the repo or install the agents and opera
 | `radar-ia` | the daily AI radar and best-posts digests; not for one-paper research or debugging |
 | `security-ops` | end-to-end vulnerability audits, pen tests, CVE scans, Gitleaks remediation, zero-trust reviews, plugin vetting, least privilege, threat modeling, and third-party extension safety |
 | `software-architecture` | module boundaries, domain glossaries, repository layout, Electron multi-process security, ADRs, and circular dependency resolution |
+| `stack-selection` | "which should we use", picking a package manager, framework, ORM, linter, or desktop shell, adopting or replacing a dependency, and justifying a deviation |
 | `starting-dev` | repository onboarding, backlog issues, task stages, and session handoffs |
 | `test-engineering` | unit/integration tests, Vitest, pytest, flaky test elimination, Playwright E2E, LLM gateway conformance, and test coverage |
 | `threejs` | canvas 3D graphics, scene performance, and asset loading |

@@ -12,6 +12,8 @@ compatibility: windows (PowerShell) primary; needs gh CLI, WebFetch, WebSearch
 
 Sweep sources and produce a dated state-of-the-ecosystem report for AI and coding agents.
 
+**Not this skill:** researching one question or verifying a version (`web-research`).
+
 ## Preflight
 ```bash
 gh auth status                                 # the search API needs auth to be reliable

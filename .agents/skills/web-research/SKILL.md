@@ -7,6 +7,8 @@ description: |
 
 # Web Research
 
+**Not this skill:** the daily AI ecosystem digest (`radar-ia`), or facts already established in the repository (read it).
+
 ## Preflight
 Set the budget before the first query — a source count or a time box — and write down the question in one sentence.
 
