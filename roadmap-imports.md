@@ -6,7 +6,7 @@ Nenhuma skill nova, nenhum `SKILL.md` alterado.
 ## Decisões
 
 - **Sem mexer em `SKILL.md`.** `code-review`, `agent-engineering`, `finishing-dev` e `security-ops`
-  estão a poucos tokens do teto de 1650; todas as refs novas entram pelo `TOPIC_MAP.md` da skill,
+  estão a poucos tokens do teto de 1700; todas as refs novas entram pelo `TOPIC_MAP.md` da skill,
   que o gate de órfãos aceita.
 - **Três vendors MIT em subdiretório**, com `LICENSE` e `UPSTREAM.md` (commit fixado e alterações
   locais), seguindo o precedente de `security-ops/references/security-audit/`:

@@ -15,7 +15,8 @@ export const TIER1_BUDGET = 5350;
 export const TIER1_PER_SKILL_BUDGET = 100;
 // Tier 2 loads on activation, so depth here costs nothing until a skill is
 // picked. This is where a skill earns the right not to be generic.
-export const TIER2_BUDGET = 1650;
+// Ratchet: 1650 -> 1700 when radar-ia outgrew it at ~1667 tokens.
+export const TIER2_BUDGET = 1700;
 
 export function buildReport(agentsRoot) {
   const skills = listSkills(path.join(agentsRoot, "skills"));
