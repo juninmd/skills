@@ -8,6 +8,8 @@ description: |
 
 # Frontend Engineering
 
+**Not this skill:** choosing the framework or component library (`stack-selection`), rendering 3D on a canvas (`threejs`), or Core Web Vitals measurement (`performance-engineering`).
+
 ## Preflight
 
 ```bash

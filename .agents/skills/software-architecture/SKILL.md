@@ -7,6 +7,8 @@ description: |
 
 # Software Architecture
 
+**Not this skill:** choosing the technologies those boundaries are built from (`stack-selection`), or implementing a boundary already agreed (its domain skill).
+
 ## Preflight
 ```bash
 npx dependency-cruiser --validate .dependency-cruiser.js src 2>/dev/null

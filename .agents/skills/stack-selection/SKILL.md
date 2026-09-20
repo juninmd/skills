@@ -6,6 +6,8 @@ description: |
 
 # Stack Selection
 
+**Not this skill:** an established stack with no migration authorized (follow it), implementing a pick already made (`backend-systems`, `frontend-engineering`, `data-engineering`), or module boundaries and data flow (`software-architecture`).
+
 ## Preflight
 Read what already exists before recommending anything. An established stack wins over any default here.
 

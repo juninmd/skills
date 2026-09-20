@@ -6,6 +6,8 @@ description: |
 
 # Backend Systems
 
+**Not this skill:** choosing the framework or ORM first (`stack-selection`), query plans and schema design (`data-engineering`), or module boundaries (`software-architecture`).
+
 ## Preflight
 
 ```bash

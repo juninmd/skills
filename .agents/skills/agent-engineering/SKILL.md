@@ -6,6 +6,8 @@ description: |
 
 # Agent Engineering
 
+**Not this skill:** using an existing agent to do domain work (that domain's skill), or picking an LLM provider or SDK (`stack-selection`).
+
 ## Preflight
 ```bash
 rg -n "tool_choice|function_call|tools:" src/ | head
@@ -68,6 +70,26 @@ The defense is architectural: least privilege on tools, deny destructive by defa
 | Partial failure mid-plan | state consistent, resumable |
 | Retry exhaustion | visible failure with the trace |
 | Budget exceeded | reported, never a silent stop |
+
+## Authoring a Skill
+
+```
+NO RULE WITHOUT A BASELINE THAT FAILED WITHOUT IT
+```
+
+Writing a skill is test-driven development applied to instructions.
+
+| TDD | Authoring |
+|---|---|
+| Write the test | A prompt a real user would type, saved to the skill's eval file |
+| Watch it fail | Run it with the skill absent; record the exact rationalization the agent used |
+| Minimal code | Write only the rule that closes that rationalization |
+| Watch it pass | Re-run the same prompt with the skill loaded |
+| Refactor | Hunt the next loophole; keep routing evals green |
+
+A rule you cannot name a failure for is weight the catalog carries on every turn for
+nobody. Explain why a step matters instead of stacking imperatives: an agent that
+understands the cost complies under pressure, one that was only ordered rationalizes.
 
 ## Reference Routing
 - Practical agent failure cases: [real-world-cases.md](references/real-world-cases.md)

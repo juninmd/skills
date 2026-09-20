@@ -6,6 +6,8 @@ description: |
 
 # Security Operations
 
+**Not this skill:** general defect review with no trust-boundary angle (`code-review`), or infrastructure rollout (`cloud-devops`).
+
 ## Preflight
 
 ```bash

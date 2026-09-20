@@ -8,6 +8,8 @@ description: |
 
 # Performance Engineering
 
+**Not this skill:** a correctness bug that is merely slow to hit (its domain skill), or an active incident with no measurement yet (`observability`).
+
 ## Preflight
 ```bash
 # Baseline before any change — you cannot prove an improvement without it

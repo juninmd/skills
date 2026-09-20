@@ -7,6 +7,8 @@ description: |
 
 # Data Engineering
 
+**Not this skill:** choosing the database or ORM (`stack-selection`), or endpoint and service code around the query (`backend-systems`).
+
 ## Preflight
 Read-only, always, before forming an opinion.
 

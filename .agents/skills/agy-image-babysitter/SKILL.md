@@ -14,6 +14,8 @@ Runs `babysitter.ps1` (this folder) in the background: a loop that relaunches
 `agy --conversation <id> --print "<prompt>" --dangerously-skip-permissions --print-timeout 10h`
 and handles the two known deaths.
 
+**Not this skill:** generating images yourself, or any non-agy automation (`tooling-dev`).
+
 ## Preflight
 ```powershell
 Get-ChildItem "$HOME\.gemini\antigravity-cli\conversations\*.db" | Sort-Object LastWriteTime | Select-Object -Last 1   # newest conversation of the project

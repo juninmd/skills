@@ -7,6 +7,8 @@ description: |
 
 # Observability
 
+**Not this skill:** adding tests for a bug you can already reproduce (`test-engineering`), or optimizing a path already diagnosed (`performance-engineering`).
+
 ## Preflight
 ```bash
 rg -n 'OTEL_|opentelemetry|prom_client|micrometer' src/ | head

@@ -7,6 +7,8 @@ description: |
 
 # Test Engineering
 
+**Not this skill:** diagnosing a production incident (`observability`), or reviewing a diff for defects (`code-review`).
+
 ## Preflight
 ```bash
 cat package.json | jq -r '.scripts | to_entries[] | select(.key|test("test|spec")) | "\(.key): \(.value)"'
