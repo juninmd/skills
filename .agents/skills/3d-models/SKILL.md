@@ -6,6 +6,8 @@ description: |
 
 # 3D Models
 
+**Not this skill:** rendering a scene in the browser (`threejs`), or game-engine map geometry (`goldsrc-modding`).
+
 ## Preflight
 
 ```bash

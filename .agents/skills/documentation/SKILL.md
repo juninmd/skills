@@ -8,6 +8,8 @@ description: |
 
 # Documentation
 
+**Not this skill:** a PR description (`finishing-dev`), or instructions for agents (`agent-engineering`).
+
 ## Preflight
 ```bash
 ls README* docs/ CHANGELOG* adr/ doc/adr/ 2>/dev/null

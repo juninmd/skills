@@ -7,6 +7,8 @@ description: |
 
 # Cloud DevOps
 
+**Not this skill:** application code that happens to run in a container (its domain skill), or reading production signals during an incident (`observability`).
+
 ## Preflight
 ```bash
 ls .github/workflows/ Dockerfile* helm/ chart/ *.tf 2>/dev/null

@@ -7,6 +7,8 @@ description: |
 
 # Mobile Engineering
 
+**Not this skill:** web UI in a browser (`frontend-engineering`), or the backend the app calls (`backend-systems`).
+
 ## Preflight
 ```bash
 adb devices || xcrun simctl list devices booted     # is there real hardware attached?

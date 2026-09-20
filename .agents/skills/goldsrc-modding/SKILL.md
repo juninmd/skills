@@ -7,6 +7,8 @@ description: |
 
 # GoldSrc Modding
 
+**Not this skill:** modern engines or generic 3D assets (`3d-models`, `threejs`).
+
 ## Preflight
 ```bash
 which hlcsg hlbsp hlvis hlrad 2>/dev/null || which ripent 2>/dev/null || echo "GoldSrc tools checked"

@@ -6,6 +6,8 @@ description: |
 
 # Code Review
 
+**Not this skill:** reviewing your own uncommitted work as the author before a PR (`finishing-dev` runs review as an independent pass), or auditing trust boundaries and secrets (`security-ops`).
+
 ## Preflight
 Establish review versus implementation intent, base/head or path scope, acceptance criteria, and applicable instructions. Default review requests are read-only. Inspect the full candidate, including uncommitted work if requested.
 

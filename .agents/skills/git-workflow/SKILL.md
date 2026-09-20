@@ -6,6 +6,8 @@ description: |
 
 # Git Workflow
 
+**Not this skill:** preparing or publishing a reviewed pull request (`finishing-dev`), or CI pipeline configuration (`cloud-devops`).
+
 ## Preflight
 
 ```bash

@@ -6,6 +6,8 @@ description: |
 
 # Three.js
 
+**Not this skill:** preparing or converting the model assets a scene loads (`3d-models`), or non-3D web UI (`frontend-engineering`).
+
 ## Preflight
 
 ```bash
