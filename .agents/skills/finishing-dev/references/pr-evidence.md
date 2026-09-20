@@ -75,6 +75,17 @@ Compatibility: additive; existing clients ignore `currency`.
 
 Derive payloads from the code or a real captured call. Never invent a field the implementation does not produce, and never paste a payload containing production data or secrets.
 
+## Delegation
+
+Evidence capture and PR description are two separate subagent tasks, run alongside the [correctness/security review pair](review-protocol.md) on the same stable candidate. They are not adversarial to each other, but each is bounded and reports back rather than the orchestrator authoring both from memory.
+
+| Task | Load | Produces |
+|---|---|---|
+| Evidence capture | `frontend-engineering` for screenshot capture, `run` to launch the app for CLI/TUI/web output, `documentation` for schema/OpenAPI payload extraction | One real screenshot or terminal capture per affected state, one real request/response payload per new or modified contract, or a named capture blocker |
+| Description drafting | This skill's PR preparation step and the repository's PR template | PR title and body — problem, resulting behavior, design decisions, verification, material limits — with every claim traceable to a diff line |
+
+Merge both outputs into a single PR body before publication. A missing or fabricated capture blocks readiness the same as a failed check; the description subagent cites the evidence subagent's captures, it does not re-describe them in prose.
+
 ## Stop
 
 - Evidence cannot be captured (no runnable environment, missing credentials): say so explicitly in the PR body, name the blocker, and do not substitute a written description presented as proof.

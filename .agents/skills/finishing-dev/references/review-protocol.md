@@ -2,6 +2,8 @@
 
 Create two separate subagent tasks using the host's delegation tool. Do not emulate independence with two consecutive self-reviews. If the client cannot spawn subagents, finish local checks and the PR body, then report the blocked review requirement before publication.
 
+This covers the blind adversarial pair only. Evidence capture and PR description drafting are a second, non-adversarial pair of subagents defined in [pr-evidence.md](pr-evidence.md); run all four around the same stable candidate.
+
 Provide each reviewer:
 - Exact base and head; for uncommitted candidates, a stable diff/snapshot including relevant untracked files. Reviewers receive paths or artifact references, never secrets.
 - Acceptance criteria, changed paths, related callers/contracts, and current check evidence.
