@@ -16,7 +16,6 @@ export default defineConfig({
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Getting Started', link: '/getting-started' },
-      { text: 'Benchmark', link: '/benchmark' },
       {
         text: 'Reference',
         items: [
@@ -33,7 +32,6 @@ export default defineConfig({
         items: [
           { text: 'What is this?', link: '/' },
           { text: 'Getting Started', link: '/getting-started' },
-          { text: 'Catalog Benchmark', link: '/benchmark' },
         ],
       },
       {
