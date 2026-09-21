@@ -1,7 +1,7 @@
 ---
 name: software-architecture
 description: |
-  Design system architecture, domain models, modular structure, and desktop applications. Use for module boundaries, domain glossaries, repository layout, Electron multi-process security, ADRs, and circular dependency resolution.
+  Design system architecture, domain models, modular structure, and desktop applications. Use for module boundaries, ubiquitous language and domain glossaries (CONTEXT.md), repository layout, Electron multi-process security, ADRs, and circular dependency resolution.
 ---
 
 

@@ -1,7 +1,7 @@
 ---
 name: finishing-dev
 description: |
-  Finish development and prepare or create a pull request after independent code-review and security subagents, fixes, tests, and CI checks. Use for finishing a feature branch, review-before-PR delivery, PR descriptions, shipping a completed change, and final acceptance evidence.
+  Finish development and prepare or create a pull request after independent code-review and security subagents, fixes, tests, and CI checks. Use for finishing a feature branch, review-before-PR delivery, PR descriptions, shipping a completed change, homologação/homologar (prove it works against the real target before calling it done), and final acceptance evidence.
 ---
 
 # Finishing Development
@@ -85,6 +85,7 @@ Match requested draft/ready status. A draft can exist while CI runs; do not repo
 - Base, scope, ownership, credentials, or publication authority cannot be established.
 
 ## Rules
+- CI red is not automatically "code broken." A check failing in seconds with empty steps, or every check on the account failing the same way, is often a structural break (billing, quota, runner outage) — confirm via `gh run view`/logs before diagnosing the diff. Either way it still blocks readiness; the difference is where the fix goes.
 - Review the whole proposed change, not only the latest commit.
 - Never silently stage unrelated files or bypass hooks/checks.
 - Prefer separate reviewers; a different model is useful when available but not required or invented.

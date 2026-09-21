@@ -215,16 +215,16 @@ domain that owns what comes next. You keep writing prose.
 | `code-review` | adversarial code review, legacy undocumented code recovery, characterization tests before refactoring, simplifying working code, collapsing unnecessary abstractions, and deleting proven dead code |
 | `data-engineering` | PostgreSQL, MySQL, Redis, schema migrations, zero-downtime DDL, pandas profiling, query plans, indexes, and aggregation |
 | `documentation` | README, docs verification, Mermaid diagrams as code, ASCII figures, terminal figures, code snippet images, PDF/DOCX generation, and OpenAPI reference |
-| `finishing-dev` | finishing a feature branch, review-before-PR delivery, PR descriptions, shipping a completed change, and final acceptance evidence |
+| `finishing-dev` | finishing a feature branch, review-before-PR delivery, PR descriptions, shipping a completed change, homologação/homologar (prove it works against the real target before calling it done), and final acceptance evidence |
 | `frontend-engineering` | React, Next.js, Vite, Tailwind, WCAG accessibility, visual hierarchy, color palettes, anti-slop styling, UI states, and masonry |
 | `git-workflow` | branches, worktrees, rebase conflicts, reflog recovery, stash, bisect, conventional commits, semantic version bumps, changelogs, and release tags. PR review and delivery use finishing-dev |
-| `goldsrc-modding` | Valve 220 .map geometry, ZHLT/VHLT compile pipelines, BSP30 lump editing, and CS 1.6 entity logic |
+| `goldsrc-modding` | Valve 220 .map geometry, ZHLT/VHLT compile pipelines, BSP30 lump editing, CS 1.6 entity logic, and AMX Mod X/Pawn (.sma/.amxx) scripting: natives, forwards, precache lifecycle, and crash forensics |
 | `mobile-engineering` | mobile UI, lifecycle, navigation, permissions, offline behavior, accessibility, device integration, tests, and builds |
 | `observability` | structured logging, metrics, distributed tracing, alerting, root-cause troubleshooting, postmortems, network failures, timeouts, and on-call response |
 | `performance-engineering` | endpoint profiling, latency bottlenecks, N+1 query bottlenecks, memory leaks, LCP/INP web vitals, autonomous metric loops, and rightsizing costs |
 | `radar-ia` | the daily AI radar and best-posts digests; not for one-paper research or debugging |
 | `security-ops` | end-to-end vulnerability audits, pen tests, CVE scans, Gitleaks remediation, zero-trust reviews, plugin vetting, least privilege, threat modeling, and third-party extension safety |
-| `software-architecture` | module boundaries, domain glossaries, repository layout, Electron multi-process security, ADRs, and circular dependency resolution |
+| `software-architecture` | module boundaries, ubiquitous language and domain glossaries (CONTEXT.md), repository layout, Electron multi-process security, ADRs, and circular dependency resolution |
 | `stack-selection` | "which should we use", picking a package manager, framework, ORM, linter, or desktop shell, adopting or replacing a dependency, and justifying a deviation |
 | `starting-dev` | repository onboarding, backlog issues, task stages, and session handoffs |
 | `test-engineering` | unit/integration tests, Vitest, pytest, flaky test elimination, Playwright E2E, LLM gateway conformance, and test coverage |
