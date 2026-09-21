@@ -69,6 +69,7 @@ Never retry a flaky test; attribute it to exactly one source and remove that sou
 - The test passes before the fix. It proves nothing — make it fail for the intended reason first.
 - A test is about to be retried instead of attributed. Retrying hides a real bug about half the time.
 - The subject under test is being mocked. Stop; the test now asserts the mock.
+- A negative-path test (proving a gate rejects bad input) is about to run against a real tracked file. Stop; use a disposable temp file instead — `Set-Content -NoNewline` has silently collapsed a tracked file's line breaks while leaving it syntactically valid, and the corruption went unnoticed until later. Verify the final state of anything touched byte-for-byte, never by assumption.
 
 ## Rules
 - Hand off refactoring and simplifications to `code-review`, UI issues to `frontend-engineering`, and service bugs to `backend-systems`.
@@ -81,6 +82,7 @@ Never retry a flaky test; attribute it to exactly one source and remove that sou
 - connection refused in a test run is not a network fault: a required service was not started or a call was left unmocked.
 - Prefer a real containerized dependency when fidelity matters.
 - Benchmarks need warmup, stable inputs, multiple samples, and a before/after comparison.
+- A green gate can be a broken gate. A linter-preset migration has wiped the active rule set while `lint` still passed clean; a backup "verify" step passed for months while dumping an empty database. Both looked identical to a real pass. After touching or trusting any linter config, backup, or verification tool, feed it a known-bad case and confirm it still fails.
 
 ## Excuses
 

@@ -1,0 +1,45 @@
+{
+  "skill_name": "bot-engineering",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Build a bot that checks a store's API every hour for restocks and pings me on Telegram",
+        "top_k": 3
+      },
+      {
+        "prompt": "Design the dedupe strategy so this scraper doesn't send duplicate alerts after a restart",
+        "top_k": 3
+      },
+      {
+        "prompt": "This monitoring bot keeps getting rate-limited by the source API, help me add backoff",
+        "top_k": 3
+      },
+      {
+        "prompt": "Should this polling job run as setInterval in the app or as its own CronJob?",
+        "top_k": 3
+      },
+      {
+        "prompt": "The Telegram bot silently fails to deliver messages to the group",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Research whether this library is still maintained and cite your sources",
+        "owner": "web-research"
+      },
+      {
+        "prompt": "Write today's AI and coding-agent ecosystem digest from GitHub trending and Reddit",
+        "owner": "radar-ia"
+      },
+      {
+        "prompt": "Write the Kubernetes CronJob manifest and Helm values for this deployment",
+        "owner": "cloud-devops"
+      },
+      {
+        "prompt": "Design the MCP tool schema and subagent orchestration for this agent loop",
+        "owner": "agent-engineering"
+      }
+    ]
+  }
+}

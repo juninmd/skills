@@ -10,6 +10,7 @@ Read only the files needed for the current task.
 | `deploy-sync-guard.md` | ArgoCD/GitOps reports Synced and Healthy but the running pod may still be serving stale code — diagnosing build/rollout/content drift |
 | `docker-operations.md` | Managing local containers or Compose stacks day to day: status, logs, cleanup, service health, secrets handling |
 | `dockerfile-standards.md` | Writing or reviewing a Dockerfile for image hygiene: multi-stage builds, non-root user, layer caching, pinned bases, scanning |
+| `gitops-homelab-deploy.md` | Debugging live against an ArgoCD-managed homelab cluster: self-heal reverting a manual edit, `:latest` digest drift, or telling a CI billing block apart from a real failure |
 | `helm-standards.md` | Writing or reviewing Helm chart conventions, or diagnosing a CrashLoopBackOff/restart storm from liveness/readiness probe misconfiguration |
 | `helm-workflow.md` | Scaffolding, templating, or testing a Helm chart end to end: values layering, helpers, lint, dry-run, `helm test` |
 | `iac-operations.md` | Writing a Terraform module or OPA policy, or diagnosing concurrent-apply/state-locking issues in a shared backend |

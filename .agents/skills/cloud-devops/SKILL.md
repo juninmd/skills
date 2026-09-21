@@ -65,6 +65,7 @@ Open a file only when its trigger fires.
 - Chart templates, values, or probe misconfiguration: [helm-standards.md](references/helm-standards.md); install, upgrade, rollback: [helm-workflow.md](references/helm-workflow.md)
 - Terraform or Pulumi structure: [iac-principles.md](references/iac-principles.md); plan, state locking, or drift: [iac-operations.md](references/iac-operations.md)
 - Choosing canary, blue-green, or feature-flag-gated rollout and its rollback trigger: [progressive-rollout.md](references/progressive-rollout.md)
+- Live-editing an ArgoCD-managed resource, or verifying a `:latest`/CI-blocked homelab deploy: [gitops-homelab-deploy.md](references/gitops-homelab-deploy.md)
 - Picking managed services: [cloud-patterns.md](references/cloud-patterns.md); functions or cold starts: [serverless-patterns.md](references/serverless-patterns.md)
 
 See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-domain guides.
