@@ -40,6 +40,17 @@ Substitute the actual symbol. Resolve the base rather than assuming a branch nam
 | Behavior uncertain before cleanup | Add characterization with `test-engineering`; avoid semantic edits until understood |
 | Naming or abstraction preference only | Omit unless maintainability review or simplification was requested |
 
+## Subagent diffs
+A subagent that edited one file cannot hold sibling files, prior incidents, or project intent in working memory the way a human author can. These patterns read as correct in isolation and fail only in production or under concurrency.
+
+| Pattern | Why it passes review at a glance | How to catch it |
+|---|---|---|
+| A "split into two statements" refactor moves the assignment after the `await` (`this.x = {...}; await persist(x)` becomes `this.x = await op(x)`) | Reads as pure mechanical cleanup; tests stay green | Diff line order against the pre-refactor version; ask what a concurrent read sees during the await window |
+| `return` inserted on a new early-exit path ahead of an existing `finally` | The new branch is locally correct | Trace every return path through to the `finally`; confirm cleanup still fires on each |
+| `clearTimeout()` added with no matching `resolve()`/callback call | Reads as a leak fix; nothing throws | Confirm the promise or callback still settles on every branch, not only that the timer is cleared |
+| A fix ships with a test that also passes against `git show HEAD:` (the pre-fix code) | Green test, plausible assertion | Run the new test against the old revision; it must fail there or it proves nothing |
+| A file-scoped diff is locally correct but breaks a caller or violates intent recorded only in a sibling file or team memory | The subagent saw only the file it was told to edit | Grep callers before approving; check sibling files and project memory the subagent never read |
+
 ## Reference routing
 [Reference map](references/TOPIC_MAP.md) selects undocumented-system recovery, output formats, safe refactoring, and defect sweeps. These files are local procedures, not installed skills.
 - Diff signals that precede an outage — contracts, deleted guards, retries, plans, test edits: [regression-review.md](references/regression-review.md). Verdict arithmetic stays with `test-engineering` and its `regression-gate.md`.
