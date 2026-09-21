@@ -61,6 +61,7 @@ Documenting dead behavior as a live business rule is the most expensive error he
 | Feature flag off in every environment | dead |
 | Scheduled job disabled | dead |
 | No production log or metric on that path | dead — verify against real telemetry |
+| Reachable only through a DI container, plugin registry, ORM model registry, or reflection-based dispatch (`getattr`, `Class.forName`, `Activator.CreateInstance`, a string-keyed handler map) | treat as live until the registry or config entry is also proven absent — a symbol-only grep never sees this call |
 | Reachable, with traffic | a live rule — record it |
 
 Label the dead ones **as dead**, in the deliverable. That is information too.

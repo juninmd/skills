@@ -32,6 +32,38 @@ No tooling required, and it finds more than any scanner.
 
 Then scroll to the middle of a long page and keep tabbing: a focused element hidden behind a sticky header or cookie bar fails WCAG 2.2 SC 2.4.11.
 
+## Focus Management on Route Change
+A client-side router swaps the DOM but never moves focus — it stays on the link that was clicked, or resets to `<body>`, and a screen reader announces nothing happened. Steve Krug's usability rule in "Don't Make Me Think" — never leave the user guessing whether their action did anything — applies literally here.
+
+| Symptom | Fix |
+|---|---|
+| Focus stays on the clicked link after navigation | move focus to the new view's `h1` or a `tabindex="-1"` main landmark on mount |
+| Screen reader stays silent on navigation | update `document.title` and push the new page name into an already-mounted polite live region |
+| Focus resets to `<body>`, keyboard user loses their place | never rely on the default; set focus programmatically in the route-change effect |
+| Skip-link target no longer exists on the new route | verify the skip link's target survives every route, not just the one it was built against |
+
+```jsx
+// Run once per successful navigation, not on every render
+useEffect(() => {
+  document.title = pageTitle;
+  headingRef.current?.focus();   // tabindex="-1" on the view's <h1> or main landmark
+  announce(pageTitle);           // pushes into the already-mounted aria-live region
+}, [pathname]);
+```
+
+A framework router (Next.js App Router, Remix) still leaves this to you — route transitions are not announced automatically. Test it with the mouse unplugged: if you cannot tell a route changed with your eyes closed, neither can a screen-reader user.
+
+## Form Error Association
+A message that sits visually next to a field is not connected to it for assistive technology unless the markup says so. Validation *timing* (inline vs. on-submit) belongs to [state-recipes](state-recipes.md); this is the wiring that makes either timing announce correctly.
+
+```html
+<label for="email">Email</label>
+<input id="email" aria-invalid="true" aria-describedby="email-error" />
+<p id="email-error" role="alert">Enter a valid email address.</p>
+```
+
+`aria-describedby` must point at an element that exists in the DOM before or at the same time the error appears — pointing at an id that renders a beat later leaves some screen readers silent. On submit failure, move focus to the first invalid field or to an error summary that links to each one; the field with `aria-invalid="true"` is not enough on its own if focus never reaches it.
+
 ## Automated Checks
 
 ```bash
@@ -56,6 +88,26 @@ Add `eslint-plugin-jsx-a11y` to lint. Scanners catch roughly a third of real iss
 | UI boundaries, icons, focus rings | 3:1 |
 
 Where the repository has design tokens, fix contrast in the tokens — a per-component override fixes one screen and leaves the system wrong.
+
+WCAG's contrast success criterion (1.4.3) exempts inert, truly disabled controls — but placeholder text is not exempt when it is the only description of the field, and a commonly missed gap is styling placeholder and disabled text at the same faint gray. Keep placeholder text at 4.5:1 unless the field also has a visible label, and give disabled controls a state that reads as disabled through more than low contrast (reduced opacity plus a cursor and, ideally, an explanation of why) so a passing scanner does not hide a real readability failure.
+
+## Reduced Motion
+`prefers-reduced-motion: reduce` means the user asked the OS to remove non-essential motion — not "make it faster."
+
+```css
+.panel { transition: transform 240ms var(--ease-out); }
+
+@media (prefers-reduced-motion: reduce) {
+  .panel { transition: opacity 120ms linear; }   /* swap the effect, don't just shorten it */
+}
+```
+
+```js
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (reduceMotion) player.autoplay = false;   // parallax, autoplaying video, large transforms follow the same rule
+```
+
+Motion that carries meaning (a spinner, a progress bar, a drag preview) stays; motion that is purely decorative (parallax, hero entrances, bouncing reveals) is what the setting turns off.
 
 ## Stop
 - A journey cannot be completed with the keyboard alone. Report it; do not ship the visual fix and call it done.

@@ -37,6 +37,8 @@ Adapt the source path to the repository. Read the installed Three.js and optiona
 | Fill rate or memory dominated by textures/shadows | Reduce pixel ratio, texture size, shadow resolution or passes based on evidence | Lower triangle count alone may not help |
 | Static product viewer | Render on demand; invalidate for controls and asset updates | Damping and animation still need ongoing frames while active |
 | No supported graphics context / assistive technology | Provide HTML content, controls and a useful static alternative | `frontend-engineering` owns accessible surrounding UI |
+| Raycasting against a large or high-poly scene is slow | Narrow the candidate list before raycasting (layers, a bounding-volume hierarchy such as `three-mesh-bvh`, or spatial partitioning) instead of testing every mesh | A naive `raycaster.intersectObjects(scene.children, true)` scales with total triangle count, not with what's under the pointer |
+| GPU memory or load time dominated by textures | Ship compressed GPU texture formats (KTX2/Basis via `KTXLoader`, or platform-native ASTC/ETC2) instead of raw PNG/JPEG decoded to a full-size GPU texture | Compressed formats trade a build step for far lower VRAM and faster upload; verify decoder support on target browsers first |
 
 ## Stop
 

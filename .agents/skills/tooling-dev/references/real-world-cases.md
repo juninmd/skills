@@ -23,3 +23,15 @@ Use this first for CLIs, developer automation, generators, and scripts.
 - Separate human logs from JSON/stdout contracts.
 - Bound network calls and child processes with timeouts.
 - Redact credentials from logs and crash reports.
+
+## Deprecating a Flag or Subcommand
+- Ship the replacement alongside the old behavior before announcing removal.
+- Warn on stderr with the replacement name and the version the old form disappears in.
+- Never repurpose a removed flag name; fail loudly (`EX_USAGE`) instead of doing something new silently.
+- See [packaging-and-compatibility.md](packaging-and-compatibility.md) for the full sequence.
+
+## Packaging a Release
+- Smoke the installed or packaged artifact (tarball, single binary), not the source tree.
+- Pin the runtime version in the manifest so an unsupported host fails at install, not at first use.
+- Generate shell completions from the same flag definitions the parser uses.
+- Tag and publish from CI on a green SHA — see the `git-workflow` skill's release procedure.

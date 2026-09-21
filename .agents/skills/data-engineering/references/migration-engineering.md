@@ -56,6 +56,28 @@ SELECT id / 100000 AS bucket, md5(string_agg(new_col::text, ',' ORDER BY id))
 
 Dual write is **not atomic**: a crash between the two writes diverges exactly that row. The old shape stays the source of truth until reconciliation closes clean over a full traffic cycle — including the nightly jobs and the weekly ones.
 
+## Idempotent Migrations and Rollback Safety
+A migration script re-runs safely — after a partial failure, a deploy retry, or a second environment
+applying it — without duplicating a column, a constraint, or a row (Campbell & Majors, *Database
+Reliability Engineering*, on treating migrations as an operational risk, not a one-shot script).
+
+```sql
+ALTER TABLE orders ADD COLUMN IF NOT EXISTS new_col text;   -- safe to re-run
+CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_orders_new_col ON orders (new_col);
+```
+
+- Let the migration tool's own tracking table (the one recording which migrations already ran) be the
+  source of truth for "has this run" — do not also encode that check by hand in application code, or the
+  two can disagree.
+- A migration that is not naturally idempotent (a data backfill, a rename) still needs to tolerate being
+  re-run: a backfill `WHERE new_col IS NULL` skips already-migrated rows for free.
+- Rollback means restoring the ability to run the previous version of the application, not necessarily
+  reversing the DDL. Forward-only is acceptable when the expand phase is additive and backward-compatible;
+  write a real `down` migration only when a genuine revert path is required.
+- Rehearse the restore, not just the migration: an untested backup and an untested rollback are the same
+  belief. Practice both on a production-sized copy before the production run, per Database Reliability
+  Engineering's drill discipline.
+
 ## Stop
 - A reader or writer of the old shape has not been enumerated. Stop; that is the one that breaks.
 - Reconciliation has not closed clean across a full traffic cycle. Do not run the contract phase.

@@ -1,6 +1,8 @@
 
 # Legacy Refactoring
 
+Operationalizes Michael Feathers' *Working Effectively with Legacy Code*: pin today's behavior with a characterization test, find a seam, and change the dependency there instead of in the tangle.
+
 ## Preflight
 ```bash
 rg -l "$(basename target.ts .ts)" --glob '*test*'   # is there any coverage at all?
@@ -64,6 +66,33 @@ function legacyPath(...args) {
 ```
 
 Delete only after that counter stays at zero through a **full traffic cycle** — including the monthly job.
+
+## Simplify Directly, or Characterize First?
+
+Not every cleanup needs the full seam-and-characterize procedure. Gate on coverage, not on how confident you feel:
+
+| State | Action |
+|---|---|
+| Meaningful test coverage already asserts the behavior being touched | Simplify directly under [simplification/simplification.md](simplification/simplification.md); run tests after every change |
+| Some coverage, but not on the exact branch or edge case being changed | Add the missing test first — a normal test, not a characterization one, since the intended behavior is already known |
+| No coverage, and the intended behavior is unclear or undocumented | Characterization tests first, per this file; do not simplify from a guess at intent |
+| No coverage, but the code is small and behavior looks obvious from reading it | Still write the characterization test — "obvious" is where the fewest tests exist and the most regressions hide |
+
+Feathers' point is not "always write characterization tests" — it is that changing code you cannot safely re-run is not refactoring, it is gambling with production as the test suite.
+
+## Verifying a Refactor's Behavior-Preserving Claim
+
+A pull request titled "refactor" or "no behavior change" is a claim, not a fact. Check it the way [untrusted-contribution.md](untrusted-contribution.md) checks any author assertion:
+
+| Signal in the diff | Verdict |
+|---|---|
+| Characterization or existing tests pass unchanged, with no test file touched | Supports the claim |
+| A test's assertion value changed in the same commit | Behavior changed; the claim is false or incomplete — demand the pre-change value and why it was wrong |
+| Control flow reordered around an early return, a caught exception, or a default value | Re-derive the truth table by hand; reordering silently changes behavior on cases the tests do not hit |
+| A "pure rename" also touches a call site's argument order or count | Not pure; review it as a behavior change |
+| Shadow comparison (old and new run side by side) shows any divergence not called out up front | The refactor is not finished, regardless of what the title claims |
+
+A refactor that needs a new test to prove it safe was already a behavior change wearing a refactor's name.
 
 ## Stop
 - No characterization test or golden master pins current behavior. Build it before any edit.

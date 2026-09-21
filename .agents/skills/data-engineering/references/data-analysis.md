@@ -43,6 +43,29 @@ df.nunique().sort_values().head(10)          # constant or near-constant columns
 df.duplicated().sum()
 ```
 
+## Memory Profiling and Downcasting
+`df.memory_usage()` alone undercounts — object columns (strings) hold only a pointer per cell; `deep=True`
+walks the actual Python objects.
+
+```python
+df.memory_usage(deep=True).sort_values(ascending=False).head(10)
+df.memory_usage(deep=True).sum() / 1e6                 # total MB actually held
+
+# Downcast numerics: float64 -> float32, int64 -> the smallest int that fits
+df['qty'] = pd.to_numeric(df['qty'], downcast='integer')
+df['price'] = pd.to_numeric(df['price'], downcast='float')
+
+# Low-cardinality strings as category: one dictionary entry per unique value, not per row
+df['status'] = df['status'].astype('category')
+```
+
+Downcasting and `category` together commonly cut memory 50–90% on wide, string-heavy tables — before
+reaching for chunking or a columnar engine (see [privacy-and-scale.md](privacy-and-scale.md) for the
+chunked and lazy-engine strategies once downcasting alone is not enough). Confirm correctness after
+downcasting: a float column with values exceeding `float32` precision, or an int column with a value
+outside the narrower type's range, silently loses precision or wraps — check `df[col].max()` and the
+value range against the target dtype's limits first.
+
 ## Traps That Change the Answer Silently
 
 | Trap | Effect | Fix |

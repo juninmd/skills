@@ -25,6 +25,22 @@ Scanning the software supply chain and triaging what comes back.
 - Generate the SBOM in the same CI job that builds the artifact, attach it to the release, and sign or attest it (`cosign attest`) so it is verifiably about that artifact.
 - The SBOM's value is retrospective: when the next widely exploited CVE lands, it answers "are we affected, and where" in minutes instead of days.
 
+## Beyond CVE scanning
+
+A clean CVE scan is not a clean supply chain — event-stream, ua-parser-js, xz-utils, and polyfill.io all shipped compromised with no CVE at install time.
+
+### Typosquatting and name confusion
+
+- Before adding a dependency, compare the exact name against the well-known one: `reqeusts` vs `requests`, a scoped package (`@babel/core`) typo'd unscoped, a name claiming to replace an abandoned popular package.
+- Check the registry, not memory: publish date (days-old claiming to be a 10-year-old library's replacement is a red flag), download counts relative to the real package, maintainer account age, and whether the linked repository actually matches the published source.
+- A dependency proposed by a bot- or AI-assisted PR gets the same check as a human-proposed one — a hallucinated package name becomes installable the moment someone squats it.
+
+### Unpinned transitive dependencies
+
+- A direct dependency pinned to an exact version does not pin what it depends on; `^`/`~` ranges and unpinned transitive deps mean a `postinstall` script can change between two otherwise identical CI runs.
+- Lockfiles (`package-lock.json`, `pnpm-lock.yaml`, `poetry.lock`, `Cargo.lock`, `go.sum`) pin the whole tree — commit them, and use the install mode that fails on drift (`npm ci`, not `npm install`, in CI).
+- Install and build hooks on the full tree, not just top-level packages, carry the same risk in every ecosystem; see [Install and build hooks](ecosystem-checks.md#install-and-build-hooks) — a hostile transitive dependency runs at the same trust level as a hostile direct one.
+
 ## CVE triage: exploitability and reachability
 
 Severity scores rank vulnerabilities in the abstract. Your job is ranking them in *this* system. Order by:

@@ -21,7 +21,7 @@ Identify the asset format and spec version, the authoring tool (Blender, VRoid S
 ## Workflow
 
 1. Classify the task: format conversion, authoring cleanup, rig or shape key work, or runtime behavior. Open the matching reference below.
-2. Snapshot the original (`.blend`, `.vrm`, texture folder) and capture baseline counts: bones, meshes, materials, textures, shape keys, expressions, spring joints and colliders.
+2. Snapshot the original (`.blend`, `.vrm`, texture folder) and capture baseline counts: bones, meshes, materials, textures, shape keys, expressions, spring joints and colliders, plus baseline triangle and vertex count for the real-time budget check.
 3. Run every destructive step as dry-run first. Show the plan, including dropped or approximated data, and wait for approval.
 4. Apply in the documented order; dependent phases (bone rename before bone remap, ARKit transfer before topology changes) are not optional.
 5. Reopen the result in the consuming tool and compare counts with the baseline and the approved plan. Check a screenshot for material and physics regressions.
@@ -37,6 +37,15 @@ Identify the asset format and spec version, the authoring tool (Blender, VRoid S
 | Scene rendering, loaders, GPU cleanup | `threejs` | Asset fixes belong here; renderer fixes belong there |
 
 See [Reference Map](references/TOPIC_MAP.md) for provenance and scope.
+
+## Common Failure Modes
+
+| Symptom | Cause | Fix |
+|---|---|---|
+| Model is giant or microscopic after import/export | Unit-scale mismatch: Blender's default is meters, some game engines and VRoid exports assume centimeters | Check and normalize the scale factor before any other edit; verify against a known-height reference bone |
+| Humanoid retarget produces broken or inverted limbs | Bone-naming convention mismatch between the source rig and the target's expected humanoid map (e.g. `mixamorig:LeftArm` vs VRM `leftUpperArm`) | Remap names explicitly before retargeting; never rely on automatic name-guessing across different rig conventions |
+| Textures render as pink/missing after export | Texture paths were absolute or relative to the original file location, and break when the file moves or the format changes packing rules | Pack textures into the file (`.blend`'s "Pack Resources", VRM's embedded images) or re-point to paths relative to the new file before shipping |
+| Real-time viewer stutters or fails to load on target device | No polygon or texture-size budget was set for the target runtime (mobile VRM viewer, WebGL scene) | Set an explicit triangle and texture-resolution budget up front, using `threejs`/target-engine guidance, and check the baseline count from Workflow step 2 against it |
 
 ## Stop
 

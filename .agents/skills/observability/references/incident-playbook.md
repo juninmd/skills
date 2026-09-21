@@ -12,7 +12,7 @@ Escalate when in doubt; downgrading is cheap, late escalation is not.
 
 ## Mitigation decision tree
 1. Did a deploy/config change land in the last few hours? → rollback/revert first (verify DB backward compatibility before rolling back over migrations).
-2. Is one dependency failing? → fail over, circuit-break, or degrade gracefully (serve cached/stale).
+2. Is one dependency failing? → fail over, circuit-break, or degrade gracefully (serve cached/stale). A rising retry rate alongside it is a retry storm, not recovery — see [resilience-and-tracing](resilience-and-tracing.md) for the stability patterns.
 3. Is it load-shaped? → rate-limit, shed non-critical traffic, scale out.
 4. Is data being corrupted? → stop the write path (flag off) before anything else.
 5. Nothing safe available? → contain blast radius (isolate tenant/region) and diagnose.

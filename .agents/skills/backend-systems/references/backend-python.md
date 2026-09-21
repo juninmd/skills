@@ -39,6 +39,56 @@ FastAPI runs `async def` endpoints on the event loop. One blocking call there st
 
 Declaring the endpoint `def` instead of `async def` is a legitimate fix: the framework runs it in a threadpool. Mixing them per-route is fine; hiding a blocking call inside `async def` is not.
 
+## Fire-and-Forget Tasks Lose Errors and Get Garbage-Collected
+
+`asyncio.create_task()` without keeping a reference schedules the coroutine, but the event loop
+only holds a **weak** reference to it — if nothing else references the task, it can be garbage
+collected mid-flight, silently, before it finishes. And if it does run to completion, an exception
+inside it goes nowhere unless something calls `.result()` or attaches a callback: it surfaces only
+as a message on `loop.exception_handler` (usually just a log line if that), never at the call site.
+
+```python
+# wrong: no strong reference (can be GC'd) and no error handling
+asyncio.create_task(send_welcome_email(user_id))
+
+# right: task tracked and its failure owned
+background_tasks: set[asyncio.Task] = set()
+
+def fire_and_forget(coro):
+    task = asyncio.create_task(coro)
+    background_tasks.add(task)
+    task.add_done_callback(lambda t: (background_tasks.discard(t), _log_if_failed(t)))
+    return task
+
+def _log_if_failed(task: asyncio.Task) -> None:
+    if not task.cancelled() and (exc := task.exception()):
+        logger.error("background task failed", exc_info=exc)
+```
+
+## Cancellation Propagation
+
+`asyncio.CancelledError` propagates automatically through `await`, but only if the code does not
+swallow it. A bare `except Exception` catches it in Python versions where `CancelledError` still
+derives from `Exception`-adjacent hierarchies in older releases, and even where it does not, a
+broad `except BaseException` will — either way, catching cancellation and continuing means the
+client that disconnected is still burning CPU and holding a connection for work nobody reads
+anymore.
+
+```python
+async def handler(request):
+    try:
+        return await do_work(request)
+    except asyncio.CancelledError:
+        raise                     # never swallow — let it propagate and clean up
+    finally:
+        await release_resources()  # runs on success, failure, AND cancellation
+```
+
+`asyncio.TaskGroup` (3.11+) propagates cancellation to sibling tasks automatically when one fails,
+which is usually what "cancel the request" should mean for fan-out work — cancelling only the
+task that errored while its siblings keep running against a request that already failed elsewhere
+just wastes the same resources this section is about not wasting.
+
 ## Pydantic v2 Differences That Bite
 
 | v1 | v2 |

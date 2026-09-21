@@ -44,6 +44,7 @@ Commands below are templates: use existing script names, environment and package
 - Rust ownership, errors and async: [rust-best-practices.md](references/rust-best-practices.md).
 - Python services: [backend-python.md](references/backend-python.md); [FastAPI](references/fastapi-best-practices.md) for Pydantic and dependency lifetimes.
 - Existing Go: [go-best-practices.md](references/go-best-practices.md). Existing .NET: [architecture](references/dotnet-architecture.md), [async](references/dotnet-async.md), [EF Core](references/dotnet-efcore.md).
+- Circuit breakers, bulkheads, and at-least-once delivery with dedup for service-to-service calls: [resilience-patterns.md](references/resilience-patterns.md).
 - Package management, migrations and language troubleshooting: [Reference Map](references/TOPIC_MAP.md).
 
 ## Stop

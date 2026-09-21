@@ -41,6 +41,17 @@ kubectl get pvc -A -o json | jq -r '.items[]|select(.status.phase=="Bound")|.met
 
 Then: old snapshots, non-production environments left running overnight, log retention set to "forever", and storage still in the hot tier years after anyone read it.
 
+## Rightsizing: A Two-Sided Tradeoff
+Rightsizing is not a one-way lever toward smaller. Over-provisioning is a silent, recurring cost that never pages anyone; under-provisioning is a latency risk that pages someone the first time traffic spikes. Name which side of the trade a change makes before making it.
+
+| Symptom | Likely cause | Fix |
+|---|---|---|
+| Bill high, CPU/memory graphs flat and low all month | over-provisioned for a peak that never came (or came once) | resize to p99 of actual usage plus headroom, not to the largest peak ever observed; autoscale for the rare peak instead of reserving for it |
+| Request-vs-actual CPU ratio far below 1 across the fleet, no incidents | over-provisioning, invisible until someone asks why the bill grew with no traffic growth | run the sweep in "Where Cloud Money Actually Goes" below; this is the most common finding |
+| p99 latency spikes exactly at traffic peaks; CPU or memory pegged then | under-provisioned; the box cannot serve the peak | scale the resource before the next peak — a page after the fact is the cost of finding out this way |
+| Container OOMKilled under normal load, not under an actual leak | memory limit set below real working-set size | raise the limit to the measured working set, not to "make the alert stop"; check for a genuine leak first ([profiling-playbook](profiling-playbook.md)) |
+| Autoscaler thrashes (scale up, scale down, repeat) | target utilization set too close to the scaling trigger | widen the band, or scale on a leading saturation signal instead of a lagging one |
+
 ## Where Cloud Money Actually Goes
 
 | Suspect | Check before rewriting code |

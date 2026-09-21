@@ -45,6 +45,7 @@ Read only the files needed for the current task.
 | `python-operations.md` | Reference documentation for python-operations |
 | `python-setup.md` | Reference documentation for python-setup |
 | `real-world-cases.md` | Reference documentation for real-world-cases |
+| `resilience-patterns.md` | Circuit breakers, bulkheads, and at-least-once delivery with idempotent-consumer dedup |
 | `ruff-config.md` | Reference documentation for ruff-config |
 | `rust-best-practices.md` | Reference documentation for rust-best-practices |
 | `security-setup.md` | Reference documentation for security-setup |

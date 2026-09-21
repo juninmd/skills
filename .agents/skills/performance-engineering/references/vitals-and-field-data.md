@@ -1,5 +1,9 @@
 # Vitals Thresholds and Field Data
 
+Thresholds and metric definitions below follow the canonical guidance at
+[web.dev, Web Vitals](https://web.dev/articles/vitals); treat that page, not
+a lab tool's opinion, as the source of truth when a tool disagrees.
+
 ## Thresholds, measured at the 75th percentile of real sessions
 
 | Metric | Good | Needs improvement | Poor |

@@ -40,9 +40,10 @@ This split is the entire reason a tool composes.
 | 1 | generic runtime failure |
 | 2 | usage error — bad flag, missing argument |
 | 3–63 | tool-specific, documented in `--help` |
+| 64–78 | borrow `sysexits.h` meanings when they fit: 64 usage, 65 data error, 66 missing input, 69 unavailable, 70 internal error, 78 bad config |
 | 130 | interrupted (`SIGINT`, 128+2) |
 
-A single exit code 1 for everything makes automation impossible: the caller cannot tell "you typed it wrong" from "the network died".
+A single exit code 1 for everything makes automation impossible: the caller cannot tell "you typed it wrong" from "the network died". Argument parsing has its own edge cases (`--`, negative numbers, repeated flags, clustering) and exit codes need a versioning and deprecation story of their own — see [argument and exit conventions](references/argument-and-exit-conventions.md).
 
 ## Adapt to the Terminal, Then Get Out of the Way
 
@@ -65,12 +66,14 @@ Honor `NO_COLOR` and an explicit `--no-color` regardless of TTY detection. Never
 | Output file already exists | preview, back up, or demand `--force` |
 | Config found in several places | documented precedence, and `--print-config` to show what won |
 
-Config precedence, highest first: **command flag → environment variable → project file → user file → built-in default.** Print the resolved source on request; "why is it using that value" is the most common support question a tool generates.
+Config precedence, highest first: **command flag → environment variable → project file → user file → built-in default.** Print the resolved source on request; "why is it using that value" is the most common support question a tool generates — see [argument and exit conventions](references/argument-and-exit-conventions.md) for the diagnostic technique when precedence itself is the bug.
 
 ## Reference Routing
 - Practical tooling cases: [real-world-cases.md](references/real-world-cases.md)
 - CLI behavior and operational standards: [tooling-best-practices.md](references/tooling-best-practices.md)
 - Implementation patterns: [tooling-examples.md](references/tooling-examples.md)
+- Argument parsing, exit codes, and config precedence diagnosis: [argument-and-exit-conventions.md](references/argument-and-exit-conventions.md)
+- Signals, atomic writes, TTY/piping, packaging, and flag deprecation: [packaging-and-compatibility.md](references/packaging-and-compatibility.md)
 - Reference docs generated from code or schemas: use the `documentation` skill.
 
 See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-domain guides.
@@ -87,6 +90,8 @@ See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-
 - Avoid regex parsing when a structured parser exists — the regex works until the first quoted comma.
 - Version the output format. A tool whose JSON shape drifts silently breaks every script built on it; `--format-version` or a `schema` field costs nothing now and everything later.
 - `--help` is the primary documentation. If a behavior is not in it, the behavior does not exist for most users.
+- Deprecate a flag by keeping it working, warning on stderr with the replacement, and removing it only after a documented version window — never a silent break; Hunt & Thomas's *The Pragmatic Programmer* frames this as treating your own CLI contract with the same reversibility discipline as an external API.
+- Name commands and flags for what they do, not how they are implemented — Robert C. Martin's *Clean Code* naming rules apply as much to a `--flag` as to a function.
 - Shell scripts and one-off command safety belong to `cloud-devops`; publishing and versioning the tool to `git-workflow`.
 
 ## Checklist

@@ -43,6 +43,39 @@ jobs:
 - **Least Privilege:** Avoid `sudo` unless strictly necessary (never for `npm/pip/bun`). Never use `chmod 777`.
 - **Makefiles:** Standardize targets (`run`, `test`, `coverage`, `clean`). Use `SHELL := /bin/bash` at the top.
 
+## 5. Secrets and Identity in CI
+
+Prefer short-lived federated credentials over long-lived cloud keys stored as CI secrets. A static
+`AWS_SECRET_ACCESS_KEY` in repo secrets is a standing liability — it works from anywhere until
+someone rotates it, and nothing forces that rotation. OIDC federation trades it for a token minted
+per run, scoped to that run, expired within the hour, with no secret an attacker could exfiltrate
+and reuse later.
+
+```yaml
+permissions:
+  id-token: write   # required to request the OIDC token; nothing else by default
+  contents: read
+steps:
+  - uses: aws-actions/configure-aws-credentials@v4
+    with:
+      role-to-assume: arn:aws:iam::123456789012:role/deploy-role
+      aws-region: us-east-1
+```
+
+The cloud side must trust the token's issuer and subject claims (repo, branch, environment) —
+scope the trust policy to the exact workflow, not `repo:org/*:*`, or any workflow in the org can
+assume the role.
+
+| Practice | Why it matters |
+|---|---|
+| `id-token: write` only on the job that needs it | a repo-wide default grants every workflow the ability to mint cloud tokens |
+| Never `echo`, `env`, or dump a secret to logs | GitHub Actions masks registered secrets by exact string match only — a base64, JSON-escaped, or partially-transformed copy of the same secret prints in cleartext |
+| Do not pass secrets as CLI arguments | arguments are visible in process listings and often echoed by shell tracing (`set -x`) |
+| Scope `permissions:` per job, not the repo default | least privilege limits blast radius when a workflow is compromised via a malicious dependency or PR |
+
+See `docs.github.com`'s Actions security hardening guide for the full OIDC trust-policy mechanics
+per cloud provider.
+
 ## References
 - [GitHub Actions Docs](https://docs.github.com/en/actions)
 - [GitLab CI/CD Docs](https://docs.gitlab.com/ee/ci/)

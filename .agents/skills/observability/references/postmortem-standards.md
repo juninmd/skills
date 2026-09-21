@@ -1,6 +1,10 @@
 # Postmortem Standards
 
 Blameless: name systems and gaps, not people. "The deploy pipeline allowed X" — never "engineer Y forgot".
+Google's SRE postmortem culture states the reason plainly: engineers who fear
+blame hide the very details a fix needs, so the discipline "focus[es] on
+identifying the contributing causes of the incident without indicting any
+individual or team" ([Google SRE, postmortem culture](https://sre.google/sre-book/postmortem-culture/)).
 
 ## Template
 ```markdown

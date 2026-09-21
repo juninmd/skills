@@ -43,6 +43,7 @@ A split you cannot justify with evidence is a distributed version of the same pr
 |---|---|
 | Invert one edge behind an interface **owned by the lower layer** | The dependency is one-directional in meaning, wrong in code |
 | Extract the shared concept into a third module both depend on | Both genuinely need the same thing |
+| Replace the call with an event the other side reacts to | Each side only needs to know the other's outcome, not call into it synchronously |
 | Merge the two modules | The cycle exists because they are one concept |
 
 Deleting the import without moving the concept just hides the cycle behind a runtime lookup.

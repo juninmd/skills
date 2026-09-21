@@ -28,6 +28,25 @@ Accessibility rules are not repeated here — use the [accessibility](accessibil
 - Consume design tokens (custom properties or theme config); do not hard-code hex values or magic pixel numbers in components.
 - Domain-appropriate visual cues over decorative-only elements.
 
+**Container queries vs. media queries** — a media query answers "how big is the viewport"; a container query answers "how big is the space this component was given," which is what a reusable card, sidebar widget, or dashboard tile actually needs, since the same component renders at different widths depending on where it is placed.
+
+| Need | Use |
+|---|---|
+| Page-level layout: nav collapse, column count for the whole page | media query |
+| A component adapts to its own slot (card in a sidebar vs. a full-width grid) | container query — `container-type: inline-size` on the parent, `@container` on the rule |
+| Print, orientation, `prefers-*` user settings | media query only — containers cannot query those |
+| A component ships to consumers who nest it anywhere | container query, so the component owns its own breakpoints instead of the page dictating them |
+
+```css
+.card-slot { container-type: inline-size; container-name: card; }
+
+@container card (min-width: 400px) {
+  .card { grid-template-columns: auto 1fr; }
+}
+```
+
+Container queries do not replace media queries — a component still needs a page-level layout to sit inside.
+
 ## 5. shadcn/ui
 - Do not modify files under `components/ui/` directly — wrap them.
 - Compose, do not fork. Extend through props and slots.
