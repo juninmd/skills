@@ -40,6 +40,9 @@ Read tracking configuration and the requested operation; do not assume origin, m
 | Detached HEAD with work | `git switch -c rescue-name` | Branch points at the expected commit |
 | Lost commit | `git reflog --all`; inspect candidate with `git show <sha>`; create rescue ref | Reflogs are local and expire; absence is not proof of destruction |
 | Locate regression | `git bisect start <bad> <good>` then `git bisect run ./check` | Script exits 0 good, 1 bad, 125 untestable; finish `git bisect reset` |
+| Finished worktree left behind | `git worktree remove <path>`, then `git worktree prune` if the directory is already gone | `git worktree list` no longer shows it; no stale lock remains |
+| Interactive rebase or binary/generated-file conflict | Read [rebase and recovery](references/rebase-and-recovery.md) | Regenerated files match the tool that owns them; history reads as intended |
+| Choosing or challenging a branching model | Read [branching strategies](references/branching-strategies.md) | Model matches release cadence and team size, not habit |
 | Release version/tag/changelog | Read [release procedure](references/release-management.md) | Version and tag identify the tested artifact; publication authorized |
 
 ## Conflict Evidence
@@ -62,10 +65,11 @@ See [Reference Map](references/TOPIC_MAP.md) for release and GitHub troubleshoot
 ## Rules
 
 - CI pipelines belong to `cloud-devops`; repository setup to `starting-dev`; independent review and PR creation to `finishing-dev`.
-- Prefer revert for shared history. Never use plain `--force`; an authorized rewrite uses a lease tied to the expected remote SHA and checks concurrent updates.
+- Prefer revert for shared history. Never use plain `--force`; an authorized rewrite uses `--force-with-lease` tied to the expected remote SHA (add `--force-if-includes` when the local remote-tracking ref might itself be stale) and checks concurrent updates.
 - Scope staging by file or hunk; inspect the complete index before committing or amending.
 - Use worktrees for simultaneous branches; inspect ownership before pruning or removing one.
 - Do not bypass hooks to make a check appear green. Report a broken gate and repair it within scope.
+- Chacon & Straub's *Pro Git* explains the object model behind every recovery here (reflog, `fsck`, detached HEAD); read it when a rescue plan needs to reason about objects instead of porcelain output.
 
 ## Excuses
 
@@ -75,6 +79,8 @@ See [Reference Map](references/TOPIC_MAP.md) for release and GitHub troubleshoot
 | Reflog will save us | Reflog is local and expires; verify the target before rewriting |
 | The hook is flaky, skip it | A broken gate is repaired in scope, never bypassed |
 | Add everything, it is all related | Inspect the full index; unrelated files never ride along |
+| Bisect is failing because the test is flaky, mark it bad | `git bisect skip`; marking a flaky run bad or good corrupts the search, not just this one result |
+| Just take theirs on the lockfile conflict | Regenerate the lockfile with its own tool; a hand-picked side rarely matches either branch's actual dependency tree |
 
 ## Checklist
 

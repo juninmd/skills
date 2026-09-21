@@ -55,14 +55,16 @@ The last one is the one people skip. With a mutable tag (`:latest`), a **failed 
 | Pod `Pending` forever | no node satisfies requests, taints, or the PVC's zone |
 | Rollout hangs at N-1 replicas | readiness never passes, or a PodDisruptionBudget blocks eviction |
 | `OOMKilled` | limit below real usage; raise the limit or fix the leak |
+| Restart loop only under load | liveness probe checks a slow dependency instead of process health — see [helm-standards.md](references/helm-standards.md) |
 
 ## Reference Routing
 Open a file only when its trigger fires.
 - Symptom matches a known outage: [real-world-cases.md](references/real-world-cases.md)
 - Pipeline or runner edit: [ci-cd-best-practices.md](references/ci-cd-best-practices.md)
 - Authoring an image: [dockerfile-standards.md](references/dockerfile-standards.md); debugging a running container: [docker-operations.md](references/docker-operations.md)
-- Chart templates or values: [helm-standards.md](references/helm-standards.md); install, upgrade, rollback: [helm-workflow.md](references/helm-workflow.md)
-- Terraform or Pulumi structure: [iac-principles.md](references/iac-principles.md); plan, state, or drift: [iac-operations.md](references/iac-operations.md)
+- Chart templates, values, or probe misconfiguration: [helm-standards.md](references/helm-standards.md); install, upgrade, rollback: [helm-workflow.md](references/helm-workflow.md)
+- Terraform or Pulumi structure: [iac-principles.md](references/iac-principles.md); plan, state locking, or drift: [iac-operations.md](references/iac-operations.md)
+- Choosing canary, blue-green, or feature-flag-gated rollout and its rollback trigger: [progressive-rollout.md](references/progressive-rollout.md)
 - Picking managed services: [cloud-patterns.md](references/cloud-patterns.md); functions or cold starts: [serverless-patterns.md](references/serverless-patterns.md)
 
 See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-domain guides.

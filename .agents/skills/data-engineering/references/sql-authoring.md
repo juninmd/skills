@@ -60,6 +60,61 @@ Aggregates ignore NULL, so `AVG(col)` over a column with NULLs divides by a smal
 ## Index Design
 An index earns its place by query shape and selectivity, never by hope. Composite order is **equality, then sort, then range** — the same rule holds for a MongoDB compound index. A column used only inside a function (`WHERE lower(email) = ...`) needs an expression index, or the plain one is ignored.
 
+Every index is a tradeoff, not a free win: it speeds the reads it matches and slows every write to that table, because each `INSERT`/`UPDATE`/`DELETE` maintains it too. Reasoning that starts from the plan and the selectivity — never from "it can't hurt" — is the same discipline use-the-index-luke-style indexing guides teach.
+
+| Option | Tradeoff | Use when |
+|---|---|---|
+| Full composite index on every filtered column | Fastest read, most write amplification, most storage | The query runs constantly and the table is read-heavy |
+| Partial index (`WHERE status = 'active'`) | Small and cheap to maintain; useless outside its predicate | Most rows are irrelevant to the hot query (`WHERE deleted_at IS NULL`) |
+| Covering index (`INCLUDE`/extra key columns) | Answers the query from the index alone (index-only scan); larger index, more write cost | The query is `SELECT` of a few columns filtered and sorted the same way, run at high frequency |
+| No index, sequential scan accepted | Zero write cost | The table is small, or the query runs rarely and correctness matters more than latency |
+
+```sql
+-- Partial: only the rows the hot query actually filters on
+CREATE INDEX CONCURRENTLY idx_orders_active ON orders (customer_id) WHERE status = 'active';
+
+-- Covering: index-only scan, no heap fetch for these three columns
+CREATE INDEX CONCURRENTLY idx_orders_summary ON orders (customer_id) INCLUDE (total, created_at);
+```
+
+See PostgreSQL's own reasoning on [partial indexes](https://www.postgresql.org/docs/current/indexes-partial.html) and [index-only scans](https://www.postgresql.org/docs/current/indexes-index-only-scans.html).
+
+## Transaction Isolation Levels
+Concurrent transactions can see each other's uncommitted or changing data, and which anomalies are possible is set by the isolation level (ANSI SQL; Martin Kleppmann, *Designing Data-Intensive Applications*, ch. 7). Read the level in code, never assume the default:
+
+| Anomaly | What it looks like | Prevented starting at |
+|---|---|---|
+| Dirty read | Transaction A reads a row Transaction B has written but not committed; B then rolls back and A acted on data that never existed | Read Committed |
+| Non-repeatable read | A re-reads the same row twice in one transaction and gets different values because B committed a change in between | Repeatable Read |
+| Phantom read | A re-runs the same range query twice and a new row appears because B inserted a matching row in between | Repeatable Read (PostgreSQL's MVCC implementation prevents it there) / Serializable per the ANSI standard |
+| Write skew | Two transactions each read overlapping data, then each writes based on what they read, and the combined result violates an invariant neither transaction violated alone | Serializable only |
+
+```sql
+-- PostgreSQL: see the current default and set one for a transaction
+SHOW default_transaction_isolation;
+BEGIN ISOLATION LEVEL REPEATABLE READ;
+```
+
+Default isolation is usually Read Committed — it stops dirty reads but not the rest. Raise the level for the specific transaction that needs the stronger guarantee (an invariant spanning two reads, a check-then-act sequence) rather than raising it globally, since Serializable adds retry-on-conflict overhead across the whole workload. See [PostgreSQL: Transaction Isolation](https://www.postgresql.org/docs/current/transaction-iso.html).
+
+## N+1 Query Detection
+The query count grows with the result set instead of staying constant — one query to fetch a list, then one more per row to fetch each row's related data.
+
+| Symptom | Likely cause | Fix |
+|---|---|---|
+| Query log shows the same shaped query repeated once per loop iteration | Application code (or ORM lazy loading) fetches an association inside a loop over the parent rows | Eager-load the association with a `JOIN` or a single batched `WHERE id = ANY(:ids)` |
+| Request latency scales linearly with list length, not with total row count | Same root cause, seen from the outside | Add pagination and confirm the fix by counting queries per request, not by latency alone |
+| ORM debug log ("N+1 detected") or a spike in `pg_stat_statements.calls` for one query shape | The framework's own N+1 detector, or read-only evidence from the intake commands | Batch-load, or restructure the access pattern around the read path |
+
+## Connection Pool Sizing
+A pool sized to "however many the driver defaults to" fails two ways: too small and requests queue on `pool.acquire()` while the database sits idle; too large and the database spends more time context-switching between connections than doing work.
+
+| Symptom | Likely cause | Fix |
+|---|---|---|
+| Request latency spikes under load, `pool.acquire()` wait time rising, DB shows few active connections | Pool smaller than real concurrency | Size to sustained concurrent queries, not peak request count — most requests are not waiting on the DB the whole time |
+| DB CPU pegged, many idle-in-transaction connections, throughput falls as pool size rises | Pool larger than the DB can serve concurrently | Shrink it; add a proxy (PgBouncer, ProxySQL) in transaction-pooling mode to multiplex many app connections onto fewer DB ones |
+| Connections held across an external call (HTTP, queue publish) inside the same transaction | Long-held connection blocking others waiting on the pool | Do the external call outside the transaction, or outside the pooled connection entirely |
+
 ## Stop
 - The plan has not been read on representative data. An empty table makes every plan look fine.
 - Destructive SQL is about to run without a verified backup and explicit approval. Write the `SELECT` first and read its count.

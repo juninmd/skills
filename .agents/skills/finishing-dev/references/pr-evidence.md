@@ -75,6 +75,19 @@ Compatibility: additive; existing clients ignore `currency`.
 
 Derive payloads from the code or a real captured call. Never invent a field the implementation does not produce, and never paste a payload containing production data or secrets.
 
+## Migration and rollback notes
+A change that touches a schema, a stored data shape, a feature-flag default, or a deployment step is incomplete without knowing how to undo it. Humble and Farley's *Continuous Delivery* treats this as release evidence: a deployment pipeline is not proven safe until the rollback path is tested as thoroughly as the forward path.
+
+| Change type | PR body must state |
+|---|---|
+| Schema/data migration | Forward migration command, whether it is reversible, the down-migration or an explicit "not reversible — do X instead," and expected duration/lock behavior on production-sized data |
+| Feature-flag default flip | The flag name, old and new default, and the exact toggle to revert without a redeploy |
+| Config or infrastructure change | The previous value, and the command or PR that restores it |
+| Breaking API/contract change | The deprecation window, the migration path for existing callers, and the version it becomes mandatory |
+| Anything with no safe rollback | Say so explicitly and name the mitigation (forward-fix only, staged rollout behind a flag) — silence reads as "rollback exists" |
+
+Derive the rollback note from the actual migration or flag code, never assume symmetry: a destructive migration (dropped column, deleted rows) has no clean down-migration, and claiming one is worse than admitting there isn't one.
+
 ## Delegation
 
 Evidence capture and PR description are two separate subagent tasks, run alongside the [correctness/security review pair](review-protocol.md) on the same stable candidate. They are not adversarial to each other, but each is bounded and reports back rather than the orchestrator authoring both from memory.

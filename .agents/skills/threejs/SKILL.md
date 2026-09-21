@@ -35,6 +35,8 @@ Adapt the source path to the repository. Read the installed Three.js and optiona
 | WebGPU or TSL features needed | Evaluate WebGPURenderer and its WebGL 2 fallback | Test target browsers and forceWebGL; initialize before manual rendering |
 | Many repeated meshes | Consider InstancedMesh with measured draw-call reduction | Picking and per-instance updates require explicit handling |
 | Fill rate or memory dominated by textures/shadows | Reduce pixel ratio, texture size, shadow resolution or passes based on evidence | Lower triangle count alone may not help |
+| Raycasting many objects every frame | Restrict `Raycaster.intersectObjects` to an explicit target list or scene layers; consider a BVH acceleration structure (e.g. `three-mesh-bvh`) for large static meshes | A precomputed structure needs rebuilding when its geometry changes |
+| Large or many textures dominate VRAM/load time | Use compressed GPU texture formats (KTX2/Basis via `KTX2Loader`) transcoded for the target GPU | Needs the transcoder files and a compatible renderer path; verify visual quality after compression |
 | Static product viewer | Render on demand; invalidate for controls and asset updates | Damping and animation still need ongoing frames while active |
 | No supported graphics context / assistive technology | Provide HTML content, controls and a useful static alternative | `frontend-engineering` owns accessible surrounding UI |
 

@@ -46,6 +46,6 @@ Assert an invariant over generated inputs instead of picked examples. The framew
 Mutation testing changes the code (flip a comparison, drop a call, swap a constant) and re-runs the suite. A mutant that survives is a line covered by tests that no assertion actually checks.
 
 - Tools: `mutmut` or `cosmic-ray` (Python), Stryker (JS/TS, .NET, JVM), PIT (JVM).
-- Read mutation score as assertion strength, not as a target to maximize. It complements line coverage, which only proves execution.
+- Read mutation score as assertion strength, not as a target to maximize. It complements line coverage, which only proves execution — PIT's own documentation (pitest.org) frames mutation testing as the gold standard other coverage types are measured against, precisely because it checks whether a statement is meaningfully tested, not merely reached.
 - Cost is high: mutants multiply by test runtime. Scope runs to changed files or to the modules where correctness matters, and run them nightly rather than per commit.
 - Triage survivors: strengthen the assertion, delete the untested branch, or mark it equivalent with a reason. Do not silence the tool globally.

@@ -34,3 +34,17 @@ USER appuser
 HEALTHCHECK --interval=30s CMD wget -qO- http://localhost:3000/health || exit 1
 CMD ["npm", "start"]
 ```
+
+## 4. Multi-Stage Pitfalls
+
+| Pitfall | Consequence | Fix |
+|---|---|---|
+| A secret passed via `ARG`/`ENV` (npm token, private registry password) | baked into that layer's history — `docker history` or a leaked layer reveals it even if the final stage never copies it forward | `RUN --mount=type=secret,id=npm_token cat /run/secrets/npm_token \| npm config set ...` — the secret never becomes a layer |
+| `COPY . .` before installing dependencies | any source edit invalidates the cache from that line down, so every build reinstalls dependencies | copy only the manifest/lockfile first, install, then `COPY . .` for source |
+| Final stage still holds the compiler, build deps, or a shell it does not need | larger attack surface — a shell in the runtime image is a shell an RCE can use | copy only build output (`COPY --from=builder /app/dist`) into a minimal or distroless final stage |
+| Package manager cache left in the final layer | dead weight, and a place stale/vulnerable cached packages hide | `apt-get clean && rm -rf /var/lib/apt/lists/*`, or use `--mount=type=cache` so the cache never lands in a committed layer |
+| `curl \| bash` or fetching an installer script in the final stage | supply-chain trust extended to whatever that URL serves at build time, with no pinned checksum | vendor the binary, or pin the script by digest and verify a checksum before executing it |
+
+`ARG` values are visible to anyone who can pull the image and run `docker history --no-trunc`,
+even from an intermediate stage that was never tagged or pushed on its own — multi-stage does not
+make an `ARG` secret private, it only controls what ends up in the *final* filesystem.

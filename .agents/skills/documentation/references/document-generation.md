@@ -62,6 +62,20 @@ if isinstance(v, str) and v[:1] in '=+-@':
 cell.value = v
 ```
 
+## Accessibility of Generated PDFs
+A generated PDF that renders correctly on screen can still be unreadable to a screen reader — nothing about "looks right" implies "is tagged."
+
+| Requirement | How |
+|---|---|
+| Heading structure | Use the library's real heading levels (Word style `Heading 1/2`, HTML `<h1>`-`<h6>` before the HTML→PDF step), never bold-and-larger body text standing in for a heading |
+| Reading order | Generate content in document order; a PDF assembled from absolutely-positioned boxes (some `puppeteer`/CSS layouts) can render visually correct while its tag tree reads scrambled — verify with a PDF accessibility checker, not by eye |
+| Images and charts | Every embedded image and chart gets alt text carried into the PDF tag (`python-docx` alt-text API, HTML `alt=` before conversion); a chart with no alt text and no data table beside it is unreadable to a screen reader |
+| Tables | Use the library's real table object (`docx` tables, HTML `<table>`), never tab- or space-aligned text pretending to be a table |
+| Color as the only signal | Never encode meaning (pass/fail, before/after) in color alone; pair it with a label or a symbol |
+| Tagged PDF (`PDF/UA`) | For a document with a compliance requirement, generate through HTML→PDF with a tagging-capable renderer, or via Word/LibreOffice export, and verify with a checker (`pdftotext -layout`, or an accessibility linter) — a scanned-image PDF has no tags at all regardless of the pipeline |
+
+Treat this the same as the formula-injection and font-embedding checks below: a defect that produces a file which opens fine and fails silently for the one reader who needs the tag tree.
+
 ## Verify by Parsing
 
 ```python
@@ -76,11 +90,13 @@ Visual inspection misses the unfilled placeholder on page 7.
 - Untrusted input would be written to a cell without neutralizing `=`, `+`, `-`, `@`. That is formula injection in the recipient's machine.
 - Extraction returned near-zero characters. It is a scan — route through OCR; never report an empty document as empty.
 - A font used in a PDF is not embedded. Pagination will shift silently on another machine.
+- Generated content uses bold-and-larger text or color alone to signal a heading or a status. Screen readers and colorblind readers get neither.
 
 ## Rules
 - Pin the generation library version. Document formats and library behavior drift across releases, and the failure is a subtly malformed file rather than an error.
 - For PDF output, embed every font used. A missing font substitutes silently, shifting metrics and breaking pagination — assert the page count after generation.
 - Give images and tables explicit dimensions; a document that reflows differently per viewer is not a deliverable.
+- Use real heading styles, real table objects, and alt text on every image/chart; never simulate structure with plain-text formatting.
 - Never inline a secret, an internal hostname, or customer data into a template that will be shared.
 - Authoring the content itself belongs to `documentation`; charts and data shaping to `data-engineering`.
 
@@ -90,4 +106,5 @@ Visual inspection misses the unfilled placeholder on page 7.
 - [ ] Untrusted input neutralized against formula injection.
 - [ ] Extraction handles the scanned PDF and the cached-value spreadsheet cases.
 - [ ] Fonts embedded; page count asserted for PDF output.
+- [ ] Headings, tables, and alt text use real structure, not visual mimicry; color is never the only signal.
 - [ ] Output verified by parsing it back — no placeholder survived.

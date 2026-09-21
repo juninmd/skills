@@ -65,6 +65,18 @@ Observable behavior, in the place the work lives — the ticket body, or a note 
 
 Criteria that live only in chat are gone next session — that is the failure mode this step exists to prevent.
 
+## When the Success Check Itself Is Untestable
+Some requests state success in a form no run of the system could confirm or deny: "make it feel faster," "users should love it," "the code should be clean." That is not a missing detail to assume — the check itself has to be renegotiated into something observable before work starts.
+
+| Untestable as stated | Ask for | Fallback if unanswerable |
+|---|---|---|
+| "Make it feel faster" | a metric and a target — p95 latency, time to interactive — and the load it holds under | pick the narrowest, cheapest metric that plausibly drives the complaint, and label it explicitly as a stand-in |
+| "Users should love it" | a proxy: adoption rate, a satisfaction delta, task completion rate on the named flow | pick task completion rate on the flow in the request; record it as a proxy for the goal, not the goal itself |
+| "The code should be clean" | which convention: a lint config, an existing module held up as the example, a coverage floor | match the closest existing convention in the repository; "clean" alone is not a check |
+| "It should just work" | one reproduction of the failure, and what "worked" looks like for that specific case | refuse to guess at an unnamed failure; ask for the one case that is currently broken |
+
+Follow Gojko Adzic's *Specification by Example*: turn the ambiguous statement into a concrete example — one specific input and the specific output that would count as met — before writing a line of code. If the requester cannot supply one example, that gap is the actual blocker, not a detail to fill in silently; say so plainly rather than inventing a proxy nobody agreed to.
+
 ## Saturation Is the Stop Condition
 Count the **net-new** constraints each round of questions produces — an answer that only restates something already pinned does not count. Two rounds under two net-new each means the requirement is saturated: stop asking and write the criteria. Without that counter, clarification ends when patience runs out instead of when the requirement is known.
 

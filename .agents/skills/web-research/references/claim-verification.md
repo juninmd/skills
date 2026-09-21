@@ -54,6 +54,13 @@ One statement per row: a sentence holding a figure, a date, and a quote becomes 
 - Words like "now", "latest", or "currently" are checked against today, not the day it was written.
 - A source behind a paywall or offline is logged as unavailable, never counted as agreeing.
 
+| Blocked source | Action |
+|---|---|
+| Metered or login paywall | Check for an author-posted preprint (`arxiv.org`), an open-access mirror, or the publisher's own free abstract; cite what was actually read, never the paywalled body as if it were open |
+| JS-rendered page with no server-rendered variant reachable | Look for the embedded data payload or the API the page calls (see [web-scraping.md](web-scraping.md)) before concluding the claim is unverifiable |
+| Page returns a consent wall or region block | Log as unavailable from here; do not spoof a region or bypass consent to reach it |
+| Access would require credentials the requester has not provided | Ask, rather than assuming a subscription exists; never guess or fabricate what a paywalled page says |
+
 ## 3. Deciding
 
 | Decision | When |
@@ -74,6 +81,28 @@ One statement per row: a sentence holding a figure, a date, and a quote becomes 
 | self-contradiction | does a later section undo an earlier figure or statement? |
 | circular argument | is the conclusion already assumed in the premises? |
 | broken or redirected link | status from the preflight loop; a redirect to a home page counts as broken |
+
+## Changelog Claims vs. Commit History
+A changelog entry is itself a claim, and the same rule from [knowledge-freshness.md](knowledge-freshness.md) applies: verify it against the primary source, which for a changelog line is the commit or PR it describes — not the prose repeating it on a landing page.
+
+```bash
+git log v1.4.0..v1.5.0 --oneline                              # the commits actually in this release
+gh pr list --repo OWNER/REPO --search "is:merged milestone:v1.5.0"
+git log --grep="fixes #1234" --all                            # find the commit a changelog line references
+```
+
+1. Get the exact tag range or commit range the release covers — never trust "since last release" without pinning both ends.
+2. For each changelog bullet that claims a fix, a removal, or a behavior change, find the commit or PR it corresponds to inside that range.
+3. Read the actual diff of that commit, not just its message — a commit message can overstate ("fixes memory leak") what the diff does (adjusts one buffer size).
+4. Note anything the changelog claims that has no corresponding commit in range: a backport that missed a file, a manually-written entry for work that shipped in a different release, or a claim carried over from a draft that never merged.
+5. For projects using automated release notes (semantic-release, Conventional Commits, Keep a Changelog format), the mapping from commit to entry is mechanical — a mismatch there is a stronger signal than in a hand-written changelog, because it means the automation itself was bypassed.
+
+| Symptom | Action |
+|---|---|
+| Changelog bullet, no matching commit/PR in the tagged range | Flag as Unsourced; check the next release too — the fix may have shipped early or late |
+| Commit exists but the diff does not do what the bullet claims | Partly true or False, depending on the gap; cite the diff, not the message |
+| Changelog says "breaking change" with no migration note | Verify against the actual API diff; the omission itself is a finding worth reporting |
+| Automated changelog (semantic-release) shows an entry with no linked commit hash | Treat as a tooling anomaly — check the CI run that generated it before trusting the entry |
 
 ## 5. Splitting the work
 

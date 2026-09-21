@@ -67,6 +67,30 @@ find docs/diagrams -name '*.mmd' -exec sh -c \
 git diff --exit-code docs/diagrams/    # non-zero means an image is stale
 ```
 
+## When a Diagram Goes Stale Without a Broken Build
+The drift check above catches the `.mmd`/`.svg` pair going out of sync with each other; it cannot catch the `.mmd` going out of sync with the *system it describes*, because nothing forces that edit.
+
+| Symptom | Action |
+|---|---|
+| A module/service the diagram names was renamed or removed in code | Grep the `.mmd` sources for the old name as part of the rename's own PR, not a separate cleanup pass |
+| A new component was added to the flow the diagram documents | Treat the diagram edit as part of the feature PR's diff, reviewed alongside the code, not deferred |
+| Diagram has not changed in many releases while the surrounding code has | Re-derive it from the current code during any PR that touches that area, rather than trusting it by age |
+| No one remembers which diagrams describe which modules | Add a one-line pointer comment near the module ("flow: `docs/diagrams/auth-flow.mmd`") so the next editor finds it |
+
+A diagram that renders correctly can still be a confident, precise lie about a system that moved on.
+
+## Accessibility of Diagrams
+An image conveys structure a screen reader cannot infer from pixels; the diagram is not accessible until the same information exists as text somewhere on the page.
+
+| Diagram | Accessible when |
+|---|---|
+| Simple flow (2-5 nodes, one path) | Descriptive alt text names every node and the edges between them, in reading order |
+| Sequence diagram with several actors | Alt text summarizes the interaction; a text-based call sequence ("browser → gateway → auth service → session store") sits in prose above the image |
+| ER diagram, class diagram, anything with many entities | Alt text alone cannot carry it — add a short table or list of the entities and relationships beside the image, not only inside it |
+| Diagram is the only place a fact is stated | Fails regardless of alt text — pull that fact into prose; a diagram is illustration, never the sole record |
+
+Never leave `alt=""` or a generic `alt="diagram"` on a rendered diagram; it is indistinguishable from decoration to assistive technology and to a search index.
+
 ## Diagram Type
 
 | Showing | Type |
@@ -95,7 +119,8 @@ A flowchart used for a call sequence hides the ordering that was the whole point
 ## Checklist
 - [ ] Host support checked before converting anything.
 - [ ] Every diagram has a `.mmd` source and a rendered image beside it.
-- [ ] Images carry descriptive alt text and a link back to the source.
+- [ ] Images carry descriptive alt text and a link back to the source; a dense diagram also has its facts in a table or list, not only in the image.
+- [ ] A diagram edit rode along with the code change it describes, not a deferred cleanup pass.
 - [ ] Never both a fenced block and an image for the same diagram.
 - [ ] Updates kept the filename; source and image committed together.
 - [ ] The CI drift check exists and passes.

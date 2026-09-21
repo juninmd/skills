@@ -76,11 +76,12 @@ See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-
 - Every supporting page is undated. It cannot support a currency claim — say so rather than dressing it as fact.
 - Sources agree but trace to one origin. That is replication, not confirmation; keep looking or report the uncertainty.
 - New sources have stopped changing the answer. Stop and report the remaining uncertainty.
+- A URL about to be cited was not actually opened this session. A recalled-looking URL is a hallucination risk, not a citation — fetch it or drop the claim.
 
 ## Rules
 - Hand off documentation updates to `documentation`, LLM agent pipelines to `agent-engineering`, and dataset storage to `data-engineering`.
 - Answer versioned, dated, or changing facts only from fetched sources. Stable conceptual questions can be answered directly — fetching for those is theatre.
-- Cite every factual claim with a source URL and its date. A synthesis without citations cannot be checked, and will be repeated as fact.
+- Cite every factual claim with a source URL and its date, and cite only a URL this session actually fetched and read — never one recalled as "probably right" or pattern-matched from a familiar path. A model-generated URL that resolves by coincidence is still a fabrication if it was not opened.
 - Never present a summary of search snippets as a verified answer. Fetch the page.
 - Respect robots and terms; no scraping of paywalled or blocked content — bulk extraction belongs to [web-scraping](references/web-scraping.md).
 - Library API, config, and version specifics go to `documentation`; judging whether local knowledge is stale to [knowledge-freshness](references/knowledge-freshness.md); a recurring digest of the AI tooling ecosystem to `radar-ia`.

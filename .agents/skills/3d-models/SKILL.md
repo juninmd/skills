@@ -21,7 +21,7 @@ Identify the asset format and spec version, the authoring tool (Blender, VRoid S
 ## Workflow
 
 1. Classify the task: format conversion, authoring cleanup, rig or shape key work, or runtime behavior. Open the matching reference below.
-2. Snapshot the original (`.blend`, `.vrm`, texture folder) and capture baseline counts: bones, meshes, materials, textures, shape keys, expressions, spring joints and colliders.
+2. Snapshot the original (`.blend`, `.vrm`, texture folder) and capture baseline counts: bones, meshes, triangles/vertices, materials, textures, shape keys, expressions, spring joints and colliders.
 3. Run every destructive step as dry-run first. Show the plan, including dropped or approximated data, and wait for approval.
 4. Apply in the documented order; dependent phases (bone rename before bone remap, ARKit transfer before topology changes) are not optional.
 5. Reopen the result in the consuming tool and compare counts with the baseline and the approved plan. Check a screenshot for material and physics regressions.
@@ -44,6 +44,7 @@ See [Reference Map](references/TOPIC_MAP.md) for provenance and scope.
 - A required add-on, Blender MCP connection or source file is missing.
 - The dry-run shows data loss the user has not approved, or post-apply counts differ from the plan.
 - A choice needs user input the tools must not guess: body type for ARKit, conversion direction for a dual-spec file.
+- A real-time target (game engine, mobile or standalone VR) has no stated polygon or texture budget: ask, do not assume a desktop-scale budget applies.
 
 ## Rules
 
@@ -52,6 +53,9 @@ See [Reference Map](references/TOPIC_MAP.md) for provenance and scope.
 - Treat empirical fixes (collider shrink factors, magic offsets) as hypotheses to measure on the target model.
 - Keep conversion, cleanup and runtime tuning as separate steps with their own verification.
 - Renderer, loader and GPU resource work goes to `threejs`; measured frame-time work to `performance-engineering`.
+- Confirm unit scale on import/export: Blender, glTF and VRM use meters; a target DCC tool or engine using a different unit needs its own import scale, or the model lands orders of magnitude too small or too large.
+- VRM/VRoid humanoid bone names satisfy the VRM spec only; retargeting to a different humanoid rig needs that system's own bone-name mapping, not a copy of the VRM names.
+- A format that stores textures as external files (`.gltf` + loose images, unlike self-contained `.glb`/`.vrm`) breaks on delivery unless the whole folder moves together with paths intact.
 
 ## Checklist
 

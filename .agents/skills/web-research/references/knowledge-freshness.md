@@ -77,6 +77,49 @@ A dependency can be current while the code written against it is not: a recalled
 | A `client.beta.*` namespace | whether it graduated to the stable namespace |
 | A CLI flag or config key | `--help` on the installed binary, never the tutorial |
 
+## "Latest" Tag vs. Latest Stable
+A registry's `latest` label is a publisher convention, not a guarantee of stability — treat every dist-tag and pre-release marker as data to check, not a synonym for "safe to install."
+
+```bash
+npm view PKG dist-tags                 # {latest, next, beta, canary, rc, ...} — latest is a tag, not a promise
+pip index versions PKG                 # PyPI hides pre-releases from the default resolver unless asked
+gh release list --repo OWNER/REPO --limit 10   # marks "Latest", "Pre-release", or neither
+cargo search PKG                       # crates.io has no pre-release concept; a 0.x or -alpha suffix signals it in the version string instead
+```
+
+| Signal | Meaning |
+|---|---|
+| npm `dist-tags.latest` points at a version with a prerelease identifier (`-beta.1`, `-rc.2`) | The maintainer pushed a prerelease to `latest` by mistake or by design (common right after a major bump); do not treat it as stable without checking the changelog |
+| npm `dist-tags.next`/`beta`/`canary` | Explicitly not the stable channel; only take it when the task asked for bleeding-edge |
+| PyPI version string ends in `a`, `b`, `rc`, `.dev` (PEP 440) | Pre-release; `pip install pkg` skips it by default, `pip install pkg --pre` does not |
+| GitHub release marked "Pre-release" | The maintainer flagged it explicitly; a release with no such flag but a `-rc`/`-beta` tag name is still worth checking |
+| Highest semver tag has a 0.x major | Semver's own spec treats 0.x as inherently unstable — no minor-version compatibility guarantee applies |
+
+## Yanked and Deprecated Releases
+A version that resolves and installs today can have been pulled after the fact — the lockfile from three weeks ago may already reference a version its own registry no longer recommends.
+
+| Registry | Mechanism | Check |
+|---|---|---|
+| PyPI | "Yanked" flag — the file stays downloadable for reproducibility but is hidden from resolution | `pip index versions PKG` shows `(yanked)`; the project page shows a strikethrough version |
+| npm | `npm deprecate` sets a warning message; the version is not removed | `npm view PKG deprecated`; installing prints the deprecation message to stderr — do not suppress or ignore it |
+| crates.io | `cargo yank` prevents new projects from selecting it via range, existing `Cargo.lock` entries still resolve | `cargo search`/the crates.io page marks it yanked |
+| GitHub releases | Deleted or marked pre-release/draft after publication | Compare the tag list against release notes that reference a tag no longer listed |
+
+A yanked or deprecated version already in a lockfile is not an emergency by itself, but recommending it *forward* for a new install is a finding to report, with the reason the registry gives.
+
+## Staleness Windows for Research Results
+Not every fact decays at the same rate; re-verifying everything on every task wastes the budget from [search-technique.md](search-technique.md), and never re-verifying anything ships stale advice as current.
+
+| Fact type | Re-check before reuse if older than |
+|---|---|
+| Security advisory / CVE status | Hours — a fix, a revised severity, or a new advisory can land the same day |
+| "Latest stable version" of a library | Days — check again before quoting it in a new task, even one from this week |
+| Deprecation timeline, EOL date | Weeks, or immediately if the task is a go/no-go decision |
+| Framework migration guide, breaking-change list | Weeks to a month, unless a new major shipped since |
+| Stable API shape, architectural concept, protocol spec | Effectively unchanged; re-verify only if the task depends on a recent revision |
+
+Record the checked date with the finding either way (per [SKILL.md](../SKILL.md) Rules); the window decides whether to trust an existing note or spend the budget on a fresh fetch, not whether to record the date at all.
+
 ## Stop
 - The candidate version demands a newer runtime or peer than the project satisfies. It is not a candidate; say so.
 - A major jump has not had its breaking-change notes read. Do not recommend it yet.
@@ -92,8 +135,10 @@ A dependency can be current while the code written against it is not: a recalled
 
 ## Checklist
 - [ ] Every version verified against a live registry, not from memory.
+- [ ] A dist-tag or pre-release marker was checked before calling any version "stable."
+- [ ] The candidate version confirmed not yanked or deprecated by its registry.
 - [ ] Direct and transitive dependencies separated; forced resolutions justified with a removal condition.
 - [ ] Engine, peer, and framework constraints satisfied by the chosen versions.
 - [ ] Breaking changes and EOL reviewed for every major jump.
 - [ ] Lockfile reinstalled with a frozen flag after the change.
-- [ ] Report carries the checked date and the verified versions.
+- [ ] Report carries the checked date and the verified versions, weighed against the staleness window for that fact type.

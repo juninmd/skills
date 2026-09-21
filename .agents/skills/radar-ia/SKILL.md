@@ -80,6 +80,7 @@ HF and changelogs: `https://huggingface.co/models?sort=trending`, `https://huggi
 ## Stop
 - A source returns 429: back off and serialize. Never run the day and week rounds in parallel or fire ad-hoc Reddit requests during a run; they share one IP budget and everything ends in 429.
 - A repo claims a token or performance win with no independent benchmark: report it as a claim. Precedent: caveman claimed 65%, measured 8.5%; rtk claimed 60-90% and cost more than using nothing.
+- A raw dump comes back empty, 0 bytes, or is clearly an error page saved as data (stale feed, expired auth, silent rate-limit): mark that section "sem dados — ver raw/<file>" in the digest and say why. Never fill the gap with invented items or drop the section without a note.
 
 ## Rules
 - Cross-source corroboration is the product: the same signal on Reddit + HN + trending is a platform movement (Cloudflare OS on HN + `cloudflare/computer` trending); one loud post is not.
@@ -93,3 +94,4 @@ HF and changelogs: `https://huggingface.co/models?sort=trending`, `https://huggi
 - [ ] `RADAR_<data>.md` has TL;DR + the 6 sections in order, in pt-BR
 - [ ] every numeric claim resolves to a `raw/` file
 - [ ] performance and cost claims marked as claims unless independently benchmarked
+- [ ] any source with an empty or stale raw dump is flagged in the digest, not silently blank or invented

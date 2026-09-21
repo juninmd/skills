@@ -20,3 +20,16 @@ Do not show either reviewer the other's findings before their initial review com
 Adjudicate each finding with a real code path or reproduction. A failed refutation is not proof; uncertainty stays labeled. Fix confirmed substantive defects within scope and record justified dismissals. After any change, invalidate affected review evidence, rerun affected gates, and request independent review of the final candidate. Review unaffected paths may retain evidence if their snapshot and dependencies did not change.
 
 Before publication verify the candidate still matches what was reviewed, including generated files and commit-hook changes. Check staged and committed diffs. After push compare remote head and file content to that candidate. Publish no unrelated files.
+
+## Coordinating a PR that depends on another unmerged PR
+A change stacked on an unmerged base carries every commit of that base in its diff until the base merges. Reviewing it as if it targeted the trunk hides which lines are actually new.
+
+| Situation | Action |
+|---|---|
+| Dependent PR opened against the unmerged base branch, not `main`/`master` | State the real base explicitly in the PR body and to reviewers; the diff view only shows the incremental change when the base is set correctly |
+| Base PR still under review | Mark the dependent PR draft, or label it blocked-by, so it cannot be merged first by mistake |
+| Base PR changes after the dependent branch was cut | Rebase the dependent branch onto the updated base before re-review; a stale base silently reviews code that will not match what ships |
+| Base PR merges | Retarget the dependent PR's base to `main`/`master` and verify the diff shrinks to only the incremental change |
+| Independent review requested before the base merges | Scope reviewers explicitly to the incremental diff (base branch vs candidate head), not the combined diff against `main` — otherwise every base-PR finding gets re-litigated here |
+
+Never claim readiness for a dependent PR while its base is unmerged; readiness is a property of the combined result, and the combined result does not exist until the base lands.

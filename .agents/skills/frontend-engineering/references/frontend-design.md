@@ -57,7 +57,9 @@ If it looks like every other AI mockup, no system was decided.
 | Everything centered | a grid with a real alignment spine |
 
 ## Hierarchy
-Rank the elements on the screen before styling any of them. Exactly one primary action per view; everything else is secondary or tertiary, and it should be obvious at a squint. If two things compete for attention, neither has it.
+Rank the elements on the screen before styling any of them. Exactly one primary action per view; everything else is secondary or tertiary, and it should be obvious at a squint. If two things compete for attention, neither has it. Wathan and Schoger's "Refactoring UI" makes this concrete: push weight through size, weight, and color together rather than one axis alone, and let whitespace and a limited palette do the separating instead of borders.
+
+For naming and choosing among recurring UI patterns (a wizard vs. a one-page form, a card grid vs. a table), Tidwell's "Designing Interfaces" is the reference vocabulary — reach for it before inventing a bespoke pattern the user has to learn from scratch.
 
 ## Stop
 - The system has not been decided as numbers. Stop — every later choice would be arbitrary.

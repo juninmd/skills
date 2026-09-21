@@ -50,6 +50,32 @@ git push origin "v$VERSION"
 | `semantic-release` | fully automated, no human gate — only where that is acceptable |
 | `git-cliff` / `conventional-changelog` | changelog only; versioning stays manual |
 
+### `semantic-release` Automation Notes
+
+Fully automated releases remove the human gate, so the gate has to live in
+the pipeline instead: restrict the release job to the protected branch,
+require the same CI checks as any other merge, and scope `NPM_TOKEN` /
+`GH_TOKEN` to least privilege (publish-only, not admin). The plugin order
+matters — `commit-analyzer` decides the bump, `release-notes-generator` and
+`changelog` build the notes from the same commits, then `npm`/`github`
+publish; reordering `changelog` after `npm` publishes a release before its
+own notes exist. Because there is no human gate, malformed commit messages
+(a `feat:` that was really a fix, a missing `BREAKING CHANGE:` footer) ship
+as wrong version bumps with nobody to catch them — enforce the Conventional
+Commits format at commit time (`commitlint`), not at release time.
+
+### Monorepo Tagging
+
+Tag per package, not once for the whole repository: `pkg-name@1.2.3`. This
+keeps `git describe --tags --match 'pkg-name@*'` scoped to one package's own
+history, and lets consumers pin a single package's version without pulling
+in unrelated bumps. `changesets` automates exactly this: each changed
+package gets its own changelog and tag from the changesets accumulated
+since its last release. Pick fixed or independent versioning per the Rules
+section below and apply it to every package — a monorepo with some packages
+independently versioned and others fixed is unreadable to anyone consuming
+the tags.
+
 ## When It Goes Wrong
 
 | Situation | Do | Never |
@@ -58,6 +84,31 @@ git push origin "v$VERSION"
 | Version already on a registry | bump and republish; deprecate or yank the old | try to overwrite it; registry versions are immutable |
 | Bad release already consumed | publish a fixed patch and announce | unpublish, breaking every lockfile pinning it |
 | Changelog wrong after tagging | correct the release notes, note the fix | rewrite the tagged commit |
+
+## Changelog Generation Edge Cases
+
+- **Breaking-change footers.** Conventional Commits marks a breaking change
+  with a `BREAKING CHANGE:` footer or a `!` after the type/scope
+  (`feat(api)!: drop the v1 endpoint`) — either forces a major bump
+  regardless of the commit's type. A tool that only reads the type and
+  misses the footer silently ships a breaking change as a minor.
+- **Merge commits polluting history.** `git log` on a branch with regular
+  (non-fast-forward) merges interleaves both branches' commits, so a
+  changelog generator walking it picks up internal commits that were
+  already squashed or superseded. Generate from `git log --first-parent`
+  when the repo merges via merge commits, or enforce squash-merge on the
+  base branch so the log stays one entry per shipped change.
+- **Revert commits.** A `revert: <sha>` commit should cancel its target's
+  changelog entry, not add a new one saying "reverted X" next to the
+  original "added X" — readers of the changelog do not know which shipped.
+  Tools that support this (e.g. `git-cliff`'s revert handling) need the
+  revert commit's subject to reference the original in a recognizable
+  format; a hand-written revert message that does not match breaks the
+  pairing.
+- **Chore/refactor noise.** Filter internal-only commit types (`chore`,
+  `refactor`, `test`, `ci`) out of the user-facing changelog even though
+  they still count for the changelog's own commit range — the changelog is
+  for users, not for the team, per the Rules section below.
 
 ## Stop
 - CI is not green on the exact SHA being tagged. Stop; the branch may have moved since the check.

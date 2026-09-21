@@ -22,8 +22,8 @@ Identify the runtime, package manager, linter, test runner, and data store actua
 1. Classify the decision: greenfield, adding a capability to an existing stack, or replacing an incumbent. Only the first one starts from the defaults table.
 2. State the constraints that can overrule a default: platform, hosting, team skill, contracts, compliance, license, and libraries that pin a runtime.
 3. Pick from the defaults table. Name the chosen option, the constraint it satisfies, and the one alternative that was close.
-4. Verify before committing: the package exists, is maintained, and its current major supports the runtime and the other picks. Read the target major's release notes; never adopt from memory.
-5. Record the decision where the project keeps them (ADR, README, or `AGENTS.md`) with the tradeoff and the condition that would reverse it.
+4. Verify before committing: the package exists, is maintained (release cadence, bus factor, open CVEs), its license is compatible, and its current major supports the runtime and the other picks. Read the target major's release notes; never adopt from memory.
+5. Record the decision where the project keeps them (ADR, README, or `AGENTS.md`) with the tradeoff and the condition that would reverse it — see [decision records](references/decision-records.md) for the structure.
 6. For a replacement, size the migration first: blast radius, coexistence path, rollback. Strangle incrementally; a rewrite needs an explicit decision.
 
 ## Defaults
@@ -78,7 +78,7 @@ Open [stack rationale](references/stack-rationale.md) for why each default holds
 ## Stop
 - The constraint that decides the pick is unknown (host, platform, compliance, team): ask instead of guessing.
 - A default conflicts with the repository's established stack and no one authorized a migration.
-- The candidate is unmaintained, incompatible with the chosen runtime, or its license is unacceptable.
+- The candidate is unmaintained, incompatible with the chosen runtime, or its license is unacceptable (unresolved license or CVE blocks adoption; it does not get checked later).
 
 ## Rules
 - Defaults are the starting point, not a mandate. A stated constraint beats the table; a preference does not beat a working incumbent.

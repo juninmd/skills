@@ -100,4 +100,4 @@ Why each default in the table holds, and the evidence that reverses it. Open the
 
 ## Recording the decision
 
-An accepted default needs one line; a deviation needs an ADR: the constraint, the option chosen, the option rejected, and the condition that would reverse it. Without the reversal condition, the next team inherits a rule with no expiry.
+An accepted default needs one line; a deviation needs an ADR: the constraint, the option chosen, the option rejected, and the condition that would reverse it. Without the reversal condition, the next team inherits a rule with no expiry. See [decision records](decision-records.md) for the full ADR structure, dependency-maintenance and license checks, and the boring-technology tradeoff behind these defaults.

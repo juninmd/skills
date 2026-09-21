@@ -31,7 +31,7 @@ For meu-livro: ConversationId `654dc9ba-4469-468e-8ee6-9e11c7198776`, ProjectDir
 & "$env:LOCALAPPDATA\Programs\PowerShell\7\pwsh.exe" -NoProfile -ExecutionPolicy Bypass -File "<skill-dir>\babysitter.ps1" -ConversationId <id> -ProjectDir <project-folder>
 ```
 3. Arm a stall Monitor: 30+ min without a new image in the output directory → alert with the error from `cli.log`.
-4. Pass `-Prompt` when the default prompt does not apply. The default prompt says: continue from the exact point, save to the canonical paths, and send each image on Telegram (credentials in the project `.env`).
+4. Pass `-Prompt` when the default prompt does not apply. The default prompt says: continue from the exact point, save to the canonical paths, and send each image on Telegram (credentials in the project `.env`). Pass `-MaxRounds` above the default 100 for a run expected to span several days of hourly token relaunches.
 
 | Symptom | Action |
 |---|---|
@@ -40,6 +40,7 @@ For meu-livro: ConversationId `654dc9ba-4469-468e-8ee6-9e11c7198776`, ProjectDir
 | Short quota (~3-4h, ~18 images) vs long quota (weekly, ~143h) | both handled identically by the script |
 | No new image for 30+ min | Monitor alerts; read the last error in `cli.log` |
 | Claude session ended | the process dies with it; relaunch in the new session if generation is not finished |
+| Loop hit `-MaxRounds` (default 100), or an unhandled PowerShell error killed the script | no error surfaces beyond the stall Monitor; confirm with `Get-Job`/`Get-Process agy` that it truly exited, then relaunch the same command, raising `-MaxRounds` if the job is long |
 
 ## Stop
 - A paid provider is proposed: zero cost is the user's rule. This flow uses only the free Google plan quota.
@@ -50,6 +51,7 @@ For meu-livro: ConversationId `654dc9ba-4469-468e-8ee6-9e11c7198776`, ProjectDir
 - Keep another interactive agy open (any project): it renews the OAuth token in the cache.
 - Never print or copy the `.env` contents; the script reads the Telegram credentials itself.
 - The babysitter dies with the Claude session; relaunch when opening a new session if generation is unfinished.
+- Default `-MaxRounds 100` caps relaunches; at roughly one relaunch per hourly 401, a multi-day run can exhaust it before a long quota window (~143h) finishes silently, with no error, just the loop ending.
 
 ## Checklist
 - [ ] babysitter running in the background with the right conversation id and project dir

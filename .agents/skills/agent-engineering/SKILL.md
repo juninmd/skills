@@ -46,6 +46,8 @@ const limits = { steps: 12, tokens: 200_000, wallClockMs: 120_000 };
 if (step > limits.steps) throw new AgentBudgetExceeded('step limit', { step, trace });
 ```
 
+A tool's own internal retries spend the same tokens and wall clock without touching `step` — meter those independently, or a hidden retry loop burns the whole budget while the step counter still reads clean (see [real-world-cases.md](references/real-world-cases.md)).
+
 ## Prompt Injection Is an Input Problem
 
 | Vector | Defense |

@@ -21,6 +21,16 @@ Security best practices and privacy requirements for Android applications.
 4. Handle result (grant or denial)
 5. If denied, offer alternative or reduced functionality
 
+### Re-Prompting After Denial
+
+| State | `shouldShowRequestPermissionRationale` | Action |
+|-------|------------------------------------------|--------|
+| First ask | n/a | request directly |
+| Denied once | `true` | show rationale, then request again |
+| Denied permanently ("Don't ask again", or a second denial on some OEM skins) | `false` | the system will not show the dialog again — deep-link to `Settings.ACTION_APPLICATION_DETAILS_SETTINGS` |
+
+Check the boolean instead of counting denials yourself — its value already encodes whether the system will prompt again. iOS has no equivalent flag: it shows the permission dialog once per install, and every later call to the request API resolves immediately with the original answer, so a denied-on-iOS state always routes straight to Settings rather than a second in-app rationale.
+
 ### Sensitive Permissions
 
 | Permission | Consideration |

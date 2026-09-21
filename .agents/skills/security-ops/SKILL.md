@@ -58,6 +58,8 @@ Audit tools may resolve dependencies or invoke package metadata processing. Insp
 - Dependency, container and SBOM investigation: [supply-chain.md](references/supply-chain.md).
 - Route-by-role authorization and ownership tests: [api-authorization.md](references/api-authorization.md).
 - Third-party skill, plugin or MCP installation assessment: [plugin-vetting.md](references/plugin-vetting.md).
+- Design-time trust-boundary review, STRIDE walkthrough, before or without code: [threat-modeling.md](references/threat-modeling.md).
+- Time-boxed elevated access and service-account scoping: [iam-least-privilege.md](references/iam-least-privilege.md).
 - Prior examples: [real-world-cases.md](references/real-world-cases.md).
 - Codebase audit or pen test: [audit-workflow.md](references/security-audit/audit-workflow.md).
 

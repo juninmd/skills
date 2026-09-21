@@ -191,6 +191,27 @@ defineConfig({
 })
 ```
 
+## When a Snapshot Hides a Regression
+
+A snapshot only proves the output did not change; it proves nothing about
+whether the output was correct in the first place, including the day it was
+first recorded. Two failure modes turn that into false safety:
+
+- **Approving without reading.** Running `vitest -u` on a red suite and
+  committing the new snapshot is the same as deleting the assertion — the
+  reviewer now has to diff the whole snapshot file by eye, and a large one gets
+  skimmed, not read.
+- **Snapshotting the whole object.** A full-page HTML snapshot or a large JSON
+  blob fails on any change anywhere inside it, so a real regression buried
+  among ten unrelated formatting changes reads as noise the reviewer approves
+  along with everything else. Snapshot only genuinely opaque output a human
+  will actually review — rendered markup, CLI output, generated config — and
+  assert the specific field that matters with `toEqual`/`toMatchObject`
+  everywhere else.
+
+Treat the first commit of a snapshot with the same scrutiny as a new assertion:
+read the generated value before committing it, not after.
+
 ## Key Points
 
 - Commit snapshot files to version control

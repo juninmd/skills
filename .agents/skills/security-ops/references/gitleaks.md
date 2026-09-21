@@ -50,6 +50,35 @@ Revoke is mandatory for any real key that reached a shared or public branch. Ign
 91f7ac1d:README.md:generic-api-key:27
 ```
 
+## Credential-specific revocation
+
+Rotation without the provider's actual invalidation step just creates a second live credential. Confirm what the old value granted, and what breaks when it dies (CI, a webhook, a customer integration), before revoking.
+
+| Credential type | Revoke where | Confirm dead |
+|---|---|---|
+| AWS access key | `aws iam update-access-key --status Inactive`, then delete | `aws sts get-caller-identity` with the old key fails |
+| GitHub PAT / fine-grained token | Settings > Developer settings > revoke | `gh api user` with the old token returns 401 |
+| npm token | `npm token revoke <id>` or npmjs.com > Access Tokens | publish/install with the old token fails auth |
+| Stripe API key | Dashboard > Developers > API keys > roll key | old key returns 401 on any test-mode call |
+| Google/GCP API key or service-account key | Restrict/delete the key in Cloud Console; disable the key ID, not just the JSON file | calls with the old key ID return `PERMISSION_DENIED` |
+| Database password | `ALTER ROLE ... PASSWORD`, then bounce every connection pool caching the old one | old connection string fails to authenticate |
+| JWT signing secret | Rotate the key, accept a dual-verification grace window, then drop the old key | tokens signed with the old key fail verification once the window closes |
+| SSH deploy key | Remove from every `authorized_keys`/provider deploy-key list holding it | `ssh -i old_key` to the target is refused |
+
+Skipping this table and only rewriting history is the most common remediation mistake: the repository looks clean and the credential is still live.
+
+## History rewrite vs. accepting exposure
+
+Rewriting history (`git-filter-repo`/BFG) removes the secret from future clones; it does not un-leak what already left. Once rotated, the choice is about cost, not security:
+
+| Situation | Choice |
+|---|---|
+| Small private repo, few forks/clones, rewrite coordinated with every consumer | Rewrite: no legacy plaintext left for future readers |
+| Large shared repo, many active clones/forks, CI pinned to stable commit SHAs | Accept exposure in history: rotate, add `.gitleaksignore`, document the accepted risk and date |
+| Public repo already mirrored or indexed | Accept exposure: a search engine or mirror already copied it; rotation is the only control that still works |
+
+Get explicit approval before rewriting shared history — it invalidates every existing clone's SHA history. Record either choice with a date and owner; an undecided "rewrite later" is how a dead-but-still-plaintext secret quietly outlives its rotation.
+
 ## 4. Completion criteria
 
 - Credential rotated and the old one confirmed dead at the provider.

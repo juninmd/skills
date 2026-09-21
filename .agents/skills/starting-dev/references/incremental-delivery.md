@@ -35,6 +35,21 @@ Real boundaries, narrow behavior, no stubs: one request travels the whole system
 
 **Decide up front whether the tracer ships.** Nobody ever comes back to replace it; if you do not choose, it becomes production by default.
 
+## Cross-Cutting Concerns Resist Slicing
+Auth, i18n, tenancy, and audit logging cut through every layer of every slice; there is no vertical cut that leaves them out. Treat the concern itself as slice zero, a tracer bullet every later slice must reuse, rather than a return trip through each slice already shipped.
+
+1. Build the mechanism once, at the narrowest scope that proves it: one route wired through real auth middleware, one string routed through the real i18n lookup — before slicing the features that will lean on it.
+2. Every following slice consumes that mechanism through its established seam; it does not reimplement a check or a lookup inline.
+3. When the concern's shape is still unknown — which claims will authorization need, does i18n require pluralization on day one — slice zero's job is answering exactly that question, not shipping a feature. Record the answer as a decision, not a debt.
+4. Retrofitting the concern onto slices shipped without it costs more than building it first: every one of those slices becomes a slice plus a return trip.
+
+| Concern | Slice-zero mechanism | Feature slices then do |
+|---|---|---|
+| Auth / authorization | one protected route, real middleware, real token validation | add routes behind the same middleware; add per-resource checks as new rules, never new middleware |
+| i18n | one string routed through the real lookup/formatting library, with a fallback locale | replace literal strings with lookups as each slice ships; no slice ships a hardcoded user-facing string after slice zero |
+| Multi-tenancy | one query scoped by tenant at the data layer | every later query reuses the same scoping, never a per-feature filter bolted on |
+| Audit logging | one write path emits a structured audit event | every mutating slice emits through the same event shape |
+
 ## Landing Discipline
 
 | Situation | Land it as |

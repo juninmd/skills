@@ -57,6 +57,20 @@ No credentials, no environment, no seed data â€” do not guess. The test sui
 
 Record explicitly that the map is **unverified at runtime**.
 
+## No Tests, No Docs
+When neither exists, reading source top to bottom is the slow way in. Ask the system to show itself before asking the code to explain itself.
+
+1. Run it first, using whatever the manifest names. Confirm what actually happens before forming a theory from the source — the running system is data; the source is one interpretation of it.
+2. Recover intent from history, not comments: `git log -p --follow <file>` and `git blame` on the function in question surface the commit message and the discussion that explain *why*, which the code itself never states.
+3. Find a seam — Feathers, *Working Effectively with Legacy Code*: the nearest point where a value can be substituted or an effect observed without changing the code under it — a constructor argument, an exported function, a boundary already called through.
+4. Pin current behavior with a characterization test at that seam before changing anything: assert what the code **actually does** today, not what it should do. A failing characterization test at the start of a change means the mapping was wrong, not that the test is.
+
+| Signal missing | Compensate with |
+|---|---|
+| No tests | Characterization tests at the seam nearest the change, asserting today's actual behavior |
+| No docs | `git log` / `git blame` on the touched file for the *why*; the commit message is the only documentation that was ever written |
+| No way to run it | Fall back to CI as the oracle (below); if CI is also silent, say so and stop guessing |
+
 ## Stop
 - The build or run command cannot be found in CI or the manifests. Ask; do not invent one and map against a fiction.
 - A mapping claim has no `file:line` behind it. Drop the claim or go get the evidence.

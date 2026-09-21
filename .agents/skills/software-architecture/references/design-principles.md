@@ -34,6 +34,16 @@ Detailed guidelines for Clean Code, DRY, KISS, SOLID, and YAGNI principles.
 - No abstract interfaces for non-existent requirements.
 - Remove "just-in-case" logic.
 
+## Dependency Rule (Clean Architecture)
+Source-code dependencies point only inward, toward policy — never toward a framework, a database driver, or a transport type (Robert C. Martin, *Clean Architecture*). The domain layer imports nothing from infrastructure; infrastructure implements interfaces the domain declares.
+
+- **Essential coupling:** two things must agree because the domain requires it — an `Order` and its `LineItem`s. No refactor removes this; only where it lives is a choice.
+- **Accidental coupling:** two things agree only because of how they happen to be implemented — a shared ORM entity reused across bounded contexts, a copy-pasted validation rule, a global. This is the coupling worth spending effort to remove (Sam Newman, *Building Microservices*, on coupling strength and change amplification).
+- A violation reads as: a domain type importing an HTTP client or ORM decorator, a repository importing a controller, `core/` importing `infra/`. Encode the allowed edges as a lint rule — see the dependency-cycle table in [SKILL.md](../SKILL.md); a violation caught only in review recurs the next sprint.
+
+## Bounded Contexts (Domain-Driven Design)
+A bounded context is the boundary inside which a term has exactly one meaning (Eric Evans, *Domain-Driven Design*). Two teams editing the same table under two meanings — `status` meaning fulfillment state to the warehouse team and payment state to billing — is a bounded-context violation, not a naming disagreement. See [domain-modeling.md](domain-modeling.md) for the vocabulary-drift table and [real-world-cases.md](real-world-cases.md) for detecting the violation and integrating across it with an anti-corruption layer.
+
 ## Practical Rules
 
 ### 1. File Size Limits (ENFORCED)

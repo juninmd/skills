@@ -60,3 +60,17 @@ Rules for filling it:
 ## 5. Report
 
 Per finding: route, identity class that succeeded, what it reached, the missing control, and the fix. Blocking severity applies when an unauthorized identity read or wrote data it does not own.
+
+## Authn vs authz confusion
+
+Both failures look identical from outside — a request that should have been rejected succeeds — but the fix lands in a different layer.
+
+| Symptom | Likely cause | Fix |
+|---|---|---|
+| Unauthenticated request reaches a handler that assumes a session exists | Missing or misconfigured authentication guard on the route or router mount | Add or fix the guard; fail closed on a missing or invalid credential |
+| Authenticated, valid user reaches or modifies another user's resource (IDOR) | Authentication succeeded but no object-level authorization ties the resource to the caller | Scope the lookup by caller identity, per Section 3, not just by the resource ID in the request |
+| Low-privilege role reaches an admin-only action | Route checks "is authenticated" but not "has role/permission X" | Add the role/permission check at the same layer as authentication, not deeper in business logic |
+| A body field (`role`, `ownerId`, `tenantId`) silently changes what the caller may do | Mass assignment: the handler trusts a field the permission system was meant to control | Strip or explicitly allow-list writable fields; never let the caller set their own authorization-relevant fields |
+| A cross-tenant read succeeds only through a secondary path (cache key, log lookup, webhook replay) | Authorization enforced on the primary route but not on every path reaching the same data | Enforce the ownership check at the data-access layer, not per-route |
+
+CWE separates the two failures: [CWE-287](https://cwe.mitre.org/data/definitions/287.html) is improper authentication; [CWE-863](https://cwe.mitre.org/data/definitions/863.html) and [CWE-639](https://cwe.mitre.org/data/definitions/639.html) are incorrect or missing authorization, including IDOR. A finding that names the wrong one sends the fix to the wrong layer.

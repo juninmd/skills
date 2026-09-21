@@ -73,6 +73,7 @@
 "v2.tauri.app" = "Tauri WebDriver testing documentation"
 "vitest.dev" = "Vitest documentation"
 "vrm.dev" = "VRM avatar format specification"
+"web.dev" = "Google's Web Vitals thresholds and guidance (LCP, INP, CLS)"
 "www.anthropic.com" = "fetched: Anthropic news page read by the AI radar"
 "www.apache.org" = "Apache License text in a vendored LICENSE"
 "www.crowdstrike.com" = "CrowdStrike incident root-cause analysis"
