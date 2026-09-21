@@ -61,6 +61,19 @@ before reporting it.
 `String.to_atom` on input is a denial-of-service sink in Elixir: atoms are never garbage-collected.
 `binary_to_term` without `[:safe]` can create atoms and decode function references from input.
 
+## Injection classes beyond SQL
+
+The per-language sinks above cover command injection and deserialization. These four recur across languages and are easy to miss because the sink looks like ordinary code, not a query.
+
+| Class | CWE | Detection heuristic | Concrete example |
+|---|---|---|---|
+| SSRF | [CWE-918](https://cwe.mitre.org/data/definitions/918.html) | An outbound HTTP client (`fetch(`, `axios.get(`, `requests.get(`, `HttpClient`, `curl_exec`) whose URL, host, or scheme comes from request input, a webhook config, or a stored callback URL | A "fetch preview image from this URL" or "test this webhook" feature reaching `http://169.254.169.254/latest/meta-data/` or an internal service |
+| Template injection (SSTI) | [CWE-1336](https://cwe.mitre.org/data/definitions/1336.html) | User input concatenated into a template **string** before it is compiled (`render_template_string(`, `Template(user_input)`, Jinja2/Twig/Freemarker/Velocity/Handlebars given raw user text as the template source, not a substituted variable) | A "customize your email subject" field passed as the template source itself |
+| Path traversal | [CWE-22](https://cwe.mitre.org/data/definitions/22.html) | A filename or archive entry from input reaches `open`/`readFile`/`Path.join`/`os.path.join` without resolving to an absolute path and checking it stays under the intended root; `../` string filtering alone is bypassed by encoding, absolute paths, or symlinks | A download endpoint taking `?file=report.pdf` and joining it onto a base directory with no containment check |
+| XXE | [CWE-611](https://cwe.mitre.org/data/definitions/611.html) | An XML parser with external entity resolution left on (`DocumentBuilderFactory` without secure processing, `libxml2`/`lxml` without disabling entity resolution and network access, `.NET XmlDocument` with a live `XmlResolver`) processing input that is not fully trusted, including SOAP, SVG upload, and Office/OOXML parsing | An "import from XML" or SVG-upload feature parsing attacker-supplied XML with entity expansion enabled |
+
+Trace every hit from source to sink before reporting it — a match marks code to read, not a confirmed finding. That input-to-sink tracing discipline is the review methodology in *The Art of Software Security Assessment* (Dowd, McDonald, Schuh). The [OWASP Cheat Sheet Series](https://cheatsheetseries.owasp.org/) has a dedicated sheet with the safe API for each of these four classes.
+
 ## Framework settings
 
 Skip rows for frameworks the project does not use.

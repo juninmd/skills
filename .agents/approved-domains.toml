@@ -15,6 +15,7 @@
 
 [approved]
 "12factor.net" = "The Twelve-Factor App, CLI and config conventions"
+"169.254.169.254" = "AWS/GCP/Azure instance-metadata link-local address, cited as a canonical SSRF target in security-ops, never fetched"
 "api.github.com" = "fetched: GitHub REST API in a client example"
 "arxiv.org" = "research papers cited as sources"
 "astral.sh" = "uv and ruff installer and documentation"
@@ -73,6 +74,7 @@
 "v2.tauri.app" = "Tauri WebDriver testing documentation"
 "vitest.dev" = "Vitest documentation"
 "vrm.dev" = "VRM avatar format specification"
+"web.dev" = "Google's Web Vitals thresholds and guidance (LCP, INP, CLS)"
 "www.anthropic.com" = "fetched: Anthropic news page read by the AI radar"
 "www.apache.org" = "Apache License text in a vendored LICENSE"
 "www.crowdstrike.com" = "CrowdStrike incident root-cause analysis"

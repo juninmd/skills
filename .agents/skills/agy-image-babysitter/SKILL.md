@@ -40,6 +40,7 @@ For meu-livro: ConversationId `654dc9ba-4469-468e-8ee6-9e11c7198776`, ProjectDir
 | Short quota (~3-4h, ~18 images) vs long quota (weekly, ~143h) | both handled identically by the script |
 | No new image for 30+ min | Monitor alerts; read the last error in `cli.log` |
 | Claude session ended | the process dies with it; relaunch in the new session if generation is not finished |
+| Script exits after 100 relaunches with generation unfinished | `-MaxRounds` defaults to 100 (see `babysitter.ps1`); the loop stops there even if quota and auth are fine | Pass a higher `-MaxRounds` up front for a long unattended run, or relaunch once more when the Monitor reports the process has exited |
 
 ## Stop
 - A paid provider is proposed: zero cost is the user's rule. This flow uses only the free Google plan quota.

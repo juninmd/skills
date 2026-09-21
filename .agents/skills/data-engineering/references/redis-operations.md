@@ -106,6 +106,35 @@ and dashboards are the right fit.
    indexed by internet scanners. Optionally neutralize destructive commands:
    `rename-command FLUSHALL ""`.
 
+## Eviction Policies and Cache Stampede
+
+`maxmemory-policy` decides what happens when the instance hits `maxmemory`. `noeviction` is the safe
+default for a primary data store — writes fail with an error instead of silently losing data — but it
+is the wrong choice for a pure cache, where a full instance should evict, not reject.
+
+| Policy | Evicts | Use when |
+|---|---|---|
+| `noeviction` | Nothing; writes error at `maxmemory` | Redis is a system of record, not a cache |
+| `allkeys-lru` | Least-recently-used key, any key | General-purpose cache, access pattern favors recency |
+| `allkeys-lfu` | Least-frequently-used key, any key | Cache with a skewed, stable hot set (frequency beats recency) |
+| `volatile-lru` / `volatile-lfu` | Same, but only among keys with a TTL set | Mixed workload: some keys must never be evicted, others may |
+| `volatile-ttl` | The key closest to expiring | Cache where remaining TTL is a good proxy for staleness |
+| `allkeys-random` / `volatile-random` | A random key | Uniform access pattern where LRU/LFU tracking overhead is not worth it |
+
+A `volatile-*` policy evicts nothing if no key carries a TTL — set one, or the policy silently behaves
+like `noeviction` until memory is exhausted and writes start failing.
+
+**Cache stampede** ("dog-piling"): a hot key expires and every concurrent request misses at once, and
+all of them hit the database simultaneously to repopulate it — turning one expiry into a load spike.
+
+| Technique | How | Tradeoff |
+|---|---|---|
+| Mutex / lock on repopulation | First miss acquires a short-lived lock key (`SET key:lock value NX PX 5000`) and recomputes; the rest wait or serve stale | Simple; waiters add latency |
+| Probabilistic early expiration | Recompute slightly before TTL, with rising probability as expiry nears | Smooths the spike; needs the remaining-TTL value stored alongside the data |
+| Request coalescing | In-process, collapse concurrent identical fetches into one in-flight call | Only helps within one process; a cluster of app instances still stampedes across nodes |
+| Stale-while-revalidate | Serve the expired value immediately while one request refreshes it in the background | Requires the caller to tolerate briefly stale data |
+| Jittered TTL | Add random jitter to TTLs so keys set in bulk do not all expire at once | Prevents the synchronized-expiry case specifically, not a single hot key |
+
 ## Observability
 
 Export from `INFO` and alert on:

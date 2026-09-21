@@ -18,7 +18,27 @@ type ViewState<T> =
   | { status: "success"; data: T };
 ```
 
-Render with an exhaustive switch. A new case then fails to compile instead of falling through to a blank panel.
+Render with an exhaustive switch. A new case then fails to compile instead of falling through to a blank panel. Replacing an ad-hoc boolean clump with a named type is the same move Fowler's "Refactoring" catalogs as replacing conditional data with an explicit type — the compiler starts rejecting states that used to compile and misbehave at runtime.
+
+## Optimistic updates and rollback
+
+Applying the change locally before the server confirms it makes the UI feel instant, but every optimistic update needs a snapshot to roll back to and a visible way to tell the user it did not stick:
+
+```ts
+async function toggleLike(id: string) {
+  const previous = cache.get(id);
+  cache.set(id, { ...previous, liked: !previous.liked });   // apply immediately
+
+  try {
+    await api.toggleLike(id);
+  } catch (error) {
+    cache.set(id, previous);                                // roll back to the snapshot
+    notify.error('Could not update — reverted.');            // never revert silently
+  }
+}
+```
+
+Snapshot before mutating, never derive the rollback value by inverting the optimistic change — a second update in flight makes that inversion wrong. If a second mutation starts before the first resolves, queue or cancel it; two in-flight optimistic writes to the same field race the same way an unkeyed network response does (above).
 
 ## Out-of-order responses
 

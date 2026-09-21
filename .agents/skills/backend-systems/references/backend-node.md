@@ -43,6 +43,45 @@ process.on('SIGTERM', async () => {
 
 Keep liveness and readiness separate: readiness must fail **first** so the load balancer stops routing before the process stops answering.
 
+## Fire-and-Forget Loses Errors
+
+Calling an async function without `await` and without handling its result does not skip the
+error — it sends it to `unhandledRejection`, disconnected from the request that triggered it, with
+no correlation id and often no log at all if the handler was never wired up.
+
+```ts
+// wrong: the caller moves on immediately; a rejection here has no path back to this request
+sendWelcomeEmail(user.id);
+
+// right: still non-blocking for the response, but the failure is owned
+void sendWelcomeEmail(user.id).catch(err =>
+  logger.error({ err, userId: user.id }, 'welcome email failed'),
+);
+```
+
+The `void` operator documents the fire-and-forget as deliberate; the `.catch` is what actually
+makes it safe. A background task queue (BullMQ, pg-boss) is the better answer once retries,
+backoff, or delivery guarantees matter — see
+[resilience-patterns.md](resilience-patterns.md) for the idempotency that then requires on retry.
+
+## Cancellation Propagation
+
+A client that disconnects or times out should stop the work it triggered, not leave it running to
+completion against a response nobody reads. Thread an `AbortSignal` from the inbound request down
+through every downstream call that accepts one.
+
+```ts
+app.get('/report', async (req, res) => {
+  const controller = new AbortController();
+  req.on('close', () => controller.abort());          // client gone: stop downstream work
+  const data = await fetch(upstreamUrl, { signal: controller.signal });
+  res.json(await data.json());
+});
+```
+
+An `AbortSignal` not wired to `fetch`, the database driver, or a long-running loop is decoration —
+the request keeps consuming a connection and CPU time for a caller that already left.
+
 ## Reference Routing
 - Multi-topic tasks: start at the [topic map](TOPIC_MAP.md).
 - Real service/API cases: [backend-node-real-world-cases.md](backend-node-real-world-cases.md)

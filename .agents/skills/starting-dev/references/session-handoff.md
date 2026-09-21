@@ -44,6 +44,16 @@ git rev-parse --short HEAD >> docs/handoff/$(git branch --show-current).md
 git diff --stat >> docs/handoff/$(git branch --show-current).md
 ```
 
+## The Compaction Test
+A successor resuming after a compaction has the repository but none of the reasoning that only ever existed in this conversation. For each fact the note could include, ask one question: does a command reproduce it, or did it only ever exist in the conversation?
+
+| Bin | Example | Handling |
+|---|---|---|
+| Only in this conversation | why option B was chosen over A when both pass the tests; a constraint the requester stated verbally; a dead end that left no trace in the tree | Restate explicitly — it is gone the moment context is dropped, and no file read recovers it |
+| Re-derivable from the repository | current branch, diff, passing tests, TODO markers, open files | Point at the command that reproduces it (`git diff --stat`, `pnpm test`); do not paste the output, the successor can run it |
+
+The five sections above already lean this way; this is the fast test to apply when compaction is imminent and the note must be written under pressure — the former bin is a paragraph, the latter is a pointer.
+
 ## Stop
 - Uncommitted changes are not described anywhere in the note. Commit, stash, or list them by path — a dirty tree nobody wrote down is the classic lost-work case.
 - A decision has no reason next to it. Recover the reason or mark it explicitly unknown; an unexplained constraint gets reverted.

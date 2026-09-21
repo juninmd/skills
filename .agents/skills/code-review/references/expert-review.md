@@ -28,6 +28,21 @@ Reviewing in this order means the expensive defects surface while attention is s
 | Tests | the unhappy path nobody covered; an assertion that cannot fail |
 | Style | last, and only when it obscures meaning |
 
+## Adversarial Checklist
+
+Read the diff as if it were written to pass review while hiding a defect, not because the author is malicious but because that posture catches what a charitable read skips. Robert C. Martin's review heuristics in *Clean Code* and Google's own [code review guide](https://google.github.io/eng-practices/review/reviewer/looking-for.html) both start from the same place: the reviewer's job is to find what the author's own read of their code cannot.
+
+| Hunt for | Why a charitable read misses it |
+|---|---|
+| A caught exception with no log, rethrow, metric, or use | Reads as "handled" at a glance; only tracing what happens next reveals it does nothing |
+| An off-by-one at a loop boundary or slice (`<` vs `<=`, `length` vs `length - 1`) | The happy-path test almost always uses a value safely inside the boundary |
+| Missing null/empty/unicode handling on a new input | Manual testing uses ASCII, non-empty, well-formed input by default |
+| A database or API call inside a loop (N+1) | Looks idiomatic; only counting calls per request reveals the multiplier |
+| A loop, recursion, or queue consumer with no bound | Correct at review-time data volume; wrong at production volume |
+| A retry with no idempotency key around a write | Looks like resilience; is actually a duplicate-write generator |
+
+Swallowed-exception and N+1 patterns overlap with [regression-review.md](regression-review.md)'s "Failures That Stop Being Visible" and "Data Layer" tables — use that file for the full diff-signal list; this checklist is the review posture that makes you look for them in the first place.
+
 ## Severity
 
 | Severity | Definition | Merge |

@@ -14,6 +14,7 @@ Read only the files needed for the current task.
 | `helm-workflow.md` | Reference documentation for helm-workflow |
 | `iac-operations.md` | Reference documentation for iac-operations |
 | `iac-principles.md` | Reference documentation for iac-principles |
+| `progressive-rollout.md` | Canary, blue-green, feature-flag-gated rollout strategies and rollback triggers |
 | `real-world-cases.md` | Reference documentation for real-world-cases |
 | `serverless-patterns.md` | Reference documentation for serverless-patterns |
 | `shell-operations.md` | Reference documentation for [shell-operations](shell-operations.md) |

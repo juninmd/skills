@@ -40,6 +40,19 @@ Browser suites parallelize well and break in exactly one way: shared mutable sta
 - **Serialize what cannot be split.** Tests touching genuinely global state — feature flags, system settings, a shared queue — go in a serial group, not in the parallel pool.
 - Avoid cross-test ordering assumptions entirely; the runner will shard differently on the next run.
 
+## Network idle is not a wait condition
+
+`waitForLoadState('networkidle')` looks like the safe, thorough wait, and it is
+one of the most common ways to write a flaky suite: a page that keeps a
+websocket open, polls an endpoint, or loads an ad script never reaches "no
+connections for 500ms," so the wait times out or fires too early depending on
+nothing the test controls. Playwright's own API reference marks `networkidle`
+discouraged and says not to use it for testing, relying on web-first assertions
+instead (`expect(locator).toBeVisible()` waits on the actual UI state, not on
+network chatter that may be unrelated to it) — see
+https://playwright.dev/docs/api/class-page. Reserve `networkidle` for a
+one-off diagnostic script, never inside a test assertion.
+
 ## Visual regression
 
 - **Baselines are per platform and browser.** Font rasterization differs between operating systems, so a baseline generated on a laptop will never match CI. Generate and update baselines inside the same container image CI uses, and store one set per platform/browser/viewport combination.

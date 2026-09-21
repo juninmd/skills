@@ -28,6 +28,7 @@ Write the target down first: the metric, the percentile, and today's number. "Ma
 6. Add a regression guard: a CI benchmark, a budget assertion, or an alert threshold.
 
 ## Pick the Profiler by Symptom
+Two lenses choose what to look at before any tool runs: **USE** — Utilization, Saturation, Errors — per resource (CPU, memory, disk, network), from Brendan Gregg's *Systems Performance*; and **RED** — Rate, Errors, Duration — per request-driven service. The table below already routes along both: rows above the fold are USE questions about a resource, rows below are RED questions about a request path.
 
 | Symptom | Layer | Tool |
 |---|---|---|
@@ -48,10 +49,21 @@ autocannon -c 50 -d 30 -p 10 http://localhost:3000/endpoint
 ```
 
 ## The N+1 Signature
-One query in the log, then N nearly identical ones with a different id. It never shows up locally because N is 3 with seed data and 4,000 in production. Count queries per request in a test and assert the count — that assertion catches the regression a latency benchmark misses.
+One query in the log, then N nearly identical ones with a different id. It never shows up locally because N is 3 with seed data and 4,000 in production. Count queries per request in a test and assert the count — that assertion catches the regression a latency benchmark misses, in CI, before it ever reaches a profiler.
+
+## Connection Pool Exhaustion
+
+| Symptom | Likely cause | Fix |
+|---|---|---|
+| Latency climbs under load; app CPU and DB CPU both idle | pool smaller than concurrent demand; requests queue for a connection | raise the pool to match concurrency, or shed load; watch queue-wait time, not just DB-side metrics |
+| Intermittent "timeout acquiring connection from pool" | leaked connections — a missing close/release on an error path | audit for checkout without a `finally`/`using`/context-manager release; alert on pool checkouts that never return |
+| Fine alone, collapses when replicas scale out | shared DB `max_connections` hit across all replicas combined | size each replica's pool against the DB ceiling divided by replica count, or front the DB with a pooler (PgBouncer) |
+| p99 fine, throughput plateaus below CPU/DB capacity | the pool itself is the saturation resource, not the code | this is a USE-method saturation finding — resize the pool before profiling application code further |
+
+A pool is a bounded resource like a CPU core; it saturates the same way, and the fix is sizing or shedding, never a code-level micro-optimization.
 
 ## Noise Floor
-A result inside run-to-run variance is not a result.
+A result inside run-to-run variance is not a result. Averages hide exactly the tail a user feels: a service reporting p50 = 50ms and p99 = 4s has a "great" mean while one request in a hundred waits 80x longer — percentiles, not the mean, are what an SLO should be built on (Kleppmann, *Designing Data-Intensive Applications*, ch. 1).
 
 | Guard | Why |
 |---|---|
@@ -66,6 +78,7 @@ A result inside run-to-run variance is not a result.
 - Practical performance cases: [real-world-cases.md](references/real-world-cases.md)
 - Profiling by layer (Node, Python, browser, SQL): [profiling-playbook.md](references/profiling-playbook.md)
 - Caching, batching, and load-test design: [optimization-patterns.md](references/optimization-patterns.md)
+- USE/RED depth, percentile math, and measuring before optimizing: [measurement-methodology.md](references/measurement-methodology.md)
 
 See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-domain guides.
 
@@ -76,7 +89,8 @@ See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-
 
 ## Rules
 - Hand off production alerting to `observability`, frontend tuning to `frontend-engineering`, and backend bottlenecks to `backend-systems`.
-- No optimization without a profile. The bottleneck is measured, never guessed — intuition about hot paths is wrong often enough to be worthless.
+- No optimization without a profile. The bottleneck is measured, never guessed — intuition about hot paths is wrong often enough to be worthless. Knuth's "premature optimization is the root of all evil" (*Structured Programming with go to Statements*, 1974) is an argument for measuring before tuning, not for skipping tuning; it names the unmeasured 97% as the trap, not the measured 3% as the excuse.
+- Rightsizing is a tradeoff, not a one-way lever: over-provisioning is a silent, recurring cost; under-provisioning is a latency risk that pages someone. State which one is being traded before resizing anything — see [cost-engineering](references/cost-engineering.md).
 - Stop when the target is met, or when the next profile entry is smaller than the noise floor.
 - When the profile points at structure — chatty I/O across a boundary, needless synchronization, a fan-out that should be one call — stop tuning and delegate to `software-architecture`.
 - Caching is the wrong fix for avoidable work: a cache over an N+1 still fires on every miss and now serves stale rows. Fix the access pattern first, then delegate cache design to `backend-systems`.

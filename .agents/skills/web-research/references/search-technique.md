@@ -37,6 +37,18 @@ Before counting agreement:
 2. Check whether the wording is near-identical across sources; paraphrase clusters indicate copying.
 3. Count distinct origins, not distinct URLs. Two origins that actually disagree are more informative than ten that match.
 
+## When the Search Itself Is Blocked or Rate-Limited
+The search step can be throttled independently of any single page fetch — a search API, not just a target site, has its own limits.
+
+| Symptom | Action |
+|---|---|
+| Search API returns 429 | Back off with jitter, same as any retryable HTTP status (see [resilient-scraping.md](resilient-scraping.md)); do not switch to a scraped version of the search results page to route around it |
+| Search results page shows a CAPTCHA or "unusual traffic" interstitial | Stop querying that engine for this task; switch to a different engine or go straight to the likely primary sources (docs site, issue tracker, repo search) instead of trying to defeat the interstitial |
+| Results silently truncated or empty for a query that should return hits | Suspect a soft block before concluding "no results exist" — rephrase once, and if the pattern holds, name the block in the report rather than reporting a false negative |
+| One source domain consistently 403s across searches | Note it as inaccessible for this task and lean on the remaining independent sources; do not spend the whole budget retrying one blocked origin |
+
+Treat a blocked search engine as a source failure to report, not an obstacle to engineer around — the goal is a verified answer with named gaps, not 100% coverage by any means available.
+
 ## Stopping and conflict
 
 - Set the budget before starting: a number of distinct primary sources, or a time box. Stop when new sources stop changing the answer, and report what remains uncertain instead of continuing.

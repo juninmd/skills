@@ -19,13 +19,13 @@ rg -n 'labels?\(|withTags' src/ | head        # what is already being labelled
 Name the user-visible outcome before naming a metric. An SLI nobody can tie to a user is a graph.
 
 ## Workflow
-1. Name the user-visible outcomes, then the SLIs that measure them: availability, latency, error rate, throughput. An SLI nobody can tie to a user is a graph, not a signal.
-2. Set SLO targets with an explicit error budget, leaving room for change and for incident recovery. 100% is not a target; it is a refusal to ship.
+1. Name the user-visible outcomes, then the SLIs that measure them: the four golden signals — latency, traffic, errors, saturation ([Google SRE, monitoring distributed systems](https://sre.google/sre-book/monitoring-distributed-systems/)). An SLI nobody can tie to a user is a graph, not a signal.
+2. Set SLO targets with an explicit error budget ([Google SRE, embracing risk](https://sre.google/sre-book/embracing-risk/)), leaving room for change and for incident recovery. 100% is not a target; it is a refusal to ship.
 3. Instrument with OpenTelemetry rather than a handmade scheme: one SDK for logs, metrics and traces, trace context propagated across every hop, semantic conventions for span and attribute names.
 4. Emit structured events (JSON) carrying trace and span ids, duration, and outcome — never secrets or PII.
 5. Add RED metrics (rate, errors, duration) at every service boundary; add tracing wherever latency crosses a service.
 6. Choose sampling deliberately, and keep 100% of errors either way.
-7. Alert on SLO burn rate, not on every threshold crossing.
+7. Alert on symptoms and SLO burn rate, never on causes or every threshold crossing — a cause-based page fires on an internal blip whether or not a user felt it, and on-call learns to ignore it ([Google SRE, alerting philosophy](https://sre.google/sre-book/monitoring-distributed-systems/)).
 8. Verify signal quality: the dashboard, the alert, and the incident review must show the same number.
 
 ## Cardinality Is the Outage
@@ -41,6 +41,7 @@ Each label value multiplies stored series. One `user_id` label on a modest servi
 Check the series count before shipping a new label — not after.
 
 ## Alert Routing
+Page on symptoms — what a user feels — never on causes. "Error rate over 1% for 5 minutes" is a symptom; "replica CPU over 80%" is a cause, and paging on it whether or not anyone was hurt is how on-call learns to silence its phone. Causes still earn a page only when they are a saturation resource about to become a symptom (disk filling, pool exhaustion, cert expiry) — see [alerting-and-oncall](references/alerting-and-oncall.md) for the burn-rate math and the on-call handoff checklist.
 
 | Condition | Route | Why |
 |---|---|---|
@@ -59,6 +60,10 @@ Multi-window burn rate beats a static threshold: a fast window (5m) catches the 
 | Tail (decide after completion) | Slow and failed traces | Needs a buffering collector, more memory |
 | Always-on for errors | Every failure | Nothing worth arguing about |
 
+## Reference Routing
+- SLO burn-rate math, toil, and the on-call handoff checklist: [alerting-and-oncall.md](references/alerting-and-oncall.md)
+- Trace propagation across queues, log sampling at volume, clock skew, and retry storms: [resilience-and-tracing.md](references/resilience-and-tracing.md)
+
 See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-domain guides.
 
 ## Stop
@@ -73,7 +78,9 @@ See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-
 - Test alert firing with a synthetic failure. An alert nobody has ever seen fire is an untested code path.
 - Log levels mean things: debug for diagnosis, info for lifecycle events, warn for recoverable anomalies, error for user-visible failure. Everything at `error` is the same as nothing at `error`.
 - Define retention and cost limits before the data grows; observability spend is the line item that surprises people, and `performance-engineering` owns the tradeoff.
-- Trace context must survive every hop — queues and background jobs included. A trace that stops at the async boundary hides exactly the latency you are hunting.
+- Trace context must survive every hop — queues and background jobs included. A trace that stops at the async boundary hides exactly the latency you are hunting; see [resilience-and-tracing](references/resilience-and-tracing.md) for propagation across message brokers.
+- A retry without a cap, backoff, and jitter turns one slow dependency into a cascading failure; the stability patterns (circuit breaker, bulkhead, timeout, fail fast) are in [resilience-and-tracing](references/resilience-and-tracing.md), from Michael Nygard's *Release It!*.
+- Manual, repetitive incident response that a machine could do is toil, not heroics ([Google SRE, eliminating toil](https://sre.google/sre-book/eliminating-toil/)); automate the third repeat, don't runbook it a fourth time.
 - Live outage triage and postmortems belong to [incident-response](references/incident-response.md); design the signals they will read here.
 
 ## Checklist
@@ -83,3 +90,4 @@ See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-
 - [ ] Alerts classified page/ticket/dashboard, each with an owner and a runbook.
 - [ ] Alert firing exercised with a synthetic failure.
 - [ ] Retention and cost limits set.
+- [ ] On-call handoff checklist run before rotation changes hands.

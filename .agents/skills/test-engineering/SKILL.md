@@ -62,6 +62,8 @@ Never retry a flaky test; attribute it to exactly one source and remove that sou
 
 ## Reference Routing
 - Consult [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-domain guides.
+- Choosing a test double, or spotting a mystery-guest/fragile-test smell in review: [test-doubles.md](references/test-doubles.md).
+- Building out the "Contract" level against another service: [contract-testing.md](references/contract-testing.md).
 
 ## Stop
 - The test passes before the fix. It proves nothing — make it fail for the intended reason first.
