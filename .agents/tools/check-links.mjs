@@ -8,6 +8,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { walkFiles } from "./walk-files.mjs";
 
 // Kept in step with the `files:` list in .github/workflows/validate.yml.
 export const LINK_ROOTS = [
@@ -20,24 +21,11 @@ export const LINK_ROOTS = [
 
 const SKIP_DIRECTORIES = new Set(["node_modules", "dist", ".vitepress"]);
 
+// Symlinks are skipped, not followed: this walks the same kind of tree
+// check-domains.mjs scans (a symlink install of the skills catalog), and
+// following one here with no cycle guard could recurse forever.
 export function collectMarkdown(roots, cwd = process.cwd()) {
-  const files = [];
-  const walk = (target) => {
-    const stats = fs.statSync(target);
-    if (stats.isFile()) {
-      if (target.endsWith(".md")) files.push(target);
-      return;
-    }
-    for (const entry of fs.readdirSync(target)) {
-      if (SKIP_DIRECTORIES.has(entry)) continue;
-      walk(path.join(target, entry));
-    }
-  };
-  for (const root of roots) {
-    const resolved = path.resolve(cwd, root);
-    if (fs.existsSync(resolved)) walk(resolved);
-  }
-  return files;
+  return walkFiles(roots, { cwd, skip: SKIP_DIRECTORIES, filter: (file) => file.endsWith(".md") });
 }
 
 export function findBrokenLinks(files) {

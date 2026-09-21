@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { readSkill } from "./skill-metadata.mjs";
+import { readSkill, listSkillDirectoryNames } from "./skill-metadata.mjs";
 import { checkRetiredHandoffs } from "./retired-handoffs.mjs";
 
 // A body long enough to skim past is a body an agent will skim past. The
@@ -186,10 +186,9 @@ export function validateSkillsRoot(agentsRoot) {
   if (!fs.existsSync(skillsRoot)) return [`Missing skills directory: ${skillsRoot}`];
 
   return [
-    ...fs
-      .readdirSync(skillsRoot, { withFileTypes: true })
-      .filter((entry) => entry.isDirectory())
-      .flatMap((entry) => validateSkill(path.join(skillsRoot, entry.name))),
+    ...listSkillDirectoryNames(skillsRoot).flatMap((name) =>
+      validateSkill(path.join(skillsRoot, name)),
+    ),
     ...checkRetiredHandoffs(agentsRoot),
   ];
 }
@@ -202,9 +201,7 @@ function main() {
     process.exit(1);
   }
 
-  const count = fs
-    .readdirSync(path.join(agentsRoot, "skills"), { withFileTypes: true })
-    .filter((entry) => entry.isDirectory()).length;
+  const count = listSkillDirectoryNames(path.join(agentsRoot, "skills")).length;
   console.log(`${count} skills valid.`);
 }
 

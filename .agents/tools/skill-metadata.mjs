@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { parseDocument } from "yaml";
 
-const FRONTMATTER = /^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/;
+export const FRONTMATTER = /^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/;
 
 export function parseSkillDocument(text, source = "SKILL.md") {
   const match = text.match(FRONTMATTER);
@@ -29,10 +29,17 @@ export function readSkill(skillDirectory) {
   return { name, file, text, ...parsed };
 }
 
-export function listSkills(skillsRoot) {
+// The one definition of "what are the skill directories under this root",
+// shared by the happy-path lister below and by any caller that must isolate
+// a bad skill's error instead of losing the whole listing to it.
+export function listSkillDirectoryNames(skillsRoot) {
   return fs
     .readdirSync(skillsRoot, { withFileTypes: true })
     .filter((entry) => entry.isDirectory())
-    .map((entry) => readSkill(path.join(skillsRoot, entry.name)))
-    .sort((left, right) => left.name.localeCompare(right.name));
+    .map((entry) => entry.name)
+    .sort((left, right) => left.localeCompare(right));
+}
+
+export function listSkills(skillsRoot) {
+  return listSkillDirectoryNames(skillsRoot).map((name) => readSkill(path.join(skillsRoot, name)));
 }

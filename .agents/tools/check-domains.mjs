@@ -8,6 +8,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { walkFiles } from "./walk-files.mjs";
 
 export const DOMAIN_ROOTS = [".agents/skills"];
 export const ALLOWLIST_FILE = ".agents/approved-domains.toml";
@@ -81,18 +82,7 @@ export function approvingEntry(host, entries) {
 
 // Everything a symlink install ships is scanned; links are not followed, so a loop cannot recurse.
 export function collectFiles(roots, cwd = process.cwd()) {
-  const files = [];
-  const walk = (target) => {
-    const stats = fs.lstatSync(target);
-    if (stats.isSymbolicLink()) return;
-    if (stats.isFile()) return files.push(target);
-    for (const entry of fs.readdirSync(target)) walk(path.join(target, entry));
-  };
-  for (const root of roots) {
-    const resolved = path.resolve(cwd, root);
-    if (fs.existsSync(resolved)) walk(resolved);
-  }
-  return files.sort();
+  return walkFiles(roots, { cwd }).sort();
 }
 
 // UTF-16 with a byte-order mark is text (Windows PowerShell saves .ps1 that way); other NULs mean binary.

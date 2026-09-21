@@ -3,7 +3,8 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { createHash } from "node:crypto";
 import { gzipSync } from "node:zlib";
-import { parse } from "yaml";
+import { walkFiles } from "./walk-files.mjs";
+import { validateSkill } from "./validate-agents.mjs";
 
 const SKILLS_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../skills");
 export const SKILLS = fs.readdirSync(SKILLS_ROOT).filter((name) => fs.existsSync(path.join(SKILLS_ROOT, name, "SKILL.md"))).sort();
@@ -13,20 +14,15 @@ const json = (value) => Buffer.from(`${JSON.stringify(value, null, 2)}\n`);
 const sha256 = (data) => createHash("sha256").update(data).digest("hex");
 
 export function readTree(root) {
+  if (!fs.lstatSync(root).isDirectory()) throw new Error(`Expected real directory: ${root}`);
   const files = new Map();
-  function walk(directory, prefix = "") {
-    if (!fs.lstatSync(directory).isDirectory()) throw new Error(`Expected real directory: ${directory}`);
-    for (const name of fs.readdirSync(directory).sort()) {
-      const target = path.join(directory, name);
-      const relative = prefix + name;
-      const stat = fs.lstatSync(target);
-      if (stat.isSymbolicLink()) throw new Error(`Symlinks are not distributable: ${relative}`);
-      if (stat.isDirectory()) walk(target, `${relative}/`);
-      else if (stat.isFile()) files.set(relative, fs.readFileSync(target));
-      else throw new Error(`Unsupported file type: ${relative}`);
-    }
+  // A distribution must be reproducible from real files only: symlinks and
+  // anything that isn't a plain file abort the whole read (walkFiles' own
+  // wording, which names the offending absolute path).
+  for (const absolute of walkFiles([root], { symlinks: "throw" })) {
+    const relative = path.relative(root, absolute).split(path.sep).join("/");
+    files.set(relative, fs.readFileSync(absolute));
   }
-  walk(root);
   return files;
 }
 
@@ -47,11 +43,12 @@ function skillFiles(root) {
   const files = readTree(path.join(root, ".agents/skills"));
   const names = [...files.keys()].filter((file) => /^[^/]+\/SKILL\.md$/.test(file)).map((file) => file.split("/")[0]).sort();
   if (JSON.stringify(names) !== JSON.stringify(SKILLS)) throw new Error(`Distribution requires exactly the ${SKILLS.length} canonical skills`);
+  // The full house-structure/budget/orphan-reference rule set lives in
+  // validate-agents.mjs; a release must meet the same bar `pnpm run validate`
+  // enforces, not a smaller bundling-only subset that can drift from it.
   for (const name of names) {
-    const body = files.get(`${name}/SKILL.md`).toString("utf8");
-    const header = body.match(/^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/);
-    const metadata = header && parse(header[1]);
-    if (metadata?.name !== name || typeof metadata.description !== "string" || !metadata.description.trim()) throw new Error(`Invalid skill metadata: ${name}`);
+    const errors = validateSkill(path.join(root, ".agents/skills", name));
+    if (errors.length) throw new Error(`Invalid skill ${name}: ${errors[0]}`);
   }
   for (const [file, data] of files) {
     if (!file.endsWith(".md")) continue;

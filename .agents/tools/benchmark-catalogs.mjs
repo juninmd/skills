@@ -22,6 +22,8 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { walkFiles } from "./walk-files.mjs";
+import { FRONTMATTER } from "./skill-metadata.mjs";
 
 export const CATALOGS = [
   "anthropics/skills",
@@ -41,31 +43,20 @@ export const CATALOGS = [
   "deanpeters/Product-Manager-Skills",
 ];
 
-const FRONTMATTER = /^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/;
 const estimateTokens = (text) => Math.ceil(text.length / 4);
 const digest = (value) => crypto.createHash("sha256").update(value).digest("hex");
 
-function walk(root, files = [], depth = 0) {
-  if (depth > 9) return files;
-  let entries;
-  try {
-    entries = fs.readdirSync(root, { withFileTypes: true });
-  } catch {
-    return files;
-  }
-  for (const entry of entries) {
-    if (entry.name === ".git" || entry.name === "node_modules") continue;
-    const target = path.join(root, entry.name);
-    let stats;
-    try {
-      stats = fs.statSync(target);
-    } catch {
-      continue; // broken symlink
-    }
-    if (stats.isDirectory()) walk(target, files, depth + 1);
-    else files.push(target);
-  }
-  return files;
+// These are other people's clones: follow symlinks (some catalogs use them
+// internally), tolerate a broken one or a permission error instead of
+// aborting the whole measurement, and cap depth as the cycle guard that
+// buys `symlinks: "follow"` its safety.
+function walk(root) {
+  return walkFiles([root], {
+    symlinks: "follow",
+    tolerant: true,
+    skip: [".git", "node_modules"],
+    maxDepth: 9,
+  });
 }
 
 // A tolerant reader: these are other people's files, and several of them are
