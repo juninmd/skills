@@ -11,7 +11,7 @@ description: |
 
 ## Preflight
 ```bash
-cat package.json | jq -r '.scripts | to_entries[] | select(.key|test("test|spec")) | "\(.key): \(.value)"'
+cat package.json 2>/dev/null | jq -r '.scripts | to_entries[] | select(.key|test("test|spec")) | "\(.key): \(.value)"'
 rg -n 'randomly|shuffle|seed' package.json pytest.ini pyproject.toml 2>/dev/null
 ```
 

@@ -4,34 +4,34 @@ Read only the files needed for the current task.
 
 | Reference | Topic / Description |
 |---|---|
-| `accessibility.md` | Reference documentation for accessibility |
-| `adaptive-screens.md` | Reference documentation for adaptive-screens |
-| `android-standards.md` | Reference documentation for android-standards |
-| `animations.md` | Reference documentation for animations |
-| `components.md` | Reference documentation for components |
-| `design-style.md` | Reference documentation for design-style |
-| `engineering.md` | Reference documentation for engineering |
-| `flutter.md` | Reference documentation for flutter |
-| `forms.md` | Reference documentation for forms |
-| `functional-requirements.md` | Reference documentation for functional-requirements |
-| `ios-guide.md` | Reference documentation for ios-guide |
-| `layout-system.md` | Reference documentation for layout-system |
-| `localization.md` | Reference documentation for localization |
-| `metal-shader.md` | Reference documentation for metal-shader |
-| `native-capabilities.md` | Reference documentation for native-capabilities |
-| `navigation.md` | Reference documentation for navigation |
-| `networking.md` | Reference documentation for networking |
-| `performance.md` | Reference documentation for performance |
-| `platform-specific.md` | Reference documentation for platform-specific |
-| `privacy-security.md` | Reference documentation for privacy-security |
-| `project-structure.md` | Reference documentation for [project-structure](project-structure.md) |
-| `react-native.md` | Reference documentation for react-native |
-| `real-world-cases.md` | Reference documentation for real-world-cases |
-| `reference-routing.md` | Reference documentation for reference-routing |
-| `state-management.md` | Reference documentation for state-management |
-| `swift-coding-standards.md` | Reference documentation for swift-coding-standards |
-| `swiftui-design-guidelines.md` | Reference documentation for swiftui-design-guidelines |
-| `system-integration.md` | Reference documentation for system-integration |
-| `testing.md` | Reference documentation for testing |
-| `uikit-components.md` | Reference documentation for uikit-components |
-| `widget-patterns.md` | Reference documentation for widget-patterns |
+| `accessibility.md` | An Android screen fails a contrast, touch-target, or TalkBack check, or you need contentDescription/hint conventions |
+| `adaptive-screens.md` | The app must support tablets, foldables, or multi-window/desktop mode and you need Google's adaptive quality tier requirements |
+| `android-standards.md` | Setting up or configuring a new Android project (Gradle wrapper, flavors, build variants) or need Kotlin naming/style rules |
+| `animations.md` | Implementing a Hero/page transition or GPU-side animation and need Flutter/iOS animation code plus Material Design 3 motion timing specs |
+| `components.md` | Picking an Expo/RN component for images, lists, safe areas, or other native UI/media/storage needs |
+| `design-style.md` | Choosing colors, typography, spacing, elevation, or shape specs that match the app's category and audience |
+| `engineering.md` | Laying out an Expo Router project structure, or configuring EAS builds, releases, and platform integration |
+| `flutter.md` | Need a general Flutter best-practices sweep — widget optimization, state management choice, performance targets — before finishing a feature |
+| `forms.md` | Building or validating a Flutter form — FormField patterns, input formatting, submission/error state |
+| `functional-requirements.md` | Implementing Android audio focus, background playback, or notification/MediaSession behavior requirements |
+| `ios-guide.md` | Starting or auditing an iOS app end-to-end against Apple HIG — layout, typography, navigation, privacy checklist |
+| `layout-system.md` | Laying out a UIKit screen with Auto Layout, safe areas, or UICollectionView compositional layout |
+| `localization.md` | Adding or debugging Flutter i18n — ARB files, flutter_localizations/intl setup, plurals, RTL |
+| `metal-shader.md` | Writing or optimizing Metal shaders / GPU rendering on Apple platforms (TBDR architecture, PBR, ray tracing, GPU profiling) |
+| `native-capabilities.md` | Wiring up Expo/RN camera, location, notifications, haptics, or biometrics and their permission hooks |
+| `navigation.md` | Implementing or debugging routing — Expo Router file conventions, GoRouter, or UIKit navigation patterns |
+| `networking.md` | Configuring Flutter networking — Dio setup, interceptors (auth/retry/logging), error handling, caching |
+| `performance.md` | Chasing dropped frames/jank in Flutter, or investigating Android vitals — startup, ANR, memory, battery |
+| `platform-specific.md` | Branching Flutter code per platform — adaptive widgets or platform channels for iOS/Android/Web/Desktop |
+| `privacy-security.md` | Implementing or auditing Android permission requests — least privilege, rationale, denied/re-prompt flow, sensitive data handling |
+| `project-structure.md` | Scaffolding or reorganizing a Flutter project's feature-based folder structure and entry point |
+| `react-native.md` | Initializing a new Expo/RN project, or need the component-preference/shipping checklist before release |
+| `real-world-cases.md` | Starting mobile UI/lifecycle/permissions/offline-sync work — read first for scenario checklists and conflict-resolution patterns |
+| `reference-routing.md` | Unsure which large reference file covers a topic, or need heading search terms before reading a big file in full |
+| `state-management.md` | Choosing a state solution — Zustand/Jotai/React Query for RN, or Riverpod vs Bloc for Flutter |
+| `swift-coding-standards.md` | Writing or reviewing Swift for optional-safety, concurrency, memory/retain cycles, or error-handling conventions |
+| `swiftui-design-guidelines.md` | Designing a SwiftUI screen and need HIG layout, Dynamic Type, Dark Mode, or Liquid Glass guidance |
+| `system-integration.md` | Integrating iOS permissions (camera/photos/location), share sheet, app lifecycle, or haptic feedback |
+| `testing.md` | Choosing or writing an Android test layer — JUnit/Robolectric unit tests, Espresso, Compose UI tests, Gradle managed devices |
+| `uikit-components.md` | Building a UIKit screen with stack views, buttons, alerts, search controllers, or context menus |
+| `widget-patterns.md` | Structuring Flutter widgets for const-optimization, responsive layout, hooks, or sliver lists |

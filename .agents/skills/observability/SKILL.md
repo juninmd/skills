@@ -12,7 +12,7 @@ description: |
 ## Preflight
 ```bash
 rg -n 'OTEL_|opentelemetry|prom_client|micrometer' src/ | head
-curl -sS localhost:9090/api/v1/status/tsdb | jq '.data.seriesCountByMetricName[:5]'  # cardinality today
+curl -sS localhost:9090/api/v1/status/tsdb 2>/dev/null | jq '.data.seriesCountByMetricName[:5]'  # cardinality today, if Prometheus runs locally on the default port
 rg -n 'labels?\(|withTags' src/ | head        # what is already being labelled
 ```
 
