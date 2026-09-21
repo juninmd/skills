@@ -119,9 +119,13 @@ export function measure(label, root) {
     bodies.push(estimateTokens(parsed.body));
   }
 
+  // Predicates below match on forward-slash path segments; walk() returns
+  // native-separator paths (path.join backslashes on Windows), so normalize
+  // before testing rather than requiring every predicate to know the platform.
+  const toPosix = (file) => file.split(path.sep).join("/");
   const uniqueFiles = (predicate) => {
     const hashes = new Set();
-    for (const file of files.filter(predicate)) {
+    for (const file of files.filter((file) => predicate(toPosix(file)))) {
       try {
         hashes.add(digest(fs.readFileSync(file)));
       } catch {
