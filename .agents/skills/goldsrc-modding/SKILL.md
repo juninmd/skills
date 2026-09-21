@@ -11,7 +11,7 @@ description: |
 
 ## Preflight
 ```bash
-which hlcsg hlbsp hlvis hlrad 2>/dev/null || which ripent 2>/dev/null || echo "GoldSrc tools checked"
+for tool in hlcsg hlbsp hlvis hlrad ripent; do command -v "$tool" >/dev/null 2>&1 && echo "$tool: found" || echo "$tool: MISSING"; done
 ```
 
 ## Workflow

@@ -12,7 +12,9 @@ description: |
 
 ## Preflight
 ```bash
-# Baseline before any change — you cannot prove an improvement without it
+# Baseline before any change — you cannot prove an improvement without it.
+# autocannon fits an HTTP endpoint; swap for the load generator that fits the
+# target (k6, wrk, a DB benchmark, a profiler) when it isn't one.
 autocannon -c 50 -d 30 http://localhost:3000/endpoint | tee /tmp/before.txt
 nproc && free -m && cat /sys/fs/cgroup/cpu.max 2>/dev/null   # is the box throttled?
 ```

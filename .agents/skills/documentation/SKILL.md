@@ -14,7 +14,7 @@ description: |
 ```bash
 ls README* docs/ CHANGELOG* adr/ doc/adr/ 2>/dev/null
 rg -n '```(bash|sh|console)' README.md | wc -l     # how many claims are executable
-npx lychee --offline README.md 'docs/**/*.md'      # are the links even valid today
+find . -name '*.md' -not -path './node_modules/*' | xargs -n1 npx --yes markdown-link-check --quiet   # are the links even valid today
 ```
 
 Name the reader and the single question the document answers before writing a line.
@@ -43,14 +43,14 @@ The table above is the Diátaxis framework (Bhatti et al., *Docs for Developers*
 Documentation rots because nothing fails when it becomes false. Make something fail.
 
 ```bash
-# Execute the README's own code blocks in CI
-npx markdown-code-runner README.md    # or extract fences and run them
+# Execute the README's own code blocks in CI: extract fenced blocks and run
+# them per language (no single tool covers every language reliably)
 
 # Fail the build when generated reference drifts from source
 npm run docs:generate && git diff --exit-code docs/api/
 
-# Link check every build (relative links offline, external in CI)
-npx lychee --offline README.md 'docs/**/*.md'
+# Link check every build
+find . -name '*.md' -not -path './node_modules/*' | xargs -n1 npx --yes markdown-link-check --quiet
 ```
 
 An untested code block is a claim, not a fact — and it is the first thing a new reader copies.
