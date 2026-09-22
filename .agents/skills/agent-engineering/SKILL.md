@@ -96,6 +96,8 @@ understands the cost complies under pressure, one that was only ordered rational
 ## Reference Routing
 - Practical agent failure cases: [real-world-cases.md](references/real-world-cases.md)
 - Agent loops, tool contracts, and orchestration: [agent-development.md](references/agent-development.md)
+- Deterministic tool interceptors, scrubbers, and circuit breakers: [tool-guards-and-hooks.md](references/tool-guards-and-hooks.md)
+- Multi-model consensus and adversarial review hats: [multi-model-council.md](references/multi-model-council.md)
 - Deep audit scope and evidence collection: [audit-phases.md](references/audit-phases.md)
 - Function-level trust-boundary analysis: [function-analysis.md](references/function-analysis.md)
 - Stable outputs and subagent isolation: [stability-rules.md](references/stability-rules.md)
