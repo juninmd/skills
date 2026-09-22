@@ -9,6 +9,7 @@ Read only the files needed for the current task.
 | `GUIDE_BLOCKS_A11Y.md` | shadcn/ui block discovery (`list_blocks`/`get_block`) and the accessibility guarantees Radix primitives already give you, before hand-rolling a form/modal/table pattern |
 | `GUIDE_INSTALLATION.md` | shadcn/ui component discovery and installation, CLI (`shadcn add`) vs manual, and registry lookup commands |
 | `accessibility.md` | WCAG conformance workflow: keyboard-only pass, focus management on route change, screen reader verification, contrast/motion checks, before shipping or auditing any UI |
+| `anti-slop-taste.md` | Anti-slop UI direction, Brief Inference (Read the Room), Three Dials calibration (variance/motion/density), aesthetic archetypes, and redesign audits |
 | `design-systems.md` | building or extending a shared component library: token layering (primitive/semantic/component), promoting repeated shapes, intent-based variant naming, breaking-change/migration discipline |
 | `frontend-design.md` | setting the visual system before writing markup: type scale, spacing rhythm, color/radius/elevation/motion as concrete numbers, translated into CSS custom properties |
 | `frontend-optimization.md` | React/Next.js performance patterns: RSC vs client boundary strategy, render efficiency (memoization, state location), bundle size (barrel imports, dynamic imports) |

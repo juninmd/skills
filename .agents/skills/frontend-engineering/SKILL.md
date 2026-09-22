@@ -21,7 +21,7 @@ ls app/ pages/ src/ 2>/dev/null      # App Router, Pages Router, or SPA
 Framework and router decide where data may be fetched, where state may live, and what "server component" means here. Read this before writing a line.
 
 ## Workflow
-1. Name the primary user task, its states, and its responsive behavior before building anything.
+1. Name the primary user task, its states, and its responsive behavior before building anything. Infer the design read and calibrate variance/motion/density dials with [anti-slop-taste](references/anti-slop-taste.md) to avoid generic defaults.
 2. Keep server/client boundaries explicit. `'use client'` is a leaf decision — put it on the smallest component that needs it, because everything imported below it becomes client code too.
 3. Implement loading, empty, error, disabled, overflow, and slow-network alongside the happy path. Enumerate them with [ui-state-design](references/ui-state-design.md).
 4. Keep the UI layer thin: calculations and business policy live in domain modules, services, or hooks — not in JSX.
@@ -54,6 +54,7 @@ An effect for derived state produces one extra render and a window where the two
 ## Reference Routing
 Open a file only when its trigger matches.
 - Any component work: [ui-components.md](references/ui-components.md).
+- Anti-slop UI direction, dials, and redesign audits: [anti-slop-taste.md](references/anti-slop-taste.md).
 - `app/` directory: [nextjs-app-router.md](references/nextjs-app-router.md) — server/client boundaries, streaming, caching, actions.
 - `components.json` (shadcn/ui): adding it [GUIDE_INSTALLATION.md](references/GUIDE_INSTALLATION.md), extending a primitive [GUIDE_ARCHITECTURE.md](references/GUIDE_ARCHITECTURE.md), picking one [AVAILABLE_COMPONENTS.md](references/AVAILABLE_COMPONENTS.md), blocks [GUIDE_BLOCKS_A11Y.md](references/GUIDE_BLOCKS_A11Y.md).
 - `vite.config.*`: [vite-core.md](references/vite-core.md), [vite-patterns.md](references/vite-patterns.md); Tailwind v4 there: [vite-tailwind-v4.md](references/vite-tailwind-v4.md).

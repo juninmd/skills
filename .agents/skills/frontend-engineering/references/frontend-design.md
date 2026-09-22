@@ -56,6 +56,8 @@ If it looks like every other AI mockup, no system was decided.
 | One ubiquitous default sans | a typeface pairing chosen deliberately |
 | Everything centered | a grid with a real alignment spine |
 
+For systematic brief inference, dial calibration (variance, motion, density), and aesthetic archetypes (minimalist, brutalist, soft tactile), see [anti-slop-taste](anti-slop-taste.md).
+
 ## Hierarchy
 Rank the elements on the screen before styling any of them. Exactly one primary action per view; everything else is secondary or tertiary, and it should be obvious at a squint. If two things compete for attention, neither has it. Wathan and Schoger's "Refactoring UI" makes this concrete: push weight through size, weight, and color together rather than one axis alone, and let whitespace and a limited palette do the separating instead of borders.
 
