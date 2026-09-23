@@ -1,7 +1,7 @@
 ---
 name: mobile-engineering
 description: |
-  Build and review cross-platform mobile apps: React Native, Expo, Flutter, and native Android. Use for mobile UI, lifecycle, navigation, permissions, offline behavior, accessibility, localization, device integration, tests, and builds. Native Apple/iOS work (Swift, SwiftUI, UIKit, Metal, WidgetKit) routes to `ios-engineering`.
+  Build and review cross-platform mobile apps; native iOS and Swift work belongs to ios-engineering. Use for React Native, Expo, Flutter, and native Android UI, lifecycle, navigation, permissions, offline behavior, accessibility, localization, device integration, tests, and builds. Trigger on 'React Native screen', 'Expo Router', 'Flutter layout', 'the Android build fails'.
 ---
 
 

@@ -1,7 +1,7 @@
 ---
 name: test-engineering
 description: |
-  Design and run test suites, end-to-end browser flows, regression gates, and quiet checks. Use for unit/integration tests, Vitest, pytest, flaky test elimination, Playwright E2E, LLM gateway conformance, and test coverage.
+  Design and run test suites, end-to-end browser flows, regression gates, and quiet checks. Use for unit and integration tests, Vitest, pytest, Playwright E2E, flaky test elimination, LLM gateway conformance, and coverage. Trigger on 'write a failing test first', 'this test is flaky', 'add an E2E test', 'raise coverage'.
 ---
 
 

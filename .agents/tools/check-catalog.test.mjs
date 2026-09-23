@@ -84,3 +84,11 @@ ${CATALOG_END}
   assert.ok(checkCatalog(root, 1).some((error) => error.includes("1-skill ceiling")));
   assert.ok(!checkCatalog(root, 2).some((error) => error.includes("ceiling")));
 });
+
+test("keeps trigger phrases out of the catalog summary", () => {
+  const withTriggers = [{
+    name: "sample-skill",
+    metadata: { description: "Validate sample behavior. Use for metadata and catalog tests. Trigger on 'check the catalog', 'is it stale'." },
+  }];
+  assert.match(renderCatalog(withTriggers), /\| `sample-skill` \| metadata and catalog tests \|/);
+});

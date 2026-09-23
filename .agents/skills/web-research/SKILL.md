@@ -1,7 +1,7 @@
 ---
 name: web-research
 description: |
-  Conduct live web research, resilient data scraping, and documentation/version verification. Use for multi-source search, HTML table/listing scraping, verifying latest library stable versions, changelog tracking, and citations.
+  Conduct live web research, resilient scraping, and documentation or version verification. Use for multi-source search, HTML table and listing scraping, latest stable library versions, changelog tracking, and citations. Trigger on 'what is the latest version', 'look this up', 'find sources for this', 'scrape this page', 'what changed in v5'.
 ---
 
 

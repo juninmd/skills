@@ -1,7 +1,7 @@
 ---
 name: bot-engineering
 description: |
-  Design and operate scheduled scraper, monitor, and notification bots: dedupe/seen-state, rate-limit backoff, keyless-endpoint discovery, CronJob-style scheduling, and delivery via Telegram/Discord/WhatsApp with optional LLM processing. Use for a price/deal/release/job-listing tracker, an RSS/API poller, or any bot that watches a source and notifies on change.
+  Design and operate scheduled scraper, monitor, and notification bots. Use for dedupe/seen-state, rate-limit backoff, keyless endpoints, CronJob scheduling, Telegram/Discord/WhatsApp delivery, and optional LLM steps. Trigger on 'a bot that checks this and pings me', 'track prices, releases, or job listings', 'poll this RSS feed', 'duplicate alerts'.
 ---
 
 # Bot Engineering

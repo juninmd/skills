@@ -1,7 +1,7 @@
 ---
 name: data-engineering
 description: |
-  Design and diagnose databases, SQL queries, migrations, analytics, and vector storage. Use for PostgreSQL, MySQL, Redis, schema migrations, zero-downtime DDL, pandas profiling, query plans, indexes, and aggregation.
+  Design and diagnose databases, SQL queries, migrations, analytics, and vector storage. Use for PostgreSQL, MySQL, Redis, schema migrations, zero-downtime DDL, query plans, indexes, pandas profiling, and aggregation. Trigger on 'this query is slow', 'add a migration', 'missing index', 'design the schema', 'analyze this dataset'.
 ---
 
 

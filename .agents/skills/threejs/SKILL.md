@@ -1,7 +1,7 @@
 ---
 name: threejs
 description: |
-  Build and debug Three.js interactive 3D scenes, GLTF/GLB model viewers, cameras, lighting, raycasting, shaders, animation, WebGL/WebGPU rendering, and GPU resource cleanup. Use for canvas 3D graphics, scene performance, and asset loading.
+  Build and debug Three.js interactive 3D scenes. Use for GLTF/GLB model viewers, cameras, lighting, raycasting, shaders, animation, WebGL/WebGPU rendering, asset loading, scene performance, and GPU resource cleanup. Trigger on '3D model viewer', 'the scene renders black', 'textures leak memory', 'click to select in 3D'.
 ---
 
 # Three.js

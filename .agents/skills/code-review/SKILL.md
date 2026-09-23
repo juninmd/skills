@@ -1,7 +1,7 @@
 ---
 name: code-review
 description: |
-  Review diffs and pull requests for defects, regressions, and contract violations, however small the diff; sweep sibling bug variants. Trigger on 'review this diff', 'before it merges', 'is it safe to delete'. Also legacy code recovery, characterization tests, simplifying working code, and deleting proven dead code.
+  Review diffs and pull requests for defects, regressions, and contract violations, however small the diff. Use for adversarial review, sibling bug variants, legacy code recovery, characterization tests, simplifying working code, and deleting proven dead code. Trigger on 'review this diff', 'before it merges', 'is it safe to delete', 'simplify this'.
 ---
 
 # Code Review
