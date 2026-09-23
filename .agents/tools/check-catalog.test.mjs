@@ -61,3 +61,26 @@ description: Validate sample behavior. Use for metadata and catalog tests.
   writeCatalog(root);
   assert.deepEqual(checkCatalog(root), []);
 });
+
+test("rejects a catalog over the skill ceiling", () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), "skill-ceiling-"));
+  for (const name of ["one-skill", "two-skill"]) {
+    const directory = path.join(root, ".agents", "skills", name);
+    fs.mkdirSync(directory, { recursive: true });
+    fs.writeFileSync(
+      path.join(directory, "SKILL.md"),
+      `---
+name: ${name}
+description: Validate ${name}. Use for ceiling tests.
+---
+`,
+    );
+  }
+  fs.writeFileSync(path.join(root, "README.md"), `2 skills
+${CATALOG_START}
+${CATALOG_END}
+`);
+
+  assert.ok(checkCatalog(root, 1).some((error) => error.includes("1-skill ceiling")));
+  assert.ok(!checkCatalog(root, 2).some((error) => error.includes("ceiling")));
+});

@@ -103,12 +103,9 @@ just wastes the same resources this section is about not wasting.
 
 ## Reference Routing
 - Real Python service cases: [backend-python-real-world-cases.md](backend-python-real-world-cases.md)
-- Environment, pyproject, and tasks: [python-setup.md](python-setup.md)
-- Migration and patterns: [migration-checklist.md](migration-checklist.md), [modern-python-patterns.md](modern-python-patterns.md)
-- Single-file scripts (PEP 723): [pep723-scripts.md](pep723-scripts.md)
+- Environment, pyproject, uv, Ruff, and PEP 723 scripts: `package-management`
 - FastAPI: [fastapi-best-practices.md](fastapi-best-practices.md)
 - Quality gates: [python-operations.md](python-operations.md), [testing.md](testing.md)
-- Configuration details: [pyproject.md](pyproject.md), [ruff-config.md](ruff-config.md), [uv-commands.md](uv-commands.md)
 
 ## Stop
 - A blocking call is inside an `async def`. Fix it or make the endpoint `def`; it stalls every concurrent request.

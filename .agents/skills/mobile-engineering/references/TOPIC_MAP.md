@@ -1,6 +1,6 @@
 # mobile-engineering Reference Map
 
-Read only the files needed for the current task.
+Read only the files needed for the current task. Native Apple-platform files (Swift, SwiftUI, UIKit, Metal, iOS system integration) moved to `ios-engineering`'s reference map.
 
 | Reference | Topic / Description |
 |---|---|
@@ -14,10 +14,7 @@ Read only the files needed for the current task.
 | `flutter.md` | Need a general Flutter best-practices sweep — widget optimization, state management choice, performance targets — before finishing a feature |
 | `forms.md` | Building or validating a Flutter form — FormField patterns, input formatting, submission/error state |
 | `functional-requirements.md` | Implementing Android audio focus, background playback, or notification/MediaSession behavior requirements |
-| `ios-guide.md` | Starting or auditing an iOS app end-to-end against Apple HIG — layout, typography, navigation, privacy checklist |
-| `layout-system.md` | Laying out a UIKit screen with Auto Layout, safe areas, or UICollectionView compositional layout |
 | `localization.md` | Adding or debugging Flutter i18n — ARB files, flutter_localizations/intl setup, plurals, RTL |
-| `metal-shader.md` | Writing or optimizing Metal shaders / GPU rendering on Apple platforms (TBDR architecture, PBR, ray tracing, GPU profiling) |
 | `native-capabilities.md` | Wiring up Expo/RN camera, location, notifications, haptics, or biometrics and their permission hooks |
 | `navigation.md` | Implementing or debugging routing — Expo Router file conventions, GoRouter, or UIKit navigation patterns |
 | `networking.md` | Configuring Flutter networking — Dio setup, interceptors (auth/retry/logging), error handling, caching |
@@ -29,9 +26,5 @@ Read only the files needed for the current task.
 | `real-world-cases.md` | Starting mobile UI/lifecycle/permissions/offline-sync work — read first for scenario checklists and conflict-resolution patterns |
 | `reference-routing.md` | Unsure which large reference file covers a topic, or need heading search terms before reading a big file in full |
 | `state-management.md` | Choosing a state solution — Zustand/Jotai/React Query for RN, or Riverpod vs Bloc for Flutter |
-| `swift-coding-standards.md` | Writing or reviewing Swift for optional-safety, concurrency, memory/retain cycles, or error-handling conventions |
-| `swiftui-design-guidelines.md` | Designing a SwiftUI screen and need HIG layout, Dynamic Type, Dark Mode, or Liquid Glass guidance |
-| `system-integration.md` | Integrating iOS permissions (camera/photos/location), share sheet, app lifecycle, or haptic feedback |
 | `testing.md` | Choosing or writing an Android test layer — JUnit/Robolectric unit tests, Espresso, Compose UI tests, Gradle managed devices |
-| `uikit-components.md` | Building a UIKit screen with stack views, buttons, alerts, search controllers, or context menus |
 | `widget-patterns.md` | Structuring Flutter widgets for const-optimization, responsive layout, hooks, or sliver lists |

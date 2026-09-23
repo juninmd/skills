@@ -18,7 +18,7 @@
     "negative": [
       {
         "prompt": "Supervise a headless agent run and make its tool loop resilient to restarts",
-        "owner": "agent-engineering"
+        "owner": "agent-orchestration"
       },
       {
         "prompt": "Build the image gallery component with lazy loading in React",

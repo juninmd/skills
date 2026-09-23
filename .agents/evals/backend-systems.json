@@ -35,6 +35,10 @@
       {
         "prompt": "Write a complex SQL migration with zero-downtime DDL in PostgreSQL",
         "owner": "data-engineering"
+      },
+      {
+        "prompt": "Set up pnpm workspace catalogs and migrate this repo's lockfile from npm",
+        "owner": "package-management"
       }
     ]
   }

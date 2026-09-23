@@ -1,7 +1,7 @@
 ---
 name: code-review
 description: |
-  Review code and pull requests for defects, regressions, and contract violations; sweep sibling bug variants. Use for adversarial code review, legacy undocumented code recovery, characterization tests before refactoring, simplifying working code, collapsing unnecessary abstractions, and deleting proven dead code.
+  Review diffs and pull requests for defects, regressions, and contract violations, however small the diff; sweep sibling bug variants. Trigger on 'review this diff', 'before it merges', 'is it safe to delete'. Also legacy code recovery, characterization tests, simplifying working code, and deleting proven dead code.
 ---
 
 # Code Review
@@ -25,7 +25,7 @@ Substitute the actual symbol. Resolve the base rather than assuming a branch nam
 1. Read the diff, callers, public exports, tests, and configuration needed to understand behavior. Use `starting-dev` for unfamiliar repository mapping. Separate introduced regressions from pre-existing defects; a line changed nearby is not causality.
 2. Trace concrete failure conditions through inputs, state transitions, outputs, and side effects. Check authorization assumptions, null/empty/boundary inputs, concurrency, cancellation, idempotency, errors, lifecycle, compatibility, and resource bounds where relevant. Consult [expert review](references/expert-review.md).
 3. Verify each suspected defect with a focused reproduction, test, or explicit code path. Distinguish observed failures from inferred risk. Prefer actionable defects over stylistic preferences; search related call sites with [variant analysis](references/variant-analysis.md) after identifying a real defect pattern.
-4. Report findings first, ordered by severity. Each names `file:line`, trigger, actual consequence, evidence, and a concise correction. State when no actionable defects were found, then list scope and verification limits. Do not invent findings to fill a quota.
+4. Report findings first, ordered by severity. Each names `file:line`, trigger, actual consequence, evidence, and a concise correction. State when no actionable defects were found, then list scope and verification limits, and stop there: a clean verdict does not get a tail of pre-existing edge cases. Do not invent findings to fill a quota. A pre-merge pass before human review lists only problems that would block the merge, each with `file:line`, why it is wrong, and how to show it fails.
 5. If fixes or simplification are requested, route domain implementation to the appropriate sibling such as `backend-systems` or `frontend-engineering`. For cleanup owned here, use [legacy refactoring](references/legacy-refactoring.md) to characterize uncertain behavior before changing it. Preserve behavior, public contracts, and unrelated modifications.
 6. Re-run meaningful scoped checks after authorized edits. Re-read the final diff; route independent pre-PR delivery to `finishing-dev`, specialized security audit to `security-ops`, and boundary redesign to `software-architecture`.
 
@@ -35,7 +35,8 @@ Substitute the actual symbol. Resolve the base rather than assuming a branch nam
 |---|---|
 | Reproducible changed behavior violates a contract | Report severity, trigger, consequence, and minimal corrective direction |
 | Plausible failure lacks a reachable path | Investigate or state an uncertainty; do not present as confirmed |
-| Pre-existing defect outside scope | Identify separately when material; avoid unrelated edits |
+| Pre-existing defect outside scope | Mention only when reachable and material to what the diff touches; a clean diff gets "no actionable defects" plus scope, not a list of old edge cases |
+| Diff introduces a vulnerability (injection, auth bypass, exposed secret) | Block the merge with the finding and hand the security assessment to `security-ops` by name; do not run the exploitability or blast-radius analysis here |
 | No direct callers | Check string dispatch, exports, external consumers, flags, plugins, and scheduled jobs before deletion |
 | Behavior uncertain before cleanup | Add characterization with `test-engineering`; avoid semantic edits until understood |
 | Naming or abstraction preference only | Omit unless maintainability review or simplification was requested |

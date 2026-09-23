@@ -4,11 +4,19 @@ import { fileURLToPath } from "node:url";
 import { catalogFiles, loadCatalog, replaceCatalog } from "./catalog.mjs";
 import { listSkills } from "./skill-metadata.mjs";
 
-export function checkCatalog(root = process.cwd()) {
+// Ratchet on catalog breadth, moved 25 -> 35 so skills that straddle two
+// domains can be split. Past it, merge or retire a skill; never raise it to fit.
+export const MAX_SKILLS = 35;
+
+export function checkCatalog(root = process.cwd(), maxSkills = MAX_SKILLS) {
   const readmePath = path.join(root, "README.md");
   const readme = fs.readFileSync(readmePath, "utf8");
   const skills = listSkills(path.join(root, ".agents", "skills"));
   const errors = [];
+
+  if (skills.length > maxSkills) {
+    errors.push(`catalog has ${skills.length} skills, over the ${maxSkills}-skill ceiling; merge or retire one`);
+  }
 
   if (!readme.includes(`${skills.length} skills`)) {
     errors.push(`README must state the current count: ${skills.length} skills`);

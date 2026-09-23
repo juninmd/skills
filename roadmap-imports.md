@@ -41,8 +41,8 @@ Nenhuma skill nova, nenhum `SKILL.md` alterado.
 | 11 | Guias por diretório | `starting-dev/references/directory-guides.md` | `ARCHITECTURE.md` por diretório e índice na raiz, atualização incremental por hash, opt-in | ref nova |
 | 12 | Marcas de texto de IA | `documentation/references/ai-writing-tells/` | Padrões de prosa que soam gerados e como tirá-los sem mudar o conteúdo | vendor |
 | 13 | Verificação de afirmações | `web-research/references/claim-verification.md` | Tabela de afirmações, fonte original datada, checagem de raciocínio, nova checagem após as edições | ref nova |
-| 14 | Entrega em etapas | `agent-engineering/references/parallel-subagents.md` | Etapas com checkpoint de revisão, no máximo duas revisões extras por checkpoint | patch |
-| 15 | Candidatos a automação | `agent-engineering/references/automation-candidates.md` | Se uma tarefa recorrente merece um asset e qual a opção mais leve | ref nova |
+| 14 | Entrega em etapas | `agent-orchestration/references/parallel-subagents.md` | Etapas com checkpoint de revisão, no máximo duas revisões extras por checkpoint | patch |
+| 15 | Candidatos a automação | `skill-authoring/references/automation-candidates.md` | Se uma tarefa recorrente merece um asset e qual a opção mais leve | ref nova |
 | 16 | Workstreams em worktrees | `starting-dev/references/worktree-standards.md` e `worktree-workflow.md` | Um escritor por workstream, registro local, merge e limpeza com confirmação | patch |
 | 17 | Critério de sucesso tipado | `starting-dev/references/loop-state.md` | `success` tipado, executor separado do verificador, `maxAttempts` com escalonamento | patch |
 

@@ -35,3 +35,20 @@ test("detects retired calls in nested references and missing migration owners", 
   fs.writeFileSync(path.join(root, "retired-skills.json"), JSON.stringify({ "old-skill": "missing" }));
   assert.match(checkRetiredHandoffs(root).join("\n"), /missing owner/);
 });
+
+test("rejects a migration whose procedure file lives under another skill", (t) => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), "retired-owner-"));
+  t.after(() => fs.rmSync(root, { recursive: true, force: true }));
+  for (const skill of ["current-skill", "other-skill"]) {
+    fs.mkdirSync(path.join(root, "skills", skill, "references"), { recursive: true });
+    fs.writeFileSync(path.join(root, "skills", skill, "SKILL.md"), "# Skill");
+  }
+  fs.writeFileSync(path.join(root, "retired-skills.json"), JSON.stringify(migrations));
+  fs.writeFileSync(path.join(root, "skills/other-skill/references/old-skill.md"), "# Moved procedure");
+  assert.match(checkRetiredHandoffs(root).join("\n"), /'old-skill'.*other-skill/);
+  fs.renameSync(
+    path.join(root, "skills/other-skill/references/old-skill.md"),
+    path.join(root, "skills/current-skill/references/old-skill.md"),
+  );
+  assert.deepEqual(checkRetiredHandoffs(root), []);
+});

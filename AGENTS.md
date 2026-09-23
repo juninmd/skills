@@ -48,6 +48,35 @@ No `AGENTS.md` names a skill. Skills are routed by their own descriptions; namin
 - Preserve attribution and license notices in imported material.
 - Every http(s) host a skill cites is approved, with a reason, in `.agents/approved-domains.toml`; placeholders use reserved names such as `example.com`. `pnpm run domains:check` fails on an unapproved host and on an approval nothing cites.
 
+## Standardization and specifications
+
+All repository skills and tools must strictly conform to official agent specifications:
+
+### 1. Agent Skills Open Specification (agentskills.org)
+
+- **Frontmatter Schema**: Strict YAML between `---`. Permitted fields are `name`, `description`, `license`, `compatibility`, `metadata`, and `allowed-tools`.
+- **Name**: 1–64 characters, lowercase alphanumeric and hyphens (`^[a-z0-9-]+$`). Strictly matches its folder name.
+- **Description**: 1–1024 characters. Clear discovery context ("what it does and when to select it"). No angle brackets or promotional language.
+- **Progressive Disclosure**: Lightweight frontmatter is indexed at discovery; the skill body loads upon domain selection; deep procedures in `references/` load only when triggered by subtask.
+- **House Contract**: Every skill must provide `## Preflight`, numbered `## Workflow`, a decision table, real command blocks, `## Stop`, `## Rules`, and a verifiable `## Checklist`.
+
+### 2. Agent Hooks Specification (Claude Code & Runtime Hooks)
+
+- **Lifecycle Events**:
+  - `PreToolUse`: Runs before tool execution. Must validate arguments, enforce path denylists, and block unauthorized destructive commands.
+  - `PostToolUse`: Runs after tool execution. Must scrub secrets, enforce output token limits, and run verification linters.
+- **Deterministic Enforcement**: Safety barriers, secret protection, and destructive boundaries must be implemented in deterministic host code or hooks, never left to LLM prompt compliance.
+- **Plugin Scoping**: Plugin hooks must use explicit tool matchers (e.g. `matcher: "Bash"`). Global, uncontained hooks are prohibited.
+
+### 3. Model Context Protocol Specification (modelcontextprotocol.io)
+
+- **Core Primitives**:
+  - `tools`: Callable actions with strict, validated JSON schemas and bounded outputs.
+  - `resources`: Read-only, URI-addressable context without execution side effects.
+  - `prompts`: Parameterized prompt templates.
+- **Transports**: Local subprocesses communicate via `stdio`; remote services communicate via Streamable HTTP (SSE).
+- **Resilience**: Enforce wall-clock timeouts, JSON-RPC 2.0 error handling, stdout caps, and autonomous circuit breakers against thrashing.
+
 ## Consolidation and routing
 
 A merge is complete only when the new owner can execute all advertised tasks.

@@ -85,10 +85,7 @@ the request keeps consuming a connection and CPU time for a caller that already 
 ## Reference Routing
 - Multi-topic tasks: start at the [topic map](TOPIC_MAP.md).
 - Real service/API cases: [backend-node-real-world-cases.md](backend-node-real-world-cases.md)
-- Environment and runtime: [node-setup.md](node-setup.md), [node-operations.md](node-operations.md)
-- pnpm CLI, workspaces, catalogs, overrides: [pnpm-features.md](pnpm-features.md)
-- pnpm policy, CI, Docker, migration: [pnpm-standards.md](pnpm-standards.md)
-- pnpm detail: read the `core-*`, `features-*`, and `best-practices-*` references only for pnpm-specific work — see the topic map
+- Node/npm/pnpm environment, runtime, and toolchain setup: `package-management`
 - NestJS structure: [nestjs-best-practices.md](nestjs-best-practices.md)
 - TypeScript safety: [ts-safety.md](ts-safety.md), [ts-patterns.md](ts-patterns.md)
 - Tests and troubleshooting: [ts-testing.md](ts-testing.md), [ts-troubleshooting.md](ts-troubleshooting.md)

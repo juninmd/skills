@@ -1,13 +1,13 @@
 ---
 name: mobile-engineering
 description: |
-  Build and review native iOS, native Android, React Native or Expo, and Flutter applications. Use for mobile UI, lifecycle, navigation, permissions, offline behavior, accessibility, device integration, tests, and builds.
+  Build and review cross-platform mobile apps: React Native, Expo, Flutter, and native Android. Use for mobile UI, lifecycle, navigation, permissions, offline behavior, accessibility, localization, device integration, tests, and builds. Native Apple/iOS work (Swift, SwiftUI, UIKit, Metal, WidgetKit) routes to `ios-engineering`.
 ---
 
 
 # Mobile Engineering
 
-**Not this skill:** web UI in a browser (`frontend-engineering`), or the backend the app calls (`backend-systems`).
+**Not this skill:** native Apple-platform work — Swift, SwiftUI, UIKit, Metal, WidgetKit (`ios-engineering`) — web UI in a browser (`frontend-engineering`), or the backend the app calls (`backend-systems`).
 
 ## Preflight
 ```bash

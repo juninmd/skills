@@ -27,6 +27,7 @@
 "cdn.jsdelivr.net" = "fetched: Mermaid script loaded by the vendored architecture HTML report, unpinned, no SRI"
 "cdn.tailwindcss.com" = "fetched: Tailwind Play CDN loaded by the vendored architecture HTML report, unpinned, no SRI"
 "cheatsheetseries.owasp.org" = "OWASP Cheat Sheet Series"
+"claude.dev" = "Anthropic Claude engineering blog: skill, context, workflow, and long-run guidance"
 "clig.dev" = "Command Line Interface Guidelines"
 "cwe.mitre.org" = "CWE weakness definitions"
 "debezium.io" = "Debezium change-data-capture documentation"

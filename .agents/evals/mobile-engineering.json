@@ -7,11 +7,11 @@
         "top_k": 3
       },
       {
-        "prompt": "Implement iOS Swift UI view lifecycle and background location updates",
+        "prompt": "Configure Android gradle build and adaptive screen layouts in Flutter",
         "top_k": 3
       },
       {
-        "prompt": "Configure Android gradle build and adaptive screen layouts in Flutter",
+        "prompt": "Wire up Expo Router file-based navigation with a state management library",
         "top_k": 3
       }
     ],
@@ -23,6 +23,10 @@
       {
         "prompt": "Create a FastAPI endpoint with Pydantic v2 validation models and async controllers",
         "owner": "backend-systems"
+      },
+      {
+        "prompt": "Review this SwiftUI view for optional-safety and weak self capture in the closure",
+        "owner": "ios-engineering"
       }
     ]
   }

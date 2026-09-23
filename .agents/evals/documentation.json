@@ -26,7 +26,7 @@
     "negative": [
       {
         "prompt": "Clarify ambiguous requirements and interview stakeholder before planning",
-        "owner": "starting-dev"
+        "owner": "requirements-planning"
       },
       {
         "prompt": "Conduct live web research to verify recent library release facts",
