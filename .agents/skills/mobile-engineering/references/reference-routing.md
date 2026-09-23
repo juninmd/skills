@@ -6,10 +6,8 @@ Use this before opening large mobile reference files. Prefer searching headings 
 
 | File | Use for | Search first |
 |---|---|---|
-| `swiftui-design-guidelines.md` | iOS visual design, navigation, Dynamic Type, Liquid Glass, forms, loading states | `Liquid Glass`, `Navigation`, `Dynamic Type`, `Accessibility`, `Loading`, `Modality` |
 | `testing.md` | Android/iOS/RN/Flutter test layers and examples | `Unit`, `Integration`, `Compose`, `Activity`, `Maestro`, `Widget`, `E2E` |
 | `forms.md` | Mobile form validation, keyboard behavior, errors, submission | `Validation`, `Keyboard`, `Error`, `Submit`, `React Hook Form` |
-| `swift-coding-standards.md` | Swift naming, async, memory, errors, protocols | `Concurrency`, `Error`, `Memory`, `Protocol`, `Testing` |
 | `engineering.md` | Delivery process, quality gates, requirements, release readiness | `Requirements`, `Quality`, `Release`, `Checklist` |
 | `networking.md` | API clients, retries, auth refresh, offline behavior | `Retry`, `Timeout`, `Offline`, `Auth`, `Cache` |
 | `animations.md` | Motion timing, transitions, gesture animation | `Reduce Motion`, `Gesture`, `Timing`, `Spring` |

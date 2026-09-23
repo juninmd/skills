@@ -3,23 +3,11 @@
   "trigger": {
     "positive": [
       {
-        "prompt": "Clarify ambiguous requirements and interview stakeholder before planning",
-        "top_k": 3
-      },
-      {
-        "prompt": "Create PRD specification and break it into backlog task issues",
-        "top_k": 3
-      },
-      {
         "prompt": "Author an AGENTS.md file to define project instructions, scope boundaries, and context rules",
         "top_k": 3
       },
       {
         "prompt": "Write session handoff notes so a teammate can resume uninterrupted",
-        "top_k": 3
-      },
-      {
-        "prompt": "Turn this vague request into actionable acceptance criteria",
         "top_k": 3
       },
       {
@@ -47,7 +35,7 @@
         "top_k": 3
       },
       {
-        "prompt": "Break down feature into vertical slices for incremental delivery",
+        "prompt": "Set up an isolated worktree for this task before starting the dev loop",
         "top_k": 3
       }
     ],
@@ -63,6 +51,14 @@
       {
         "prompt": "Make working code simpler, collapse unnecessary abstractions, and delete dead code",
         "owner": "code-review"
+      },
+      {
+        "prompt": "Clarify ambiguous requirements and interview stakeholder before planning",
+        "owner": "requirements-planning"
+      },
+      {
+        "prompt": "Create PRD specification and break it into backlog task issues",
+        "owner": "requirements-planning"
       }
     ]
   }

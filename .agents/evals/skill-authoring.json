@@ -1,0 +1,41 @@
+{
+  "skill_name": "skill-authoring",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Create new agent skill following the specification and eval benchmarks",
+        "top_k": 3
+      },
+      {
+        "prompt": "My skill never triggers, rewrite its description so the router picks it",
+        "top_k": 3
+      },
+      {
+        "prompt": "Add a gotchas section to this SKILL.md from the failures we hit last week",
+        "top_k": 3
+      },
+      {
+        "prompt": "This skill straddles two domains, split it and repoint the evals",
+        "top_k": 3
+      },
+      {
+        "prompt": "Should this recurring task become a skill, a hook, or just a script?",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Write the AGENTS.md for this repository so new agents can onboard",
+        "owner": "starting-dev"
+      },
+      {
+        "prompt": "Design autonomous agent loop with strict tool schemas and execution bounds",
+        "owner": "agent-engineering"
+      },
+      {
+        "prompt": "Run a tournament of subagents to pick the best of five designs",
+        "owner": "agent-orchestration"
+      }
+    ]
+  }
+}

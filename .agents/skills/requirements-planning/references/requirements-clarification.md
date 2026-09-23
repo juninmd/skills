@@ -93,7 +93,7 @@ Count the **net-new** constraints each round of questions produces — an answer
 - Chase the "why" one level past the request. A stated feature frequently names a workaround for something simpler to fix.
 - When two stakeholders conflict, surface it and make them decide. Do not average the two — the average satisfies neither and nobody owns it.
 - If nothing important is unclear, say so and start. Clarification has a cost too.
-- Turning agreed criteria into an executable plan belongs to [phase-plan procedure](phase-plan.md), or to `starting-dev` outside the loop.
+- Turning agreed criteria into an executable plan belongs to `starting-dev`'s [phase-plan procedure](../../starting-dev/references/phase-plan.md), or to `starting-dev` outside the loop.
 
 ## Checklist
 - [ ] Request restated with user, trigger, and success outcome.

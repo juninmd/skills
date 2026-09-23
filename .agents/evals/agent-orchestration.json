@@ -1,0 +1,41 @@
+{
+  "skill_name": "agent-orchestration",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Orchestrate concurrent subagents with isolated workspaces",
+        "top_k": 3
+      },
+      {
+        "prompt": "Fan out one subagent per service to audit the retry bug and verify each report",
+        "top_k": 3
+      },
+      {
+        "prompt": "Use a workflow to verify every technical claim in this draft with adversarial verifiers",
+        "top_k": 3
+      },
+      {
+        "prompt": "Set up a long unattended goal run with stop rules and a TASKS.md checklist",
+        "top_k": 3
+      },
+      {
+        "prompt": "Keep a headless agent run alive through auth expiry and quota 429s",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Build Model Context Protocol MCP server with stdio or SSE transport",
+        "owner": "agent-engineering"
+      },
+      {
+        "prompt": "My skill never triggers, rewrite its description so the router picks it",
+        "owner": "skill-authoring"
+      },
+      {
+        "prompt": "Write the Kubernetes CronJob manifest and Helm values for this deployment",
+        "owner": "cloud-devops"
+      }
+    ]
+  }
+}
