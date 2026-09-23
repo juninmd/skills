@@ -27,6 +27,10 @@
       {
         "prompt": "Fix the React hydration mismatch in our Next.js app",
         "owner": "frontend-engineering"
+      },
+      {
+        "prompt": "Run a k6 load test against the API before launch",
+        "owner": "performance-engineering"
       }
     ]
   }

@@ -21,6 +21,10 @@
       {
         "prompt": "Write safe shell operations script with strict error handling in bash",
         "top_k": 3
+      },
+      {
+        "prompt": "Roll out the new checkout behind a feature flag with a canary deployment",
+        "top_k": 3
       }
     ],
     "negative": [

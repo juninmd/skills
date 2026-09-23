@@ -1,7 +1,7 @@
 ---
 name: observability
 description: |
-  Monitor, diagnose, and stabilize production systems and incidents. Use for structured logging, metrics, distributed tracing, alerting, root-cause troubleshooting, postmortems, network failures, timeouts, and on-call response. Trigger on 'prod is down', 'we have an incident', 'why is this timing out', 'add alerts', 'write the postmortem'.
+  Diagnose bugs and stabilize production systems and incidents. Use for root-cause debugging, logging, metrics, distributed tracing, alerting, SLOs and error budgets, postmortems, network failures, timeouts, on-call, product event tracking, and A/B experiments. Trigger on 'prod is down', 'find this bug', 'why is this timing out', 'add alerts', 'set up an A/B test'.
 ---
 
 

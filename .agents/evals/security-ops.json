@@ -21,6 +21,10 @@
       {
         "prompt": "Run a full end-to-end vulnerability audit and pen test of this codebase",
         "top_k": 3
+      },
+      {
+        "prompt": "Are we LGPD compliant storing user emails and CPF, and how fast must we report a breach",
+        "top_k": 3
       }
     ],
     "negative": [

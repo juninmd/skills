@@ -1,7 +1,7 @@
 ---
 name: cloud-devops
 description: |
-  Design and automate CI/CD, Kubernetes, containers, IaC, deployment verification, and shell scripts. Use for GitHub Actions, Dockerfiles, Terraform, Helm, manual GHCR rollout, deployment sync drift, and safe bash/PowerShell. Trigger on 'the pipeline fails', 'write a Dockerfile', 'deploy this to Kubernetes', 'the cluster drifted from Git'.
+  Design and automate CI/CD, Kubernetes, containers, IaC, deployment verification, and shell scripts. Use for GitHub Actions, Dockerfiles, Terraform, Helm, canary and feature flag rollouts, manual GHCR rollout, deployment sync drift, and safe bash/PowerShell. Trigger on 'the pipeline fails', 'write a Dockerfile', 'deploy this to Kubernetes', 'the cluster drifted from Git'.
 ---
 
 

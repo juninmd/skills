@@ -17,6 +17,10 @@
       {
         "prompt": "Design database schema and migration scripts for our new relational tables",
         "top_k": 3
+      },
+      {
+        "prompt": "Set up database backups with point-in-time restore and run a restore drill",
+        "top_k": 3
       }
     ],
     "negative": [

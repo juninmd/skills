@@ -1,7 +1,7 @@
 ---
 name: security-ops
 description: |
-  Audit and harden code, dependencies, secrets, access boundaries, and extensions. Use for end-to-end vulnerability audits, pen tests, CVE scans, Gitleaks remediation, zero-trust reviews, least privilege, threat modeling, and plugin or MCP server vetting. Trigger on 'is this secure', 'run a security audit', 'we leaked a key', 'can I trust this plugin'.
+  Audit and harden code, dependencies, secrets, personal data, access boundaries, and extensions. Use for vulnerability audits, pen tests, CVE scans, Gitleaks remediation, least privilege, threat modeling, LGPD/GDPR privacy, and plugin or MCP server vetting. Trigger on 'is this secure', 'run a security audit', 'we leaked a key', 'are we LGPD compliant', 'can I trust this plugin'.
 ---
 
 # Security Operations

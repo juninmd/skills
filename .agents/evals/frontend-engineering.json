@@ -21,6 +21,10 @@
       {
         "prompt": "This UI looks like generic AI slop, give it real visual hierarchy, styling, and colors",
         "top_k": 3
+      },
+      {
+        "prompt": "Translate the web app into Portuguese and Arabic with i18n plurals and RTL layout",
+        "top_k": 3
       }
     ],
     "negative": [

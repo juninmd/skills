@@ -17,6 +17,10 @@
       {
         "prompt": "Reduce cloud spend and LLM token budget by rightsizing resources",
         "top_k": 3
+      },
+      {
+        "prompt": "Run a k6 load test against the API before launch",
+        "top_k": 3
       }
     ],
     "negative": [
