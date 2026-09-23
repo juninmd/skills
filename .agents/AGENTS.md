@@ -53,7 +53,7 @@ Bias caution over speed on non-trivial work; judgment on trivial tasks (one file
 - **Simplicity:** minimum code that solves the problem. No speculative features, single-use abstractions, or unrequested configurability.
 - **Surgical:** touch only required lines; match style; no adjacent refactors; every changed line maps to the request.
 - **Read before write:** exports, callers, shared utilities, local conventions.
-- **Goal-driven:** vague asks become verifiable checks. Refactors: verify before and after.
+- **Goal-driven:** vague asks become verifiable checks with a stated finish line ("done means ..."). Refactors: verify before and after.
 - **Tests encode intent:** assert *why* behavior matters; fail on business-logic regression, not on output change alone.
 - **Right tool:** model for classification, drafting, summarization, extraction; code for routing, retries, deterministic transforms.
 - **Conventions over taste:** surface harmful patterns instead of silently forking style. On contradictory patterns pick one by recency/evidence, explain, flag the other for cleanup.
@@ -62,11 +62,11 @@ Bias caution over speed on non-trivial work; judgment on trivial tasks (one file
 - **Root cause:** no swallowed exceptions, no retry/sleep masking a race, no skipped or deleted tests to go green.
 - **Edge coverage:** empty/null/boundary/unicode/large input, concurrency, timezone and clock, partial failure, idempotent retry.
 - **Contracts:** public API, schema, event, CLI flag. Change expand -> migrate -> contract; breaking only with migration notes; migrations reversible.
-- **Never invent:** verify a symbol, API, or flag exists (grep, docs) before using it. If you did not run it, say so.
+- **Never invent:** verify a symbol, API, or flag exists (grep, docs) before using it. If you did not run it, say so. In research, mark what you could not confirm and where you looked.
 - **Thrash guard:** 3 failed attempts on the same error -> stop, report hypotheses and evidence.
 - **Generated files:** never hand-edit lockfiles, generated clients, snapshots. Regenerate.
 - **Language:** reply in the user's language; code, identifiers, comments, and commits always in English.
-- **Files** under 300 lines; near the limit means a missing boundary: split by responsibility. **Comments** only when extremely necessary: one short line on *why*, never *what*. **Commits** one concern, conventional prefix, body says why. **Patches** smallest correct diff, shown as a diff, no full-file pastes.
+- **Files** under 300 lines; near the limit means a missing boundary: split by responsibility. **Comments** match the surrounding code's density; a new one is one short line on *why*, never *what*. **Commits** one concern, conventional prefix, body says why. **Patches** smallest correct diff, shown as a diff, no full-file pastes.
 
 ## Execution
 
@@ -74,7 +74,8 @@ Bias caution over speed on non-trivial work; judgment on trivial tasks (one file
 - **Timeouts:** bound every long command via the harness timeout; else `timeout 180s …` / `Wait-Job -Timeout`.
 - **Non-interactive:** `CI=true`, `--quiet`, `--no-pager`, `--no-color`, `-input=false`. Forbid `less`, `watch`, prompts, `yes |`, `-auto-approve`, blind `rm -rf`.
 - **Quiet by default:** quietest form (`--quiet`, `-q`, `--reporter=dot`, `--log-level=error`). Never emit output you will not read; verbose only to debug a concrete failure.
-- **Subagents:** delegate parallel, well-scoped work (search, sweeps, doc lookups, mechanical edits) to the cheapest tier; keep the strongest model for the decision and the patch.
+- **Subagents:** delegate parallel, well-scoped work (search, sweeps, doc lookups, mechanical edits) to the cheapest tier; keep the strongest model for the decision and the patch. Check a subagent's evidence before accepting its report.
+- **Long runs:** when a step needs no input, keep going and put status in the same message as the next action. Stop only when blocked or before anything destructive or outside the repository. Track units in a task file (`TASKS.md`) so progress survives compaction.
 - **Reads/search:** native read/search tools first. Shell fallback: line count, then ranged read; `rg -n --hidden "pattern" . -g '!*.{lock,d.ts}' | head -n 50`. Use the code index when present.
 - **Data and tokens:** never dump raw JSON/logs; extract failing lines with `jq` or `rg -ni "error|fail|timeout" | head`. Read narrowly, summarize before large outputs.
 
@@ -101,12 +102,13 @@ Verdict: 🟢 **Pronto**, 🟡 **Parcial** (requested scope left out), 🔴 **Bl
 
 | | |
 |---|---|
+| 🙋 **Precisa de você** | decisions or approvals only the user can give; read first |
 | 📝 **Alterado** | files / behavior |
 | ✅ **Verificado** | `<command>` → `<real output line>` |
 | 💭 **Assumido** | assumptions made |
 | ⏭️ **Fora do escopo** | what was left out and why |
 | ⚠️ **Risco** | residual risk |
 | 🧠 **Aprendizados** | what this task taught that is worth keeping (persisted to memory when available) |
-| ➡️ **Próximo** | the one or two follow-ups worth doing, or the decision blocking them |
+| ➡️ **Próximo** | the one or two follow-ups worth doing |
 
-Alterado and Verificado are mandatory; omit any other row with no content. Próximo carries what would otherwise be a trailing question, so the report stays the whole answer.
+Alterado and Verificado are mandatory; omit any other row with no content. Precisa de você carries what would otherwise be a trailing question, so the report stays the whole answer.

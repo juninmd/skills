@@ -67,6 +67,22 @@ Write durable state to disk **while you still have room to write it well** — a
   open questions · next concrete step · what has been ruled out
 ```
 
+## Instruction Layers (Claude 5 Generation)
+Anthropic cut over 80% of Claude Code's system prompt for Claude 5 models with no measurable loss on coding evals ([new rules of context engineering](https://claude.dev/blog/the-new-rules-of-context-engineering-for-claude-5-generation-models/)). What was removed was mostly rules, examples, and repetition.
+
+Assembled context stacks as: user prompt, references (@-mentioned files, specs, mockups), system prompt, CLAUDE.md files, skills and memory. Audit the stack as a whole:
+
+| Check | Fix |
+|---|---|
+| Two layers give opposite guidance ("document as appropriate" vs. "no comments") | keep one, phrased as judgment: "match the surrounding code's comment density" |
+| Tool description carries long usage examples | move the constraint into the schema (enum of states plus one rule) |
+| Verification or review procedure always loaded | move it to a skill or reference loaded by the step that needs it |
+| Rarely used tools loaded up front | defer them behind tool search |
+| Instruction file restates what the file tree shows | cut it; keep repo purpose and non-obvious gotchas |
+| Spec written as prose or a screenshot | point at code, tests, or an HTML mockup instead |
+
+Run `/doctor` in Claude Code to rightsize skills and CLAUDE.md files. These rules target Claude 5 generation models; an older or smaller model behind a custom harness may still need the explicit rules.
+
 ## Stop
 - A read would exceed the remaining window. Delegate it to a subagent or summarize it first — never paste and hope.
 - A summary would lose an exact number, path, error string, or a user decision. Keep those verbatim; cut prose instead.

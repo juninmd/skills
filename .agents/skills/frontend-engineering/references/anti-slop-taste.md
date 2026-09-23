@@ -29,6 +29,16 @@ Never default to:
 - Inter font everywhere without deliberate pairing.
 - Equal padding and symmetrical margins on every section.
 
+### Name the Exclusions
+A style label ("clean", "modern") steers less than a list of what to avoid. Current models share recognizable defaults; ban them explicitly unless the brief asks for one:
+- cream or off-white page background
+- italic accent words inside headings
+- numbered "01 / 02 / 03" section labels
+- monospace eyebrow labels
+- pill-shaped buttons
+
+The archetypes below may use one of these on purpose; the rule is that each appears by decision, never by default.
+
 ## The Three Dials
 
 Calibrate these three axes based on the Design Read:
