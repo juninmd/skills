@@ -1,6 +1,19 @@
 
 # API Design
 
+## Contents
+
+- Preflight
+- Workflow
+- Compatible or Breaking
+- Status Codes by Cause
+- Idempotency and Pagination
+- GraphQL: N+1 and Query Cost
+- Rate Limiting and Backpressure
+- Stop
+- Rules
+- Checklist
+
 ## Preflight
 ```bash
 ls openapi.yaml openapi.json schema.graphql *.proto 2>/dev/null   # is there a contract already?

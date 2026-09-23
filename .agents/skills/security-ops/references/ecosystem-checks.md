@@ -1,5 +1,15 @@
 # Ecosystem Checks
 
+## Contents
+
+- Preflight
+- Workflow
+- Install and build hooks
+- Risky call sites
+- Injection classes beyond SQL
+- Framework settings
+- Outside the application
+
 A lookup table for audits of a repository or a diff, organized by language toolchain. Method and
 attack classes live in the vendored [audit workflow](security-audit/audit-workflow.md); this file
 answers two practical questions underneath it: which files execute code before the test suite ever

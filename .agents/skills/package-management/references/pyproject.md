@@ -1,5 +1,13 @@
 # pyproject.toml Configuration Reference
 
+## Contents
+
+- Complete Example
+- Section Reference
+- Version Specifiers
+- uv.lock Handling
+- Common Patterns
+
 Complete reference for configuring `pyproject.toml` for modern Python projects.
 
 **Important**: Always use `uv add` and `uv remove` to manage dependencies. Do not edit the `dependencies` or `dependency-groups` sections directly.

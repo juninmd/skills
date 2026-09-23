@@ -1,6 +1,20 @@
 
 # SQL Authoring
 
+## Contents
+
+- Preflight
+- Workflow
+- Reading the Plan
+- Traps That Return Wrong Answers Silently
+- Index Design
+- Transaction Isolation Levels
+- N+1 Query Detection
+- Connection Pool Sizing
+- Stop
+- Rules
+- Checklist
+
 ## Preflight
 ```sql
 \d+ <table>                          -- columns, types, indexes that already exist

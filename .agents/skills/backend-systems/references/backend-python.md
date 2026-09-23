@@ -1,6 +1,19 @@
 
 # Backend Python
 
+## Contents
+
+- Preflight
+- Workflow
+- The Blocking-Call Trap
+- Fire-and-Forget Tasks Lose Errors and Get Garbage-Collected
+- Cancellation Propagation
+- Pydantic v2 Differences That Bite
+- Reference Routing
+- Stop
+- Rules
+- Checklist
+
 ## Preflight
 
 ```bash

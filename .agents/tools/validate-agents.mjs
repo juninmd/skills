@@ -3,6 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { readSkill, listSkillDirectoryNames } from "./skill-metadata.mjs";
 import { checkRetiredHandoffs } from "./retired-handoffs.mjs";
+import { walkFiles } from "./walk-files.mjs";
 
 // A body long enough to skim past is a body an agent will skim past. The
 // ceiling is a ratchet: raise it deliberately, never to fit one more paragraph.
@@ -61,6 +62,22 @@ export function validateSkill(skillDirectory) {
     errors.push(
       `${skillName}: name cannot start or end with a hyphen or contain consecutive hyphens`,
     );
+  }
+  if (/claude|anthropic/.test(String(declaredName))) {
+    errors.push(`${skillName}: name must not contain the reserved word 'claude' or 'anthropic'`);
+  }
+
+  const extra = metadata.metadata;
+  if (extra !== undefined) {
+    if (!extra || typeof extra !== "object" || Array.isArray(extra)) {
+      errors.push(`${skillName}: metadata must be a map of string keys to string values`);
+    } else {
+      for (const [key, value] of Object.entries(extra)) {
+        if (typeof value !== "string") {
+          errors.push(`${skillName}: metadata.${key} must be a string; quote it`);
+        }
+      }
+    }
   }
 
   for (const field of Object.keys(metadata)) {
@@ -147,6 +164,7 @@ export function validateSkill(skillDirectory) {
       );
     }
     errors.push(...findOrphanReferences(skillName, text, referencesRoot));
+    errors.push(...findReferencesWithoutContents(skillName, referencesRoot));
   }
 
   return errors;
@@ -168,16 +186,32 @@ function findOrphanReferences(skillName, skillText, referencesRoot) {
     }
   };
 
+  // Only SKILL.md and its linked topic map route: a file reached through another
+  // reference is two hops deep, and agents preview those with partial reads.
   collect(skillText);
-  for (const name of referenceFiles) {
-    collect(fs.readFileSync(path.join(referencesRoot, name), "utf8"));
+  const topicMap = path.join(referencesRoot, "TOPIC_MAP.md");
+  if (fs.existsSync(topicMap) && skillText.includes("references/TOPIC_MAP.md")) {
+    collect(fs.readFileSync(topicMap, "utf8"));
   }
 
   return referenceFiles
-    .filter((name) => !mentioned.has(name))
+    .filter((name) => name !== "TOPIC_MAP.md" && !mentioned.has(name))
     .map(
       (name) =>
-        `${skillName}: orphan reference 'references/${name}' is never linked or mentioned; route it or remove it`,
+        `${skillName}: orphan reference 'references/${name}' is not routed from SKILL.md or its TOPIC_MAP.md; route it or remove it`,
+    );
+}
+
+function findReferencesWithoutContents(skillName, referencesRoot) {
+  return walkFiles([referencesRoot], { filter: (file) => file.endsWith(".md") })
+    .filter((file) => path.basename(file) !== "TOPIC_MAP.md")
+    .filter((file) => {
+      const lines = fs.readFileSync(file, "utf8").split(/\r?\n/);
+      return lines.length > 100 && !lines.slice(0, 40).some((line) => /^##\s+Contents\s*$/.test(line));
+    })
+    .map(
+      (file) =>
+        `${skillName}: '${path.relative(path.dirname(referencesRoot), file).replaceAll("\\", "/")}' is over 100 lines and needs a '## Contents' section near the top`,
     );
 }
 

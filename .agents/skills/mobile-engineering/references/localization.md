@@ -1,5 +1,19 @@
 # Localization
 
+## Contents
+
+- Setup
+- ARB Files
+- App Configuration
+- Using Translations
+- Dynamic Locale Switching
+- Date and Number Formatting
+- RTL Support
+- Organized Translations
+- Testing
+- ARB Placeholders Reference
+- Localization Checklist
+
 Internationalization (i18n) patterns using flutter_localizations and intl package for Flutter applications.
 
 ## Setup

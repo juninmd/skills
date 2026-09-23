@@ -5,6 +5,21 @@ description: Multi-project configuration for monorepos and different test types
 
 # Projects
 
+## Contents
+
+- Basic Projects Setup
+- Monorepo Pattern
+- Different Environments
+- Browser + Node Projects
+- Shared Configuration
+- Project-Specific Dependencies
+- Running Specific Projects
+- Providing Values to Projects
+- With Fixtures
+- Project Isolation
+- Global Setup per Project
+- Key Points
+
 Run different test configurations in the same Vitest process.
 
 ## Basic Projects Setup

@@ -1,5 +1,29 @@
 # Performance Optimization
 
+## Contents
+
+- Profiling Commands
+- Const Widget Optimization
+- Selective Provider Watching
+- RepaintBoundary
+- List Optimization
+- Image Optimization
+- Heavy Computation
+- Animation Performance
+- DevTools Analysis
+- Performance Checklist
+- Dispose Pattern
+- Android Vitals Thresholds
+- Startup Performance
+- Rendering Performance
+- ANR Prevention
+- Battery Optimization
+- Memory Management
+- StrictMode
+- SDK Requirements
+- Monitoring and Profiling
+- Android Performance Checklist
+
 Flutter performance guide covering profiling, const optimization, and DevTools analysis, plus Android performance and stability requirements: Vitals thresholds, startup, rendering, ANR, battery, and memory best practices.
 
 ## Profiling Commands

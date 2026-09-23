@@ -1,5 +1,14 @@
 # PR Evidence: Screenshots and Payloads
 
+## Contents
+
+- Decide what the diff requires
+- Visual evidence
+- Payload evidence
+- Migration and rollback notes
+- Delegation
+- Stop
+
 Every pull request body carries proof of the change. Which proof depends on what the diff touches; a PR that changes visible behaviour or a contract and shows neither is incomplete.
 
 ## Decide what the diff requires

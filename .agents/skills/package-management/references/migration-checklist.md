@@ -1,5 +1,18 @@
 # Migration Checklist
 
+## Contents
+
+- Entry Points
+- Before Migration
+- Cleanup Old Artifacts
+- .gitignore Updates
+- pyproject.toml Sections to Remove
+- Post-Migration Easy Wins
+- CI Cleanup
+- Gradual ty Adoption
+- Supply Chain Security
+- Verification
+
 Comprehensive checklist for migrating Python projects to modern tooling.
 
 ## Entry Points

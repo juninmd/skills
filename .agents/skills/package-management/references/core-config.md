@@ -5,6 +5,15 @@ description: Configuration options via pnpm-workspace.yaml and .npmrc settings
 
 # pnpm Configuration
 
+## Contents
+
+- pnpm-workspace.yaml
+- .npmrc Settings
+- Configuration Hierarchy
+- Environment Variables
+- Package.json Fields
+- Key Differences from npm/yarn
+
 pnpm uses two main configuration files: `pnpm-workspace.yaml` for workspace and pnpm-specific settings, and `.npmrc` for npm-compatible and pnpm-specific settings.
 
 ## pnpm-workspace.yaml

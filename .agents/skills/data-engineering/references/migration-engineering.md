@@ -1,6 +1,19 @@
 
 # Migration Engineering
 
+## Contents
+
+- Preflight
+- Workflow
+- The Four Phases
+- Backfill Shape
+- Reconciliation Is the Gate
+- Idempotent Migrations and Rollback Safety
+- Stop
+- Rules
+- Reference Routing
+- Checklist
+
 ## Preflight
 ```sql
 SELECT count(*) FROM <table>;                       -- how long will the backfill take

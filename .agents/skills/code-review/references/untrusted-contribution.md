@@ -1,5 +1,16 @@
 # Untrusted Contribution Review
 
+## Contents
+
+- Preflight
+- Workflow
+- What counts as data
+- Assertions to check
+- Pre-execution screen
+- Dependencies and pipelines
+- Issue reports
+- Before a release that bundles merged changes
+
 Use this when the input comes from outside the trusted set: a pull request from a fork or a new
 contributor, an issue report, or the merged result of several such changes before a release. The
 question here is narrower than a normal review: may any of it run on your machine, and which of the

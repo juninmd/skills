@@ -1,5 +1,15 @@
 # Design Style Guide
 
+## Contents
+
+- Style Selection
+- Style Profiles
+- Consistency Principles
+- Anti-Patterns: Style Mismatch
+- Implementation Checklist
+- Visual Specifications (Material Design 3)
+- Styling in Code (Expo/React Native)
+
 Match visual design to app category and audience, then apply concrete specs for colors, typography, spacing, elevation, shapes, and code-level styling.
 
 ## Style Selection

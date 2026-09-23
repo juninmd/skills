@@ -1,6 +1,20 @@
 
 # Document Generation
 
+## Contents
+
+- Preflight
+- Workflow
+- Library by Language
+- Template Over Scratch
+- Extraction Traps
+- Formula Injection
+- Accessibility of Generated PDFs
+- Verify by Parsing
+- Stop
+- Rules
+- Checklist
+
 ## Preflight
 ```bash
 ls *.docx *.xlsx *.pptx templates/ 2>/dev/null    # is there a template to fill?

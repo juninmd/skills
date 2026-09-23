@@ -5,6 +5,17 @@ description: Customize package resolution and dependency behavior with pnpmfile 
 
 # pnpm Hooks
 
+## Contents
+
+- Setup
+- readPackage Hook
+- afterAllResolved Hook
+- Context Object
+- Use with TypeScript
+- Common Patterns
+- Hooks vs Overrides
+- Troubleshooting
+
 pnpm provides hooks via `.pnpmfile.cjs` to customize how packages are resolved and their metadata is processed.
 
 ## Setup

@@ -1,5 +1,15 @@
 # System Integration
 
+## Contents
+
+- Permission Requests
+- Location Button
+- Share Sheet
+- App Lifecycle
+- Haptic Feedback
+- Deep Linking
+- Background Tasks
+
 iOS system integration guide covering permissions, location, sharing, app lifecycle, and haptic feedback.
 
 ## Permission Requests

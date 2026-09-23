@@ -1,5 +1,12 @@
 # Validation, Structured Output, Verification, and Reporting
 
+## Contents
+
+- Phase 3: Independently validate every candidate
+- Phase 4: Write and validate findings.json
+- Phase 5: Verify the final records with fresh eyes
+- Phase 6: Produce target-neutral reports from final records
+
 ### Phase 3: Independently validate every candidate
 
 After the clean coverage-critic pass or an explicitly recorded early stop, consolidate Phase 2 candidates and carried same-source prior confirmations by stable fingerprint and root cause. Give every unique proposed `confirmed` and `needs_validation` candidate to a fresh `general` verifier that did not hunt it. A carried prior confirmation follows the same current verification path even though hunters exclude that unchanged root cause. A verifier may read hunter or prior artifacts but must re-read every cited current source location and independently run any decisive check it can reproduce safely.

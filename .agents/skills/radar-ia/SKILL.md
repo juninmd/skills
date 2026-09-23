@@ -4,7 +4,7 @@ description: |
   Sweep the AI/coding-agent ecosystem (GitHub trending, Reddit RSS, Hacker News, Hugging Face, Claude Code/Codex/Copilot/Antigravity changelogs) into a dated pt-BR digest plus raw dumps. Triggers: "me atualize sobre IA", "trending do github", "o que rolou de IA hoje/essa semana". Use for the daily AI radar and best-posts digests; not for one-paper research or debugging.
 license: MIT
 metadata:
-  version: 1.1.0
+  version: "1.1.0"
 compatibility: windows (PowerShell) primary; needs gh CLI, WebFetch, WebSearch
 ---
 

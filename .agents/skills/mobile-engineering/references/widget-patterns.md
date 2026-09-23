@@ -1,5 +1,14 @@
 # Widget Patterns
 
+## Contents
+
+- Optimized Widget Pattern
+- Responsive Layout
+- Custom Hooks (flutter_hooks)
+- Sliver Patterns
+- Key Usage Patterns
+- Optimization Checklist
+
 Flutter widget best practices covering const optimization, responsive layouts, hooks, and sliver patterns.
 
 ## Optimized Widget Pattern

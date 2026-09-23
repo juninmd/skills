@@ -1,5 +1,16 @@
 # UI Review
 
+## Contents
+
+- The Gate
+- Platform Reality
+- A Screenshot Is Only Evidence If It Is Deterministic
+- Artifacts the Review Actually Reads
+- What the Vision Pass May Conclude
+- Accessibility as a Gate, Not an Opinion
+- Desktop Specifics
+- Stop
+
 Applies to any diff that changes rendered behavior — web, Electron, or Tauri. A UI change reviewed only
 as source text is not reviewed: the defects live in the rendered state, and the rendered state is
 evidence the author must produce.

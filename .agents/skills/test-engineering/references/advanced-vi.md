@@ -5,6 +5,24 @@ description: vi helper for mocking, timers, utilities
 
 # Vi Utilities
 
+## Contents
+
+- Mock Functions
+- Spying
+- Module Mocking
+- Dynamic Mocking
+- Reset Modules
+- Fake Timers
+- Mock Date/Time
+- Global/Env Mocking
+- Hoisted Code
+- Waiting Utilities
+- Mock Object
+- Test Configuration
+- Global Mock Management
+- vi.mocked Type Helper
+- Key Points
+
 The `vi` helper provides mocking and utility functions.
 
 ```ts

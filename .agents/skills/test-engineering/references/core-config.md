@@ -5,6 +5,16 @@ description: Configure Vitest with vite.config.ts or vitest.config.ts
 
 # Configuration
 
+## Contents
+
+- Basic Setup
+- Using with Existing Vite Config
+- Merging Configs
+- Common Options
+- Conditional Configuration
+- Projects (Monorepos)
+- Key Points
+
 Vitest reads configuration from `vitest.config.ts` or `vite.config.ts`. It shares the same config format as Vite.
 
 ## Basic Setup

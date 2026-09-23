@@ -1,5 +1,14 @@
 # Security Setup
 
+## Contents
+
+- Tool Installation
+- Quick Setup
+- Tool Matrix
+- Pre-commit Hooks
+- CI Security
+- Dependency Security
+
 Security tooling for Python projects: pre-commit hooks, CI auditing, and dependency scanning.
 
 ## Tool Installation

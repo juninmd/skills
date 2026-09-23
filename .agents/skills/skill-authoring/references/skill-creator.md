@@ -1,6 +1,19 @@
 
 # Skill Creator
 
+## Contents
+
+- Preflight
+- Workflow
+- Trigger, Not Topic
+- Body Structure That Earns Its Tokens
+- Budgets
+- Validate
+- Anti-patterns
+- Stop
+- Rules
+- Checklist
+
 ## Preflight
 ```bash
 node .agents/tools/run-evals.mjs .agents | head -3     # current routing health

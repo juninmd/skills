@@ -5,6 +5,22 @@ description: Snapshot testing with file, inline, and file snapshots
 
 # Snapshot Testing
 
+## Contents
+
+- Basic Snapshot
+- Inline Snapshots
+- File Snapshots
+- Snapshot Hints
+- Object Shape Matching
+- Error Snapshots
+- Updating Snapshots
+- Custom Serializers
+- Snapshot Format Options
+- Concurrent Test Snapshots
+- Snapshot File Location
+- When a Snapshot Hides a Regression
+- Key Points
+
 Snapshot tests capture output and compare against stored references.
 
 ## Basic Snapshot

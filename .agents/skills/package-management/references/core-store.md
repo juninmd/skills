@@ -5,6 +5,17 @@ description: Content-addressable storage system that makes pnpm fast and disk-ef
 
 # pnpm Store
 
+## Contents
+
+- How It Works
+- Store Commands
+- Configuration
+- Disk Space Benefits
+- Node Linker Modes
+- Side Effects Cache
+- Shared Store Across Machines
+- Troubleshooting
+
 pnpm uses a content-addressable store to save disk space and speed up installations. All packages are stored once globally and hard-linked to project `node_modules`.
 
 ## How It Works

@@ -12,6 +12,18 @@ metadata:
 
 # Humanizer: remove AI writing patterns
 
+## Contents
+
+- Why AI text sounds the way it does
+- How to work
+- A. Staging instead of stating
+- B. Rhythm by rule
+- C. Inflation and borrowed authority
+- D. Formatting by rule
+- E. Leftovers from the chat and the draft
+- When not to act
+- Source
+
 Rewrite AI-sounding text so it reads like the writer, not a chatbot. Keep what it says. Do not make anything up.
 
 ## Why AI text sounds the way it does

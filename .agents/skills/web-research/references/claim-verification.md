@@ -1,5 +1,19 @@
 # Claim Verification
 
+## Contents
+
+- Preflight
+- Workflow
+- 1. Claims table
+- 2. What counts as a source
+- 3. Deciding
+- 4. Reasoning check (offline)
+- Changelog Claims vs. Commit History
+- 5. Splitting the work
+- 6. Re-check after edits
+- Report
+- Stop
+
 Check the factual statements in a document (article, README, incident write-up, pull request
 description) against original sources, and check that its reasoning holds. Finding sources is
 [search-technique.md](search-technique.md); pinning the version a statement is about is

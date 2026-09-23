@@ -1,6 +1,18 @@
 
 # Electron Architecture
 
+## Contents
+
+- Preflight
+- Workflow
+- Capability Ownership
+- The Security Baseline
+- Validate on Arrival
+- Reference Routing
+- Stop
+- Rules
+- Checklist
+
 ## Preflight
 ```bash
 rg -n 'nodeIntegration|contextIsolation|sandbox|webSecurity' src/ | head

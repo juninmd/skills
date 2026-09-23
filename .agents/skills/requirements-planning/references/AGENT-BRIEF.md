@@ -1,5 +1,11 @@
 # Writing Agent Briefs
 
+## Contents
+
+- Principles
+- Template
+- Examples
+
 An agent brief is a structured comment posted on a GitHub issue when it moves to `ready-for-agent`. It is the authoritative specification that an AFK agent will work from. The original issue body and discussion are context — the agent brief is the contract.
 
 ## Principles
