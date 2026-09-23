@@ -1,7 +1,7 @@
 ---
 name: goldsrc-modding
 description: |
-  Author, compile, maintain, and configure Counter-Strike 1.6 and GoldSrc maps and game modes. Use for Valve 220 .map geometry, ZHLT/VHLT compile pipelines, BSP30 lump editing, and CS 1.6 entity logic.
+  Author, compile, maintain, and configure Counter-Strike 1.6 and GoldSrc maps, game modes, and AMX Mod X plugins. Use for Valve 220 .map geometry, ZHLT/VHLT compile pipelines, BSP30 lump editing, CS 1.6 entity logic, and AMX Mod X/Pawn (.sma/.amxx) scripting: natives, forwards, precache lifecycle, and crash forensics.
 ---
 
 
@@ -21,6 +21,7 @@ for tool in hlcsg hlbsp hlvis hlrad ripent; do command -v "$tool" >/dev/null 2>&
    - For compiler pipelines and build errors: [Map Compiling](references/goldsrc-map-compiling.md)
    - For BSP lump extraction and entity tweaks: [BSP Maintenance](references/goldsrc-bsp-maintenance.md)
    - For round objectives, spawns and buy zones: [Game Modes](references/cs16-map-gamemodes.md)
+   - For AMX Mod X plugin bugs, crashes, or native/forward design: [AMX Mod X Scripting](references/goldsrc-amxmodx-scripting.md)
 3. Author geometry adhering to grid snapping, CSG convex brush rules, and texture alignments.
 4. Validate entity logic, spawn counts, and round objectives.
 5. Compile with ZHLT/VHLT toolchain flags and check logs for leaks or AllocBlock errors.
@@ -33,6 +34,7 @@ for tool in hlcsg hlbsp hlvis hlrad ripent; do command -v "$tool" >/dev/null 2>&
 | Compilation & tools | [Map Compiling](references/goldsrc-map-compiling.md) | ZHLT/VHLT build passes, leak debugging, AllocBlock fixes |
 | BSP30 maintenance | [BSP Maintenance](references/goldsrc-bsp-maintenance.md) | Lump inspection, entity editing with ripent, engine limits |
 | Game modes & entities | [Game Modes](references/cs16-map-gamemodes.md) | Bomb targets (de_), hostages (cs_), VIP escort (as_), buy zones |
+| AMX Mod X / Pawn plugins | [AMX Mod X Scripting](references/goldsrc-amxmodx-scripting.md) | .sma/.amxx crashes, native/forward design, precache lifecycle |
 
 ## Stop
 - Halt when compile logs report LEAK or unrecoverable brush corruption.
