@@ -1,7 +1,7 @@
 ---
 name: git-workflow
 description: |
-  Operate Git safely and manage releases. Use for branches, worktrees, rebase conflicts, reflog recovery, stash, bisect, conventional commits, semantic version bumps, changelogs, and release tags. PR review and delivery use finishing-dev.
+  Operate Git safely and manage releases; PR delivery belongs to finishing-dev. Use for branches, worktrees, rebase conflicts, reflog recovery, stash, bisect, conventional commits, semantic version bumps, changelogs, and release tags. Trigger on 'I lost a commit', 'resolve this rebase', 'find the commit that broke it', 'cut a release'.
 ---
 
 # Git Workflow

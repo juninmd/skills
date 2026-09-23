@@ -1,7 +1,7 @@
 ---
 name: agent-engineering
 description: |
-  Design and harden AI agent runtimes, MCP servers, and context pipelines. Use for agent loops, tool schemas, step and token bounds, prompt-injection defense, tool guards and hooks, MCP transports, context window pruning, and system prompts for Claude 5 generation models.
+  Design and harden AI agent runtimes, MCP servers, and context pipelines. Use for agent loops, tool schemas, step and token bounds, prompt-injection defense, tool guards and hooks, MCP transports, context pruning, and system prompts for Claude 5 models. Trigger on 'build an agent', 'write an MCP server', 'the agent loops forever', 'trim this system prompt'.
 ---
 
 # Agent Engineering

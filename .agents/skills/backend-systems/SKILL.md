@@ -1,7 +1,7 @@
 ---
 name: backend-systems
 description: |
-  Implement backend services, APIs, and caching with Bun, Node.js, Rust, and Python. Use for NestJS modules, dependency injection, DTO validation, FastAPI, REST/GraphQL OpenAPI contracts, endpoints, controllers, async concurrency, cache invalidation, and backend builds; maintain existing Go and .NET services too.
+  Implement backend services, APIs, and caching in Bun, Node.js, Rust, and Python, and maintain Go and .NET services. Use for NestJS modules, DI, DTO validation, FastAPI, REST/GraphQL OpenAPI contracts, endpoints and controllers, async concurrency, and cache invalidation. Trigger on 'add an endpoint', 'build this API', 'design the REST contract', 'cache this with Redis'.
 ---
 
 # Backend Systems

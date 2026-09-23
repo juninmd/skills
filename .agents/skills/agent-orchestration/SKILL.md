@@ -1,7 +1,7 @@
 ---
 name: agent-orchestration
 description: |
-  Coordinate multi-agent work: fan-out subagents, dynamic workflows, adversarial verification, tournaments, multi-model councils, and long unattended runs. Use for parallel audits or migrations, verifying subagent claims, goal or loop runs with stop rules and a task file, and supervising headless agents through auth expiry and quotas.
+  Coordinate multi-agent work and long unattended runs. Use for fan-out subagents in isolated workspaces, dynamic workflows, adversarial verification, tournaments, model councils, stop rules with a task file, and headless runs through auth expiry and quotas. Trigger on 'use subagents', 'use a workflow', 'verify each claim', 'run this overnight', 'keep the headless run alive'.
 ---
 
 # Agent Orchestration

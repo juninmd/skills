@@ -1,7 +1,7 @@
 ---
 name: starting-dev
 description: |
-  Start development: author AGENTS.md or CLAUDE.md project instructions and README, onboard by charting an unfamiliar codebase and its dependencies, and run the dev loop: research, throwaway prototype variants, plan, implement. Use for repository onboarding, worktrees, task stages, and session handoffs.
+  Start development. Use for AGENTS.md or CLAUDE.md project instructions and README, onboarding by charting an unfamiliar codebase and its dependencies, the dev loop (research, throwaway prototype variants, plan, implement), worktrees, task stages, and session handoffs. Trigger on 'onboard me to this repo', 'write the AGENTS.md', 'where do I start', 'write a handoff'.
 ---
 
 # Starting Development
