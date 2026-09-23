@@ -136,6 +136,21 @@ test("rejects a description above the 1024-character spec limit", () => {
   assert.ok(validateSkill(directory).some((error) => error.includes("1024-character")));
 });
 
+test("rejects names with the reserved words claude or anthropic", () => {
+  const directory = createSkill(validSkill.replace("name: sample-skill", "name: claude-helper"));
+  const errors = validateSkill(directory, "claude-helper");
+  assert.ok(errors.some((error) => error.includes("reserved word")));
+});
+
+test("rejects metadata values that YAML reads as non-strings", () => {
+  // Unquoted 1.10 parses as the number 1.1; the spec requires a string-to-string map.
+  const directory = createSkill(
+    validSkill.replace("---\n\n", "metadata:\n  version: 1.10\n---\n\n"),
+    { "references/guide.md": "# Guide\n" },
+  );
+  assert.ok(validateSkill(directory).some((error) => error.includes("metadata.version must be a string")));
+});
+
 test("rejects orphan reference files", () => {
   const directory = createSkill(validSkill, {
     "references/guide.md": "# Guide\n",
@@ -145,11 +160,35 @@ test("rejects orphan reference files", () => {
 });
 
 test("accepts references mentioned via backticks in a topic map", () => {
+  const directory = createSkill(
+    validSkill.replace("See [guide]", "Map: [topics](references/TOPIC_MAP.md). See [guide]"),
+    {
+      "references/guide.md": "# Guide\n",
+      "references/TOPIC_MAP.md": "# Topic map\n\nOpen `deep-dive.md` for details.\n",
+      "references/deep-dive.md": "# Deep Dive\n",
+    },
+  );
+  assert.deepEqual(validateSkill(directory), []);
+});
+
+test("rejects a reference reachable only through another reference", () => {
+  // Agents preview nested files with partial reads; routing stays one hop from SKILL.md.
   const directory = createSkill(validSkill, {
     "references/guide.md": "# Guide\n\nSee `deep-dive.md` for details.\n",
     "references/deep-dive.md": "# Deep Dive\n",
   });
-  assert.deepEqual(validateSkill(directory), []);
+  assert.ok(validateSkill(directory).some((error) => error.includes("orphan reference 'references/deep-dive.md'")));
+});
+
+test("requires a contents section in references over 100 lines", () => {
+  const body = Array.from({ length: 101 }, (_, index) => `line ${index}`).join("\n");
+  const without = createSkill(validSkill, { "references/guide.md": `# Guide\n\n${body}\n` });
+  assert.ok(validateSkill(without).some((error) => error.includes("needs a '## Contents' section")));
+
+  const withToc = createSkill(validSkill, {
+    "references/guide.md": `# Guide\n\n## Contents\n\n- Usage\n\n## Usage\n\n${body}\n`,
+  });
+  assert.deepEqual(validateSkill(withToc), []);
 });
 
 test("requires a topic map for large reference collections", () => {

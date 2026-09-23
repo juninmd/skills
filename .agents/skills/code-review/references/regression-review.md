@@ -1,5 +1,16 @@
 # Regression Review
 
+## Contents
+
+- Contracts
+- Failures That Stop Being Visible
+- Concurrency and Partial Failure
+- Data Layer
+- Input Boundaries
+- Cost and Capacity
+- The Tests in the Diff Are Part of the Diff
+- Stop
+
 What to look for in a diff so a working system does not stop working. Every entry is a **signal visible
 in the change itself**, not a principle. Verdict discipline — green-to-red classification, baselines in
 an isolated worktree, flake arithmetic — belongs to `test-engineering` and its `regression-gate.md`;

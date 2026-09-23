@@ -1,6 +1,22 @@
 
 # Knowledge Freshness
 
+## Contents
+
+- Preflight
+- Workflow
+- What Is Behind
+- Ask the Registry
+- Direct vs Transitive
+- Latest Is Not Automatically a Candidate
+- Stale Prior, Current Shape
+- "Latest" Tag vs. Latest Stable
+- Yanked and Deprecated Releases
+- Staleness Windows for Research Results
+- Stop
+- Rules
+- Checklist
+
 ## Preflight
 ```bash
 npm outdated || uv pip list --outdated || go list -m -u all

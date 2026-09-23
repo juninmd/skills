@@ -1,6 +1,20 @@
 
 # Requirements Clarification
 
+## Contents
+
+- Preflight
+- Workflow
+- Ask in One Batch, With Defaults
+- Rank Before Asking
+- The Edges
+- Criteria That Survive
+- When the Success Check Itself Is Untestable
+- Saturation Is the Stop Condition
+- Stop
+- Rules
+- Checklist
+
 ## Preflight
 ```bash
 gh issue view <n> --json title,body,comments      # read the ticket fully first

@@ -1,5 +1,18 @@
 # Testing with pytest
 
+## Contents
+
+- Setup
+- pyproject.toml Configuration
+- Project Structure
+- Running Tests
+- Coverage Commands
+- Writing Tests
+- Property-Based Testing with Hypothesis
+- Markers
+- CI Configuration
+- Makefile Target
+
 Configuration and best practices for pytest with coverage enforcement.
 
 ## Setup

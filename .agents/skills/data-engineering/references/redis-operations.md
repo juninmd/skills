@@ -1,5 +1,18 @@
 # Redis Operations
 
+## Contents
+
+- Pick the Type by Access Pattern
+- Connections: Pool or Multiplex, Never Per Request
+- Cluster: Slots Decide What Is Even Possible
+- Hardening: All Three Layers or None
+- Eviction Policies and Cache Stampede
+- Observability
+- Search (RQE)
+- Semantic Cache
+- Stop
+- Sources
+
 Modeling, client setup, cluster layout, hardening, and diagnosis. Plan-based SQL diagnosis stays in
 [sql-authoring](sql-authoring.md); this file covers the decisions that make Redis fast or take it down.
 

@@ -1,5 +1,17 @@
 # uv Command Reference
 
+## Contents
+
+- Installation
+- Project Commands
+- Tool Commands
+- Python Version Management
+- Script Commands (PEP 723)
+- Common Workflows
+- Environment Variables
+- Container/Host Development
+- Performance Tips
+
 `uv` is an extremely fast Python package and project manager written in Rust. It replaces pip, virtualenv, pip-tools, pipx, and pyenv.
 
 **Key principle:** Always use `uv run` to execute commands. Never manually activate virtual environments.

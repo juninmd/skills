@@ -5,6 +5,17 @@ description: Tips and tricks for faster installs and better performance
 
 # pnpm Performance Optimization
 
+## Contents
+
+- Install Optimizations
+- Store Optimizations
+- Workspace Optimizations
+- Network Optimizations
+- Lockfile Optimization
+- Benchmarking
+- Configuration Summary
+- Quick Reference
+
 pnpm is fast by default, but these optimizations can make it even faster.
 
 ## Install Optimizations

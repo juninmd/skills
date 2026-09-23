@@ -1,6 +1,19 @@
 
 # Release Management
 
+## Contents
+
+- Preflight
+- Workflow
+- Version Choice
+- Pre-Tag Gate
+- Tooling
+- When It Goes Wrong
+- Changelog Generation Edge Cases
+- Stop
+- Rules
+- Checklist
+
 ## Preflight
 ```bash
 git describe --tags --abbrev=0                       # last release

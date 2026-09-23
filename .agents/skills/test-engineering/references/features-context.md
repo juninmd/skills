@@ -5,6 +5,19 @@ description: Test context, custom fixtures with test.extend
 
 # Test Context & Fixtures
 
+## Contents
+
+- Built-in Context
+- Custom Fixtures with test.extend
+- Fixture Initialization
+- Auto Fixtures
+- Scoped Fixtures
+- Injected Fixtures (from Config)
+- Scoped Values per Suite
+- Extended Test Hooks
+- Composing Fixtures
+- Key Points
+
 ## Built-in Context
 
 Every test receives context as first argument:

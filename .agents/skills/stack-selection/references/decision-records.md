@@ -1,5 +1,14 @@
 # Decision Records, Dependency Vetting, and Boring Technology
 
+## Contents
+
+- ADR Structure
+- Evaluating Maintenance Signal
+- License Compatibility Check
+- Cost of Migration vs. Cost of Staying
+- Boring Technology
+- Justifying a Deviation from Repo Defaults
+
 Open this before adopting a dependency, replacing an incumbent, or writing
 up a deviation from the Defaults table. It does not repeat why each default
 holds — see [stack rationale](stack-rationale.md) for that.

@@ -5,6 +5,15 @@ description: Command line interface commands and options
 
 # Command Line Interface
 
+## Contents
+
+- Commands
+- Common Options
+- Package.json Scripts
+- Sharding for CI
+- Watch Mode Keyboard Shortcuts
+- Key Points
+
 ## Commands
 
 ### `vitest`

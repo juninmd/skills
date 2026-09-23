@@ -5,6 +5,16 @@ description: Optimizing pnpm for continuous integration and deployment workflows
 
 # pnpm CI/CD Setup
 
+## Contents
+
+- GitHub Actions
+- GitLab CI
+- Docker
+- Key CI Flags
+- Corepack Integration
+- Monorepo CI Strategies
+- Best Practices Summary
+
 Best practices for using pnpm in CI/CD environments for fast, reliable builds.
 
 ## GitHub Actions

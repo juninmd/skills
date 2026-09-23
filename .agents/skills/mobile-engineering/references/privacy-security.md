@@ -1,5 +1,19 @@
 # Privacy & Security Guidelines
 
+## Contents
+
+- Permissions
+- Data Storage
+- Network Security
+- User Identity
+- App Components Security
+- WebView Security
+- Cryptography
+- Code Security
+- Device Identifiers
+- Google Play Policies
+- Security Checklist
+
 Security best practices and privacy requirements for Android applications.
 
 ## Permissions

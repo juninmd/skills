@@ -1,5 +1,13 @@
 # pnpm Standards: Governance, CI/CD, Migration, Performance
 
+## Contents
+
+- 1. Dependency Governance
+- 2. CI/CD
+- 3. Docker
+- 4. Migration from npm or Yarn
+- 5. Performance
+
 Policy and operational guidance. Feature and configuration syntax lives in
 [pnpm-features.md](pnpm-features.md).
 

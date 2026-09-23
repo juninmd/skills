@@ -1,5 +1,17 @@
 # prek: Fast Pre-commit Hooks
 
+## Contents
+
+- Why prek over pre-commit?
+- Installation
+- Quick Start
+- Configuration
+- Commands
+- CI Configuration
+- Makefile Integration
+- Migration from pre-commit
+- Best Practices
+
 [prek](https://github.com/j178/prek) is a fast, Rust-native drop-in replacement for pre-commit. It uses the same `.pre-commit-config.yaml` format and is fully compatible with existing configurations.
 
 ## Why prek over pre-commit?

@@ -1,6 +1,19 @@
 
 # Backend Node.js
 
+## Contents
+
+- Preflight
+- Workflow
+- ESM vs CJS — Settle This First
+- Shutdown That Does Not Drop Requests
+- Fire-and-Forget Loses Errors
+- Cancellation Propagation
+- Reference Routing
+- Stop
+- Rules
+- Checklist
+
 ## Preflight
 Read the repository before writing for it. These four answers change every decision that follows.
 

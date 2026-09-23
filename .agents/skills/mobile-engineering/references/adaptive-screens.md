@@ -1,5 +1,18 @@
 # Adaptive Screens Guidelines
 
+## Contents
+
+- Adaptive Quality Tiers
+- Screen Size Classes
+- Configuration Changes
+- Multi-Window Support
+- Foldable Devices
+- External Input Devices
+- Navigation Patterns
+- Responsive Layouts
+- Content Considerations
+- Testing
+
 Requirements for large screens, tablets, foldables, and multi-window support.
 
 ## Adaptive Quality Tiers

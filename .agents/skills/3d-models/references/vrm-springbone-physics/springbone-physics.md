@@ -5,6 +5,17 @@ description: Debugging and fixing VRM SpringBone physics issues in three-vrm, in
 
 # VRM SpringBone Physics Debugging
 
+## Contents
+
+- Common Symptoms
+- Root Cause 1: Incorrect Delta Time (Most Common - 90%)
+- Root Cause 2: SpringBone Colliders (Very Common)
+- Root Cause 2B: Runtime Scene Scaling (Application-Specific)
+- Root Cause 3: Model Issues
+- Recommended Initialization Code
+- Key API Reference
+- Joint Settings (per joint.settings)
+
 This skill covers common issues with VRM hair/clothing physics using `@pixiv/three-vrm` and how to fix them.
 
 ## Common Symptoms

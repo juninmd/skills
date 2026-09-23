@@ -1,5 +1,21 @@
 # Ruff Configuration Reference
 
+## Contents
+
+- Basic Setup
+- Running Ruff
+- Rule Categories
+- Recommended Ignores
+- Per-File Ignores
+- Import Sorting (isort)
+- Docstring Style (pydocstyle)
+- Formatter Configuration
+- Type Checking
+- CI Configuration
+- Migration from Other Tools
+- Code Modernization
+- Line Length Migration
+
 Ruff is an extremely fast Python linter and formatter written in Rust. It replaces flake8, black, isort, pyupgrade, pydocstyle, and many other tools.
 
 ## Basic Setup

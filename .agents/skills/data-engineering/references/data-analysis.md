@@ -1,6 +1,20 @@
 
 # Data Analysis
 
+## Contents
+
+- Preflight
+- Workflow
+- Size Decides the Strategy
+- Profile Before Concluding
+- Memory Profiling and Downcasting
+- Traps That Change the Answer Silently
+- Before Sharing: Scrub
+- Reference Routing
+- Stop
+- Rules
+- Checklist
+
 ## Preflight
 
 ```bash

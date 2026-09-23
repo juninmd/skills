@@ -5,6 +5,17 @@ description: Handling peer dependencies with auto-install and resolution rules
 
 # pnpm Peer Dependencies
 
+## Contents
+
+- Auto-Install Peer Dependencies
+- Strict Peer Dependencies
+- Peer Dependency Rules
+- Adding Peer Dependencies via Hooks
+- Peer Dependencies in Workspaces
+- Common Scenarios
+- Debugging Peer Dependencies
+- Best Practices
+
 pnpm has strict peer dependency handling by default. It provides configuration options to control how peer dependencies are resolved and reported.
 
 ## Auto-Install Peer Dependencies

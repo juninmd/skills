@@ -1,5 +1,15 @@
 # Native Capabilities Reference
 
+## Contents
+
+- Permissions
+- Camera
+- Location
+- Haptics
+- Notifications
+- Biometrics
+- Resources, Icons, and Error Diagnosis
+
 Camera, location, permissions, haptics, notifications, and biometrics for Expo/React Native.
 
 ## Permissions

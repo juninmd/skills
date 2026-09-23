@@ -1,5 +1,16 @@
 # Project Structure
 
+## Contents
+
+- Feature-Based Structure
+- Feature Layer Responsibilities
+- pubspec.yaml Essentials
+- Main Entry Point
+- Router Provider
+- Environment Configuration
+- Dependency Injection with Riverpod
+- Best Practices
+
 Flutter project architecture guide covering feature-based structure, dependencies, and entry point setup.
 
 ## Feature-Based Structure

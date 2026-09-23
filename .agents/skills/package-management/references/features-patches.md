@@ -5,6 +5,16 @@ description: Patch third-party packages directly with customized fixes
 
 # pnpm Patches
 
+## Contents
+
+- Creating a Patch
+- Patch File Format
+- Managing Patches
+- Patch Configuration
+- Workspaces
+- Best Practices
+- Troubleshooting
+
 pnpm's patching feature lets you modify third-party packages directly. Useful for applying fixes before upstream releases or customizing package behavior.
 
 ## Creating a Patch

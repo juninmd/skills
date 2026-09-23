@@ -1,5 +1,18 @@
 # pnpm Core Features, Workspaces, and Configuration
 
+## Contents
+
+- 1. CLI Commands
+- 2. Workspaces and Filtering
+- 3. Configuration
+- 4. Store and Node Linker
+- 5. Catalogs
+- 6. Overrides
+- 7. Patches
+- 8. Aliases
+- 9. Peer Dependencies
+- 10. Hooks
+
 Reference for the pnpm CLI, monorepo workspaces, configuration files, the content-addressable store, and the dependency features (catalogs, overrides, patches, aliases, peer rules, hooks).
 
 ## 1. CLI Commands

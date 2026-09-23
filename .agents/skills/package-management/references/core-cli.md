@@ -5,6 +5,14 @@ description: Essential pnpm commands for package management, running scripts, an
 
 # pnpm CLI Commands
 
+## Contents
+
+- Installation Commands
+- Script Commands
+- Workspace Commands
+- Other Useful Commands
+- Useful Flags
+
 pnpm provides a comprehensive CLI for package management with commands similar to npm/yarn but with unique features.
 
 ## Installation Commands

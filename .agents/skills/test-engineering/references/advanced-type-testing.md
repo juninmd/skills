@@ -5,6 +5,24 @@ description: Test TypeScript types with expectTypeOf and assertType
 
 # Type Testing
 
+## Contents
+
+- Setup
+- Configuration
+- expectTypeOf API
+- Value Type Checking
+- Function Types
+- Object Types
+- Equality vs Matching
+- Branded Types
+- Generic Types
+- Nullable Types
+- assertType
+- Using @ts-expect-error
+- Running Type Tests
+- Mixed Test Files
+- Key Points
+
 Test TypeScript types without runtime execution.
 
 ## Setup

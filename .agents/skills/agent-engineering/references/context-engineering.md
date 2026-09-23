@@ -1,6 +1,19 @@
 
 # Context Engineering
 
+## Contents
+
+- Preflight
+- Workflow
+- Price It First
+- Volatility Routing
+- Subagent Isolation
+- Before an Overrun
+- Instruction Layers (Claude 5 Generation)
+- Stop
+- Rules
+- Checklist
+
 ## Preflight
 ```bash
 wc -lc path/to/file           # chars/4 ≈ tokens, before opening anything

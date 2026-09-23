@@ -1,6 +1,21 @@
 
 # Diagrams As Code
 
+## Contents
+
+- Preflight
+- Check the Host First
+- Workflow
+- Rendering
+- The Markdown After Conversion
+- CI Drift Check
+- When a Diagram Goes Stale Without a Broken Build
+- Accessibility of Diagrams
+- Diagram Type
+- Stop
+- Rules
+- Checklist
+
 ## Preflight
 ```bash
 rg -l '```mermaid' --glob '*.md' | head        # what would be converted
