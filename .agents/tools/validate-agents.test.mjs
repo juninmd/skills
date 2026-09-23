@@ -180,6 +180,21 @@ test("rejects a reference reachable only through another reference", () => {
   assert.ok(validateSkill(directory).some((error) => error.includes("orphan reference 'references/deep-dive.md'")));
 });
 
+test("checks references inside vendored subfolders but not their UPSTREAM notes", () => {
+  const routed = createSkill(validSkill.replace("See [guide]", "See [physics](references/vendor/physics.md) and [guide]"), {
+    "references/guide.md": "# Guide\n",
+    "references/vendor/physics.md": "# Physics\n",
+    "references/vendor/UPSTREAM.md": "# Upstream\n",
+  });
+  assert.deepEqual(validateSkill(routed), []);
+
+  const unrouted = createSkill(validSkill, {
+    "references/guide.md": "# Guide\n",
+    "references/vendor/physics.md": "# Physics\n",
+  });
+  assert.ok(validateSkill(unrouted).some((error) => error.includes("orphan reference 'references/vendor/physics.md'")));
+});
+
 test("requires a contents section in references over 100 lines", () => {
   const body = Array.from({ length: 101 }, (_, index) => `line ${index}`).join("\n");
   const without = createSkill(validSkill, { "references/guide.md": `# Guide\n\n${body}\n` });

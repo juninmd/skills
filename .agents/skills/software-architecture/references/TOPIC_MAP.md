@@ -5,6 +5,9 @@ Read only the files needed for the current task.
 | Reference | Topic / Description |
 |---|---|
 | `deep-modules/codebase-design.md` | Deep-module vocabulary (module, interface, seam, adapter, depth), the deletion test, deepening by dependency category: [codebase-design](deep-modules/codebase-design.md); find candidates with [improve-codebase-architecture](deep-modules/improve-codebase-architecture.md) (Matt Pocock, MIT; see [UPSTREAM.md](deep-modules/UPSTREAM.md)) |
+| `deep-modules/DEEPENING.md` | Deepening one cluster given its dependencies: dependency categories, seams, adapters: [DEEPENING](deep-modules/DEEPENING.md) |
+| `deep-modules/DESIGN-IT-TWICE.md` | Exploring alternative interfaces for a deepened module with parallel sub-agents: [DESIGN-IT-TWICE](deep-modules/DESIGN-IT-TWICE.md) |
+| `deep-modules/HTML-REPORT.md` | Writing the architecture review as an HTML report with Mermaid diagrams: [HTML-REPORT](deep-modules/HTML-REPORT.md) |
 | `design-principles.md` | Clean Code/SOLID/DRY/KISS/YAGNI, plus the Clean Architecture dependency rule, accidental-vs-essential coupling, and bounded contexts: [design-principles](design-principles.md) |
 | `distributed-architecture.md` | Designing a new distributed system: bounded-context decomposition, messaging pattern/broker choice, resilience patterns (circuit breaker, retry, DLQ), and the recommended stack: [distributed-architecture](distributed-architecture.md) |
 | `distributed-toolkit.md` | Looking up what a specific distributed-systems tool or pattern does (Kafka, RabbitMQ, Resilience4j, Istio, Saga, Outbox) before picking one for a design: [distributed-toolkit](distributed-toolkit.md) |
