@@ -1,7 +1,7 @@
 ---
 name: ios-engineering
 description: |
-  Build and review native Apple-platform apps: Swift language conventions, SwiftUI and UIKit UI code, Metal shaders, WidgetKit widgets, and iOS system integration against Apple's Human Interface Guidelines. Use for Swift optionals/concurrency/memory, SwiftUI view design, UIKit screens and Auto Layout, Metal rendering, widgets, permissions, and App Store readiness.
+  Build and review native Apple-platform apps against Apple's Human Interface Guidelines. Use for Swift optionals, concurrency and memory, SwiftUI views, UIKit and Auto Layout, Metal shaders, WidgetKit, iOS permissions and system integration, and App Store readiness. Trigger on 'SwiftUI view', 'retain cycle', 'force-unwrap crash', 'iOS widget', 'Metal shader'.
 ---
 
 # iOS Engineering

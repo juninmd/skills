@@ -6,7 +6,8 @@ export const CATALOG_START = "<!-- skill-catalog:start -->";
 export const CATALOG_END = "<!-- skill-catalog:end -->";
 
 function summarize(description) {
-  const normalized = description.replace(/\s+/g, " ").trim();
+  // Trigger phrases steer model routing; the catalog row describes scope for humans.
+  const normalized = description.replace(/\s+/g, " ").replace(/\s*Trigger on .*$/i, "").trim();
   const useFor = normalized.match(/\bUse for (.+?)(?:\.$|$)/i)?.[1];
   return useFor ?? normalized.split(".")[0];
 }

@@ -1,7 +1,7 @@
 ---
 name: tooling-dev
 description: |
-  Build and maintain command-line tools, developer automation, and code generators. Use for CLI arguments, exit codes, non-interactive execution, config discovery, signals, structured output, packaging, and integration tests.
+  Build and maintain command-line tools, developer automation, and code generators. Use for CLI arguments, exit codes, non-interactive execution, config discovery, signals, structured output, packaging, and integration tests. Trigger on 'build a CLI', 'write a script to automate this', 'scaffold a generator', 'wrong exit code'.
 ---
 
 

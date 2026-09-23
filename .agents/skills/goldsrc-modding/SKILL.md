@@ -1,7 +1,7 @@
 ---
 name: goldsrc-modding
 description: |
-  Author, compile, maintain, and configure Counter-Strike 1.6 and GoldSrc maps, game modes, and AMX Mod X plugins. Use for Valve 220 .map geometry, ZHLT/VHLT compile pipelines, BSP30 lump editing, CS 1.6 entity logic, and AMX Mod X/Pawn (.sma/.amxx) scripting: natives, forwards, precache lifecycle, and crash forensics.
+  Author, compile, and maintain Counter-Strike 1.6 and GoldSrc maps, game modes, and AMX Mod X plugins. Use for Valve 220 .map geometry, ZHLT/VHLT compiles, BSP30 lumps, CS 1.6 entities, and Pawn (.sma/.amxx) natives, forwards, precache, and crash forensics. Trigger on 'my map leaks', 'AllocBlock full', 'the plugin crashes the server'.
 ---
 
 

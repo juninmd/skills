@@ -1,7 +1,7 @@
 ---
 name: 3d-models
 description: |
-  Prepare, convert and debug 3D model assets and avatars. Use for Blender cleanup, VRM 0.x/1.0 conversion, VRoid exports, MToon materials, shape keys, ARKit blendshapes, humanoid rigs, and VRM SpringBone hair physics.
+  Prepare, convert and debug 3D model assets and avatars. Use for Blender cleanup, VRM 0.x/1.0 conversion, VRoid exports, MToon materials, shape keys, ARKit blendshapes, humanoid rigs, and VRM SpringBone hair physics. Trigger on 'convert this VRM', 'clean up my VRoid export', 'the hair physics is broken', 'transfer the blendshapes'.
 ---
 
 # 3D Models

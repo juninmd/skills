@@ -1,7 +1,7 @@
 ---
 name: finishing-dev
 description: |
-  Finish development and prepare or create a pull request after independent code-review and security subagents, fixes, tests, and CI checks. Use for finishing a feature branch, review-before-PR delivery, PR descriptions, shipping a completed change, homologação/homologar (prove it works against the real target before calling it done), and final acceptance evidence.
+  Finish a change and prepare or open its pull request after independent code-review and security subagents, fixes, tests, and CI. Use for review-before-PR delivery, PR descriptions, homologação/homologar (prove it works on the real target), and acceptance evidence. Trigger on 'get it ready for a PR', 'open the PR', 'ship this branch', 'finish this feature'.
 ---
 
 # Finishing Development
