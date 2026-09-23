@@ -41,6 +41,8 @@ export function checkRetiredHandoffs(agentsRoot) {
     return ["retired-skills.json: expected a retired-name to owner object"];
   }
   const errors = [];
+  const skillsRoot = path.join(agentsRoot, "skills");
+  const skillNames = fs.existsSync(skillsRoot) ? fs.readdirSync(skillsRoot) : [];
   for (const [name, owner] of Object.entries(migrations)) {
     if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(name) || typeof owner !== "string" ||
         !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(owner)) {
@@ -52,6 +54,12 @@ export function checkRetiredHandoffs(agentsRoot) {
     }
     if (fs.existsSync(path.join(agentsRoot, "skills", name, "SKILL.md"))) {
       errors.push(`retired-skills.json: '${name}' is still an active skill`);
+    }
+    // A procedure moved by a later split must follow its file, or the map routes to a skill that lost it.
+    const holders = skillNames.filter((skill) =>
+      fs.existsSync(path.join(agentsRoot, "skills", skill, "references", `${name}.md`)));
+    if (holders.length && !holders.includes(owner)) {
+      errors.push(`retired-skills.json: '${name}' maps to '${owner}' but its procedure lives in ${holders.join(", ")}`);
     }
   }
   const files = collectMarkdown(["AGENTS.md", "agents", "skills"], agentsRoot);
