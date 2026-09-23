@@ -10,4 +10,4 @@ temp/
 *.local
 pr-comment.md
 
-evals/results/
+.agents/evals/results/

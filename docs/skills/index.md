@@ -12,7 +12,7 @@ The catalog contains 30 domain skills. They are intentionally broader than singl
 | `backend-systems` | NestJS modules, dependency injection, DTO validation, FastAPI, REST/GraphQL OpenAPI contracts, endpoints, controllers, async concurrency, cache invalidation, and backend builds; maintain existing Go and .NET services too |
 | `bot-engineering` | a price/deal/release/job-listing tracker, an RSS/API poller, or any bot that watches a source and notifies on change |
 | `cloud-devops` | GitHub Actions, Dockerfiles, Terraform, Helm, manual GHCR rollout, deployment sync drift, and safe bash/PowerShell |
-| `code-review` | adversarial code review, legacy undocumented code recovery, characterization tests before refactoring, simplifying working code, collapsing unnecessary abstractions, and deleting proven dead code |
+| `code-review` | Review diffs and pull requests for defects, regressions, and contract violations, however small the diff; sweep sibling bug variants |
 | `data-engineering` | PostgreSQL, MySQL, Redis, schema migrations, zero-downtime DDL, pandas profiling, query plans, indexes, and aggregation |
 | `documentation` | README, docs verification, Mermaid diagrams as code, ASCII figures, terminal figures, code snippet images, PDF/DOCX generation, and OpenAPI reference |
 | `finishing-dev` | finishing a feature branch, review-before-PR delivery, PR descriptions, shipping a completed change, homologação/homologar (prove it works against the real target before calling it done), and final acceptance evidence |
