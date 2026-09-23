@@ -46,7 +46,7 @@
       },
       {
         "prompt": "Write the PRD and break the feature into backlog tasks before coding",
-        "owner": "starting-dev"
+        "owner": "requirements-planning"
       },
       {
         "prompt": "Design module boundaries and dependency directions for this system",

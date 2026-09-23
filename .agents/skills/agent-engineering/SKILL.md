@@ -1,12 +1,12 @@
 ---
 name: agent-engineering
 description: |
-  Design, orchestrate, and supervise AI agents, MCP servers, subagents, and context pipelines. Use for agent loops, MCP tools, context window pruning, parallel subagents, concurrent workspaces, headless resilience, and authoring new skills with eval benchmarks.
+  Design and harden AI agent runtimes, MCP servers, and context pipelines. Use for agent loops, tool schemas, step and token bounds, prompt-injection defense, tool guards and hooks, MCP transports, context window pruning, and system prompts for Claude 5 generation models.
 ---
 
 # Agent Engineering
 
-**Not this skill:** using an existing agent to do domain work (that domain's skill), or picking an LLM provider or SDK (`stack-selection`).
+**Not this skill:** using an existing agent to do domain work (that domain's skill), picking an LLM provider or SDK (`stack-selection`), coordinating many agents or long unattended runs (`agent-orchestration`), or writing a skill (`skill-authoring`).
 
 ## Preflight
 ```bash
@@ -73,31 +73,21 @@ The defense is architectural: least privilege on tools, deny destructive by defa
 | Retry exhaustion | visible failure with the trace |
 | Budget exceeded | reported, never a silent stop |
 
-## Authoring a Skill
+## System Prompts for Claude 5 Models
 
-```
-NO RULE WITHOUT A BASELINE THAT FAILED WITHOUT IT
-```
+| Before | Now | Why |
+|---|---|---|
+| Rule lists ("never write comments") | Goal plus judgment ("match the surrounding code") | a rule fires where it was never meant to |
+| Worked examples in tool descriptions | Self-describing schemas: enums, required fields, one invariant | examples anchor; interfaces constrain |
+| Everything up front | Progressive disclosure: deferred tools, skills, references | irrelevant context still costs attention |
+| Same instruction in prompt and tool text | Say it once, where it applies | repeats drift into contradictions |
 
-Writing a skill is test-driven development applied to instructions.
-
-| TDD | Authoring |
-|---|---|
-| Write the test | A prompt a real user would type, saved to the skill's eval file |
-| Watch it fail | Run it with the skill absent; record the exact rationalization the agent used |
-| Minimal code | Write only the rule that closes that rationalization |
-| Watch it pass | Re-run the same prompt with the skill loaded |
-| Refactor | Hunt the next loophole; keep routing evals green |
-
-A rule you cannot name a failure for is weight the catalog carries on every turn for
-nobody. Explain why a step matters instead of stacking imperatives: an agent that
-understands the cost complies under pressure, one that was only ordered rationalizes.
+Contradictory layers (system prompt vs. CLAUDE.md vs. skill) are the costly failure: the model spends reasoning reconciling them every turn. Details: [context-engineering](references/context-engineering.md).
 
 ## Reference Routing
 - Practical agent failure cases: [real-world-cases.md](references/real-world-cases.md)
 - Agent loops, tool contracts, and orchestration: [agent-development.md](references/agent-development.md)
 - Deterministic tool interceptors, scrubbers, and circuit breakers: [tool-guards-and-hooks.md](references/tool-guards-and-hooks.md)
-- Multi-model consensus and adversarial review hats: [multi-model-council.md](references/multi-model-council.md)
 - Deep audit scope and evidence collection: [audit-phases.md](references/audit-phases.md)
 - Function-level trust-boundary analysis: [function-analysis.md](references/function-analysis.md)
 - Stable outputs and subagent isolation: [stability-rules.md](references/stability-rules.md)
@@ -118,7 +108,7 @@ See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-
 - Never log the system prompt or chain-of-thought, and never echo unsanitized tool output back to the user.
 - On handoff to another agent, pass intent, scope, current state, verification commands, and boundaries — never raw transcripts, which hand over noise and hide the contract.
 - An agent evaluation needs a fixed input set and a graded rubric; "it seemed better" is not a result.
-- Whether every model behind an OpenAI-compatible gateway actually emits tool calls is `test-engineering`; auditing a third-party MCP server or plugin before installing it is `security-ops`; keeping an unattended headless run alive across expiring tokens and quotas is [headless-agent-supervision](references/headless-agent-supervision.md).
+- Whether every model behind an OpenAI-compatible gateway actually emits tool calls is `test-engineering`; auditing a third-party MCP server or plugin before installing it is `security-ops`; keeping an unattended headless run alive across expiring tokens and quotas is `agent-orchestration`.
 
 ## Checklist
 - [ ] Goal, non-goals, authority boundary, and approval points written down.

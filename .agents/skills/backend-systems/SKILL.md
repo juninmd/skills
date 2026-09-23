@@ -1,12 +1,12 @@
 ---
 name: backend-systems
 description: |
-  Implement backend services, APIs, and caching with Bun, Node.js, Rust, and Python. Use for NestJS modules, dependency injection, DTO validation, FastAPI, REST/GraphQL OpenAPI contracts, endpoints, controllers, pnpm, uv, async concurrency, cache invalidation, and backend builds; maintain existing Go and .NET services too.
+  Implement backend services, APIs, and caching with Bun, Node.js, Rust, and Python. Use for NestJS modules, dependency injection, DTO validation, FastAPI, REST/GraphQL OpenAPI contracts, endpoints, controllers, async concurrency, cache invalidation, and backend builds; maintain existing Go and .NET services too.
 ---
 
 # Backend Systems
 
-**Not this skill:** choosing the framework or ORM first (`stack-selection`), query plans and schema design (`data-engineering`), or module boundaries (`software-architecture`).
+**Not this skill:** choosing the framework or ORM first (`stack-selection`), query plans and schema design (`data-engineering`), module boundaries (`software-architecture`), or pnpm/uv/Ruff/Dependabot toolchain management (`package-management`).
 
 ## Preflight
 
@@ -45,7 +45,8 @@ Commands below are templates: use existing script names, environment and package
 - Python services: [backend-python.md](references/backend-python.md); [FastAPI](references/fastapi-best-practices.md) for Pydantic and dependency lifetimes.
 - Existing Go: [go-best-practices.md](references/go-best-practices.md). Existing .NET: [architecture](references/dotnet-architecture.md), [async](references/dotnet-async.md), [EF Core](references/dotnet-efcore.md).
 - Circuit breakers, bulkheads, and at-least-once delivery with dedup for service-to-service calls: [resilience-patterns.md](references/resilience-patterns.md).
-- Package management, migrations and language troubleshooting: [Reference Map](references/TOPIC_MAP.md).
+- pnpm, uv, Ruff, prek, Dependabot and other toolchain/package-manager work: `package-management`.
+- Language troubleshooting and other topics not covered above: [Reference Map](references/TOPIC_MAP.md).
 
 ## Stop
 

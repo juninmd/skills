@@ -81,7 +81,7 @@ Two workers never touching the same file is not the same as two workers being sa
 - A worker sees none of the others' context. Every fact it needs must be in its brief or reachable from the repo.
 - Verify before integrating. The report is a claim; the diff and the test run are the evidence.
 - Use an independent checker when risk, uncertainty, or conflicting findings justify it; otherwise a reproducible scoped check is sufficient.
-- Read-only fan-out is cheap and safe — reach for it first; it is also the main lever on context pressure ([context-engineering](context-engineering.md)).
+- Read-only fan-out is cheap and safe — reach for it first; it is also the main lever on context pressure ([context-engineering](../../agent-engineering/references/context-engineering.md)).
 - Never silently re-dispatch a failed slice; the brief is usually what was wrong.
 - Depth beats width. Three well-briefed workers land more than ten vague ones, at half the cost.
 - Keep integration serial even when the work was parallel; concurrent merges turn a green branch red with nobody at fault.

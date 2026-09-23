@@ -22,7 +22,7 @@
       },
       {
         "prompt": "Create PRD specification and break it into backlog task issues",
-        "owner": "starting-dev"
+        "owner": "requirements-planning"
       },
       {
         "prompt": "Resolve a git rebase conflict and restore the lost commit using reflog",
