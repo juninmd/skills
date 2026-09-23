@@ -171,10 +171,10 @@ export function validateSkill(skillDirectory) {
 }
 
 function findOrphanReferences(skillName, skillText, referencesRoot) {
-  const referenceFiles = fs
-    .readdirSync(referencesRoot, { withFileTypes: true })
-    .filter((entry) => entry.isFile() && entry.name.endsWith(".md"))
-    .map((entry) => entry.name);
+  // UPSTREAM.md records vendored provenance; it is attribution, not a procedure to route.
+  const referenceFiles = walkFiles([referencesRoot], { filter: (file) => file.endsWith(".md") })
+    .map((file) => path.relative(referencesRoot, file).replaceAll("\\", "/"))
+    .filter((name) => path.basename(name) !== "UPSTREAM.md");
 
   const mentioned = new Set();
   const collect = (text) => {
@@ -195,7 +195,7 @@ function findOrphanReferences(skillName, skillText, referencesRoot) {
   }
 
   return referenceFiles
-    .filter((name) => name !== "TOPIC_MAP.md" && !mentioned.has(name))
+    .filter((name) => name !== "TOPIC_MAP.md" && !mentioned.has(path.basename(name)))
     .map(
       (name) =>
         `${skillName}: orphan reference 'references/${name}' is not routed from SKILL.md or its TOPIC_MAP.md; route it or remove it`,
