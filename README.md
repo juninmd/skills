@@ -2,18 +2,20 @@
 
 <img src="./docs/public/images/readme-header.svg" alt="skills: engineering workflows for AI coding assistants. A terminal shows a request moving through discover, execute, and verify, ending with evidence." width="100%" />
 
-# Engineering skills. Evidence first.
+# Engineering Skills · Evidence First
 
 [![Validate](https://github.com/juninmd/skills/actions/workflows/validate.yml/badge.svg)](https://github.com/juninmd/skills/actions/workflows/validate.yml)
 [![Security Scan](https://github.com/juninmd/skills/actions/workflows/security.yml/badge.svg)](https://github.com/juninmd/skills/actions/workflows/security.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 [![Claude Code plugin](https://img.shields.io/badge/Claude_Code-plugin-8b5cf6.svg)](#claude-code-plugin)
+[![Agent Skills Spec](https://img.shields.io/badge/spec-Agent_Skills-black.svg)](https://agentskills.org)
+[![MCP Standard](https://img.shields.io/badge/MCP-standard-10b981.svg)](https://modelcontextprotocol.io)
 
-**25 skills · 4 agents · shared operating instructions**
+**25 skills · 4 agents · enterprise operating instructions**
 
-Practical workflows for assistants that inspect the system, make focused changes, and verify the result.
+*Production engineering workflows for AI coding assistants: discover intent, execute surgical changes, and prove with reproducible evidence.*
 
-[Skill catalog](#skill-catalog) · [Get started](#get-started) · [Pick a starting point](#pick-a-starting-point) · [Quality checks](#quality-checks) · [Contributing](#contributing)
+[🧭 Skill catalog](#skill-catalog) · [🚀 Get started](#get-started) · [📐 Lifecycle cycle](#where-each-skill-fits-in-the-cycle) · [📜 Standards](#specifications-and-standards) · [🛡️ Quality checks](#quality-checks) · [🤝 Contributing](#contributing)
 
 </div>
 
@@ -241,6 +243,16 @@ domain that owns what comes next. You keep writing prose.
 | [Shared operating instructions](.agents/AGENTS.md) | Hats, confirmation table, rules, validation gates, and the final report format |
 | [Client configs](.agents/clients/) | Token-optimized `settings.json` (Claude Code) and `config.toml` (Codex) |
 | [Repository contract](./AGENTS.md) | How to maintain and validate this catalog |
+
+## Specifications and standards
+
+This repository strictly conforms to official agent engineering specifications:
+
+| Specification | Standard / Authority | Implementation in this repository |
+|---|---|---|
+| **Agent Skills** | [agentskills.org](https://agentskills.org) | Strict frontmatter schema (`name`, `description`, `metadata`, `compatibility`), progressive disclosure, and house structure (`Preflight`, `Workflow`, `Rules`, `Checklist`). |
+| **Agent Hooks** | Claude Code & Runtime Hooks | Lifecycle interceptors (`PreToolUse` blocking, `PostToolUse` sanitization), deterministic barriers, and scoped tool matchers. |
+| **Model Context Protocol** | [modelcontextprotocol.io](https://modelcontextprotocol.io) | Typed JSON schemas for tools, URI-identified resources, structured prompts, and fail-closed circuit breakers. |
 
 ## Quality checks
 
