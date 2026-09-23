@@ -24,7 +24,7 @@ Decide up front what would change your answer. Research with no stopping conditi
 3. When results start repeating, **reformulate** instead of paging.
 4. Fetch multiple **independent** sources — for a defect or a behavior change, the issue tracker and changelog beat any landing page.
 5. Verify every claim against the fetched page. Record URL, publication date, and title.
-6. Synthesize with citations, separating confirmed from uncertain, and state the as-of date and the gaps.
+6. Synthesize with citations, separating confirmed from uncertain, and state the as-of date and the gaps. Mark every claim you could not confirm and say where you looked. Many independent claims to check: one verifier per claim via `agent-orchestration`.
 
 ## Operators, Not Sentences
 

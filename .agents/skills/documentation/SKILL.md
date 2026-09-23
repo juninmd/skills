@@ -25,6 +25,7 @@ Name the reader and the single question the document answers before writing a li
 3. Pick the right artifact for the job (below) rather than growing the README.
 4. Verify every command and every link.
 5. Delete stale content instead of marking it outdated. A section labeled "may be out of date" is read as current by everyone in a hurry.
+6. For long documents and decks, check for self-contradiction in numbers, dates, and names; quote each conflict and give its location.
 
 ## Artifact by Job
 
