@@ -40,6 +40,6 @@ Task: given a support request naming an order ("where's my order 8842-B?"), call
 | Argument fidelity | order id matches the one named in the request, verbatim | id truncated, guessed, or carried over from an earlier turn |
 | Step count | resolves in one tool call | needs a retry or a second lookup for the same id |
 | Output grounding | answer cites only fields the tool actually returned | a field invented that the tool response never contained |
-| Determinism | five runs at temperature 0 produce the same tool call and the same answer | tool choice or argument value varies across runs |
+| Consistency | five runs on the same input, at default sampling, produce the same tool call and argument values | tool choice or argument value varies across runs |
 
 "Graded rubric" means exactly this: a named criterion, a concrete pass, and a concrete fail, checked against a fixed input — not a paragraph describing how the agent felt to use.
