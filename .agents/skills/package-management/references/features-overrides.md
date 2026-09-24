@@ -5,6 +5,15 @@ description: Force specific versions of dependencies including transitive depend
 
 # pnpm Overrides
 
+## Contents
+
+- Basic Syntax
+- Override Patterns
+- Common Use Cases
+- Hooks Alternative
+- Overrides vs Catalogs
+- Debugging
+
 Overrides let you force specific versions of packages, including transitive dependencies. Useful for fixing security vulnerabilities or compatibility issues.
 
 ## Basic Syntax

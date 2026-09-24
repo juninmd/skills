@@ -1,5 +1,12 @@
 # State Management Reference
 
+## Contents
+
+- Decision Guide
+- React Native / Expo
+- Riverpod (Flutter)
+- Bloc (Flutter)
+
 Patterns for local, shared, and server state in React Native / Expo apps, plus Flutter state management with Riverpod and Bloc.
 
 ## Decision Guide

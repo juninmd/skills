@@ -5,6 +5,17 @@ description: Security guidance and vulnerability review for codebases, APIs, ser
 
 # Security Audit
 
+## Contents
+
+- Operating modes
+- Platform terminology
+- Universal execution safety
+- Full audit setup
+- Full audit planning
+- Core principles
+- Full audit workflow
+- Anti-patterns
+
 Find vulnerabilities that violate a real trust boundary, then give owners the source evidence, safe reproduction, priority, and smallest effective fix. This is a defensive, source-first workflow. A candidate without a concrete affected principal, resource, or security outcome is not a confirmed finding.
 
 ## Operating modes

@@ -1,6 +1,19 @@
 
 # Parallel Subagents
 
+## Contents
+
+- Preflight
+- What Actually Parallelizes
+- Workflow
+- The Brief Each Worker Gets
+- Staged Delivery with Checkpoints
+- Failure Modes Beyond File Overlap
+- Stop
+- Rules
+- Excuses
+- Checklist
+
 ## Preflight
 ```bash
 git status --porcelain              # a dirty tree cannot be split; workers will collide on it

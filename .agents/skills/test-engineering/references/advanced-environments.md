@@ -5,6 +5,22 @@ description: Configure environments like jsdom, happy-dom for browser APIs
 
 # Test Environments
 
+## Contents
+
+- Available Environments
+- Configuration
+- Installing Environment Packages
+- Per-File Environment
+- jsdom Environment
+- happy-dom Environment
+- Multiple Environments per Project
+- Custom Environment
+- Environment with VM
+- Browser Mode (Separate from Environments)
+- CSS and Assets
+- Fixing External Dependencies
+- Key Points
+
 ## Available Environments
 
 - `node` (default) - Node.js environment

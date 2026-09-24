@@ -5,6 +5,17 @@ description: describe/suite for grouping tests into logical blocks
 
 # Describe API
 
+## Contents
+
+- Basic Usage
+- Nested Suites
+- Suite Options
+- Suite Modifiers
+- Parameterized Suites
+- Hooks in Suites
+- Modifier Combinations
+- Key Points
+
 Group related tests into suites for organization and shared setup.
 
 ## Basic Usage

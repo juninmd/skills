@@ -6,6 +6,16 @@ disable-model-invocation: true
 
 # Reviewing Animations
 
+## Contents
+
+- Initial Response
+- Operating Posture
+- The Ten Non-Negotiable Standards
+- Aggressive Escalation Triggers
+- Remedial Preference Hierarchy
+- Required Output Format
+- Guidelines
+
 ## Initial Response
 
 When this skill is first invoked without a specific question, respond only with:

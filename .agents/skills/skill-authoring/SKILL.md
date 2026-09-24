@@ -1,7 +1,7 @@
 ---
 name: skill-authoring
 description: |
-  Write, split, and tune agent skills and their routing evals. Use for a new SKILL.md, a skill that misfires or never triggers, gotchas sections, progressive-disclosure references, skill scripts and persistent data, splitting a skill that straddles domains, and deciding whether a recurring task deserves a skill.
+  Write, split, and tune agent skills and their routing evals. Use for a new SKILL.md, gotchas sections, progressive-disclosure references, skill scripts and persistent data, splitting a skill that straddles domains, and deciding whether a recurring task deserves a skill. Trigger on 'create a skill', 'my skill never triggers', 'split this skill'.
 ---
 
 # Skill Authoring
@@ -78,9 +78,9 @@ pnpm run catalog:generate && pnpm run catalog:check  # README and docs catalog, 
 - A new rule has no failing prompt behind it.
 
 ## Rules
-- The description is the only text the router sees; spend its budget on distinctions and trigger words.
+- The description is the only text the router sees; spend its budget on distinctions and trigger words. Shape it as `<what>. Use for <scope>. Trigger on '<phrase a user types>', ...`: models skip a skill on small tasks unless its description names the ask, and the catalog row drops the trigger sentence.
 - Every negative boundary names the sibling that wins, by exact folder name.
-- Keep references lazy and grouped so one task needs one read.
+- Keep references lazy, grouped so one task needs one read, and one hop from SKILL.md or its TOPIC_MAP.md; a reference over 100 lines opens with `## Contents`.
 - A split is done only when the new owner executes every advertised task and every caller, eval, and link points at it.
 - Frontmatter here is limited to `name`, `description`, `license`, `allowed-tools`, `metadata`, and `compatibility`; client-specific features ship through plugin packaging, not extra fields.
 

@@ -5,6 +5,16 @@ description: Install packages under custom names for versioning, forks, or alter
 
 # pnpm Aliases
 
+## Contents
+
+- Basic Syntax
+- Use Cases
+- CLI Usage
+- With TypeScript
+- Combined with Overrides
+- Git and Local Aliases
+- Best Practices
+
 pnpm supports package aliases using the `npm:` protocol. This lets you install packages under different names, use multiple versions of the same package, or substitute packages.
 
 ## Basic Syntax

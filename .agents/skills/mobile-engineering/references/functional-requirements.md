@@ -1,5 +1,17 @@
 # Functional Requirements
 
+## Contents
+
+- Audio
+- Video
+- Notifications
+- Sharing
+- Background Services
+- State Management
+- Navigation
+- Gestures
+- Functional Checklist
+
 Audio, video, notifications, and other functional behavior requirements.
 
 ## Audio

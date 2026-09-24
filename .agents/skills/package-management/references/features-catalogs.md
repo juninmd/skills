@@ -5,6 +5,16 @@ description: Centralized dependency version management for workspaces
 
 # pnpm Catalogs
 
+## Contents
+
+- Basic Usage
+- Named Catalogs
+- Benefits
+- Catalog vs Overrides
+- Publishing with Catalogs
+- Migration from Overrides
+- Best Practices
+
 Catalogs provide a centralized way to manage dependency versions across a workspace. Define versions once, use everywhere.
 
 ## Basic Usage

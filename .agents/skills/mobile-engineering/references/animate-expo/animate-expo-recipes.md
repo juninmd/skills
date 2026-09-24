@@ -1,5 +1,20 @@
 # Expo Animation Recipes
 
+## Contents
+
+- Setup the recipes assume
+- Two worklets you'll need everywhere
+- Press feedback
+- Bottom sheet you can drag to dismiss
+- Swipe to delete a row
+- Collapsing header on scroll
+- List entrances
+- Keyboard-synced UI
+- Tab / segmented indicator
+- Screen transitions (Expo Router)
+- Toast
+- Firing something once at a threshold
+
 Ready-to-build implementations for the cases that come up most in a React Native app. Start from the recipe, then adapt.
 
 ---

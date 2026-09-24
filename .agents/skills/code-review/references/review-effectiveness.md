@@ -1,5 +1,14 @@
 # What the Evidence Says About Review
 
+## Contents
+
+- Size and Duration Decide Detection
+- Reviewers Find Style, Not Bugs
+- Checklists Help by Being Complementary
+- What Review Will Never Catch
+- Machine Reviewers Are Assistants, Not Approvers
+- Known Gaps in the Evidence
+
 The empirical base for how a review is run: how big, how long, what it catches, what it never will.
 Claims here carry a source; where the primary text could not be confirmed, the line says so.
 

@@ -1,5 +1,17 @@
 # Stack Rationale
 
+## Contents
+
+- Language and runtime
+- Services and contracts
+- Configuration and secrets
+- Quality gates
+- Data
+- AI
+- Clients
+- Platform
+- Recording the decision
+
 Why each default in the table holds, and the evidence that reverses it. Open the row you are deciding; do not read the file end to end.
 
 ## Language and runtime

@@ -1,5 +1,13 @@
 # The Picker
 
+## Contents
+
+- Markup
+- Styles
+- Rules
+- Behavior contract
+- Reference wiring
+
 The picker's appearance is **not a design decision** — it is this spec. Copy the markup, CSS, and wiring below verbatim; the only values that change per run are the variant names and count. It stays identical across every project so it always reads as harness chrome, never as part of the design being judged. Do not restyle it with the project's tokens, fonts, or colors.
 
 It is a floating dark pill, bottom-center. Dark glass works on top of any page — light or dark — which is why it is not theme-aware.

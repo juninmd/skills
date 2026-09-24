@@ -10,4 +10,5 @@ temp/
 *.local
 pr-comment.md
 
+.agents/evals/results/
 evals/results/

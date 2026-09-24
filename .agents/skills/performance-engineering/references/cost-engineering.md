@@ -1,6 +1,20 @@
 
 # Cost Engineering
 
+## Contents
+
+- Preflight
+- Workflow
+- Attribution Instruments
+- Sweep Before Optimizing
+- Rightsizing: A Two-Sided Tradeoff
+- Where Cloud Money Actually Goes
+- LLM Cost
+- A Budget Alert Is Not a Guardrail
+- Stop
+- Rules
+- Checklist
+
 ## Preflight
 ```bash
 aws ce get-cost-and-usage --granularity MONTHLY --metrics UnblendedCost \

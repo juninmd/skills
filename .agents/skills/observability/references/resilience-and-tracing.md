@@ -1,5 +1,13 @@
 # Resilience, Tracing, and Log Hygiene at Scale
 
+## Contents
+
+- Trace Context Propagation Across Async Boundaries
+- Log Sampling Under High Volume
+- Clock Skew and Timezone Bugs in Cross-Service Correlation
+- Retry Storms and Cascading Failures
+- Cardinality Explosions: Catching Them Before Production
+
 Deeper treatment of four failure modes that only appear at volume or under
 partial failure, referenced from `SKILL.md`.
 

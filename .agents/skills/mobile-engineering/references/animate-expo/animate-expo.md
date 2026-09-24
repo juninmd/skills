@@ -5,6 +5,19 @@ description: Build animations in React Native and Expo, making the decisions in 
 
 # Building Animations in Expo
 
+## Contents
+
+- Initial Response
+- Operating Posture
+- Hard Rules
+- The Build Sequence
+- Setup that silently breaks motion
+- 120fps
+- Recipes
+- Never Ship
+- Output
+- Tone
+
 ## Initial Response
 
 When this skill is first invoked without a specific question, respond only with:

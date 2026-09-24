@@ -5,6 +5,21 @@ description: Mock functions, modules, timers, and dates with vi utilities
 
 # Mocking
 
+## Contents
+
+- Mock Functions
+- Spying on Objects
+- Module Mocking
+- Dynamic Mocking (vi.doMock)
+- Mock Timers
+- Mock Dates
+- Mock Globals
+- Mock Environment Variables
+- Clearing Mocks
+- Config Auto-Reset
+- Hoisted Variables for Mocks
+- Key Points
+
 ## Mock Functions
 
 ```ts

@@ -1,5 +1,17 @@
 # Components Reference
 
+## Contents
+
+- Images
+- Lists
+- Safe Areas
+- Native Controls (iOS)
+- Form Sheets (Bottom Sheet)
+- Visual Effects
+- Search
+- Storage
+- Media
+
 Native UI components, media, visual effects, and storage patterns for Expo/React Native.
 
 ## Images

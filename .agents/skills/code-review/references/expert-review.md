@@ -1,6 +1,21 @@
 
 # Expert Review
 
+## Contents
+
+- Preflight
+- Workflow
+- Pass Order
+- Adversarial Checklist
+- Severity
+- What Makes a Finding Real
+- Aggregating Independent Passes
+- Socratic Mode
+- Reference Routing
+- Stop
+- Rules
+- Checklist
+
 ## Preflight
 ```bash
 git diff --stat <base>...HEAD          # scope before opinions

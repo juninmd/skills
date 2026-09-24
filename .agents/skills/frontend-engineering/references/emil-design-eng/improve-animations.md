@@ -5,6 +5,15 @@ description: Survey a codebase's animation and motion code as a senior motion ad
 
 # Improving Animations
 
+## Contents
+
+- Initial Response
+- Operating Posture
+- Hard Rules
+- Workflow
+- Invocation Variants
+- Tone
+
 ## Initial Response
 
 When this skill is first invoked without a specific question, respond only with:

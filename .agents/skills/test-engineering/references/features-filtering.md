@@ -5,6 +5,22 @@ description: Filter tests by name, file patterns, and tags
 
 # Test Filtering
 
+## Contents
+
+- CLI Filtering
+- Changed Files
+- Related Files
+- Focus Tests (.only)
+- Skip Tests
+- Tags
+- Include/Exclude Patterns
+- Watch Mode Filtering
+- Projects Filtering
+- Environment-based Filtering
+- Combining Filters
+- List Tests Without Running
+- Key Points
+
 ## CLI Filtering
 
 ### By File Path

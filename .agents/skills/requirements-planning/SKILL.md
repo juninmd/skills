@@ -1,10 +1,7 @@
 ---
 name: requirements-planning
 description: |
-  Turn an ambiguous ask into acceptance criteria, PRDs, and specs; write agent
-  briefs and finish lines; slice features into backlog issues; triage incoming
-  issues. Use for a vague request, a PRD/spec, an AFK agent brief, backlog
-  slicing, or issue classification.
+  Turn an ambiguous ask into something buildable. Use for acceptance criteria, PRDs and specs, agent briefs with finish lines, vertical-slice backlog issues, and triage of incoming issues. Trigger on 'what should this do', 'interview me first', 'write the PRD', 'break this into issues', 'triage these issues'.
 ---
 
 # Requirements Planning

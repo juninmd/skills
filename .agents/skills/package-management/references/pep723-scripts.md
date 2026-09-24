@@ -1,5 +1,18 @@
 # PEP 723: Inline Script Metadata
 
+## Contents
+
+- When to Use PEP 723
+- Basic Syntax
+- Running Scripts
+- Metadata Fields
+- Complete Example
+- Creating Scripts with uv
+- Shebang Options
+- Examples by Use Case
+- Best Practices
+- Limitations
+
 PEP 723 allows embedding dependency metadata directly in Python scripts, eliminating the need for separate `requirements.txt` or `pyproject.toml` files for simple scripts.
 
 ## When to Use PEP 723

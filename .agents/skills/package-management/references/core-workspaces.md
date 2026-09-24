@@ -5,6 +5,17 @@ description: Monorepo support with workspaces for managing multiple packages
 
 # pnpm Workspaces
 
+## Contents
+
+- Setting Up Workspaces
+- Workspace Protocol
+- Filtering Packages
+- Workspace Commands
+- Workspace Settings
+- Publishing Workspaces
+- Best Practices
+- Example Project Structure
+
 pnpm has built-in support for monorepos (multi-package repositories) through workspaces.
 
 ## Setting Up Workspaces

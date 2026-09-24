@@ -1,5 +1,18 @@
 # Vector Databases
 
+## Contents
+
+- Decide at Collection Creation, Not After
+- Memory Is Two Budgets, Not One
+- Latency and Throughput Pull in Opposite Directions
+- Bad Results Are Several Distinct Bugs
+- Hybrid Search: Prefetch Mechanics
+- Fusion: Pick by Score Comparability
+- Chunk-to-Document Grouping
+- Operating Checks
+- Stop
+- Sources
+
 Qdrant is the reference engine here; the decisions generalize to pgvector, Milvus, and Weaviate, the
 syntax does not. Everything below assumes the embedding model, its version, and the distance metric
 are already written down — without those three, no tuning result is reproducible.

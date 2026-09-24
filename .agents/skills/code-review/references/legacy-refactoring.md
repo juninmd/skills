@@ -1,6 +1,20 @@
 
 # Legacy Refactoring
 
+## Contents
+
+- Preflight
+- Workflow
+- Writing a Characterization Test
+- Seams
+- Sprout, Wrap, Strangle
+- Proving the Strangle Finished
+- Simplify Directly, or Characterize First?
+- Verifying a Refactor's Behavior-Preserving Claim
+- Stop
+- Rules
+- Checklist
+
 Operationalizes Michael Feathers' *Working Effectively with Legacy Code*: pin today's behavior with a characterization test, find a seam, and change the dependency there instead of in the tangle.
 
 ## Preflight

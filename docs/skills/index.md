@@ -6,35 +6,35 @@ The catalog contains 30 domain skills. They are intentionally broader than singl
 | Skill | Use it for |
 |---|---|
 | `3d-models` | Blender cleanup, VRM 0.x/1.0 conversion, VRoid exports, MToon materials, shape keys, ARKit blendshapes, humanoid rigs, and VRM SpringBone hair physics |
-| `agent-engineering` | agent loops, tool schemas, step and token bounds, prompt-injection defense, tool guards and hooks, MCP transports, context window pruning, and system prompts for Claude 5 generation models |
-| `agent-orchestration` | parallel audits or migrations, verifying subagent claims, goal or loop runs with stop rules and a task file, and supervising headless agents through auth expiry and quotas |
+| `agent-engineering` | agent loops, tool schemas, step and token bounds, prompt-injection defense, tool guards and hooks, MCP transports, context pruning, and system prompts for Claude 5 models |
+| `agent-orchestration` | fan-out subagents in isolated workspaces, dynamic workflows, adversarial verification, tournaments, model councils, stop rules with a task file, and headless runs through auth expiry and quotas |
 | `agy-image-babysitter` | Keep an agy (Antigravity CLI) conversation generating images unattended: relaunch the headless loop 90s after a 401 token expiry and sleep until quotaResetTimeStamp after a 429 |
-| `backend-systems` | NestJS modules, dependency injection, DTO validation, FastAPI, REST/GraphQL OpenAPI contracts, endpoints, controllers, async concurrency, cache invalidation, and backend builds; maintain existing Go and .NET services too |
-| `bot-engineering` | a price/deal/release/job-listing tracker, an RSS/API poller, or any bot that watches a source and notifies on change |
+| `backend-systems` | NestJS modules, DI, DTO validation, FastAPI, REST/GraphQL OpenAPI contracts, endpoints and controllers, async concurrency, and cache invalidation |
+| `bot-engineering` | dedupe/seen-state, rate-limit backoff, keyless endpoints, CronJob scheduling, Telegram/Discord/WhatsApp delivery, and optional LLM steps |
 | `cloud-devops` | GitHub Actions, Dockerfiles, Terraform, Helm, manual GHCR rollout, deployment sync drift, and safe bash/PowerShell |
-| `code-review` | adversarial code review, legacy undocumented code recovery, characterization tests before refactoring, simplifying working code, collapsing unnecessary abstractions, and deleting proven dead code |
-| `data-engineering` | PostgreSQL, MySQL, Redis, schema migrations, zero-downtime DDL, pandas profiling, query plans, indexes, and aggregation |
-| `documentation` | README, docs verification, Mermaid diagrams as code, ASCII figures, terminal figures, code snippet images, PDF/DOCX generation, and OpenAPI reference |
-| `finishing-dev` | finishing a feature branch, review-before-PR delivery, PR descriptions, shipping a completed change, homologação/homologar (prove it works against the real target before calling it done), and final acceptance evidence |
+| `code-review` | adversarial review, sibling bug variants, legacy code recovery, characterization tests, simplifying working code, and deleting proven dead code |
+| `data-engineering` | PostgreSQL, MySQL, Redis, schema migrations, zero-downtime DDL, query plans, indexes, pandas profiling, and aggregation |
+| `documentation` | README, docs verification, Mermaid diagrams as code, ASCII and terminal figures, code snippet images, PDF/DOCX generation, and OpenAPI reference |
+| `finishing-dev` | review-before-PR delivery, PR descriptions, homologação/homologar (prove it works on the real target), and acceptance evidence |
 | `frontend-engineering` | React, Next.js, Vite, Tailwind, WCAG accessibility, visual hierarchy, color palettes, anti-slop styling, animation, easing, motion, UI states, and masonry |
-| `git-workflow` | branches, worktrees, rebase conflicts, reflog recovery, stash, bisect, conventional commits, semantic version bumps, changelogs, and release tags. PR review and delivery use finishing-dev |
-| `goldsrc-modding` | Valve 220 .map geometry, ZHLT/VHLT compile pipelines, BSP30 lump editing, CS 1.6 entity logic, and AMX Mod X/Pawn (.sma/.amxx) scripting: natives, forwards, precache lifecycle, and crash forensics |
-| `ios-engineering` | Swift optionals/concurrency/memory, SwiftUI view design, UIKit screens and Auto Layout, Metal rendering, widgets, permissions, and App Store readiness |
-| `mobile-engineering` | mobile UI, lifecycle, navigation, permissions, offline behavior, accessibility, localization, device integration, tests, and builds. Native Apple/iOS work (Swift, SwiftUI, UIKit, Metal, WidgetKit) routes to `ios-engineering` |
+| `git-workflow` | branches, worktrees, rebase conflicts, reflog recovery, stash, bisect, conventional commits, semantic version bumps, changelogs, and release tags |
+| `goldsrc-modding` | Valve 220 .map geometry, ZHLT/VHLT compiles, BSP30 lumps, CS 1.6 entities, and Pawn (.sma/.amxx) natives, forwards, precache, and crash forensics |
+| `ios-engineering` | Swift optionals, concurrency and memory, SwiftUI views, UIKit and Auto Layout, Metal shaders, WidgetKit, iOS permissions and system integration, and App Store readiness |
+| `mobile-engineering` | React Native, Expo, Flutter, and native Android UI, lifecycle, navigation, permissions, offline behavior, accessibility, localization, device integration, tests, and builds |
 | `observability` | structured logging, metrics, distributed tracing, alerting, root-cause troubleshooting, postmortems, network failures, timeouts, and on-call response |
-| `package-management` | Manage JS and Python package managers and project toolchains: pnpm workspaces, catalogs, overrides, patches, peer deps, aliases, hooks, CLI, config, and store; uv, pyproject |
-| `performance-engineering` | endpoint profiling, latency bottlenecks, N+1 query bottlenecks, memory leaks, LCP/INP web vitals, autonomous metric loops, and rightsizing costs |
+| `package-management` | pnpm workspaces, catalogs, overrides, patches, and peer deps; uv, pyproject.toml, PEP 723 scripts, Ruff, prek/pre-commit, Dependabot update PRs, lockfile hygiene, and CI install caching |
+| `performance-engineering` | endpoint profiling, bottlenecks, N+1 queries, memory leaks, LCP/INP, autonomous metric loops, and rightsizing costs |
 | `radar-ia` | the daily AI radar and best-posts digests; not for one-paper research or debugging |
-| `requirements-planning` | a vague request, a PRD/spec, an AFK agent brief, backlog slicing, or issue classification |
-| `security-ops` | end-to-end vulnerability audits, pen tests, CVE scans, Gitleaks remediation, zero-trust reviews, plugin vetting, least privilege, threat modeling, and third-party extension safety |
-| `skill-authoring` | a new SKILL.md, a skill that misfires or never triggers, gotchas sections, progressive-disclosure references, skill scripts and persistent data, splitting a skill that straddles domains, and deciding whether a recurring task deserves a skill |
-| `software-architecture` | module boundaries, ubiquitous language and domain glossaries (CONTEXT.md), repository layout, Electron multi-process security, ADRs, and circular dependency resolution |
-| `stack-selection` | "which should we use", picking a package manager, framework, ORM, linter, test runner, desktop shell, or UI library (toasts), replacing a dependency, and justifying a deviation |
-| `starting-dev` | repository onboarding, worktrees, task stages, and session handoffs |
-| `test-engineering` | unit/integration tests, Vitest, pytest, flaky test elimination, Playwright E2E, LLM gateway conformance, and test coverage |
-| `threejs` | canvas 3D graphics, scene performance, and asset loading |
+| `requirements-planning` | acceptance criteria, PRDs and specs, agent briefs with finish lines, vertical-slice backlog issues, and triage of incoming issues |
+| `security-ops` | end-to-end vulnerability audits, pen tests, CVE scans, Gitleaks remediation, zero-trust reviews, least privilege, threat modeling, and plugin or MCP server vetting |
+| `skill-authoring` | a new SKILL.md, gotchas sections, progressive-disclosure references, skill scripts and persistent data, splitting a skill that straddles domains, and deciding whether a recurring task deserves a skill |
+| `software-architecture` | module boundaries, ubiquitous language and CONTEXT.md glossaries, repository layout, Electron multi-process security, ADRs, and circular dependencies |
+| `stack-selection` | TypeScript, Bun versus Node, pnpm, uv, NestJS, Biome, Scalar versus Swagger, an LLM SDK, Tauri versus Electron, picking a package manager, framework, ORM, linter, or UI library (toasts), and adopting or replacing a dependency |
+| `starting-dev` | AGENTS.md or CLAUDE.md project instructions and README, onboarding by charting an unfamiliar codebase and its dependencies, the dev loop (research, throwaway prototype variants, plan, implement), worktrees, task stages, and session handoffs |
+| `test-engineering` | unit and integration tests, Vitest, pytest, Playwright E2E, flaky test elimination, LLM gateway conformance, and coverage |
+| `threejs` | GLTF/GLB model viewers, cameras, lighting, raycasting, shaders, animation, WebGL/WebGPU rendering, asset loading, scene performance, and GPU resource cleanup |
 | `tooling-dev` | CLI arguments, exit codes, non-interactive execution, config discovery, signals, structured output, packaging, and integration tests |
-| `web-research` | multi-source search, HTML table/listing scraping, verifying latest library stable versions, changelog tracking, and citations |
+| `web-research` | multi-source search, HTML table and listing scraping, latest stable library versions, changelog tracking, and citations |
 <!-- skill-catalog:end -->
 
 ## How Discovery Works

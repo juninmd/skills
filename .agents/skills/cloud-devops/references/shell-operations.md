@@ -1,6 +1,19 @@
 
 # Shell Operations
 
+## Contents
+
+- Preflight
+- Workflow
+- Strict Preamble
+- Where Strict Mode Does Not Save You
+- Before Anything Destructive
+- Keeping Output Out of Context
+- Reference Routing
+- Stop
+- Rules
+- Checklist
+
 ## Preflight
 ```bash
 echo "$SHELL" && uname -s          # bash idioms do not survive PowerShell

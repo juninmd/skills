@@ -1,6 +1,19 @@
 
 # MCP Integration
 
+## Contents
+
+- Preflight
+- Workflow
+- Tool Shape
+- Transport
+- Bounded Results
+- Test Against a Real Client
+- Reference Routing
+- Stop
+- Rules
+- Checklist
+
 ## Preflight
 ```bash
 npx @modelcontextprotocol/inspector <server-command>   # exercise it over the real transport

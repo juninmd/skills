@@ -1,5 +1,23 @@
 # Animation Standards Reference
 
+## Contents
+
+- Should it animate? (frequency table)
+- Easing
+- Duration
+- Physicality
+- Springs
+- Interruptibility
+- Asymmetric timing
+- Performance
+- Transforms & clip-path
+- Gestures & drag
+- Masking imperfect crossfades
+- Stagger
+- Accessibility
+- Debugging (recommend in reviews when feel is uncertain)
+- Cohesion
+
 The precise values, curves, and rules behind the review. Cite these in findings instead of approximating. Distilled from Emil Kowalski's design engineering philosophy.
 
 ## Should it animate? (frequency table)

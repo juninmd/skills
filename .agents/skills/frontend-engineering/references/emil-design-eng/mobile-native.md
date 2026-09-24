@@ -5,6 +5,18 @@ description: Make a web app feel native on a phone — the small CSS and meta-ta
 
 # Feeling Native On Mobile
 
+## Contents
+
+- Initial Response
+- Operating Posture
+- Hard Rules
+- The Symptom Table
+- The Fixes
+- Baseline
+- Never Ship
+- Output
+- Tone
+
 ## Initial Response
 
 When this skill is first invoked without a specific question, respond only with:

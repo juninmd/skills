@@ -4,7 +4,7 @@ description: |
   Keep an agy (Antigravity CLI) conversation generating images unattended: relaunch the headless loop 90s after a 401 token expiry and sleep until quotaResetTimeStamp after a 429. Use when asked to "deixar o agy gerando", resume image generation for meu-livro or another project after quota, or reactivate the "babá do agy".
 license: MIT
 metadata:
-  version: 1.1.0
+  version: "1.1.0"
 compatibility: windows (PowerShell 7); agy CLI logged in
 ---
 

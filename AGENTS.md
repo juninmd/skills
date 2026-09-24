@@ -50,23 +50,24 @@ No `AGENTS.md` names a skill. Skills are routed by their own descriptions; namin
 
 ## Standardization and specifications
 
-All repository skills and tools must strictly conform to official agent specifications:
+Skills and tools conform to the official specifications below. Rules marked *house* are this repository's stricter policy, not the spec.
 
-### 1. Agent Skills Open Specification (agentskills.org)
+### 1. Agent Skills Open Specification (agentskills.io) and Anthropic skill authoring best practices
 
-- **Frontmatter Schema**: Strict YAML between `---`. Permitted fields are `name`, `description`, `license`, `compatibility`, `metadata`, and `allowed-tools`.
-- **Name**: 1–64 characters, lowercase alphanumeric and hyphens (`^[a-z0-9-]+$`). Strictly matches its folder name.
-- **Description**: 1–1024 characters. Clear discovery context ("what it does and when to select it"). No angle brackets or promotional language.
+- **Frontmatter Schema**: Strict YAML between `---`. Permitted fields are `name`, `description`, `license`, `compatibility`, `metadata` (string-to-string map), and `allowed-tools`.
+- **Name**: 1–64 characters, lowercase alphanumeric and hyphens, no leading, trailing, or consecutive hyphens, no reserved words `claude` or `anthropic`. Strictly matches its folder name.
+- **Description**: 1–1024 characters. Clear discovery context ("what it does and when to select it"), imperative or third person, never "I" or "you". No angle brackets or promotional language.
 - **Progressive Disclosure**: Lightweight frontmatter is indexed at discovery; the skill body loads upon domain selection; deep procedures in `references/` load only when triggered by subtask.
-- **House Contract**: Every skill must provide `## Preflight`, numbered `## Workflow`, a decision table, real command blocks, `## Stop`, `## Rules`, and a verifiable `## Checklist`.
+- **One hop**: every reference is routed from `SKILL.md` or its linked `references/TOPIC_MAP.md`, never only from another reference, and a reference over 100 lines opens with `## Contents`. Agents preview deeper files with partial reads.
+- **House Contract** (*house*): Every skill must provide `## Preflight`, numbered `## Workflow`, a decision table, real command blocks, `## Stop`, `## Rules`, and a verifiable `## Checklist`.
 
-### 2. Agent Hooks Specification (Claude Code & Runtime Hooks)
+### 2. Hook policy (*house*, on Claude Code hooks)
 
 - **Lifecycle Events**:
-  - `PreToolUse`: Runs before tool execution. Must validate arguments, enforce path denylists, and block unauthorized destructive commands.
-  - `PostToolUse`: Runs after tool execution. Must scrub secrets, enforce output token limits, and run verification linters.
+  - `PreToolUse`: Runs before the tool and can block it. Validate arguments, enforce path denylists, and block unauthorized destructive commands here.
+  - `PostToolUse`: Runs after the tool has already succeeded and cannot undo it. Use it to scrub or cap what reaches the model and to run verification linters.
 - **Deterministic Enforcement**: Safety barriers, secret protection, and destructive boundaries must be implemented in deterministic host code or hooks, never left to LLM prompt compliance.
-- **Plugin Scoping**: Plugin hooks must use explicit tool matchers (e.g. `matcher: "Bash"`). Global, uncontained hooks are prohibited.
+- **Plugin Scoping**: Plugin hooks use explicit tool matchers (e.g. `matcher: "Bash"`); this repository ships no global, uncontained hooks.
 
 ### 3. Model Context Protocol Specification (modelcontextprotocol.io)
 
@@ -74,7 +75,7 @@ All repository skills and tools must strictly conform to official agent specific
   - `tools`: Callable actions with strict, validated JSON schemas and bounded outputs.
   - `resources`: Read-only, URI-addressable context without execution side effects.
   - `prompts`: Parameterized prompt templates.
-- **Transports**: Local subprocesses communicate via `stdio`; remote services communicate via Streamable HTTP (SSE).
+- **Transports**: Local subprocesses communicate via `stdio`; remote services communicate via Streamable HTTP, which replaced the deprecated HTTP+SSE transport.
 - **Resilience**: Enforce wall-clock timeouts, JSON-RPC 2.0 error handling, stdout caps, and autonomous circuit breakers against thrashing.
 
 ## Consolidation and routing

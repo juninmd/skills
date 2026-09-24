@@ -1,5 +1,16 @@
 # Animation Audit Playbook
 
+## Contents
+
+- 1. Purpose & frequency
+- 2. Easing & duration
+- 3. Physicality & origin
+- 4. Interruptibility
+- 5. Performance
+- 6. Accessibility
+- 7. Cohesion & tokens
+- 8. Missed opportunities
+
 The eight audit categories, what to look for in each, and the exact target values to cite in findings and plans. Distilled from Emil Kowalski's design engineering philosophy ([emilkowal.ski](https://emilkowal.ski/)). Never approximate a value that appears here — copy it.
 
 ## 1. Purpose & frequency

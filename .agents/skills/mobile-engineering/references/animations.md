@@ -1,5 +1,11 @@
 # Animations
 
+## Contents
+
+- Flutter
+- iOS (UIKit)
+- Material Design 3 Motion System
+
 Flutter and iOS animation patterns plus Material Design 3 motion guidelines covering implicit/explicit animations, Hero transitions, page transitions, CALayer/UIView animation, and motion specs.
 
 ## Flutter

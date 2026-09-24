@@ -1,5 +1,16 @@
 # Memory Safety, Binary, and Kernel Hunting
 
+## Contents
+
+- Core discipline (include in every agent prompt for this domain)
+- Bounds, integer, and representation attack classes (subagent_type: general)
+- Lifetime, type, and concurrency attack classes (subagent_type: general)
+- FFI and ABI attack classes (subagent_type: general)
+- Binary loading and runtime attack classes (subagent_type: general)
+- Kernel and privileged-interface attack classes (subagent_type: general)
+- Universal moves (apply across the above)
+- Validation rules (apply before reporting ANY finding here)
+
 #### When to use this file
 
 Reach for this file when the target processes untrusted bytes in a memory-unsafe or privileged context: C/C++/Objective-C, Rust `unsafe`, FFI, kernel modules and drivers, parsers and decoders, network daemons, firmware, binary loaders, language runtimes, and JITs. Use `PROTOCOLS-RPC-AND-MESSAGING.md` for protocol authorization and state-machine logic, and this file for process integrity, memory safety, ABI boundaries, and loader behavior.

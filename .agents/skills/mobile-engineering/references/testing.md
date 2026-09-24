@@ -1,5 +1,17 @@
 # Testing
 
+## Contents
+
+- Table of Contents
+- 1. Test Dependencies
+- 2. Testing Layers
+- 3. Local Unit Tests (JUnit + Robolectric)
+- 4. Instrumentation Tests (Espresso)
+- 5. UI Automator (Cross-App & System UI)
+- 6. Compose UI Testing
+- 7. Gradle Managed Devices
+- 8. Commands
+
 Detailed examples and patterns for each Android test layer, plus the project's testing standards. Read the section relevant to the layer you're working with.
 
 ## Table of Contents

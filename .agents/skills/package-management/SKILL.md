@@ -1,7 +1,7 @@
 ---
 name: package-management
 description: |
-  Manage JS and Python package managers and project toolchains: pnpm workspaces, catalogs, overrides, patches, peer deps, aliases, hooks, CLI, config, and store; uv, pyproject.toml, PEP 723 scripts, Ruff config, prek/pre-commit, and Dependabot. Operate an already-chosen toolchain: lockfile hygiene, toolchain migrations, and CI install caching.
+  Operate an already-chosen JS or Python package manager and toolchain. Use for pnpm workspaces, catalogs, overrides, patches, and peer deps; uv, pyproject.toml, PEP 723 scripts, Ruff, prek/pre-commit, Dependabot update PRs, lockfile hygiene, and CI install caching. Trigger on 'migrate to pnpm', 'switch to uv', 'the lockfile is broken', 'patch this package'.
 ---
 
 # Package Management

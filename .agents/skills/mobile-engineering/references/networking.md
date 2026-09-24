@@ -1,5 +1,17 @@
 # Networking
 
+## Contents
+
+- Dio Setup
+- Interceptors
+- Error Handling
+- Repository Pattern
+- Caching
+- Riverpod Integration
+- Request Cancellation
+- Common Patterns
+- Networking Checklist
+
 Dio configuration, interceptors, error handling, and caching strategies for Flutter network requests.
 
 ## Dio Setup

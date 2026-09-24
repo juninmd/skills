@@ -5,6 +5,21 @@ description: Assertions with matchers, asymmetric matchers, and custom matchers
 
 # Expect API
 
+## Contents
+
+- Basic Assertions
+- Negation
+- Error Assertions
+- Promise Assertions
+- Spy/Mock Assertions
+- Asymmetric Matchers
+- Soft Assertions
+- Poll Assertions
+- Assertion Count
+- Extending Matchers
+- Snapshot Assertions
+- Key Points
+
 Vitest uses Chai assertions with Jest-compatible API.
 
 ## Basic Assertions

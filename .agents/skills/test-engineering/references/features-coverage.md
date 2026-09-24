@@ -5,6 +5,20 @@ description: Code coverage with V8 or Istanbul providers
 
 # Code Coverage
 
+## Contents
+
+- Setup
+- Configuration
+- Providers
+- Reporters
+- Thresholds
+- Ignoring Code
+- Package.json Scripts
+- Vitest UI Coverage
+- CI Integration
+- Coverage with Sharding
+- Key Points
+
 ## Setup
 
 ```bash

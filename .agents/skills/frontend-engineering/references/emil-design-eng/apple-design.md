@@ -5,6 +5,29 @@ description: Apple's approach to interface design and fluid, physical motion, tr
 
 # Apple Design
 
+## Contents
+
+- Initial Response
+- The Core Idea
+- 1. Response — kill latency
+- 2. Direct manipulation — 1:1 tracking
+- 3. Interruptibility — the single most important principle
+- 4. Behavior over animation — use springs
+- 5. Velocity handoff — the seam between drag and animation
+- 6. Momentum projection — animate to where the gesture is *going*
+- 7. Spatial consistency — symmetric paths, anchored origins
+- 8. Hint in the direction of the gesture
+- 9. Rubber-banding — soft boundaries
+- 10. Gesture design details (the "feel" checklist)
+- 11. Frame-level smoothness
+- 12. Materials & depth — translucency conveys hierarchy
+- 13. Multimodal feedback — motion + sound + haptics
+- 14. Reduced motion & accessibility
+- 15. Typography — optical sizing, tracking, leading
+- 16. Design foundations — the eight principles
+- 17. Process
+- Quick Reference
+
 ## Initial Response
 
 When this skill is first invoked without a specific question, respond only with:

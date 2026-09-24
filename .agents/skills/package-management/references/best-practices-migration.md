@@ -5,6 +5,16 @@ description: Migrating from npm or Yarn to pnpm with minimal friction
 
 # Migration to pnpm
 
+## Contents
+
+- Quick Migration
+- Handling Common Issues
+- Monorepo Migration
+- Configuration Migration
+- CI/CD Migration
+- Gradual Migration
+- Rollback Plan
+
 Guide for migrating existing projects from npm or Yarn to pnpm.
 
 ## Quick Migration

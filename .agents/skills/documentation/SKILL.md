@@ -1,7 +1,7 @@
 ---
 name: documentation
 description: |
-  Author and verify documentation, visual diagrams, and programmatic office documents. Use for README, docs verification, Mermaid diagrams as code, ASCII figures, terminal figures, code snippet images, PDF/DOCX generation, and OpenAPI reference.
+  Author and verify documentation, diagrams, and programmatic office documents. Use for README, docs verification, Mermaid diagrams as code, ASCII and terminal figures, code snippet images, PDF/DOCX generation, and OpenAPI reference. Trigger on 'write the README', 'document this', 'draw a diagram', 'generate a PDF', 'are these docs still true'.
 ---
 
 

@@ -1,5 +1,20 @@
 # Metal Shader Reference
 
+## Contents
+
+- Core Principles
+- Expert vs Novice
+- Common Anti-Patterns
+- Metal Evolution
+- Shader Types
+- Rendering Techniques
+- Procedural Generation
+- Numerical Techniques
+- SwiftUI + MTKView Integration
+- Command Line Tools
+- GPU Debugging
+- Performance Optimization Checklist
+
 Expert reference for Metal shaders, real-time rendering, and Apple's Tile-Based Deferred Rendering (TBDR) architecture.
 
 ## Core Principles

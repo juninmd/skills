@@ -5,6 +5,20 @@ description: Concurrent tests, parallel execution, and sharding
 
 # Concurrency & Parallelism
 
+## Contents
+
+- File Parallelism
+- Concurrent Tests
+- Sequential in Concurrent Context
+- Max Concurrency
+- Isolation
+- Sharding
+- Test Sequence
+- Shuffle Tests
+- Pool Options
+- Bail on Failure
+- Key Points
+
 ## File Parallelism
 
 By default, Vitest runs test files in parallel across workers:

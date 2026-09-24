@@ -1,5 +1,14 @@
 # Signals, Atomic Writes, Piping, Packaging, and Deprecation
 
+## Contents
+
+- Signal Handling During Long Operations
+- Atomic Writes: Never Ship a Partial File
+- Stdin/Stdout Piping and TTY Detection
+- Cross-Platform Paths and Newlines
+- Packaging and Versioning a CLI
+- Backward-Compatible Flag Deprecation
+
 Open this when a tool needs to survive interruption, behave correctly in a
 pipe, ship cross-platform, or change its interface without breaking callers.
 

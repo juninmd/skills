@@ -5,6 +5,17 @@ description: Search a codebase or UI for places that don't animate but should, a
 
 # Finding Animation Opportunities
 
+## Contents
+
+- Initial Response
+- Operating Posture
+- Hard Rules
+- The Gate
+- Where to Hunt
+- Workflow
+- Required Output Format
+- Tone
+
 ## Initial Response
 
 When this skill is first invoked without a specific question, respond only with:

@@ -5,6 +5,14 @@ description: Reverse-lookup glossary that turns a vague description of a web ani
 
 # Animation Vocabulary
 
+## Contents
+
+- Initial Response
+- Quick Start
+- Instructions
+- Examples
+- Glossary
+
 ## Initial Response
 
 When this skill is first invoked without a specific question, respond only with:

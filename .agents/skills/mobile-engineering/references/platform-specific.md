@@ -1,5 +1,16 @@
 # Platform Integration
 
+## Contents
+
+- Platform Detection
+- Adaptive Widgets
+- Platform Channels
+- iOS-Specific Configuration
+- Android-Specific Configuration
+- Web-Specific
+- Platform-Specific Styling
+- Platform Reference
+
 Flutter platform-specific implementations for iOS, Android, Web, and Desktop.
 
 ## Platform Detection

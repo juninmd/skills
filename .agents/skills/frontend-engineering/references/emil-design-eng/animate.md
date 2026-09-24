@@ -5,6 +5,17 @@ description: Build an animation from scratch, making the decisions in the order 
 
 # Building Animations
 
+## Contents
+
+- Initial Response
+- Operating Posture
+- Hard Rules
+- The Build Sequence
+- Recipes
+- Never Ship
+- Output
+- Tone
+
 ## Initial Response
 
 When this skill is first invoked without a specific question, respond only with:

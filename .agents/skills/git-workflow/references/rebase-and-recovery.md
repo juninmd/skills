@@ -1,5 +1,15 @@
 # Interactive Rebase, Conflict Recovery, and Worktree Cleanup
 
+## Contents
+
+- Interactive Rebase Pitfalls
+- Conflicts in Binary and Generated Files
+- Reflog Recovery Deep Dive
+- Bisect with a Flaky Test
+- Worktree Cleanup
+- Stash Pitfalls
+- Signing Commits
+
 Open this for a rebase gone wrong, a conflict in a binary or generated file, a
 commit that seems to have vanished, a bisect fighting a flaky test, a stash
 that will not apply cleanly, or a worktree left behind after a branch

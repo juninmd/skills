@@ -1,5 +1,16 @@
 # Playwright Capture Recipes
 
+## Contents
+
+- Temp directory (portable)
+- Start the server and record its process id
+- Teardown
+- Capture, CLI form
+- Determinism for before/after pairs
+- Authenticated routes
+- Element-only capture
+- Repository cleanliness
+
 Exact commands for ephemeral screenshot capture. Nothing here is committed to the repository.
 
 ## Temp directory (portable)
