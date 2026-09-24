@@ -8,6 +8,7 @@ Read only the files needed for the current task. Native Apple-platform files (Sw
 | `adaptive-screens.md` | The app must support tablets, foldables, or multi-window/desktop mode and you need Google's adaptive quality tier requirements |
 | `android-standards.md` | Setting up or configuring a new Android project (Gradle wrapper, flavors, build variants) or need Kotlin naming/style rules |
 | `animations.md` | Implementing a Hero/page transition or GPU-side animation and need Flutter/iOS animation code plus Material Design 3 motion timing specs |
+| `animate-expo/animate-expo.md` | React Native or Expo motion (Emil Kowalski, MIT): UI-thread Reanimated, Gesture Handler hand-off, springs vs timing, sheets, screen transitions, haptics, stutter on device; recipes in `animate-expo/animate-expo-recipes.md` |
 | `components.md` | Picking an Expo/RN component for images, lists, safe areas, or other native UI/media/storage needs |
 | `design-style.md` | Choosing colors, typography, spacing, elevation, or shape specs that match the app's category and audience |
 | `engineering.md` | Laying out an Expo Router project structure, or configuring EAS builds, releases, and platform integration |

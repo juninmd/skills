@@ -37,6 +37,10 @@
       {
         "prompt": "Decide the default Python dependency manager and test runner for new repositories",
         "top_k": 3
+      },
+      {
+        "prompt": "Which toast and command menu libraries should we use instead of hand-rolling them?",
+        "top_k": 3
       }
     ],
     "negative": [
