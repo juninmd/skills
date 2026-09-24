@@ -1,7 +1,7 @@
 ---
 name: frontend-engineering
 description: |
-  Build, design, and review web UIs, component design systems, and responsive layouts. Use for React, Next.js, Vite, Tailwind, WCAG accessibility, visual hierarchy, color palettes, anti-slop styling, UI states, and masonry. Trigger on 'build this page', 'fix the hydration error', 'make it accessible', 'this UI looks generic'.
+  Build, design, and review web UIs, component design systems, and responsive layouts. Use for React, Next.js, Vite, Tailwind, WCAG accessibility, visual hierarchy, color palettes, anti-slop styling, animation, easing, motion, UI states, and masonry. Trigger on 'build this page', 'fix the hydration error', 'make it accessible', 'this UI looks generic'.
 ---
 
 

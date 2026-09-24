@@ -32,3 +32,15 @@ Real failure shapes and the evidence that resolved them.
 - Evidence: bundle analyzer showed a full icon library imported for one icon.
 - Fix: per-icon import; CI budget assertion failing over 250KB gz per route.
 - Lesson: size budgets in CI catch what review misses.
+
+## Cases: claude.ai made 3x faster
+Source: [how we made claude.ai 3x faster](https://claude.dev/blog/how-we-made-claude-ai-faster/). The lever was building new measurements; once a number existed, an agent could drive it down.
+
+| Symptom | Evidence or technique | Lesson |
+|---|---|---|
+| Wall-clock benchmarks too noisy to gate CI | run under Valgrind with `node --predictable`, compare instruction counts to a checked-in baseline | a deterministic count gates merges; timings only confirm |
+| App unusable until the framework boots | ship a static HTML copy of the input UI, let the framework paint over it; typeable page 3.1s → 0.55s | the first interaction does not need the framework |
+| Every DOM change slow | a single `:root:has()` selector added 24ms per DOM change | profile style recalculation, not only scripts |
+| Syntax highlighting slow on text with curly quotes or em dashes | non-Latin-1 strings take V8's two-byte regex path; copy the block into a one-byte string first | unicode content changes the engine path |
+| Long streamed replies stutter at 120Hz | 8.33ms frame budget; memoize finished blocks, tokenize in a worker; main-thread work about 750ms → 200ms | budget per frame, not per request |
+| Content jumps after load | Layout Instability API telemetry mapped by page region; 31% of loads shifted after usable | attribute shifts to a region before fixing |

@@ -6,6 +6,7 @@ Read only the files needed for the current task.
 |---|---|
 | `ios-guide.md` | Starting or auditing an iOS app end-to-end against Apple HIG — layout, typography, navigation, privacy checklist |
 | `swift-coding-standards.md` | Writing or reviewing Swift for optional-safety, naming, protocol-oriented design, value vs reference types, concurrency, memory/retain cycles, or error-handling conventions |
+| `write-swift/write-swift.md` | Modern Swift beyond the standards (Emil Kowalski, MIT): Swift 6 data-race safety, approachable concurrency (`@concurrent`, main-actor default), some vs any, ARC performance, Swift Testing, macros |
 | `swiftui-design-guidelines.md` | Designing a SwiftUI screen and need HIG layout, Dynamic Type, Dark Mode, Liquid Glass, navigation, forms, or loading-state guidance |
 | `uikit-components.md` | Building a UIKit screen with stack views, buttons, alerts, search controllers, or context menus |
 | `layout-system.md` | Laying out a UIKit screen with Auto Layout, safe areas, touch targets, or UICollectionView compositional layout |

@@ -11,6 +11,17 @@ Read only the files needed for the current task.
 | `accessibility.md` | WCAG conformance workflow: keyboard-only pass, focus management on route change, screen reader verification, contrast/motion checks, before shipping or auditing any UI |
 | `anti-slop-taste.md` | Anti-slop UI direction, Brief Inference (Read the Room), Three Dials calibration (variance/motion/density), aesthetic archetypes, and redesign audits |
 | `design-systems.md` | building or extending a shared component library: token layering (primitive/semantic/component), promoting repeated shapes, intent-based variant naming, breaking-change/migration discipline |
+| `emil-design-eng/design-eng.md` | UI polish and motion philosophy (Emil Kowalski, MIT): easing and duration choices, springs, interruptibility, shadows over borders, the invisible details; read first for any motion decision |
+| `emil-design-eng/animate.md` | Building one web animation from scratch: should it animate, purpose, tool, properties, curve, duration, interruption, exit; ready recipes in `emil-design-eng/animate-recipes.md` |
+| `emil-design-eng/review-animations.md` | Strict review of animation or motion code in a diff; rule set in `emil-design-eng/review-standards.md`; default to flagging |
+| `emil-design-eng/improve-animations.md` | Auditing all motion in a codebase and writing prioritized executor plans; audit rubric in `emil-design-eng/improve-audit.md`, plan shape in `emil-design-eng/improve-plan-template.md` |
+| `emil-design-eng/find-animation-opportunities.md` | Read-only sweep for places that would benefit from motion, and what must stay static |
+| `emil-design-eng/animation-vocabulary.md` | Naming a motion effect from a vague description, to prompt a designer or model precisely |
+| `emil-design-eng/apple-design.md` | Apple-style fluid motion for the web: gesture-driven springs, momentum, sheets, materials and depth, optical type, reduced motion |
+| `emil-design-eng/mobile-native.md` | Web app that feels wrong on a phone: sticky hover, tap highlight, 100vh, input zoom, safe areas, pull-to-refresh, carousels, PWA |
+| `emil-design-eng/prototype-variants.md` | Building several genuinely different versions of one UI piece behind a live switcher; picker code in `emil-design-eng/prototype-picker.md` |
+| `emil-design-eng/sonner.md` | Sonner toasts: setup, promise/loading toasts, styling, theming, and toasts that vanish, duplicate, or sit behind a modal; API in `emil-design-eng/sonner-api.md` |
+| `emil-design-eng/performance-cheatsheet.md` | Animation that stutters or drops frames: transform/opacity only, blur limits, no `transition: all`, ref-driven styles |
 | `frontend-design.md` | setting the visual system before writing markup: type scale, spacing rhythm, color/radius/elevation/motion as concrete numbers, translated into CSS custom properties |
 | `frontend-optimization.md` | React/Next.js performance patterns: RSC vs client boundary strategy, render efficiency (memoization, state location), bundle size (barrel imports, dynamic imports) |
 | `frontend-review.md` | auditing UI code before merge: the a11y/layout/responsiveness checklist, severity levels (BLOCKER/HIGH/LOW), and the file:line review output format |

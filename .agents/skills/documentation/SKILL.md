@@ -37,6 +37,7 @@ Name the reader and the single question the document answers before writing a li
 | How do I call this API? | Generated reference | derived from OpenAPI/types/`--help`, never hand-written |
 | What changed? | Changelog | owned by `git-workflow` — not written here |
 | How do I do task X? | Guide in `docs/` | prerequisites, numbered steps, expected output, failure cases |
+| Which option, what did the run find, what does this diff do? (read once, not maintained) | Single-file HTML report ([why HTML](https://claude.dev/blog/using-claude-code-the-unreasonable-effectiveness-of-html/)) | options side by side, SVG diagrams, collapsed detail, and an export ("copy as JSON/prompt") when the reader's edits feed back |
 
 The table above is the Diátaxis framework (Bhatti et al., *Docs for Developers*): a README quickstart and a guide teach or task-solve (tutorial/how-to), a generated reference describes the surface, an ADR explains why. Mixing modes in one document — a tutorial that digresses into reference tables — serves neither reader; split instead of appending.
 
