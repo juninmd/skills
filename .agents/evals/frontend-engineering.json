@@ -25,6 +25,10 @@
       {
         "prompt": "Translate the web app into Portuguese and Arabic with i18n plurals and RTL layout",
         "top_k": 3
+      },
+      {
+        "prompt": "Add an ease-out enter animation to this dropdown and review the motion in our web app",
+        "top_k": 3
       }
     ],
     "negative": [

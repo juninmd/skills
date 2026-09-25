@@ -1,7 +1,7 @@
 ---
 name: stack-selection
 description: |
-  Choose default technologies before code exists. Use for TypeScript, Bun versus Node, pnpm, uv, NestJS, Biome, Scalar versus Swagger, an LLM SDK, Tauri versus Electron, picking a package manager, framework, ORM, or linter, and adopting or replacing a dependency. Trigger on 'which should we use', 'X or Y for this project', 'should we adopt this library'.
+  Choose default technologies before code exists. Use for TypeScript, Bun versus Node, pnpm, uv, NestJS, Biome, Scalar versus Swagger, an LLM SDK, Tauri versus Electron, picking a package manager, framework, ORM, linter, or UI library (toasts), and adopting or replacing a dependency. Trigger on 'which should we use', 'X or Y for this project', 'should we adopt this library'.
 ---
 
 # Stack Selection
@@ -73,7 +73,7 @@ Identify the runtime, package manager, linter, test runner, and data store actua
 | Error tracking | Sentry or an OpenTelemetry-compatible equivalent | — |
 | Auth | A managed OIDC provider | Never a hand-rolled session and password stack |
 
-Open [stack rationale](references/stack-rationale.md) for why each default holds and what evidence reverses it.
+Open [stack rationale](references/stack-rationale.md) for why each default holds and what evidence reverses it. For a frontend component or utility (toast, OTP input, command menu, charts, drag and drop, virtualization), check the curated [UI library picks](references/pick-ui-library/pick-ui-library.md) before hand-rolling one.
 
 ## Stop
 - The constraint that decides the pick is unknown (host, platform, compliance, team): ask instead of guessing.

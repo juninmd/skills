@@ -47,7 +47,7 @@ A command not in scripts, task runner, or CI stays out. An invented command is w
 
 | Weak | Strong |
 |---|---|
-| "Be careful with generated code" | "NEVER edit `src/api/generated/**` — regenerate with `pnpm codegen`" |
+| "Be careful with generated code" | "Don't edit `src/api/generated/**`; `pnpm codegen` overwrites it — regenerate instead" |
 | "Follow our error conventions" | "Throw `AppError` subclasses only; never a bare `Error`" |
 | "Keep tests fast" | "No test may hit the network; use the fixtures in `test/fixtures/`" |
 | "Use the right package manager" | "pnpm only. `npm install` corrupts the workspace links" |

@@ -38,7 +38,7 @@ Review all dimensions in a single pass. If the diff is large, split by subsystem
 - Edge case coverage, test isolation
 - Mock strategy soundness
 
-### Performance — MEDIUM / CRITICAL
+### Performance — MEDIUM (BLOCKER when it risks an outage or data loss)
 - N+1 queries, missing batching
 - Memory leaks, unclosed resources
 - Unnecessary re-renders, algorithm complexity
@@ -52,6 +52,8 @@ Review all dimensions in a single pass. If the diff is large, split by subsystem
 - Duplication worth extracting
 
 ## PR/MR Comment Format
+
+Illustrative shape; omit empty sections and report only numbers you measured.
 
 ```markdown
 # Code Review: PR #123
@@ -68,19 +70,16 @@ Review all dimensions in a single pass. If the diff is large, split by subsystem
 ## Low Priority / Optional
 - Consider extracting magic numbers to constants
 
-## Positive Findings
-- Strong test coverage (92%)
-- Clean separation of concerns
-
 ## Summary
-**Total Issues**: 3 (1 blocker, 2 high)  **Coverage**: 92%
+**Total Issues**: 3 (1 blocker, 2 high)  **Coverage**: <measured, or omit>
 **Verdict**: Approve after addressing blocker
 ```
 
 ## Rules
 
 - **BLOCKER**: Security, data integrity, breaking changes → must fix before merge
-- **HIGH**: Architecture, test gaps, performance → strongly recommend
+- **HIGH**: Architecture, dependencies → strongly recommend
+- **MEDIUM**: Code quality, testing, performance → fix in this PR when cheap, else file a follow-up
 - **LOW**: Style, minor refactoring → optional
 - Always include file:line references
 - If zero findings: state explicitly and note residual risks
