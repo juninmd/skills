@@ -31,6 +31,10 @@
       {
         "prompt": "Review this SwiftUI view for optional-safety and weak self capture in the closure",
         "owner": "ios-engineering"
+      },
+      {
+        "prompt": "Translate the Next.js web app into Spanish with ICU plurals",
+        "owner": "frontend-engineering"
       }
     ]
   }

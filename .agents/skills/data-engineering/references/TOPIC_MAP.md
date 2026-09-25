@@ -14,3 +14,4 @@ Read only the files needed for the current task.
 | `redis-operations.md` | Redis data modeling, connection pooling, cluster hash tags, ACL hardening, eviction policies, cache-stampede prevention, INFO/SLOWLOG triage, RQE search, semantic cache |
 | `sql-authoring.md` | Plan reading, index tradeoffs (partial/covering), transaction isolation anomalies, N+1 detection, and connection pool sizing: [sql-authoring](sql-authoring.md) |
 | `vector-databases.md` | Qdrant collection design, memory tiers and quantization, latency tuning, hybrid search prefetches, fusion (RRF/DBSF), grouping recall |
+| `backup-and-recovery.md` | Setting RPO/RTO, 3-2-1 and immutable backups, PostgreSQL/MySQL point-in-time recovery, scheduled restore drills, and the disaster recovery runbook |

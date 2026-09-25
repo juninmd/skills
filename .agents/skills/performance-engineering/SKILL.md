@@ -1,7 +1,7 @@
 ---
 name: performance-engineering
 description: |
-  Measure and reduce latency, memory, Core Web Vitals, and cloud or token spend. Use for endpoint profiling, bottlenecks, N+1 queries, memory leaks, LCP/INP, autonomous metric loops, and rightsizing costs. Trigger on 'this is slow', 'memory keeps growing', 'improve LCP', 'the cloud bill is too high', 'cut token cost'.
+  Measure and reduce latency, memory, Core Web Vitals, and cloud or token spend. Use for endpoint profiling, k6 load tests, bottlenecks, N+1 queries, memory leaks, LCP/INP, autonomous metric loops, and rightsizing costs. Trigger on 'this is slow', 'load test this', 'memory keeps growing', 'improve LCP', 'the cloud bill is too high', 'cut token cost'.
 ---
 
 

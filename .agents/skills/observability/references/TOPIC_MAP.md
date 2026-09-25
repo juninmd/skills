@@ -15,3 +15,4 @@ Read only the files needed for the current task.
 | `network-http-ssl.md` | L7 HTTP/TLS checks (curl timing breakdown, certificate expiry/chain inspection, handshake failures) once L3/L4 connectivity is confirmed and the problem is in the request or handshake |
 | `postmortem-standards.md` | Blameless postmortem template and standards (detection-gap analysis, owned corrective actions, executable verification) when writing up an incident after it's resolved |
 | `real-world-cases.md` | Incident case studies (delayed-error deploy, unsafe rollback over a migration, destructive quick-fix, silent data corruption, a postmortem that fixed nothing) for pattern-matching a live incident |
+| `product-analytics-and-experiments.md` | Instrumenting product events with a tracking plan, consent-aware analytics, and designing or reading an A/B test (power, sample ratio mismatch, no peeking, guardrails) |

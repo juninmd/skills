@@ -44,6 +44,8 @@ Name the consumers and their release cadence first. A contract designed without 
 | Changing a status code or the error body shape | **breaking** |
 | Changing default page size or sort order | **breaking** in practice |
 
+A breaking change ships as a new version beside the old one, and the old one is retired with `Deprecation` and `Sunset` headers and per-consumer traffic tracking; that procedure is owned by `data-engineering` in `online-ddl-and-api-migration.md`.
+
 ## Status Codes by Cause
 
 | Code | Means | Not |

@@ -36,3 +36,4 @@ Read only the files needed for the current task.
 | `vite-core.md` | Vite 8/Rolldown CLI commands and what changed migrating from Vite 7 (Rollup→Rolldown, esbuild→Oxc, `rollupOptions`→`rolldownOptions`) |
 | `vite-patterns.md` | per-framework Vite setup (React/Vue/Svelte plugins), `VITE_`-prefixed env vars, dev server proxy/alias config, and raw/url asset imports |
 | `vite-tailwind-v4.md` | wiring Tailwind CSS v4's CSS-first `@theme` config and OKLCH color functions into a Vite project |
+| `web-i18n.md` | Shipping a web UI in more than one language or locale: ICU messages and plurals, `Intl` dates/numbers/currency, RTL with logical CSS, locale routing and `hreflang`, pseudo-localization |
