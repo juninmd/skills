@@ -1,6 +1,6 @@
 # Git Worktree Setup and Verification
 
-Guidelines for selecting and securing worktree directories.
+Guidelines for selecting and securing worktree directories when worktree isolation is explicitly chosen or accepted by the user (never default).
 
 ## 1. Directory Selection Priority
 1. **Existing Directories:** Check `.worktrees/` (preferred) then `worktrees/`.
