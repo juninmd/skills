@@ -22,7 +22,8 @@ cd "$path"
 ```
 
 ## 3. Integration
-- **Required By:** `starting-dev`, `agent-engineering`.
+- **Optional/Opt-in:** Never default. Use only when explicitly requested or accepted by the user.
+- **Used By:** `starting-dev`, `agent-engineering` (when authorized).
 - **Paired With:** `finishing-dev` (for cleanup).
 
 ## 4. Workstream Register

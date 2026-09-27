@@ -11,6 +11,7 @@ Open only the procedure matching the current subtask. These are files, not stand
 | [docs-strategy.md](docs-strategy.md) | Choose audience and scope before reconstructing or extending repository docs |
 | [entry-format.md](entry-format.md) | Format an explicitly requested durable learning entry with provenance and tags |
 | [execution-guidelines.md](execution-guidelines.md) | Execute planned slices with checks, scope control, and progress evidence |
+| [grill-me.md](grill-me.md) | Iteratively interview to resolve decision branches and ambiguities with recommendations |
 | [human-step-wizard.md](human-step-wizard.md) | Guide genuinely manual account or device setup without requesting credentials |
 | [karpathy-methodology.md](karpathy-methodology.md) | Resolve ambiguity and keep implementation changes minimal during planning |
 | [loop-state.md](loop-state.md) | Resume a sustained delivery task without losing gates, artifacts, or authority |
@@ -23,6 +24,6 @@ Open only the procedure matching the current subtask. These are files, not stand
 | [session-handoff.md](session-handoff.md) | Capture resumable state, evidence, and next actions for unfinished work |
 | [session-learnings.md](session-learnings.md) | Record reusable lessons only when the user explicitly requests persistence |
 | [topic-map.md](topic-map.md) | Find GitHub Actions documentation sources relevant to workflow setup |
-| [worktree-setup.md](worktree-setup.md) | Create an isolated worktree after resolving branch and task ownership |
-| [worktree-standards.md](worktree-standards.md) | Verify worktree path, baseline, and isolation before development |
-| [worktree-workflow.md](worktree-workflow.md) | Sequence worktree preparation and delivery handoff for parallel work |
+| [worktree-setup.md](worktree-setup.md) | Optional / user-confirmed only: prepare an isolated worktree when explicitly requested or accepted |
+| [worktree-standards.md](worktree-standards.md) | Worktree rules and red flags: confirmation required, never create without user acceptance |
+| [worktree-workflow.md](worktree-workflow.md) | Worktree lifecycle when enabled: sequence preparation and delivery handoff for parallel work |

@@ -33,7 +33,7 @@ The last probe applies only when `.workflow` exists. Read manifests, CI, and app
    CONFIDENCE: ~30% - missing: who reads it, which metric, what success looks like
    ```
 
-   Then resolve material missing decisions in one batched clarification, each question carrying your guess so a nod is enough to proceed; continue independent inspection while waiting. Stop interrogating at the point where you can predict the answer, not at the point where you have enough to start. Hand a request still needing acceptance criteria, a PRD/spec, or issue triage to `requirements-planning`.
+   Then resolve material missing decisions in one batched clarification or via [grill-me](references/grill-me.md) (walking decision branches with recommended defaults), each question carrying your guess so a nod is enough to proceed; continue independent inspection while waiting. Stop interrogating at the point where you can predict the answer, not at the point where you have enough to start. Hand a request still needing acceptance criteria, a PRD/spec, or issue triage to `requirements-planning`.
 2. Map one real flow from entry to response with `file:line` evidence using [codebase mapping](references/codebase-mapping.md). Record owning modules, dependency edges, configuration sources, and actual setup/test/build commands. State when runtime evidence is unavailable.
 3. Invoke `web-research` for a new project or a choice involving libraries, APIs, compatibility, or current best practices. Record primary sources and dates. Prefer **Bun → Node.js → Rust → Python** for new work, selecting the first suitable runtime; explain concrete compatibility or workload reasons for a later choice. Preserve an existing repository's runtime and lockfile unless migration is requested.
 4. Generate or adapt **AGENTS.md and README.md** when bootstrapping or explicitly requested. Follow [agent instructions](references/agents-md.md); use `documentation` for the README. Derive commands from verified scripts. AGENTS records ownership, authority, checks, and gotchas; README explains purpose, quickstart, configuration, usage, and limits. Preserve project facts and attribution; never claim untested installation works.
@@ -56,7 +56,7 @@ These are procedures owned here, **not separate skills**. Read only the current 
 Use durable loop state only for sustained delivery or when existing state already tracks the task. Record skipped stages with a reason. Re-read after a stage; update only after its output exists. No mandatory approval ceremony for routine reversible work already authorized.
 
 ## Reference routing
-[Reference map](references/TOPIC_MAP.md) selects detailed planning, human setup, worktree, and session procedures. References are local procedures executed by this skill; sibling handoffs name installed skills.
+[Reference map](references/TOPIC_MAP.md) selects detailed planning, human setup, worktree, and session procedures. References are local procedures executed by this skill; sibling handoffs name installed skills. Worktrees are strictly opt-in and optional: suggest only when warranted, and never create without explicit user acceptance.
 
 ## Stop
 - A material product, authority, or compatibility decision cannot be inferred; request that decision while continuing independent work.
