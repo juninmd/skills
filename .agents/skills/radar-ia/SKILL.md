@@ -17,7 +17,7 @@ Sweep sources and produce a dated state-of-the-ecosystem report for AI and codin
 ## Preflight
 ```bash
 gh auth status                                 # the search API needs auth to be reliable
-ls <projeto>/radar-ia/RADAR_*.md | tail -1     # last run; the collection window starts there
+ls "${TMPDIR:-${TEMP:-/tmp}}"/radar-ia/RADAR_*.md | tail -1     # last run; the collection window starts there
 ```
 Fix the collection window first: without it the digest cannot be compared to the previous one. If the user sets a deadline ("colete até as 19:30"), keep collecting extra rounds until then and only then consolidate.
 
@@ -27,7 +27,7 @@ Fix the collection window first: without it the digest cannot be compared to the
   RADAR_<YYYY-MM-DD>.md   # the deliverable
   raw/                    # one timestamped file per source
 ```
-Default directory when none is given: `<cwd>/radar-ia/`. Never overwrite an old run; filenames carry date and time. Every numeric claim must point at a file in `raw/`.
+Default directory when none is given: `<tmpdir>/radar-ia/`, never the working tree; the user may name a project directory for the final report only. Never overwrite an old run; filenames carry date and time. Every numeric claim must point at a file in `raw/`.
 
 Fixed structure of `RADAR_<data>.md` (keep sections and order):
 1. Header with collection window and source list
@@ -79,11 +79,11 @@ HF and changelogs: `https://huggingface.co/models?sort=trending`, `https://huggi
 
 ## Stop
 - A source returns 429: back off and serialize. Never run the day and week rounds in parallel or fire ad-hoc Reddit requests during a run; they share one IP budget and everything ends in 429.
-- A repo claims a token or performance win with no independent benchmark: report it as a claim. Precedent: caveman claimed 65%, measured 8.5%; rtk claimed 60-90% and cost more than using nothing.
+- A repo claims a token or performance win with no independent benchmark: report it as a claim.
 - A source's raw dump comes back empty or clearly stale (old timestamps, a cached error page): flag it in the header's source list as "no data this run" and skip its section content. Never invent items to fill a section, and never silently drop the source from the header as if it had not been attempted.
 
 ## Rules
-- Cross-source corroboration is the product: the same signal on Reddit + HN + trending is a platform movement (Cloudflare OS on HN + `cloudflare/computer` trending); one loud post is not.
+- Cross-source corroboration is the product: the same signal on Reddit + HN + trending is a platform movement; one loud post is not.
 - Separate signal from recurring complaint: usage-limit grumbling is weekly noise; a model regression with a reproducible case is signal.
 - Concrete numbers beat adjectives: "8,5% medido contra 65% alegado" beats "resultados decepcionantes".
 - Always close with action: section 6 maps findings to the user's projects (memory: digest agents, junin/GitOps cluster, megabrain, LiteLLM).

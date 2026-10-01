@@ -75,7 +75,7 @@ Bias caution over speed on non-trivial work; judgment on trivial tasks (one file
 - **Non-interactive:** `CI=true`, `--quiet`, `--no-pager`, `--no-color`, `-input=false`. Forbid `less`, `watch`, prompts, `yes |`, `-auto-approve`, blind `rm -rf`.
 - **Quiet by default:** quietest form (`--quiet`, `-q`, `--reporter=dot`, `--log-level=error`). Never emit output you will not read; verbose only to debug a concrete failure.
 - **Subagents:** delegate parallel, well-scoped work (search, sweeps, doc lookups, mechanical edits) to the cheapest tier; keep the strongest model for the decision and the patch. Check a subagent's evidence before accepting its report.
-- **Long runs:** when a step needs no input, keep going and put status in the same message as the next action. Stop only when blocked or before anything destructive or outside the repository. Track units in a task file (`TASKS.md`) so progress survives compaction.
+- **Long runs:** when a step needs no input, keep going and put status in the same message as the next action. Stop only when blocked or before anything destructive or outside the repository. Track units in a temp task file named with the session id, never inside the repository, so progress survives compaction.
 - **Reads/search:** native read/search tools first. Shell fallback: line count, then ranged read; `rg -n --hidden "pattern" . -g '!*.{lock,d.ts}' | head -n 50`. Use the code index when present.
 - **Data and tokens:** never dump raw JSON/logs; extract failing lines with `jq` or `rg -ni "error|fail|timeout" | head`. Read narrowly, summarize before large outputs.
 

@@ -5,7 +5,7 @@ Open this when an agent will work for a long stretch with little supervision: a 
 ## Preflight
 ```bash
 ls CLAUDE.md AGENTS.md .claude/settings.json 2>/dev/null   # where stop/continue rules and permissions live
-ls TASKS.md 2>/dev/null                                     # a run already tracking its units
+ls "${TMPDIR:-${TEMP:-/tmp}}"/starting-dev 2>/dev/null      # a run already tracking its units
 ```
 
 ## Hand Over the Whole Task
@@ -34,8 +34,8 @@ Keep permission prompts on for destructive commands. The rule tells the model wh
 
 | File | Holds | Why |
 |---|---|---|
-| `TASKS.md` | checklist of units, updated as each lands | survives compaction; progress visible at a glance |
-| `.workflow/<slug>/state.md` | goal, decisions and reasons, ruled-out paths, next step | reloads reasoning a compaction would lose |
+| `<tmpdir>/starting-dev/<session-id>/tasks.md` | checklist of units, updated as each lands | survives compaction; progress visible at a glance |
+| `<tmpdir>/starting-dev/<session-id>/state.md` | goal, decisions and reasons, ruled-out paths, next step | reloads reasoning a compaction would lose |
 
 ## End-of-Run Report
 Ask for a fixed shape so the reader finds the blocking items first:

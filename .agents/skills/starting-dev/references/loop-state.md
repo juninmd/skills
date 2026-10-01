@@ -1,7 +1,9 @@
 # Delivery state contract
 `starting-dev` owns research, prototype, plan, and implement; `finishing-dev` owns finalize and readiness. Stage names refer to local procedures, not installed phase skills.
 
-Use `.workflow/<slug>/loop-state.json` for sustained delivery or an already tracked task. The slug is a dated task name, or an issue identifier when issue tracking was requested. Inspect existing workspaces before creating another.
+The workspace is `<tmpdir>/starting-dev/<session-id>/` (`$TMPDIR`, `$env:TEMP`, or `/tmp`; a generated unique id when the client exposes no session id). It holds `loop-state.json`, `tasks.md`, and the stage artifacts, and is never inside the repository, so nothing needs a `.gitignore` entry or can be committed by accident.
+
+Create it for sustained delivery or an already tracked task. A new session cannot guess an old session id: resume from the path recorded in the [session handoff](session-handoff.md) or given by the user, and ask when several workspaces match. Record the workspace path in the handoff before ending a session.
 
 ```json
 {
@@ -28,7 +30,7 @@ Use `.workflow/<slug>/loop-state.json` for sustained delivery or an already trac
 |---|---|
 | `stage` | research, prototype, plan, implement, finalize, or done |
 | `awaiting` | Null, or a concrete unanswered decision; elapsed time is never an answer |
-| `artifacts` | Existing files relative to this workspace; append after writing |
+| `artifacts` | Existing files relative to the workspace; append after writing |
 | `branch`, `pr` | Verified branch and PR identifier; PR is set only after finishing review and authorized publication |
 | `rounds` | Stage iterations; repeated attempts without new evidence are a stall |
 | `success` | How the current cycle is known to be done. `type` is `test`, `build`, `lint`, `command`, `file`, `review`, or `manual`; `command` holds the exact invocation for the first four, `path` the expected file for `file` |

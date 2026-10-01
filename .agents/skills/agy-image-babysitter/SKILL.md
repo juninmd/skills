@@ -1,7 +1,7 @@
 ---
 name: agy-image-babysitter
 description: |
-  Keep an agy (Antigravity CLI) conversation generating images unattended: relaunch the headless loop 90s after a 401 token expiry and sleep until quotaResetTimeStamp after a 429. Use when asked to "deixar o agy gerando", resume image generation for meu-livro or another project after quota, or reactivate the "babá do agy".
+  Keep an agy (Antigravity CLI) conversation generating images unattended: relaunch the headless loop 90s after a 401 token expiry and sleep until quotaResetTimeStamp after a 429. Use when asked to "deixar o agy gerando", resume image generation for a project after quota, or reactivate the "babá do agy".
 license: MIT
 metadata:
   version: "1.1.0"
@@ -22,7 +22,7 @@ Get-ChildItem "$HOME\.gemini\antigravity-cli\conversations\*.db" | Sort-Object L
 agy agentapi get-conversation-metadata          # alternative (see memory agy-antigravity-cli)
 Get-Process agy -ErrorAction SilentlyContinue   # another interactive agy open? it renews the OAuth token cache
 ```
-For meu-livro: ConversationId `654dc9ba-4469-468e-8ee6-9e11c7198776`, ProjectDir `D:\Solutions\pessoal\meu-livro`.
+Take `ConversationId` and `ProjectDir` from the newest conversation above, or ask the user; never hard-code them in this file.
 
 ## Workflow
 1. Find the conversation id (Preflight).
@@ -45,9 +45,10 @@ For meu-livro: ConversationId `654dc9ba-4469-468e-8ee6-9e11c7198776`, ProjectDir
 ## Stop
 - A paid provider is proposed: zero cost is the user's rule. This flow uses only the free Google plan quota.
 - Task Scheduler launch: never. It starts without full auth and dies in 401 with no progress. Launch from the session shell.
-- Free alternative without agy (meu-livro): `.venv-gpu\Scripts\python.exe -m scripts.generate_missing_scenes` (local GPU → ZeroGPU → Pollinations, sends Telegram itself).
+- A project-local generation script, when one exists, is the free alternative without agy; ask the user rather than assume its path.
 
 ## Rules
+- `--dangerously-skip-permissions` is allowed only for the image-generation prompt in the named `ProjectDir`. Stop and ask before widening the prompt, the directory, or any tool beyond image generation.
 - Keep another interactive agy open (any project): it renews the OAuth token in the cache.
 - Never print or copy the `.env` contents; the script reads the Telegram credentials itself.
 - The babysitter dies with the Claude session; relaunch when opening a new session if generation is unfinished.

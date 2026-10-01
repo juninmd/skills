@@ -50,6 +50,7 @@ export default defineConfig({
         collapsed: false,
         items: [
           { text: 'Overview', link: '/skills/' },
+          { text: 'Timeline', link: '/skills/timeline' },
         ],
       },
     ],

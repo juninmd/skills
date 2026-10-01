@@ -67,8 +67,7 @@ practitioner lore, not measurement.
 - Static analysis is not the backstop either: **22% of vulnerability-contributing commits went
   undetected by all five SAST tools evaluated**
   ([ACM SIGSOFT 2024](https://dl.acm.org/doi/10.1145/3650212.3680313)).
-- Runtime and memory defects surface through execution. A supplier case study reported 32% of bugs
-  found solely by fuzzing (secondary citation, not re-verified — treat as indicative).
+- Runtime and memory defects surface through execution (fuzzing, load, soak), not through reading a diff.
 - Concurrency, performance, and data-volume regressions need a test, a plan, or a load run, not a
   careful read. Route them to `test-engineering` and `performance-engineering` rather than pretending
   a diff can settle them.
@@ -95,9 +94,7 @@ reviewers of agent-authored code, approval rose from 30.1% to 36.8% while inline
 latency grew 3.5x, with PR size flat — habituation under load, not earned confidence
 ([arXiv:2606.22721, 2026](https://arxiv.org/abs/2606.22721)).
 
-The scaling failure is already observable: curl shut down its bug bounty after the confirmed-
-vulnerability rate among submissions fell from over 15% to under 5% under a flood of AI-generated
-reports. Once findings are cheap, **triage attention becomes the binding constraint**, not detection.
+The scaling failure follows from the numbers above: once findings are cheap, **triage attention becomes the binding constraint**, not detection.
 
 **Applied:** give a machine reviewer the context it needs (acceptance criteria, base/head, callers) or
 its accuracy drops by design; cap output; and never let volume of findings stand in for review quality.

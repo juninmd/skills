@@ -25,6 +25,10 @@
       {
         "prompt": "Roll out the new checkout behind a feature flag with a canary deployment",
         "top_k": 3
+      },
+      {
+        "prompt": "Which GitHub Actions trigger or OIDC setting applies here, per the official docs",
+        "top_k": 3
       }
     ],
     "negative": [

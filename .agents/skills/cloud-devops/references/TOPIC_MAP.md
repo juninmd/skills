@@ -6,6 +6,7 @@ Read only the files needed for the current task.
 |---|---|
 | `ci-cd-best-practices.md` | Designing or reviewing a GitHub Actions/GitLab CI pipeline: job ordering, caching, reusable workflows, matrix builds |
 | `cloud-patterns.md` | Designing cloud infrastructure topology: HA/multi-AZ, three-tier networking, strangler fig, circuit breaker, DR/RPO-RTO |
+| `github-actions-docs.md` | Answering a question about GitHub Actions syntax, events, runners, OIDC, or migration from official docs: answer rules, request buckets, doc entry points |
 | `deploy-ghcr-manual.md` | CI genuinely cannot build (billing block, Actions outage) and a manual GHCR build-and-push deploy is needed to bypass it |
 | `deploy-sync-guard.md` | ArgoCD/GitOps reports Synced and Healthy but the running pod may still be serving stale code — diagnosing build/rollout/content drift |
 | `docker-operations.md` | Managing local containers or Compose stacks day to day: status, logs, cleanup, service health, secrets handling |

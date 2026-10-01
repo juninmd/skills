@@ -15,7 +15,7 @@
         "top_k": 3
       },
       {
-        "prompt": "Set up a long unattended goal run with stop rules and a TASKS.md checklist",
+        "prompt": "Set up a long unattended goal run with stop rules and a session task checklist",
         "top_k": 3
       },
       {

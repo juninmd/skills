@@ -18,4 +18,4 @@ Common tasks and resolution steps for Node.js projects.
 - **Certs:** Configure `cafile` in `.npmrc` if working behind corporate proxies.
 
 ## 3. Dependency Checklist
-Refer to `assets/FORMS.md` for evaluating new dependencies (Security and Licensing).
+Vet a new dependency for CVEs, license, and maintenance before adding it; `security-ops` owns the supply-chain check.

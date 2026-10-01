@@ -75,7 +75,7 @@ A wide search run inline costs the full tool output forever. Run in a subagent, 
 Write durable state to disk **while you still have room to write it well** — a compaction that catches you unprepared loses exactly the reasoning you needed.
 
 ```
-.workflow/<slug>/state.md
+<tmpdir>/starting-dev/<session-id>/state.md   (outside the repository)
   goal · decisions made and why · files touched (path:line)
   open questions · next concrete step · what has been ruled out
 ```

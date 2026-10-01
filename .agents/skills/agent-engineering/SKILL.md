@@ -88,9 +88,6 @@ Contradictory layers (system prompt vs. CLAUDE.md vs. skill) are the costly fail
 - Practical agent failure cases: [real-world-cases.md](references/real-world-cases.md)
 - Agent loops, tool contracts, and orchestration: [agent-development.md](references/agent-development.md)
 - Deterministic tool interceptors, scrubbers, and circuit breakers: [tool-guards-and-hooks.md](references/tool-guards-and-hooks.md)
-- Deep audit scope and evidence collection: [audit-phases.md](references/audit-phases.md)
-- Function-level trust-boundary analysis: [function-analysis.md](references/function-analysis.md)
-- Stable outputs and subagent isolation: [stability-rules.md](references/stability-rules.md)
 - Building or wiring MCP servers, transports, and tool exposure: delegate to [mcp-integration](references/mcp-integration.md).
 - Window budgets, pruning, and summarization strategy: delegate to [context-engineering](references/context-engineering.md).
 

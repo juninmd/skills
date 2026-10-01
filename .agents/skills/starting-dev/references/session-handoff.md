@@ -16,7 +16,7 @@ Take the snapshot **before** writing prose. A handoff note describing a tree you
 3. Fill the five sections below in order. The order is the reading order for someone with no history.
 4. Record commands and `file:line`, never summaries of them. "Fixed the parser" is unactionable; `src/parse.ts:88, run pnpm test parse` is not.
 5. Write the dead ends with their evidence. What was tried and failed is the most expensive thing to lose and the first thing omitted.
-6. End on one runnable next command. If you cannot name it, the note is not finished.
+6. Record the path of the [loop workspace](loop-state.md) when one exists, so a new session can resume it. End on one runnable next command. If you cannot name it, the note is not finished.
 7. Test the note by reading it as the successor: anything you would still have to ask is a hole.
 
 ## The Five Sections

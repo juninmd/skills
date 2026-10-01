@@ -24,8 +24,7 @@ brew install prek
 # Cargo
 cargo install prek
 
-# Standalone installer
-curl --proto '=https' --tlsv1.2 -LsSf https://github.com/j178/prek/releases/latest/download/prek-installer.sh | sh
+# Standalone installer: download a pinned release asset and verify its published checksum before running it
 ```
 
 ### Security tools
