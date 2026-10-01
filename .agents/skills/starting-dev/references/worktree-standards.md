@@ -4,7 +4,7 @@ Guidelines for maintaining reliable workspace isolation.
 
 ## 1. Core Rules
 - **Optional by Default:** Worktrees are strictly opt-in. Never create or switch to a worktree by default; suggest as an option only when warranted, and proceed only upon explicit user confirmation.
-- **Announce Inception:** Always state "I'm using the using-git-worktrees skill..." at start.
+- **Announce:** state that a worktree was requested or accepted, and where it will live.
 - **Verification First:** Never skip the baseline test verification.
 - **Selective Setup:** Skip dependency installs if no manifest files exist.
 

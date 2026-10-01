@@ -68,7 +68,7 @@ Choose the broker by requirement, never by habit: log-structured (Kafka) for hig
 - Design principles: [design-principles.md](references/design-principles.md)
 - Distributed systems: [distributed-architecture.md](references/distributed-architecture.md), [distributed-toolkit.md](references/distributed-toolkit.md)
 - Intake templates for design requests and health reports: [intake-templates.md](references/intake-templates.md)
-- Desktop main/renderer applications: use the [electron-architecture](references/electron-architecture.md) skill.
+- Desktop main/renderer applications: open [electron-architecture](references/electron-architecture.md).
 
 See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-domain guides.
 
@@ -78,7 +78,7 @@ See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-
 - A boundary move and a behavior change are in the same step. Sequence them; the failure would be unattributable.
 
 ## Rules
-- Hand off implementation tasks and codebase mapping to `starting-dev`, and game engine modding to `goldsrc-modding`.
+- Hand off codebase mapping to `starting-dev` and implementation to its domain skill, and game engine modding to `goldsrc-modding`.
 - Prefer fewer, deeper modules over layers that only forward calls. A layer that adds no decision adds only a hop and a file to open.
 - Do not introduce a service, queue, cache, or abstraction without a measured problem. Every one of them is a permanent operational cost.
 - The design that is easy to undo beats the design that is slightly better and permanent.

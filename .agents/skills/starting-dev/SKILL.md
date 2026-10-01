@@ -21,9 +21,9 @@ Establish the request, current instructions, worktree ownership, stack, and exis
 git status --short
 git branch --show-current
 rg --files --hidden -g AGENTS.md -g CLAUDE.md -g README.md -g package.json -g bun.lock -g bun.lockb -g '*lock*' -g Cargo.toml -g pyproject.toml -g '.github/workflows/*' -g '!.git' -g '!node_modules' -g '!target'
-rg --files --hidden .workflow
+ls "${TMPDIR:-${TEMP:-/tmp}}/starting-dev" 2>/dev/null   # loop workspaces of earlier sessions
 ```
-The last probe applies only when `.workflow` exists. Read manifests, CI, and applicable instructions; do not infer runnable commands from filenames. Existing modifications are not a reason to clean or stash somebody else's work.
+The last probe lists delivery workspaces (see [state contract](references/loop-state.md)); it is empty on a first run. Read manifests, CI, and applicable instructions; do not infer runnable commands from filenames. Existing modifications are not a reason to clean or stash somebody else's work.
 
 ## Workflow
 1. Establish goal, constraints, non-goals, and measurable acceptance criteria. Open with one sentence of what you believe is wanted and an honest confidence number; under 70%, name what is missing on the same line:
@@ -35,7 +35,7 @@ The last probe applies only when `.workflow` exists. Read manifests, CI, and app
 
    Then resolve material missing decisions in one batched clarification or via [grill-me](references/grill-me.md) (walking decision branches with recommended defaults), each question carrying your guess so a nod is enough to proceed; continue independent inspection while waiting. Stop interrogating at the point where you can predict the answer, not at the point where you have enough to start. Hand a request still needing acceptance criteria, a PRD/spec, or issue triage to `requirements-planning`.
 2. Map one real flow from entry to response with `file:line` evidence using [codebase mapping](references/codebase-mapping.md). Record owning modules, dependency edges, configuration sources, and actual setup/test/build commands. State when runtime evidence is unavailable.
-3. Invoke `web-research` for a new project or a choice involving libraries, APIs, compatibility, or current best practices. Record primary sources and dates. Prefer **Bun → Node.js → Rust → Python** for new work, selecting the first suitable runtime; explain concrete compatibility or workload reasons for a later choice. Preserve an existing repository's runtime and lockfile unless migration is requested.
+3. Invoke `web-research` for a new project or a choice involving libraries, APIs, compatibility, or current best practices. Record primary sources and dates. Hand runtime, package-manager, and library choices for new work to `stack-selection`; preserve an existing repository's runtime and lockfile unless migration is requested.
 4. Generate or adapt **AGENTS.md and README.md** when bootstrapping or explicitly requested. Follow [agent instructions](references/agents-md.md); use `documentation` for the README. Derive commands from verified scripts. AGENTS records ownership, authority, checks, and gotchas; README explains purpose, quickstart, configuration, usage, and limits. Preserve project facts and attribution; never claim untested installation works.
 5. Plan the smallest vertical slices: each step names target files, verification command, expected result, and dependencies. Use `requirements-planning`'s incremental delivery procedure when the slicing itself is undecided. Ask `software-architecture` to resolve boundaries and contracts before implementation. Create or mutate tracking issues only within explicit authorization.
 6. For an ongoing delivery loop, execute the local stage procedure below, then record its artifact and state. For a scoped planning or onboarding request, return the requested artifact without starting an implementation loop.
@@ -53,7 +53,7 @@ These are procedures owned here, **not separate skills**. Read only the current 
 | Finalize / done | Hand off to `finishing-dev`; PR readiness does not imply merge or deployment |
 | Resume / handoff | Read [state contract](references/loop-state.md) and [session handoff](references/session-handoff.md); continue from actual artifacts |
 
-Use durable loop state only for sustained delivery or when existing state already tracks the task. Record skipped stages with a reason. Re-read after a stage; update only after its output exists. No mandatory approval ceremony for routine reversible work already authorized.
+Keep loop state only for sustained delivery or when a workspace already tracks the task. Record skipped stages with a reason; update state only after the stage output exists. Routine reversible work already authorized needs no extra approval.
 
 ## Reference routing
 [Reference map](references/TOPIC_MAP.md) selects detailed planning, human setup, worktree, and session procedures. References are local procedures executed by this skill; sibling handoffs name installed skills. Worktrees are strictly opt-in and optional: suggest only when warranted, and never create without explicit user acceptance.
@@ -68,6 +68,7 @@ Use durable loop state only for sustained delivery or when existing state alread
 - A plan step without an observable check is incomplete.
 - Do not force all projects through prototype stages; record why a stage is unnecessary.
 - Unrequested publishing, merging, deployment, or external messages are outside starting development.
+- Task list, loop state, and stage artifacts (`tasks.md`, `loop-state.json`, `research.md`, `plan.md`) live in `<tmpdir>/starting-dev/<session-id>/`, never in the repository. No `TASKS.md`, no `.workflow/`.
 - Session memory outside the workspace requires an explicit user request; see [session learnings](references/session-learnings.md).
 
 ## Checklist
@@ -76,4 +77,4 @@ Use durable loop state only for sustained delivery or when existing state alread
 - [ ] Runtime choice preserves existing constraints; new choices follow the stated priority.
 - [ ] Requested AGENTS.md and README match actual behavior and commands.
 - [ ] Each planned slice has files, a check, and expected results.
-- [ ] State reflects artifacts; completed work hands off to `finishing-dev`.
+- [ ] Task list and state sit in the temp workspace, not the repo, and reflect artifacts; completed work hands off to `finishing-dev`.

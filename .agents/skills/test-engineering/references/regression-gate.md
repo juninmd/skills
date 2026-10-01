@@ -33,13 +33,13 @@ Skipping classification is how a gate blocks on debt it did not create — and h
 
 ## Capture the Baseline
 ```bash
-git worktree add --detach "baseline/$SHA" "$SHA"   # detached: works even when base == HEAD
-(cd "baseline/$SHA" && git submodule update --init && npm ci)  # lockfile is SHA-pinned; cache is sound
+git worktree add --detach "${TMPDIR:-${TEMP:-/tmp}}/baseline-$SHA" "$SHA"   # detached: works even when base == HEAD
+(cd "${TMPDIR:-${TEMP:-/tmp}}/baseline-$SHA" && git submodule update --init && npm ci)  # lockfile is SHA-pinned; cache is sound
 # ... run each dimension there, record the number or the green-set ...
-git worktree remove "baseline/$SHA" && git worktree prune      # always, including on crash
+git worktree remove "${TMPDIR:-${TEMP:-/tmp}}/baseline-$SHA" && git worktree prune      # always, including on crash
 ```
 
-Cache by full SHA. A contract diff needs no build; functional, e2e, and migration runs need the full environment. Worktree mechanics belong to `using-git-worktrees`.
+Cache by full SHA. A contract diff needs no build; functional, e2e, and migration runs need the full environment. Worktree mechanics: `starting-dev/references/worktree-workflow.md`.
 
 ## Dimensions
 

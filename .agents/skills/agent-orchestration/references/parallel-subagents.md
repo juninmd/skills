@@ -73,7 +73,7 @@ Reserve this for big, risky changes: stages that depend on each other, a change 
 4. Give the checkpoint reviewer the stage goal, the changed paths, the validation output, the research already accepted, and file pointers, so it judges known context instead of rediscovering it.
 5. **One review per checkpoint, plus at most two follow-up reviews.** Ask for a follow-up only when the fix changes what was reviewed in substance, or the original concern could not be checked. Needing a third means the brief or the plan is wrong: stop and report.
 6. Commit at the end of every stage that can ship on its own.
-7. Keep the stage-progress file out of the project diff and ignored by git.
+7. Keep the stage-progress file in `<tmpdir>/starting-dev/<session-id>/`, never inside the repository.
 
 ## Failure Modes Beyond File Overlap
 Two workers never touching the same file is not the same as two workers being safe to run together.

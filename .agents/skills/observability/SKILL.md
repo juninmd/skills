@@ -72,7 +72,7 @@ See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-
 - A threshold is being widened to silence a page. Either the signal is wrong or the system is — fix one of them.
 
 ## Rules
-- Hand off root cause code fixes to `code-review`, performance optimization to `performance-engineering`, and infrastructure config to `cloud-devops`.
+- Hand off root cause code fixes to the domain skill (`backend-systems`, `frontend-engineering`), performance optimization to `performance-engineering`, and infrastructure config to `cloud-devops`.
 - An alert without an owner and a runbook is noise. Write both **before** enabling it.
 - Never tune a threshold to silence a page. Either the signal is wrong or the system is; both need a fix, not a wider bound.
 - Test alert firing with a synthetic failure. An alert nobody has ever seen fire is an untested code path.

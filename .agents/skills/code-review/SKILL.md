@@ -6,7 +6,7 @@ description: |
 
 # Code Review
 
-**Not this skill:** reviewing your own uncommitted work as the author before a PR (`finishing-dev` runs review as an independent pass), or auditing trust boundaries and secrets (`security-ops`).
+**Not this skill:** PR delivery: evidence, description, CI, and opening the PR (`finishing-dev`, which calls this skill for the correctness pass), or auditing trust boundaries and secrets (`security-ops`).
 
 ## Preflight
 Establish review versus implementation intent, base/head or path scope, acceptance criteria, and applicable instructions. Default review requests are read-only. Inspect the full candidate, including uncommitted work if requested.

@@ -24,7 +24,7 @@ Establish what already exists before writing anything new. Run from the
 repository root:
 
 ```bash
-ls docs/ specs/ temp/specs/ 2>/dev/null           # existing PRDs/specs
+ls docs/ specs/ 2>/dev/null           # existing PRDs/specs
 gh issue list --limit 20 2>/dev/null              # open issues, in-flight triage
 ls .out-of-scope/ 2>/dev/null                     # prior rejections
 rg -n '<the behavior in question>' src/ | head    # does the code already answer it?
@@ -62,8 +62,9 @@ patience for nothing.
    [out-of-scope records](references/OUT-OF-SCOPE.md) before re-litigating a
    rejected request.
 7. For a run expected to survive many turns or a context compaction, keep the
-   task list in a file (e.g. `TASKS.md`) in the repository and update it as
-   work proceeds rather than only in conversation state.
+   task list in a temp file named with the session id, outside the repository
+   (never a `TASKS.md` in the repo), and update it as work proceeds rather than
+   only in conversation state.
 8. Hand accepted, sliced work to `starting-dev` to run the dev loop, or to the
    owning domain skill to implement directly.
 

@@ -12,7 +12,7 @@ description: |
 ```bash
 git status --porcelain | head       # a dirty tree cannot be split safely between writers
 git worktree list                   # isolation that already exists
-ls TASKS.md .workflow/ 2>/dev/null  # a run already in progress keeps its state here
+ls "${TMPDIR:-${TEMP:-/tmp}}"/starting-dev 2>/dev/null  # a run already in progress keeps its state here, outside the repo
 ```
 
 Name the units of work and their owned files before spawning anything. A unit you cannot name is not ready to hand to a worker.

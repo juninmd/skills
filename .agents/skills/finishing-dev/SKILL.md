@@ -90,7 +90,7 @@ Match requested draft/ready status. A draft can exist while CI runs; do not repo
 - Never silently stage unrelated files or bypass hooks/checks.
 - Prefer separate reviewers; a different model is useful when available but not required or invented.
 - Publishing a branch is not runtime, CI, merge, or deployment proof.
-- `starting-dev` owns planning and acceptance changes; do not silently drop criteria to finish.
+- `requirements-planning` owns acceptance changes and `starting-dev` the dev loop; do not silently drop criteria to finish.
 
 ## Excuses
 

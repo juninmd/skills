@@ -42,7 +42,7 @@ for tool in hlcsg hlbsp hlvis hlrad ripent; do command -v "$tool" >/dev/null 2>&
 
 ## Rules
 - Hand off build tools to `tooling-dev`, map exploration to `starting-dev`, and engine architecture to `software-architecture`.
-- Always keep world brushes convex and grid-aligned (minimum 1 unit).
+- Always keep world brushes convex and grid-aligned (16-unit grid, per the authoring reference).
 - Consult [Reference Map](references/TOPIC_MAP.md) before diagnosing compile errors or lump formats.
 
 ## Checklist

@@ -3,7 +3,7 @@
 
 ## Preflight
 ```bash
-git rev-parse --git-dir && git status --porcelain   # the loop commits every iteration; start clean
+git rev-parse --git-dir && git status --porcelain   # the loop commits every iteration; start clean; commit per iteration only when the user authorized this loop to commit, otherwise keep each trial as an uncommitted diff and revert with `git restore`
 bash -c "$VERIFY" | tail -1                         # must print exactly one number
 bash -c "$VERIFY" | tail -1                         # same tree, same number — otherwise the metric is noise
 ```
@@ -31,12 +31,12 @@ Fix all of it before iteration 0 or there is no loop: **Goal**, **Scope** (globs
 | no-op | nothing changed this iteration | log it — two in a row means out of ideas, not out of budget |
 
 ## The Log Is the Memory
-One appended row per iteration, in the repository, so the next iteration inherits what the last one learned:
+One appended row per iteration, in the session workspace outside the repository, so the next iteration inherits what the last one learned:
 
 ```bash
 printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' "$i" "$(date +%FT%T)" \
   "$(git rev-parse --short HEAD)" "$metric" "$delta" "$guard" "$status" \
-  >> .metrics/loop-$(date +%y%m%d).tsv
+  >> "${TMPDIR:-${TEMP:-/tmp}}/starting-dev/<session-id>/loop-$(date +%y%m%d).tsv"
 ```
 
 Header first, direction recorded: `# direction: lower_is_better`, then `iteration timestamp commit metric delta guard status description`. Undirected, a later reader cannot tell a win from a loss.
@@ -64,7 +64,7 @@ Header first, direction recorded: `# direction: lower_is_better`, then `iteratio
 - A metric with no guard optimizes exactly one number and quietly trades away everything else — correctness first, always.
 - Never push, deploy, or publish from inside the loop. Delivery is `finishing-dev`, with a human in it.
 - Reverting is normal, not failure. A loop with no reverts is trying changes too timid to matter.
-- The log lives in the repository, not the transcript: the next session reads rows, not your summary.
+- The log lives in the session workspace, not the transcript or the repo: the next session reads rows, not your summary.
 - Choosing *which* change to try comes from evidence — `performance-engineering` for a profile, `observability` for a defect. `test-engineering` writes the benchmark Verify runs and proves a kept series broke nothing; durable lessons go to `starting-dev`.
 - Protocol adapted from the autoresearch loop by uditgoenka (MIT).
 

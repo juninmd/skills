@@ -11,7 +11,7 @@
         "top_k": 3
       },
       {
-        "prompt": "Run the autonomous dev loop driver to advance the next task stage",
+        "prompt": "Resume the delivery loop from its saved loop-state and continue at the recorded stage",
         "top_k": 3
       },
       {
@@ -35,7 +35,11 @@
         "top_k": 3
       },
       {
-        "prompt": "Set up an isolated worktree for this task before starting the dev loop",
+        "prompt": "Decide whether this task warrants an isolated worktree before starting the dev loop",
+        "top_k": 3
+      },
+      {
+        "prompt": "Keep a pending-work checklist for this session so nothing is forgotten during the dev loop",
         "top_k": 3
       }
     ],
@@ -59,6 +63,18 @@
       {
         "prompt": "Create PRD specification and break it into backlog task issues",
         "owner": "requirements-planning"
+      },
+      {
+        "prompt": "Run final independent reviews and open the pull request for the finished implementation",
+        "owner": "finishing-dev"
+      },
+      {
+        "prompt": "Research current library versions and compare vendor documentation with cited sources",
+        "owner": "web-research"
+      },
+      {
+        "prompt": "Answer a question about GitHub Actions workflow syntax from the official docs",
+        "owner": "cloud-devops"
       }
     ]
   }

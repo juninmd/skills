@@ -42,7 +42,7 @@ See [Reference Map](references/TOPIC_MAP.md) for provenance and scope.
 
 | Symptom | Cause | Fix |
 |---|---|---|
-| Model is giant or microscopic after import/export | Unit-scale mismatch: Blender's default is meters, some game engines and VRoid exports assume centimeters | Check and normalize the scale factor before any other edit; verify against a known-height reference bone |
+| Model is giant or microscopic after import/export | Unit-scale mismatch: Blender's default is meters, some game engines and exporters assume other units | Check and normalize the scale factor before any other edit; verify against a known-height reference bone |
 | Humanoid retarget produces broken or inverted limbs | Bone-naming convention mismatch between the source rig and the target's expected humanoid map (e.g. `mixamorig:LeftArm` vs VRM `leftUpperArm`) | Remap names explicitly before retargeting; never rely on automatic name-guessing across different rig conventions |
 | Textures render as pink/missing after export | Texture paths were absolute or relative to the original file location, and break when the file moves or the format changes packing rules | Pack textures into the file (`.blend`'s "Pack Resources", VRM's embedded images) or re-point to paths relative to the new file before shipping |
 | Real-time viewer stutters or fails to load on target device | No polygon or texture-size budget was set for the target runtime (mobile VRM viewer, WebGL scene) | Set an explicit triangle and texture-resolution budget up front, using `threejs`/target-engine guidance, and check the baseline count from Workflow step 2 against it |

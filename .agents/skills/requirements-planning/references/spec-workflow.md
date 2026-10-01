@@ -13,7 +13,7 @@ Detailed procedures for creating validated design and implementation plans.
 - Select exactly one approche; avoid presenting multiple alternatives.
 
 ## 3. Writing the Spec
-Target path: `temp/specs/YYYY-MM-DD-<topic>-design.md`.
+Draft path: `<tmpdir>/starting-dev/<session-id>/YYYY-MM-DD-<topic>-design.md`; only the accepted spec goes to `docs/specs/` or the tracker.
 - Use local date and kebab-case topic.
 - Include: Request, Context, Chosen Design, Scope (In/Out), File Structure, Data Flow.
 
