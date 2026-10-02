@@ -10,11 +10,9 @@ Detailed procedures for initializing isolated workspaces.
 
 ## 2. Example Workflow Invocations
 ```bash
-# DETERMINING PATH
-case $LOCATION in
-  .worktrees|worktrees) path="$LOCATION/$BRANCH" ;;
-  *) path="~/.config/superpowers/worktrees/$project/$BRANCH" ;;
-esac
+# DETERMINING PATH (standard: .worktrees/ at the repository root)
+root=$(git rev-parse --show-toplevel)
+path="$root/.worktrees/$SLUG"
 
 # EXECUTING
 git worktree add "$path" -b "$BRANCH"
@@ -42,6 +40,7 @@ When several workstreams run at once, keep one local register, ignored by git, w
 Committing the register as a project convention is a separate decision; ask first.
 
 ## 5. Integrate and Prune
+When the work in a worktree is finished (PR opened and checks inspected, or the branch merged), suggest removing it and wait for the user's answer; never remove it unprompted.
 1. Diff the workstream against its `base` and confirm every change stays inside its `areas`.
 2. Merge workstreams one by one, dependencies first, running the test suite after each.
 3. Remove finished workstreams only once the user confirms, and only those this task created:

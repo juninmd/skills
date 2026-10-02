@@ -4,7 +4,8 @@ Guidelines for maintaining reliable workspace isolation.
 
 ## 1. Core Rules
 - **Optional by Default:** Worktrees are strictly opt-in. Never create or switch to a worktree by default; suggest as an option only when warranted, and proceed only upon explicit user confirmation.
-- **Announce:** state that a worktree was requested or accepted, and where it will live.
+- **Announce:** state that a worktree was requested or accepted, and where it will live (`.worktrees/<slug>` unless `AGENTS.md` says otherwise).
+- **Suggest Removal:** when the work is finished, offer to remove the worktree you worked in, with the exact `git worktree remove` command; run it only after the user accepts.
 - **Verification First:** Never skip the baseline test verification.
 - **Selective Setup:** Skip dependency installs if no manifest files exist.
 
