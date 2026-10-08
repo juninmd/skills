@@ -9,3 +9,12 @@ Owned and executed by `starting-dev`; this file is not a standalone skill.
 6. Resolve user-owned product choices explicitly; routine technical choices already authorized may proceed with a recorded rationale. Set `awaiting` only for an actual unanswered decision; after resolution advance to plan.
 
 A visual mock is not a working integration. Preserve useful experimental findings but do not ship scratch assets accidentally. Cleanup follows ownership and existing authorization, not a blanket recursive delete.
+
+**Exit criterion:** one direction is selected with its observed evidence, and every variant path is inventoried for discard. Discard rule: delete only paths you created and inventoried in `scratch`; keep findings in `prototype.md`, never the variant code.
+
+**Output shape:**
+```
+Hypothesis: <what observation decides it>
+Variant A / B: <command to reproduce> -> <observation>
+Recommendation: <variant> because <evidence>; discarded: <variant, reason>
+```

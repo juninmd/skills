@@ -41,6 +41,14 @@
       {
         "prompt": "Keep a pending-work checklist for this session so nothing is forgotten during the dev loop",
         "top_k": 3
+      },
+      {
+        "prompt": "Where do I start in this unfamiliar repository before changing anything?",
+        "top_k": 3
+      },
+      {
+        "prompt": "Write a handoff for the next session with state, evidence and next actions",
+        "top_k": 3
       }
     ],
     "negative": [
@@ -75,6 +83,10 @@
       {
         "prompt": "Answer a question about GitHub Actions workflow syntax from the official docs",
         "owner": "cloud-devops"
+      },
+      {
+        "prompt": "Escreva o PRD e os critérios de aceite antes de qualquer código",
+        "owner": "requirements-planning"
       }
     ]
   }

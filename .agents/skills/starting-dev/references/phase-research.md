@@ -9,3 +9,12 @@ Owned and executed by `starting-dev`; this file is not a standalone skill.
 6. Advance to prototype only when product direction needs experimentation; otherwise record the skip and advance to plan. Ask material questions when they block safe progress, not at an arbitrary later ceremony.
 
 Research is read-only outside agreed task artifacts. Never substitute memory for current API evidence or present an unknown as a fact. Update [loop state](loop-state.md) after the artifact exists.
+
+**Exit criterion:** `research.md` exists with a `file:line` code map, dated sources, and no unknown presented as fact.
+
+**Output shape:**
+```
+Goal: <one line>   Non-goals: <list>
+Code map: <module> -> <module> (src/a.ts:12)
+Constraints / ranked risks / unknowns: <bullets>
+```
