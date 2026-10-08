@@ -11,3 +11,10 @@ Owned and executed by `starting-dev`; this file is not a standalone skill.
 Pause and report when a dependency or credential is missing, a destructive command lacks approval, a check fails repeatedly, or the plan names a resource that does not exist. After the last slice run the broad gates (lint, test, build) once.
 
 Do not create a PR during this procedure. Commit or push only when previously authorized and delegated to `git-workflow`; no stage name grants authority. Record scratch assets and worktrees at creation. A green build alone is not runtime proof.
+
+**Exit criterion:** every acceptance criterion in `plan.md` has command evidence in `progress.md`, broad gates ran once after the last slice, and no PR was created.
+
+**Output shape:**
+```
+Slice 1: done | files: <paths> | evidence: <command> -> pass | limits: <none|list>
+```

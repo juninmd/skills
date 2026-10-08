@@ -9,3 +9,10 @@ Owned and executed by `starting-dev`; this file is not a standalone skill.
 6. Track externally only when requested and authorized. Start implementation when the plan is actionable; a separate approval gate exists only for a real missing user decision or action authority.
 
 A verification command must exist in the repo or be intentionally implemented. An estimate is not a guarantee. Update the state after the plan is written and record any bypassed stage and rationale.
+
+**Exit criterion:** every slice in `plan.md` has target files, a runnable check with expected result, and dependencies, and no user requirement was dropped silently.
+
+**Output shape:**
+```
+Slice 1: <outcome> | files: <paths> | check: <command> -> <expected> | depends: none
+```
