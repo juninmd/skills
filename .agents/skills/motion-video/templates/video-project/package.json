@@ -1,0 +1,15 @@
+{
+  "name": "motion-video-project",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "still": "node scripts/render.mjs --still",
+    "meta": "node scripts/render.mjs --meta",
+    "music": "uv run scripts/music.py --meta out/meta.json --out out/music.wav",
+    "render": "node scripts/render.mjs",
+    "build": "node scripts/render.mjs --meta && uv run scripts/music.py --meta out/meta.json --out out/music.wav && node scripts/render.mjs --audio out/music.wav"
+  },
+  "devDependencies": {
+    "playwright-core": "1.64.0"
+  }
+}

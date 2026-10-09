@@ -1,0 +1,72 @@
+:root {
+  --bg: #050806;
+  --ink: #d8ffe6;
+  --phos: #5dffa0;
+  --dim: #2f7a52;
+  --hot: #ff8a5b;
+  --mono: "Consolas", "Cascadia Mono", "Courier New", monospace;
+  --sans: "Bahnschrift", "Segoe UI Variable Display", "Segoe UI", sans-serif;
+  --m: 64px;
+}
+
+html, body { margin: 0; background: var(--bg); overflow: hidden; }
+
+#stage {
+  position: relative;
+  width: 1080px;
+  height: 1920px;
+  overflow: hidden;
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(to right, rgba(93, 255, 160, 0.055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(93, 255, 160, 0.055) 1px, transparent 1px);
+  background-size: 90px 90px;
+  background-position: 0 var(--gy, 0);
+  color: var(--ink);
+  font-family: var(--sans);
+}
+
+/* opaque (inherits stage bg + grid) so a transition replaces the outgoing scene instead of overlaying it */
+.scene { position: absolute; inset: 0; visibility: hidden; background: inherit; }
+
+.label {
+  font-family: var(--mono);
+  font-size: 26px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+.label.hot { color: var(--hot); }
+
+.title {
+  font-size: 128px;
+  line-height: 1.02;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  text-shadow: 0 0 36px rgba(93, 255, 160, 0.45);
+}
+.title .acc { color: var(--phos); }
+
+.body { font-size: 44px; line-height: 1.3; color: var(--ink); opacity: 0.88; }
+
+.w { display: inline-block; white-space: pre; }
+.line { white-space: pre; }
+
+.mono { font-family: var(--mono); }
+.type[data-blink="1"]::after { content: "▌"; color: var(--phos); }
+
+.rule { height: 2px; background: var(--phos); box-shadow: 0 0 18px var(--phos); transform-origin: left; }
+
+.hud { position: absolute; inset: 0; pointer-events: none; z-index: 100; }
+.hud .label { position: absolute; font-size: 22px; }
+.hud .tl { left: var(--m); top: var(--m); }
+.hud .tr { right: var(--m); top: var(--m); }
+.hud .bl { left: var(--m); bottom: var(--m); }
+.hud .br { right: var(--m); bottom: var(--m); }
+.hud .plus { position: absolute; font-family: var(--mono); font-size: 30px; color: var(--dim); }
+.hud .bar { position: absolute; left: var(--m); right: var(--m); bottom: calc(var(--m) + 48px); height: 2px; background: rgba(93, 255, 160, 0.15); }
+.hud .bar i { display: block; height: 100%; background: var(--phos); box-shadow: 0 0 12px var(--phos); transform-origin: left; }
+.hud .scan { position: absolute; left: 0; right: 0; height: 220px; background: linear-gradient(to bottom, transparent, rgba(93, 255, 160, 0.05), transparent); }
+.hud .lines { position: absolute; inset: 0; background: repeating-linear-gradient(to bottom, rgba(0, 0, 0, 0.18) 0 2px, transparent 2px 4px); }
+.hud .vig { position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.65) 100%); }
