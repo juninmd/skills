@@ -3,7 +3,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import test from "node:test";
-import { validateSkill, EXCUSES_REQUIRED, shellFenceErrors, shellFences } from "./validate-agents.mjs";
+import { validateSkill, EXCUSES_REQUIRED } from "./validate-agents.mjs";
 
 function createSkill(contents, references = {}) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "skill-validator-"));
@@ -291,28 +291,4 @@ test("a high-risk skill without an Excuses table fails", () => {
   );
   fs.writeFileSync(path.join(directory, "SKILL.md"), withExcuses);
   assert.deepEqual(validateSkill(directory), []);
-});
-
-test("shell fences are extracted with their start line and language", () => {
-  const fences = shellFences("text\n\n\`\`\`bash\necho ok\n\`\`\`\n\n\`\`\`json\n{}\n\`\`\`\n");
-  assert.deepEqual(fences, [{ line: 3, code: "echo ok" }]);
-});
-
-test("a shell block that parses passes the fence check", () => {
-  const dir = createSkill(validSkill, { "references/run.md": "```bash\necho ok\n```\n" });
-  assert.deepEqual(shellFenceErrors(dir), []);
-});
-
-test("a shell block that does not parse is reported with its line", () => {
-  const dir = createSkill(validSkill, { "references/run.md": "# Run\n\n```bash\nif true; then\n```\n" });
-  const errors = shellFenceErrors(dir);
-  assert.equal(errors.length, 1);
-  assert.match(errors[0], /references\/run\.md:3 shell block does not parse/);
-});
-
-test("placeholder blocks are illustrations, and non-shell fences are not checked", () => {
-  const dir = createSkill(validSkill, {
-    "references/run.md": "```bash\ngit clone <repo-url\n```\n\n```text\nif true\n```\n",
-  });
-  assert.deepEqual(shellFenceErrors(dir), []);
 });

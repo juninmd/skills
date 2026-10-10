@@ -1,10 +1,10 @@
-import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { readSkill, listSkillDirectoryNames } from "./skill-metadata.mjs";
 import { checkRetiredHandoffs } from "./retired-handoffs.mjs";
 import { walkFiles } from "./walk-files.mjs";
+import { shellFenceErrors } from "./shell-fences.mjs";
 
 // A body long enough to skim past is a body an agent will skim past. The
 // ceiling is a ratchet: raise it deliberately, never to fit one more paragraph.
@@ -170,49 +170,6 @@ export function validateSkill(skillDirectory) {
 
   errors.push(...shellFenceErrors(skillDirectory));
   return errors;
-}
-
-// Placeholders make a block an illustration, not a runnable command. bash cannot
-// parse those, so they are skipped rather than failed.
-const PLACEHOLDER = /<[A-Za-z][^>]*>|\.\.\.|…|\{\{/;
-const SHELL_FENCE = /^(bash|sh|shell)$/;
-
-export function shellFences(markdown) {
-  const fences = [];
-  let open = null;
-  markdown.split("\n").forEach((line, index) => {
-    if (open === null) {
-      const match = line.match(/^\s*```(\w*)\s*$/);
-      if (match) open = { lang: match[1], line: index + 1, body: [] };
-    } else if (line.trim() === "```") {
-      if (SHELL_FENCE.test(open.lang)) fences.push({ line: open.line, code: open.body.join("\n") });
-      open = null;
-    } else {
-      open.body.push(line);
-    }
-  });
-  return fences;
-}
-
-export function bashSyntaxError(code) {
-  const result = spawnSync("bash", ["-n"], { input: code, encoding: "utf8" });
-  if (result.error) return `bash is required to check shell fences: ${result.error.message}`;
-  return result.status === 0 ? null : result.stderr.trim().split("\n")[0];
-}
-
-export function shellFenceErrors(skillDirectory, syntaxError = bashSyntaxError) {
-  const skillName = path.basename(skillDirectory);
-  const files = walkFiles([skillDirectory], { filter: (file) => file.endsWith(".md") });
-  return files.flatMap((file) =>
-    shellFences(fs.readFileSync(file, "utf8"))
-      .filter((fence) => !PLACEHOLDER.test(fence.code))
-      .flatMap((fence) => {
-        const problem = syntaxError(fence.code);
-        if (!problem) return [];
-        const where = path.relative(skillDirectory, file);
-        return [`${skillName}: ${where}:${fence.line} shell block does not parse: ${problem}`];
-      }),
-  );
 }
 
 function findOrphanReferences(skillName, skillText, referencesRoot) {
