@@ -12,6 +12,7 @@
     "tokens:check": "node .agents/tools/tokens-report.mjs .agents --check",
     "evals": "node .agents/tools/run-evals.mjs .agents",
     "evals:check": "node .agents/tools/run-evals.mjs .agents --check --min-rank1 95",
+    "evals:plugin": "claude plugin eval .agents --no-publish --max-cost-usd 5 --threshold 0.8",
     "pr:check": "node .agents/tools/pr-skill-checks.mjs",
     "test:validators": "node --test .agents/tools/*.test.mjs",
     "validate": "pnpm run plugin:validate && pnpm run agents:validate && pnpm run catalog:check && pnpm run domains:check && pnpm run tokens:check && pnpm run evals:check && pnpm run spell && pnpm run links && pnpm run test:validators",
