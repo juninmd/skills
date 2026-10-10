@@ -35,6 +35,14 @@
       {
         "prompt": "Design system architecture and module boundaries",
         "owner": "software-architecture"
+      },
+      {
+        "prompt": "Review this diff for correctness bugs and missed edge cases",
+        "owner": "code-review"
+      },
+      {
+        "prompt": "Finish this feature branch and open the pull request",
+        "owner": "finishing-dev"
       }
     ]
   }

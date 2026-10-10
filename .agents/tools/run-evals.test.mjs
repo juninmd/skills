@@ -228,3 +228,30 @@ test("invalid JSON in a case file is reported, not thrown", () => {
   ]);
   assert.ok(report.errors.some((error) => error.includes("invalid JSON")));
 });
+
+test("a positive ranked second inside top_k warns instead of passing silently", () => {
+  const catalog = [
+    {
+      name: "invoice-audit",
+      description:
+        "Audit invoices and billing ledgers. Use for invoice reconciliation, duplicate charges, and refund review.",
+    },
+    {
+      name: "ledger-export",
+      description:
+        "Export accounting data. Use for CSV exports of ledgers, bank feeds, and tax periods.",
+    },
+  ];
+  const cases = [
+    caseFile("invoice-audit", [
+      { prompt: "Reconcile the invoice ledger for refunds" },
+      { prompt: "Check duplicate charges on invoices" },
+      { prompt: "Export the ledger CSV for tax" },
+    ], []),
+  ];
+  const report = evaluate(catalog, cases);
+  const row = report.results.find((result) => result.prompt === "Export the ledger CSV for tax");
+  assert.equal(row.rank, 2, "fixture must put the owner second");
+  assert.ok(report.warnings.some((warning) => warning.includes("ranks 2, not first")));
+  assert.equal(report.errors.filter((error) => error.includes("ranks")).length, 0);
+});

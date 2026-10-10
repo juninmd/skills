@@ -114,6 +114,9 @@ export function evaluate(skills, cases, { topK = DEFAULT_TOP_K } = {}) {
           `${owner}: '${truncate(prompt)}' ranks ${rank || "unranked"} (needs top ${limit}); ` +
             `winner was '${ranked[0].name}'`,
         );
+      } else {
+        // Inside top_k the gate passes, so a second-place miss would vanish here.
+        warnings.push(`${owner}: '${truncate(prompt)}' ranks ${rank}, not first (winner '${ranked[0].name}')`);
       }
       results.push({ owner, prompt, rank, winner: ranked[0].name });
     }
