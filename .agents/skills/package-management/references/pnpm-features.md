@@ -106,7 +106,8 @@ store-dir=~/.pnpm-store
 virtual-store-dir=node_modules/.pnpm
 prefer-frozen-lockfile=true
 side-effects-cache=true
-use-node-version=24.21.0
+# Exact Node.js 24 patch the CI runs (placeholder: replace 24.x.y)
+use-node-version=24.x.y
 registry=https://registry.npmjs.org/
 @myorg:registry=https://npm.myorg.com/
 //registry.npmjs.org/:_authToken=${NPM_TOKEN}

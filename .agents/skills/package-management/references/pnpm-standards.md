@@ -25,8 +25,8 @@ Policy and operational guidance. Feature and configuration syntax lives in
 - Pin the package manager with `"packageManager": "pnpm@<version>"` so local and CI
   runs agree.
 - Set `minimumReleaseAge: 1440` (minutes) as a top-level key in `pnpm-workspace.yaml`,
-  not under `settings:`, so `pnpm add` and `pnpm update` skip versions published in the
-  last day. The setting needs pnpm 10.16 or later; older pnpm does not enforce it, so
+  not under `settings:`, so pnpm will not install a version published less than 1440 minutes
+  earlier, including transitive dependencies. The setting needs pnpm 10.16 or later; older pnpm does not enforce it, so
   confirm the pinned version first. Exempt a package only with `minimumReleaseAgeExclude`
   (matched by package name) and a reason in the commit message. Setting
   `minimumReleaseAge` turns `minimumReleaseAgeStrict` on; set it to `false` only where an

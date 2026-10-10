@@ -42,7 +42,7 @@ jobs:
 ```
 
 Resolve each SHA from the action's upstream tag; never guess one. Put pnpm/action-setup before
-actions/setup-node: setup-node runs `pnpm store path` during cache restore.
+actions/setup-node. setup-node's pnpm cache needs pnpm on PATH first; this ordering is inferred from its docs, not a documented rule.
 
 ## 4. Shell & Automation Safety
 - **Bash Safety:** Use `#!/usr/bin/env bash` and `set -euo pipefail` to exit on errors, unset variables, or pipe failures. Always quote variables.

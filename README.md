@@ -263,8 +263,8 @@ This repository strictly conforms to official agent engineering specifications:
 | Specification | Standard / Authority | Implementation in this repository |
 |---|---|---|
 | **Agent Skills** | [agentskills.io](https://agentskills.io) | Strict frontmatter schema (`name`, `description`, `metadata`, `compatibility`), progressive disclosure, and house structure (`Preflight`, `Workflow`, `Rules`, `Checklist`). |
-| **Agent Hooks** | Claude Code & Runtime Hooks | Lifecycle interceptors (`PreToolUse` blocks only on exit code 2 or a JSON `deny`, so guards exit 2 on every error path; `PostToolUse` sanitization), deterministic barriers, and scoped tool matchers. |
-| **Model Context Protocol** | [modelcontextprotocol.io](https://modelcontextprotocol.io) | Typed JSON schemas for tools, URI-identified resources, structured prompts, audience-bound tokens with no passthrough, and fail-closed circuit breakers. |
+| **Agent Hooks** | Claude Code & Runtime Hooks | Lifecycle interceptors (`PreToolUse` blocks on exit code 2, a JSON `deny`, or a JSON `continue: false`, so guards exit 2 on every error path; `PostToolUse` sanitization), deterministic barriers, and scoped tool matchers. |
+| **Model Context Protocol** | [modelcontextprotocol.io](https://modelcontextprotocol.io) | Typed JSON schemas for tools, URI-identified resources, structured prompts, and fail-closed circuit breakers. |
 
 ## Quality checks
 
@@ -294,7 +294,7 @@ Inspect detailed reports with `pnpm run evals` and `pnpm run tokens:report`. Bud
 
 ## Practice review, October 2026
 
-A deep review of current primary sources (checked 2026-10-10), followed by a check of each skill against them. A change landed only when two independent checks agreed: the source says it, and the repo lacked it or stated it wrong.
+Changes come from a review of current primary sources (checked 2026-10-10) and a repo-fit check of each proposal. Claims that could not be confirmed are listed under Not executed here or Open follow-ups.
 
 | Skill | Change | Why (source) |
 |---|---|---|
@@ -311,8 +311,8 @@ A deep review of current primary sources (checked 2026-10-10), followed by a che
 | `agent-engineering` | `PreToolUse` blocks only on exit code 2 or JSON `deny`, so guards fail closed on every error path; MCP tokens are audience-bound and never passed through; evals grade outcomes and report pass^k | Claude Code hooks reference; MCP security best practices (2026-07-28); Anthropic eval guide |
 | `frontend-engineering` | Next.js 16 async request APIs and `cacheComponents`-dependent caching; `getServerSnapshot` for `useSyncExternalStore`; WCAG 2.2 criteria 2.5.7, 3.2.6, and 3.3.7 | Next.js 16 docs; React reference; W3C WCAG 2.2 |
 | `starting-dev`, `skill-authoring` | `AGENTS.md` is skipped when a `CLAUDE.md` exists unless it is imported; the six-key frontmatter rule is stated as house policy, stricter than Claude Code | Claude Code memory and skills docs |
-| `finishing-dev`, `starting-dev` | The default-branch return survives an unset `origin/HEAD`; a squash-merged branch is deleted only when its merged PR head equals the local tip | git-scm.com `git-remote` and `git-branch`; local reproduction with git 2.43 |
-| `web-research` | Cargo requirements skip pre-releases unless one is named | Cargo book: specifying dependencies |
+| `finishing-dev`, `starting-dev` | The default-branch return survives an unset `origin/HEAD`; `git branch -d` refuses a squash-merged branch unless its upstream still holds the tip; the branch is then removed only when a merged PR head equals the local tip | git-scm.com `git-remote` and `git-branch`; local reproduction with git 2.43 |
+| `web-research` | `cargo search` results may be pre-releases; the version string shows it | Cargo book: specifying dependencies |
 | `documentation`, `requirements-planning`, `software-architecture` | Diátaxis modes described as the framework defines them; Given/When/Then acceptance criteria; ADRs record how the decision is confirmed | diataxis.fr; Gherkin reference; MADR 4.0.0 template |
 
 **Deliberately not changed**
@@ -332,6 +332,9 @@ The gitleaks commands (the binary is not installed), the PostgreSQL SQL, the `gh
 - `backend-systems/references/backend-python.md` and `web-research/references/knowledge-freshness.md` still use `--frozen` in CI examples.
 - Package-management pins: `pnpm/action-setup` v9 and `packageManager` `pnpm@9.0.0`.
 - `web-performance.md` Rules and the RUM note; the ADR row in `documentation/SKILL.md`; the iOS privacy-manifest routing line in `ios-engineering/SKILL.md`.
+- `performance-engineering/SKILL.md`: the preflight still runs the closed-loop `autocannon -c 50` baseline; label it or add a fixed-rate run.
+- `test-engineering/SKILL.md` says never retry a flaky test, while `core-test-api.md` shows `retry: 3` and `ui-review.md` uses `on-first-retry`.
+- `requirements-planning/references/AGENT-BRIEF.md` still uses bullet acceptance criteria.
 
 ## Contributing
 

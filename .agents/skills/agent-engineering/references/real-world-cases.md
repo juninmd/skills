@@ -32,7 +32,7 @@ Use this first for agent loops, tool calling, memory, context, and evaluation fa
 - Score determinism on its own axis: run the fixed input set several times, and again after any model version bump. A case whose tool choice or argument extraction changes run to run is not ready for an unattended loop, whatever its pass rate looks like on a single run.
 - Prefer outcome grading: it is often better to grade what the agent produced than the path it took. Check the path only as a safety boundary or as a separate efficiency score; the guide also allows transcript grading as a secondary check once outcome checks exist ([Anthropic, demystifying evals](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents)).
 - Name each grader: code-based (exact and cheap, brittle to valid wording), model-based (handles open-ended answers, needs calibration), or human (most trusted, slowest).
-- Report pass@k for tools where one success matters and pass^k for agents where consistency is essential. pass^k is the probability that all k trials succeed ([tau-bench](https://arxiv.org/abs/2406.12045)).
+- Report pass@k for tools where one success matters and pass^k for agents where consistency is essential ([Anthropic, demystifying evals](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents)). pass^k is the probability that all k trials succeed ([tau-bench](https://arxiv.org/abs/2406.12045)).
 - Split capability evals, which should start at a low pass rate, from regression evals, which should have a nearly 100% pass rate.
 
 ### Worked Rubric: One Concrete Task

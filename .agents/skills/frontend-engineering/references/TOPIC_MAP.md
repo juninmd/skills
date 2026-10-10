@@ -24,7 +24,7 @@ Read only the files needed for the current task.
 | `emil-design-eng/performance-cheatsheet.md` | Animation that stutters or drops frames: transform/opacity only, blur limits, no `transition: all`, ref-driven styles |
 | `frontend-design.md` | setting the visual system before writing markup: type scale, spacing rhythm, color/radius/elevation/motion as concrete numbers, translated into CSS custom properties |
 | `frontend-optimization.md` | React/Next.js performance patterns: RSC vs client boundary strategy, render efficiency (memoization, state location), bundle size (barrel imports, dynamic imports) |
-| `frontend-review.md` | auditing UI code before merge: the a11y/layout/responsiveness checklist, severity levels (BLOCKER/HIGH/LOW), and the file:line review output format |
+| `frontend-review.md` | auditing UI code before merge: the a11y/layout/responsiveness checklist, severity levels (Blocker/Major/Minor/Nit), and the file:line review output format |
 | `masonry-layouts.md` | choosing between CSS multi-column, a JS masonry library, or native `grid-template-rows: masonry` — decided by whether visual order must match DOM order |
 | `nextjs-app-router.md` | working in a repo with an `app/` directory: Server vs Client Component boundaries, data fetching/caching/revalidation, streaming, and route-segment conventions |
 | `playwright-recipes.md` | exact copy-pasteable commands for ephemeral Playwright capture — temp dirs, starting/polling the dev server, hydration waits, teardown — for both POSIX and PowerShell |

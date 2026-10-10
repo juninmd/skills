@@ -100,7 +100,7 @@ A registry's `latest` label is a publisher convention, not a guarantee of stabil
 npm view PKG dist-tags                 # {latest, next, beta, canary, rc, ...} — latest is a tag, not a promise
 pip index versions PKG                 # PyPI hides pre-releases from the default resolver unless asked
 gh release list --repo OWNER/REPO --limit 10   # marks "Latest", "Pre-release", or neither
-cargo search PKG                       # a -alpha/-beta suffix marks a pre-release; Cargo requirements such as foo = "1.0" skip pre-releases unless the pre-release is named
+cargo search PKG                       # no version requirement applied; may return a pre-release (a -alpha, -beta, or -rc suffix)
 ```
 
 | Signal | Meaning |

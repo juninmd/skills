@@ -40,7 +40,7 @@ restart loop precisely when the pod is under the most load and least able to rec
 Namespaces labeled `pod-security.kubernetes.io/enforce: restricted` reject pods that miss the fields below. Set them on workloads in those namespaces. The seccomp, privilege-escalation, and capability fields apply only when `spec.os.name` is not `windows` (v1.25+).
 
 - **Pod:** `securityContext.runAsNonRoot: true`; `runAsUser` unset or non-zero, never `0`.
-- **Container:** `allowPrivilegeEscalation: false`; `capabilities.drop: [ALL]` (`NET_BIND_SERVICE` is the only permitted add); `seccompProfile.type: RuntimeDefault`.
+- **Container:** `allowPrivilegeEscalation: false`; `capabilities.drop: [ALL]` (`NET_BIND_SERVICE` is the only permitted add); `seccompProfile.type: RuntimeDefault` (the restricted profile also allows `Localhost`).
 - **Defaults:** set these in `values.yaml` so each release inherits them.
 - **Image USER:** if `runAsUser` is unset, the image USER must be numeric; Kubernetes verifies non-root only for numeric users.
 - **Verify:** render the chart and run `kubectl apply --dry-run=server` against a namespace labeled `pod-security.kubernetes.io/enforce=restricted`. Enforce does not reject workload objects, so treat any PodSecurity warning in the output as a failure, and check ReplicaSet events (`FailedCreate`) for pod-level rejection.

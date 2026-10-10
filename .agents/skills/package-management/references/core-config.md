@@ -110,8 +110,8 @@ save-workspace-protocol=rolling
 ### Node.js Settings
 
 ```ini
-# Use specific Node.js version
-use-node-version=24.21.0
+# Exact Node.js 24 patch the CI runs (placeholder: replace 24.x.y)
+use-node-version=24.x.y
 
 # Node.js version file
 node-version-file=.nvmrc

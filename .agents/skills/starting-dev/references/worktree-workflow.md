@@ -49,7 +49,11 @@ git worktree remove "$path"      # fails on uncommitted changes; do not reach fo
 git branch -d "$BRANCH" || {     # refuses unmerged work, and a squash-merged branch whose upstream is gone or unset
   tip=$(git rev-parse --verify -q "refs/heads/$BRANCH")
   # -D only when a MERGED PR head is exactly the local tip; a gh failure or no match keeps the branch
-  gh pr list --state all --head "$BRANCH" --json state,headRefOid --jq '.[] | select(.state == "MERGED") | .headRefOid' | grep -qx "$tip" && git branch -D "$BRANCH"
+  if gh pr list --state all --head "$BRANCH" --json state,headRefOid --jq '.[] | select(.state == "MERGED") | .headRefOid' | grep -qx "$tip"; then
+    git branch -D "$BRANCH"
+  else
+    echo "kept $BRANCH: no merged PR head matches its tip"
+  fi
 }
 git worktree prune               # clears entries for worktrees deleted by hand
 ```

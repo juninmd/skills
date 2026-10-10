@@ -94,7 +94,7 @@ The agent runs three reviewers in parallel then synthesizes:
 ### 🟠 Major — Missing Input Validation
 `src/api/users.ts:18` — No Zod schema on POST body. Add `z.object({...}).parse(req.body)`.
 
-### 🟡 Minor — N+1 Query
+### 🟠 Major — N+1 Query
 `src/services/posts.ts:67` — Fetching user per post in a loop. Batch with `findMany({ where: { id: { in: ids } } })`.
 
 ### Coverage: 74% ⚠️ (gate: 80%)
