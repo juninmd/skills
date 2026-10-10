@@ -77,3 +77,6 @@ Rules for @Composable context, state management, and common patterns.
 ### 3.3 Common Patterns
 - Inject ViewModels into top-level screen Composables using `viewModel()`.
 - Keep Composables stateless (state hoisting) where possible for testability.
+
+### 3.4 Edge-to-Edge and Insets
+- **Edge-to-edge:** targetSdk 35+ draws behind system bars on Android 15+, and targetSdk 36 cannot opt out on Android 16 devices. On older releases call `WindowCompat.enableEdgeToEdge(window)` in `onCreate` of your Activity, and pad content with `WindowInsets.safeDrawing`. Material 3 `Scaffold` can reduce this work, since its `innerPadding` carries the system-bar padding to content.

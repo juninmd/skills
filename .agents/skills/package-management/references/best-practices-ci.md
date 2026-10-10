@@ -38,7 +38,7 @@ jobs:
       
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
           cache: 'pnpm'
       
       - run: pnpm install --frozen-lockfile
@@ -95,7 +95,7 @@ jobs:
 ## GitLab CI
 
 ```yaml
-image: node:20
+image: node:24
 
 stages:
   - install
@@ -138,7 +138,7 @@ build:
 
 ```dockerfile
 # Build stage
-FROM node:20-slim AS builder
+FROM node:24-slim AS builder
 
 # Enable corepack for pnpm
 RUN corepack enable
@@ -157,7 +157,7 @@ COPY . .
 RUN pnpm build
 
 # Production stage
-FROM node:20-slim AS runner
+FROM node:24-slim AS runner
 
 RUN corepack enable
 WORKDIR /app
@@ -175,7 +175,7 @@ CMD ["node", "dist/index.js"]
 ### Optimized for Monorepos
 
 ```dockerfile
-FROM node:20-slim AS builder
+FROM node:24-slim AS builder
 RUN corepack enable
 WORKDIR /app
 

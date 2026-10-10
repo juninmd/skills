@@ -33,7 +33,7 @@ Server and client HTML differ, React discards the server markup, and the console
 | Cause | Fix |
 |---|---|
 | `Date`, `Math.random`, `crypto` during render | compute in an effect, or pass a server-generated value down |
-| `window`, `document`, `localStorage` during render | `useSyncExternalStore`, or render after mount |
+| `window`, `document`, `localStorage` during render | `useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)`, where getServerSnapshot returns the value the server rendered. Omitting it makes server rendering throw; omit only inside a Suspense boundary, to force client rendering. Or render after mount. |
 | Locale/timezone formatting | format on one side only, or pin the locale explicitly |
 | Invalid nesting (`<div>` in `<p>`, `<p>` in `<p>`) | fix the markup — the browser silently rewrites the tree |
 | Extension-injected markup | reproduce in a clean profile before chasing it |

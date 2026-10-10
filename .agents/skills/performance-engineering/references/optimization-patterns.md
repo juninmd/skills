@@ -27,6 +27,9 @@ Apply only after the profile names the bottleneck.
 - Budgets as assertions: bundle KB per route, query count per endpoint, p95 in staging load test.
 - Alert on trend slope (heap growth, latency drift), not just absolute thresholds.
 
+## Load testing
+- Open vs. closed workload model, k6 thresholds, and `dropped_iterations`: see [measurement-methodology.md](measurement-methodology.md), "Load Testing That Reflects Production Traffic Shape".
+
 ## When to stop
 - Target met → stop; further optimization is unrequested complexity.
 - Bottleneck moved to a layer you don't own → document and hand off with evidence.

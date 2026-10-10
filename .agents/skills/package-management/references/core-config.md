@@ -111,7 +111,7 @@ save-workspace-protocol=rolling
 
 ```ini
 # Use specific Node.js version
-use-node-version=20.10.0
+use-node-version=24.21.0
 
 # Node.js version file
 node-version-file=.nvmrc
@@ -126,12 +126,16 @@ manage-package-manager-versions=true
 # Ignore specific scripts
 ignore-scripts=false
 
-# Allow specific build scripts
-onlyBuiltDependencies[]=esbuild
-onlyBuiltDependencies[]=sharp
-
 # Package extensions for missing peer deps
 package-extensions[foo@1].peerDependencies.bar=*
+```
+
+Allow specific build scripts in `pnpm-workspace.yaml` (pnpm 10.26+):
+
+```yaml
+allowBuilds:
+  esbuild: true
+  sharp: true
 ```
 
 ## Configuration Hierarchy
@@ -156,7 +160,8 @@ PNPM_HOME=~/.local/share/pnpm
 
 ## Package.json Fields
 
-pnpm reads specific fields from `package.json`:
+pnpm 10 and earlier read these fields from `package.json`. pnpm 11 ignores the `pnpm`
+field, so move build allowlists to `allowBuilds` in `pnpm-workspace.yaml` (pnpm 10.26+).
 
 ```json
 {
@@ -170,8 +175,6 @@ pnpm reads specific fields from `package.json`:
         "react": "17 || 18"
       }
     },
-    "neverBuiltDependencies": ["fsevents"],
-    "onlyBuiltDependencies": ["esbuild"],
     "allowedDeprecatedVersions": {
       "request": "*"
     },
@@ -194,4 +197,6 @@ Source references:
 - https://pnpm.io/pnpm-workspace_yaml
 - https://pnpm.io/npmrc
 - https://pnpm.io/package_json
+- https://pnpm.io/settings/build
+- https://pnpm.io/blog/releases/11.0
 -->

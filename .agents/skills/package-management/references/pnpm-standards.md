@@ -24,6 +24,13 @@ Policy and operational guidance. Feature and configuration syntax lives in
   dependencies and are a last resort for a tool that cannot follow symlinks.
 - Pin the package manager with `"packageManager": "pnpm@<version>"` so local and CI
   runs agree.
+- Set `minimumReleaseAge: 1440` (minutes) as a top-level key in `pnpm-workspace.yaml`,
+  not under `settings:`, so `pnpm add` and `pnpm update` skip versions published in the
+  last day. The setting needs pnpm 10.16 or later; older pnpm does not enforce it, so
+  confirm the pinned version first. Exempt a package only with `minimumReleaseAgeExclude`
+  (matched by package name) and a reason in the commit message. Setting
+  `minimumReleaseAge` turns `minimumReleaseAgeStrict` on; set it to `false` only where an
+  older fallback version is acceptable.
 
 ## 2. CI/CD
 
@@ -36,10 +43,13 @@ the lockfile, and it skips resolution entirely.
 - uses: pnpm/action-setup@v4
   with: { version: 9 }
 - uses: actions/setup-node@v4
-  with: { node-version: 20, cache: 'pnpm' }
+  with: { node-version: 24, cache: 'pnpm' }
 - run: pnpm install --frozen-lockfile
 - run: pnpm test
 ```
+
+Node 20 is end of life (2026-04-30). Node 24 is Maintenance LTS from 2026-10-20; re-pin
+to Node 26 when its Active LTS starts on 2026-10-28. pnpm 11 requires Node 22 or newer.
 
 For large repos cache the store explicitly:
 
@@ -70,7 +80,7 @@ Copy the manifests before the source so the install layer stays cached, and inst
 with a frozen lockfile in a builder stage:
 
 ```dockerfile
-FROM node:20-slim AS builder
+FROM node:24-slim AS builder
 RUN corepack enable
 WORKDIR /app
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
@@ -79,7 +89,7 @@ RUN pnpm install --frozen-lockfile
 COPY . .
 RUN pnpm build
 
-FROM node:20-slim AS runner
+FROM node:24-slim AS runner
 RUN corepack enable
 WORKDIR /app
 COPY --from=builder /app/dist ./dist
@@ -122,8 +132,10 @@ deleting `pnpm-lock.yaml` and `node_modules` and reinstalling with the previous 
 
 - `--frozen-lockfile` skips resolution; `--prefer-offline` reuses the local cache.
 - `side-effects-cache=true` caches native build output across installs.
-- Limit build scripts with `onlyBuiltDependencies` / `neverBuiltDependencies` instead of
-  a blanket `--ignore-scripts`, which breaks packages that need a postinstall.
+- Limit build scripts with `allowBuilds` (pnpm 10.26+) instead of a blanket
+  `--ignore-scripts`, which breaks packages that need a postinstall. In pnpm 11,
+  `onlyBuiltDependencies` and `neverBuiltDependencies` are removed, and unlisted packages
+  are blocked and fail the install with `ERR_PNPM_IGNORED_BUILDS`.
 - Share one store across projects (the default) and run `pnpm store prune` periodically;
   `pnpm store status` checks integrity.
 - Tune `network-concurrency`, `fetch-retries`, and `workspace-concurrency` for the runner.
@@ -135,7 +147,15 @@ deleting `pnpm-lock.yaml` and `node_modules` and reinstalling with the previous 
 |---|---|
 | CI install | `pnpm install --frozen-lockfile` |
 | Offline work | `--prefer-offline` |
-| Skip native builds | `neverBuiltDependencies` |
+| Skip native builds | `allowBuilds: { pkg: false }` |
 | Parallel workspace run | `pnpm -r --parallel run build` |
 | Build only what changed | `pnpm --filter "...[origin/main]" build` |
 | Reclaim disk | `pnpm store prune` |
+
+<!--
+Source references:
+- https://pnpm.io/settings/dependency-resolution
+- https://pnpm.io/settings/build
+- https://pnpm.io/blog/releases/11.0
+- https://github.com/nodejs/Release
+-->

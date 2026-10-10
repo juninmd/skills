@@ -66,6 +66,7 @@ When several exist and disagree, say which rule wins and which is discarded, con
 - One source of truth: pointer files reference it, nested files inherit the root. Restating either wastes budget and breeds drift.
 - Re-verify documented commands whenever package scripts or CI change. A stale command is worse than a missing one.
 - Recurring lessons reach this file through [session-learnings procedure](session-learnings.md); hold its promoted rules to the same budget as the rest. Human-facing documentation belongs to `documentation`.
+- By default Claude Code reads AGENTS.md only when no CLAUDE.md, .claude/CLAUDE.md, or CLAUDE.local.md exists in the working directory or above. If one exists, make its first line `@AGENTS.md` and put Claude-only rules below it; otherwise the new file is silently skipped.
 
 ## Checklist
 - [ ] New or changed commands extracted from scripts, task runner, or CI — and executed when their prerequisites permit.

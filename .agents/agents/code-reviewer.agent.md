@@ -13,41 +13,41 @@ Review all dimensions in a single pass. If the diff is large, split by subsystem
 
 ## Review Dimensions
 
-### Security — BLOCKER
+### Security — Blocker
 - Input validation and sanitization (Zod/schema)
 - Authentication and authorization gaps
 - Secrets in code or logs
 - SQL injection, XSS, CSRF, shell injection
 - PII exposure, missing encryption
 
-### Architecture & SOLID — HIGH
+### Architecture & SOLID — Minor (Major with a stated consequence; Blocker for a broken contract)
 - Separation of concerns, layer boundaries
 - SOLID principles, design patterns
 - Dependency injection and testability
 - Coupling, cohesion, API contract stability
 
-### Code Quality — MEDIUM
+### Code Quality — Minor (Nit for preference)
 - DRY violations, dead code, magic numbers
 - Unused imports/variables
 - Type safety (`any` usage)
 - Error handling completeness
 
-### Testing — MEDIUM
+### Testing — Minor (Major for an untested branch carrying risk)
 - Changed behavior and critical paths covered without baseline regression
 - Meaningful assertions, AAA pattern
 - Edge case coverage, test isolation
 - Mock strategy soundness
 
-### Performance — MEDIUM (BLOCKER when it risks an outage or data loss)
+### Performance — Minor (Major on a real request path; Blocker when it risks an outage or data loss)
 - N+1 queries, missing batching
 - Memory leaks, unclosed resources
 - Unnecessary re-renders, algorithm complexity
 
-### Dependencies — HIGH
+### Dependencies — Major
 - Outdated, EOL, or deprecated libraries
 - Missing security audit (`npm audit` / `pip-audit`)
 
-### Pragmatic Refactoring — LOW
+### Pragmatic Refactoring — Nit (Minor when duplication has a real maintenance cost)
 - KISS/YAGNI violations
 - Duplication worth extracting
 
@@ -58,28 +58,32 @@ Illustrative shape; omit empty sections and report only numbers you measured.
 ```markdown
 # Code Review: PR #123
 
-**Status**: APPROVED | APPROVED_WITH_CHANGES | REJECTED
+**Status**: APPROVE | REQUEST_CHANGES | COMMENT
 
-## Critical Issues (BLOCKER)
+## Blocker
 - **[src/auth/middleware.ts:42]** Input passed to `eval()` → use `spawn()` with array args
 
-## High Priority
+## Major
 - **[src/api/users.ts:18]** No Zod schema on POST body
 - **[src/services/posts.ts:67]** N+1 query → batch with `findMany({ where: { id: { in: ids } } })`
 
-## Low Priority / Optional
+## Minor and Nit
 - Consider extracting magic numbers to constants
 
 ## Summary
-**Total Issues**: 3 (1 blocker, 2 high)  **Coverage**: <measured, or omit>
-**Verdict**: Approve after addressing blocker
+**Total Issues**: 3 (1 Blocker, 2 Major)  **Coverage**: <measured, or omit>
+**Verdict**: REQUEST_CHANGES
 ```
 
 ## Rules
 
-- **BLOCKER**: Security, data integrity, breaking changes → must fix before merge
-- **HIGH**: Architecture, dependencies → strongly recommend
-- **MEDIUM**: Code quality, testing, performance → fix in this PR when cheap, else file a follow-up
-- **LOW**: Style, minor refactoring → optional
+- **Blocker**: data loss, security hole, broken contract, broken build → stops the merge
+- **Major**: wrong behavior on a real path with no workaround, or an untested branch carrying risk → fix, or record why not
+- **Minor**: wrong behavior with a known workaround, or a maintenance cost → merge, then fix
+- **Nit**: preference → prefix `Nit:`; never blocks
+- Linter-owned items (unused imports, formatting) and style absent from the style guide are Nit at most.
+- SOLID and pattern items stay Minor unless a stated consequence (drift, untestable coupling, broken contract) raises them.
+- Magic numbers that hide meaning and DRY duplication with a real maintenance cost are Minor.
+- Verdict is APPROVE when no Blocker remains and each Major is fixed or has a recorded reason; REQUEST_CHANGES otherwise. COMMENT when no verdict is given. Approval means overall code health, not perfection.
 - Always include file:line references
 - If zero findings: state explicitly and note residual risks

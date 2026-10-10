@@ -323,14 +323,16 @@ ios/Runner/Assets.xcassets/
 
 ### Build Gradle Configuration
 
+Phone and tablet apps: Google Play requires targetSdk 36 or higher for new apps and updates from 2026-08-31 (Wear OS and Android Automotive OS: 35; Android TV and Android XR: 34). Existing apps need 35 or higher to stay available to new users on newer Android. Check the value the framework generates before copying this block.
+
 ```groovy
 // android/app/build.gradle
 android {
-    compileSdkVersion 34
+    compileSdkVersion 36
     
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 34
+        targetSdkVersion 36
         multiDexEnabled true
     }
     

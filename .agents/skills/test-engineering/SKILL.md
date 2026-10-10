@@ -60,6 +60,8 @@ Never retry a flaky test; attribute it to exactly one source and remove that sou
 | Async | Fails on a faster or slower machine | Await the observable condition, never sleep |
 | Port or resource | Fails only in parallel | Per-worker port, or mark serial |
 
+No fix in this change? Never skip or delete the test. Keep it running and reporting, and record an open ticket and a named owner on it, as the project's flake policy defines. The quarantine window and exit count are project policy, not part of this skill. At the deadline, the owner either rewrites the test or records an explicit decision to delete it; expiry alone never deletes.
+
 ## Reference Routing
 - Consult [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-domain guides.
 - Choosing a test double, or spotting a mystery-guest/fragile-test smell in review: [test-doubles.md](references/test-doubles.md).

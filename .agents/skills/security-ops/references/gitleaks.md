@@ -15,9 +15,10 @@ Public, mirrored, or long-lived → treat the credential as compromised: revoke 
 ## 1. Setup and collection
 
 - macOS: `brew install gitleaks`. Linux: download the release binary into `/usr/local/bin`.
-- Docker: `docker run --rm -v "$PWD:/repo" zricethezav/gitleaks detect --source /repo`.
+- Docker: `docker run --rm -v "$PWD:/repo" zricethezav/gitleaks git --redact --no-banner /repo`. Use `dir` in place of `git` for files on disk.
 - Pre-commit: add the `gitleaks` hook to `.pre-commit-config.yaml`.
-- Local scan: `gitleaks detect --source . -v --report-format json --report-path gitleaks.json`.
+- Commit history: `gitleaks git -v --report-format json --report-path gitleaks.json .`.
+- Files on disk: `gitleaks dir -v .`. Run both; `git` mode reads `git log -p` only.
 - From a CI log: download via the provider CLI or API — `glab ci trace <job-id>` on GitLab — and parse `Finding`, `Secret`, `Fingerprint`.
 - Redacted logs: use `Fingerprint` and `File:Line` to locate the real value in the local checkout.
 
@@ -82,6 +83,6 @@ Get explicit approval before rewriting shared history — it invalidates every e
 ## 4. Completion criteria
 
 - Credential rotated and the old one confirmed dead at the provider.
-- `gitleaks detect --source . -v --redact` reports zero findings.
+- `gitleaks git --redact --no-banner . && gitleaks dir --redact --no-banner .` reports zero findings.
 - The replacement path reads from environment or secret manager, proven by a run.
 - A scanner runs in CI so the same class of leak fails the build next time.

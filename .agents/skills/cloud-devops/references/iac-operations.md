@@ -31,7 +31,7 @@ Use **Open Policy Agent (OPA)** for complex compliance rules that go beyond stan
 
 ## 4. State Locking in a Team
 
-A remote backend with locking (S3+DynamoDB, GCS, Terraform Cloud) exists so two people running
+A remote backend with locking (S3 use_lockfile on Terraform 1.10.0+, GCS, Terraform Cloud) exists so two people running
 `apply` at once cannot corrupt the same state file. When it works as designed, the second run
 blocks with `Error acquiring the state lock` instead of racing.
 

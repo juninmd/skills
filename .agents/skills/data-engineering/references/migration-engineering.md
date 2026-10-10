@@ -43,15 +43,23 @@ Enumerate **every** reader and writer of both shapes before phase one. The migra
 Between expand and contract, **N-1 and N+1 run at the same time**. Every deployed version must read and write both shapes; ship that tolerance before deleting either.
 
 ## Backfill Shape
-An unbounded `UPDATE` takes a lock proportional to the table and turns a migration into an outage.
+An unbounded `UPDATE` takes a lock proportional to the table and turns a migration into an outage. PostgreSQL's `UPDATE` has no `LIMIT` ([UPDATE docs](https://www.postgresql.org/docs/18/sql-update.html)), so select the batch in a CTE and lock it.
 
 ```sql
--- Batched, checkpointed, resumable, killable
-UPDATE orders SET new_col = old_col
- WHERE id > :checkpoint AND new_col IS NULL
- ORDER BY id LIMIT 5000
- RETURNING id;   -- persist the last id as the next :checkpoint
+-- PostgreSQL: batched, checkpointed, resumable, killable
+WITH batch AS (
+  SELECT id FROM orders
+   WHERE id > :checkpoint AND new_col IS NULL
+   ORDER BY id LIMIT 5000
+   FOR UPDATE
+)
+UPDATE orders o SET new_col = o.old_col
+  FROM batch b
+ WHERE o.id = b.id
+RETURNING o.id;   -- persist max(id) of this batch as the next :checkpoint
 ```
+
+Stop when no row with `id > :checkpoint AND new_col IS NULL` remains, not when `RETURNING` is empty: `FOR UPDATE` re-checks `new_col`, so a concurrent writer can empty a batch that still has candidates.
 
 Between batches: sleep, read replication lag, and honor a kill switch. A backfill that cannot be stopped mid-run is a backfill that will be stopped by an incident.
 
@@ -76,9 +84,10 @@ Reliability Engineering*, on treating migrations as an operational risk, not a o
 
 ```sql
 ALTER TABLE orders ADD COLUMN IF NOT EXISTS new_col text;   -- safe to re-run
-CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_orders_new_col ON orders (new_col);
+CREATE INDEX CONCURRENTLY idx_orders_new_col ON orders (new_col);   -- no IF NOT EXISTS: a leftover INVALID index must fail
 ```
 
+- A failed concurrent build leaves an `INVALID` index that still costs writes ([CREATE INDEX docs](https://www.postgresql.org/docs/18/sql-createindex.html)). Before retrying, run `SELECT indisvalid FROM pg_index WHERE indexrelid = to_regclass('idx_orders_new_col');`. Drop it only if that returns `false`, and only when no build of that name is still running (`indisvalid` is also `false` while one runs): `DROP INDEX CONCURRENTLY idx_orders_new_col;` in its own non-transactional migration, then re-run. This is a deliberate decision, not part of the re-run.
 - Let the migration tool's own tracking table (the one recording which migrations already ran) be the
   source of truth for "has this run" — do not also encode that check by hand in application code, or the
   two can disagree.
@@ -99,6 +108,7 @@ CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_orders_new_col ON orders (new_col);
 ## Rules
 - Never combine a schema change and a behavior change in one deploy. When it breaks, you cannot attribute it.
 - DDL locks harder than DML: build indexes concurrently, set `lock_timeout` so a blocked migration fails fast instead of queueing traffic behind it.
+- `CREATE INDEX CONCURRENTLY` and `DROP INDEX CONCURRENTLY` cannot run inside a transaction block ([CREATE INDEX](https://www.postgresql.org/docs/18/sql-createindex.html), [DROP INDEX](https://www.postgresql.org/docs/18/sql-dropindex.html)). Put each one in its own migration marked non-transactional; keep the `ALTER TABLE` transactional.
 - A migration without a live rollback path is a cutover. Say so out loud and get that decision made deliberately, with a maintenance window if needed.
 - Prefer a deterministic codemod plus review over hand-editing call sites, and commit the script — the next repository needs it too.
 - Verify on a production-sized copy. Counts, null rates, and checksums are evidence; a passing test on 50 seed rows is not.

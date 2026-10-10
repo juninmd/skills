@@ -8,7 +8,7 @@ Core standards for building secure and reproducible infrastructure.
 - **DRY:** Avoid duplication by parameterizing common resource patterns.
 
 ## 2. State Management
-- **Remote Backends:** Mandatory use of remote stores (S3, GCS, Terraform Cloud) with state locking (DynamoDB).
+- **Remote Backends:** Mandatory use of remote stores (S3, GCS, Terraform Cloud) with native state locking (S3: use_lockfile = true, Terraform 1.10.0+); DynamoDB locking is deprecated, so migrate legacy dynamodb_table configs.
 - **Environment Isolation:** Separate states using distinct directories or workspaces for `dev`, `staging`, and `prod`.
 - **Locking:** Never allow concurrent state writes.
 

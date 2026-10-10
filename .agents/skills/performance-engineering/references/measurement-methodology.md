@@ -90,6 +90,7 @@ disagree about *shape*, not volume:
 | Cold cache/pool state vs. steady-state production | Test flatters a system that leans on a warm cache in prod | State and hold cache/pool warmth explicitly; test both cold-start and steady-state |
 | Single client/IP vs. real client diversity | Connection reuse and per-client rate limits behave differently | Vary client identity/connection pools in the harness |
 | Load from one region vs. real geographic spread | Network latency floor is invisible | Run generators from the regions real traffic originates, when the target metric is user-facing latency |
+| Closed loop (`autocannon -c`, k6 `constant-vus`) vs. fixed arrival rate (`autocannon -R`, k6 `constant-arrival-rate`) | A slow target lowers its own offered load, so the tail is under-reported (coordinated omission) | Measure latency at a target rate (open model); closed loops answer max-concurrency questions only. Encode the SLO as a k6 threshold (`p(95)<200`) so a failed run exits non-zero. A non-zero `dropped_iterations` means the VU pool ran out (slow target or under-provisioned generator), so the target rate was not reached |
 
 The result of a mismatched shape is not "no data" — it is confident, wrong
 data that clears review and fails in production.

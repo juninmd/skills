@@ -82,7 +82,7 @@ pnpm run catalog:generate && pnpm run catalog:check  # README and docs catalog, 
 - Every negative boundary names the sibling that wins, by exact folder name.
 - Keep references lazy, grouped so one task needs one read, and one hop from SKILL.md or its TOPIC_MAP.md; a reference over 100 lines opens with `## Contents`.
 - A split is done only when the new owner executes every advertised task and every caller, eval, and link points at it.
-- Frontmatter here is limited to `name`, `description`, `license`, `allowed-tools`, `metadata`, and `compatibility`; client-specific features ship through plugin packaging, not extra fields.
+- Frontmatter is limited to the six spec keys: `name`, `description`, `license`, `allowed-tools`, `metadata`, `compatibility`. This is house policy, stricter than Claude Code, which documents more keys (for example `disable-model-invocation`, `user-invocable`, `paths`) and ignores unrecognized keys without error. Extending the list is a contract change for AGENTS.md and validate-agents.mjs, and a manual-only restriction must not rest on body prose alone.
 
 ## Checklist
 - [ ] The wrong decision this skill prevents is named, with a prompt that showed it.

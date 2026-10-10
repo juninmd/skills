@@ -31,7 +31,6 @@ defineConfig({
     
     // Number of worker threads
     maxWorkers: 4,
-    minWorkers: 1,
     
     // Pool type: 'threads', 'forks', 'vmThreads'
     pool: 'threads',
@@ -192,24 +191,19 @@ describe.shuffle('random order', () => {
 
 ## Pool Options
 
-### Threads (Default)
+### Threads
 
 ```ts
 defineConfig({
   test: {
     pool: 'threads',
-    poolOptions: {
-      threads: {
-        maxThreads: 8,
-        minThreads: 2,
-        isolate: true,
-      },
-    },
+    maxWorkers: 8,
+    isolate: true,
   },
 })
 ```
 
-### Forks
+### Forks (Default)
 
 Better isolation, slower:
 
@@ -217,12 +211,8 @@ Better isolation, slower:
 defineConfig({
   test: {
     pool: 'forks',
-    poolOptions: {
-      forks: {
-        maxForks: 4,
-        isolate: true,
-      },
-    },
+    maxWorkers: 4,
+    isolate: true,
   },
 })
 ```

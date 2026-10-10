@@ -39,7 +39,7 @@ Name the reader and the single question the document answers before writing a li
 | How do I do task X? | Guide in `docs/` | prerequisites, numbered steps, expected output, failure cases |
 | Which option, what did the run find, what does this diff do? (read once, not maintained) | Single-file HTML report ([why HTML](https://claude.dev/blog/using-claude-code-the-unreasonable-effectiveness-of-html/)) | options side by side, SVG diagrams, collapsed detail, and an export ("copy as JSON/prompt") when the reader's edits feed back |
 
-The table above is the Diátaxis framework (see diataxis.fr): a README quickstart and a guide teach or task-solve (tutorial/how-to), a generated reference describes the surface, an ADR explains why. Mixing modes in one document — a tutorial that digresses into reference tables — serves neither reader; split instead of appending.
+Diátaxis ([tutorials](https://diataxis.fr/tutorials/), [how-to guides](https://diataxis.fr/how-to-guides/)) has four modes: tutorial (always learning-oriented), how-to (a task for an already-competent user, no digression), technical reference (describes the surface), explanation (why it is this way). This repo's table maps loosely: an ADR explains, a generated reference describes, a guide or runbook is how-to, and changelogs and HTML reports sit outside the framework. Mixing modes in one document — a tutorial that digresses into reference tables — serves neither reader; split instead of appending.
 
 ## Anti-Drift
 Documentation rots because nothing fails when it becomes false. Make something fail.

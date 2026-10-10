@@ -22,7 +22,7 @@ Place deterministic guards before and after every tool invocation:
 
 ## Pre-Tool Gate Guards
 
-Inspect tool arguments before invocation. Interceptors must fail closed: if verification throws, execution is aborted.
+Inspect tool arguments before invocation. Interceptors must fail closed: catch your own errors and return a denial. In Claude Code, a PreToolUse hook blocks the call only with exit code 2, a JSON `permissionDecision` of `deny`, or a JSON `continue: false`, which stops Claude after the hook runs. Exit code 1 does not block. The docs add "A hook that can't start is a non-blocking error too." A timed-out command, http, or mcp_tool hook doesn't block the tool call either ([hooks reference](https://code.claude.com/docs/en/hooks)), so make every error path in a command hook exit 2.
 
 | Category | Guard Rule | Action on Violation |
 |---|---|---|
@@ -61,7 +61,7 @@ Track error signatures across consecutive tool calls.
 
 ## Rules
 - Interceptors must run in host code, never as a subagent or LLM call.
-- Pre-tool guards fail closed: any exception halts the tool call.
+- Pre-tool guards fail closed: catch every error inside the guard and deny the call. Test that path with an injected crash, since an uncaught error does not block.
 - Any redacting action must be logged as a security event without logging the secret value.
 
 ## Checklist
@@ -70,3 +70,4 @@ Track error signatures across consecutive tool calls.
 - [ ] Secret scrubber active on tool return values.
 - [ ] Output budget capped with disk-offload for oversized logs.
 - [ ] Circuit breaker trips after 3 consecutive identical failures.
+- [ ] An injected guard crash blocks the call (the hook exits 2 on that path).

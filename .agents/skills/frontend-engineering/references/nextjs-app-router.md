@@ -13,8 +13,9 @@ Open this when the repo has an `app/` directory (App Router). For a `pages/` dir
 - Fetch where the data is used, not at the top and drilled down. Requests deduplicate within a render pass, so two components fetching the same resource cost one call.
 - There is no client-side loading state for server-fetched data. Streaming replaces it: wrap the slow subtree in `<Suspense>` or add `loading.tsx` for the route segment.
 - `error.tsx` must be a Client Component; it catches render errors for its segment. `not-found.tsx` handles `notFound()`.
-- Caching is explicit. Set `cache` and `next.revalidate` on `fetch`, or `export const dynamic`/`revalidate` on the segment. Reading `cookies()`, `headers()`, or `searchParams` makes the segment dynamic — a page that unexpectedly rebuilds on every request usually has one of those buried in a child.
-- Mutations go through Server Actions, followed by `revalidatePath` or `revalidateTag`. Without the revalidate call the UI keeps showing cached data.
+- Request APIs are async in Next.js 16: `await params`, `await searchParams`, `await cookies()`, `await headers()`. Sync access is removed; migrate with `npx @next/codemod@canary next-async-request-api .`
+- Check `cacheComponents` in `next.config` first. On (enabled by the recommended `create-next-app` defaults): data is dynamic by default; cache with `use cache` plus `cacheLife()`; wrap uncached reads in `<Suspense>`. Off: `fetch` is uncached by default; opt in with `cache: 'force-cache'` or `next.revalidate`, or segment `dynamic`/`revalidate`. Only when off does reading `cookies()` or `searchParams` make the route dynamic.
+- Mutations go through Server Actions, followed by `revalidatePath`, `revalidateTag(tag, 'max')`, or `updateTag(tag)` (Server Actions only, for read-your-writes). The one-argument `revalidateTag(tag)` is deprecated. Without a revalidate or update call the UI keeps showing cached data.
 - Client state (context, stores) does not exist during the server render. Provider components need `"use client"` and belong as high as possible while still being client-only.
 
 ## 3. Route conventions worth checking

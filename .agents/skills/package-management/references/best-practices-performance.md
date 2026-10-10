@@ -64,23 +64,17 @@ pnpm install --ignore-scripts
 
 ### Only Build Specific Dependencies
 
-Only run build scripts for specific packages:
+Only run build scripts for listed packages (pnpm 10.26+). `false` denies a package's
+build. pnpm 11 removed `onlyBuiltDependencies` and `neverBuiltDependencies`:
 
-```ini
-# .npmrc
-onlyBuiltDependencies[]=esbuild
-onlyBuiltDependencies[]=sharp
-onlyBuiltDependencies[]=@swc/core
-```
-
-Or skip builds entirely for deps that don't need them:
-
-```json
-{
-  "pnpm": {
-    "neverBuiltDependencies": ["fsevents", "cpu-features"]
-  }
-}
+```yaml
+# pnpm-workspace.yaml
+allowBuilds:
+  esbuild: true
+  sharp: true
+  '@swc/core': true
+  fsevents: false
+  cpu-features: false
 ```
 
 ## Store Optimizations
@@ -264,9 +258,7 @@ auto-install-peers=true
 
 # Build optimization  
 side-effects-cache=true
-# Only build what's necessary
-onlyBuiltDependencies[]=esbuild
-onlyBuiltDependencies[]=@swc/core
+# Only build what's necessary: allowBuilds in pnpm-workspace.yaml (pnpm 10.26+)
 
 # Network
 fetch-retries=3
@@ -282,7 +274,7 @@ workspace-concurrency=4
 |----------|-----------------|
 | CI installs | `pnpm install --frozen-lockfile` |
 | Offline development | `--prefer-offline` |
-| Skip native builds | `neverBuiltDependencies` |
+| Skip native builds | `allowBuilds: { pkg: false }` |
 | Parallel workspace | `pnpm -r --parallel run build` |
 | Build changed only | `pnpm --filter "...[origin/main]" build` |
 | Clean store | `pnpm store prune` |
@@ -292,4 +284,6 @@ Source references:
 - https://pnpm.io/npmrc
 - https://pnpm.io/cli/install
 - https://pnpm.io/filtering
+- https://pnpm.io/settings/build
+- https://pnpm.io/blog/releases/11.0
 -->
