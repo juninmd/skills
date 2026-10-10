@@ -32,7 +32,7 @@ Establish scope, permitted targets, repository visibility and installed scanner 
 | Target | Command / decision | Trap |
 |---|---|---|
 | Git history | `gitleaks git --redact --no-banner .` | Confirm installed CLI syntax with `gitleaks git --help`; do not hide its failure exit code |
-| Working files | `gitleaks dir --redact --no-banner .` | Includes untracked exposure that a commit-only scan misses |
+| Working files | `gitleaks dir --redact --no-banner .` | Scans files on disk; a commit-only scan misses them |
 | Node package lock | `npm audit --audit-level=high` or `pnpm audit` for its lockfile | Include build dependencies when they run in privileged CI |
 | Python requirements | `pip-audit -r requirements.txt -f json` | pip list JSON is not pip-audit requirements input |
 | uv locked project | `uv export --frozen --no-dev --no-emit-project --format requirements-txt --output-file audit-requirements.txt`, then `uvx pip-audit -r audit-requirements.txt -f json` | Use an untracked temporary path; audit dev dependencies separately when relevant |
@@ -51,6 +51,8 @@ Audit tools may resolve dependencies or invoke package metadata processing. Insp
 | No upstream fix | Assess containment and exposure; absence of a patch does not make a finding nonblocking |
 | Demonstrably unreachable legacy issue | Record evidence, owner and review date; re-evaluate if the changed path exposes it |
 | Scanner failure / uncertain reachability | Report incomplete assessment; do not mark clean |
+
+Label each confirmed finding with its CWE and its OWASP Top 10:2025 category in the prose report, never as a findings.json field (SSRF sits in A01; supply-chain issues in A03). When a finding is a missing or weak control, name its Application Security Verification Standard 5.0.0 chapter (V1-V17). Tag API authorization findings API1:2023 (Broken Object Level Authorization) or API5:2023 (Broken Function Level Authorization).
 
 ## Reference Routing
 

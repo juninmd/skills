@@ -63,6 +63,7 @@ uv manages virtual environments automatically. Do not manually create or activat
 | `uv sync --all-groups` | Install all dependency groups |
 | `uv sync --group dev` | Install specific group |
 | `uv sync --frozen` | Install from lock file exactly |
+| `uv sync --locked` | Install; fail if uv.lock is out of date (use in CI) |
 
 ### Running Code
 
@@ -208,5 +209,5 @@ This avoids rebuilding the venv when switching between host and container (diffe
 ## Performance Tips
 
 - uv caches aggressively; first install may be slower
-- Use `uv sync --frozen` in CI for reproducible builds
-- Use `uv cache clean` if cache grows too large
+- Run `uv sync --locked` in CI: it fails when uv.lock does not match pyproject.toml; `--frozen` skips that check and passes on drift.
+- In CI, leave setup-uv `enable-cache` at its default `auto` (it disables caching on release, tag-push, pull_request_target and workflow_run runs); finish the job with `uv cache prune --ci`; use `uv cache clean` only on self-hosted runners.

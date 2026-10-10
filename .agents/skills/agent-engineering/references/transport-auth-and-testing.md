@@ -6,6 +6,8 @@
 - Validate the `Origin` header on every incoming request and reject unknown origins.
 - Bind a local server to `127.0.0.1`, never `0.0.0.0`. A server listening on all interfaces with no origin check is reachable from any page the user visits: the browser resolves an attacker-controlled hostname to loopback (DNS rebinding) and drives the tools with the user's credentials.
 - Scope tokens to the minimum capability set and keep them out of tool arguments, results, and logs.
+- Accept only tokens issued for this server. For a JWT access token, its `aud` claim must name this server (RFC 9068 Section 4); for an opaque token, use the audience that introspection returns. The spec forbids token passthrough: never forward a client's token to a downstream API; call it with a credential the server holds for that API ([spec](https://modelcontextprotocol.io/specification/2026-07-28/basic/security_best_practices)). Test that a token minted for another audience gets a typed rejection.
+- A session ID or state handle is not authentication: verify the caller on every request and key stored state by the user ID from the verified token. Sessions must not authenticate ([2025-11-25 guidance](https://modelcontextprotocol.io/docs/2025-11-25/tutorials/security/security_best_practices#session-hijacking)), and a state handle must not either ([2026-07-28 spec](https://modelcontextprotocol.io/specification/2026-07-28/basic/security_best_practices)).
 - Terminate TLS in front of any non-loopback listener.
 
 ## Long-running tools

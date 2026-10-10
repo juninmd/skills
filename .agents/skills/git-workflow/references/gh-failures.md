@@ -17,7 +17,7 @@ Recognize the failure from the message, then take the matching action. Never ret
 
 ## Protected base branch
 Push or merge is rejected by a branch protection rule (required reviews, required checks, linear history, signed commits).
-- Read the rule: `gh api repos/{owner}/{repo}/branches/{base}/protection`.
+- Read both layers: active rulesets with `gh api repos/{owner}/{repo}/rules/branches/{base} --paginate --jq '.[] | select(.type=="required_signatures")'`, then classic rules with `gh api repos/{owner}/{repo}/branches/{base}/protection`. A 404 from the classic endpoint is no evidence that rulesets are absent.
 - Protection is the intended behavior. Satisfy it (open the PR, wait for checks, get the review); never propose disabling protection or force-pushing the base.
 - Required linear history means the PR must be rebased, not merged with a merge commit.
 

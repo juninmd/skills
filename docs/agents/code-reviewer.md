@@ -63,10 +63,10 @@ Reviews are structured with severity levels for easy scanning:
 
 | Severity | Meaning |
 |---|---|
-| 🔴 BLOCKER | Must fix before merge — security, data loss, breaking change |
-| 🟡 HIGH | Should fix — significant quality, performance, or design issue |
-| 🟢 LOW | Nice to fix — minor improvements, style, optimization |
-| 💡 SUGGESTION | Optional — learning opportunity, alternative approach |
+| 🔴 Blocker | Must fix before merge — security, data loss, broken contract or build |
+| 🟠 Major | Fix, or record why not — wrong behavior on a real path, untested risky branch |
+| 🟡 Minor | Merge, then fix — wrong behavior with a workaround, maintenance cost |
+| 🟢 Nit | Preference, prefixed `Nit:`; never blocks |
 
 ## Execution Model
 
@@ -88,13 +88,13 @@ The agent runs three reviewers in parallel then synthesizes:
 ```
 ## Code Review — feat/user-auth
 
-### 🔴 BLOCKER — SQL Injection Risk
+### 🔴 Blocker — SQL Injection Risk
 `src/db/users.ts:42` — String interpolation in query. Use parameterized queries.
 
-### 🟡 HIGH — Missing Input Validation
+### 🟠 Major — Missing Input Validation
 `src/api/users.ts:18` — No Zod schema on POST body. Add `z.object({...}).parse(req.body)`.
 
-### 🟢 LOW — N+1 Query
+### 🟠 Major — N+1 Query
 `src/services/posts.ts:67` — Fetching user per post in a loop. Batch with `findMany({ where: { id: { in: ids } } })`.
 
 ### Coverage: 74% ⚠️ (gate: 80%)

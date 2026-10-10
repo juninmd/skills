@@ -129,9 +129,13 @@ git config user.signingkey <key-id>       # GPG key id, or an SSH public key wit
 git log --show-signature -1               # verify a signature after the fact
 ```
 
-Some branch protection rules require verified signatures on every commit
-merged to a protected branch; check the rule (`gh api
-repos/{owner}/{repo}/branches/{base}/protection`) before assuming a plain
-commit will be accepted. Signing proves authorship of the commit content, not
-of the code's correctness — it is a supply-chain control, not a review
-substitute.
+Some rules require verified signatures on every commit merged to a protected
+branch. Rulesets and classic branch protection
+[stack](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets),
+so check both layers before assuming a plain commit will be accepted: active
+rulesets with `gh api repos/{owner}/{repo}/rules/branches/{base} --paginate
+--jq '.[] | select(.type=="required_signatures")'`, then classic rules with
+`gh api repos/{owner}/{repo}/branches/{base}/protection`. A 404 from the
+classic endpoint is no evidence that rulesets are absent. Signing proves
+authorship of the commit content, not the code's correctness — it is a
+supply-chain control, not a review substitute.

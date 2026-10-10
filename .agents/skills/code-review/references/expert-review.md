@@ -32,8 +32,11 @@ git diff <base>...HEAD -- '*test*' | head -40   # did the tests move with the co
 ## Pass Order
 Reviewing in this order means the expensive defects surface while attention is still fresh.
 
+Design leads by this repo's choice, not a source rule: a wrong layer makes line-level findings wasted work, and Google's [navigate guide](https://google.github.io/eng-practices/review/reviewer/navigate.html) says "Look at the most important part of the change first. Is it well-designed overall?"
+
 | Pass | Looking for |
 |---|---|
+| Design | a layer, dependency, or abstraction the change adds that its callers do not need, or code placed in the wrong module; a finding only with a stated consequence (drift, untestable coupling, broken contract), otherwise an observation |
 | Correctness | wrong condition, off-by-one, unhandled null, wrong return, inverted boolean |
 | Data safety | data loss, unbounded delete, missing transaction, non-idempotent retry |
 | Security | injection, missing authz check, secret in code or log, unsafe deserialization |

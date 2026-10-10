@@ -11,6 +11,7 @@
 - Automated Checks
 - Contrast
 - Reduced Motion
+- WCAG 2.2 AA Additions
 - Stop
 - Rules
 - Checklist
@@ -123,6 +124,15 @@ if (reduceMotion) player.autoplay = false;   // parallax, autoplaying video, lar
 
 Motion that carries meaning (a spinner, a progress bar, a drag preview) stays; motion that is purely decorative (parallax, hero entrances, bouncing reveals) is what the setting turns off.
 
+## WCAG 2.2 AA Additions
+Added in 2.2. A-level criteria count because AA conformance requires every A criterion. Normative text: [WCAG 2.2](https://www.w3.org/TR/WCAG22/). Summaries: [What's new in WCAG 2.2](https://www.w3.org/WAI/standards-guidelines/wcag/new-in-22/).
+
+- 2.5.7 Dragging Movements (AA): every drag action (reorder, slider, pan, drag-to-dismiss) needs a single-pointer alternative, such as buttons or click-to-pick then click-to-place. Exempt only when dragging is essential, or when the user agent determines the function and the author has not modified it.
+- 2.5.8 Target Size (Minimum) (AA): pointer targets are at least 24x24 CSS px, or spaced so a 24 px circle around each hits no other target. Exempt: inline links, an equivalent control elsewhere, user-agent controls, essential presentation.
+- 3.3.8 Accessible Authentication (Minimum) (AA): no login or recovery step may require a cognitive function test (recall, transcription, puzzle) unless another method without one, a mechanism such as paste or a password manager, object recognition, or user-supplied personal non-text content is offered. Do not block paste in password fields.
+- 3.3.7 Redundant Entry (A): do not make users re-enter information already given in the same process (for example, reuse the shipping address for billing), unless re-entry is essential, needed for security, or the earlier entry is no longer valid.
+- 3.2.6 Consistent Help (A): when help appears on several pages, keep it in the same relative place on each.
+
 ## Stop
 - A journey cannot be completed with the keyboard alone. Report it; do not ship the visual fix and call it done.
 - Contrast fails and the fix belongs in tokens you do not own. Route it to [design-systems](design-systems.md) rather than overriding per component.
@@ -146,3 +156,4 @@ Motion that carries meaning (a spinner, a progress bar, a drag preview) stays; m
 - [ ] Names, roles, and states verified in the accessibility tree; one journey confirmed with a screen reader.
 - [ ] Contrast, 200% resize, target size, and reduced motion checked.
 - [ ] An automated a11y assertion guards the fixed journey.
+- [ ] Drag actions have a single-pointer alternative; pointer targets meet 24 CSS px or the spacing rule; login steps avoid cognitive tests unless an exception applies.

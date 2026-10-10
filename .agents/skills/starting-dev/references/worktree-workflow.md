@@ -46,7 +46,15 @@ When the work in a worktree is finished (PR opened and checks inspected, or the 
 3. Remove finished workstreams only once the user confirms, and only those this task created:
 ```bash
 git worktree remove "$path"      # fails on uncommitted changes; do not reach for --force
-git branch -d "$BRANCH"          # -d keeps unmerged work safe by refusing
+git branch -d "$BRANCH" || {     # refuses unmerged work, and a squash-merged branch whose upstream is gone or unset
+  tip=$(git rev-parse --verify -q "refs/heads/$BRANCH")
+  # -D only when a MERGED PR head is exactly the local tip; a gh failure or no match keeps the branch
+  if gh pr list --state all --head "$BRANCH" --json state,headRefOid --jq '.[] | select(.state == "MERGED") | .headRefOid' | grep -qx "$tip"; then
+    git branch -D "$BRANCH"
+  else
+    echo "kept $BRANCH: no merged PR head matches its tip"
+  fi
+}
 git worktree prune               # clears entries for worktrees deleted by hand
 ```
 4. Set its status in the register to `integrated` or `abandoned`.

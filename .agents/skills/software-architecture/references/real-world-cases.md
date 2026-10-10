@@ -47,7 +47,7 @@ A split that produces two conjoined services — deployed separately but sharing
 - Test partial failure, stale data, double delivery, and cancellation.
 
 ## ADR
-- Record context, decision, options rejected, consequences, rollback path, and validation evidence.
+- Record context, decision, options rejected, consequences, rollback path, validation evidence, and confirmation: the check that enforces the decision (dependency rule, test, or CI gate), or "none" with the reason.
 - Keep ADRs short enough to be read during future incident response.
 
 ### ADR Lifecycle

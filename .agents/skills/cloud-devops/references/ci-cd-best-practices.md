@@ -21,19 +21,28 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  contents: read # elevate per job only where a step needs it
+
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@<40-char-commit-sha> # v<x.y.z>
+      - uses: pnpm/action-setup@<40-char-commit-sha> # v<x.y.z>
         with:
-          node-version: '22'
+          version: 10 # match the repo's pnpm pin
+      - uses: actions/setup-node@<40-char-commit-sha> # v<x.y.z>
+        with:
+          node-version: '24' # match the repo's Node pin
           cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
       - run: pnpm lint
       - run: pnpm test
 ```
+
+Resolve each SHA from the action's upstream tag; never guess one. Put pnpm/action-setup before
+actions/setup-node. setup-node's pnpm cache needs pnpm on PATH first; this ordering is inferred from its docs, not a documented rule.
 
 ## 4. Shell & Automation Safety
 - **Bash Safety:** Use `#!/usr/bin/env bash` and `set -euo pipefail` to exit on errors, unset variables, or pipe failures. Always quote variables.

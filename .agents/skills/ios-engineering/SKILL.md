@@ -62,5 +62,6 @@ rg -n 'IPHONEOS_DEPLOYMENT_TARGET|platforms:' project.pbxproj Package.swift 2>/d
 - [ ] No force-unwraps on values that can be nil from network/disk/user input.
 - [ ] Every closure capturing `self` uses `weak`/`unowned` where lifetime isn't guaranteed.
 - [ ] Permission usage-description strings declared for every requested capability.
+- [ ] The app's PrivacyInfo manifest declares an approved reason for each required-reason API it calls (file timestamp, system boot time, disk space, active keyboard, user defaults).
 - [ ] Touch targets ≥44pt, Dynamic Type and Dark Mode verified.
 - [ ] Release build run on a physical device before shipping.

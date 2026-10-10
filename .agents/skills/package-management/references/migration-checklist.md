@@ -113,7 +113,7 @@ uv run ruff check --select=ERA --fix .
 ## CI Cleanup
 
 - [ ] Remove scheduled CI triggers (activity without progress is theater)
-- [ ] Update CI to use `uv sync` and `uv run`
+- [ ] Update CI to use `uv sync --locked` and `uv run`
 - [ ] Pin GitHub Actions to SHA hashes
 - [ ] Set up security tooling (see [security-setup.md](./security-setup.md))
 

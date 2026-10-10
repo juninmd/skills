@@ -54,9 +54,9 @@ Avoid specific file paths or code snippets — they go stale fast. Exception: if
 
 ## Acceptance criteria
 
-- [ ] Criterion 1
-- [ ] Criterion 2
-- [ ] Criterion 3
+- [ ] Given <precondition, including rows or state created before this rule>, when <one action>, then <one observable output>.
+
+Each criterion names its Given, including pre-existing state, and one observable Then (see [requirements-clarification.md](requirements-clarification.md)).
 
 ## Blocked by
 

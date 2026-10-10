@@ -69,7 +69,7 @@ Define the trigger before the rollout, not during the incident.
 
 | Signal | Threshold example | Action |
 |---|---|---|
-| Error-rate burn against the error budget | 2% of the budget in 5 minutes (fast-burn) | halt promotion, roll back automatically |
+| Error-rate burn against the error budget | Example: 2% of a 30-day error budget in 5 minutes (burn rate about 173x); alert windows and shapes are in `observability` alerting-and-oncall.md | halt promotion, roll back automatically |
 | p99 latency regression | > 1.5x the pre-rollout baseline, sustained 5 minutes | halt promotion, page owner |
 | Readiness/liveness flapping on the new version | any restart during the canary window | halt promotion — do not "wait and see" |
 | Business metric (checkout rate, sign-up rate) | outside its normal band | pause; needs human judgment, not autopromote |

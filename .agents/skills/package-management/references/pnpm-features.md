@@ -84,6 +84,10 @@ catalog:
   react: ^18.2.0
 overrides:
   lodash: ^4.17.21
+# pnpm 10.26+: build scripts run only for listed packages
+allowBuilds:
+  esbuild: true
+  core-js: false
 settings:
   auto-install-peers: true
   strict-peer-dependencies: false
@@ -102,7 +106,8 @@ store-dir=~/.pnpm-store
 virtual-store-dir=node_modules/.pnpm
 prefer-frozen-lockfile=true
 side-effects-cache=true
-use-node-version=20.10.0
+# Exact Node.js 24 patch the CI runs (placeholder: replace 24.x.y)
+use-node-version=24.x.y
 registry=https://registry.npmjs.org/
 @myorg:registry=https://npm.myorg.com/
 //registry.npmjs.org/:_authToken=${NPM_TOKEN}
@@ -114,11 +119,12 @@ workspace-concurrency=4
 Precedence, later wins: `/etc/npmrc` → `~/.npmrc` → project `.npmrc` →
 `npm_config_<key>` env vars → the `settings` field of `pnpm-workspace.yaml`.
 
-`package.json` also carries pnpm fields:
+`package.json` also carries pnpm fields. pnpm 10 and earlier read the `pnpm` object;
+pnpm 11 ignores it.
 
 ```json
 {
-  "packageManager": "pnpm@9.0.0",
+  "packageManager": "pnpm@<version>",
   "pnpm": {
     "overrides": { "lodash": "^4.17.21" },
     "peerDependencyRules": {
@@ -126,12 +132,14 @@ Precedence, later wins: `/etc/npmrc` → `~/.npmrc` → project `.npmrc` →
       "allowedVersions": { "react": "17 || 18" },
       "allowAny": ["@types/*"]
     },
-    "onlyBuiltDependencies": ["esbuild"],
-    "neverBuiltDependencies": ["fsevents"],
     "patchedDependencies": { "express@4.18.2": "patches/express@4.18.2.patch" }
   }
 }
 ```
+
+pnpm 11 requires Node 22 or newer. Migrate v10 settings with the `pnpm-v10-to-v11`
+codemod named in the pnpm 11.0 release notes. In pnpm 11, unlisted build scripts fail
+the install with `ERR_PNPM_IGNORED_BUILDS`; list them in `allowBuilds` (pnpm 10.26+).
 
 ## 4. Store and Node Linker
 
@@ -237,3 +245,11 @@ Prefer declarative overrides for version pins. Reach for hooks only when the fix
 needs conditional logic or touches non-version metadata such as `exports` or peer
 declarations. The file must be `.cjs`, at the workspace root, and takes effect on the
 next `pnpm install`.
+
+<!--
+Source references:
+- https://pnpm.io/blog/releases/11.0
+- https://github.com/pnpm/pnpm/releases/tag/v11.0.0
+- https://pnpm.io/settings/build
+- https://pnpm.io/migration
+-->

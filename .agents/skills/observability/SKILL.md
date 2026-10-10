@@ -20,11 +20,11 @@ Name the user-visible outcome before naming a metric. An SLI nobody can tie to a
 
 ## Workflow
 1. Name the user-visible outcomes, then the SLIs that measure them: the four golden signals — latency, traffic, errors, saturation ([Google SRE, monitoring distributed systems](https://sre.google/sre-book/monitoring-distributed-systems/)). An SLI nobody can tie to a user is a graph, not a signal.
-2. Set SLO targets with an explicit error budget ([Google SRE, embracing risk](https://sre.google/sre-book/embracing-risk/)), leaving room for change and for incident recovery. 100% is not a target; it is a refusal to ship.
-3. Instrument with OpenTelemetry rather than a handmade scheme: one SDK for logs, metrics and traces, trace context propagated across every hop, semantic conventions for span and attribute names.
+2. Set SLO targets with an explicit error budget ([Google SRE, embracing risk](https://sre.google/sre-book/embracing-risk/)), leaving room for change and for incident recovery. 100% is not a target; it is a refusal to ship. A budget policy should accompany each target: the action at exhaustion (for example, reliability work first, or a feature freeze that leaves reliability fixes flowing until the budget recovers), approvers (product, development, SRE), approval and next-review dates, and an escalation path for disputes over the calculation ([Google SRE workbook, implementing SLOs](https://sre.google/workbook/implementing-slos/)).
+3. Instrument with OpenTelemetry rather than a handmade scheme: one SDK for logs, metrics and traces, trace context propagated across every hop, semantic conventions for span and attribute names. Use the stable HTTP names `http.request.method`, `http.response.status_code`, and `http.route` on server spans, stable since semconv v1.23.0 ([HTTP spans](https://opentelemetry.io/docs/specs/semconv/http/http-spans/); [stability announcement](https://opentelemetry.io/blog/2023/http-conventions-declared-stable/)). Fill `http.route` only from the framework's route template, never the raw path. Instrumentations keep emitting pre-stable names such as `http.status_code` until they opt in through `OTEL_SEMCONV_STABILITY_OPT_IN`, which is set per instrumentation: `http/dup` emits both sets during a phased rollout, and `http` emits only the stable names ([migration guide](https://opentelemetry.io/docs/specs/semconv/non-normative/http-migration/)).
 4. Emit structured events (JSON) carrying trace and span ids, duration, and outcome — never secrets or PII.
 5. Add RED metrics (rate, errors, duration) at every service boundary; add tracing wherever latency crosses a service.
-6. Choose sampling deliberately, and keep 100% of errors either way.
+6. Choose sampling deliberately: head sampling cannot keep every error, but a tail sampler with an error policy can, within its buffer limits (see Sampling below).
 7. Alert on symptoms and SLO burn rate, never on causes or every threshold crossing — a cause-based page fires on an internal blip whether or not a user felt it, and on-call learns to ignore it ([Google SRE, alerting philosophy](https://sre.google/sre-book/monitoring-distributed-systems/)).
 8. Verify signal quality: the dashboard, the alert, and the incident review must show the same number.
 
@@ -58,7 +58,9 @@ Multi-window burn rate beats a static threshold: a fast window (5m) catches the 
 |---|---|---|
 | Head (decide at ingress) | Cheap, simple | Blind — drops the slow trace you needed |
 | Tail (decide after completion) | Slow and failed traces | Needs a buffering collector, more memory |
-| Always-on for errors | Every failure | Nothing worth arguing about |
+| Tail, error policy | Every ERROR-status trace that fits the buffer and completes within `decision_wait` | Buffering collector; all spans of one trace must reach the same collector instance |
+
+Head sampling alone cannot keep every error. Server 4xx spans leave span status unset under the current HTTP conventions, so keep 5xx by status and 4xx by an explicit rule ([sampling concepts](https://opentelemetry.io/docs/concepts/sampling/)).
 
 ## Reference Routing
 - SLO burn-rate math, toil, and the on-call handoff checklist: [alerting-and-oncall.md](references/alerting-and-oncall.md)
@@ -84,7 +86,7 @@ See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-
 - Live outage triage and postmortems belong to [incident-response](references/incident-response.md); design the signals they will read here.
 
 ## Checklist
-- [ ] SLIs tie to user-visible outcomes; SLO targets and error budget explicit.
+- [ ] SLIs tie to user-visible outcomes; SLO targets, error budget, and budget policy (exhaustion action, approvers, review date) explicit.
 - [ ] Trace context propagates across services, queues, and jobs, and appears in logs.
 - [ ] Every metric label is bounded; series count checked before shipping.
 - [ ] Alerts classified page/ticket/dashboard, each with an owner and a runbook.
