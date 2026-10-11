@@ -6,6 +6,7 @@
 | [ecosystem-checks.md](ecosystem-checks.md) | Per-ecosystem audit layer: install and build hooks (build scripts, lifecycle hooks, MSBuild imports) and risky call sites, for Rust, JS/TS, Python, Go, Ruby, JVM, .NET, PHP, Elixir |
 | [gitleaks.md](gitleaks.md) | Investigating exposed credentials and preparing authorized cleanup |
 | [iam-least-privilege.md](iam-least-privilege.md) | Reviewing or designing service-account and CI credential scope, time-boxed elevated access |
+| [mcp-config-drift.md](mcp-config-drift.md) | Static review of repo-scoped MCP config (`.mcp.json`, Cursor, VS Code) for mutable package or image references: `@latest`, bare names, version ranges, untagged images |
 | [plugin-vetting.md](plugin-vetting.md) | Reviewing third-party instructions, dependencies and execution permissions before installation |
 | [privacy-lgpd-gdpr.md](privacy-lgpd-gdpr.md) | Personal data compliance: data map, LGPD/GDPR legal basis, consent, retention, data subject requests, ANPD 3-business-day and GDPR 72-hour breach notification |
 | [real-world-cases.md](real-world-cases.md) | Comparing a finding with prior security examples |
