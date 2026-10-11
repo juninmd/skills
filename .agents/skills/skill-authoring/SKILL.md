@@ -61,7 +61,7 @@ Explain why a step matters instead of stacking imperatives: a model that underst
 - Long example blocks anchor the model on the example. A well-shaped interface (an enum of states plus one rule) constrains better than three worked samples.
 - Editing an eval prompt so it routes correctly deletes the signal and keeps the bug; fix the description instead.
 
-More field lessons, the nine skill categories, and the Claude 5 context rules: [skill-patterns.md](references/skill-patterns.md). All references: [TOPIC_MAP.md](references/TOPIC_MAP.md).
+More field lessons, the nine skill categories, and the Claude 5 context rules: [skill-patterns.md](references/skill-patterns.md). A skill that routes but is not followed: [skill-compliance.md](references/skill-compliance.md). All references: [TOPIC_MAP.md](references/TOPIC_MAP.md).
 
 ## Validate
 ```bash

@@ -25,6 +25,10 @@
       {
         "prompt": "Are we LGPD compliant storing user emails and CPF, and how fast must we report a breach",
         "top_k": 3
+      },
+      {
+        "prompt": "Review .mcp.json for npx servers using @latest or unpinned versions before we approve it",
+        "top_k": 3
       }
     ],
     "negative": [
