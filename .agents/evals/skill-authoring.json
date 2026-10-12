@@ -21,6 +21,10 @@
       {
         "prompt": "Should this recurring task become a skill, a hook, or just a script?",
         "top_k": 3
+      },
+      {
+        "prompt": "The skill loads but the agent skips its steps under pressure, measure how often it follows them",
+        "top_k": 3
       }
     ],
     "negative": [
