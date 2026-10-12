@@ -27,6 +27,14 @@
       {
         "prompt": "Design system architecture, module boundaries, and dependency directions",
         "owner": "software-architecture"
+      },
+      {
+        "prompt": "Scan dependencies for known CVEs and report the vulnerable packages",
+        "owner": "security-ops"
+      },
+      {
+        "prompt": "Finish this feature branch and open the pull request",
+        "owner": "finishing-dev"
       }
     ]
   }

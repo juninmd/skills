@@ -27,6 +27,14 @@
       {
         "prompt": "Resolve a git rebase conflict and restore the lost commit using reflog",
         "owner": "git-workflow"
+      },
+      {
+        "prompt": "Review this diff for correctness bugs and missed edge cases",
+        "owner": "code-review"
+      },
+      {
+        "prompt": "Audit the repository for leaked secrets and hardcoded credentials",
+        "owner": "security-ops"
       }
     ]
   }

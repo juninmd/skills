@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 import { readSkill, listSkillDirectoryNames } from "./skill-metadata.mjs";
 import { checkRetiredHandoffs } from "./retired-handoffs.mjs";
 import { walkFiles } from "./walk-files.mjs";
+import { shellFenceErrors } from "./shell-fences.mjs";
 
 // A body long enough to skim past is a body an agent will skim past. The
 // ceiling is a ratchet: raise it deliberately, never to fit one more paragraph.
@@ -167,6 +168,7 @@ export function validateSkill(skillDirectory) {
     errors.push(...findReferencesWithoutContents(skillName, referencesRoot));
   }
 
+  errors.push(...shellFenceErrors(skillDirectory));
   return errors;
 }
 
