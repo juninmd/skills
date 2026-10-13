@@ -1,0 +1,33 @@
+{
+  "skill_name": "release-autoupdate",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Set up an automated release pipeline for our Tauri desktop app with signed installers",
+        "top_k": 3
+      },
+      {
+        "prompt": "How do I configure the in-app auto updater and generate latest.json for GitHub Releases?",
+        "top_k": 3
+      },
+      {
+        "prompt": "Automate desktop app release version bumps from conventional commits and publish signed binaries",
+        "top_k": 3
+      },
+      {
+        "prompt": "Configure minisign cryptographic signing and updater manifest generation for desktop releases",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Fix this Git rebase conflict on our release branch and restore a dropped commit",
+        "owner": "git-workflow"
+      },
+      {
+        "prompt": "Write a GitHub Actions CI workflow to build and deploy containers to Kubernetes",
+        "owner": "cloud-devops"
+      }
+    ]
+  }
+}
