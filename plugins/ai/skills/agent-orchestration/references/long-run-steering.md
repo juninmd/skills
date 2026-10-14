@@ -4,8 +4,15 @@ Open this when an agent will work for a long stretch with little supervision: a 
 
 ## Preflight
 ```bash
-ls CLAUDE.md AGENTS.md .claude/settings.json 2>/dev/null   # where stop/continue rules and permissions live
-ls "${TMPDIR:-${TEMP:-/tmp}}"/starting-dev 2>/dev/null      # a run already tracking its units
+# Linux / macOS (bash)
+ls CLAUDE.md AGENTS.md .claude/settings.json 2>/dev/null || true
+ls "${TMPDIR:-${TEMP:-/tmp}}"/starting-dev 2>/dev/null || true
+```
+
+```powershell
+# Windows (PowerShell)
+Get-Item -Path CLAUDE.md, AGENTS.md, .claude/settings.json -ErrorAction SilentlyContinue
+Get-ChildItem -Path (Join-Path ([System.IO.Path]::GetTempPath()) "starting-dev") -ErrorAction SilentlyContinue
 ```
 
 ## Hand Over the Whole Task

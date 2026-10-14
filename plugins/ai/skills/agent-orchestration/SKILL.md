@@ -9,10 +9,22 @@ description: |
 **Not this skill:** building the agent runtime, its tool schemas, guards, or MCP servers (`agent-engineering`), writing a skill (`skill-authoring`), or a single-threaded bug hunt (`observability`).
 
 ## Preflight
+
+Establish worktree cleanliness, isolation, and any active session state across Linux/macOS (bash) or Windows (PowerShell):
+
 ```bash
-git status --porcelain | head       # a dirty tree cannot be split safely between writers
-git worktree list                   # isolation that already exists
-ls "${TMPDIR:-${TEMP:-/tmp}}"/starting-dev 2>/dev/null  # a run already in progress keeps its state here, outside the repo
+git status --porcelain
+git worktree list
+# Linux / macOS: check active session task directory
+ls "${TMPDIR:-${TEMP:-/tmp}}"/starting-dev 2>/dev/null || true
+```
+
+```powershell
+# Windows (PowerShell)
+git status --porcelain
+git worktree list
+# Windows: check active session task directory
+Get-ChildItem -Path (Join-Path ([System.IO.Path]::GetTempPath()) "starting-dev") -ErrorAction SilentlyContinue
 ```
 
 Name the units of work and their owned files before spawning anything. A unit you cannot name is not ready to hand to a worker.
@@ -62,12 +74,14 @@ Done means: every service has a row backed by a file:line or a command result.
 - Long runs follow written stop/continue rules: continue when a step needs no input, stop only when blocked or before anything destructive. See [long-run-steering.md](references/long-run-steering.md).
 - Keep permission prompts on for destructive commands, even in long unattended runs.
 - Depth beats width: three well-briefed workers land more than ten vague ones, at a fraction of the cost.
+- Format worker briefs, paths, and done commands for the host shell and OS (Linux/macOS bash or Windows PowerShell); avoid passing bash-only pipelines to a PowerShell subagent.
 - Deeper references: [parallel-subagents.md](references/parallel-subagents.md) for slicing and staged delivery, [multi-model-council.md](references/multi-model-council.md) for consensus on irreversible decisions, [headless-agent-supervision.md](references/headless-agent-supervision.md) for runs with no human attached. Map: [TOPIC_MAP.md](references/TOPIC_MAP.md).
 
 ## Checklist
 - [ ] The task justified orchestration; the pattern is named.
 - [ ] Units disjoint by file; writing workers isolated in worktrees, removed after merge.
 - [ ] Each brief has goal, owned and forbidden files, done command, report shape.
+- [ ] Worker briefs, paths, and commands formatted for the host shell and OS.
 - [ ] Worker count, token budget, and stop condition set before launch.
 - [ ] Every accepted claim verified against the tree or by an independent verifier.
 - [ ] Task file current; final table lists unit, result, and evidence.
