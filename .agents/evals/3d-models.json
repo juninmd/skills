@@ -5,7 +5,8 @@
       { "prompt": "Convert a VRM 0.x avatar file to VRM 1.0 and list the data that gets dropped", "top_k": 1 },
       { "prompt": "Clean up a VRoid export in Blender: rename bones, MToon materials, textures and shape keys", "top_k": 1 },
       { "prompt": "VRM hair SpringBone physics flies upward in three-vrm", "top_k": 1 },
-      { "prompt": "Transfer ARKit blendshapes to a VRoid avatar face mesh in Blender", "top_k": 1 }
+      { "prompt": "Transfer ARKit blendshapes to a VRoid avatar face mesh in Blender", "top_k": 1 },
+      { "prompt": "Automate Blender scene cleanup using the Blender MCP server", "top_k": 1 }
     ],
     "negative": [
       { "prompt": "Build a Three.js GLTF model viewer with orbit camera controls and lighting", "owner": "threejs" },
