@@ -10,10 +10,21 @@ description: |
 **Not this skill:** application code that happens to run in a container (its domain skill), or reading production signals during an incident (`observability`).
 
 ## Preflight
+
+Establish infrastructure context and active cluster/workspace across Linux/macOS (bash) or Windows (PowerShell):
+
 ```bash
-ls .github/workflows/ Dockerfile* helm/ chart/ *.tf 2>/dev/null
+# Linux / macOS
+ls .github/workflows/ Dockerfile* helm/ chart/ *.tf 2>/dev/null || true
 kubectl config current-context          # which cluster are you actually pointed at?
-terraform workspace show 2>/dev/null
+terraform workspace show 2>/dev/null || true
+```
+
+```powershell
+# Windows (PowerShell)
+Get-ChildItem -Path .github/workflows, Dockerfile*, helm, chart, *.tf -ErrorAction SilentlyContinue
+kubectl config current-context          # which cluster are you actually pointed at?
+terraform workspace show 2>$null
 ```
 
 The wrong kube context is the single most expensive mistake available here. Read it before every session, not once.
@@ -47,8 +58,16 @@ Every one of these is read-only. There is no reason to skip them.
 ## Verify the Rollout, Not the Pipeline
 
 ```bash
+# Linux / macOS
 kubectl rollout status deploy/<name> --timeout=180s
 kubectl get events --sort-by=.lastTimestamp | tail -20
+kubectl get pod -l app=<name> -o jsonpath='{.items[*].status.containerStatuses[*].imageID}'
+```
+
+```powershell
+# Windows (PowerShell)
+kubectl rollout status deploy/<name> --timeout=180s
+kubectl get events --sort-by=.lastTimestamp | Select-Object -Last 20
 kubectl get pod -l app=<name> -o jsonpath='{.items[*].status.containerStatuses[*].imageID}'
 ```
 
