@@ -1,6 +1,6 @@
 {
   "name": "juninmd-skills",
-  "description": "Production-grade agent skills and custom agents for AI coding assistants.",
+  "description": "Production-grade engineering skills for AI coding assistants.",
   "version": "1.0.0",
   "author": {
     "name": "Antonio Junior",
@@ -10,7 +10,6 @@
   "repository": "https://github.com/juninmd/skills",
   "license": "MIT",
   "keywords": [
-    "agents",
     "skills",
     "copilot",
     "vscode",
@@ -24,6 +23,5 @@
     "frontend",
     "backend"
   ],
-  "agents": ".agents/agents",
   "skills": ".agents/skills"
 }

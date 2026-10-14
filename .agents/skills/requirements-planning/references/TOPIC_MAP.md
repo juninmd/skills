@@ -4,7 +4,7 @@ Open only the procedure matching the current subtask. These are files, not stand
 
 | Reference | When to open |
 |---|---|
-| [AGENT-BRIEF.md](AGENT-BRIEF.md) | Prepare a bounded, behavioral implementation brief when authorized issue tracking hands work to an unattended agent |
+| [AGENT-BRIEF.md](AGENT-BRIEF.md) | Prepare a bounded, behavioral implementation brief for an owning skill or implementation session |
 | [incremental-delivery.md](incremental-delivery.md) | Split a feature into independently verifiable vertical slices |
 | [OUT-OF-SCOPE.md](OUT-OF-SCOPE.md) | Check and record rejected feature requests before triaging a similar new one |
 | [requirements-clarification.md](requirements-clarification.md) | Batch material unanswered product and acceptance questions before dependent work |

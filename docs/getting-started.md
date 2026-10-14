@@ -1,5 +1,7 @@
 # Getting Started
 
+See the [custom-agent migration map](migration-agents-to-skills) when moving from retired role files to skills.
+
 ## Install via symlink
 
 The supported install links one checkout into every client, so edits in the repository are live without a reinstall.
@@ -21,7 +23,7 @@ Existing real files are renamed to `*.bak-<timestamp>` before linking. Links tha
 
 ## Claude Code plugin
 
-Installs all skills and the 4 agents as one plugin (`juninmd:<name>`). The marketplace is [`.claude-plugin/marketplace.json`](../.claude-plugin/marketplace.json); the plugin root is `.agents/`.
+Installs all skills as one plugin (`juninmd:<name>`). The marketplace is [`.claude-plugin/marketplace.json`](../.claude-plugin/marketplace.json); the plugin root is `.agents/`.
 
 ```bash
 claude plugin marketplace add juninmd/skills            # or a local checkout path
@@ -38,7 +40,7 @@ npx skills add juninmd/skills --list                    # preview the catalog
 npx skills add juninmd/skills --skill backend-systems   # copy one skill
 ```
 
-Copies do not follow the repository and do not include the agents or operating instructions.
+Copies do not follow the repository and do not include the repository operating instructions.
 
 ## Invoke
 

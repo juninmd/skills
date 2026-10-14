@@ -23,6 +23,10 @@
         "top_k": 3
       },
       {
+        "prompt": "Write a bounded implementation brief so the owning skill can pick up this issue",
+        "top_k": 3
+      },
+      {
         "prompt": "Triage this batch of incoming GitHub issues and label them",
         "top_k": 3
       }

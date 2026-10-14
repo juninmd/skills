@@ -5,7 +5,7 @@ import path from "node:path";
 import test from "node:test";
 import { validatePlugin } from "./validate-plugin.mjs";
 
-const manifest = { name: "sample-skills", description: "Sample plugin.", version: "1.2.3", license: "MIT", skills: ".agents/skills", agents: ".agents/agents" };
+const manifest = { name: "sample-skills", description: "Sample plugin.", version: "1.2.3", license: "MIT", skills: ".agents/skills" };
 
 function createRepo({ source = "./.agents", claude = {}, entry = {}, extraPlugins = [] } = {}) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "plugin-validator-"));
@@ -14,7 +14,6 @@ function createRepo({ source = "./.agents", claude = {}, entry = {}, extraPlugin
     fs.writeFileSync(path.join(root, file), JSON.stringify(value));
   };
   fs.mkdirSync(path.join(root, ".agents/skills"), { recursive: true });
-  fs.mkdirSync(path.join(root, ".agents/agents"), { recursive: true });
   write("plugin.json", manifest);
   write(".agents/.claude-plugin/plugin.json", { name: "sample", description: "Sample plugin.", version: "1.2.3", license: "MIT", ...claude });
   write(".claude-plugin/marketplace.json", {
@@ -29,6 +28,20 @@ const errorsOf = (root) => validatePlugin(root).join("\n");
 
 test("a Claude plugin in a subdirectory that mirrors plugin.json passes", () => {
   assert.deepEqual(validatePlugin(createRepo()), []);
+});
+
+test("a skills-only plugin passes without a declared agents path or directory", () => {
+  const root = createRepo();
+  assert.deepEqual(validatePlugin(root), []);
+  assert.equal(fs.existsSync(path.join(root, ".agents/agents")), false);
+});
+
+test("a legacy declared agents path must still resolve", () => {
+  const root = createRepo();
+  const legacy = JSON.parse(fs.readFileSync(path.join(root, "plugin.json"), "utf8"));
+  legacy.agents = ".agents/agents";
+  fs.writeFileSync(path.join(root, "plugin.json"), JSON.stringify(legacy));
+  assert.match(errorsOf(root), /'agents' path does not exist/);
 });
 
 test("sourcing the repository root fails because install copies node_modules", () => {

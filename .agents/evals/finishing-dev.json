@@ -3,6 +3,10 @@
   "trigger": {
     "positive": [
       {
+        "prompt": "Finish this PR without monitoring the pipeline, then return to the default branch",
+        "top_k": 3
+      },
+      {
         "prompt": "Finish this feature branch: run independent code and security subagent reviews before creating the PR",
         "top_k": 3
       },

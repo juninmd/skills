@@ -1,5 +1,13 @@
 # Branch, PR Title, and Description Standard
 
+## Contents
+
+- Branch naming
+- PR/MR title
+- Description template
+- Worked example
+- Rules
+
 A reviewer decides whether to open a PR from its branch name and title alone, and decides whether to trust it from whether every claim in the body traces to something real. This is the shared format; [pr-evidence.md](pr-evidence.md) covers how to capture the evidence section itself.
 
 ## Branch naming
@@ -32,10 +40,30 @@ Every section below is required and traceable — a diff line, a real command's 
 | Section | Content | Not sufficient |
 |---|---|---|
 | Summary | 1-3 bullets: what changed and why; the why outranks the what | A restatement of the title |
-| Evidence | Real screenshot per visible UI/web change, real payload per CLI/contract change — see [pr-evidence.md](pr-evidence.md) for capture rules | A description of what the screenshot would show |
+| Evidence | Applicable UI/UX screenshots and GIFs/videos for web, desktop, mobile, TUI/CLI; captured CLI text; payloads for changed contracts — see [pr-evidence.md](pr-evidence.md) | Prose instead of required captures, inaccessible attachments, or text alone for visual/dynamic behavior |
 | How to test | The exact command(s) a reviewer runs, and the expected outcome | "Should work" with no command |
 | Verification / proof | The commands actually run in this session and their literal output lines, per the Iron Law in [SKILL.md](../SKILL.md) | "Tests pass" with no pasted output |
 | Test plan | A checklist mapping each Summary claim to what was verified | An empty or generic checklist copied between PRs |
+
+For UI/UX changes, use the following block inside `## Evidence`. Choose only applicable subsections: screenshots prove static presentation; GIFs/videos prove relevant interaction, motion, or timing; plain CLI wording/output uses captured text. Explain relevant N/A formats rather than requiring every medium. Missing applicable captures block readiness.
+
+~~~markdown
+## Evidence
+Surface/state: <!-- web/frontend, desktop, mobile, TUI, or CLI -->
+Environment and reproduction: <!-- route/command, viewport/terminal size, steps -->
+Applicable formats / N/A reasons: <!-- select based on the actual change -->
+
+### Before / after screenshots — when applicable
+<!-- attach real captures at reviewer-accessible URLs -->
+
+### Interaction recording — when applicable
+<!-- attach GIF or link/upload video; show trigger, sequence, and result -->
+
+### Captured CLI output — when applicable
+<!-- paste the actual command and output in a console fenced block -->
+~~~
+
+Replace placeholders with actual evidence and omit inapplicable subsections. A local temp path or this empty template is not an attachment; never present example output as a real run.
 
 ## Worked example
 

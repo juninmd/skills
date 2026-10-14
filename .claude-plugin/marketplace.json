@@ -1,6 +1,6 @@
 {
   "name": "skills",
-  "description": "JuninMD engineering skills and agents for Claude Code.",
+  "description": "JuninMD engineering skills for Claude Code.",
   "owner": {
     "name": "Antonio Junior",
     "url": "https://github.com/juninmd"
@@ -9,7 +9,7 @@
     {
       "name": "juninmd",
       "source": "./.agents",
-      "description": "Production-grade agent skills and custom agents for AI coding assistants.",
+      "description": "Production-grade engineering skills for AI coding assistants.",
       "version": "1.0.0"
     }
   ]

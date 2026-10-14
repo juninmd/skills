@@ -5,4 +5,4 @@ Record `evidence.md` in the [loop workspace](../../starting-dev/references/loop-
 
 All material corrections require affected checks and independent re-review. A reviewer agreeing with another reviewer is not proof: verify each concrete trigger and consequence against code. Do not require a different model when the client does not offer one; independent contexts and distinct lenses are the minimum.
 
-Prepare the real PR body and finish authorized publication only after review is complete. Local green gates permit PR creation; pending/failed remote checks block readiness. Hand off to [readiness procedure](phase-done.md). Never auto-merge.
+Prepare the real PR body and finish authorized publication only after review is complete. Local green gates permit PR creation; pending/failed or explicitly uninspected remote checks block readiness. Hand off to [readiness procedure](phase-done.md) and execute [return to default branch](return-to-default.md) even when pipeline monitoring is declined or blocked. Never auto-merge.

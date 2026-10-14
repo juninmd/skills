@@ -1,9 +1,9 @@
 # Readiness and handoff procedure
 Owned by `finishing-dev`; this file is not a standalone skill.
 
-1. Verify remote head matches the reviewed candidate. Inspect all CI checks, required reviews, unresolved comments, and acceptance evidence.
+1. Verify remote head matches the reviewed candidate. Inspect all CI checks, required reviews, unresolved comments, and acceptance evidence, except for explicitly declined CI inspection/monitoring; record CI as unverified in that case.
 2. If pending or failed, keep readiness blocked; diagnose and fix authorized defects, then repeat affected gates and independent review.
-3. Report PR URL, reviewed head, successful checks, any unverified runtime or environment assumptions, and the remaining human decision.
+3. At handoff, execute [return to default branch](return-to-default.md) even when monitoring is declined or blocked. Report PR URL, reviewed head, actual CI status, unverified runtime/environment assumptions, final checkout path/branch or exact return blocker, and the remaining human decision.
 4. Set a sustained loop to done only when the requested deliverable is complete. Record that done means PR delivery/readiness, not merge or deployment.
 5. Inventory owned scratch assets and worktrees. Remove only when authorized and verified to belong to this task; keep the delivery branch and unrelated work. A completed PR never authorizes broad deletion.
 

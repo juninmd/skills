@@ -1,8 +1,8 @@
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
-  title: 'Agent Plugins',
-  description: 'Skills and agents for AI coding assistants',
+  title: 'Engineering Skills',
+  description: 'Engineering skills for AI coding assistants',
   cleanUrls: true,
   lastUpdated: true,
 
@@ -19,7 +19,6 @@ export default defineConfig({
       {
         text: 'Reference',
         items: [
-          { text: 'Agents', link: '/agents/' },
           { text: 'Skills', link: '/skills/' },
         ],
       },
@@ -32,17 +31,6 @@ export default defineConfig({
         items: [
           { text: 'What is this?', link: '/' },
           { text: 'Getting Started', link: '/getting-started' },
-        ],
-      },
-      {
-        text: 'Agents',
-        collapsed: false,
-        items: [
-          { text: 'Overview', link: '/agents/' },
-          { text: 'Code Reviewer', link: '/agents/code-reviewer' },
-          { text: 'Principal Engineer', link: '/agents/principal-engineer' },
-          { text: 'DevOps Engineer', link: '/agents/devops-engineer' },
-          { text: 'Plan Specialist', link: '/agents/plan-specialist' },
         ],
       },
       {

@@ -1,4 +1,4 @@
-# PR Evidence: Screenshots and Payloads
+# PR Evidence: Screenshots, Recordings, and Payloads
 
 ## Contents
 
@@ -15,10 +15,12 @@ Every pull request body carries proof of the change. Which proof depends on what
 
 | Changed surface | Required evidence |
 |---|---|
-| Web UI, component, style, layout, page | Screenshot of the rendered result; before/after pair when the change modifies existing UI |
-| Terminal / CLI output, TUI, log format, help text | Fenced block with the real captured session output |
+| Web UI, component, style, layout, page | Screenshot of each affected state; before/after pair when modifying existing UI |
+| CLI output content, log format, help text without visual or interactive changes | Fenced block with the real captured session output; no screenshot or recording required |
+| TUI or CLI layout, colors, alignment, wrapping, visual hierarchy | Screenshot of the actual terminal rendering, before/after for existing presentation; captured text when meaningful |
+| Interaction, navigation, keyboard/focus flow, animation, transition, progress/loading behavior in web, desktop, mobile, TUI, or CLI | GIF or video when the sequence, timing, or motion is needed to demonstrate the change; screenshots for changed static states as applicable |
 | Markdown, docs, README, generated report, diagram | Rendered screenshot or the rendered excerpt, not only the source diff |
-| Mobile or desktop app screen | Screenshot per affected screen and state |
+| Mobile or desktop app screen | Screenshot per affected screen and state; before/after when modifying existing UI |
 | Email template, PDF, chart, image pipeline | Rendered artifact screenshot |
 | HTTP/RPC endpoint, event, webhook, queue message, schema, DTO | Request and response payload of every new or modified contract |
 | Database or config schema | Resulting schema excerpt plus a sample record |
@@ -26,30 +28,39 @@ Every pull request body carries proof of the change. Which proof depends on what
 
 A change can require both: an endpoint that also renders a screen gets the payload and the screenshot.
 
+Choose evidence from the actual diff and acceptance criteria. Static presentation needs screenshots; behavior across time needs a recording when still images cannot prove it; output wording alone needs text. Do not demand all formats for every PR. In `## Evidence`, state which formats apply and explain any relevant format marked not applicable. A required capture that is unavailable is a blocker, not an exemption.
+
 ## Visual evidence
 
 1. Capture from the change actually running, never from a mockup or a description. Frontend capture procedure lives in the `frontend-engineering` screenshot reference.
-2. One image per affected state that differs: empty, loaded, error, and the responsive or dark variant when the diff touches it.
-3. Before/after uses the same route, same viewport, same seeded data, same theme. Only the change may differ.
-4. Attach images to the PR body; a path inside a temp directory is not evidence a reviewer can open.
-5. Redact real credentials, tokens, customer names, and personal data before attaching.
-6. Terminal evidence is pasted as text in a fenced block, not as a screenshot of text: it stays searchable and diffable.
+2. One screenshot per affected static state that differs: empty, loaded, error, and the responsive or dark variant when the diff touches it. Record the relevant interaction as a short GIF or video when changed motion, timing, or sequence cannot be demonstrated by still images.
+3. Before/after uses the same route or terminal command, viewport or terminal dimensions, seeded data, and theme. State the affected surface, environment, and steps; a recording must show the trigger and resulting behavior.
+4. Attach screenshots and GIFs, or link/attach videos in the PR body at locations accessible to reviewers. A path inside a temp directory is not evidence a reviewer can open. Check that links open and recordings play.
+5. Keep real credentials, tokens, customer names, and personal data out of screenshots and every frame/audio track of a recording before attaching.
+6. Keep captured CLI output searchable in a fenced text block when text is meaningful. Add screenshots for visual terminal changes and GIFs/videos for applicable interactive or dynamic terminal behavior; text alone cannot prove layout, color, focus, or timing.
 
 ~~~markdown
 ## Evidence
 
-### Before
-<!-- image of the empty state, referenced by its uploaded URL -->
+Surface/state: <!-- web, desktop, mobile, TUI, or CLI; environment and scenario -->
+Capture choice: <!-- applicable formats and reasons for relevant N/A formats -->
 
-### After
-<!-- same route, same viewport, after the change -->
+### Before / after — visual changes
+<!-- attach real screenshots using reviewer-accessible uploaded URLs -->
+<!-- same route/command, viewport/terminal size, seeded data, and theme -->
 
-### CLI
+### Interaction / motion — when applicable
+<!-- attach a GIF or link/upload a video showing the trigger and result -->
+<!-- caption: reproduction steps and expected behavior -->
+
+### CLI output — when applicable
 ```console
 $ mytool sync --dry-run
 ✔ 3 records planned, 0 conflicts
 ```
 ~~~
+
+This is a template, not evidence. Replace comments with real captures and context; omit inapplicable subsections while keeping the applicability explanation. The CLI command/output above is illustrative, not a recorded run.
 
 ## Payload evidence
 
@@ -103,7 +114,7 @@ Evidence capture and PR description are two separate subagent tasks, run alongsi
 
 | Task | Load | Produces |
 |---|---|---|
-| Evidence capture | `frontend-engineering` for screenshot capture, `run` to launch the app for CLI/TUI/web output, `documentation` for schema/OpenAPI payload extraction | One real screenshot or terminal capture per affected state, one real request/response payload per new or modified contract, or a named capture blocker |
+| Evidence capture | `frontend-engineering` for web capture, the app's domain skill and host execution tools for desktop/mobile/CLI/TUI captures, `documentation` for schema/OpenAPI payload extraction | Applicable screenshots, GIFs/videos, searchable terminal output, contract payloads, reproduction context and accessible attachment links, or a named capture blocker |
 | Description drafting | This skill's PR preparation step and the repository's PR template | PR title and body — problem, resulting behavior, design decisions, verification, material limits — with every claim traceable to a diff line |
 
 Merge both outputs into a single PR body before publication. A missing or fabricated capture blocks readiness the same as a failed check; the description subagent cites the evidence subagent's captures, it does not re-describe them in prose.

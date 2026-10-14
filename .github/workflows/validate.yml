@@ -24,7 +24,6 @@ jobs:
             README.md
             docs/**/*.md
             .agents/AGENTS.md
-            .agents/agents/**/*.md
             .agents/skills/**/*.md
 
       - name: Link check Markdown
@@ -36,7 +35,6 @@ jobs:
             README.md
             "docs/**/*.md"
             ".agents/AGENTS.md"
-            ".agents/agents/**/*.md"
             ".agents/skills/**/*.md"
 
       - uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271
