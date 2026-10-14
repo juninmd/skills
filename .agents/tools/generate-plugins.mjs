@@ -5,7 +5,6 @@ import { fileURLToPath } from "node:url";
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const AGENTS_ROOT = path.join(REPO_ROOT, ".agents");
 const SKILLS_ROOT = path.join(AGENTS_ROOT, "skills");
-const AGENTS_DIR = path.join(AGENTS_ROOT, "agents");
 const PLUGINS_DIR = path.join(REPO_ROOT, "plugins");
 
 export const PLUGIN_CONTEXTS = {
@@ -23,11 +22,6 @@ export const PLUGIN_CONTEXTS = {
       "test-engineering",
       "documentation",
     ],
-    agents: [
-      "code-reviewer.agent.md",
-      "principal-engineer.agent.md",
-      "plan-specialist.agent.md",
-    ],
   },
   web: {
     name: "juninmd-web",
@@ -42,9 +36,6 @@ export const PLUGIN_CONTEXTS = {
       "motion-video",
       "threejs",
       "3d-models",
-    ],
-    agents: [
-      "principal-engineer.agent.md",
     ],
   },
   backend: {
@@ -61,9 +52,6 @@ export const PLUGIN_CONTEXTS = {
       "bot-engineering",
       "goldsrc-modding",
     ],
-    agents: [
-      "principal-engineer.agent.md",
-    ],
   },
   devops: {
     name: "juninmd-devops",
@@ -76,9 +64,6 @@ export const PLUGIN_CONTEXTS = {
       "performance-engineering",
       "security-ops",
       "release-autoupdate",
-    ],
-    agents: [
-      "devops-engineer.agent.md",
     ],
   },
   ai: {
@@ -93,9 +78,6 @@ export const PLUGIN_CONTEXTS = {
       "web-research",
       "radar-ia",
       "agy-image-babysitter",
-    ],
-    agents: [
-      "plan-specialist.agent.md",
     ],
   },
 };
@@ -120,14 +102,19 @@ export function generatePlugins(root = REPO_ROOT) {
   const author = rootManifest.author;
 
   const pluginsDir = path.join(root, "plugins");
-  fs.rmSync(pluginsDir, { recursive: true, force: true });
+  const resolvedRoot = path.resolve(root);
+  const resolvedPlugins = path.resolve(pluginsDir);
+  if (!resolvedPlugins.startsWith(`${resolvedRoot}${path.sep}`)) {
+    throw new Error(`Refusing to remove generated plugins outside the provided root: ${resolvedPlugins}`);
+  }
+  fs.rmSync(resolvedPlugins, { recursive: true, force: true });
   fs.mkdirSync(pluginsDir, { recursive: true });
 
   const marketplacePlugins = [
     {
       name: "juninmd",
       source: "./.agents",
-      description: "Complete bundle: all 32 production-grade engineering skills and 4 agents.",
+      description: "Complete bundle: all 32 production-grade engineering skills.",
       version,
     },
   ];
@@ -138,11 +125,9 @@ export function generatePlugins(root = REPO_ROOT) {
     const contextDir = path.join(pluginsDir, key);
     const claudeDir = path.join(contextDir, ".claude-plugin");
     const skillsDest = path.join(contextDir, "skills");
-    const agentsDest = path.join(contextDir, "agents");
 
     fs.mkdirSync(claudeDir, { recursive: true });
     fs.mkdirSync(skillsDest, { recursive: true });
-    fs.mkdirSync(agentsDest, { recursive: true });
 
     // 1. Copy designated skills
     for (const skill of ctx.skills) {
@@ -154,16 +139,7 @@ export function generatePlugins(root = REPO_ROOT) {
       totalMappedSkills += 1;
     }
 
-    // 2. Copy designated agents
-    for (const agent of ctx.agents) {
-      const srcAgent = path.join(root, ".agents", "agents", agent);
-      if (!fs.existsSync(srcAgent)) {
-        throw new Error(`Context '${key}' references non-existent agent: ${agent}`);
-      }
-      fs.copyFileSync(srcAgent, path.join(agentsDest, agent));
-    }
-
-    // 3. Write plugin.json for the context
+    // 2. Write plugin.json for the context
     const pluginJson = {
       name: ctx.name,
       displayName: ctx.displayName,
@@ -180,7 +156,7 @@ export function generatePlugins(root = REPO_ROOT) {
       JSON.stringify(pluginJson, null, 2) + "\n"
     );
 
-    // 4. Register in marketplace
+    // 3. Register in marketplace
     marketplacePlugins.push({
       name: ctx.name,
       source: `./plugins/${key}`,

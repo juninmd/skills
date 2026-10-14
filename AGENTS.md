@@ -1,6 +1,6 @@
 # Repository working contract
 
-This repository maintains engineering skills, agent roles, and validation tools. Optimize for useful instructions, correct routing, and reproducible evidence.
+This repository maintains engineering skills and validation tools. Optimize for useful instructions, correct routing, and reproducible evidence.
 
 ## Before changing anything
 
@@ -27,7 +27,6 @@ Use the host shell and bounded searches. Keep secrets and private logs out of ou
 | `.agents/skills/<name>/SKILL.md` | Discovery and the domain workflow |
 | `.agents/skills/<name>/references/` | Procedures loaded for a specific subtask |
 | `.agents/evals/<name>.json` | Positive prompts and negative ownership cases |
-| `.agents/agents/` | Roles |
 | `.agents/clients/` | Token-optimized Claude Code and Codex configs, symlinked by `.agents/tools/install.mjs` |
 | `.agents/tools/` | Validators, reports, and catalog generation |
 | `README.md`, `docs/` | Installation, navigation, and user documentation |

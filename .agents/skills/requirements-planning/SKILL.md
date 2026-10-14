@@ -1,7 +1,7 @@
 ---
 name: requirements-planning
 description: |
-  Turn an ambiguous ask into something buildable. Use for acceptance criteria, PRDs and specs, agent briefs with finish lines, vertical-slice backlog issues, and triage of incoming issues. Trigger on 'what should this do', 'interview me first', 'write the PRD', 'break this into issues', 'triage these issues'.
+  Turn an ambiguous ask into something buildable. Use for acceptance criteria, PRDs and specs, implementation briefs with finish lines, vertical-slice backlog issues, and triage of incoming issues. Trigger on 'what should this do', 'interview me first', 'write the PRD', 'break this into issues', 'triage these issues'.
 ---
 
 # Requirements Planning
@@ -55,6 +55,8 @@ patience for nothing.
 5. Handing a slice to an AFK agent: write an
    [agent brief](references/agent-brief.md) — behavioral contract, not file
    paths or line numbers — with its own finish line and out-of-scope list.
+   The same brief may be executed by the owning skill or a later runtime
+   session; do not route work through a retired custom agent role.
 6. Triaging incoming issues: classify with
    [triage logic](references/triage-logic.md), hold response quality to
    [triage standards](references/triage-standards.md), and execute the
@@ -67,6 +69,52 @@ patience for nothing.
    only in conversation state.
 8. Hand accepted, sliced work to `starting-dev` to run the dev loop, or to the
    owning domain skill to implement directly.
+
+For multi-step plans, use this evidence and execution contract:
+
+- Detect the stack from manifests, lockfiles, CI, build files, and scripts;
+  inspect affected callers, tests, contracts, deployment path, and recent
+  relevant changes before choosing a design.
+- Record explicit `IN` and `OUT` scope, assumptions, unresolved decisions,
+  risks, trade-offs, and measurable acceptance criteria. Critique insecure,
+  over-engineered, or incompatible approaches and choose one path when the
+  evidence supports it.
+- Make milestones atomic and independently verifiable. For each milestone
+  record dependencies, subsystem or file ownership, action, and expected
+  validation. Include compatibility, data migration, security, observability,
+  rollout, and rollback only when applicable.
+- Derive checks from repository scripts and CI. Cover changed behavior,
+  critical paths, boundaries, invalid input, dependency failure, and
+  regression cases at the lowest test level that proves the contract; add
+  integration or E2E checks for real boundaries.
+- End with residual risks and request only missing material decisions or action authority; continue already authorized implementation without a new approval checkpoint. An implementation
+  brief may be handed to the owning skill or a later runtime session, but it
+  must not name a retired agent role or require automatic persistence.
+
+Use this compact plan shape when a full spec template is unnecessary:
+
+```markdown
+## Plan: <title>
+### Goal
+<outcome and observable acceptance criteria>
+### Scope
+| IN | OUT |
+|---|---|
+### Evidence and assumptions
+<repository findings, constraints, unresolved decisions>
+### Decisions and trade-offs
+| Decision | Choice | Reason |
+|---|---|---|
+### Milestones
+1. <action> — owner: <skill/subsystem>; depends on: <...>; verify: `<command>`
+### Test strategy
+- <unit/integration/E2E or smoke check and failure path>
+### Risks, rollout, and rollback
+| Risk | Mitigation | Rollback |
+|---|---|---|
+### Residual risks and handoff
+<remaining uncertainty, owning skill, and any missing decision or authority>
+```
 
 ## Reference routing
 [Reference map](references/TOPIC_MAP.md) selects the clarification, spec,
@@ -82,6 +130,7 @@ executed by this skill.
 | Direction unresolved between two or more plausible designs | throwaway mockups/prototypes, each marked an experiment |
 | Feature needs to become tracked work | [incremental delivery](references/incremental-delivery.md) -> [to-issues process](references/to-issues-process.md) |
 | Work is handed to an unattended agent | [agent brief](references/agent-brief.md) |
+| An accepted slice needs a durable implementation handoff | [agent brief](references/agent-brief.md) |
 | A new issue arrives and needs classification | [triage logic](references/triage-logic.md) + [triage workflow](references/triage-workflow.md) |
 | A feature request looks like a past rejection | [out-of-scope records](references/out-of-scope.md) |
 
@@ -92,8 +141,8 @@ executed by this skill.
   [requirements clarification](references/requirements-clarification.md).
 - Skipping the pre-existing-state edge ("rows created before this rule
   existed") ships as an incident, not a code review comment.
-- An agent brief that names a file path or line number goes stale before the
-  agent gets to it; describe interfaces and behavior instead.
+- An implementation brief that names a file path or line number goes stale;
+  describe interfaces and behavior instead.
 - Two stakeholders conflicting is a decision to surface, never one to average.
 
 ## Stop

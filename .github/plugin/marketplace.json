@@ -4,13 +4,13 @@
     "name": "Antonio Junior"
   },
   "metadata": {
-    "description": "Marketplace for production-grade AI coding assistant agent plugins.",
+    "description": "Marketplace for production-grade AI coding assistant skills.",
     "version": "1.0.0"
   },
   "plugins": [
     {
       "name": "juninmd-skills",
-      "description": "Production-grade agent skills and custom agents for AI coding assistants.",
+      "description": "Production-grade engineering skills for AI coding assistants.",
       "version": "1.0.0",
       "source": ".",
       "author": {
@@ -21,7 +21,6 @@
       "repository": "https://github.com/juninmd/skills",
       "license": "MIT",
       "keywords": [
-        "agents",
         "skills",
         "copilot",
         "vscode",
@@ -35,7 +34,6 @@
         "frontend",
         "backend"
       ],
-      "agents": ".agents/agents",
       "skills": ".agents/skills",
       "strict": true
     }

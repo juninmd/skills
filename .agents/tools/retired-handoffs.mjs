@@ -62,7 +62,7 @@ export function checkRetiredHandoffs(agentsRoot) {
       errors.push(`retired-skills.json: '${name}' maps to '${owner}' but its procedure lives in ${holders.join(", ")}`);
     }
   }
-  const files = collectMarkdown(["AGENTS.md", "agents", "skills"], agentsRoot);
+  const files = collectMarkdown(["AGENTS.md", "skills"], agentsRoot);
   for (const file of files) {
     for (const { name, owner, line } of findRetiredHandoffs(fs.readFileSync(file, "utf8"), migrations)) {
       errors.push(`${path.relative(agentsRoot, file)}:${line}: retired skill '${name}'; link its procedure or route to '${owner}'`);

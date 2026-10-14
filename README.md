@@ -11,7 +11,7 @@
 [![Agent Skills Spec](https://img.shields.io/badge/spec-Agent_Skills-black.svg)](https://agentskills.io)
 [![MCP Standard](https://img.shields.io/badge/MCP-standard-10b981.svg)](https://modelcontextprotocol.io)
 
-**32 skills · 4 agents · enterprise operating instructions**
+**32 skills · enterprise operating instructions**
 
 *Production engineering workflows for AI coding assistants: discover intent, execute surgical changes, and prove with reproducible evidence.*
 
@@ -71,10 +71,10 @@ Workflows end in a check you run: a test, a smoke command, or an explicit stop c
 
 Pick **one** install method per client.
 
-| Method | Clients | Stays in sync with the repo | Includes agents and instructions |
+| Method | Clients | Stays in sync with the repo | Includes operating instructions |
 |---|---|---|---|
 | [Symlink install](#symlink-install) | Claude Code, Codex, Antigravity, opencode | yes, live | instructions and configs |
-| [Claude Code plugin](#claude-code-plugin) | Claude Code | after `marketplace update` and reinstall | agents |
+| [Claude Code plugin](#claude-code-plugin) | Claude Code | after `marketplace update` and reinstall | — |
 | [Skills CLI](#skills-cli) | any client the CLI supports | no, files are copied | no |
 
 ### Symlink install
@@ -112,14 +112,14 @@ node .agents/tools/install.mjs all         # or: claude | codex | agy | opencode
 
 Install either the full bundle or only the domains you need from the [`.claude-plugin/marketplace.json`](.claude-plugin/marketplace.json) marketplace:
 
-| Plugin | Context & Scope | Included Skills | Agents |
-|---|---|---|---|
-| `juninmd@skills` | **Complete Bundle** | All 32 skills | 4 agents |
-| `juninmd-core@skills` | **Core Lifecycle & Quality** | `starting-dev`, `finishing-dev`, `git-workflow`, `requirements-planning`, `code-review`, `test-engineering`, `documentation` | `code-reviewer`, `principal-engineer`, `plan-specialist` |
-| `juninmd-web@skills` | **Frontend & Mobile** | `frontend-engineering`, `mobile-engineering`, `ios-engineering`, `stack-selection`, `motion-video`, `threejs`, `3d-models` | `principal-engineer` |
-| `juninmd-backend@skills` | **Backend, Data & Architecture** | `backend-systems`, `data-engineering`, `software-architecture`, `package-management`, `tooling-dev`, `bot-engineering`, `goldsrc-modding` | `principal-engineer` |
-| `juninmd-devops@skills` | **Cloud, DevOps & Security** | `cloud-devops`, `observability`, `performance-engineering`, `security-ops`, `release-autoupdate` | `devops-engineer` |
-| `juninmd-ai@skills` | **AI Agents & Ecosystem** | `agent-engineering`, `agent-orchestration`, `skill-authoring`, `web-research`, `radar-ia`, `agy-image-babysitter` | `plan-specialist` |
+| Plugin | Context & Scope | Included Skills |
+|---|---|---|
+| `juninmd@skills` | **Complete Bundle** | All 32 skills |
+| `juninmd-core@skills` | **Core Lifecycle & Quality** | `starting-dev`, `finishing-dev`, `git-workflow`, `requirements-planning`, `code-review`, `test-engineering`, `documentation` |
+| `juninmd-web@skills` | **Frontend & Mobile** | `frontend-engineering`, `mobile-engineering`, `ios-engineering`, `stack-selection`, `motion-video`, `threejs`, `3d-models` |
+| `juninmd-backend@skills` | **Backend, Data & Architecture** | `backend-systems`, `data-engineering`, `software-architecture`, `package-management`, `tooling-dev`, `bot-engineering`, `goldsrc-modding` |
+| `juninmd-devops@skills` | **Cloud, DevOps & Security** | `cloud-devops`, `observability`, `performance-engineering`, `security-ops`, `release-autoupdate` |
+| `juninmd-ai@skills` | **AI Agents & Ecosystem** | `agent-engineering`, `agent-orchestration`, `skill-authoring`, `web-research`, `radar-ia`, `agy-image-babysitter` |
 
 ```bash
 claude plugin marketplace add juninmd/skills            # or a local checkout path
@@ -146,7 +146,7 @@ npx skills add juninmd/skills --list                    # inspect the catalog
 npx skills add juninmd/skills --skill backend-systems   # copy one domain
 ```
 
-The CLI copies files; it does not track the repo or install the agents and operating instructions.
+The CLI copies files; it does not track the repo or install the repository operating instructions.
 
 ## Pick a starting point
 
@@ -160,26 +160,13 @@ The CLI copies files; it does not track the repo or install the agents and opera
 | 🔐 | Audit credentials and trust boundaries | [security-ops](.agents/skills/security-ops/SKILL.md) |
 | 🚢 | Ship a finished branch as a PR | [finishing-dev](.agents/skills/finishing-dev/SKILL.md) |
 
-## Autonomous multi-agent ecosystem
+## Consolidated skill ownership
 
-Beyond standalone skills, this repository defines four specialist agent roles coordinated by shared enterprise operating instructions ([`.agents/AGENTS.md`](.agents/AGENTS.md)). Every change is verified against strict safety and engineering guardrails.
-
-<div align="center">
-  <img src="./docs/public/images/agents-ecosystem.svg" alt="Autonomous AI agents ecosystem: AGENTS.md orchestrating code-reviewer, principal-engineer, plan-specialist, and devops-engineer with OWASP security, SOLID principles, and zero secrets" width="100%" />
-</div>
-
-### Specialist agent roles
-
-| Agent | File | Purpose & Responsibilities |
-|---|---|---|
-| 🧐 **Code Reviewer** | [`.agents/agents/code-reviewer.agent.md`](.agents/agents/code-reviewer.agent.md) | Adversarial diff reviews, OWASP security audits, contract regressions, and dead code elimination. |
-| 🚢 **DevOps Engineer** | [`.agents/agents/devops-engineer.agent.md`](.agents/agents/devops-engineer.agent.md) | CI/CD pipelines, container hardening, Kubernetes manifests, Terraform IaC, and deployment rollbacks. |
-| 📐 **Plan Specialist** | [`.agents/agents/plan-specialist.agent.md`](.agents/agents/plan-specialist.agent.md) | Multi-step engineering plans, architecture migrations, cross-cutting vertical slices, and acceptance criteria. |
-| 🛠️ **Principal Engineer** | [`.agents/agents/principal-engineer.agent.md`](.agents/agents/principal-engineer.agent.md) | Tech lead executor: implements approved plans, writes production-ready code, enforces SOLID/KISS, and runs quality gates. |
+Review and security work belongs to `code-review` and `security-ops`; planning belongs to `requirements-planning`; repository orientation and implementation execution belong to `starting-dev`. See the [custom-agent migration map](docs/migration-agents-to-skills.md) for the complete mapping.
 
 ### Enterprise operating guardrails
 
-All agents and skills operate under four non-negotiable hats with explicit veto priority:
+All skills operate under four non-negotiable hats with explicit veto priority:
 
 1. **SecOps (Veto)**: Zero secrets in git/logs, least-privilege tokens, OWASP Top 10 defenses, supply chain integrity.
 2. **QA (Proof)**: Every behavior change requires a failing reproduction before patching; flaky tests are treated as broken.
@@ -199,7 +186,7 @@ picked up the task, and name it yourself when it did not.
 ```mermaid
 flowchart LR
     A["1 · Decide<br/>stack-selection<br/>software-architecture"] --> B["2 · Frame<br/>requirements-planning<br/>starting-dev · web-research"]
-    B --> C["3 · Build<br/>backend · packages · frontend<br/>mobile · ios · data · tooling · agents"]
+    B --> C["3 · Build<br/>backend · packages · frontend<br/>mobile · ios · data · tooling"]
     C --> D["4 · Prove<br/>test-engineering<br/>performance-engineering"]
     D --> E["5 · Review<br/>code-review<br/>security-ops"]
     E --> F["6 · Ship<br/>finishing-dev<br/>git-workflow · cloud-devops · release-autoupdate"]
@@ -280,7 +267,7 @@ domain that owns what comes next. You keep writing prose.
 | `code-review` | adversarial review, sibling bug variants, legacy code recovery, characterization tests, simplifying working code, and deleting proven dead code |
 | `data-engineering` | PostgreSQL, MySQL, Redis, schema migrations, zero-downtime DDL, query plans, indexes, backups and point-in-time restore, pandas profiling, and aggregation |
 | `documentation` | README, docs verification, Mermaid diagrams as code, ASCII and terminal figures, code snippet images, PDF/DOCX generation, and OpenAPI reference |
-| `finishing-dev` | review-before-PR delivery, PR descriptions, homologação/homologar (prove it works on the real target), and acceptance evidence |
+| `finishing-dev` | PR delivery, descriptions, acceptance evidence, homologação (prove it on the real target), and return to the default branch with or without pipeline monitoring |
 | `frontend-engineering` | React, Next.js, Vite, Tailwind, WCAG accessibility, i18n and RTL, visual hierarchy, color palettes, anti-slop styling, animation, easing, motion, UI states, and masonry |
 | `git-workflow` | branches, worktrees, rebase conflicts, reflog recovery, stash, bisect, conventional commits, semantic version bumps, changelogs, and release tags |
 | `goldsrc-modding` | Valve 220 .map geometry, ZHLT/VHLT compiles, BSP30 lumps, CS 1.6 entities, and Pawn (.sma/.amxx) natives, forwards, precache, and crash forensics |
@@ -292,12 +279,12 @@ domain that owns what comes next. You keep writing prose.
 | `performance-engineering` | endpoint profiling, k6 load tests, bottlenecks, N+1 queries, memory leaks, LCP/INP, autonomous metric loops, and rightsizing costs |
 | `radar-ia` | the daily AI radar and best-posts digests; not for one-paper research or debugging |
 | `release-autoupdate` | multi-platform release jobs, minisign artifact signing, conventional commit version bumps, updater manifests, and in-app update checks |
-| `requirements-planning` | acceptance criteria, PRDs and specs, agent briefs with finish lines, vertical-slice backlog issues, and triage of incoming issues |
+| `requirements-planning` | acceptance criteria, PRDs and specs, implementation briefs with finish lines, vertical-slice backlog issues, and triage of incoming issues |
 | `security-ops` | vulnerability audits, pen tests, CVE scans, Gitleaks remediation, least privilege, threat modeling, LGPD/GDPR privacy, and plugin or MCP server vetting |
 | `skill-authoring` | a new SKILL.md, gotchas sections, progressive-disclosure references, skill scripts and persistent data, splitting a skill that straddles domains, and deciding whether a recurring task deserves a skill |
 | `software-architecture` | module boundaries, ubiquitous language and CONTEXT.md glossaries, repository layout, Electron multi-process security, ADRs, and circular dependencies |
 | `stack-selection` | TypeScript, Bun versus Node, pnpm, uv, NestJS, Biome, Scalar versus Swagger, an LLM SDK, Tauri versus Electron, picking a package manager, framework, ORM, linter, or UI library (toasts), and adopting or replacing a dependency |
-| `starting-dev` | AGENTS.md or CLAUDE.md project instructions and README, onboarding by charting an unfamiliar codebase and its dependencies, the dev loop (research, throwaway prototypes, plan, implement), worktrees, task stages, session handoffs |
+| `starting-dev` | AGENTS.md or CLAUDE.md project instructions and README, onboarding by charting an unfamiliar codebase and its dependencies, the dev loop (research, throwaway prototypes, plan, implement), worktrees awaiting PRs, task stages, session handoffs |
 | `test-engineering` | unit and integration tests, Vitest, pytest, Playwright E2E, flaky test elimination, LLM gateway conformance, and coverage |
 | `threejs` | GLTF/GLB model viewers, cameras, lighting, raycasting, shaders, animation, WebGL/WebGPU rendering, asset loading, scene performance, and GPU resource cleanup |
 | `tooling-dev` | CLI arguments, exit codes, non-interactive execution, config discovery, signals, structured output, packaging, and integration tests |
@@ -378,7 +365,6 @@ Every skill adheres to a strict, standardized anatomy designed for predictable e
 
 | Resource | Purpose |
 |---|---|
-| [Specialist agents](.agents/agents/) | Code review, planning, principal engineering, and DevOps roles |
 | [Shared operating instructions](.agents/AGENTS.md) | Hats, confirmation table, rules, validation gates, and the final report format |
 | [Client configs](.agents/clients/) | Token-optimized `settings.json` (Claude Code) and `config.toml` (Codex) |
 | [Repository contract](./AGENTS.md) | How to maintain and validate this catalog |

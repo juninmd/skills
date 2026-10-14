@@ -5,7 +5,7 @@ import path from "node:path";
 import test from "node:test";
 import { validatePlugin } from "./validate-plugin.mjs";
 
-const manifest = { name: "sample-skills", description: "Sample plugin.", version: "1.2.3", license: "MIT", skills: ".agents/skills", agents: ".agents/agents" };
+const manifest = { name: "sample-skills", description: "Sample plugin.", version: "1.2.3", license: "MIT", skills: ".agents/skills" };
 
 function createRepo({ source = "./.agents", claude = {}, entry = {}, extraPlugins = [] } = {}) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "plugin-validator-"));
@@ -14,7 +14,6 @@ function createRepo({ source = "./.agents", claude = {}, entry = {}, extraPlugin
     fs.writeFileSync(path.join(root, file), JSON.stringify(value));
   };
   fs.mkdirSync(path.join(root, ".agents/skills"), { recursive: true });
-  fs.mkdirSync(path.join(root, ".agents/agents"), { recursive: true });
   write("plugin.json", manifest);
   write(".agents/.claude-plugin/plugin.json", { name: "sample", description: "Sample plugin.", version: "1.2.3", license: "MIT", ...claude });
   write(".claude-plugin/marketplace.json", {

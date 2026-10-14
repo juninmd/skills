@@ -23,7 +23,7 @@ Existing real files are renamed to `*.bak-<timestamp>` before linking. Links tha
 
 Install either the full bundle or only the domains you need from the [`.claude-plugin/marketplace.json`](../.claude-plugin/marketplace.json) marketplace:
 
-- `juninmd@skills`: Full bundle (all 32 skills + 4 agents).
+- `juninmd@skills`: Full bundle (all 32 skills).
 - `juninmd-core@skills`: Core workflow, requirements, review, testing, documentation.
 - `juninmd-web@skills`: Frontend, mobile, iOS, design tokens, motion, 3D.
 - `juninmd-backend@skills`: Backend, database, architecture, packaging, CLI tooling.
@@ -48,7 +48,7 @@ npx skills add juninmd/skills --list                    # preview the catalog
 npx skills add juninmd/skills --skill backend-systems   # copy one skill
 ```
 
-Copies do not follow the repository and do not include the agents or operating instructions.
+Copies do not follow the repository and do not include the repository operating instructions.
 
 ## Invoke
 

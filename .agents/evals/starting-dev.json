@@ -3,6 +3,10 @@
   "trigger": {
     "positive": [
       {
+        "prompt": "Before starting development, inspect existing worktrees for pending PRs and modified files, and ask whether to switch to the default branch",
+        "top_k": 3
+      },
+      {
         "prompt": "Author an AGENTS.md file to define project instructions, scope boundaries, and context rules",
         "top_k": 3
       },

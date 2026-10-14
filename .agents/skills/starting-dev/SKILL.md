@@ -1,7 +1,7 @@
 ---
 name: starting-dev
 description: |
-  Start development. Use for AGENTS.md or CLAUDE.md project instructions and README, onboarding by charting an unfamiliar codebase and its dependencies, the dev loop (research, throwaway prototypes, plan, implement), worktrees, task stages, session handoffs. Trigger on 'onboard me', 'where do I start'. Not PRDs (requirements-planning) or PR delivery (finishing-dev).
+  Start development. Use for AGENTS.md or CLAUDE.md project instructions and README, onboarding by charting an unfamiliar codebase and its dependencies, the dev loop (research, throwaway prototypes, plan, implement), worktrees awaiting PRs, task stages, session handoffs. Trigger on 'onboard me', 'where do I start'. Not PRDs (requirements-planning) or PR delivery (finishing-dev).
 ---
 
 # Starting Development
@@ -20,11 +20,12 @@ Establish the request, current instructions, worktree ownership, stack, and exis
 ```bash
 git status --short
 git branch --show-current
+git worktree list --porcelain
 rg --files --hidden -g AGENTS.md -g CLAUDE.md -g README.md -g '.github/workflows/*' -g '!.git' -g '!node_modules' -g '!target'
 ls package.json Cargo.toml pyproject.toml go.mod pom.xml 2>/dev/null   # detected stack: read only the manifests that exist
 ls "${TMPDIR:-${TEMP:-/tmp}}/starting-dev" 2>/dev/null   # loop workspaces of earlier sessions
 ```
-The last probe lists delivery workspaces (see [state contract](references/loop-state.md)); it is empty on a first run. Read the detected manifests, their lockfile, CI, and applicable instructions; do not infer runnable commands from filenames. Existing modifications are not a reason to clean or stash somebody else's work.
+The last probe lists delivery workspaces (see [state contract](references/loop-state.md)); it is empty on a first run. Execute [Git preflight](references/git-preflight.md): resolve the actual default branch, inspect modifications in every available worktree, and identify work potentially awaiting a PR. If the current checkout is not on the default branch (including detached HEAD), ask whether to switch or continue here; honor an answer already given in this session. Continue read-only discovery while waiting, but defer branch-dependent edits. Read detected manifests, lockfiles, CI, and instructions; derive commands from actual scripts. Never clean or stash unrelated work.
 
 ## Workflow
 1. Establish goal, constraints, non-goals, and measurable acceptance criteria. Open with one sentence of what you believe is wanted and an honest confidence number; under 70%, name what is missing on the same line. This skill only closes gaps in a request that is mostly specified; a request with no acceptance criteria belongs to `requirements-planning`:
@@ -73,6 +74,8 @@ Keep loop state only for sustained delivery or when a workspace already tracks t
 - Session memory outside the workspace requires an explicit user request; see [session learnings](references/session-learnings.md).
 
 ## Checklist
+- [ ] Default and current branches verified; a non-default/detached checkout prompted a switch-or-stay decision before edits.
+- [ ] Worktrees, local modifications, and possible pending PRs reported with ownership and remote-evidence limits.
 - [ ] Goal, non-goals, acceptance criteria, and uncertain decisions recorded in the workspace `research.md` or `plan.md`.
 - [ ] Real flow cited with at least one `file:line`; each setup, test, and build command listed was run, with its exit code noted.
 - [ ] Runtime choice preserves existing constraints; new choices follow the stated priority.

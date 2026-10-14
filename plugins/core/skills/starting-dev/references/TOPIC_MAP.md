@@ -10,6 +10,7 @@ Open only the procedure matching the current subtask. These are files, not stand
 | [delivery-principles.md](delivery-principles.md) | Caution and simplicity rules plus lifecycle cases (vague request, plan, issue breakdown, finish) while planning or implementing |
 | [entry-format.md](entry-format.md) | Format an explicitly requested durable learning entry with provenance and tags |
 | [grill-me.md](grill-me.md) | Iteratively interview to resolve decision branches and ambiguities with recommendations |
+| [git-preflight.md](git-preflight.md) | Every start/resume: resolve default branch, ask switch-or-stay off-default, inspect dirty worktrees and possible pending PRs without cleanup |
 | [human-step-wizard.md](human-step-wizard.md) | Guide genuinely manual account or device setup without requesting credentials |
 | [loop-state.md](loop-state.md) | Resume a sustained delivery task without losing gates, artifacts, or authority |
 | [phase-implement.md](phase-implement.md) | Execute domain slices and collect evidence before final independent review |
