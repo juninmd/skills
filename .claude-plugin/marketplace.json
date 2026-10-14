@@ -10,37 +10,37 @@
       "name": "juninmd",
       "source": "./.agents",
       "description": "Complete bundle: all 32 production-grade engineering skills.",
-      "version": "1.3.0"
+      "version": "1.4.0"
     },
     {
       "name": "juninmd-core",
       "source": "./plugins/core",
       "description": "Core software development lifecycle: planning, onboarding, git, review, characterization testing, and documentation.",
-      "version": "1.3.0"
+      "version": "1.4.0"
     },
     {
       "name": "juninmd-web",
       "source": "./plugins/web",
       "description": "Frontend, mobile, and design engineering: React, Next.js, Vite, Tailwind, iOS Swift, motion, and 3D.",
-      "version": "1.3.0"
+      "version": "1.4.0"
     },
     {
       "name": "juninmd-backend",
       "source": "./plugins/backend",
       "description": "Backend services, APIs, databases, architecture, package management, tooling, and modding.",
-      "version": "1.3.0"
+      "version": "1.4.0"
     },
     {
       "name": "juninmd-devops",
       "source": "./plugins/devops",
       "description": "Cloud infrastructure, CI/CD, containers, observability, performance engineering, automated releases, and security auditing.",
-      "version": "1.3.0"
+      "version": "1.4.0"
     },
     {
       "name": "juninmd-ai",
       "source": "./plugins/ai",
       "description": "AI agent architecture, MCP servers, subagent orchestration, skill authoring, automated image loops, and daily AI ecosystem radar.",
-      "version": "1.3.0"
+      "version": "1.4.0"
     }
   ]
 }
