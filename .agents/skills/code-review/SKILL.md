@@ -29,6 +29,11 @@ Substitute the actual symbol. Resolve the base rather than assuming a branch nam
 5. If fixes or simplification are requested, route domain implementation to the appropriate sibling such as `backend-systems` or `frontend-engineering`. For cleanup owned here, use [legacy refactoring](references/legacy-refactoring.md) to characterize uncertain behavior before changing it. Preserve behavior, public contracts, and unrelated modifications.
 6. Re-run meaningful scoped checks after authorized edits. Re-read the final diff; route independent pre-PR delivery to `finishing-dev`, specialized security audit to `security-ops`, and boundary redesign to `software-architecture`.
 
+When dependencies change, inspect consumers and compare the locked old and new
+versions using the official changelog and migration guidance. Check patch and
+minor releases for behavioral or compatibility breaks, including transitive
+changes, and report the affected caller, evidence, and smallest correction.
+
 Use the severity scale in [expert review](references/expert-review.md): Blocker, Major (a real-path defect without a workaround or an untested risky branch), Minor, and Nit. Linter-owned items and unestablished style preferences are Nit at most; architecture, SOLID, and patterns require a concrete consequence to rise above Minor. A verdict is `APPROVE` when no Blocker remains and every Major is fixed or has a recorded reason; use `REQUEST_CHANGES` otherwise, or `COMMENT` when no verdict is given. When there are zero findings, say so and record residual risks.
 
 For a structured review, use this compact report shape and omit empty sections:

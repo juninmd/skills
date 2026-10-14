@@ -1,7 +1,7 @@
 ---
 name: security-ops
 description: |
-  Audit and harden code, dependencies, secrets, personal data, access boundaries, and extensions. Use for vulnerability audits, pen tests, CVE scans, Gitleaks remediation, least privilege, threat modeling, LGPD/GDPR privacy, and plugin or MCP server vetting. Trigger on 'is this secure', 'run a security audit', 'we leaked a key', 'are we LGPD compliant', 'can I trust this plugin'.
+  Audit dependencies, code, secrets, privacy, and access. Use for CVE scans, dependency registry publication age and provenance reviews, vulnerability audits, pen tests, Gitleaks, least privilege, threat modeling, LGPD/GDPR, and plugin/MCP vetting. Trigger on 'is this secure', 'run a security audit', 'we leaked a key', 'are we LGPD compliant', 'can I trust this plugin'.
 ---
 
 # Security Operations
@@ -26,6 +26,13 @@ Establish scope, permitted targets, repository visibility and installed scanner 
 4. For a suspected live credential, report redacted evidence and prepare revocation/rotation using the incident owner's process. Use existing authority or request it before credential or infrastructure mutations; history rewriting cannot revoke an exposed credential.
 5. Remediate the control failure with scoped patches, then exercise the original exploit path and relevant denial cases against an isolated environment.
 6. Report blocking findings, deferred findings with reason/owner, and verification gaps. Hand delivery to `finishing-dev` after the relevant security gate passes.
+
+For dependency changes, the exact-lock supply-chain gate is mandatory. Unknown
+scanner coverage, advisory freshness, registry publication/age, provenance, or
+full-CI-build evidence blocks a clean-ready claim; do not silently disable the
+check or create an automatic waiver. Security owns risk, advisories, age, and
+provenance; route consumer compatibility and upgrade behavior to `code-review`
+and lockfile/package-manager application to `package-management`.
 
 ## Scan Selection
 

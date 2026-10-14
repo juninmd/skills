@@ -2,6 +2,7 @@
   "name": "juninmd-skills",
   "version": "1.3.0",
   "description": "Engineering skills for AI coding assistants",
+  "packageManager": "pnpm@10.34.5",
   "scripts": {
     "plugin:validate": "node .agents/tools/validate-plugin.mjs",
     "plugins:generate": "node .agents/tools/generate-plugins.mjs",
@@ -16,6 +17,9 @@
     "evals:plugin": "claude plugin eval .agents --no-publish --max-cost-usd 5 --threshold 0.8",
     "pr:check": "node .agents/tools/pr-skill-checks.mjs",
     "test:validators": "node --test .agents/tools/*.test.mjs",
+    "dependencies:age": "node .agents/tools/check-dependency-age.mjs",
+    "dependencies:audit": "pnpm audit",
+    "dependencies:check": "pnpm run dependencies:age && pnpm run dependencies:audit",
     "validate": "pnpm run plugin:validate && pnpm run skills:validate && pnpm run catalog:check && pnpm run domains:check && pnpm run tokens:check && pnpm run evals:check && pnpm run spell && pnpm run links && pnpm run test:validators",
     "docs:dev": "npx vitepress dev docs",
     "docs:build": "npx vitepress build docs",
@@ -30,6 +34,7 @@
     "yaml": "^2.9.0"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=18.0.0",
+    "pnpm": ">=10.34.5 <11"
   }
 }

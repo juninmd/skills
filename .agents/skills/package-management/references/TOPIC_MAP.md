@@ -30,4 +30,5 @@ Read only the files needed for the current task.
 | `migration-checklist.md` | Migrating a Python project off pip/requirements.txt or setup.py onto uv |
 | `prek.md` | Choosing or migrating to prek instead of Python pre-commit for faster hook execution |
 | `dependabot.md` | Adding or tuning automated dependency-update PRs — schedule, cooldown, grouping |
+| `dependency-policy.md` | Release-age cooldowns, exact pins, registry evidence, changelog/migration review, and ownership gates for updates |
 | `security-setup.md` | Installing or wiring security tooling (prek, secret scanners, actionlint, shellcheck) into a repo's pre-commit/CI |
