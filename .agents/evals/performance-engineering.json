@@ -1,0 +1,37 @@
+{
+  "skill_name": "performance-engineering",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Profile slow endpoint latency and optimize bottleneck throughput",
+        "top_k": 3
+      },
+      {
+        "prompt": "Optimize Core Web Vitals LCP, INP, and CLS on slow web page",
+        "top_k": 3
+      },
+      {
+        "prompt": "Run autonomous metric loop to optimize benchmark throughput and memory footprint",
+        "top_k": 3
+      },
+      {
+        "prompt": "Reduce cloud spend and LLM token budget by rightsizing resources",
+        "top_k": 3
+      },
+      {
+        "prompt": "Run a k6 load test against the API before launch",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Set up structured logging, metrics, and alerting for production",
+        "owner": "observability"
+      },
+      {
+        "prompt": "Fix the React hydration mismatch in our Next.js app",
+        "owner": "frontend-engineering"
+      }
+    ]
+  }
+}

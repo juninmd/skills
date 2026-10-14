@@ -1,0 +1,33 @@
+{
+  "skill_name": "software-architecture",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Design system architecture, module boundaries, and dependency directions",
+        "top_k": 3
+      },
+      {
+        "prompt": "Establish ubiquitous language domain vocabulary and write CONTEXT.md",
+        "top_k": 3
+      },
+      {
+        "prompt": "Restructure repository layout and decouple circular module dependencies",
+        "top_k": 3
+      },
+      {
+        "prompt": "Architect secure Electron desktop application splitting main and renderer processes",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Map entry points and trace execution flow in an unfamiliar legacy codebase",
+        "owner": "starting-dev"
+      },
+      {
+        "prompt": "Make working code simpler and delete dead functions",
+        "owner": "code-review"
+      }
+    ]
+  }
+}

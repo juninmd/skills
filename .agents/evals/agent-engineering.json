@@ -1,0 +1,45 @@
+{
+  "skill_name": "agent-engineering",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Design autonomous agent loop with strict tool schemas and execution bounds",
+        "top_k": 3
+      },
+      {
+        "prompt": "Build Model Context Protocol MCP server with stdio or SSE transport",
+        "top_k": 3
+      },
+      {
+        "prompt": "Manage context window token budgets with pruning and sliding memory",
+        "top_k": 3
+      },
+      {
+        "prompt": "Our agent's system prompt has rules that contradict the tool descriptions, trim it for Claude 5",
+        "top_k": 3
+      },
+      {
+        "prompt": "Defend this agent against prompt injection coming from retrieved documents",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Scan repository for leaked credentials and hardcoded secrets with Gitleaks",
+        "owner": "security-ops"
+      },
+      {
+        "prompt": "Build command line CLI tool with argument parsing",
+        "owner": "tooling-dev"
+      },
+      {
+        "prompt": "Fan out one subagent per service to audit the retry bug and verify each report",
+        "owner": "agent-orchestration"
+      },
+      {
+        "prompt": "Write a new SKILL.md with a gotchas section and routing evals",
+        "owner": "skill-authoring"
+      }
+    ]
+  }
+}

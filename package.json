@@ -1,0 +1,34 @@
+{
+  "name": "juninmd-skills",
+  "version": "1.0.0",
+  "description": "Skills and agents for AI coding assistants",
+  "scripts": {
+    "plugin:validate": "node .agents/tools/validate-plugin.mjs",
+    "agents:validate": "node .agents/tools/validate-agents.mjs .agents",
+    "catalog:generate": "node .agents/tools/generate-catalog.mjs",
+    "catalog:check": "node .agents/tools/check-catalog.mjs",
+    "domains:check": "node .agents/tools/check-domains.mjs",
+    "tokens:report": "node .agents/tools/tokens-report.mjs .agents",
+    "tokens:check": "node .agents/tools/tokens-report.mjs .agents --check",
+    "evals": "node .agents/tools/run-evals.mjs .agents",
+    "evals:check": "node .agents/tools/run-evals.mjs .agents --check --min-rank1 95",
+    "evals:plugin": "claude plugin eval .agents --no-publish --max-cost-usd 5 --threshold 0.8",
+    "pr:check": "node .agents/tools/pr-skill-checks.mjs",
+    "test:validators": "node --test .agents/tools/*.test.mjs",
+    "validate": "pnpm run plugin:validate && pnpm run agents:validate && pnpm run catalog:check && pnpm run domains:check && pnpm run tokens:check && pnpm run evals:check && pnpm run spell && pnpm run links && pnpm run test:validators",
+    "docs:dev": "npx vitepress dev docs",
+    "docs:build": "npx vitepress build docs",
+    "docs:preview": "npx vitepress preview docs",
+    "spell": "cspell --config cspell.json --no-progress README.md \"docs/**/*.md\" .agents/AGENTS.md \".agents/agents/**/*.md\" \".agents/skills/**/*.md\"",
+    "links": "node .agents/tools/check-links.mjs",
+    "install:clients": "node .agents/tools/install.mjs"
+  },
+  "devDependencies": {
+    "cspell": "^8.19.4",
+    "vitepress": "^1.6.3",
+    "yaml": "^2.9.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

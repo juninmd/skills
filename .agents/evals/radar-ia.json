@@ -1,0 +1,33 @@
+{
+  "skill_name": "radar-ia",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Me atualize sobre IA: o que rolou essa semana no github trending e no reddit sobre claude code",
+        "top_k": 3
+      },
+      {
+        "prompt": "Gera o radar diário do ecossistema de coding agents com Hacker News, Hugging Face e changelogs",
+        "top_k": 3
+      },
+      {
+        "prompt": "Melhores posts do reddit sobre claude code, codex e copilot desta semana em um digest pt-BR",
+        "top_k": 3
+      },
+      {
+        "prompt": "Sweep the AI ecosystem: GitHub trending, Reddit RSS and Hacker News into a dated digest with raw dumps",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Find and cite primary sources answering whether this library supports streaming responses",
+        "owner": "web-research"
+      },
+      {
+        "prompt": "Design the agent loop, MCP tools and context pruning for a headless subagent pipeline",
+        "owner": "agent-engineering"
+      }
+    ]
+  }
+}

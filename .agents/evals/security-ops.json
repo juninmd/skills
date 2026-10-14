@@ -1,0 +1,53 @@
+{
+  "skill_name": "security-ops",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Scan repository for leaked credentials and hardcoded secrets with Gitleaks",
+        "top_k": 3
+      },
+      {
+        "prompt": "Audit third-party MCP server and extension for prompt injection or data exfiltration",
+        "top_k": 3
+      },
+      {
+        "prompt": "Harden API access boundaries, implement least privilege and zero-trust policies",
+        "top_k": 3
+      },
+      {
+        "prompt": "Scan dependencies for known CVE vulnerabilities and remediate supply chain risks",
+        "top_k": 3
+      },
+      {
+        "prompt": "Run a full end-to-end vulnerability audit and pen test of this codebase",
+        "top_k": 3
+      },
+      {
+        "prompt": "Are we LGPD compliant storing user emails and CPF, and how fast must we report a breach",
+        "top_k": 3
+      },
+      {
+        "prompt": "Review .mcp.json for npx servers using @latest or unpinned versions before we approve it",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Write a GitHub Actions CI/CD workflow to build and deploy containers",
+        "owner": "cloud-devops"
+      },
+      {
+        "prompt": "Design system architecture and module boundaries",
+        "owner": "software-architecture"
+      },
+      {
+        "prompt": "Review this diff for correctness bugs and missed edge cases",
+        "owner": "code-review"
+      },
+      {
+        "prompt": "Finish this feature branch and open the pull request",
+        "owner": "finishing-dev"
+      }
+    ]
+  }
+}

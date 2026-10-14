@@ -1,0 +1,49 @@
+{
+  "skill_name": "observability",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Set up structured logging, metrics, and alerting for production",
+        "top_k": 3
+      },
+      {
+        "prompt": "Investigate production outage, assess incident severity, and coordinate on-call triage",
+        "top_k": 3
+      },
+      {
+        "prompt": "Trace distributed request timeouts, network failures, and latency spikes across microservices",
+        "top_k": 3
+      },
+      {
+        "prompt": "Write a blameless postmortem for the production service downtime",
+        "top_k": 3
+      },
+      {
+        "prompt": "This function returns the wrong total, find the bug and its root cause",
+        "top_k": 3
+      },
+      {
+        "prompt": "Define SLOs and error budgets for the checkout service",
+        "top_k": 3
+      },
+      {
+        "prompt": "Set up an A/B test for the new onboarding flow and a tracking plan for its events",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Write a GitHub Actions CI/CD workflow to build and deploy containers",
+        "owner": "cloud-devops"
+      },
+      {
+        "prompt": "Profile slow endpoint latency and optimize bottleneck throughput",
+        "owner": "performance-engineering"
+      },
+      {
+        "prompt": "Run a k6 load test against the API before launch",
+        "owner": "performance-engineering"
+      }
+    ]
+  }
+}

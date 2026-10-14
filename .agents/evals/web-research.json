@@ -1,0 +1,33 @@
+{
+  "skill_name": "web-research",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Conduct live web research to verify recent library release facts and changelogs",
+        "top_k": 3
+      },
+      {
+        "prompt": "Extract table listings from websites using resilient web scraping with retries",
+        "top_k": 3
+      },
+      {
+        "prompt": "Verify library dependency target version and check breaking changes before upgrade",
+        "top_k": 3
+      },
+      {
+        "prompt": "Perform multi-source web search and synthesize findings with cited URLs",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Write comprehensive README and API documentation from OpenAPI specifications",
+        "owner": "documentation"
+      },
+      {
+        "prompt": "Design autonomous agent loop with strict tool schemas and execution bounds",
+        "owner": "agent-engineering"
+      }
+    ]
+  }
+}

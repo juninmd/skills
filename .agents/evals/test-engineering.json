@@ -1,0 +1,37 @@
+{
+  "skill_name": "test-engineering",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Write failing unit tests first with Vitest and reproduce the bug before fixing",
+        "top_k": 3
+      },
+      {
+        "prompt": "Implement Playwright end-to-end browser automation tests for authentication flow",
+        "top_k": 3
+      },
+      {
+        "prompt": "Set up test regression gate and quiet checks runner for CI pipeline",
+        "top_k": 3
+      },
+      {
+        "prompt": "Eliminate flaky test suite failures caused by execution order dependence and unpinned timers",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Make working code simpler and delete dead functions",
+        "owner": "code-review"
+      },
+      {
+        "prompt": "Fix the React hydration mismatch in our Next.js app",
+        "owner": "frontend-engineering"
+      },
+      {
+        "prompt": "Run a k6 load test against the API before launch",
+        "owner": "performance-engineering"
+      }
+    ]
+  }
+}

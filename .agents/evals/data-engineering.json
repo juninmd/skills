@@ -1,0 +1,37 @@
+{
+  "skill_name": "data-engineering",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Write a complex SQL migration with zero-downtime DDL in PostgreSQL",
+        "top_k": 3
+      },
+      {
+        "prompt": "Profile this slow PostgreSQL query, analyze the query plan and add missing indexes",
+        "top_k": 3
+      },
+      {
+        "prompt": "Clean, aggregate, and inspect this dataset with pandas and profiling tools",
+        "top_k": 3
+      },
+      {
+        "prompt": "Design database schema and migration scripts for our new relational tables",
+        "top_k": 3
+      },
+      {
+        "prompt": "Set up database backups with point-in-time restore and run a restore drill",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Create a FastAPI endpoint with Pydantic v2 validation models and async controllers",
+        "owner": "backend-systems"
+      },
+      {
+        "prompt": "Deploy this Kubernetes service with Helm charts to our cloud cluster",
+        "owner": "cloud-devops"
+      }
+    ]
+  }
+}

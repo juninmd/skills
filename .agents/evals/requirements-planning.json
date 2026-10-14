@@ -1,0 +1,49 @@
+{
+  "skill_name": "requirements-planning",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Clarify ambiguous requirements and interview stakeholder before planning",
+        "top_k": 3
+      },
+      {
+        "prompt": "Create PRD specification and break it into backlog task issues",
+        "top_k": 3
+      },
+      {
+        "prompt": "Turn this vague request into actionable acceptance criteria",
+        "top_k": 3
+      },
+      {
+        "prompt": "Break down feature into vertical slices for incremental delivery",
+        "top_k": 3
+      },
+      {
+        "prompt": "Write an agent brief so an AFK agent can pick up this issue unattended",
+        "top_k": 3
+      },
+      {
+        "prompt": "Triage this batch of incoming GitHub issues and label them",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Map entry points and trace execution flow in an unfamiliar legacy codebase",
+        "owner": "starting-dev"
+      },
+      {
+        "prompt": "Write session handoff notes so a teammate can resume uninterrupted",
+        "owner": "starting-dev"
+      },
+      {
+        "prompt": "Design system architecture, module boundaries, and dependency directions",
+        "owner": "software-architecture"
+      },
+      {
+        "prompt": "Polish the wording and structure of an existing README",
+        "owner": "documentation"
+      }
+    ]
+  }
+}

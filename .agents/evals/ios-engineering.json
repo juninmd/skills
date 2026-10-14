@@ -1,0 +1,45 @@
+{
+  "skill_name": "ios-engineering",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Implement iOS Swift UI view lifecycle and background location updates",
+        "top_k": 3
+      },
+      {
+        "prompt": "Review this Swift closure for retain cycles and force-unwrap crashes",
+        "top_k": 3
+      },
+      {
+        "prompt": "Design a SwiftUI screen with Dynamic Type and Liquid Glass following Apple HIG",
+        "top_k": 3
+      },
+      {
+        "prompt": "Write a Metal compute shader and profile TBDR tile occupancy on Apple GPUs",
+        "top_k": 3
+      },
+      {
+        "prompt": "Build a WidgetKit Lock Screen widget that reloads its timeline from an App Group",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Build the React Native navigation and permissions flow for Expo",
+        "owner": "mobile-engineering"
+      },
+      {
+        "prompt": "Configure adaptive screen layouts and GoRouter navigation in Flutter",
+        "owner": "mobile-engineering"
+      },
+      {
+        "prompt": "Fix the React hydration mismatch in our Next.js app",
+        "owner": "frontend-engineering"
+      },
+      {
+        "prompt": "Write a WebGL fragment shader for a Three.js particle system",
+        "owner": "threejs"
+      }
+    ]
+  }
+}

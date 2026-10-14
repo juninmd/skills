@@ -1,0 +1,45 @@
+{
+  "skill_name": "backend-systems",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Build a NestJS module with dependency injection and DTO validation",
+        "top_k": 3
+      },
+      {
+        "prompt": "Create a FastAPI endpoint with Pydantic v2 validation models and async controllers",
+        "top_k": 3
+      },
+      {
+        "prompt": "Implement caching strategy with Redis, TTL and cache invalidation",
+        "top_k": 3
+      },
+      {
+        "prompt": "Design the REST API contract and OpenAPI spec for our backend service",
+        "top_k": 3
+      },
+      {
+        "prompt": "Implement compiled backend services and concurrent routines in Go, Rust, or .NET",
+        "top_k": 3
+      },
+      {
+        "prompt": "Implement a Bun TypeScript backend endpoint with request validation and graceful shutdown",
+        "top_k": 1
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Set up Vite, Tailwind, and shadcn/ui for this component system",
+        "owner": "frontend-engineering"
+      },
+      {
+        "prompt": "Write a complex SQL migration with zero-downtime DDL in PostgreSQL",
+        "owner": "data-engineering"
+      },
+      {
+        "prompt": "Set up pnpm workspace catalogs and migrate this repo's lockfile from npm",
+        "owner": "package-management"
+      }
+    ]
+  }
+}

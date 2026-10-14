@@ -1,0 +1,16 @@
+{
+  "skill_name": "motion-video",
+  "trigger": {
+    "positive": [
+      { "prompt": "Create a vertical 40 second motion graphics reel as code, rendering HTML scenes frame by frame to MP4 with ffmpeg", "top_k": 1 },
+      { "prompt": "Make a product news video like this reel with kinetic typography and HUD animation, then add a beat-synced music track", "top_k": 1 },
+      { "prompt": "Add a soundtrack to my rendered video locked to the scene cuts and normalized to -14 LUFS", "top_k": 1 },
+      { "prompt": "Faz um vídeo animado em código para reels, render quadro a quadro, e adiciona uma música", "top_k": 1 }
+    ],
+    "negative": [
+      { "prompt": "Build an accessible React form with responsive Tailwind components", "owner": "frontend-engineering" },
+      { "prompt": "Debug WebGPU shaders and raycasting in an interactive Three.js scene", "owner": "threejs" },
+      { "prompt": "Convert a VRoid avatar to VRM 1.0 and fix the MToon materials and blendshapes", "owner": "3d-models" }
+    ]
+  }
+}

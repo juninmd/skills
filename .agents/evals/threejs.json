@@ -1,0 +1,15 @@
+{
+  "skill_name": "threejs",
+  "trigger": {
+    "positive": [
+      { "prompt": "Build a Three.js GLTF model viewer with orbit camera controls and lighting", "top_k": 1 },
+      { "prompt": "Debug WebGPU rendering and shaders in an interactive Three.js scene", "top_k": 1 },
+      { "prompt": "Fix Three.js GPU resource leaks when replacing GLB models and disposing textures", "top_k": 1 },
+      { "prompt": "Add raycasting and animation to a WebGL canvas 3D scene", "top_k": 1 }
+    ],
+    "negative": [
+      { "prompt": "Build an accessible React form with responsive Tailwind components", "owner": "frontend-engineering" },
+      { "prompt": "Profile endpoint latency and benchmark p95 CPU and memory under load", "owner": "performance-engineering" }
+    ]
+  }
+}
