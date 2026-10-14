@@ -79,7 +79,7 @@ A dev server left running holds the port and confuses the next run.
 - Credentials come from the environment. A storage-state file holds live session cookies: keep it in the temp directory and never commit it.
 - Never screenshot code. A code image is unreadable to search, screen readers, and diffs — `documentation` exists for the deliberate cases.
 - This skill produces **ephemeral evidence** only. Committed visual-regression suites, `@playwright/test` as a real dependency, and snapshot baselines belong to `test-engineering`.
-- Attaching the result to a pull request belongs to `finishing-dev`.
+- Attaching the result to a pull request belongs to `finishing-dev` (upload to reviewer-accessible GitHub user-attachments URLs or use `gh --attach`; never local paths or raw branch URLs).
 
 ## Checklist
 - [ ] Frontend detected from `package.json`; server reachable at a known base URL with its pid recorded.

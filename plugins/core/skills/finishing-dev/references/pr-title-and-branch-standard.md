@@ -54,7 +54,8 @@ Environment and reproduction: <!-- route/command, viewport/terminal size, steps 
 Applicable formats / N/A reasons: <!-- select based on the actual change -->
 
 ### Before / after screenshots — when applicable
-<!-- attach real captures at reviewer-accessible URLs -->
+<!-- attach real captures using uploaded user-attachments URLs, e.g. ![alt](https://github.com/user-attachments/assets/<uuid>) -->
+<!-- never local file paths or raw branch URLs -->
 
 ### Interaction recording — when applicable
 <!-- attach GIF or link/upload video; show trigger, sequence, and result -->
@@ -63,7 +64,7 @@ Applicable formats / N/A reasons: <!-- select based on the actual change -->
 <!-- paste the actual command and output in a console fenced block -->
 ~~~
 
-Replace placeholders with actual evidence and omit inapplicable subsections. A local temp path or this empty template is not an attachment; never present example output as a real run.
+Replace placeholders with actual evidence and omit inapplicable subsections. A local temp path, raw branch URL, or this empty template is not a reviewer-accessible attachment; never present example output as a real run.
 
 ## Worked example
 
