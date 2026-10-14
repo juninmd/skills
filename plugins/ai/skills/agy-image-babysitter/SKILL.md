@@ -5,33 +5,50 @@ description: |
 license: MIT
 metadata:
   version: "1.1.0"
-compatibility: windows (PowerShell 7); agy CLI logged in
+compatibility: windows, linux, macos; agy CLI logged in
 ---
 
 # agy image babysitter
 
-Runs `babysitter.ps1` (this folder) in the background: a loop that relaunches
+Runs `babysitter.sh` (Linux/macOS) or `babysitter.ps1` (Windows) in the background: a loop that relaunches
 `agy --conversation <id> --print "<prompt>" --dangerously-skip-permissions --print-timeout 10h`
 and handles the two known deaths.
 
 **Not this skill:** generating images yourself, or any non-agy automation (`tooling-dev`).
 
 ## Preflight
+
+```bash
+# Linux / macOS
+ls -t "$HOME/.gemini/antigravity-cli/conversations/"*.db 2>/dev/null | head -n 1
+agy agentapi get-conversation-metadata
+pgrep -f "agy" || true
+```
+
 ```powershell
+# Windows (PowerShell)
 Get-ChildItem "$HOME\.gemini\antigravity-cli\conversations\*.db" | Sort-Object LastWriteTime | Select-Object -Last 1   # newest conversation of the project
 agy agentapi get-conversation-metadata          # alternative (see memory agy-antigravity-cli)
 Get-Process agy -ErrorAction SilentlyContinue   # another interactive agy open? it renews the OAuth token cache
 ```
+
 Take `ConversationId` and `ProjectDir` from the newest conversation above, or ask the user; never hard-code them in this file.
 
 ## Workflow
 1. Find the conversation id (Preflight).
-2. Launch in the background from the session shell (PowerShell tool, `run_in_background: true`); `<skill-dir>` is where this skill is installed, for example `$HOME\.claude\skills\agy-image-babysitter`:
+2. Launch in the background from the session shell (`run_in_background: true`); `<skill-dir>` is where this skill is installed:
+
+Linux / macOS:
+```bash
+bash "<skill-dir>/babysitter.sh" -c <id> -d <project-folder>
+```
+
+Windows (PowerShell):
 ```powershell
 & "$env:LOCALAPPDATA\Programs\PowerShell\7\pwsh.exe" -NoProfile -ExecutionPolicy Bypass -File "<skill-dir>\babysitter.ps1" -ConversationId <id> -ProjectDir <project-folder>
 ```
 3. Arm a stall Monitor: 30+ min without a new image in the output directory → alert with the error from `cli.log`.
-4. Pass `-Prompt` when the default prompt does not apply. The default prompt says: continue from the exact point, save to the canonical paths, and send each image on Telegram (credentials in the project `.env`).
+4. Pass `-Prompt` (or `-p` in bash) when the default prompt does not apply. The default prompt says: continue from the exact point, save to the canonical paths, and send each image on Telegram (credentials in the project `.env`).
 
 | Symptom | Action |
 |---|---|
@@ -40,7 +57,7 @@ Take `ConversationId` and `ProjectDir` from the newest conversation above, or as
 | Short quota (~3-4h, ~18 images) vs long quota (weekly, ~143h) | both handled identically by the script |
 | No new image for 30+ min | Monitor alerts; read the last error in `cli.log` |
 | Claude session ended | the process dies with it; relaunch in the new session if generation is not finished |
-| Script exits after 100 relaunches with generation unfinished | `-MaxRounds` defaults to 100 (see `babysitter.ps1`); the loop stops there even if quota and auth are fine | Pass a higher `-MaxRounds` up front for a long unattended run, or relaunch once more when the Monitor reports the process has exited |
+| Script exits after 100 relaunches with generation unfinished | `-MaxRounds` defaults to 100 (see `babysitter.ps1` / `babysitter.sh`); the loop stops there even if quota and auth are fine | Pass a higher `-MaxRounds` up front for a long unattended run, or relaunch once more when the Monitor reports the process has exited |
 
 ## Stop
 - A paid provider is proposed: zero cost is the user's rule. This flow uses only the free Google plan quota.
