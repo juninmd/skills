@@ -1,0 +1,137 @@
+<svg width="1080" height="600" viewBox="0 0 1080 600" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="ecoTitle ecoDesc">
+  <title id="ecoTitle">Autonomous AI Agents Ecosystem</title>
+  <desc id="ecoDesc">AGENTS.md core orchestrating specialist agents, technical domains, and zero-trust engineering guardrails.</desc>
+  <defs>
+    <linearGradient id="ecoBg" x1="0" y1="0" x2="1080" y2="600" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0b1020"/>
+      <stop offset="0.5" stop-color="#0f172a"/>
+      <stop offset="1" stop-color="#090d16"/>
+    </linearGradient>
+    <radialGradient id="centerGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#6366f1" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#6366f1" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="coreGrad" x1="450" y1="210" x2="630" y2="390" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#38bdf8"/>
+      <stop offset="0.5" stop-color="#818cf8"/>
+      <stop offset="1" stop-color="#a855f7"/>
+    </linearGradient>
+    <filter id="ecoGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <rect width="1080" height="600" rx="20" fill="url(#ecoBg)"/>
+
+  <!-- Outer Orbit Rings -->
+  <circle cx="540" cy="300" r="230" stroke="#1e293b" stroke-width="1.5" stroke-dasharray="4 6"/>
+  <circle cx="540" cy="300" r="160" stroke="#334155" stroke-width="1.5"/>
+  <circle cx="540" cy="300" r="280" fill="url(#centerGlow)"/>
+
+  <!-- Connecting Lines from Center -->
+  <!-- To Agents -->
+  <line x1="540" y1="300" x2="310" y2="150" stroke="#38bdf8" stroke-width="2" stroke-opacity="0.4"/>
+  <line x1="540" y1="300" x2="770" y2="150" stroke="#818cf8" stroke-width="2" stroke-opacity="0.4"/>
+  <line x1="540" y1="300" x2="310" y2="450" stroke="#34d399" stroke-width="2" stroke-opacity="0.4"/>
+  <line x1="540" y1="300" x2="770" y2="450" stroke="#a78bfa" stroke-width="2" stroke-opacity="0.4"/>
+
+  <!-- Center Core: AGENTS.md -->
+  <g filter="url(#ecoGlow)">
+    <circle cx="540" cy="300" r="76" fill="#111827" stroke="url(#coreGrad)" stroke-width="3"/>
+    <circle cx="540" cy="300" r="66" fill="#1e1e38" fill-opacity="0.6"/>
+    <text x="540" y="294" font-family="Segoe UI, sans-serif" font-size="16" font-weight="800" fill="#ffffff" text-anchor="middle">AGENTS.md</text>
+    <text x="540" y="314" font-family="ui-monospace, monospace" font-size="11" fill="#7dd3fc" text-anchor="middle">Orchestration Core</text>
+    <text x="540" y="330" font-family="ui-monospace, monospace" font-size="10" fill="#94a3b8" text-anchor="middle">SecOps &gt; QA &gt; DevOps &gt; SWE</text>
+  </g>
+
+  <!-- 4 Specialist Agents -->
+  <!-- 1. Code Reviewer -->
+  <g filter="url(#ecoGlow)" transform="translate(200, 110)">
+    <rect width="210" height="74" rx="12" fill="#131d33" stroke="#38bdf8" stroke-width="1.5"/>
+    <circle cx="28" cy="37" r="14" fill="#38bdf8" fill-opacity="0.2"/>
+    <text x="28" y="42" font-family="Segoe UI, sans-serif" font-size="14" text-anchor="middle">🧐</text>
+    <text x="52" y="32" font-family="Segoe UI, sans-serif" font-size="13" font-weight="700" fill="#ffffff">code-reviewer</text>
+    <text x="52" y="48" font-family="Segoe UI, sans-serif" font-size="11" fill="#94a3b8">Adversarial review · contracts</text>
+    <text x="52" y="62" font-family="ui-monospace, monospace" font-size="10" fill="#38bdf8">OWASP · severity triage</text>
+  </g>
+
+  <!-- 2. Plan Specialist -->
+  <g filter="url(#ecoGlow)" transform="translate(670, 110)">
+    <rect width="210" height="74" rx="12" fill="#131d33" stroke="#818cf8" stroke-width="1.5"/>
+    <circle cx="28" cy="37" r="14" fill="#818cf8" fill-opacity="0.2"/>
+    <text x="28" y="42" font-family="Segoe UI, sans-serif" font-size="14" text-anchor="middle">📐</text>
+    <text x="52" y="32" font-family="Segoe UI, sans-serif" font-size="13" font-weight="700" fill="#ffffff">plan-specialist</text>
+    <text x="52" y="48" font-family="Segoe UI, sans-serif" font-size="11" fill="#94a3b8">Vertical slices · PRDs · ADRs</text>
+    <text x="52" y="62" font-family="ui-monospace, monospace" font-size="10" fill="#a5b4fc">Acceptance finish line</text>
+  </g>
+
+  <!-- 3. DevOps Engineer -->
+  <g filter="url(#ecoGlow)" transform="translate(200, 416)">
+    <rect width="210" height="74" rx="12" fill="#131d33" stroke="#34d399" stroke-width="1.5"/>
+    <circle cx="28" cy="37" r="14" fill="#34d399" fill-opacity="0.2"/>
+    <text x="28" y="42" font-family="Segoe UI, sans-serif" font-size="14" text-anchor="middle">🚢</text>
+    <text x="52" y="32" font-family="Segoe UI, sans-serif" font-size="13" font-weight="700" fill="#ffffff">devops-engineer</text>
+    <text x="52" y="48" font-family="Segoe UI, sans-serif" font-size="11" fill="#94a3b8">CI/CD · Helm · Terraform</text>
+    <text x="52" y="62" font-family="ui-monospace, monospace" font-size="10" fill="#34d399">Rollback &amp; canary gates</text>
+  </g>
+
+  <!-- 4. Principal Engineer -->
+  <g filter="url(#ecoGlow)" transform="translate(670, 416)">
+    <rect width="210" height="74" rx="12" fill="#131d33" stroke="#a78bfa" stroke-width="1.5"/>
+    <circle cx="28" cy="37" r="14" fill="#a78bfa" fill-opacity="0.2"/>
+    <text x="28" y="42" font-family="Segoe UI, sans-serif" font-size="14" text-anchor="middle">🛠️</text>
+    <text x="52" y="32" font-family="Segoe UI, sans-serif" font-size="13" font-weight="700" fill="#ffffff">principal-engineer</text>
+    <text x="52" y="48" font-family="Segoe UI, sans-serif" font-size="11" fill="#94a3b8">Executes approved plans</text>
+    <text x="52" y="62" font-family="ui-monospace, monospace" font-size="10" fill="#c4b5fd">SOLID · surgical diffs</text>
+  </g>
+
+  <!-- Technical Domain Pillars (Middle Left, Middle Right, Top Center, Bottom Center) -->
+  <!-- Top Center: Backend & Architecture -->
+  <g transform="translate(435, 30)">
+    <rect width="210" height="34" rx="17" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+    <text x="105" y="22" font-family="Segoe UI, sans-serif" font-size="12" font-weight="600" fill="#cbd5e1" text-anchor="middle">Node · Python · Go · Rust</text>
+  </g>
+
+  <!-- Bottom Center: Infrastructure & MCP -->
+  <g transform="translate(435, 536)">
+    <rect width="210" height="34" rx="17" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+    <text x="105" y="22" font-family="Segoe UI, sans-serif" font-size="12" font-weight="600" fill="#cbd5e1" text-anchor="middle">Docker · Kubernetes · Helm · MCP</text>
+  </g>
+
+  <!-- 5 Guardrail Hexagons / Badges on Outer Perimeter -->
+  <!-- Badge 1: OWASP Security (Top Left) -->
+  <g transform="translate(40, 60)">
+    <rect width="136" height="38" rx="8" fill="#1e293b" stroke="#ef4444" stroke-width="1.5"/>
+    <text x="68" y="24" font-family="Segoe UI, sans-serif" font-size="12" font-weight="700" fill="#fca5a5" text-anchor="middle">🛡️ OWASP Top 10</text>
+  </g>
+
+  <!-- Badge 2: SOLID Principles (Bottom Left) -->
+  <g transform="translate(40, 500)">
+    <rect width="136" height="38" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+    <text x="68" y="24" font-family="Segoe UI, sans-serif" font-size="12" font-weight="700" fill="#93c5fd" text-anchor="middle">📐 SOLID &amp; KISS</text>
+  </g>
+
+  <!-- Badge 3: >90% Coverage (Top Right) -->
+  <g transform="translate(900, 60)">
+    <rect width="140" height="38" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1.5"/>
+    <text x="70" y="24" font-family="Segoe UI, sans-serif" font-size="12" font-weight="700" fill="#6ee7b7" text-anchor="middle">🧪 &gt;90% Coverage</text>
+  </g>
+
+  <!-- Badge 4: Zero Secrets (Bottom Right) -->
+  <g transform="translate(900, 500)">
+    <rect width="140" height="38" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="70" y="24" font-family="Segoe UI, sans-serif" font-size="12" font-weight="700" fill="#fcd34d" text-anchor="middle">🔐 Zero Secrets</text>
+  </g>
+
+  <!-- Badge 5: Conventional Commits (Middle Left) -->
+  <g transform="translate(20, 280)">
+    <rect width="146" height="36" rx="8" fill="#1e293b" stroke="#8b5cf6" stroke-width="1.5"/>
+    <text x="73" y="23" font-family="Segoe UI, sans-serif" font-size="11" font-weight="700" fill="#c4b5fd" text-anchor="middle">Conventional Commits</text>
+  </g>
+
+  <!-- Badge 6: Evidence First (Middle Right) -->
+  <g transform="translate(914, 280)">
+    <rect width="146" height="36" rx="8" fill="#1e293b" stroke="#06b6d4" stroke-width="1.5"/>
+    <text x="73" y="23" font-family="Segoe UI, sans-serif" font-size="11" font-weight="700" fill="#67e8f9" text-anchor="middle">Evidence Attached</text>
+  </g>
+</svg>

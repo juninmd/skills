@@ -1,0 +1,176 @@
+<svg width="1280" height="420" viewBox="0 0 1280 420" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="pipelineTitle pipelineDesc">
+  <title id="pipelineTitle">Skills Engineering Lifecycle: 7 Stages from Request to Proven Evidence</title>
+  <desc id="pipelineDesc">Visual pipeline from Decide, Frame, Build, Prove, Review, Ship, to Operate.</desc>
+  <defs>
+    <linearGradient id="pipeBg" x1="0" y1="0" x2="1280" y2="420" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0b1020"/>
+      <stop offset="0.5" stop-color="#0e172a"/>
+      <stop offset="1" stop-color="#09131d"/>
+    </linearGradient>
+    <linearGradient id="pipeGlow1" x1="0" y1="0" x2="1280" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#38bdf8"/>
+      <stop offset="0.3" stop-color="#818cf8"/>
+      <stop offset="0.6" stop-color="#c084fc"/>
+      <stop offset="1" stop-color="#34d399"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <rect width="1280" height="420" rx="20" fill="url(#pipeBg)"/>
+  <rect x="40" y="30" width="1200" height="4" rx="2" fill="url(#pipeGlow1)" opacity="0.8"/>
+
+  <!-- Header -->
+  <g font-family="Segoe UI, system-ui, -apple-system, sans-serif">
+    <text x="50" y="72" font-size="22" font-weight="700" fill="#f8fafc">The 7-Stage Engineering Lifecycle</text>
+    <text x="50" y="96" font-size="14" fill="#94a3b8">Every request flows through autonomous stages with strict contracts, verified gates, and attached evidence.</text>
+  </g>
+
+  <!-- 7 Cards -->
+  <!-- Card 1: Decide -->
+  <g filter="url(#cardShadow)" transform="translate(48, 120)">
+    <rect width="154" height="250" rx="12" fill="#131d33" stroke="#38bdf8" stroke-opacity="0.3" stroke-width="1.5"/>
+    <rect width="154" height="6" rx="3" fill="#38bdf8"/>
+    <text x="14" y="30" font-family="Segoe UI, sans-serif" font-size="12" font-weight="700" fill="#38bdf8">STAGE 1</text>
+    <text x="14" y="52" font-family="Segoe UI, sans-serif" font-size="16" font-weight="700" fill="#ffffff">Decide</text>
+    <text x="14" y="72" font-family="ui-monospace, monospace" font-size="10" fill="#7dd3fc">stack-selection</text>
+    <text x="14" y="86" font-family="ui-monospace, monospace" font-size="10" fill="#7dd3fc">software-architecture</text>
+    <line x1="14" y1="102" x2="140" y2="102" stroke="#ffffff" stroke-opacity="0.1"/>
+    <text x="14" y="122" font-family="Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#94a3b8">CONTRACT</text>
+    <text x="14" y="140" font-family="Segoe UI, sans-serif" font-size="11" fill="#cbd5e1">No speculative stack</text>
+    <text x="14" y="156" font-family="Segoe UI, sans-serif" font-size="11" fill="#cbd5e1">Boundary checks</text>
+    <line x1="14" y1="174" x2="140" y2="174" stroke="#ffffff" stroke-opacity="0.1"/>
+    <text x="14" y="196" font-family="Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#38bdf8">OUTPUT</text>
+    <text x="14" y="214" font-family="Segoe UI, sans-serif" font-size="11" fill="#e2e8f0">ADR + Decision record</text>
+  </g>
+
+  <!-- Arrow 1-2 -->
+  <path d="M206 245 L218 245" stroke="#64748b" stroke-width="2" stroke-linecap="round"/>
+  <polygon points="218,241 224,245 218,249" fill="#64748b"/>
+
+  <!-- Card 2: Frame -->
+  <g filter="url(#cardShadow)" transform="translate(222, 120)">
+    <rect width="154" height="250" rx="12" fill="#131d33" stroke="#818cf8" stroke-opacity="0.3" stroke-width="1.5"/>
+    <rect width="154" height="6" rx="3" fill="#818cf8"/>
+    <text x="14" y="30" font-family="Segoe UI, sans-serif" font-size="12" font-weight="700" fill="#818cf8">STAGE 2</text>
+    <text x="14" y="52" font-family="Segoe UI, sans-serif" font-size="16" font-weight="700" fill="#ffffff">Frame</text>
+    <text x="14" y="70" font-family="ui-monospace, monospace" font-size="9.5" fill="#a5b4fc">requirements-planning</text>
+    <text x="14" y="84" font-family="ui-monospace, monospace" font-size="9.5" fill="#a5b4fc">starting-dev</text>
+    <text x="14" y="98" font-family="ui-monospace, monospace" font-size="9.5" fill="#a5b4fc">web-research</text>
+    <line x1="14" y1="108" x2="140" y2="108" stroke="#ffffff" stroke-opacity="0.1"/>
+    <text x="14" y="126" font-family="Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#94a3b8">CONTRACT</text>
+    <text x="14" y="144" font-family="Segoe UI, sans-serif" font-size="11" fill="#cbd5e1">Explicit finish line</text>
+    <text x="14" y="160" font-family="Segoe UI, sans-serif" font-size="11" fill="#cbd5e1">Scope boundary</text>
+    <line x1="14" y1="176" x2="140" y2="176" stroke="#ffffff" stroke-opacity="0.1"/>
+    <text x="14" y="196" font-family="Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#818cf8">OUTPUT</text>
+    <text x="14" y="214" font-family="Segoe UI, sans-serif" font-size="11" fill="#e2e8f0">Acceptance criteria</text>
+  </g>
+
+  <!-- Arrow 2-3 -->
+  <path d="M380 245 L392 245" stroke="#64748b" stroke-width="2" stroke-linecap="round"/>
+  <polygon points="392,241 398,245 392,249" fill="#64748b"/>
+
+  <!-- Card 3: Build -->
+  <g filter="url(#cardShadow)" transform="translate(396, 120)">
+    <rect width="154" height="250" rx="12" fill="#131d33" stroke="#a78bfa" stroke-opacity="0.3" stroke-width="1.5"/>
+    <rect width="154" height="6" rx="3" fill="#a78bfa"/>
+    <text x="14" y="30" font-family="Segoe UI, sans-serif" font-size="12" font-weight="700" fill="#a78bfa">STAGE 3</text>
+    <text x="14" y="52" font-family="Segoe UI, sans-serif" font-size="16" font-weight="700" fill="#ffffff">Build</text>
+    <text x="14" y="70" font-family="ui-monospace, monospace" font-size="9.5" fill="#c4b5fd">backend-systems</text>
+    <text x="14" y="84" font-family="ui-monospace, monospace" font-size="9.5" fill="#c4b5fd">frontend-engineering</text>
+    <text x="14" y="98" font-family="ui-monospace, monospace" font-size="9.5" fill="#c4b5fd">data · mobile · tools</text>
+    <line x1="14" y1="108" x2="140" y2="108" stroke="#ffffff" stroke-opacity="0.1"/>
+    <text x="14" y="126" font-family="Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#94a3b8">CONTRACT</text>
+    <text x="14" y="144" font-family="Segoe UI, sans-serif" font-size="11" fill="#cbd5e1">Surgical patch only</text>
+    <text x="14" y="160" font-family="Segoe UI, sans-serif" font-size="11" fill="#cbd5e1">Zero unused churn</text>
+    <line x1="14" y1="176" x2="140" y2="176" stroke="#ffffff" stroke-opacity="0.1"/>
+    <text x="14" y="196" font-family="Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#a78bfa">OUTPUT</text>
+    <text x="14" y="214" font-family="Segoe UI, sans-serif" font-size="11" fill="#e2e8f0">Working API / UI</text>
+  </g>
+
+  <!-- Arrow 3-4 -->
+  <path d="M554 245 L566 245" stroke="#64748b" stroke-width="2" stroke-linecap="round"/>
+  <polygon points="566,241 572,245 566,249" fill="#64748b"/>
+
+  <!-- Card 4: Prove -->
+  <g filter="url(#cardShadow)" transform="translate(570, 120)">
+    <rect width="154" height="250" rx="12" fill="#131d33" stroke="#fbbf24" stroke-opacity="0.3" stroke-width="1.5"/>
+    <rect width="154" height="6" rx="3" fill="#fbbf24"/>
+    <text x="14" y="30" font-family="Segoe UI, sans-serif" font-size="12" font-weight="700" fill="#fbbf24">STAGE 4</text>
+    <text x="14" y="52" font-family="Segoe UI, sans-serif" font-size="16" font-weight="700" fill="#ffffff">Prove</text>
+    <text x="14" y="70" font-family="ui-monospace, monospace" font-size="9.5" fill="#fde047">test-engineering</text>
+    <text x="14" y="84" font-family="ui-monospace, monospace" font-size="9.5" fill="#fde047">performance-eng.</text>
+    <line x1="14" y1="102" x2="140" y2="102" stroke="#ffffff" stroke-opacity="0.1"/>
+    <text x="14" y="122" font-family="Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#94a3b8">CONTRACT</text>
+    <text x="14" y="140" font-family="Segoe UI, sans-serif" font-size="11" fill="#cbd5e1">Failing repro first</text>
+    <text x="14" y="156" font-family="Segoe UI, sans-serif" font-size="11" fill="#cbd5e1">Stress test 0 flakes</text>
+    <line x1="14" y1="174" x2="140" y2="174" stroke="#ffffff" stroke-opacity="0.1"/>
+    <text x="14" y="196" font-family="Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#fbbf24">OUTPUT</text>
+    <text x="14" y="214" font-family="Segoe UI, sans-serif" font-size="11" fill="#e2e8f0">Coverage + Latency</text>
+  </g>
+
+  <!-- Arrow 4-5 -->
+  <path d="M728 245 L740 245" stroke="#64748b" stroke-width="2" stroke-linecap="round"/>
+  <polygon points="740,241 746,245 740,249" fill="#64748b"/>
+
+  <!-- Card 5: Review -->
+  <g filter="url(#cardShadow)" transform="translate(744, 120)">
+    <rect width="154" height="250" rx="12" fill="#131d33" stroke="#f472b6" stroke-opacity="0.3" stroke-width="1.5"/>
+    <rect width="154" height="6" rx="3" fill="#f472b6"/>
+    <text x="14" y="30" font-family="Segoe UI, sans-serif" font-size="12" font-weight="700" fill="#f472b6">STAGE 5</text>
+    <text x="14" y="52" font-family="Segoe UI, sans-serif" font-size="16" font-weight="700" fill="#ffffff">Review</text>
+    <text x="14" y="70" font-family="ui-monospace, monospace" font-size="9.5" fill="#f9a8d4">code-review</text>
+    <text x="14" y="84" font-family="ui-monospace, monospace" font-size="9.5" fill="#f9a8d4">security-ops</text>
+    <line x1="14" y1="102" x2="140" y2="102" stroke="#ffffff" stroke-opacity="0.1"/>
+    <text x="14" y="122" font-family="Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#94a3b8">CONTRACT</text>
+    <text x="14" y="140" font-family="Segoe UI, sans-serif" font-size="11" fill="#cbd5e1">Adversarial review</text>
+    <text x="14" y="156" font-family="Segoe UI, sans-serif" font-size="11" fill="#cbd5e1">OWASP &amp; Zero keys</text>
+    <line x1="14" y1="174" x2="140" y2="174" stroke="#ffffff" stroke-opacity="0.1"/>
+    <text x="14" y="196" font-family="Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#f472b6">OUTPUT</text>
+    <text x="14" y="214" font-family="Segoe UI, sans-serif" font-size="11" fill="#e2e8f0">Audit findings log</text>
+  </g>
+
+  <!-- Arrow 5-6 -->
+  <path d="M902 245 L914 245" stroke="#64748b" stroke-width="2" stroke-linecap="round"/>
+  <polygon points="914,241 920,245 914,249" fill="#64748b"/>
+
+  <!-- Card 6: Ship -->
+  <g filter="url(#cardShadow)" transform="translate(918, 120)">
+    <rect width="154" height="250" rx="12" fill="#131d33" stroke="#34d399" stroke-opacity="0.3" stroke-width="1.5"/>
+    <rect width="154" height="6" rx="3" fill="#34d399"/>
+    <text x="14" y="30" font-family="Segoe UI, sans-serif" font-size="12" font-weight="700" fill="#34d399">STAGE 6</text>
+    <text x="14" y="52" font-family="Segoe UI, sans-serif" font-size="16" font-weight="700" fill="#ffffff">Ship</text>
+    <text x="14" y="70" font-family="ui-monospace, monospace" font-size="9.5" fill="#6ee7b7">finishing-dev</text>
+    <text x="14" y="84" font-family="ui-monospace, monospace" font-size="9.5" fill="#6ee7b7">git-workflow · cloud</text>
+    <text x="14" y="98" font-family="ui-monospace, monospace" font-size="9.5" fill="#6ee7b7">release-autoupdate</text>
+    <line x1="14" y1="108" x2="140" y2="108" stroke="#ffffff" stroke-opacity="0.1"/>
+    <text x="14" y="126" font-family="Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#94a3b8">CONTRACT</text>
+    <text x="14" y="144" font-family="Segoe UI, sans-serif" font-size="11" fill="#cbd5e1">Proof in PR body</text>
+    <text x="14" y="160" font-family="Segoe UI, sans-serif" font-size="11" fill="#cbd5e1">Green pipeline check</text>
+    <line x1="14" y1="176" x2="140" y2="176" stroke="#ffffff" stroke-opacity="0.1"/>
+    <text x="14" y="196" font-family="Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#34d399">OUTPUT</text>
+    <text x="14" y="214" font-family="Segoe UI, sans-serif" font-size="11" fill="#e2e8f0">Tested Pull Request</text>
+  </g>
+
+  <!-- Arrow 6-7 -->
+  <path d="M1076 245 L1088 245" stroke="#64748b" stroke-width="2" stroke-linecap="round"/>
+  <polygon points="1088,241 1094,245 1088,249" fill="#64748b"/>
+
+  <!-- Card 7: Operate -->
+  <g filter="url(#cardShadow)" transform="translate(1092, 120)">
+    <rect width="144" height="250" rx="12" fill="#131d33" stroke="#38bdf8" stroke-opacity="0.3" stroke-width="1.5"/>
+    <rect width="144" height="6" rx="3" fill="#38bdf8"/>
+    <text x="14" y="30" font-family="Segoe UI, sans-serif" font-size="12" font-weight="700" fill="#38bdf8">STAGE 7</text>
+    <text x="14" y="52" font-family="Segoe UI, sans-serif" font-size="16" font-weight="700" fill="#ffffff">Operate</text>
+    <text x="14" y="70" font-family="ui-monospace, monospace" font-size="9.5" fill="#7dd3fc">observability</text>
+    <text x="14" y="84" font-family="ui-monospace, monospace" font-size="9.5" fill="#7dd3fc">documentation</text>
+    <line x1="14" y1="102" x2="130" y2="102" stroke="#ffffff" stroke-opacity="0.1"/>
+    <text x="14" y="122" font-family="Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#94a3b8">CONTRACT</text>
+    <text x="14" y="140" font-family="Segoe UI, sans-serif" font-size="11" fill="#cbd5e1">Tail sampled traces</text>
+    <text x="14" y="156" font-family="Segoe UI, sans-serif" font-size="11" fill="#cbd5e1">Up-to-date docs</text>
+    <line x1="14" y1="174" x2="130" y2="174" stroke="#ffffff" stroke-opacity="0.1"/>
+    <text x="14" y="196" font-family="Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#38bdf8">OUTPUT</text>
+    <text x="14" y="214" font-family="Segoe UI, sans-serif" font-size="11" fill="#e2e8f0">SLOs + Runbooks</text>
+  </g>
+</svg>

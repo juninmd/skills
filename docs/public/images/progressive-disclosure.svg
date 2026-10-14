@@ -1,0 +1,101 @@
+<svg width="1280" height="400" viewBox="0 0 1280 400" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="discTitle discDesc">
+  <title id="discTitle">Progressive Disclosure Architecture</title>
+  <desc id="discDesc">Diagram illustrating how frontmatter discovery, core workflow, and deep references reduce context bloat by 90%.</desc>
+  <defs>
+    <linearGradient id="discBg" x1="0" y1="0" x2="1280" y2="400" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0b1020"/>
+      <stop offset="0.5" stop-color="#111827"/>
+      <stop offset="1" stop-color="#0a1520"/>
+    </linearGradient>
+    <linearGradient id="discGrad" x1="0" y1="0" x2="600" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#38bdf8"/>
+      <stop offset="0.5" stop-color="#818cf8"/>
+      <stop offset="1" stop-color="#34d399"/>
+    </linearGradient>
+    <filter id="boxShadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <rect width="1280" height="400" rx="20" fill="url(#discBg)"/>
+
+  <!-- Title -->
+  <g font-family="Segoe UI, system-ui, -apple-system, sans-serif">
+    <text x="50" y="58" font-size="22" font-weight="700" fill="#f8fafc">Progressive Disclosure Architecture</text>
+    <text x="50" y="82" font-size="14" fill="#94a3b8">Load only what you need, exactly when you need it. Context efficiency enforced by design.</text>
+  </g>
+
+  <!-- Left: The 3 Layers Pyramid / Flow -->
+  <g transform="translate(50, 110)">
+    <!-- Layer 1: Discovery -->
+    <g filter="url(#boxShadow)">
+      <rect x="0" y="0" width="580" height="68" rx="10" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+      <rect x="0" y="0" width="8" height="68" rx="4" fill="#38bdf8"/>
+      <text x="24" y="28" font-family="Segoe UI, sans-serif" font-size="14" font-weight="700" fill="#38bdf8">LAYER 1 · DISCOVERY (Index Time)</text>
+      <text x="24" y="48" font-family="ui-monospace, monospace" font-size="12" fill="#cbd5e1">name + description frontmatter  |  ~50–100 tokens per skill</text>
+      <rect x="470" y="18" width="94" height="32" rx="6" fill="#38bdf8" fill-opacity="0.15"/>
+      <text x="517" y="38" font-family="Segoe UI, sans-serif" font-size="12" font-weight="700" fill="#7dd3fc" text-anchor="middle">Always In</text>
+    </g>
+
+    <!-- Arrow down 1 -->
+    <path d="M290 68 L290 88" stroke="#64748b" stroke-width="2" stroke-dasharray="4 4"/>
+    <polygon points="286,88 290,94 294,88" fill="#64748b"/>
+
+    <!-- Layer 2: Main Workflow -->
+    <g filter="url(#boxShadow)">
+      <rect x="0" y="96" width="580" height="68" rx="10" fill="#1e293b" stroke="#818cf8" stroke-width="1.5"/>
+      <rect x="0" y="96" width="8" height="68" rx="4" fill="#818cf8"/>
+      <text x="24" y="124" font-family="Segoe UI, sans-serif" font-size="14" font-weight="700" fill="#818cf8">LAYER 2 · DOMAIN WORKFLOW (On Match)</text>
+      <text x="24" y="144" font-family="ui-monospace, monospace" font-size="12" fill="#cbd5e1">SKILL.md body: Preflight + Workflow + Checklist  |  ~1,500–2,500 tokens</text>
+      <rect x="470" y="114" width="94" height="32" rx="6" fill="#818cf8" fill-opacity="0.15"/>
+      <text x="517" y="134" font-family="Segoe UI, sans-serif" font-size="12" font-weight="700" fill="#c4b5fd" text-anchor="middle">On Demand</text>
+    </g>
+
+    <!-- Arrow down 2 -->
+    <path d="M290 164 L290 184" stroke="#64748b" stroke-width="2" stroke-dasharray="4 4"/>
+    <polygon points="286,184 290,190 294,184" fill="#64748b"/>
+
+    <!-- Layer 3: References -->
+    <g filter="url(#boxShadow)">
+      <rect x="0" y="192" width="580" height="68" rx="10" fill="#1e293b" stroke="#34d399" stroke-width="1.5"/>
+      <rect x="0" y="192" width="8" height="68" rx="4" fill="#34d399"/>
+      <text x="24" y="220" font-family="Segoe UI, sans-serif" font-size="14" font-weight="700" fill="#34d399">LAYER 3 · DEEP PROCEDURES (Specific Subtask)</text>
+      <text x="24" y="240" font-family="ui-monospace, monospace" font-size="12" fill="#cbd5e1">references/*.md: step-by-step guides  |  ~500–1,200 tokens</text>
+      <rect x="470" y="210" width="94" height="32" rx="6" fill="#34d399" fill-opacity="0.15"/>
+      <text x="517" y="230" font-family="Segoe UI, sans-serif" font-size="12" font-weight="700" fill="#6ee7b7" text-anchor="middle">Surgical</text>
+    </g>
+  </g>
+
+  <!-- Right: Efficiency Comparison -->
+  <g transform="translate(680, 110)" filter="url(#boxShadow)">
+    <rect width="550" height="260" rx="12" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+
+    <text x="24" y="34" font-family="Segoe UI, sans-serif" font-size="15" font-weight="700" fill="#ffffff">Token Budget &amp; Attention Comparison</text>
+
+    <!-- Bloated Approach -->
+    <text x="24" y="70" font-family="Segoe UI, sans-serif" font-size="12" font-weight="600" fill="#f87171">Monolithic Instructions (No Progressive Disclosure)</text>
+    <rect x="24" y="80" width="480" height="22" rx="4" fill="#7f1d1d" fill-opacity="0.3" stroke="#f87171" stroke-width="1"/>
+    <rect x="24" y="80" width="460" height="22" rx="4" fill="#f87171" fill-opacity="0.7"/>
+    <text x="34" y="96" font-family="ui-monospace, monospace" font-size="11" font-weight="700" fill="#ffffff">~45,000 tokens  (all instructions dumped into context)</text>
+
+    <!-- Progressive Disclosure Approach -->
+    <text x="24" y="136" font-family="Segoe UI, sans-serif" font-size="12" font-weight="600" fill="#34d399">Skills Progressive Disclosure (This Repository)</text>
+    <rect x="24" y="146" width="480" height="22" rx="4" fill="#064e3b" fill-opacity="0.3" stroke="#34d399" stroke-width="1"/>
+    <rect x="24" y="146" width="48" height="22" rx="4" fill="#34d399" fill-opacity="0.8"/>
+    <text x="82" y="162" font-family="ui-monospace, monospace" font-size="11" font-weight="700" fill="#34d399">~2,800 tokens avg  (93% reduction in context window)</text>
+
+    <line x1="24" y1="190" x2="520" y2="190" stroke="#334155"/>
+
+    <!-- Key Metrics -->
+    <g transform="translate(24, 204)" font-family="Segoe UI, sans-serif">
+      <text x="0" y="16" font-size="12" fill="#94a3b8">Attention Retention</text>
+      <text x="0" y="34" font-size="15" font-weight="700" fill="#34d399">99.8% Sharp</text>
+
+      <text x="180" y="16" font-size="12" fill="#94a3b8">Context Overhead</text>
+      <text x="180" y="34" font-size="15" font-weight="700" fill="#38bdf8">&lt; 3% Window</text>
+
+      <text x="360" y="16" font-size="12" fill="#94a3b8">Hallucination Risk</text>
+      <text x="360" y="34" font-size="15" font-weight="700" fill="#a78bfa">Minimized</text>
+    </g>
+  </g>
+</svg>

@@ -15,13 +15,21 @@
 
 *Production engineering workflows for AI coding assistants: discover intent, execute surgical changes, and prove with reproducible evidence.*
 
-[🧭 Skill catalog](#skill-catalog) · [🚀 Get started](#get-started) · [📐 Lifecycle cycle](#where-each-skill-fits-in-the-cycle) · [📜 Standards](#specifications-and-standards) · [🛡️ Quality checks](#quality-checks) · [🤝 Contributing](#contributing)
+[🧭 Skill catalog](#skill-catalog) · [🚀 Get started](#get-started) · [🤖 Multi-agent ecosystem](#autonomous-multi-agent-ecosystem) · [📐 Lifecycle](#where-each-skill-fits-in-the-cycle) · [📜 Standards](#specifications-and-standards) · [🛡️ Quality checks](#quality-checks) · [🤝 Contributing](#contributing)
+
+<br/>
+
+<img src="./docs/public/images/skills-demo.gif" alt="Terminal demo showing autonomous discovery, test reproduction, surgical patch, adversarial verification, and evidence generation" width="100%" />
 
 </div>
 
 ---
 
 ## From request to evidence
+
+<div align="center">
+  <img src="./docs/public/images/progressive-disclosure.svg" alt="Progressive disclosure architecture comparing monolithic prompts with lightweight on-demand procedures" width="100%" />
+</div>
 
 ```mermaid
 flowchart LR
@@ -136,11 +144,41 @@ The CLI copies files; it does not track the repo or install the agents and opera
 | 🔐 | Audit credentials and trust boundaries | [security-ops](.agents/skills/security-ops/SKILL.md) |
 | 🚢 | Ship a finished branch as a PR | [finishing-dev](.agents/skills/finishing-dev/SKILL.md) |
 
+## Autonomous multi-agent ecosystem
+
+Beyond standalone skills, this repository defines four specialist agent roles coordinated by shared enterprise operating instructions ([`.agents/AGENTS.md`](.agents/AGENTS.md)). Every change is verified against strict safety and engineering guardrails.
+
+<div align="center">
+  <img src="./docs/public/images/agents-ecosystem.svg" alt="Autonomous AI agents ecosystem: AGENTS.md orchestrating code-reviewer, principal-engineer, plan-specialist, and devops-engineer with OWASP security, SOLID principles, and zero secrets" width="100%" />
+</div>
+
+### Specialist agent roles
+
+| Agent | File | Purpose & Responsibilities |
+|---|---|---|
+| 🧐 **Code Reviewer** | [`.agents/agents/code-reviewer.agent.md`](.agents/agents/code-reviewer.agent.md) | Adversarial diff reviews, OWASP security audits, contract regressions, and dead code elimination. |
+| 🚢 **DevOps Engineer** | [`.agents/agents/devops-engineer.agent.md`](.agents/agents/devops-engineer.agent.md) | CI/CD pipelines, container hardening, Kubernetes manifests, Terraform IaC, and deployment rollbacks. |
+| 📐 **Plan Specialist** | [`.agents/agents/plan-specialist.agent.md`](.agents/agents/plan-specialist.agent.md) | Multi-step engineering plans, architecture migrations, cross-cutting vertical slices, and acceptance criteria. |
+| 🛠️ **Principal Engineer** | [`.agents/agents/principal-engineer.agent.md`](.agents/agents/principal-engineer.agent.md) | Tech lead executor: implements approved plans, writes production-ready code, enforces SOLID/KISS, and runs quality gates. |
+
+### Enterprise operating guardrails
+
+All agents and skills operate under four non-negotiable hats with explicit veto priority:
+
+1. **SecOps (Veto)**: Zero secrets in git/logs, least-privilege tokens, OWASP Top 10 defenses, supply chain integrity.
+2. **QA (Proof)**: Every behavior change requires a failing reproduction before patching; flaky tests are treated as broken.
+3. **DevOps (Ship)**: Every deployable change includes a rollback plan, health check, and passing automated pipeline.
+4. **SWE (Build)**: Surgical diffs, no N+1 queries, bounded loops, paginated responses, and SOLID principles.
+
 ## Where each skill fits in the cycle
 
 You never invoke a skill by name: a one-line description routes the request. What
 follows is *when* each domain owns the work, so you can tell whether the right one
 picked up the task, and name it yourself when it did not.
+
+<div align="center">
+  <img src="./docs/public/images/skills-workflow-pipeline.svg" alt="The 7-stage engineering lifecycle from decide, frame, build, prove, review, ship, to operate" width="100%" />
+</div>
 
 ```mermaid
 flowchart LR
@@ -148,7 +186,7 @@ flowchart LR
     B --> C["3 · Build<br/>backend · packages · frontend<br/>mobile · ios · data · tooling · agents"]
     C --> D["4 · Prove<br/>test-engineering<br/>performance-engineering"]
     D --> E["5 · Review<br/>code-review<br/>security-ops"]
-    E --> F["6 · Ship<br/>finishing-dev<br/>git-workflow · cloud-devops"]
+    E --> F["6 · Ship<br/>finishing-dev<br/>git-workflow · cloud-devops · release-autoupdate"]
     F --> G["7 · Operate<br/>observability<br/>documentation"]
     G -->|regression, incident, next ask| B
 ```
@@ -177,14 +215,16 @@ flowchart LR
 | **6 · Ship** | Prepare and open the pull request with its evidence | [`finishing-dev`](.agents/skills/finishing-dev/SKILL.md) | A PR body carrying screenshots and payloads |
 | | Rebase, recover a commit, resolve a conflict, tag a release | [`git-workflow`](.agents/skills/git-workflow/SKILL.md) | A verified remote SHA |
 | | CI, containers, infrastructure, rollout | [`cloud-devops`](.agents/skills/cloud-devops/SKILL.md) | A pipeline and a rollback path |
+| | Multi-platform releases, artifact signing, updater manifests | [`release-autoupdate`](.agents/skills/release-autoupdate/SKILL.md) | Signed binaries and updater manifest |
 | **7 · Operate** | Instrument, read a trace, diagnose an incident | [`observability`](.agents/skills/observability/SKILL.md) | Log, metric, alert, runbook |
 | | Write the README, diagram, or API reference the change requires | [`documentation`](.agents/skills/documentation/SKILL.md) | Docs that match the shipped behavior |
 
-Six skills sit outside the cycle and load whenever their subject appears:
+Seven skills sit outside the cycle and load whenever their subject appears:
 [`radar-ia`](.agents/skills/radar-ia/SKILL.md) for AI ecosystem digests,
 [`bot-engineering`](.agents/skills/bot-engineering/SKILL.md) for scheduled scraper and notification bots,
 [`3d-models`](.agents/skills/3d-models/SKILL.md) and [`threejs`](.agents/skills/threejs/SKILL.md)
 for 3D assets and scenes, [`goldsrc-modding`](.agents/skills/goldsrc-modding/SKILL.md),
+[`motion-video`](.agents/skills/motion-video/SKILL.md) for code-rendered motion graphics,
 and [`agy-image-babysitter`](.agents/skills/agy-image-babysitter/SKILL.md).
 
 Every skill body opens with a **Not this skill** line naming the neighbors that own
@@ -247,6 +287,76 @@ domain that owns what comes next. You keep writing prose.
 | `tooling-dev` | CLI arguments, exit codes, non-interactive execution, config discovery, signals, structured output, packaging, and integration tests |
 | `web-research` | multi-source search, HTML table and listing scraping, latest stable library versions, changelog tracking, and citations |
 <!-- skill-catalog:end -->
+
+### Architectural domain guide
+
+Skills in this repository are organized into six engineering pillars, each designed to solve distinct concerns with surgical isolation and zero overlap:
+
+#### 1. Architecture, Strategy & Tech Selection
+- [`stack-selection`](.agents/skills/stack-selection/SKILL.md): Evaluates runtime tradeoffs (e.g. Bun vs Node, NestJS vs FastAPI, Biome vs ESLint) before code exists. Leaves behind the chosen pick, the rejected alternative, and the exact reversal condition.
+- [`software-architecture`](.agents/skills/software-architecture/SKILL.md): Enforces clean domain boundaries, dependency inversion, and architectural decision records (ADRs). Leaves behind module boundaries and dependency direction maps.
+- [`requirements-planning`](.agents/skills/requirements-planning/SKILL.md): Deconstructs vague requests into testable acceptance criteria, PRDs, and vertical slices.
+- [`starting-dev`](.agents/skills/starting-dev/SKILL.md): Onboards assistants to unfamiliar repositories, creates project instruction files, and sets up worktrees.
+- [`web-research`](.agents/skills/web-research/SKILL.md): Conducts resilient multi-source searches and verifies library releases, documentation, and migration guides before committing changes.
+
+#### 2. Fullstack & Systems Engineering
+- [`backend-systems`](.agents/skills/backend-systems/SKILL.md): Designs robust APIs, NestJS modules, FastAPI routes, OpenAPI contracts, and cache invalidation strategies without N+1 queries.
+- [`frontend-engineering`](.agents/skills/frontend-engineering/SKILL.md): Crafts modern web user interfaces in React, Next.js, and Tailwind with complete state handling (loading, empty, error) and strict WCAG accessibility.
+- [`data-engineering`](.agents/skills/data-engineering/SKILL.md): Manages PostgreSQL and MySQL schemas, zero-downtime DDL, reversible migrations, query optimization, and point-in-time recovery.
+- [`mobile-engineering`](.agents/skills/mobile-engineering/SKILL.md): Builds cross-platform applications in React Native, Expo, and Flutter with deep lifecycle and offline support.
+- [`ios-engineering`](.agents/skills/ios-engineering/SKILL.md): Implements native Swift, SwiftUI, UIKit, Metal, and WidgetKit apps matching Apple's Human Interface Guidelines.
+- [`tooling-dev`](.agents/skills/tooling-dev/SKILL.md): Develops non-interactive developer CLI tools, code generators, and automation scripts with honest exit codes.
+- [`package-management`](.agents/skills/package-management/SKILL.md): Maintains clean pnpm catalogs, uv lockfiles, and peer dependency trees.
+
+#### 3. Quality Assurance, Performance & Observability
+- [`test-engineering`](.agents/skills/test-engineering/SKILL.md): Mandates reproducing bugs before touching code, quarantines flaky tests, and asserts business invariants across Vitest, pytest, and Playwright.
+- [`performance-engineering`](.agents/skills/performance-engineering/SKILL.md): Diagnoses latency bottlenecks, memory leaks, and Core Web Vitals using open-loop load testing and rigorous before/after budgets.
+- [`observability`](.agents/skills/observability/SKILL.md): Instruments applications with OpenTelemetry semantic conventions, tail-sampled traces, metrics, alerts, and SLO error budgets.
+- [`documentation`](.agents/skills/documentation/SKILL.md): Produces clear Diátaxis-structured technical documentation, verified diagrams, and OpenAPI contracts.
+
+#### 4. Security, Adversarial Review & Autonomous Delivery
+- [`code-review`](.agents/skills/code-review/SKILL.md): Acts as an adversary on every diff, hunting boundary errors, regressions, and dead code using structured severity rankings (Blocker, Major, Minor, Nit).
+- [`security-ops`](.agents/skills/security-ops/SKILL.md): Audits trust boundaries, validates inputs, eliminates secret leaks, and enforces OWASP Top 10 security standards.
+- [`finishing-dev`](.agents/skills/finishing-dev/SKILL.md): Validates full test suites, gathers screenshots and payload evidence, and opens comprehensive pull requests.
+- [`git-workflow`](.agents/skills/git-workflow/SKILL.md): Operates advanced Git workflows: branch isolation, worktrees, bisect, reflog recovery, and signed conventional commits.
+- [`cloud-devops`](.agents/skills/cloud-devops/SKILL.md): Configures hardened GitHub Actions, Dockerfiles, Kubernetes manifests, and Terraform IaC with explicit rollback plans.
+- [`release-autoupdate`](.agents/skills/release-autoupdate/SKILL.md): Automates multi-platform desktop/CLI releases with minisign artifact signing and in-app updater manifests.
+
+#### 5. AI Runtimes, Context & Multi-Agent Loops
+- [`agent-engineering`](.agents/skills/agent-engineering/SKILL.md): Engineers agent runtimes, tool schemas, fail-closed hook guards, step/token boundaries, and prompt-injection defenses.
+- [`agent-orchestration`](.agents/skills/agent-orchestration/SKILL.md): Coordinates parallel subagent fan-outs, tournament validations, model councils, and long-running headless loops.
+- [`skill-authoring`](.agents/skills/skill-authoring/SKILL.md): Authors, splits, and tunes agent skills with progressive-disclosure references and offline lexical evaluation benchmarks.
+- [`agy-image-babysitter`](.agents/skills/agy-image-babysitter/SKILL.md): Maintains headless CLI agent execution across authentication token expirations and API rate limits.
+- [`radar-ia`](.agents/skills/radar-ia/SKILL.md): Sweeps trending AI engineering releases, research papers, and tool changelogs into curated digests.
+
+#### 6. Specialized Systems & Creative Automation
+- [`3d-models`](.agents/skills/3d-models/SKILL.md): Prepares, cleans, and converts VRM avatars, Blender assets, and blendshapes.
+- [`threejs`](.agents/skills/threejs/SKILL.md): Builds interactive WebGL/WebGPU 3D model viewers and GPU-optimized scenes.
+- [`motion-video`](.agents/skills/motion-video/SKILL.md): Generates programmatic motion-graphics videos via frame-by-frame HTML/CSS rendering.
+- [`bot-engineering`](.agents/skills/bot-engineering/SKILL.md): Builds reliable scheduled scrapers, monitors, and Telegram/Discord notification bots with backoff and deduplication.
+- [`goldsrc-modding`](.agents/skills/goldsrc-modding/SKILL.md): Compiles Valve 220 maps, BSP lumps, and AMX Mod X Pawn plugins.
+
+### Anatomy of a skill (The House Contract)
+
+Every skill adheres to a strict, standardized anatomy designed for predictable execution:
+
+```
+.agents/skills/<name>/
+├── SKILL.md             # Discovery metadata, preflight, core workflow, stop rules
+└── references/          # Deep procedures loaded only when a specific subtask triggers
+    ├── TOPIC_MAP.md     # One-hop directory of procedures
+    └── <procedure>.md   # Surgical commands, checklists, and code snippets
+```
+
+| Section | Purpose & Operational Guarantee |
+|---|---|
+| `## Preflight` | Probes host OS, runtime version, and working tree before making any changes. |
+| `## Workflow` | Numbered sequential steps; every step produces tangible progress. |
+| `## Decision Table` | Explicit conditions mapping detected system states to exact operational branches. |
+| `## Real Command Blocks` | Real, non-interactive shell commands bounded by timeouts and quiet flags. |
+| `## Stop Rules` | Hard circuit breakers: halts after 3 consecutive errors to prevent hallucination thrashing. |
+| `## Rules` | Non-negotiable boundaries: zero secrets, surgical patches, bounded loops, fail-closed guards. |
+| `## Checklist` | Verifiable binary criteria that prove completion before handoff. |
 
 ## Beyond skills
 
