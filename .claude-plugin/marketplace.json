@@ -10,7 +10,7 @@
       "name": "juninmd",
       "source": "./.agents",
       "description": "Complete bundle: all 32 production-grade engineering skills.",
-      "version": "1.3.0"
+      "version": "1.4.0"
     },
     {
       "name": "juninmd-core",
