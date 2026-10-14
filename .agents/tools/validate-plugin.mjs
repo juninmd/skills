@@ -3,7 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const SHARED_FIELDS = ["version", "description", "license"];
-// Components a consumer's Claude Code would auto-apply; this plugin ships skills and agents only.
+// Components a consumer's Claude Code would auto-apply; this plugin ships skills only.
 const FORBIDDEN_AT_PLUGIN_ROOT = ["settings.json", ".mcp.json", ".lsp.json", "hooks"];
 
 function readJson(file, label, errors) {
@@ -44,9 +44,7 @@ function validateLocalEntry(root, manifest, entry, errors) {
   if (!claude.description || typeof claude.description !== "string" || !claude.description.trim()) {
     errors.push(`Claude plugin '${entry.name}' is missing a valid 'description'`);
   }
-  for (const directory of ["skills", "agents"]) {
-    if (!fs.existsSync(path.join(pluginRoot, directory))) errors.push(`Claude plugin source has no ${directory}/ directory`);
-  }
+  if (!fs.existsSync(path.join(pluginRoot, "skills"))) errors.push("Claude plugin source has no skills/ directory");
   for (const name of FORBIDDEN_AT_PLUGIN_ROOT) {
     if (fs.existsSync(path.join(pluginRoot, name))) errors.push(`Claude plugin root must not ship '${name}'`);
   }

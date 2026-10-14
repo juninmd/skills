@@ -4,7 +4,7 @@ layout: home
 hero:
   name: "Engineering Skills"
   text: "Focused procedures. Small context. Reproducible proof."
-  tagline: 31 domain skills, 4 agents, and shared operating instructions for production engineering work.
+  tagline: 32 domain skills and shared operating instructions for production engineering work.
   actions:
     - theme: brand
       text: Get Started
@@ -17,15 +17,10 @@ hero:
       link: https://github.com/juninmd/skills
 
 features:
-  - title: 31 Domain Skills
+  - title: 32 Domain Skills
     details: Broad enough to avoid overlap, procedural enough to improve execution. Depth lives in per-skill references.
     link: /skills/
     linkText: Browse skills
-
-  - title: 4 Engineering Agents
-    details: Code review, architecture, DevOps, and planning roles with explicit scopes.
-    link: /agents/
-    linkText: Browse agents
 
   - title: Symlink Install
     details: One checkout linked into Claude Code, Codex, and Antigravity. Edits are live everywhere.

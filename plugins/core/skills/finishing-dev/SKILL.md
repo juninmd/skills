@@ -1,7 +1,7 @@
 ---
 name: finishing-dev
 description: |
-  Finish a change and prepare or open its pull request after independent code-review and security subagents, fixes, tests, and CI. Use for review-before-PR delivery, PR descriptions, homologação/homologar (prove it works on the real target), and acceptance evidence. Trigger on 'get it ready for a PR', 'open the PR', 'ship this branch', 'finish this feature'.
+  Finish a change and prepare or open its pull request after independent code and security reviews, fixes, tests, and CI. Use for PR delivery, descriptions, acceptance evidence, homologação (prove it on the real target), and return to the default branch with or without pipeline monitoring. Trigger on 'get it ready for a PR', 'open the PR', 'finish this feature'.
 ---
 
 # Finishing Development
@@ -53,9 +53,10 @@ Use GitHub probes only for a GitHub remote and available `gh`; absence of an exi
 2. Run configured lint, types, focused tests, and build/smoke appropriate to the change. Commands come from the repository and CI, not a universal script list. Record pass/fail and remaining environment limits. Use `test-engineering` for missing behavior coverage.
 3. **Run two independent review subagents before creating the PR.** Give one `code-review` for correctness, regressions, contracts, and tests; give the other `security-ops` for trust boundaries, secrets, permissions, dependencies, and deployment risk. Supply the same immutable base/head or candidate snapshot, changed paths, acceptance criteria, and relevant surrounding code. Bound each assignment; keep both read-only and blind to each other's findings until complete. See [review protocol](references/review-protocol.md).
 4. Adjudicate findings against actual code and reproducible conditions. Fix confirmed blocking and substantive defects in scope; document false positives with evidence and unrelated concerns without quietly expanding scope. Route implementation to the domain owner. Re-run affected gates and independent review of the final candidate after fixes; any change invalidates review evidence for affected paths.
-5. **Delegate two more subagents.** One captures [PR evidence](references/pr-evidence.md): real screenshots/terminal output per visible UI/web/CLI/TUI change, real payloads per new or modified contract. The other drafts the branch name, PR title, and body against the [branch/title/description standard](references/pr-title-and-branch-standard.md) from the final diff — problem, behavior, decisions, verification, limits — each claim traceable to a diff line. Merge both into one body; a missing or fabricated capture is a named blocker, never prose. No raw logs, secrets, or history. Complete even without publication authorization.
+5. **Delegate two more subagents.** One captures [PR evidence](references/pr-evidence.md): screenshots for visual UI/UX changes across web, desktop, mobile, TUI, and CLI; GIFs/videos when interaction or motion needs demonstration; searchable text for CLI output; real payloads for contract changes. Select only applicable evidence. The other drafts the branch name, PR title, and body against the [branch/title/description standard](references/pr-title-and-branch-standard.md) from the final diff — problem, behavior, decisions, verification, limits — each claim traceable to a diff line. Merge both into one body; a missing or fabricated required capture is a named blocker. No raw logs, secrets, or history. Complete even without publication authorization.
 6. Within existing explicit authorization, stage only reviewed files, inspect the staged diff, commit, push, and create/update the PR. The request to create a PR authorizes that PR operation; check whether commit/push are also authorized by the request and applicable instructions. Ask once only for missing authority after presenting the ready result. Use `git-workflow` for safe Git mutations and verify the pushed SHA equals the reviewed candidate.
-7. Inspect all PR checks and remote head. Pending, failed, cancelled, or missing required checks block readiness. Diagnose and fix authorized failures, rerun affected review/gates, and update the same PR. Report PR URL, exact head, checks, and unresolved review comments. **Never auto-merge.** Once the checks are inspected and nothing local is uncommitted, return to the default branch: `git symbolic-ref -q refs/remotes/origin/HEAD >/dev/null || { git fetch origin && git remote set-head origin --auto; }`, then `ref=$(git symbolic-ref --short refs/remotes/origin/HEAD) && git switch "${ref#origin/}"` (the first command recovers an unset origin/HEAD; a failing switch keeps its own error); from a linked worktree, `cd` to the main checkout instead, since git will not check out a branch held by another worktree. If the work ran in a `.worktrees/` worktree, suggest removing it (`git worktree remove <path>`) and wait for confirmation.
+7. Verify the remote head. Inspect all PR checks unless the user explicitly declines pipeline inspection/monitoring; record that choice and CI as unverified. If monitoring is requested, follow the exact PR and head until all checks finish or a concrete blocker occurs. Pending, failed, cancelled, or missing required checks block readiness. Diagnose and fix authorized failures, rerun affected review/gates, and update the same PR. Report URL, exact head, checks or inspection limits, and unresolved comments. **Never auto-merge.**
+8. On every PR delivery handoff, execute [return to default branch](references/return-to-default.md), including when pipeline monitoring is declined, pending, or blocked. Returning does not require green CI and does not establish readiness. Verify the active checkout path and default branch, or report the exact dirty-worktree, ownership, or ref blocker. Preserve the delivery branch; offer worktree removal only with explicit confirmation.
 
 ## PR preparation
 Write real newlines through a file-writing tool, then use that file. Substitute resolved values; execute external writes only with authorization.
@@ -77,6 +78,7 @@ Match requested draft/ready status. A draft can exist while CI runs; do not repo
 | Review is clean | Report reviewed scope and uncertainty; absence of findings is not proof of absence |
 | Authorization missing | Present concrete ready artifacts and request only the missing action |
 | CI pending or failed | PR may remain draft; readiness stays blocked |
+| Pipeline inspection/monitoring declined | Record CI as unverified; finish the handoff and return to the default branch |
 | All checks green | Report ready for human review; merge remains a separate user decision |
 
 ## Stop
@@ -106,7 +108,7 @@ More in [Reference Map](references/TOPIC_MAP.md).
 - [ ] Full candidate and base identified; unrelated changes preserved.
 - [ ] Independent code and security reviews completed before PR creation.
 - [ ] Confirmed defects fixed; final candidate reviewed and checked.
-- [ ] Evidence and description subagents ran; every visible or contract change has a real capture; publication uses existing authorization.
-- [ ] Remote head matches reviewed work; all pipelines/checks inspected.
+- [ ] Evidence and description subagents ran; applicable screenshots, GIFs/videos, CLI text, and contract payloads are attached with context; inapplicable formats have reasons; publication uses existing authorization.
+- [ ] Remote head matches reviewed work; all checks inspected, or the user's explicit opt-out and unverified CI recorded.
 - [ ] PR URL or exact blocker reported; no automatic merge.
-- [ ] Back on the default branch after the check inspection; worktree removal suggested when one was used.
+- [ ] Active checkout path and default branch verified at handoff, with or without monitoring; exact blocker reported if return was unsafe.

@@ -25,6 +25,12 @@ The wrong kube context is the single most expensive mistake available here. Read
 4. Validate locally without mutating anything live (see the dry-run table).
 5. Prove runtime health with rollout status, events, and a workload smoke. The pipeline going green is not the signal.
 
+For implementation work, produce the concrete infrastructure artifact requested
+(workflow, image definition, manifests, chart, or IaC), keep the diff smallest,
+and report validation evidence plus the remaining runtime boundary. A delivery
+checkpoint states what changed, what passed locally, and what still requires an
+authorized apply or live rollout.
+
 ## Dry Run Before Apply
 Every one of these is read-only. There is no reason to skip them.
 
