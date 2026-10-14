@@ -58,7 +58,7 @@ Leaving it out lets the reader assume it passed.
 | Kind | What to do |
 |---|---|
 | Behavior regressed or a protection got weaker | fix now, starting from a failing test |
-| Cleanup inside this range | fix now when it is small and keeps behavior; see [simplification.md](simplification/simplification.md) |
+| Cleanup inside this range | fix now when it is small and keeps behavior; see [code-simplification.md](code-simplification.md) |
 | Debt outside the range, or a design question | open an issue with the evidence; keep the range as it is |
 | Preference only | leave out |
 

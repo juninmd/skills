@@ -11,7 +11,7 @@
 - Outside the application
 
 A lookup table for audits of a repository or a diff, organized by language toolchain. Method and
-attack classes live in the vendored [audit workflow](security-audit/audit-workflow.md); this file
+attack classes live in [audit-workflow.md](audit-workflow.md); this file
 answers two practical questions underneath it: which files execute code before the test suite ever
 starts, and which calls deserve a trace from input to effect.
 

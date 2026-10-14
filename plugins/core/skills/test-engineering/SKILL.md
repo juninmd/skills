@@ -1,0 +1,104 @@
+---
+name: test-engineering
+description: |
+  Design and run test suites, end-to-end browser flows, regression gates, and quiet checks. Use for unit and integration tests, Vitest, pytest, Playwright E2E, flaky test elimination, LLM gateway conformance, and coverage. Trigger on 'write a failing test first', 'this test is flaky', 'add an E2E test', 'raise coverage'.
+---
+
+
+# Test Engineering
+
+**Not this skill:** diagnosing a production incident (`observability`), or reviewing a diff for defects (`code-review`).
+
+## Preflight
+```bash
+cat package.json 2>/dev/null | jq -r '.scripts | to_entries[] | select(.key|test("test|spec")) | "\(.key): \(.value)"'
+rg -n 'randomly|shuffle|seed' package.json pytest.ini pyproject.toml 2>/dev/null
+```
+
+The level follows from the contract under test, never from habit.
+
+## Workflow
+1. Name the behavior, the invariant, the observable outcome, and the failure modes — before choosing a test level.
+2. Fixing a bug? Write the failing test first and watch it fail **for the intended reason** — one that passes beforehand proves nothing.
+3. Pick the lowest level that exercises the real contract. Never mock the subject under test.
+4. Cover boundaries, invalid input, dependency failure, timeout, retry, concurrency, and the unchanged-state guarantee (on error, nothing was written).
+5. Run focused checks first; broaden when changed behavior or project policy warrants it.
+6. Use coverage to find blind spots, mutation to grade assertion strength, profiling to back a performance claim.
+
+## Choosing the Level
+
+| Level | Use when | Cost of getting it wrong |
+|---|---|---|
+| Unit | Pure logic, branching, boundaries | Mocking the subject; asserting implementation, not behavior |
+| Integration | Real DB, real HTTP boundary, real serialization | Shared fixture across workers — interleaves and flakes |
+| Contract | A consumer depends on your shape | Passing tests, broken client |
+| Property | An invariant holds across a domain | Weak generator that never reaches the edge |
+| Mutation | Assertions look thin | Chasing a score instead of the surviving mutants |
+| Benchmark | A performance claim is being made | No warmup, one sample, no before/after |
+
+## Useful Invocations
+
+```bash
+vitest run --reporter=verbose path/to/file.test.ts   # focused
+vitest run --sequence.shuffle --sequence.seed=1234   # order dependence
+vitest run --coverage                                # blind spots
+
+pytest -x -q tests/test_thing.py::test_case          # focused, stop at first
+pytest -p no:randomly --count=50 tests/test_flaky.py # reproduce flake
+pytest --lf                                          # last failed only
+```
+
+## Flake Attribution
+Never retry a flaky test; attribute it to exactly one source and remove that source. Detecting a p-flake in n runs is 1-(1-p)^n.
+
+| Source | Tell | Fix |
+|---|---|---|
+| Shared state | Passes alone, fails in suite | Own fixture, own schema/tenant, own temp path |
+| Order dependence | Passes in file order only | Shuffle in CI; it is asserting on residue |
+| Time | Fails near midnight, month end, or in another TZ | Freeze the clock; pin TZ |
+| Randomness | Fails ~1 run in N | Fixed seed, printed on failure |
+| Async | Fails on a faster or slower machine | Await the observable condition, never sleep |
+| Port or resource | Fails only in parallel | Per-worker port, or mark serial |
+
+No fix in this change? Never skip or delete the test. Keep it running and reporting, and record an open ticket and a named owner on it, as the project's flake policy defines. The quarantine window and exit count are project policy, not part of this skill. At the deadline, the owner either rewrites the test or records an explicit decision to delete it; expiry alone never deletes.
+
+## Reference Routing
+- Consult [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-domain guides.
+- Choosing a test double, or spotting a mystery-guest/fragile-test smell in review: [test-doubles.md](references/test-doubles.md).
+- Building out the "Contract" level against another service: [contract-testing.md](references/contract-testing.md).
+
+## Stop
+- The test passes before the fix. It proves nothing — make it fail for the intended reason first.
+- A test is about to be retried instead of attributed. Retrying hides a real bug about half the time.
+- The subject under test is being mocked. Stop; the test now asserts the mock.
+- A negative-path test (proving a gate rejects bad input) is about to run against a real tracked file. Stop; use a disposable temp file instead — `Set-Content -NoNewline` has silently collapsed a tracked file's line breaks while leaving it syntactically valid, and the corruption went unnoticed until later. Verify the final state of anything touched byte-for-byte, never by assumption.
+
+## Rules
+- Hand off refactoring and simplifications to `code-review`, UI issues to `frontend-engineering`, and service bugs to `backend-systems`.
+- Assert externally meaningful behavior and exact failure semantics — the error type and message, not just that it threw.
+- Restore mocks, timers, environment, and global state after every test. A leaked timer fails a later, innocent test.
+- Order dependence is a defect, not a configuration preference. Run the suite shuffled in CI.
+- Concurrent tests sharing one fixture, database, or temp path will interleave. Give each worker its own, or mark those tests serial.
+- Do not chase a coverage percentage: 100% with weak assertions is worse than 70% with sharp ones, because it looks finished.
+- Frontend end-to-end is Playwright, web and desktop alike; Electron support is official but experimental, and Tauri needs a documented driver exception. Review rules live in `code-review` and `ui-review.md`.
+- connection refused in a test run is not a network fault: a required service was not started or a call was left unmocked.
+- Prefer a real containerized dependency when fidelity matters.
+- Benchmarks need warmup, stable inputs, multiple samples, and a before/after comparison.
+- A green gate can be a broken gate. A linter-preset migration has wiped the active rule set while `lint` still passed clean; a backup "verify" step passed for months while dumping an empty database. Both looked identical to a real pass. After touching or trusting any linter config, backup, or verification tool, feed it a known-bad case and confirm it still fails.
+
+## Excuses
+
+| Excuse | Why it is false |
+|---|---|
+| "This behavior is too obvious to test" | The test exists to fail when the rule changes, not to prove what you already know |
+| "I will add the test after the fix lands" | A test never seen failing asserts nothing; write it first and watch it fail for the intended reason |
+| "It only fails in CI, so it is a CI problem" | Order, seed, and concurrency are the product's problem — reproduce with --sequence.shuffle |
+| "Coverage is at 90%, that is enough" | Coverage grades what ran, not what was asserted; mutation grades the assertions |
+| "It passed five times, so it is not flaky" | Five runs catch a 5% flake about a quarter of the time; the count is the claim |
+
+## Checklist
+- [ ] The test failed first, for the intended reason.
+- [ ] Level chosen for the contract under test; the subject is not mocked.
+- [ ] Unhappy paths covered: invalid input, dependency failure, timeout, unchanged state on error.
+- [ ] Ordering or parallelism checks run when relevant.
+- [ ] No global state, timer, or mock left standing after the run.

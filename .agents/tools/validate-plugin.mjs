@@ -35,8 +35,14 @@ function validateLocalEntry(root, manifest, entry, errors) {
   if (entry.version && entry.version !== claude.version) {
     errors.push(`marketplace.json version '${entry.version}' differs from Claude plugin '${claude.version}'`);
   }
-  for (const field of SHARED_FIELDS) {
+  const sharedFields = entry.name === manifest.name || entry.name === "juninmd"
+    ? SHARED_FIELDS
+    : ["version", "license"];
+  for (const field of sharedFields) {
     if (claude[field] !== manifest[field]) errors.push(`Claude plugin '${field}' differs from plugin.json`);
+  }
+  if (!claude.description || typeof claude.description !== "string" || !claude.description.trim()) {
+    errors.push(`Claude plugin '${entry.name}' is missing a valid 'description'`);
   }
   for (const directory of ["skills", "agents"]) {
     if (!fs.existsSync(path.join(pluginRoot, directory))) errors.push(`Claude plugin source has no ${directory}/ directory`);

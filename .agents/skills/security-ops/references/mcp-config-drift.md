@@ -1,6 +1,6 @@
 # MCP Config Drift Review
 
-Adapted from the `mcp-dependency-review` skill of Everything Claude Code (ECC, MIT, Copyright (c) 2026 Affaan Mustafa; https://github.com/affaan-m/ecc).
+Open when auditing repository MCP configuration files for unpinned packages, floating tags, or mutable references that drift from what was reviewed.
 
 Static review of repo-scoped MCP configuration for package references that can resolve to different code after the config was approved. Complements [plugin-vetting.md](plugin-vetting.md), which reads what an extension does; this file checks whether what you approved is what will run.
 
@@ -41,4 +41,4 @@ Stay inside the requested repository. Home-directory and machine-wide MCP config
 - The only way to classify a server is to run or install it: report REVIEW and ask.
 - Scope would expand to user-level configs without an explicit request.
 
-Close the report with: no MCP server was executed; mutable references are not breach claims; a clean result is not a complete MCP security assessment (see [AI-AND-LLM.md](security-audit/AI-AND-LLM.md) for the MCP trust audit).
+Close the report with: no MCP server was executed; mutable references are not breach claims; a clean result is not a complete MCP security assessment (see [audit-ai-llm.md](audit-ai-llm.md) for the MCP trust audit).

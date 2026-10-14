@@ -86,7 +86,7 @@ See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-
 - When a document already exists, report its weak or missing sections and preserve the rest. Regenerating destroys the corrections people made by hand.
 - Prefer a small accurate document over a complete stale one. Coverage is not the goal; being true is.
 - Do not create documentation artifacts the user did not request.
-- Before publishing prose, audit it for AI-writing tells — chatbot openers, significance inflation, filler transitions, a generic closing line. The external `avoid-ai-writing` skill does this in detect or edit-in-place mode; install it only after `security-ops` has read it at a pinned commit.
+- Before publishing prose, audit it for AI-writing tells ([writing-tells.md](references/writing-tells.md)) — chatbot openers, significance inflation, filler transitions, a generic closing line.
 - Changelogs and release notes belong to `git-workflow`; diagrams as versioned source to [diagrams-as-code](references/diagrams-as-code.md); agent-facing repository context to `starting-dev`; a figure that must survive plain text to [ascii-figures](references/ascii-figures.md); generated Office and PDF files to [document-generation](references/document-generation.md); doc tests, versioned docs for breaking changes, and OpenAPI-vs-implementation drift to [docs-drift](references/docs-drift.md).
 
 ## Checklist

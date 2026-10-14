@@ -64,7 +64,7 @@ Label each confirmed finding with its CWE and its OWASP Top 10:2025 category in 
 - Design-time trust-boundary review, STRIDE walkthrough, before or without code: [threat-modeling.md](references/threat-modeling.md).
 - Time-boxed elevated access and service-account scoping: [iam-least-privilege.md](references/iam-least-privilege.md).
 - Prior examples: [real-world-cases.md](references/real-world-cases.md).
-- Codebase audit or pen test: [audit-workflow.md](references/security-audit/audit-workflow.md).
+- Codebase audit or pen test: [audit-workflow.md](references/audit-workflow.md).
 
 ## Stop
 

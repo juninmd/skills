@@ -4,6 +4,7 @@
   "description": "Skills and agents for AI coding assistants",
   "scripts": {
     "plugin:validate": "node .agents/tools/validate-plugin.mjs",
+    "plugins:generate": "node .agents/tools/generate-plugins.mjs",
     "agents:validate": "node .agents/tools/validate-agents.mjs .agents",
     "catalog:generate": "node .agents/tools/generate-catalog.mjs",
     "catalog:check": "node .agents/tools/check-catalog.mjs",

@@ -1,6 +1,6 @@
 # Skill Compliance Measurement
 
-Method adapted from the `skill-comply` skill of Everything Claude Code (ECC, MIT, Copyright (c) 2026 Affaan Mustafa; https://github.com/affaan-m/ecc). This is a procedure, not an import of its scripts.
+Open when a skill routes correctly in lexical evals but an agent skips steps, ignores decision tables, or violates rules during live execution.
 
 Routing evals (`run-evals.mjs`) are lexical: they show the right skill is picked, not that the agent then follows its rules. Use this procedure when a skill loads correctly but the agent still skips a step.
 

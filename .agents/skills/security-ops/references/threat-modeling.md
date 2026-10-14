@@ -6,7 +6,7 @@ A worked example of Adam Shostack's STRIDE method (*Threat Modeling: Designing f
 
 - A new component crosses a trust boundary: a new service, a new external integration, a new user-facing upload or webhook feature.
 - Before `software-architecture` finalizes a data flow that a lower-trust principal can influence.
-- As the first pass of a full audit ([audit-workflow.md](security-audit/audit-workflow.md)) when the system has no existing threat model to build on.
+- As the first pass of a full audit ([audit-workflow.md](audit-workflow.md)) when the system has no existing threat model to build on.
 
 ## Preflight
 

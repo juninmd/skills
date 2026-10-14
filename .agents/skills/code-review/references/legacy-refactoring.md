@@ -87,7 +87,7 @@ Not every cleanup needs the full seam-and-characterize procedure. Gate on covera
 
 | State | Action |
 |---|---|
-| Meaningful test coverage already asserts the behavior being touched | Simplify directly under [simplification/simplification.md](simplification/simplification.md); run tests after every change |
+| Meaningful test coverage already asserts the behavior being touched | Simplify directly under [code-simplification.md](code-simplification.md); run tests after every change |
 | Some coverage, but not on the exact branch or edge case being changed | Add the missing test first — a normal test, not a characterization one, since the intended behavior is already known |
 | No coverage, and the intended behavior is unclear or undocumented | Characterization tests first, per this file; do not simplify from a guess at intent |
 | No coverage, but the code is small and behavior looks obvious from reading it | Still write the characterization test — "obvious" is where the fewest tests exist and the most regressions hide |

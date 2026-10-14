@@ -4,14 +4,14 @@ Read only the files needed for the current task.
 
 | Reference | Topic / Description |
 |---|---|
-| `ios-guide.md` | Starting or auditing an iOS app end-to-end against Apple HIG — layout, typography, navigation, privacy checklist |
-| `swift-coding-standards.md` | Writing or reviewing Swift for optional-safety, naming, protocol-oriented design, value vs reference types, concurrency, memory/retain cycles, or error-handling conventions |
-| `write-swift/write-swift.md` | Modern Swift beyond the standards (Emil Kowalski, MIT): Swift 6 data-race safety, approachable concurrency (`@concurrent`, main-actor default), some vs any, ARC performance, Swift Testing, macros |
-| `swiftui-design-guidelines.md` | Designing a SwiftUI screen and need HIG layout, Dynamic Type, Dark Mode, Liquid Glass, navigation, forms, or loading-state guidance |
-| `uikit-components.md` | Building a UIKit screen with stack views, buttons, alerts, search controllers, or context menus |
-| `layout-system.md` | Laying out a UIKit screen with Auto Layout, safe areas, touch targets, or UICollectionView compositional layout |
-| `system-integration.md` | Integrating iOS permissions (camera/photos/location), share sheet, app lifecycle, background tasks, or haptic feedback |
-| `metal-shader.md` | Writing or optimizing Metal shaders / GPU rendering on Apple platforms (TBDR architecture, PBR, ray tracing, GPU profiling) |
+| [ios-guide.md](ios-guide.md) | Starting or auditing an iOS app end-to-end against Apple HIG — layout, typography, navigation, privacy checklist |
+| [swift-coding-standards.md](swift-coding-standards.md) | Writing or reviewing Swift for optional-safety, naming, protocol-oriented design, value vs reference types, concurrency, memory/retain cycles, or error-handling conventions |
+| [swift-idioms.md](swift-idioms.md) | Modern Swift and Swift 6 concurrency: data-race safety, structured concurrency (`@MainActor`, TaskGroup), some vs any, ARC lifetime, and Swift Testing |
+| [swiftui-design-guidelines.md](swiftui-design-guidelines.md) | Designing a SwiftUI screen and need HIG layout, Dynamic Type, Dark Mode, Liquid Glass, navigation, forms, or loading-state guidance |
+| [uikit-components.md](uikit-components.md) | Building a UIKit screen with stack views, buttons, alerts, search controllers, or context menus |
+| [layout-system.md](layout-system.md) | Laying out a UIKit screen with Auto Layout, safe areas, touch targets, or UICollectionView compositional layout |
+| [system-integration.md](system-integration.md) | Integrating iOS permissions (camera/photos/location), share sheet, app lifecycle, background tasks, or haptic feedback |
+| [metal-shader.md](metal-shader.md) | Writing or optimizing Metal shaders / GPU rendering on Apple platforms (TBDR architecture, PBR, ray tracing, GPU profiling) |
 
 ## Shared with mobile-engineering
 

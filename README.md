@@ -108,13 +108,29 @@ node .agents/tools/install.mjs all         # or: claude | codex | agy | opencode
 
 </details>
 
-### Claude Code plugin
+### Claude Code plugins
 
-Installs all skills and the 4 agents as one plugin (`juninmd:<name>`). The marketplace is [`.claude-plugin/marketplace.json`](.claude-plugin/marketplace.json); the plugin root is `.agents/`.
+Install either the full bundle or only the domains you need from the [`.claude-plugin/marketplace.json`](.claude-plugin/marketplace.json) marketplace:
+
+| Plugin | Context & Scope | Included Skills | Agents |
+|---|---|---|---|
+| `juninmd@skills` | **Complete Bundle** | All 32 skills | 4 agents |
+| `juninmd-core@skills` | **Core Lifecycle & Quality** | `starting-dev`, `finishing-dev`, `git-workflow`, `requirements-planning`, `code-review`, `test-engineering`, `documentation` | `code-reviewer`, `principal-engineer`, `plan-specialist` |
+| `juninmd-web@skills` | **Frontend & Mobile** | `frontend-engineering`, `mobile-engineering`, `ios-engineering`, `stack-selection`, `motion-video`, `threejs`, `3d-models` | `principal-engineer` |
+| `juninmd-backend@skills` | **Backend, Data & Architecture** | `backend-systems`, `data-engineering`, `software-architecture`, `package-management`, `tooling-dev`, `bot-engineering`, `goldsrc-modding` | `principal-engineer` |
+| `juninmd-devops@skills` | **Cloud, DevOps & Security** | `cloud-devops`, `observability`, `performance-engineering`, `security-ops`, `release-autoupdate` | `devops-engineer` |
+| `juninmd-ai@skills` | **AI Agents & Ecosystem** | `agent-engineering`, `agent-orchestration`, `skill-authoring`, `web-research`, `radar-ia`, `agy-image-babysitter` | `plan-specialist` |
 
 ```bash
 claude plugin marketplace add juninmd/skills            # or a local checkout path
+
+# Install the full bundle:
 claude plugin install juninmd@skills                    # --scope user | project | local
+
+# Or install targeted contextual plugins:
+claude plugin install juninmd-web@skills
+claude plugin install juninmd-devops@skills
+
 claude plugin details juninmd@skills                    # inventory and always-on token cost
 ```
 
