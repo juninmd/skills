@@ -29,6 +29,8 @@ A headless run needs three things settled before it starts: how it resumes witho
 6. Watch output age separately from the loop and alert with the last log lines when it goes stale.
 7. Record the run boundary: the supervisor dies with its shell, so a new session must be able to tell whether the job finished.
 
+For Linux / macOS (bash):
+
 ```bash
 attempt=0
 while :; do
@@ -42,6 +44,34 @@ while :; do
     attempt=$((attempt+1)); [ "$attempt" -ge 5 ] && break; sleep $((30 * attempt))
   fi
 done
+```
+
+For Windows (PowerShell):
+
+```powershell
+$attempt = 0
+while ($true) {
+  & $AGENT --resume $JOB_ID --print $PROMPT --timeout 10h *>> $RUN_LOG
+  if ($LASTEXITCODE -eq 0) { break }
+  $logTail = Get-Content -Path $RUN_LOG -Tail 100 -Raw
+  if ($logTail -match 'RESOURCE_EXHAUSTED') {
+    if ($logTail -match '"[a-z]*resettime[^"]*":"([^"]+)"') {
+      $resetDate = [DateTimeOffset]::Parse($Matches[1])
+      $waitSec = [Math]::Max(60, [int]($resetDate - [DateTimeOffset]::UtcNow).TotalSeconds + 300)
+      Start-Sleep -Seconds $waitSec
+    } else {
+      Start-Sleep -Seconds 300
+    }
+    $attempt = 0
+  } elseif ($logTail -match 'UNAUTHENTICATED') {
+    Start-Sleep -Seconds 90
+    $attempt = 0
+  } else {
+    $attempt++
+    if ($attempt -ge 5) { break }
+    Start-Sleep -Seconds (30 * $attempt)
+  }
+}
 ```
 
 ## Stop

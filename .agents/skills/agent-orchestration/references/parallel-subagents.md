@@ -16,9 +16,17 @@
 
 ## Preflight
 ```bash
-git status --porcelain              # a dirty tree cannot be split; workers will collide on it
-git worktree list                   # isolation that already exists
-rg -l 'sharedModule' src/ | wc -l   # files two slices would both edit — the collision count
+# Linux / macOS (bash)
+git status --porcelain
+git worktree list
+rg -l 'sharedModule' src/ | wc -l   # files two slices would both edit — collision count
+```
+
+```powershell
+# Windows (PowerShell)
+git status --porcelain
+git worktree list
+(rg -l 'sharedModule' src/).Count   # files two slices would both edit — collision count
 ```
 
 Count the overlap before spawning anything; one shared file turns concurrency into a merge you pay for twice.
