@@ -26,4 +26,4 @@
 | [audit-resource-bounds.md](audit-resource-bounds.md) | Audit companion: untrusted input can consume CPU, memory, disk, connections, workers, paid APIs, or queues |
 | [audit-supply-chain.md](audit-supply-chain.md) | Audit companion: dependency resolution, untrusted CI builds, release artifacts, signing, plugin loading |
 | [audit-web-auth.md](audit-web-auth.md) | Audit companion: HTTP parsing, caching, browser authentication, identity boundaries, proxies, CDNs |
-| [supply-chain.md](supply-chain.md) | Assessing dependency CVEs, shipped containers and SBOM provenance |
+| [supply-chain.md](supply-chain.md) | Assessing exact-lock dependency inventory, advisories, registry age/provenance, compatibility handoff, shipped containers and SBOM provenance |

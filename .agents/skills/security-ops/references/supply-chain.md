@@ -1,10 +1,20 @@
 # Dependency, Container, and SBOM Security
 
+## Contents
+
+- Dependency scanning
+- Container scanning
+- SBOM generation
+- Beyond CVE scanning
+- CVE triage: exploitability and reachability
+- Severity to action
+- Pull-request dependency gate
+
 Scanning the software supply chain and triaging what comes back.
 
 ## Dependency scanning
 
-- Node: `npm audit --audit-level=high --omit=dev`, or `pnpm audit`. Lockfile-driven, so run it against the committed lockfile, not a fresh resolve.
+- Node: `npm audit` or `pnpm audit`, including dev/build dependencies. Run against the exact candidate lockfile, not a fresh resolve; exclude a group only with documented evidence that it cannot enter the assessed build or artifact.
 - Python: `pip-audit -r requirements.txt`; for uv projects export the frozen lock to a temporary requirements file and audit that file. See the owning skill and [pip-audit usage](https://github.com/pypa/pip-audit#usage).
 - Language-agnostic: `osv-scanner scan --lockfile <path>` covers most ecosystems from the OSV database. `trivy fs --scanners vuln,secret,misconfig .` covers the repository as a whole.
 - Run scans in CI on every pull request and on a schedule — a clean scan today goes stale when a new CVE is published against unchanged code.
@@ -59,6 +69,37 @@ No fix available: isolate the code path, disable the feature, add a compensating
 
 - **Blocks the merge:** a reachable, attacker-exposed vulnerability in the changed code; any live secret; a new dependency with a known critical CVE and an available fix; a control removed or weakened by this change.
 - **May become tracked work:** demonstrably unreachable or unexposed findings with recorded evidence and an owner. Missing fixes and pre-existing debt can still block when exposure demands containment.
+
+## Pull-request dependency gate
+
+Inventory every changed manifest, lockfile, package manager configuration, CI
+install command, and build scope. Resolve direct and transitive dependencies
+from the committed exact lock (never a fresh resolution), and record selected
+versions, source registries, integrity/provenance, lifecycle or build hooks, and
+whether dev/build dependencies enter privileged CI or shipped artifacts.
+
+Run the relevant fresh advisory sources against that exact tree: npm or pnpm
+audit, pip-audit or uv's frozen export, cargo audit, OSV/GHSA/RUSTSEC feeds,
+and the full CI build or equivalent install path. A scanner that is unavailable,
+network-blocked, stale, or only covers part of the tree leaves the dependency
+gate unverified and blocks a clean-ready claim; do not disable it or invent a
+waiver. Preserve exit codes and distinguish findings from scanner failure.
+
+For every selected direct and transitive version, including locked entries, verify the exact version
+exists in the official registry, was published at least 24 hours before review,
+has known provenance and a matching lock integrity record, and is not reported
+as unknown or unpublished. The 24-hour age is a minimum review signal, never a
+safety guarantee, and applies to the locked selected version. Security owns
+advisory, provenance, age, and risk triage. `code-review` owns consumer
+compatibility: compare old to new behavior using the official changelog and
+migration guide, including patch/minor changes that carry breaking behavior.
+`package-management` owns applying supported project-local package-manager controls and lockfile
+changes within existing authority. Preserve stricter waits; unavailable native controls need a deterministic registry timestamp gate. An ordinary update without an effective 24-hour control stays blocked. Explicit emergency exceptions require a recorded owner, exact version, reason, authority, and expiry; never silently bypass an age gate for a security fix.
+
+Report changed manifests, lockfiles, and CI files; exact scan commands and
+versions; advisory database/source freshness; registry and age evidence; full
+build scope; findings and reachability; and every unresolved limitation. Do not
+call the dependency gate clean when any of those deliverables is missing.
 
 Use the project security gate and actual exposure; do not waive active exploitation or severe reachable vulnerabilities solely because they predate this change.
 

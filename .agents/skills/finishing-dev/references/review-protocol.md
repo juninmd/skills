@@ -21,6 +21,14 @@ Adjudicate each finding with a real code path or reproduction. A failed refutati
 
 Before publication verify the candidate still matches what was reviewed, including generated files and commit-hook changes. Check staged and committed diffs. After push compare remote head and file content to that candidate. Publish no unrelated files.
 
+When the candidate changes dependencies, require an explicit pair of review
+deliverables: security records the changed manifests and exact lock inventory,
+direct/transitive advisory and provenance/age results, scanner/database
+freshness, full CI-build scope, and limitations; code review records consumer
+compatibility evidence from the old to new versions and official migration or
+changelog guidance. Missing or unknown evidence blocks a clean dependency
+claim; a 24-hour publication minimum does not establish safety.
+
 ## Coordinating a PR that depends on another unmerged PR
 A change stacked on an unmerged base carries every commit of that base in its diff until the base merges. Reviewing it as if it targeted the trunk hides which lines are actually new.
 

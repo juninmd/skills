@@ -1,0 +1,12 @@
+# Reject newly resolved releases until their exact version is at least one day old.
+minimumReleaseAge: 1440
+trustPolicy: no-downgrade
+
+# Patched documentation build dependencies; see docs/dependency-policy.md.
+overrides:
+  vitepress>vite: 6.4.3
+  postcss: 8.5.23
+  nanoid@<3.3.18: 3.3.18
+  source-map-js@<1.2.2: 1.2.2
+  vue: 3.5.42
+  '@vue/shared': 3.5.42

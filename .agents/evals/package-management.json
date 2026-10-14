@@ -29,6 +29,10 @@
       {
         "prompt": "Set up Dependabot to open weekly grouped dependency-update PRs for this repo",
         "top_k": 3
+      },
+      {
+        "prompt": "Audit a transitive dependency update: enforce a 24-hour release cooldown, exact registry timestamps, changelog migration steps, and peer or MSRV compatibility before regenerating the lockfile",
+        "top_k": 3
       }
     ],
     "negative": [
@@ -47,6 +51,10 @@
       {
         "prompt": "Design the REST API contract and OpenAPI spec for our backend service",
         "owner": "backend-systems"
+      },
+      {
+        "prompt": "Perform a CVE exploitability and threat-model assessment for a dependency advisory, then assign its security risk severity",
+        "owner": "security-ops"
       }
     ]
   }

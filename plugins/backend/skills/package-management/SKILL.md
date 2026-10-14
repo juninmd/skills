@@ -1,7 +1,7 @@
 ---
 name: package-management
 description: |
-  Operate an already-chosen JS or Python package manager and toolchain. Use for pnpm workspaces, catalogs, overrides, patches, and peer deps; uv, pyproject.toml, PEP 723 scripts, Ruff, prek/pre-commit, Dependabot update PRs, lockfile hygiene, and CI install caching. Trigger on 'migrate to pnpm', 'switch to uv', 'the lockfile is broken', 'patch this package'.
+  Operate an already-chosen JS or Python package manager. Use for pnpm workspaces, catalogs, overrides, patches, peer deps; uv, pyproject.toml, PEP 723, Ruff, prek/pre-commit, Dependabot PRs, dependency cooldown configuration, lockfile hygiene, and CI caching. Trigger on 'migrate to pnpm', 'switch to uv', 'the lockfile is broken', 'patch this package'.
 ---
 
 # Package Management
@@ -24,9 +24,10 @@ Identify the package manager already pinned (lockfile + `packageManager`/`uv.loc
 2. For JS/TS work, route by need: CLI/flags -> [core-cli.md](references/core-cli.md); `.npmrc`/`pnpm-workspace.yaml` -> [core-config.md](references/core-config.md); monorepo/`workspace:` protocol -> [core-workspaces.md](references/core-workspaces.md); shared dependency versions -> [features-catalogs.md](references/features-catalogs.md); forcing a transitive version -> [features-overrides.md](references/features-overrides.md); patching a third-party package -> [features-patches.md](references/features-patches.md); peer-dependency resolution -> [features-peer-deps.md](references/features-peer-deps.md); aliasing/dual versions -> [features-aliases.md](references/features-aliases.md); `.pnpmfile.cjs` -> [features-hooks.md](references/features-hooks.md); store/hard-link internals -> [core-store.md](references/core-store.md). Consolidated view: [pnpm-features.md](references/pnpm-features.md).
 3. For governance, CI wiring and migrations: lockfile policy and strict mode -> [pnpm-standards.md](references/pnpm-standards.md); GitHub Actions caching -> [best-practices-ci.md](references/best-practices-ci.md); npm/Yarn to pnpm -> [best-practices-migration.md](references/best-practices-migration.md) or [node-operations.md](references/node-operations.md); slow installs -> [best-practices-performance.md](references/best-practices-performance.md); new Node project setup -> [node-setup.md](references/node-setup.md).
 4. For Python work: project init/uv commands -> [uv-commands.md](references/uv-commands.md), [python-setup.md](references/python-setup.md); `pyproject.toml` fields -> [pyproject.md](references/pyproject.md); one-off scripts -> [pep723-scripts.md](references/pep723-scripts.md); linter/formatter config -> [ruff-config.md](references/ruff-config.md); pip/setup.py to uv -> [migration-checklist.md](references/migration-checklist.md); legacy-pattern check -> [modern-python-patterns.md](references/modern-python-patterns.md).
-5. For repo-wide hygiene: pre-commit hook runner -> [prek.md](references/prek.md); automated dependency PRs -> [dependabot.md](references/dependabot.md); scanning/CI security tooling -> [security-setup.md](references/security-setup.md).
+5. For repo-wide hygiene: pre-commit hook runner -> [prek.md](references/prek.md); automated dependency PRs -> [dependabot.md](references/dependabot.md); dependency update policy -> [dependency-policy.md](references/dependency-policy.md); scanning/CI security tooling -> [security-setup.md](references/security-setup.md).
 6. After any change to a lockfile or manifest, run the package manager's install in frozen/locked mode to prove the lockfile still resolves, and report that command's real output.
 7. Full routing table, including topics not covered above: [Reference Map](references/TOPIC_MAP.md).
+8. For every dependency update, apply the [dependency policy](references/dependency-policy.md): wait at least 24 hours after publication (keep stricter existing cooldowns), pin direct and transitive versions, and verify the exact release before applying it.
 
 ## Decisions
 
@@ -37,6 +38,7 @@ Identify the package manager already pinned (lockfile + `packageManager`/`uv.loc
 | A transitive dependency has a CVE | `features-overrides.md` (pnpm) or `uv add` a direct pin, not a manual `node_modules` edit |
 | A third-party package needs a local fix | `pnpm patch`, never a hand-edited `node_modules` |
 | Choosing pnpm vs npm vs uv for a brand-new repo | Out of scope — hand off to `stack-selection` |
+| A dependency update is requested | Check publication metadata, changelog/migration path, compatibility, and security ownership before changing the manifest or lockfile |
 
 ## Stop
 
@@ -51,6 +53,8 @@ Identify the package manager already pinned (lockfile + `packageManager`/`uv.loc
 - Keep `shamefully-hoist`/`node-linker=hoisted` as a last resort; they re-enable phantom dependencies.
 - Commit `uv.lock` for applications, gitignore it for libraries.
 - Prefer `uv run`/`pnpm dlx` over manual venv activation or global installs.
+- Use exact versions for direct and transitive dependencies; a lockfile is evidence of selection, not a substitute for release-age or advisory review.
+- `package-management` owns configuration and updates; `security-ops` owns advisory/risk decisions; `code-review` owns compatibility review.
 
 ## Gotchas
 

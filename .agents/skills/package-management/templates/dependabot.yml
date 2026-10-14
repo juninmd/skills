@@ -1,4 +1,4 @@
-# Copy to .github/dependabot.yml and adjust for the repository.
+# Copy to .github/dependabot.yml and adjust for the repository. Keep the 7-day cooldown unless security-ops approves an exception.
 version: 2
 updates:
   - package-ecosystem: pip

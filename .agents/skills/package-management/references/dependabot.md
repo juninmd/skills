@@ -14,7 +14,7 @@ Copy [templates/dependabot.yml](../templates/dependabot.yml) to `.github/dependa
 
 The template includes:
 - Weekly update schedule for pip and GitHub Actions
-- 7-day cooldown for supply chain protection
+- 7-day cooldown for supply chain protection (the repository minimum is 24 hours; retain this stricter setting)
 - Grouping to reduce PR noise
 
 ## Supply Chain Protection
@@ -31,7 +31,7 @@ The `cooldown.default-days: 7` setting delays updates for newly published versio
 | Option | Description |
 |--------|-------------|
 | `interval` | `daily`, `weekly`, or `monthly` |
-| `cooldown.default-days` | Days to wait before updating new releases |
+| `cooldown.default-days` | Days to wait before updating new releases; never lower an existing value below 1 day without explicit security review |
 | `ignore` | Skip specific dependencies or versions |
 | `groups` | Group related updates into single PRs |
 | `reviewers` | Auto-assign reviewers to PRs |

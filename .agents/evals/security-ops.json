@@ -29,6 +29,10 @@
       {
         "prompt": "Review .mcp.json for npx servers using @latest or unpinned versions before we approve it",
         "top_k": 3
+      },
+      {
+        "prompt": "Review a dependency upgrade using the exact lockfile, direct and transitive advisories, registry publication age, provenance, and full CI build scope",
+        "top_k": 3
       }
     ],
     "negative": [
