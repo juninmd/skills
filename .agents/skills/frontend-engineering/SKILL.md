@@ -56,7 +56,7 @@ Open a file only when its trigger matches.
 - Any component work: [ui-components.md](references/ui-components.md).
 - Anti-slop UI direction, dials, and redesign audits: [anti-slop-taste.md](references/anti-slop-taste.md).
 - `app/` directory: [nextjs-app-router.md](references/nextjs-app-router.md) — server/client boundaries, streaming, caching, actions.
-- `components.json` (shadcn/ui): adding it [GUIDE_INSTALLATION.md](references/GUIDE_INSTALLATION.md), extending a primitive [GUIDE_ARCHITECTURE.md](references/GUIDE_ARCHITECTURE.md), picking one [AVAILABLE_COMPONENTS.md](references/AVAILABLE_COMPONENTS.md), blocks [GUIDE_BLOCKS_A11Y.md](references/GUIDE_BLOCKS_A11Y.md).
+- `components.json` (shadcn/ui): discovery, installation, and extending primitives in [shadcn-integration.md](references/shadcn-integration.md).
 - `vite.config.*`: [vite-core.md](references/vite-core.md), [vite-patterns.md](references/vite-patterns.md); Tailwind v4 there: [vite-tailwind-v4.md](references/vite-tailwind-v4.md).
 - Reviewing UI: [frontend-review.md](references/frontend-review.md); slow UI: [frontend-optimization.md](references/frontend-optimization.md).
 - Behavior that should work but does not: [real-world-cases.md](references/real-world-cases.md).

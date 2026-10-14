@@ -53,13 +53,13 @@ patience for nothing.
    [incremental delivery](references/incremental-delivery.md), then publish
    them as backlog issues with [to-issues process](references/to-issues-process.md).
 5. Handing a slice to an AFK agent: write an
-   [agent brief](references/AGENT-BRIEF.md) — behavioral contract, not file
+   [agent brief](references/agent-brief.md) — behavioral contract, not file
    paths or line numbers — with its own finish line and out-of-scope list.
 6. Triaging incoming issues: classify with
    [triage logic](references/triage-logic.md), hold response quality to
    [triage standards](references/triage-standards.md), and execute the
    lifecycle with [triage workflow](references/triage-workflow.md). Check
-   [out-of-scope records](references/OUT-OF-SCOPE.md) before re-litigating a
+   [out-of-scope records](references/out-of-scope.md) before re-litigating a
    rejected request.
 7. For a run expected to survive many turns or a context compaction, keep the
    task list in a temp file named with the session id, outside the repository
@@ -81,9 +81,9 @@ executed by this skill.
 | Requester wants a PRD or implementation plan document | [spec workflow](references/spec-workflow.md) + [spec templates](references/spec-templates.md) |
 | Direction unresolved between two or more plausible designs | throwaway mockups/prototypes, each marked an experiment |
 | Feature needs to become tracked work | [incremental delivery](references/incremental-delivery.md) -> [to-issues process](references/to-issues-process.md) |
-| Work is handed to an unattended agent | [agent brief](references/AGENT-BRIEF.md) |
+| Work is handed to an unattended agent | [agent brief](references/agent-brief.md) |
 | A new issue arrives and needs classification | [triage logic](references/triage-logic.md) + [triage workflow](references/triage-workflow.md) |
-| A feature request looks like a past rejection | [out-of-scope records](references/OUT-OF-SCOPE.md) |
+| A feature request looks like a past rejection | [out-of-scope records](references/out-of-scope.md) |
 
 ## Gotchas
 - A vague success check ("make it feel faster", "users should love it") is

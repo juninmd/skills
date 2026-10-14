@@ -1,0 +1,22 @@
+{
+  "name": "juninmd-backend",
+  "displayName": "JuninMD Backend & Data",
+  "description": "Backend services, APIs, databases, architecture, package management, tooling, and modding.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Antonio Junior",
+    "url": "https://github.com/juninmd"
+  },
+  "homepage": "https://github.com/juninmd/skills",
+  "repository": "https://github.com/juninmd/skills",
+  "license": "MIT",
+  "keywords": [
+    "backend",
+    "api",
+    "database",
+    "sql",
+    "architecture",
+    "packages",
+    "cli"
+  ]
+}

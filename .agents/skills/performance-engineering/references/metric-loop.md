@@ -66,7 +66,6 @@ Header first, direction recorded: `# direction: lower_is_better`, then `iteratio
 - Reverting is normal, not failure. A loop with no reverts is trying changes too timid to matter.
 - The log lives in the session workspace, not the transcript or the repo: the next session reads rows, not your summary.
 - Choosing *which* change to try comes from evidence — `performance-engineering` for a profile, `observability` for a defect. `test-engineering` writes the benchmark Verify runs and proves a kept series broke nothing; durable lessons go to `starting-dev`.
-- Protocol adapted from the autoresearch loop by uditgoenka (MIT).
 
 ## Checklist
 - [ ] Goal, Scope, Metric, direction, Verify, Guard all fixed in writing before iteration 0.

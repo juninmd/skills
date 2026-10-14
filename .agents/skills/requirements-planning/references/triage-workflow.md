@@ -17,6 +17,6 @@ Detailed procedures for managing the issue lifecycle.
 - Flag as `needs-info` if reproduction is impossible without more data.
 
 ## 4. Outcome Application (Step 5)
-- **ready-for-agent:** Post agent brief (see `AGENT-BRIEF.md`).
+- **ready-for-agent:** Post agent brief (see `agent-brief.md`).
 - **ready-for-human:** Post summary of task establishing triage established.
 - **wontfix:** Close with polite explanation (and log if enhancement).

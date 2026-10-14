@@ -4,8 +4,7 @@ Read only the files needed for the current task.
 
 | Reference | Topic / Description |
 |---|---|
-| `FORMS.md` | Filling in the field-by-field form for a SQL or NoSQL admin operation request (connection string, query, params) |
-| `REFERENCE.md` | PostgreSQL/MongoDB/Redis admin commands, connection security, and read-replica lag / stale-read handling: [REFERENCE](REFERENCE.md) |
+| [database-admin.md](database-admin.md) | Database administration commands (PostgreSQL, MongoDB, Redis), operational intake payloads, connection hardening, and read-replica lag |
 | `data-analysis.md` | CLI-first profiling, size-based load strategy, pandas memory profiling and dtype downcasting, reshape traps, and scrubbing before sharing: [data-analysis](data-analysis.md) |
 | `migration-engineering.md` | Expand/migrate/contract phases, batched backfill, reconciliation, and idempotent/rollback-safe migrations: [migration-engineering](migration-engineering.md) |
 | `online-ddl-and-api-migration.md` | Running DDL against a live table (index/column/constraint/type change) without locking writers, or sunsetting an API surface safely |

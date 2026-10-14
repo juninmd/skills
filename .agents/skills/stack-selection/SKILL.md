@@ -73,7 +73,7 @@ Identify the runtime, package manager, linter, test runner, and data store actua
 | Error tracking | Sentry or an OpenTelemetry-compatible equivalent | — |
 | Auth | A managed OIDC provider | Never a hand-rolled session and password stack |
 
-Open [stack rationale](references/stack-rationale.md) for why each default holds and what evidence reverses it. For a frontend component or utility (toast, OTP input, command menu, charts, drag and drop, virtualization), check the curated [UI library picks](references/pick-ui-library/pick-ui-library.md) before hand-rolling one.
+Open [stack rationale](references/stack-rationale.md) for why each default holds and what evidence reverses it. For frontend components and utilities (toasts, command palettes, charts, inputs, virtualization), check [ui-component-selection.md](references/ui-component-selection.md). All reference mappings: [TOPIC_MAP.md](references/TOPIC_MAP.md).
 
 ## Stop
 - The constraint that decides the pick is unknown (host, platform, compliance, team): ask instead of guessing.

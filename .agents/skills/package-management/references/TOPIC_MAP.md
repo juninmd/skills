@@ -4,7 +4,6 @@ Read only the files needed for the current task.
 
 | Reference | Topic / Description |
 |---|---|
-| `GENERATION.md` | Verifying the vendored pnpm docs' source commit and generation date before trusting or re-vendoring them |
 | `core-cli.md` | Looking up a pnpm CLI command or flag (install, add, run, dlx, why, audit) |
 | `core-config.md` | Configuring pnpm-workspace.yaml or .npmrc settings |
 | `core-store.md` | Understanding or debugging pnpm's content-addressable store and hard-link layout |

@@ -33,7 +33,7 @@ Identify the asset format and spec version, the authoring tool (Blender, VRoid S
 |---|---|---|
 | VRM 0.x ↔ 1.0 file conversion | [vrm-version-conversion.md](references/vrm-version-conversion.md) | 1.0 → 0.x always drops data; list it before writing |
 | VRoid export cleanup in Blender | [vroid-blender-cleanup.md](references/vroid-blender-cleanup.md) | ARKit transfer after tris-to-quads lands offset |
-| Hair/cloth physics wrong in three-vrm | [springbone-physics.md](references/vrm-springbone-physics/springbone-physics.md) | Delta in milliseconds or oversized colliders, not a physics bug |
+| Hair/cloth physics wrong in three-vrm | [springbone-physics.md](references/springbone-physics.md) | Delta in milliseconds or oversized colliders, not a physics bug |
 | Scene rendering, loaders, GPU cleanup | `threejs` | Asset fixes belong here; renderer fixes belong there |
 
 See [Reference Map](references/TOPIC_MAP.md) for provenance and scope.

@@ -77,3 +77,28 @@ test("a missing marketplace fails", () => {
   fs.rmSync(path.join(root, ".claude-plugin"), { recursive: true });
   assert.match(errorsOf(root), /marketplace\.json is missing/);
 });
+
+test("modular plugins with contextual descriptions pass when version and license match", () => {
+  const root = createRepo();
+  const subPluginDir = path.join(root, "plugins/web");
+  fs.mkdirSync(path.join(subPluginDir, ".claude-plugin"), { recursive: true });
+  fs.mkdirSync(path.join(subPluginDir, "skills"), { recursive: true });
+  fs.mkdirSync(path.join(subPluginDir, "agents"), { recursive: true });
+  fs.writeFileSync(
+    path.join(subPluginDir, ".claude-plugin/plugin.json"),
+    JSON.stringify({ name: "sample-web", description: "Web-specific skills", version: "1.2.3", license: "MIT" })
+  );
+
+  const marketPath = path.join(root, ".claude-plugin/marketplace.json");
+  const market = JSON.parse(fs.readFileSync(marketPath, "utf8"));
+  market.plugins.push({
+    name: "sample-web",
+    source: "./plugins/web",
+    description: "Web-specific skills",
+    version: "1.2.3",
+  });
+  fs.writeFileSync(marketPath, JSON.stringify(market));
+
+  assert.deepEqual(validatePlugin(root), []);
+});
+

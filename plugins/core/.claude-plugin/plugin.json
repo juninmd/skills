@@ -1,0 +1,21 @@
+{
+  "name": "juninmd-core",
+  "displayName": "JuninMD Core Workflow",
+  "description": "Core software development lifecycle: planning, onboarding, git, review, characterization testing, and documentation.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Antonio Junior",
+    "url": "https://github.com/juninmd"
+  },
+  "homepage": "https://github.com/juninmd/skills",
+  "repository": "https://github.com/juninmd/skills",
+  "license": "MIT",
+  "keywords": [
+    "workflow",
+    "planning",
+    "code-review",
+    "git",
+    "testing",
+    "documentation"
+  ]
+}

@@ -81,8 +81,7 @@ Check `pg_stat_activity` for long transactions first. Build indexes with `CREATE
 
 ## Reference Routing
 - Practical data cases: [real-world-cases.md](references/real-world-cases.md)
-- Operational intake and DBA checks: [FORMS.md](references/FORMS.md)
-- PostgreSQL, MongoDB, Redis, query, index, and backup guidance: [REFERENCE.md](references/REFERENCE.md)
+- Operational intake, DBA checks, connection hardening, and replica lag: [database-admin.md](references/database-admin.md)
 - Redis modeling, clients, cluster slots, ACLs, and RQE search: [redis-operations.md](references/redis-operations.md)
 - Vector collections, memory tiers, hybrid search, and fusion: [vector-databases.md](references/vector-databases.md)
 

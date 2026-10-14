@@ -4,9 +4,9 @@ Open only the procedure matching the current subtask. These are files, not stand
 
 | Reference | When to open |
 |---|---|
-| [AGENT-BRIEF.md](AGENT-BRIEF.md) | Prepare a bounded, behavioral implementation brief when authorized issue tracking hands work to an unattended agent |
+| [agent-brief.md](agent-brief.md) | Prepare a bounded, behavioral implementation brief when authorized issue tracking hands work to an unattended agent |
 | [incremental-delivery.md](incremental-delivery.md) | Split a feature into independently verifiable vertical slices |
-| [OUT-OF-SCOPE.md](OUT-OF-SCOPE.md) | Check and record rejected feature requests before triaging a similar new one |
+| [out-of-scope.md](out-of-scope.md) | Check and record rejected feature requests before triaging a similar new one |
 | [requirements-clarification.md](requirements-clarification.md) | Batch material unanswered product and acceptance questions before dependent work |
 | [spec-templates.md](spec-templates.md) | Choose the concrete PRD or implementation plan skeleton |
 | [spec-workflow.md](spec-workflow.md) | Develop requirements into an actionable specification and verified slice plan |

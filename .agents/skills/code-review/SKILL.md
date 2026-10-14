@@ -57,7 +57,7 @@ A subagent that edited one file cannot hold sibling files, prior incidents, or p
 - Diff signals that precede an outage — contracts, deleted guards, retries, plans, test edits: [regression-review.md](references/regression-review.md). Verdict arithmetic stays with `test-engineering` and its `regression-gate.md`.
 - Anything that renders, web or desktop: [ui-review.md](references/ui-review.md).
 - How big a review may be and what it provably misses: [review-effectiveness.md](references/review-effectiveness.md).
-- Cross-file smells a single-file scan misses, and their matching refactor: [fowler-smells.md](references/simplification/fowler-smells.md).
+- Cross-file architectural smells (feature envy, shotgun surgery, primitive obsession, divergent change): [code-smells.md](references/code-smells.md); simplification workflow and complexity reduction: [code-simplification.md](references/code-simplification.md).
 
 ## Stop
 - Review scope or base cannot be determined; report what evidence is missing.
