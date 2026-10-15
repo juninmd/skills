@@ -17,6 +17,7 @@ export const PLUGIN_CONTEXTS = {
       "starting-dev",
       "finishing-dev",
       "git-workflow",
+      "git-branch-cleanup",
       "requirements-planning",
       "code-review",
       "test-engineering",
