@@ -69,8 +69,8 @@ export const PLUGIN_CONTEXTS = {
   ai: {
     name: "juninmd-ai",
     displayName: "JuninMD AI & Agents",
-    description: "AI agent architecture, MCP servers, subagent orchestration, skill authoring, automated image loops, and daily AI ecosystem radar.",
-    keywords: ["ai", "agents", "mcp", "subagents", "skills", "radar", "llm"],
+    description: "AI agent architecture, MCP servers, subagent orchestration, skill authoring, local voice dubbing, automated image loops, and daily AI ecosystem radar.",
+    keywords: ["ai", "agents", "mcp", "subagents", "skills", "radar", "llm", "dubbing"],
     skills: [
       "agent-engineering",
       "agent-orchestration",
@@ -78,6 +78,7 @@ export const PLUGIN_CONTEXTS = {
       "web-research",
       "radar-ia",
       "agy-image-babysitter",
+      "local-dubbing",
     ],
   },
 };
@@ -114,7 +115,7 @@ export function generatePlugins(root = REPO_ROOT) {
     {
       name: "juninmd",
       source: "./.agents",
-      description: "Complete bundle: all 32 production-grade engineering skills.",
+      description: "Complete bundle: all 33 production-grade engineering skills.",
       version,
     },
   ];
