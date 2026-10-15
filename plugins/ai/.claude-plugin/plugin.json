@@ -1,7 +1,7 @@
 {
   "name": "juninmd-ai",
   "displayName": "JuninMD AI & Agents",
-  "description": "AI agent architecture, MCP servers, subagent orchestration, skill authoring, automated image loops, and daily AI ecosystem radar.",
+  "description": "AI agent architecture, MCP servers, subagent orchestration, skill authoring, local voice dubbing, automated image loops, and daily AI ecosystem radar.",
   "version": "1.4.0",
   "author": {
     "name": "Antonio Junior",
@@ -17,6 +17,7 @@
     "subagents",
     "skills",
     "radar",
-    "llm"
+    "llm",
+    "dubbing"
   ]
 }

@@ -1,0 +1,16 @@
+{
+  "skill_name": "local-dubbing",
+  "trigger": {
+    "positive": [
+      { "prompt": "Clone the actor voice locally so I can compare the Portuguese dubbing with the original", "top_k": 1 },
+      { "prompt": "Generate a Qwen3-TTS voice sample from this reference and transcript without changing my Unsloth environment", "top_k": 1 },
+      { "prompt": "Dub all dialogue with a different consistent voice per character", "top_k": 1 },
+      { "prompt": "Crie uma dublagem local em português com uma voz para cada personagem", "top_k": 1 },
+      { "prompt": "Copie a voz do ator para comparar com uma amostra de dublagem", "top_k": 1 }
+    ],
+    "negative": [
+      { "prompt": "Add beat-locked music to a motion graphics reel", "owner": "motion-video" },
+      { "prompt": "Fix the uv lockfile and dependency conflicts in this Python package", "owner": "package-management" }
+    ]
+  }
+}
