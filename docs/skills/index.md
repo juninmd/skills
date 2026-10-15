@@ -1,6 +1,6 @@
 # Skills
 
-The catalog contains 33 domain skills. They are intentionally broader than single-tool skills so the model has fewer overlapping routes, while reference files preserve depth. Retired skill names are mapped to their owner in `.agents/retired-skills.json`. The catalog is capped at 35 skills (`pnpm run catalog:check` enforces it); a skill that straddles two domains is split along the domain line rather than stretched.
+The catalog contains 34 domain skills. They are intentionally broader than single-tool skills so the model has fewer overlapping routes, while reference files preserve depth. Retired skill names are mapped to their owner in `.agents/retired-skills.json`. The catalog is capped at 35 skills (`pnpm run catalog:check` enforces it); a skill that straddles two domains is split along the domain line rather than stretched.
 
 <!-- skill-catalog:start -->
 | Skill | Use it for |
@@ -17,6 +17,7 @@ The catalog contains 33 domain skills. They are intentionally broader than singl
 | `documentation` | README, docs verification, Mermaid diagrams as code, ASCII and terminal figures, code snippet images, PDF/DOCX generation, and OpenAPI reference |
 | `finishing-dev` | PR delivery, descriptions, acceptance evidence, homologação (prove it on the real target), and return to the default branch with or without pipeline monitoring |
 | `frontend-engineering` | React, Next.js, Vite, Tailwind, WCAG accessibility, i18n and RTL, visual hierarchy, color palettes, anti-slop styling, animation, easing, motion, UI states, and masonry |
+| `git-branch-cleanup` | bulk branch cleanup, repository housekeeping, removing stale branches after PR merges, and cleaning gone tracking branches |
 | `git-workflow` | branches, worktrees, rebase conflicts, reflog recovery, stash, bisect, conventional commits, semantic version bumps, changelogs, and release tags |
 | `goldsrc-modding` | Valve 220 .map geometry, ZHLT/VHLT compiles, BSP30 lumps, CS 1.6 entities, and Pawn (.sma/.amxx) natives, forwards, precache, and crash forensics |
 | `ios-engineering` | Swift optionals, concurrency and memory, SwiftUI views, UIKit and Auto Layout, Metal shaders, WidgetKit, iOS permissions and system integration, and App Store readiness |

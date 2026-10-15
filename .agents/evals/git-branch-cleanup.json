@@ -1,0 +1,29 @@
+{
+  "skill_name": "git-branch-cleanup",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Remove branches that were already merged remotely on GitHub and clean local stale branches",
+        "top_k": 3
+      },
+      {
+        "prompt": "Prune squash-merged branches and delete gone tracking refs across local and origin",
+        "top_k": 3
+      },
+      {
+        "prompt": "Clean up merged feature branches from GitHub remote and local repository",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Recover lost commits from git reflog and resolve complicated git rebase conflicts",
+        "owner": "git-workflow"
+      },
+      {
+        "prompt": "Run review subagents and prepare the pull request after verification",
+        "owner": "finishing-dev"
+      }
+    ]
+  }
+}

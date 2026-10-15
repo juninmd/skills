@@ -11,7 +11,7 @@
 [![Agent Skills Spec](https://img.shields.io/badge/spec-Agent_Skills-black.svg)](https://agentskills.io)
 [![MCP Standard](https://img.shields.io/badge/MCP-standard-10b981.svg)](https://modelcontextprotocol.io)
 
-**33 skills · enterprise operating instructions**
+**34 skills · enterprise operating instructions**
 
 *Production engineering workflows for AI coding assistants: discover intent, execute surgical changes, and prove with reproducible evidence.*
 
@@ -114,8 +114,8 @@ Install either the full bundle or only the domains you need from the [`.claude-p
 
 | Plugin | Context & Scope | Included Skills |
 |---|---|---|
-| `juninmd@skills` | **Complete Bundle** | All 33 skills |
-| `juninmd-core@skills` | **Core Lifecycle & Quality** | `starting-dev`, `finishing-dev`, `git-workflow`, `requirements-planning`, `code-review`, `test-engineering`, `documentation` |
+| `juninmd@skills` | **Complete Bundle** | All 34 skills |
+| `juninmd-core@skills` | **Core Lifecycle & Quality** | `starting-dev`, `finishing-dev`, `git-workflow`, `git-branch-cleanup`, `requirements-planning`, `code-review`, `test-engineering`, `documentation` |
 | `juninmd-web@skills` | **Frontend & Mobile** | `frontend-engineering`, `mobile-engineering`, `ios-engineering`, `stack-selection`, `motion-video`, `threejs`, `3d-models` |
 | `juninmd-backend@skills` | **Backend, Data & Architecture** | `backend-systems`, `data-engineering`, `software-architecture`, `package-management`, `tooling-dev`, `bot-engineering`, `goldsrc-modding` |
 | `juninmd-devops@skills` | **Cloud, DevOps & Security** | `cloud-devops`, `observability`, `performance-engineering`, `security-ops`, `release-autoupdate` |
@@ -269,6 +269,7 @@ domain that owns what comes next. You keep writing prose.
 | `documentation` | README, docs verification, Mermaid diagrams as code, ASCII and terminal figures, code snippet images, PDF/DOCX generation, and OpenAPI reference |
 | `finishing-dev` | PR delivery, descriptions, acceptance evidence, homologação (prove it on the real target), and return to the default branch with or without pipeline monitoring |
 | `frontend-engineering` | React, Next.js, Vite, Tailwind, WCAG accessibility, i18n and RTL, visual hierarchy, color palettes, anti-slop styling, animation, easing, motion, UI states, and masonry |
+| `git-branch-cleanup` | bulk branch cleanup, repository housekeeping, removing stale branches after PR merges, and cleaning gone tracking branches |
 | `git-workflow` | branches, worktrees, rebase conflicts, reflog recovery, stash, bisect, conventional commits, semantic version bumps, changelogs, and release tags |
 | `goldsrc-modding` | Valve 220 .map geometry, ZHLT/VHLT compiles, BSP30 lumps, CS 1.6 entities, and Pawn (.sma/.amxx) natives, forwards, precache, and crash forensics |
 | `ios-engineering` | Swift optionals, concurrency and memory, SwiftUI views, UIKit and Auto Layout, Metal shaders, WidgetKit, iOS permissions and system integration, and App Store readiness |
