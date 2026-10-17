@@ -1,0 +1,14 @@
+{
+  "skill_name": "rea",
+  "trigger": {
+    "positive": [
+      { "prompt": "Use REA to reverse engineer an Electron ASAR and trace its clipboard IPC", "top_k": 1 },
+      { "prompt": "Configure rea-agents MCP for Codex and diagnose REA provider readiness", "top_k": 1 },
+      { "prompt": "Decompile a native binary with REA Ghidra and show function xrefs", "top_k": 1 }
+    ],
+    "negative": [
+      { "prompt": "Build an MCP server with tool schemas, transport, and prompt injection guards", "owner": "agent-engineering" },
+      { "prompt": "Run a security vulnerability audit with CVE scans and Gitleaks secrets detection", "owner": "security-ops" }
+    ]
+  }
+}

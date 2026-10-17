@@ -77,6 +77,7 @@ export const PLUGIN_CONTEXTS = {
       "agent-orchestration",
       "skill-authoring",
       "web-research",
+      "rea",
       "radar-ia",
       "agy-image-babysitter",
       "local-dubbing",
@@ -116,7 +117,7 @@ export function generatePlugins(root = REPO_ROOT) {
     {
       name: "juninmd",
       source: "./.agents",
-      description: "Complete bundle: all 33 production-grade engineering skills.",
+      description: "Complete bundle: all 35 production-grade engineering skills.",
       version,
     },
   ];

@@ -73,6 +73,7 @@
 "pypi.org" = "fetched: Python package index"
 "qdrant.tech" = "Qdrant vector database documentation"
 "reactnative.directory" = "React Native library directory"
+"rea.tools" = "Official REA guides and Portuguese introduction for reverse engineering workflows"
 "raw.githubusercontent.com" = "GitHub raw content CDN, cited in finishing-dev for why raw branch URLs fail in PR descriptions"
 "recharts.org" = "Recharts charts, library homepage cited by the vendored pick-ui-library reference"
 "redis.io" = "Redis documentation"

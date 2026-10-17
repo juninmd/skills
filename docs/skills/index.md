@@ -1,6 +1,6 @@
 # Skills
 
-The catalog contains 34 domain skills. They are intentionally broader than single-tool skills so the model has fewer overlapping routes, while reference files preserve depth. Retired skill names are mapped to their owner in `.agents/retired-skills.json`. The catalog is capped at 35 skills (`pnpm run catalog:check` enforces it); a skill that straddles two domains is split along the domain line rather than stretched.
+The catalog contains 35 domain skills. They are intentionally broader than single-tool skills so the model has fewer overlapping routes, while reference files preserve depth. Retired skill names are mapped to their owner in `.agents/retired-skills.json`. The catalog is capped at 35 skills (`pnpm run catalog:check` enforces it); a skill that straddles two domains is split along the domain line rather than stretched.
 
 <!-- skill-catalog:start -->
 | Skill | Use it for |
@@ -28,6 +28,7 @@ The catalog contains 34 domain skills. They are intentionally broader than singl
 | `package-management` | pnpm workspaces, catalogs, overrides, patches, peer deps; uv, pyproject.toml, PEP 723, Ruff, prek/pre-commit, Dependabot PRs, dependency cooldown configuration, lockfile hygiene, and CI caching |
 | `performance-engineering` | endpoint profiling, k6 load tests, bottlenecks, N+1 queries, memory leaks, LCP/INP, autonomous metric loops, and rightsizing costs |
 | `radar-ia` | the daily AI radar and best-posts digests; not for one-paper research or debugging |
+| `rea` | rea-agents setup and MCP readiness, native binary decompilation and xrefs, JavaScript/Electron ASAR and IPC analysis, .NET assemblies, and browser observations with evidence |
 | `release-autoupdate` | multi-platform release jobs, minisign artifact signing, conventional commit version bumps, updater manifests, and in-app update checks |
 | `requirements-planning` | acceptance criteria, PRDs and specs, implementation briefs with finish lines, vertical-slice backlog issues, and triage of incoming issues |
 | `security-ops` | CVE scans, dependency registry publication age and provenance reviews, vulnerability audits, pen tests, Gitleaks, least privilege, threat modeling, LGPD/GDPR, and plugin/MCP vetting |
