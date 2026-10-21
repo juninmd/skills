@@ -35,7 +35,7 @@ Then read the target's own version marker (image tag, build id, `/version`, file
 - Time-dependent data (matches, schedules, market hours) hides defects that only the live event exposes; say which paths were never exercised live.
 - Timezone and locale: compare timestamps in one zone, and check accents and encoding in what the consumer actually displays.
 - Evidence is quoted from this run. Mask tokens, chat ids, and personal data before pasting; a screenshot of a channel needs the same care.
-- Homologating on the user's live demo audience is the costliest place to find a bug; run it before they do.
+- Finding a bug in front of the user's live demo audience is the costliest option; homologate before they do.
 
 ## Stop
 - The target is production or shared and the authorization to trigger a side effect is missing.
