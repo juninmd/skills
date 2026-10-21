@@ -1,7 +1,7 @@
 ---
 name: observability
 description: |
-  Diagnose bugs and stabilize production systems and incidents. Use for root-cause debugging, logging, metrics, distributed tracing, alerting, SLOs and error budgets, postmortems, network failures, timeouts, on-call, product event tracking, and A/B experiments. Trigger on 'prod is down', 'find this bug', 'why is this timing out', 'add alerts', 'set up an A/B test'.
+  Diagnose bugs and stabilize production systems and incidents. Use for root-cause debugging, logging, tracing, alerting, SLOs and error budgets, postmortems, network failures, on-call, product event tracking, A/B experiments, and watch-logs-and-fix loops. Trigger on 'prod is down', 'find this bug', 'why is this timing out', 'acompanhe os logs e corrija', 'set up an A/B test'.
 ---
 
 
@@ -65,6 +65,7 @@ Head sampling alone cannot keep every error. Server 4xx spans leave span status 
 ## Reference Routing
 - SLO burn-rate math, toil, and the on-call handoff checklist: [alerting-and-oncall.md](references/alerting-and-oncall.md)
 - Trace propagation across queues, log sampling at volume, clock skew, and retry storms: [resilience-and-tracing.md](references/resilience-and-tracing.md)
+- A bounded loop that tails live logs, fixes root causes, redeploys, and re-watches until a clean window: [log-watch-fix.md](references/log-watch-fix.md)
 
 See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-domain guides.
 
