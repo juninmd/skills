@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "cspell": "^10.4.0",
-    "vitepress": "^1.6.3",
+    "vitepress": "^1.6.4",
     "yaml": "^2.9.1"
   },
   "engines": {
