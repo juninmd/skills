@@ -12,21 +12,24 @@ Open this file when writing a README from scratch or auditing one. Copy the temp
 
 | # | Section | Required | Answers |
 |---|---|---|---|
-| 1 | Centered header | always | What is this, at a glance? Icon or banner, name, tagline, value line, badges, hero image or signature GIF |
-| 2 | Why ProjectName | always | Why should I care? Scope sentence, then three to five bold one-word benefits |
+| 1 | Centered header | always | What is this, at a glance? Icon or banner, name, tagline, value line, primary call-to-action badge, status badges, language switcher, hero image or signature GIF |
+| 1a | Pitch | always | One blockquote paragraph right below the header: what it does, the one shortcut or command to start, the key promise |
+| 2 | Why ProjectName | always | Why should I care? Scope sentence, then three to five bold benefits; beside a tour GIF for UI apps |
 | 3 | Tour | UI projects | What does it look like? Two-column screenshot grid with captions |
 | 4 | Install or Quick Start | always | How do I get it running in under five minutes? Per-OS artifact table for desktop apps, caveats in an alert |
 | 5 | Usage | always | What does a real task look like, with real output? |
-| 6 | Features | when the Highlights do not cover it | What exactly can it do? Two-column table (emoji + bold name, description) or one bullet per feature |
+| 6 | Features | when the Highlights do not cover it | What exactly can it do? Zigzag table (screenshot and an H3 per feature, sides alternating), a two-column table (emoji + bold name, description), or one bullet per feature; extra screens in `<details>` |
+| 6a | Compared to alternatives | when the project competes with known tools | Why this over X? Feature matrix with a legend, a link to the sourced benchmark, and what was borrowed |
 | 7 | Shortcuts | apps with keyboard or mouse input | Which keys do what? Table |
 | 8 | How it works | always, at least one Mermaid diagram | How do the parts connect, and why is it fast or safe? Nodes named after real modules |
 | 9 | Configuration | when env vars or config files exist | What can I change? Table |
 | 10 | Develop | always | Annotated command block: install, test, run, build, regenerate screenshots; release flow (commit-to-version table, pipeline diagram, required secrets) when releases are automated |
 | 11 | Contributing | always | Commit convention and where the rules live |
+| 11a | Documentation | when `docs/` exists | Where is the depth? Table of emoji + linked document + what is in it |
 | 12 | Security | when it handles files, network, credentials, or updates | Which boundaries protect the user? |
 | 13 | Known limitations | always | What does it approximate, skip, or not do? |
 | 14 | Inspirations | when prior art shaped the design | Which projects informed it, and what was learned from each? Dated table |
-| 15 | License | always | Under what terms, and whose copyright? |
+| 15 | License | always | Under what terms, and whose copyright? Optionally a centered `<sub>` footer line |
 
 ## Template
 
@@ -40,10 +43,13 @@ Open this file when writing a README from scratch or auditing one. Copy the temp
 **One sentence: what it is and for whom.**<br/>
 One concrete line on the experience: what happens, how fast, what it handles.
 
-[![Release](https://img.shields.io/github/v/release/OWNER/REPO?style=for-the-badge&color=4da3ff)](https://github.com/OWNER/REPO/releases/latest)
+[![Download](https://img.shields.io/badge/Download-Windows%20%C2%B7%20macOS%20%C2%B7%20Linux-4ade80?style=for-the-badge&labelColor=0f172a)](https://github.com/OWNER/REPO/releases/latest)
+
 [![Build](https://img.shields.io/github/actions/workflow/status/OWNER/REPO/ci.yml?branch=main&style=for-the-badge&label=build)](https://github.com/OWNER/REPO/actions/workflows/ci.yml)
 [![License](https://img.shields.io/github/license/OWNER/REPO?style=for-the-badge)](#license)
 ![Stack](https://img.shields.io/badge/TypeScript-5-3178c6?style=for-the-badge)
+
+<sub>**English** · <a href="README.pt-BR.md">Português</a> · <a href="README.es.md">Español</a></sub>
 
 <br/>
 
@@ -54,15 +60,25 @@ One concrete line on the experience: what happens, how fast, what it handles.
 
 </div>
 
----
+> **What it does, in one sentence a user would say.** Opens with `Ctrl+Alt+Space`, the promise that matters most
+> (no account, works offline, encrypted), in at most three lines.
 
 ## Why ProjectName
 
+<table>
+<tr>
+<td width="44%" align="center"><img src=".github/assets/tour.gif" alt="Tour through the main tabs and the alert" width="300" /></td>
+<td>
+
 Scope is deliberately small: **the one job**. No X, no Y.
 
-* **Instant.** The measured claim and how it is achieved, in one or two lines.
-* **Smooth.** One line.
-* **Everything opens.** One line naming the real formats or integrations.
+🔒 **Private.** The measured or verifiable claim behind it, in one or two lines.
+
+🪶 **Light.** A number: installer size, memory, startup time. <a href="docs/benchmark.md">Measured numbers</a>.
+
+</td>
+</tr>
+</table>
 
 ## Tour
 
@@ -72,6 +88,51 @@ Scope is deliberately small: **the one job**. No X, no Y.
 <td width="50%"><img src=".github/assets/screenshots/settings.png" alt="Settings panel with the theme toggle" /><br/><b>Settings</b> &ndash; one line.</td>
 </tr>
 </table>
+
+## Features
+
+<table>
+<tr>
+<td width="36%"><img src=".github/assets/screenshots/tasks.png" alt="Today's tasks with time and recurrence" /></td>
+<td>
+
+### ✅ Feature as a benefit
+
+Two to four lines on what it does for the reader, with the shortcut.
+
+</td>
+</tr>
+<tr>
+<td>
+
+### 📅 Next feature, image on the other side
+
+Two to four lines.
+
+</td>
+<td width="36%"><img src=".github/assets/screenshots/agenda.png" alt="Agenda with the next meeting and its countdown" /></td>
+</tr>
+</table>
+
+<details>
+<summary>🖥️ More screens: onboarding, search, settings</summary>
+
+| Onboarding | Search (`Ctrl+K`) |
+|---|---|
+| <img src=".github/assets/screenshots/onboarding.png" alt="First-run welcome with the essential shortcuts" /> | <img src=".github/assets/screenshots/search.png" alt="Search across every tab at once" /> |
+
+</details>
+
+<sub>All screenshots use fictitious data.</sub>
+
+## Compared to alternatives
+
+| | Feature A | Feature B | Local-first |
+|---|:-:|:-:|:-:|
+| **ProjectName** | ✅ | ✅ | ✅ |
+| OtherTool | ✅ | ➖ | — |
+
+<sub>✅ native · ➖ partial or via extension · — none. Sources in <a href="docs/benchmark.md">docs/benchmark.md</a>.</sub>
 
 ## Install
 
@@ -137,9 +198,21 @@ pnpm screenshots      # regenerate .github/assets/screenshots from the real UI
 
 Commit messages follow Conventional Commits. The rules live in `AGENTS.md` or `CONTRIBUTING.md`.
 
+## Documentation
+
+| Document | What's in it |
+|---|---|
+| 📖 <a href="docs/usage.md">User guide</a> | every screen, shortcut, and setting |
+| 🛡️ <a href="docs/security.md">Security</a> | threat model, files on disk, backup |
+
 ## Security
 
-* One bullet per real boundary: input validation, file scope, update verification, permissions.
+| Layer | Protection |
+|---|---|
+| Storage | the real algorithm and parameters |
+| Network | which process talks to the network and what the UI can reach |
+
+Full model in `docs/security.md`; report flaws via `SECURITY.md`.
 
 ## Known limitations
 
@@ -154,6 +227,8 @@ Commit messages follow Conventional Commits. The rules live in `AGENTS.md` or `C
 ## License
 
 MIT © OWNER. See `LICENSE`.
+
+<div align="center"><sub>Made with the stack and for whom, in one line.</sub></div>
 ````
 
 ## Writing each section
@@ -169,6 +244,9 @@ MIT © OWNER. See `LICENSE`.
 | Tour captions | a `<sub>` line saying how the screenshots were made (demo fixture, mocked backend) | real user data, unexplained sample content |
 | Known limitations | concrete limits with the reason ("sizes are apparent, not allocated") | an empty section or a promise to fix later |
 | Inspirations | linked projects, the date of the survey, one learned idea each | a bare list of names |
+| Comparison | a matrix with a legend, linked sources, and honest partial marks | unsourced wins, or rows only where the project wins |
+| Translations | one README per language, native names in the switcher, machine translations disclosed | a translated README that drifts from the original without a note |
+| Length | each section about one screen; overflow galleries in `<details>`, depth in `docs/` behind the Documentation table | a README that only scrolls |
 
 GitHub renders fenced `mermaid` natively; keep each diagram under about 15 nodes so it stays legible on a phone. A pipeline that has a single path (release, update, deploy) also reads well as a numbered list after the diagram.
 
