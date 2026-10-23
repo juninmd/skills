@@ -67,7 +67,23 @@ Workflows end in a check you run: a test, a smoke command, or an explicit stop c
 </tr>
 </table>
 
+## What it is
+
+A catalog of 36 engineering skills plus shared operating instructions for AI coding assistants (Claude Code, Codex, Antigravity, opencode). It is for engineers who want an assistant to follow a domain workflow and stop with evidence instead of improvising. Each skill is a short `SKILL.md` with deeper procedures in `references/`, and the repository ships the validators that keep that contract honest.
+
+### Features
+
+- **36 domain skills** under `.agents/skills/`, routed by a one-line description.
+- **Symlink installer** (`.agents/tools/install.mjs`) that links one checkout into four clients.
+- **Claude Code plugins**: one full bundle and five domain bundles, listed in `.claude-plugin/marketplace.json`.
+- **Validators** in `.agents/tools/`: frontmatter, catalog, token budgets, routing evals, approved domains, and links.
+- **Documentation site** built with VitePress from `docs/`.
+
+![Documentation site home page rendered from docs/, showing the hero, three feature cards, quick setup, and example routing](docs/screenshot.png)
+
 ## Get started
+
+Requirements: Node.js 18 or newer for the installer. The checks and the docs site also need pnpm `>=10.34.5 <11`; CI runs Node 24.
 
 Pick **one** install method per client.
 
@@ -147,6 +163,27 @@ npx skills add juninmd/skills --skill backend-systems   # copy one domain
 ```
 
 The CLI copies files; it does not track the repo or install the repository operating instructions.
+
+### Usage examples
+
+The installer reads no environment variables. Its only flags are `--dry-run` and `--no-config`. Full captured output lives in [`docs/terminal.txt`](docs/terminal.txt).
+
+```bash
+# 1. Preview the links for one client; nothing is written
+node .agents/tools/install.mjs --dry-run claude
+# ... one "link" line per skill, then the instruction and config links
+# Planned 36 skills into claude.
+
+# 2. Validate every skill's frontmatter and required sections
+pnpm run skills:validate
+# 36 skills valid.
+
+# 3. Confirm the README and docs catalog match the skill descriptions
+pnpm run catalog:check
+# README skill catalog is current.
+```
+
+The installer has no `--help` flag: unknown `--` flags are ignored, and with no client named it targets all four. Always start with `--dry-run`.
 
 ## Pick a starting point
 
@@ -408,6 +445,15 @@ Dependency and install-policy changes also require `pnpm run dependencies:check`
 
 > [!WARNING]
 > Passing checks are necessary, but they do not prove assistant behavior. Routing uses a deterministic lexical scorer and does not run the target assistants. Exercise representative tasks in each client before claiming compatibility.
+
+### CI workflows
+
+| Workflow | Trigger | What it gates |
+|---|---|---|
+| [`validate.yml`](.github/workflows/validate.yml) | pull requests and pushes to `main`/`master` | cspell and link checks on Markdown, `pnpm run dependencies:check`, `pnpm run validate`, the official `agentskills` validator per skill, `pnpm run docs:build`, and `pnpm run pr:check` on PRs |
+| [`security.yml`](.github/workflows/security.yml) | pushes to `main`/`master` | Gitleaks scan through the shared `juninmd/base-actions` reusable workflow |
+| [`dependency-audit.yml`](.github/workflows/dependency-audit.yml) | daily at 08:17 UTC and manual | `pnpm run dependencies:check` (publication age plus `pnpm audit`) |
+| [`release.yml`](.github/workflows/release.yml) | pushes to `master` and manual | dependency check and `pnpm run validate`, then `node .agents/tools/semantic-release.mjs` |
 
 Inspect detailed reports with `pnpm run evals` and `pnpm run tokens:report`. Budget limits live in the validation tools rather than in a duplicated table here.
 

@@ -93,12 +93,17 @@ Do not increase budgets or lower thresholds merely to make a change pass. Explai
 ## Verification
 
 ```bash
+pnpm install --frozen-lockfile --ignore-scripts
 pnpm run catalog:generate
 pnpm run validate
 pnpm run docs:build
 ```
 
-Regenerate the catalog when descriptions change. Run validator unit tests when modifying `.agents/tools/`; `pnpm run validate` includes them.
+Regenerate the catalog when descriptions change. Run validator unit tests (`pnpm run test:validators`) when modifying `.agents/tools/`; `pnpm run validate` includes them. Dependency or install-policy changes also run `pnpm run dependencies:check`.
+
+CI gates (`.github/workflows/`): `validate.yml` runs cspell and lychee on Markdown, `dependencies:check`, `validate`, the official `agentskills` validator, `docs:build`, and `pr:check` on PRs; `security.yml` runs Gitleaks; `dependency-audit.yml` runs daily; `release.yml` runs on `master` pushes.
+
+On Windows, keep `core.autocrlf` false in this checkout: CRLF files make `catalog:check` report a stale catalog that LF files do not have.
 
 - Reproduce defects before fixing them; add regression tests for meaningful validator behavior.
 - Inspect the final diff for unrelated changes and stale names.
