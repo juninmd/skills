@@ -26,11 +26,13 @@ Record: stack, real run and test commands from scripts, license, whether the pro
 
 1. **Establish facts.** Read the manifest scripts, entry points, CI workflow, and license. Every command in the README comes from a script that exists and was run, or carries its prerequisite.
 2. **Choose the variant** from the table below. An existing README is audited first: report missing or weak sections against [the template](references/readme-template.md) and preserve hand-written content.
-3. **Build the header.** Create or reuse the hero image per [hero-image.md](references/hero-image.md): a 1280×640 SVG or PNG at `.github/assets/readme-header.svg` that shows what the project does, not a stock logo. Center it with the title, one-sentence tagline, at most six badges, and anchor navigation inside one `<div align="center">`.
-4. **Capture the UI.** If the project has a UI, screenshots are mandatory. Capture the real running app per [screenshots.md](references/screenshots.md): one hero shot below the header, then one shot per primary feature, with light and dark variants through `<picture>` when the app supports both. A demo GIF or video replaces nothing; it complements the stills.
-5. **Fill the sections** in the template's fixed order. Delete a section that has nothing true to say rather than leaving a placeholder.
-6. **Verify.** Run every Quick Start command on a clean checkout when the prerequisites allow, run the checks below, and audit prose for AI writing tells with the `documentation` skill's writing-tells reference.
-7. **Report** what changed, which commands were executed, which images were captured, and what remains unverified.
+3. **Build the header.** One `<div align="center">` holds, in order: the project icon (96 px) or a hero banner per [hero-image.md](references/hero-image.md), the name, a bold one-sentence tagline, one concrete value line, at most six `for-the-badge` badges, and the hero image. For a UI project the hero image is the real main screen; otherwise it is the banner that shows what the project does, never a stock logo.
+4. **Capture the UI.** If the project has a UI, screenshots are mandatory. Capture the real app per [screenshots.md](references/screenshots.md), ideally from a committed `screenshots` script that renders the real frontend against a mocked backend and generated data, so anyone can regenerate them. Lay out every primary feature in a two-column **Tour** table: image, bold name, `<kbd>` shortcut, one-line caption.
+5. **Draw how it works.** At least one fenced `mermaid` diagram for the main flow (request path, architecture, release or update pipeline), followed by the decisions that make it fast or safe.
+6. **Write useful commands.** One annotated Develop block with every command a contributor needs (install, test, run, build, regenerate screenshots), each traced to a real script and ending with a `# comment` saying what it does. User-facing commands go in Install or Usage with their real output.
+7. **Fill the remaining sections** in the template's fixed order. Delete a section that has nothing true to say rather than leaving a placeholder.
+8. **Verify.** Run every Quick Start command on a clean checkout when the prerequisites allow, run the checks below, and audit prose for AI writing tells with the `documentation` skill's writing-tells reference.
+9. **Report** what changed, which commands were executed, which images were captured, and what remains unverified.
 
 ## Variant by Project
 
@@ -48,18 +50,19 @@ Record: stack, real run and test commands from scripts, license, whether the pro
 ```html
 <div align="center">
 
-<img src=".github/assets/readme-header.svg" alt="ProjectName: what it does, shown as what the image depicts" width="100%" />
+<img src=".github/assets/icon.svg" alt="" width="96" height="96" />
 
 # ProjectName
 
-**One sentence: what it does and for whom.**
+**One sentence: what it is and for whom.**<br/>
+One concrete line on the experience, with a measured number when one exists.
 
-[![CI](https://github.com/OWNER/REPO/actions/workflows/ci.yml/badge.svg)](https://github.com/OWNER/REPO/actions/workflows/ci.yml)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+[![Release](https://img.shields.io/github/v/release/OWNER/REPO?style=for-the-badge)](https://github.com/OWNER/REPO/releases/latest)
+[![Build](https://img.shields.io/github/actions/workflow/status/OWNER/REPO/ci.yml?branch=main&style=for-the-badge&label=build)](https://github.com/OWNER/REPO/actions/workflows/ci.yml)
 
-[Features](#features) · [Quick Start](#quick-start) · [Usage](#usage) · [Contributing](#contributing)
+<br/>
 
-<img src=".github/assets/screenshots/home-light.png" alt="Main screen showing the task list with three items" width="90%" />
+<img src=".github/assets/screenshots/home.png" alt="Main screen showing the task list with three items" width="860" />
 
 </div>
 ```
@@ -100,7 +103,9 @@ npx --yes markdown-link-check --quiet README.md
 ## Checklist
 
 - [ ] Header is inside `<div align="center">` with a hero image specific to this repository, title, tagline, badges, and navigation.
-- [ ] Project with a UI: hero screenshot plus one per primary feature, captured from the running app, light and dark when supported.
+- [ ] Project with a UI: hero screenshot in the header and a Tour table with one captioned screenshot per primary feature, captured from the real app by a committed script when practical.
+- [ ] At least one Mermaid diagram of the main flow renders on GitHub.
+- [ ] Develop block lists every contributor command, each traced to a script and commented.
 - [ ] Sections follow the template order; empty sections deleted, not stubbed.
 - [ ] Every command traced to a script and executed, or its prerequisite and limitation stated.
 - [ ] Every image has descriptive alt text, a relative path, and fits the size limits.
