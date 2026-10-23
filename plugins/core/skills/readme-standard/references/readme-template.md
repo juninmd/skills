@@ -3,6 +3,7 @@
 ## Contents
 - [Section order](#section-order)
 - [Template](#template)
+- [Writing each section](#writing-each-section)
 - [Audit an existing README](#audit-an-existing-readme)
 
 Open this file when writing a README from scratch or auditing one. Copy the template, delete the sections the project cannot fill truthfully, and keep the order.
@@ -11,89 +12,158 @@ Open this file when writing a README from scratch or auditing one. Copy the temp
 
 | # | Section | Required | Answers |
 |---|---|---|---|
-| 1 | Centered header | always | What is this, at a glance? |
-| 2 | Highlights | always | Why should I care? Three to five bullets, each a capability, not an adjective |
-| 3 | Screenshots or Demo | UI projects | What does it look like? |
-| 4 | Quick Start | always | How do I run it in under five minutes? |
-| 5 | Usage | always | What does a real task look like? |
-| 6 | Configuration | when env vars or config files exist | What can I change? |
-| 7 | Architecture | when more than one component | How do the parts connect? One diagram |
-| 8 | Development | always | How do I build, test, and lint? |
-| 9 | Roadmap | only when maintained | What is next? Link the tracker instead of a stale list |
-| 10 | Contributing | always | How do I help? Link CONTRIBUTING.md when it exists |
-| 11 | License | always | Under what terms? |
-| 12 | Acknowledgments | when material is imported | Who else made this? |
+| 1 | Centered header | always | What is this, at a glance? Icon or banner, name, tagline, value line, primary call-to-action badge, status badges, language switcher, hero image or signature GIF |
+| 1a | Pitch | always | One blockquote paragraph right below the header: what it does, the one shortcut or command to start, the key promise |
+| 2 | Why ProjectName | always | Why should I care? Scope sentence, then three to five bold benefits; beside a tour GIF for UI apps |
+| 3 | Tour | UI projects | What does it look like? Two-column screenshot grid with captions |
+| 4 | Install or Quick Start | always | How do I get it running in under five minutes? Per-OS artifact table for desktop apps, caveats in an alert |
+| 5 | Usage | always | What does a real task look like, with real output? |
+| 6 | Features | when the Highlights do not cover it | What exactly can it do? Zigzag table (screenshot and an H3 per feature, sides alternating), a two-column table (emoji + bold name, description), or one bullet per feature; extra screens in `<details>` |
+| 7 | Shortcuts | apps with keyboard or mouse input | Which keys do what? Table |
+| 8 | How it works | always, at least one Mermaid diagram | How do the parts connect, and why is it fast or safe? Nodes named after real modules |
+| 9 | Configuration | when env vars or config files exist | What can I change? Table |
+| 10 | Develop | always | Annotated command block: install, test, run, build, regenerate screenshots; release flow (commit-to-version table, pipeline diagram, required secrets) when releases are automated |
+| 11 | Contributing | always | Commit convention and where the rules live |
+| 11a | Documentation | when `docs/` exists | Where is the depth? Table of emoji + linked document + what is in it |
+| 12 | Security | when it handles files, network, credentials, or updates | Which boundaries protect the user? |
+| 13 | Known limitations | always | What does it approximate, skip, or not do? |
+| 14 | Inspirations | when prior art shaped the design | Which projects informed it, and what was learned from each? Dated table |
+| 15 | License | always | Under what terms, and whose copyright? Optionally a centered `<sub>` footer line |
 
 ## Template
 
 ````markdown
 <div align="center">
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/readme-header-dark.svg" />
-  <img src=".github/assets/readme-header.svg" alt="ProjectName: a browser window showing the dashboard with live charts" width="100%" />
-</picture>
+<img src=".github/assets/icon.svg" alt="" width="96" height="96" />
 
 # ProjectName
 
-**One sentence: what it does and for whom.**
+**One sentence: what it is and for whom.**<br/>
+One concrete line on the experience: what happens, how fast, what it handles.
 
-[![CI](https://github.com/OWNER/REPO/actions/workflows/ci.yml/badge.svg)](https://github.com/OWNER/REPO/actions/workflows/ci.yml)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+[![Download](https://img.shields.io/badge/Download-Windows%20%C2%B7%20macOS%20%C2%B7%20Linux-4ade80?style=for-the-badge&labelColor=0f172a)](https://github.com/OWNER/REPO/releases/latest)
 
-[Highlights](#highlights) · [Screenshots](#screenshots) · [Quick Start](#quick-start) · [Usage](#usage) · [Contributing](#contributing)
+[![Build](https://img.shields.io/github/actions/workflow/status/OWNER/REPO/ci.yml?branch=main&style=for-the-badge&label=build)](https://github.com/OWNER/REPO/actions/workflows/ci.yml)
+[![License](https://img.shields.io/github/license/OWNER/REPO?style=for-the-badge)](#license)
+![Stack](https://img.shields.io/badge/TypeScript-5-3178c6?style=for-the-badge)
 
-</div>
+<sub>**English** · <a href="README.pt-BR.md">Português</a> · <a href="README.es.md">Español</a></sub>
 
----
-
-## Highlights
-
-- **Capability one**: the outcome it gives the reader, in one line.
-- **Capability two**: one line.
-- **Capability three**: one line.
-
-## Screenshots
-
-<div align="center">
+<br/>
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset=".github/assets/screenshots/home-dark.png" />
-  <img src=".github/assets/screenshots/home-light.png" alt="Home screen listing three projects with status chips" width="90%" />
+  <img src=".github/assets/screenshots/home-light.png" alt="ProjectName main screen with three projects and their status" width="860" />
 </picture>
-
-| Feature A | Feature B |
-|---|---|
-| <img src=".github/assets/screenshots/feature-a.png" alt="Editor with a validation error highlighted" width="100%" /> | <img src=".github/assets/screenshots/feature-b.png" alt="Settings page with the theme toggle" width="100%" /> |
-
-<img src=".github/assets/demo.gif" alt="Creating a project, editing it, and exporting the result" width="90%" />
 
 </div>
 
-## Quick Start
+> **What it does, in one sentence a user would say.** Opens with `Ctrl+Alt+Space`, the promise that matters most
+> (no account, works offline, encrypted), in at most three lines.
 
-**Prerequisites:** Node.js 20+, pnpm 10+.
+## Why ProjectName
 
-```bash
-git clone https://github.com/OWNER/REPO.git
-cd REPO
-pnpm install
-pnpm dev
-```
+<table>
+<tr>
+<td width="44%" align="center"><img src=".github/assets/tour.gif" alt="Tour through the main tabs and the alert" width="300" /></td>
+<td>
 
-Open http://localhost:3000.
+Scope is deliberately small: **the one job**. No X, no Y.
+
+🔒 **Private.** The measured or verifiable claim behind it, in one or two lines.
+
+🪶 **Light.** A number: installer size, memory, startup time. <a href="docs/benchmark.md">Measured numbers</a>.
+
+</td>
+</tr>
+</table>
+
+## Tour
+
+<table>
+<tr>
+<td width="50%"><img src=".github/assets/screenshots/editor.png" alt="Editor with a validation error highlighted" /><br/><b>Editor</b> (<kbd>E</kbd>) &ndash; what the reader sees and why it matters.</td>
+<td width="50%"><img src=".github/assets/screenshots/settings.png" alt="Settings panel with the theme toggle" /><br/><b>Settings</b> &ndash; one line.</td>
+</tr>
+</table>
+
+## Features
+
+<table>
+<tr>
+<td width="36%"><img src=".github/assets/screenshots/tasks.png" alt="Today's tasks with time and recurrence" /></td>
+<td>
+
+### ✅ Feature as a benefit
+
+Two to four lines on what it does for the reader, with the shortcut.
+
+</td>
+</tr>
+<tr>
+<td>
+
+### 📅 Next feature, image on the other side
+
+Two to four lines.
+
+</td>
+<td width="36%"><img src=".github/assets/screenshots/agenda.png" alt="Agenda with the next meeting and its countdown" /></td>
+</tr>
+</table>
+
+<details>
+<summary>🖥️ More screens: onboarding, search, settings</summary>
+
+| Onboarding | Search (`Ctrl+K`) |
+|---|---|
+| <img src=".github/assets/screenshots/onboarding.png" alt="First-run welcome with the essential shortcuts" /> | <img src=".github/assets/screenshots/search.png" alt="Search across every tab at once" /> |
+
+</details>
+
+<sub>All screenshots use fictitious data.</sub>
+
+## Install
+
+Download the installer from the [latest release](https://github.com/OWNER/REPO/releases/latest):
+
+| System | File |
+|---|---|
+| Windows 10/11 | `ProjectName_x.y.z_x64-setup.exe` |
+| macOS Apple Silicon | `ProjectName_x.y.z_aarch64.dmg` |
+| Linux | `.AppImage` or `.deb` |
+
+> [!NOTE]
+> Binaries are not code-signed yet. On Windows choose **More info → Run anyway**; on macOS right-click → **Open** the first time.
 
 ## Usage
 
 ```bash
-pnpm cli export --format pdf ./examples/report.json
+app export --format pdf ./examples/report.json
 ```
-
-Expected output, shortened:
 
 ```text
 Exported 1 file to ./out/report.pdf
 ```
+
+## Shortcuts
+
+| Input | Action |
+|---|---|
+| `Ctrl+O` | open a file |
+| `Esc` | close panels, then the window |
+
+## How it works
+
+```mermaid
+flowchart LR
+  UI[Web UI] -->|REST| API[API]
+  API --> DB[(Postgres)]
+  API -.->|events| Q[[Queue]] --> W[Worker]
+```
+
+* One bullet per design decision that makes it fast, safe, or reliable.
 
 ## Configuration
 
@@ -102,32 +172,73 @@ Exported 1 file to ./out/report.pdf
 | `DATABASE_URL` | Postgres connection | required | `postgres://user:pass@localhost:5432/app` |
 | `PORT` | HTTP port | `3000` | `8080` |
 
-## Architecture
+## Develop
 
-```mermaid
-flowchart LR
-  UI[Web UI] --> API[API] --> DB[(Postgres)]
-```
+Requires Node 20+ and pnpm 10+.
 
-## Development
-
-```bash
-pnpm test
-pnpm lint
-pnpm build
+```sh
+pnpm install          # dependencies and git hooks
+pnpm test             # unit tests
+pnpm dev              # hot-reload dev server on http://localhost:3000
+pnpm build            # production bundle in dist/
+pnpm screenshots      # regenerate .github/assets/screenshots from the real UI
 ```
 
 ## Contributing
 
-Read `CONTRIBUTING.md` at the repository root. Open an issue before large changes.
+Commit messages follow Conventional Commits. The rules live in `AGENTS.md` or `CONTRIBUTING.md`.
+
+## Documentation
+
+| Document | What's in it |
+|---|---|
+| 📖 <a href="docs/usage.md">User guide</a> | every screen, shortcut, and setting |
+| 🛡️ <a href="docs/security.md">Security</a> | threat model, files on disk, backup |
+
+## Security
+
+| Layer | Protection |
+|---|---|
+| Storage | the real algorithm and parameters |
+| Network | which process talks to the network and what the UI can reach |
+
+Full model in `docs/security.md`; report flaws via `SECURITY.md`.
+
+## Known limitations
+
+- One bullet per real limit: what is approximated, skipped, or out of scope, and why.
+
+## Inspirations
+
+| Project | What we learned |
+|---|---|
+| ExampleTool | the idea taken from it, in one line |
 
 ## License
 
-MIT. See `LICENSE`.
+MIT © OWNER. See `LICENSE`.
+
+<div align="center"><sub>Made with the stack and for whom, in one line.</sub></div>
 ````
 
-The Screenshots section is deleted for projects without a UI. The Usage block shows a real command and its real output; an invented output is a false claim.
+## Writing each section
+
+| Section | Do | Avoid |
+|---|---|---|
+| Header value line | a measured, specific claim ("about 100 ms to first pixels") | adjectives with no number ("blazing fast") |
+| Badges | one shields style throughout, dynamic ones first (release, build, downloads), then platforms and stack | mixed styles, more than six, or badges for workflows that do not exist |
+| Why | a scope sentence that says what the project refuses to do | a feature list repeated from Features |
+| Tour | real screenshots, bold feature name, `<kbd>` shortcut, one-line caption | screenshots without captions, mockups |
+| How it works | one Mermaid `flowchart` or `sequenceDiagram` for the main flow; bullets for the decisions behind it | a diagram of every class |
+| Develop | every command from a real script, each with a trailing comment | commands nobody ran |
+| Tour captions | a `<sub>` line saying how the screenshots were made (demo fixture, mocked backend) | real user data, unexplained sample content |
+| Known limitations | concrete limits with the reason ("sizes are apparent, not allocated") | an empty section or a promise to fix later |
+| Inspirations | linked projects, the date of the survey, one learned idea each | a bare list of names |
+| Translations | one README per language, native names in the switcher, machine translations disclosed | a translated README that drifts from the original without a note |
+| Length | each section about one screen; overflow galleries in `<details>`, depth in `docs/` behind the Documentation table | a README that only scrolls |
+
+GitHub renders fenced `mermaid` natively; keep each diagram under about 15 nodes so it stays legible on a phone. A pipeline that has a single path (release, update, deploy) also reads well as a numbered list after the diagram.
 
 ## Audit an existing README
 
-Report one row per template section: present, weak (with the concrete gap), or missing. Then list header and image findings: no centered block, no hero image, generic hero image, missing alt text, absolute or external image URLs, oversized files, missing screenshots for a UI project. Fix in that priority: false claims, then broken commands and links, then missing screenshots and header, then order and style.
+Report one row per template section: present, weak (with the concrete gap), or missing. Then list header and image findings: no centered block, no icon or hero image, generic hero image, missing alt text, absolute or external image URLs, oversized files, missing screenshots or Tour for a UI project, no Mermaid diagram. Fix in that priority: false claims, then broken commands and links, then missing screenshots and header, then diagrams, order, and style.

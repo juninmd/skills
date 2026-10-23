@@ -43,6 +43,24 @@ mkdir -p .github/assets/screenshots
 node scripts/readme-screenshots.mjs
 ```
 
+## Reproducible capture with a mocked backend
+
+Desktop and full-stack apps often cannot boot their backend in CI. Render the real frontend with a second Vite config that aliases the native or HTTP bindings to mocks and serves generated images, then drive it with Playwright from a `screenshots` script:
+
+```ts
+// vite.screens.config.ts: real UI, fake backend, used only by the screenshots script
+import { fileURLToPath } from "node:url";
+import { defineConfig } from "vite";
+
+const mock = (name: string) => fileURLToPath(new URL(`./scripts/screenshots/mock/${name}.ts`, import.meta.url));
+
+export default defineConfig({
+  resolve: { alias: { "@tauri-apps/api/core": mock("core"), "@tauri-apps/api/window": mock("window") } },
+});
+```
+
+Draw demo content procedurally (SVG scenes, seeded fixtures) instead of committing stock photos, and say so under the Develop block, so readers trust the screenshots and maintainers can regenerate them.
+
 ## Other stacks
 
 | Stack | Capture with |
