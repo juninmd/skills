@@ -26,7 +26,7 @@ Record: stack, real run and test commands from scripts, license, whether the pro
 
 1. **Establish facts.** Read the manifest scripts, entry points, CI workflow, and license. Every command in the README comes from a script that exists and was run, or carries its prerequisite.
 2. **Choose the variant** from the table below. An existing README is audited first: report missing or weak sections against [the template](references/readme-template.md) and preserve hand-written content.
-3. **Build the header.** One `<div align="center">` holds, in order: the project icon (96 px) or a hero banner per [hero-image.md](references/hero-image.md), the name, a bold one-sentence tagline, one concrete value line, at most six `for-the-badge` badges, and the hero image. For a UI project the hero image is the real main screen; otherwise it is the banner that shows what the project does, never a stock logo.
+3. **Build the header.** One `<div align="center">` holds, in order: the project icon (96 px) or a hero banner per [hero-image.md](references/hero-image.md), the name, a bold one-sentence tagline, one concrete value line, at most six badges in one consistent shields style (`for-the-badge` or `flat-square`), and the hero image. For a UI project the hero image is the real main screen, or a short GIF of its signature interaction when motion is the point; otherwise it is the banner that shows what the project does, never a stock logo.
 4. **Capture the UI.** If the project has a UI, screenshots are mandatory. Capture the real app per [screenshots.md](references/screenshots.md), ideally from a committed `screenshots` script that renders the real frontend against a mocked backend and generated data, so anyone can regenerate them. Lay out every primary feature in a two-column **Tour** table: image, bold name, `<kbd>` shortcut, one-line caption.
 5. **Draw how it works.** At least one fenced `mermaid` diagram for the main flow (request path, architecture, release or update pipeline), followed by the decisions that make it fast or safe.
 6. **Write useful commands.** One annotated Develop block with every command a contributor needs (install, test, run, build, regenerate screenshots), each traced to a real script and ending with a `# comment` saying what it does. User-facing commands go in Install or Usage with their real output.
@@ -84,7 +84,9 @@ Replace `OWNER/REPO` and the workflow file with real values; a badge pointing to
 - Screenshots come from the real running app with realistic, non-personal data. Never a real email, token, customer name, or internal URL.
 - Use `<picture>` with `prefers-color-scheme` sources when the header or app has light and dark variants, so the image matches the reader's GitHub theme.
 - Badges: at most six, each linked to its source, only for facts a reader uses (build status, version, license, coverage, downloads).
-- Fixed section order from the template. Headings are plain nouns; emoji in the navigation line only, if at all.
+- Fixed section order from the template. Headings are short nouns; when one H2 carries an emoji, every H2 carries exactly one.
+- Write in the language of the project's audience (a pt-BR app gets a pt-BR README); code, commands, and identifiers stay as they are.
+- State the limits: a Known limitations section says what the project measures approximately, skips, or cannot do. Caveats a reader must act on (unsigned binaries, required secrets) go in a GitHub alert (`> [!NOTE]`, `> [!WARNING]`).
 - Code blocks are copy-paste runnable and tagged with a language. Environment variables go in a table of name, purpose, required or default, and example.
 - Preserve existing attribution, license notices, and hand-made corrections when restructuring.
 - Do not invent a demo URL, a version number, or a metric. Omit the line instead.
@@ -104,7 +106,8 @@ npx --yes markdown-link-check --quiet README.md
 
 - [ ] Header is inside `<div align="center">` with a hero image specific to this repository, title, tagline, badges, and navigation.
 - [ ] Project with a UI: hero screenshot in the header and a Tour table with one captioned screenshot per primary feature, captured from the real app by a committed script when practical.
-- [ ] At least one Mermaid diagram of the main flow renders on GitHub.
+- [ ] At least one Mermaid diagram of the main flow renders on GitHub, with nodes named after real modules or files.
+- [ ] Known limitations stated; install caveats in a GitHub alert.
 - [ ] Develop block lists every contributor command, each traced to a script and commented.
 - [ ] Sections follow the template order; empty sections deleted, not stubbed.
 - [ ] Every command traced to a script and executed, or its prerequisite and limitation stated.
