@@ -19,7 +19,6 @@ Open this file when writing a README from scratch or auditing one. Copy the temp
 | 4 | Install or Quick Start | always | How do I get it running in under five minutes? Per-OS artifact table for desktop apps, caveats in an alert |
 | 5 | Usage | always | What does a real task look like, with real output? |
 | 6 | Features | when the Highlights do not cover it | What exactly can it do? Zigzag table (screenshot and an H3 per feature, sides alternating), a two-column table (emoji + bold name, description), or one bullet per feature; extra screens in `<details>` |
-| 6a | Compared to alternatives | when the project competes with known tools | Why this over X? Feature matrix with a legend, a link to the sourced benchmark, and what was borrowed |
 | 7 | Shortcuts | apps with keyboard or mouse input | Which keys do what? Table |
 | 8 | How it works | always, at least one Mermaid diagram | How do the parts connect, and why is it fast or safe? Nodes named after real modules |
 | 9 | Configuration | when env vars or config files exist | What can I change? Table |
@@ -124,15 +123,6 @@ Two to four lines.
 </details>
 
 <sub>All screenshots use fictitious data.</sub>
-
-## Compared to alternatives
-
-| | Feature A | Feature B | Local-first |
-|---|:-:|:-:|:-:|
-| **ProjectName** | ✅ | ✅ | ✅ |
-| OtherTool | ✅ | ➖ | — |
-
-<sub>✅ native · ➖ partial or via extension · — none. Sources in <a href="docs/benchmark.md">docs/benchmark.md</a>.</sub>
 
 ## Install
 
@@ -244,7 +234,6 @@ MIT © OWNER. See `LICENSE`.
 | Tour captions | a `<sub>` line saying how the screenshots were made (demo fixture, mocked backend) | real user data, unexplained sample content |
 | Known limitations | concrete limits with the reason ("sizes are apparent, not allocated") | an empty section or a promise to fix later |
 | Inspirations | linked projects, the date of the survey, one learned idea each | a bare list of names |
-| Comparison | a matrix with a legend, linked sources, and honest partial marks | unsourced wins, or rows only where the project wins |
 | Translations | one README per language, native names in the switcher, machine translations disclosed | a translated README that drifts from the original without a note |
 | Length | each section about one screen; overflow galleries in `<details>`, depth in `docs/` behind the Documentation table | a README that only scrolls |
 

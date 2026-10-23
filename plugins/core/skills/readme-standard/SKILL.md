@@ -86,7 +86,7 @@ Replace `OWNER/REPO` and the workflow file with real values; a badge pointing to
 - Badges: at most six, each linked to its source, only for facts a reader uses (build status, version, license, coverage, downloads).
 - Fixed section order from the template. Headings are short nouns; when one H2 carries an emoji, every H2 carries exactly one.
 - Write in the language of the project's audience (a pt-BR app gets a pt-BR README); code, commands, and identifiers stay as they are. Translations live in `README.<lang>.md`, listed by native name in the header switcher; machine translations say so.
-- A comparison with other tools is a sourced matrix with a legend, including the rows where the project loses.
+- No comparison with competitors or alternative tools: no feature matrix, no "why this over X". Describe what the project does; credit prior art only in Inspirations.
 - The README is a hub: when `docs/` exists, a Documentation table links each guide with what it contains.
 - State the limits: a Known limitations section says what the project measures approximately, skips, or cannot do. Caveats a reader must act on (unsigned binaries, required secrets) go in a GitHub alert (`> [!NOTE]`, `> [!WARNING]`).
 - Code blocks are copy-paste runnable and tagged with a language. Environment variables go in a table of name, purpose, required or default, and example.
