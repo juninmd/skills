@@ -1012,7 +1012,9 @@
     "oxipng",
     "padronizar",
     "pcre",
-    "screencap"
+    "screencap",
+    "heygen",
+    "hyperframes"
   ],
   "ignorePaths": [
     "node_modules/**"
