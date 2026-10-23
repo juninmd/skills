@@ -42,14 +42,19 @@ import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 import { getSession } from '@/lib/auth'   // the project's own session helper
 
-export async function deleteProject(input: unknown) {
-  const { id } = z.object({ id: z.string().uuid() }).parse(input)
+type State = { error?: string }
+
+export async function deleteProject(_prev: State, formData: FormData): Promise<State> {
+  const parsed = z.object({ id: z.string().uuid() }).safeParse({ id: formData.get('id') })
+  if (!parsed.success) return { error: 'Invalid project.' }
+  const { id } = parsed.data
   const session = await getSession()
   if (!session) return { error: 'Sign in to delete projects.' }
   const project = await db.project.findUnique({ where: { id } })
   if (project?.ownerId !== session.userId) return { error: 'Only the owner can delete this project.' }
   await db.project.delete({ where: { id } })
   revalidatePath('/projects')
+  return {}
 }
 ```
 
@@ -132,7 +137,7 @@ const CodeEditor = dynamic(() => import('./code-editor').then((m) => m.CodeEdito
 ```
 
 - `ssr: false` is only allowed in Client Components. In a Server Component, move the `dynamic()` call into a small client wrapper.
-- Plain React or Vite: `const CodeEditor = lazy(() => import('./code-editor'))` inside `<Suspense>`.
+- Plain React or Vite: `const CodeEditor = lazy(() => import('./code-editor').then((m) => ({ default: m.CodeEditor })))` (`lazy` needs a default export) inside `<Suspense>`.
 - Preload on intent (`onPointerEnter={() => void import('./code-editor')}`) so the click does not wait.
 - Defer analytics and chat widgets until after hydration; they never belong in the critical path.
 

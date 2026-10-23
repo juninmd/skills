@@ -53,7 +53,7 @@ State the expected result shape and the uniqueness guarantee before writing. "On
 
 The analyzing form **runs the statement**. Against `UPDATE`, `DELETE`, or `INSERT` it applies the change — wrap it in a transaction and roll back, or plan the equivalent `SELECT`.
 
-MySQL before 8.0.18 has no analyzing form: read `EXPLAIN` and check `type` (`ALL` is a full scan), `key` (the index chosen, `NULL` for none), `rows`, and `Extra` (`Using filesort`, `Using temporary`). MySQL's `EXPLAIN ANALYZE` executes too, and from 8.0.19 accepts multi-table `UPDATE` and `DELETE`, so the same rollback rule holds.
+MySQL before 8.0.18 has no analyzing form: read `EXPLAIN` and check `type` (`ALL` is a full scan), `key` (the index chosen, `NULL` for none), `rows`, and `Extra` (`Using filesort`, `Using temporary`). MySQL's `EXPLAIN ANALYZE` executes too, including multi-table `UPDATE` and `DELETE` (8.0.18+; `TABLE` statements from 8.0.19), so the same rollback rule holds.
 
 ```sql
 SELECT VERSION();                                     -- 8.0.18+ before reaching for EXPLAIN ANALYZE
@@ -118,6 +118,7 @@ SELECT c.conrelid::regclass AS table_name, c.conname AS fk_name, pg_get_constrai
          SELECT 1 FROM pg_index i
           WHERE i.indrelid = c.conrelid
             AND i.indpred IS NULL
+            AND i.indnkeyatts >= cardinality(c.conkey)   -- INCLUDE columns do not count
             AND (string_to_array(i.indkey::text, ' ')::int2[])[1:cardinality(c.conkey)] @> c.conkey
             AND (string_to_array(i.indkey::text, ' ')::int2[])[1:cardinality(c.conkey)] <@ c.conkey)
  ORDER BY 1, 2;
@@ -154,7 +155,7 @@ CREATE POLICY docs_team ON docs FOR SELECT TO authenticated
 - `SECURITY DEFINER` bypasses RLS on the tables the function reads. Pin `search_path = ''`, schema-qualify every name, filter by the caller's identity inside the body, and keep the schema out of anything exposed as an RPC API.
 - `(SELECT f(team_id))` still runs per row — it references the row. Return the caller's set (`IN (SELECT ...)`) instead.
 - Scope each policy with `TO <role>` so other roles skip it, and remember permissive policies combine with `OR`: each needs its own index.
-- Verify as the real role: `SET ROLE authenticated; SET request.jwt.claims = '{"sub":"<uuid>"}'; EXPLAIN SELECT ...;` (set whatever claim your `auth.uid()` reads) and look for `InitPlan` and an index scan. A superuser or the table owner bypasses RLS unless `FORCE ROW LEVEL SECURITY` is set, so planning as them proves nothing.
+- Verify as the real role: `SET ROLE authenticated; SET request.jwt.claims = '{"sub":"<uuid>"}'; EXPLAIN SELECT ...;` (set whatever claim your `auth.uid()` reads) and look for `InitPlan` and an index scan. Superusers and `BYPASSRLS` roles always bypass RLS, and the table owner does too unless `FORCE ROW LEVEL SECURITY` is set, so planning as them proves nothing.
 
 ## Job Queues With SKIP LOCKED
 Workers that `SELECT ... FOR UPDATE` the oldest pending job serialize on the same row. `SKIP LOCKED` lets each worker claim rows no one else holds; claim and mark in one statement so a crash between them cannot strand a job.
@@ -174,7 +175,7 @@ RETURNING id, payload;
 
 - Commit the claim before doing the work; a transaction held open across the job blocks vacuum and pins the row lock.
 - Requeue rows stuck in `running` past a lease (`locked_at < now() - interval '5 minutes'`) and cap `attempts`, moving exhausted jobs to a dead-letter status.
-- `SKIP LOCKED` gives no ordering or exactly-once guarantee: make the job idempotent. MySQL 8.0+ supports the same clause on InnoDB.
+- `SKIP LOCKED` gives no ordering or exactly-once guarantee: make the job idempotent. MySQL 8.0+ accepts `FOR UPDATE SKIP LOCKED` on InnoDB, but not this statement: it has no `RETURNING` and cannot update a table its own subquery reads, so claim with `SELECT ... FOR UPDATE SKIP LOCKED` and then `UPDATE` by id in the same transaction.
 - A queue table churns: watch `n_dead_tup` and keep autovacuum aggressive on it.
 
 ## Transaction Isolation Levels

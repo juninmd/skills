@@ -11,7 +11,8 @@ Open this when review feedback arrives on a change you wrote or are fixing: PR c
 6. Re-read the final diff for collateral changes the feedback did not ask for.
 
 ```bash
-gh pr view <pr> --comments                                   # read the whole set first
+gh pr view <pr> --comments                                   # read the whole set first: conversation and reviews
+gh api repos/{owner}/{repo}/pulls/<pr>/comments --paginate   # inline comments, with the <id> a reply needs
 rg -n -w 'symbolName' --glob '!node_modules/**' | head -20   # YAGNI: does anything call it?
 git log -S 'symbolName' --oneline | head -5                  # why the current code exists
 gh api repos/{owner}/{repo}/pulls/<pr>/comments/<id>/replies -f body='Fixed in a1b2c3d: bounded retries at 5 (src/net/retry.ts:18).'

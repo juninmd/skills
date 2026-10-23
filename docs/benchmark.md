@@ -15,35 +15,39 @@ Installs come from the [skills.sh](https://skills.sh/) all-time leaderboard. Row
 
 | Skill | Installs | Owner here | Tier 1 | Tier 2 | Files | Contract | Route |
 |---|---:|---|---:|---:|---:|---:|---:|
-| mattpocock/improve-codebase-architecture | 1.2M | software-architecture | 39/95 | 1446/1435 | 2/17 | 0/7 | 33 |
-| heygen-com/hyperframes | 1.2M | motion-video | 76/95 | 1710/1492 | 76/34 | 1/7 | 1 |
-| mattpocock/tdd | 1.1M | test-engineering | 39/85 | 860/1774 | 3/31 | 1/7 | 1 |
-| mattpocock/handoff | 1.0M | starting-dev | 24/99 | 183/2073 | 1/20 | 0/7 | 1 |
-| anthropics/frontend-design | 1.0M | frontend-engineering | 56/97 | 2269/1465 | 1/30 | 0/7 | 1 |
-| mattpocock/triage | 988K | requirements-planning | 36/85 | 1589/2184 | 3/11 | 0/7 | 1 |
-| mattpocock/prototype | 985K | starting-dev | 48/99 | 677/2073 | 3/20 | 1/7 | 2 |
-| mattpocock/domain-modeling | 875K | software-architecture | 42/95 | 757/1435 | 3/17 | 0/7 | 1 |
-| mattpocock/codebase-design | 848K | software-architecture | 71/95 | 1440/1435 | 3/17 | 0/7 | 1 |
-| mattpocock/diagnosing-bugs | 833K | observability | 44/98 | 2116/2212 | 2/17 | 0/7 | 1 |
-| vercel-labs/vercel-react-best-practices | 833K | frontend-engineering | 90/97 | 1702/1465 | 75/30 | 1/7 | 1 |
-| mattpocock/code-review | n/a | code-review | 109/91 | 1545/2489 | 1/14 | 0/7 | 2 |
-| anthropics/skill-creator | n/a | skill-authoring | 84/91 | 8157/1720 | 17/5 | 1/7 | 1 |
-| obra/test-driven-development | n/a | test-engineering | 26/85 | 2357/1774 | 1/31 | 2/7 | 12 |
-| obra/systematic-debugging | n/a | observability | 29/98 | 2342/2212 | 10/17 | 1/7 | 1 |
-| obra/writing-plans | n/a | requirements-planning | 25/85 | 2548/2184 | 0/11 | 1/7 | 1 |
-| obra/finishing-a-development-branch | n/a | finishing-dev | 34/98 | 1893/2452 | 0/10 | 2/7 | 10 |
+| mattpocock/improve-codebase-architecture | 1.2M | software-architecture | 39/95 | 1446/1488 | 2/17 | 0/7 | 33 |
+| heygen-com/hyperframes | 1.2M | motion-video | 76/95 | 1710/1624 | 76/34 | 1/7 | 1 |
+| mattpocock/tdd | 1.1M | test-engineering | 39/99 | 860/2002 | 3/31 | 1/7 | 1 |
+| mattpocock/handoff | 1.0M | starting-dev | 24/99 | 183/2082 | 1/20 | 0/7 | 1 |
+| anthropics/frontend-design | 1.0M | frontend-engineering | 56/97 | 2269/1548 | 1/30 | 0/7 | 1 |
+| mattpocock/triage | 988K | requirements-planning | 36/85 | 1589/2183 | 3/11 | 0/7 | 1 |
+| mattpocock/prototype | 985K | starting-dev | 48/99 | 677/2082 | 3/20 | 1/7 | 2 |
+| mattpocock/domain-modeling | 875K | software-architecture | 42/95 | 757/1488 | 3/17 | 0/7 | 1 |
+| mattpocock/codebase-design | 848K | software-architecture | 71/95 | 1440/1488 | 3/17 | 0/7 | 1 |
+| mattpocock/diagnosing-bugs | 833K | observability | 44/98 | 2116/2387 | 2/17 | 0/7 | 1 |
+| vercel-labs/vercel-react-best-practices | 833K | frontend-engineering | 90/97 | 1702/1548 | 75/30 | 1/7 | 1 |
+| mattpocock/code-review | n/a | code-review | 109/91 | 1545/2656 | 1/15 | 0/7 | 2 |
+| anthropics/skill-creator | n/a | skill-authoring | 84/91 | 8157/2100 | 17/6 | 1/7 | 1 |
+| obra/test-driven-development | n/a | test-engineering | 26/99 | 2357/2002 | 1/31 | 2/7 | 1 |
+| obra/systematic-debugging | n/a | observability | 29/98 | 2342/2387 | 10/17 | 1/7 | 1 |
+| obra/writing-plans | n/a | requirements-planning | 25/85 | 2548/2183 | 0/11 | 1/7 | 1 |
+| obra/finishing-a-development-branch | n/a | finishing-dev | 34/98 | 1893/2615 | 0/10 | 2/7 | 10 |
 
 - **Contract** counts the seven house-contract parts from `AGENTS.md` (preflight, numbered workflow, decision table, command block, stop, rules, checklist). It is this repository's standard, so other catalogs are not expected to score on it.
 - **Route** sends the competitor's own description to this catalog's offline router and reports the rank of the owner. Rank 1 means a request for that job reaches the owner here. It is a lexical signal, not proof of model behavior.
 
 ### Reading it
 
-- **Cost.** Our tier 1 runs about 2x theirs: one owner covers what they split into several single-purpose skills, so its description carries more triggers. The bodies land in the same range (1.4k–2.5k tokens); `anthropics/skill-creator` is the outlier at 8.2k.
+- **Cost.** Our tier 1 runs about 2x theirs: one owner covers what they split into several single-purpose skills, so its description carries more triggers. The bodies land in the same range (1.5k–2.7k tokens); `anthropics/skill-creator` is the outlier at 8.2k.
 - **Depth.** Our owners ship more reference files (median 17 against 3), loaded only on demand. Two catalogs go further on breadth: `hyperframes` and `vercel-react-best-practices` each ship 75+ files.
-- **Routing.** 12 of 17 rank 1. The misses:
+- **Routing.** 13 of 17 rank 1. The misses:
   - `improve-codebase-architecture` (rank 33): its description uses the author's own vocabulary ("deepening opportunities", "grill"), with no term our router knows. The job still belongs to `software-architecture`.
-  - `obra/test-driven-development` (12) and `obra/finishing-a-development-branch` (10): their descriptions state only when to trigger ("before writing implementation code"), not what the skill does, so they carry no domain term.
+  - `obra/finishing-a-development-branch` (10): its description states only when to trigger ("implementation is complete"), not what the skill does, so it carries no domain term. `obra/test-driven-development` had the same problem and now ranks 1 after `test-engineering` named test-first work for features.
   - `prototype` (2, `frontend-engineering` first) and `mattpocock/code-review` (2, `finishing-dev` first): near misses between neighbors that both legitimately mention the topic.
+
+### Content review
+
+A side-by-side read of each pair found the competitors ahead where a short, opinionated rule changes agent behavior: test-first for every feature, a hard reproduction exit before debugging, frontier-round interviews, current design tells, and coded performance rules. Those ideas were adapted, with attribution, into the owners above, along with fixes for defects the read exposed (an inverted deletion test, a test example that could not run, a GitHub-only operator in a web query, and MySQL coverage the description promised but lacked). The structural numbers above do not capture this; they show only that it stayed inside the token budget.
 
 ## Catalogs
 

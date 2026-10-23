@@ -17,7 +17,7 @@ InnoDB picks an algorithm per change; name it so the statement fails instead of 
 
 | Change | Request | Notes |
 |---|---|---|
-| Add a column, set or drop a default, rename a column | `ALGORITHM=INSTANT` | metadata only; 8.0.12+ for trailing columns, 8.0.29+ at any position; a table has a limit of instant row versions, after which a rebuild is needed |
+| Add a column, set or drop a default, rename a column | `ALGORITHM=INSTANT` | metadata only; add a trailing column 8.0.12+, at any position 8.0.29+; rename a column 8.0.28+; a table has a limit of instant row versions, after which a rebuild is needed |
 | Add or drop a secondary index | `ALGORITHM=INPLACE, LOCK=NONE` | writes continue; a brief metadata lock at start and end |
 | Add a primary key, `FORCE` a rebuild | `ALGORITHM=INPLACE, LOCK=NONE` | writes continue but the whole table is rebuilt: plan for the I/O and the replica lag |
 | Change a column type (other than widening a `VARCHAR` within its length-byte size), convert the charset | `ALGORITHM=COPY` (rejected under `LOCK=NONE`) | copies the table and blocks writes: use gh-ost or pt-online-schema-change instead |
