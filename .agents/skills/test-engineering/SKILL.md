@@ -19,10 +19,10 @@ The level follows from the contract under test, never from habit.
 
 ## Workflow
 1. Name the behavior, the invariant, the observable outcome, and the failure modes — before choosing a test level.
-2. Fixing a bug? Write the failing test first and watch it fail **for the intended reason** — one that passes beforehand proves nothing.
+2. Write the failing test first — for a new feature as much as for a bug fix. Run it and confirm it **fails on the assertion, for the intended reason**. An import, syntax, or fixture error is not a red run: fix it and rerun until the assertion itself fails.
 3. Pick the lowest level that exercises the real contract. Never mock the subject under test.
 4. Cover boundaries, invalid input, dependency failure, timeout, retry, concurrency, and the unchanged-state guarantee (on error, nothing was written).
-5. Run focused checks first; broaden when changed behavior or project policy warrants it.
+5. Run focused checks while iterating. Before claiming done, run the project's full test command, not only the new file, and report every failure by name — including ones this change did not cause.
 6. Use coverage to find blind spots, mutation to grade assertion strength, profiling to back a performance claim.
 
 ## Choosing the Level
@@ -65,13 +65,14 @@ No fix in this change? Never skip or delete the test. Keep it running and report
 ## Reference Routing
 - Consult [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-domain guides.
 - Choosing a test double, or spotting a mystery-guest/fragile-test smell in review: [test-doubles.md](references/test-doubles.md).
+- Running the red-green cycle, or checking that an expected value is independent of the code: [tdd-methodology.md](references/tdd-methodology.md).
 - Building out the "Contract" level against another service: [contract-testing.md](references/contract-testing.md).
 
 ## Stop
-- The test passes before the fix. It proves nothing — make it fail for the intended reason first.
-- A test is about to be retried instead of attributed. Retrying hides a real bug about half the time.
+- A new test passes on its first run. You are testing existing behavior, or nothing; fix the test until it fails for the intended reason.
+- A test is about to be retried instead of attributed. A retry hides whatever made it fail.
 - The subject under test is being mocked. Stop; the test now asserts the mock.
-- A negative-path test (proving a gate rejects bad input) is about to run against a real tracked file. Stop; use a disposable temp file instead — `Set-Content -NoNewline` has silently collapsed a tracked file's line breaks while leaving it syntactically valid, and the corruption went unnoticed until later. Verify the final state of anything touched byte-for-byte, never by assumption.
+- A negative-path test (proving a gate rejects bad input) is about to run against a real tracked file. Use a disposable temp file, and verify anything touched byte-for-byte ([real-world-cases.md](references/real-world-cases.md)).
 
 ## Rules
 - Hand off refactoring and simplifications to `code-review`, UI issues to `frontend-engineering`, and service bugs to `backend-systems`.
@@ -80,25 +81,32 @@ No fix in this change? Never skip or delete the test. Keep it running and report
 - Order dependence is a defect, not a configuration preference. Run the suite shuffled in CI.
 - Concurrent tests sharing one fixture, database, or temp path will interleave. Give each worker its own, or mark those tests serial.
 - Do not chase a coverage percentage: 100% with weak assertions is worse than 70% with sharp ones, because it looks finished.
-- Frontend end-to-end is Playwright, web and desktop alike; Electron support is official but experimental, and Tauri needs a documented driver exception. Review rules live in `code-review` and `ui-review.md`.
+- Frontend end-to-end is Playwright, web and desktop alike; Electron support is official but experimental, and Tauri needs a documented driver exception. UI review rules (screenshot evidence, determinism) belong to `code-review`.
 - connection refused in a test run is not a network fault: a required service was not started or a call was left unmocked.
 - Prefer a real containerized dependency when fidelity matters.
 - Benchmarks need warmup, stable inputs, multiple samples, and a before/after comparison.
-- A green gate can be a broken gate. A linter-preset migration has wiped the active rule set while `lint` still passed clean; a backup "verify" step passed for months while dumping an empty database. Both looked identical to a real pass. After touching or trusting any linter config, backup, or verification tool, feed it a known-bad case and confirm it still fails.
+- A green gate can be a broken gate. After touching or trusting a linter config, backup, or verification tool, feed it a known-bad case and confirm it still fails ([real-world-cases.md](references/real-world-cases.md)).
 
 ## Excuses
 
 | Excuse | Why it is false |
 |---|---|
 | "This behavior is too obvious to test" | The test exists to fail when the rule changes, not to prove what you already know |
-| "I will add the test after the fix lands" | A test never seen failing asserts nothing; write it first and watch it fail for the intended reason |
+| "I will add the test after the code lands" | A test written afterwards passes on its first run, so it never proved it can fail; it also checks what the code does, not what it should do |
+| "I already tried it by hand" | A manual check leaves no record, covers only the cases remembered, and cannot rerun on the next change |
+| "I'll keep my draft as a reference while I write the test" | The test then gets fitted to the draft. Set the draft aside and let the failing test drive the code |
+| "It is too hard to test" | Hard to test means hard to use. Narrow the interface or inject the boundary; do not skip the test |
+| "That failure was already there" | Report it by name anyway. A red test left unmentioned makes the report false by omission |
 | "It only fails in CI, so it is a CI problem" | Order, seed, and concurrency are the product's problem — reproduce with --sequence.shuffle |
 | "Coverage is at 90%, that is enough" | Coverage grades what ran, not what was asserted; mutation grades the assertions |
 | "It passed five times, so it is not flaky" | Five runs catch a 5% flake about a quarter of the time; the count is the claim |
 
 ## Checklist
-- [ ] The test failed first, for the intended reason.
+- [ ] The test failed first, on its assertion (not an error), for the intended reason.
+- [ ] Full suite run before claiming done; every failure reported by name.
 - [ ] Level chosen for the contract under test; the subject is not mocked.
 - [ ] Unhappy paths covered: invalid input, dependency failure, timeout, unchanged state on error.
 - [ ] Ordering or parallelism checks run when relevant.
 - [ ] No global state, timer, or mock left standing after the run.
+
+Excuses rows adapted in part from obra/superpowers (MIT, © 2025 Jesse Vincent).
