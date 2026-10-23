@@ -14,19 +14,27 @@ description: |
 rg -n 'OTEL_|opentelemetry|prom_client|micrometer' src/ | head
 curl -sS localhost:9090/api/v1/status/tsdb 2>/dev/null | jq '.data.seriesCountByMetricName[:5]'  # cardinality today, if Prometheus runs locally on the default port
 rg -n 'labels?\(|withTags' src/ | head        # what is already being labelled
+git log --oneline -10                          # what changed recently, for a bug hunt
 ```
 
-Name the user-visible outcome before naming a metric. An SLI nobody can tie to a user is a graph.
+| Request | Path |
+|---|---|
+| Bug, failing test, or unexplained behavior with no proven cause | [debugging-phases.md](references/debugging-phases.md), every phase in order |
+| Failure crosses the network, layer unknown | [diagnostics.md](references/diagnostics.md) layer triage, then debugging-phases |
+| Production down, users affected | [incident-response.md](references/incident-response.md) first; diagnose after mitigation |
+| Watch live logs and fix until clean | [log-watch-fix.md](references/log-watch-fix.md) |
+| Design signals: SLIs, SLOs, instrumentation, alerts | Workflow steps 2–9 |
 
 ## Workflow
-1. Name the user-visible outcomes, then the SLIs that measure them: the four golden signals — latency, traffic, errors, saturation ([Google SRE, monitoring distributed systems](https://sre.google/sre-book/monitoring-distributed-systems/)). An SLI nobody can tie to a user is a graph, not a signal.
-2. Set SLO targets with an explicit error budget ([Google SRE, embracing risk](https://sre.google/sre-book/embracing-risk/)), leaving room for change and for incident recovery. 100% is not a target; it is a refusal to ship. A budget policy should accompany each target: the action at exhaustion (for example, reliability work first, or a feature freeze that leaves reliability fixes flowing until the budget recovers), approvers (product, development, SRE), approval and next-review dates, and an escalation path for disputes over the calculation ([Google SRE workbook, implementing SLOs](https://sre.google/workbook/implementing-slos/)).
-3. Instrument with OpenTelemetry rather than a handmade scheme: one SDK for logs, metrics and traces, trace context propagated across every hop, semantic conventions for span and attribute names. Use the stable HTTP names `http.request.method`, `http.response.status_code`, and `http.route` on server spans, stable since semconv v1.23.0 ([HTTP spans](https://opentelemetry.io/docs/specs/semconv/http/http-spans/); [stability announcement](https://opentelemetry.io/blog/2023/http-conventions-declared-stable/)). Fill `http.route` only from the framework's route template, never the raw path. Instrumentations keep emitting pre-stable names such as `http.status_code` until they opt in through `OTEL_SEMCONV_STABILITY_OPT_IN`, which is set per instrumentation: `http/dup` emits both sets during a phased rollout, and `http` emits only the stable names ([migration guide](https://opentelemetry.io/docs/specs/semconv/non-normative/http-migration/)).
-4. Emit structured events (JSON) carrying trace and span ids, duration, and outcome — never secrets or PII.
-5. Add RED metrics (rate, errors, duration) at every service boundary; add tracing wherever latency crosses a service.
-6. Choose sampling deliberately: head sampling cannot keep every error, but a tail sampler with an error policy can, within its buffer limits (see Sampling below).
-7. Alert on symptoms and SLO burn rate, never on causes or every threshold crossing — a cause-based page fires on an internal blip whether or not a user felt it, and on-call learns to ignore it ([Google SRE, alerting philosophy](https://sre.google/sre-book/monitoring-distributed-systems/)).
-8. Verify signal quality: the dashboard, the alert, and the incident review must show the same number.
+1. Classify the request with the table above. For a bug, follow [debugging-phases](references/debugging-phases.md): no hypothesis or fix until one already-run command goes red on the user's exact symptom; raise a flaky bug's repro rate before guessing; redact secrets and PII from every captured log.
+2. Name the user-visible outcomes, then the SLIs that measure them: the four golden signals — latency, traffic, errors, saturation ([Google SRE, monitoring distributed systems](https://sre.google/sre-book/monitoring-distributed-systems/)). An SLI nobody can tie to a user is a graph, not a signal.
+3. Set SLO targets with an explicit error budget ([Google SRE, embracing risk](https://sre.google/sre-book/embracing-risk/)), leaving room for change and for incident recovery. 100% is not a target; it is a refusal to ship. A budget policy should accompany each target: the action at exhaustion (for example, reliability work first, or a feature freeze that leaves reliability fixes flowing until the budget recovers), approvers (product, development, SRE), approval and next-review dates, and an escalation path for disputes over the calculation ([Google SRE workbook, implementing SLOs](https://sre.google/workbook/implementing-slos/)).
+4. Instrument with OpenTelemetry rather than a handmade scheme: one SDK for logs, metrics and traces, trace context propagated across every hop, semantic conventions for span and attribute names. Use the stable HTTP names `http.request.method`, `http.response.status_code`, and `http.route` on server spans, stable since semconv v1.23.0 ([HTTP spans](https://opentelemetry.io/docs/specs/semconv/http/http-spans/); [stability announcement](https://opentelemetry.io/blog/2023/http-conventions-declared-stable/)). Fill `http.route` only from the framework's route template, never the raw path. Instrumentations keep emitting pre-stable names such as `http.status_code` until they opt in through `OTEL_SEMCONV_STABILITY_OPT_IN`, which is set per instrumentation: `http/dup` emits both sets during a phased rollout, and `http` emits only the stable names ([migration guide](https://opentelemetry.io/docs/specs/semconv/non-normative/http-migration/)).
+5. Emit structured events (JSON) carrying trace and span ids, duration, and outcome — never secrets or PII.
+6. Add RED metrics (rate, errors, duration) at every service boundary; add tracing wherever latency crosses a service.
+7. Choose sampling deliberately: head sampling cannot keep every error, but a tail sampler with an error policy can, within its buffer limits (see Sampling below).
+8. Alert on symptoms and SLO burn rate, routed per Alert Routing below.
+9. Verify signal quality: the dashboard, the alert, and the incident review must show the same number.
 
 ## Cardinality Is the Outage
 Each label value multiplies stored series. One `user_id` label on a modest service is millions of series, and the first symptom is the metrics backend falling over during the incident you needed it for.
@@ -41,7 +49,7 @@ Each label value multiplies stored series. One `user_id` label on a modest servi
 Check the series count before shipping a new label — not after.
 
 ## Alert Routing
-Page on symptoms — what a user feels — never on causes. "Error rate over 1% for 5 minutes" is a symptom; "replica CPU over 80%" is a cause, and paging on it whether or not anyone was hurt is how on-call learns to silence its phone. Causes still earn a page only when they are a saturation resource about to become a symptom (disk filling, pool exhaustion, cert expiry) — see [alerting-and-oncall](references/alerting-and-oncall.md) for the burn-rate math and the on-call handoff checklist.
+Page on symptoms — what a user feels — never on causes or every threshold crossing ([Google SRE, alerting philosophy](https://sre.google/sre-book/monitoring-distributed-systems/)). "Error rate over 1% for 5 minutes" is a symptom; "replica CPU over 80%" is a cause, and paging on it whether or not anyone was hurt is how on-call learns to silence its phone. Causes still earn a page only when they are a saturation resource about to become a symptom (disk filling, pool exhaustion, cert expiry) — see [alerting-and-oncall](references/alerting-and-oncall.md) for the burn-rate math and the on-call handoff checklist.
 
 | Condition | Route | Why |
 |---|---|---|
@@ -65,19 +73,17 @@ Head sampling alone cannot keep every error. Server 4xx spans leave span status 
 ## Reference Routing
 - SLO burn-rate math, toil, and the on-call handoff checklist: [alerting-and-oncall.md](references/alerting-and-oncall.md)
 - Trace propagation across queues, log sampling at volume, clock skew, and retry storms: [resilience-and-tracing.md](references/resilience-and-tracing.md)
-- A bounded loop that tails live logs, fixes root causes, redeploys, and re-watches until a clean window: [log-watch-fix.md](references/log-watch-fix.md)
 
 See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-domain guides.
 
 ## Stop
 - A proposed label is unbounded — user id, request id, raw path, error string. Stop; that is the outage, not the metric.
-- An alert has no owner and no runbook. Do not enable it; it is noise with a pager attached.
-- A threshold is being widened to silence a page. Either the signal is wrong or the system is — fix one of them.
+- An alert has no owner and no runbook. Write both before enabling it; until then it is noise with a pager attached.
+- A threshold is being widened to silence a page. Either the signal is wrong or the system is; fix that, not the bound.
+- A fix is proposed for a bug with no red-capable reproduction command. Return to Phase 1 of [debugging-phases](references/debugging-phases.md).
 
 ## Rules
 - Hand off root cause code fixes to the domain skill (`backend-systems`, `frontend-engineering`), performance optimization to `performance-engineering`, and infrastructure config to `cloud-devops`.
-- An alert without an owner and a runbook is noise. Write both **before** enabling it.
-- Never tune a threshold to silence a page. Either the signal is wrong or the system is; both need a fix, not a wider bound.
 - Test alert firing with a synthetic failure. An alert nobody has ever seen fire is an untested code path.
 - Log levels mean things: debug for diagnosis, info for lifecycle events, warn for recoverable anomalies, error for user-visible failure. Everything at `error` is the same as nothing at `error`.
 - Define retention and cost limits before the data grows; observability spend is the line item that surprises people, and `performance-engineering` owns the tradeoff.
@@ -87,6 +93,7 @@ See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-
 - Live outage triage and postmortems belong to [incident-response](references/incident-response.md); design the signals they will read here.
 
 ## Checklist
+- [ ] Bug work: a red-capable command ran before the fix and passes after it; quoted logs redacted.
 - [ ] SLIs tie to user-visible outcomes; SLO targets, error budget, and budget policy (exhaustion action, approvers, review date) explicit.
 - [ ] Trace context propagates across services, queues, and jobs, and appears in logs.
 - [ ] Every metric label is bounded; series count checked before shipping.

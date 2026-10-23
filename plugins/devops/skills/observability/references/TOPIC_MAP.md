@@ -9,9 +9,9 @@ Read only the files needed for the current task.
 | `log-watch-fix.md` | Unattended loop on a live system: tail logs, group errors by signature, fix root causes, redeploy, re-watch until a clean window or a budget; includes the ledger and the signature helper |
 | `log-sources.md` | Bounded log-read and process-health commands for Kubernetes, Docker, systemd, plain files, Windows, and CI runs, used by the watch-and-fix loop |
 | `signature-ledger.md` | JSON ledger format and statuses that track each error signature through the watch-and-fix loop |
-| `debugging-phases.md` | Full 6-phase debugging method — build a fast pass/fail feedback loop, reproduce, generate falsifiable hypotheses, fix root cause — when there's no repro yet and the bug isn't obvious |
+| `debugging-phases.md` | The debugging method for any bug, failing test, or unexplained behavior without a proven cause: capture and redact evidence, a red-capable loop as the Phase 1 exit, raising the repro rate on flaky bugs, minimize, ranked hypotheses tested one at a time, regression test, cleanup, red flags |
 | `diagnostics-real-world-cases.md` | Fast triage checklist for a known failure shape (UI/runtime bug, flaky test, timeout/perf regression, network/TLS) when you need the isolation steps, not the full methodology |
-| `diagnostics.md` | General fault-triage workflow plus the layer-triage command table (DNS, route, port, TLS, HTTP, timing) and flaky-failure reproduction, when you don't yet know which layer is at fault |
+| `diagnostics.md` | Layer-triage command table (DNS, route, port, TLS, HTTP, timing) when a failure crosses the network and you don't yet know which layer is at fault; the fix itself follows `debugging-phases.md` |
 | `incident-playbook.md` | Deciding severity and mitigation mid-incident — decision tree (rollback vs failover vs rate-limit vs flag-off), commander/investigator/comms roles, evidence to preserve, closing criteria |
 | `incident-response.md` | The first five minutes of a live incident — preflight commands for what shipped, declare/commander/first-comms sequence, and the rollback-safety table for reverting over a migrated schema |
 | `network-connectivity.md` | L3/L4 reachability checks (ping, dig, traceroute, ss, tcpdump) to tell apart connection refused, timeout, DNS failure, and intermittent packet loss |

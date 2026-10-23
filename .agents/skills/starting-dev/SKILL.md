@@ -35,7 +35,7 @@ The last probe lists delivery workspaces (see [state contract](references/loop-s
    CONFIDENCE: ~30% - missing: who reads it, which metric, what success looks like
    ```
 
-   Then resolve material missing decisions in one batched clarification or via [grill-me](references/grill-me.md) (walking decision branches with recommended defaults), each question carrying your guess so a nod is enough to proceed; continue independent inspection while waiting. Stop interrogating at the point where you can predict the answer, not at the point where you have enough to start. Hand a request still needing acceptance criteria, a PRD/spec, or issue triage to `requirements-planning`.
+   Then resolve material missing decisions via [grill-me](references/grill-me.md): frontier rounds of at most seven questions, each carrying your recommended answer so a "yes" is enough to proceed; look facts up instead of asking, and continue independent inspection while waiting. Stop interrogating at the point where you can predict the answer, not at the point where you have enough to start. Hand a request still needing acceptance criteria, a PRD/spec, or issue triage to `requirements-planning`.
 2. Map one real flow from entry to response with `file:line` evidence using [codebase mapping](references/codebase-mapping.md). Record owning modules, dependency edges, configuration sources, and actual setup/test/build commands. State when runtime evidence is unavailable.
 3. Invoke `web-research` for a new project or a choice involving libraries, APIs, compatibility, or current best practices. Record primary sources and dates. Hand runtime, package-manager, and library choices for new work to `stack-selection`; preserve an existing repository's runtime and lockfile unless migration is requested.
 4. Generate or adapt **AGENTS.md and README.md** when bootstrapping or explicitly requested. Follow [agent instructions](references/agents-md.md); use `readme-standard` for the README. Derive commands from verified scripts. AGENTS records ownership, authority, checks, and gotchas; README explains purpose, quickstart, configuration, usage, and limits. Preserve project facts and attribution; never claim untested installation works.
@@ -49,7 +49,7 @@ These are procedures owned here, **not separate skills**. Read only the current 
 | State / need | Procedure and transition |
 |---|---|
 | Research | [Research](references/phase-research.md): source-backed constraints → prototype or plan |
-| Unresolved product direction | [Prototype](references/phase-prototype.md): disposable alternatives → record selected direction |
+| Unresolved product direction | [Prototype](references/phase-prototype.md): LOGIC or UI variants on a throwaway branch → record selected direction |
 | Plan | [Plan](references/phase-plan.md): files, checks, acceptance → implement |
 | Implement | [Implementation](references/phase-implement.md): domain work, scoped gates, evidence → finalize |
 | Finalize / done | Hand off to `finishing-dev`; PR readiness does not imply merge or deployment |
@@ -70,7 +70,7 @@ Keep loop state only for sustained delivery or when a workspace already tracks t
 - A plan step without an observable check is incomplete.
 - Do not force all projects through prototype stages; record why a stage is unnecessary.
 - Unrequested publishing, merging, deployment, or external messages are outside starting development.
-- Task list, loop state, and stage artifacts (`tasks.md`, `loop-state.json`, `research.md`, `plan.md`) live in `<tmpdir>/starting-dev/<session-id>/`, never in the repository. No `TASKS.md`, no `.workflow/`.
+- Task list, loop state, and stage artifacts (`tasks.md`, `loop-state.json`, `research.md`, `plan.md`, `handoff.md`) live in `<tmpdir>/starting-dev/<session-id>/`, never in the repository. No `TASKS.md`, no `.workflow/`.
 - Session memory outside the workspace requires an explicit user request; see [session learnings](references/session-learnings.md).
 
 ## Checklist

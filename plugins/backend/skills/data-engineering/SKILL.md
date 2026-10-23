@@ -54,6 +54,7 @@ SELECT relname, n_live_tup, n_dead_tup, last_autovacuum
 redis-cli --stat                  # ops/sec, memory, clients
 redis-cli info keyspace           # key counts and TTL coverage
 mongosh --eval 'db.currentOp({secs_running:{$gt:5}})'
+mysql -e "SELECT VERSION(); SELECT trx_id, trx_started FROM information_schema.innodb_trx ORDER BY trx_started LIMIT 5"
 ```
 
 `EXPLAIN ANALYZE` **runs the statement.** Against `UPDATE`, `DELETE`, or `INSERT` it applies the change — wrap it in a transaction and roll back, or plan the equivalent `SELECT`.
@@ -66,7 +67,7 @@ SET lock_timeout = '3s';        -- fail fast instead of blocking traffic
 SET statement_timeout = '30s';
 ```
 
-Check `pg_stat_activity` for long transactions first. Build indexes with `CREATE INDEX CONCURRENTLY` on a live table; the plain form holds a write lock for the whole build.
+Check `pg_stat_activity` for long transactions first. MySQL has the same queue on its metadata lock: `SET SESSION lock_wait_timeout = 5` and check `information_schema.innodb_trx`. Build indexes with `CREATE INDEX CONCURRENTLY` on a live table; the plain form holds a write lock for the whole build.
 
 ## Symptom Routing
 
@@ -84,6 +85,8 @@ Check `pg_stat_activity` for long transactions first. Build indexes with `CREATE
 - Operational intake, DBA checks, connection hardening, and replica lag: [database-admin.md](references/database-admin.md)
 - Redis modeling, clients, cluster slots, ACLs, and RQE search: [redis-operations.md](references/redis-operations.md)
 - Vector collections, memory tiers, hybrid search, and fusion: [vector-databases.md](references/vector-databases.md)
+- Foreign-key indexes, RLS policy performance and grants, `SKIP LOCKED` job queues, and MySQL plan reading (`EXPLAIN ANALYZE`, 8.0.18+): [sql-authoring.md](references/sql-authoring.md)
+- MySQL online DDL (`ALGORITHM=INSTANT`/`INPLACE`, metadata locks) and gh-ost or pt-online-schema-change: [online-ddl-and-api-migration.md](references/online-ddl-and-api-migration.md)
 
 See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-domain guides.
 
@@ -97,7 +100,6 @@ See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-
 - Query and index design belong to [sql-authoring](references/sql-authoring.md); expand/migrate/contract phasing to [migration-engineering](references/migration-engineering.md). Keep plan-based diagnosis, operations, locks, backup, and restore here.
 - Never infer index value without a query plan and realistic selectivity. An index that helps a 100-row table may be ignored at a million rows.
 - Never run destructive SQL, production migrations, cache flushes, or failovers without approval. `FLUSHALL` on a shared Redis is an outage, not a cleanup.
-- Backups are not a rollback plan until a restore has been tested, timed, and written down. An untested backup is a belief.
 - Apply schema changes through the repository's versioned migration tool, never hand-run DDL — a hand-run statement is invisible to every other environment.
 - Separate the migration role (DDL) from the runtime application role (DML only).
 - Schedule manual `VACUUM`/`ANALYZE` outside peak hours when autovacuum cannot keep up; rising `n_dead_tup` with a stale `last_autovacuum` is the tell.
