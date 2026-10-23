@@ -6,6 +6,7 @@
 - Preflight
 - Workflow
 - Pass Order
+- Spec Pass
 - Adversarial Checklist
 - Severity
 - What Makes a Finding Real
@@ -37,6 +38,7 @@ Design leads by this repo's choice, not a source rule: a wrong layer makes line-
 | Pass | Looking for |
 |---|---|
 | Design | a layer, dependency, or abstraction the change adds that its callers do not need, or code placed in the wrong module; a finding only with a stated consequence (drift, untestable coupling, broken contract), otherwise an observation |
+| Spec | a requirement missing, partial, or implemented wrong; behavior nobody asked for (see Spec Pass) |
 | Correctness | wrong condition, off-by-one, unhandled null, wrong return, inverted boolean |
 | Data safety | data loss, unbounded delete, missing transaction, non-idempotent retry |
 | Security | injection, missing authz check, secret in code or log, unsafe deserialization |
@@ -45,6 +47,22 @@ Design leads by this repo's choice, not a source rule: a wrong layer makes line-
 | Operability | no timeout, no retry bound, unbounded memory, missing observability on a new path |
 | Tests | the unhappy path nobody covered; an assertion that cannot fail |
 | Style | last, and only when it obscures meaning |
+
+## Spec Pass
+Code can satisfy every standard and still build the wrong thing, so check the diff against what was asked before judging how it was built.
+
+```bash
+git log --format=%B <base>..HEAD | rg -o '(#|!)[0-9]+|[A-Z][A-Z0-9]+-[0-9]+' | sort -u   # issue and ticket refs
+gh pr view --json body,closingIssuesReferences 2>/dev/null | jq -r '.body' | head -40
+```
+
+1. Find the spec: issue references in commits, the PR description and its linked issues, a path the user named, then a plan or spec document matching the branch. Nothing found: ask once; still none, report "no spec available" and skip this pass.
+2. List the spec's requirements and acceptance criteria, one line each.
+3. Map each to the hunks that implement it, then read the remaining hunks for behavior the list does not cover.
+4. Report four kinds, each quoting the spec or issue line it rests on: **missing**, **partial** (some cases or criteria unmet), **wrong** (implemented, but the behavior contradicts the line), and **unrequested** (scope creep: new flags, endpoints, options, or abstractions no line asks for).
+5. Where the spec is silent, judge by what a reasonable user would expect; silence is not permission, but name the gap as a question rather than a defect.
+
+Keep spec findings under their own heading. Merging them into the correctness list lets a clean implementation of the wrong requirement read as an approval. Severity still follows consequence: a missing acceptance criterion is Major or worse; unrequested behavior is Minor unless it widens a contract, attack surface, or maintenance cost.
 
 ## Adversarial Checklist
 
@@ -123,3 +141,5 @@ Enter it **only** for a plan or design with an unresolved decision, or on reques
 - [ ] Severity assigned by consequence, not by confidence.
 - [ ] Output capped and ordered; observations kept separate from findings.
 - [ ] Remaining risk and test gaps stated explicitly, even when nothing was found.
+
+Spec Pass adapted in part from mattpocock/skills (MIT, © 2026 Matt Pocock) and obra/superpowers (MIT, © 2025 Jesse Vincent).
