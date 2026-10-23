@@ -25,7 +25,7 @@ Chrome stable must be installed (`playwright-core` drives it with `channel: 'chr
 4. **Style first.** Fill `STYLE.md`: closed palette, type scale, grid, BPM, named easings ([style-system.md](references/style-system.md)). Asking for "a cool motion" yields a 2009 slide deck; constraints make it look designed.
 5. **One scene per claim**, each with a different pattern. Build one, render a still at its late moment (local 3.3 s), open the PNG, fix overflow and overlap before the next.
 6. **Music.** Choose the source from the table; the default is the generator locked to the cuts ([music.md](references/music.md)). A reel asked to have music never ships silent.
-7. **Build and gate.** `npm run build`, then every gate in [qa-gates.md](references/qa-gates.md). Put the MP4 in front of the user and state what was measured but not seen or heard.
+7. **Build, gate, review.** `npm run build`, then every gate in [qa-gates.md](references/qa-gates.md), ending with the review pass: craft measures, a phone-width contact sheet, and P0/P1/P2 notes. Fix every P0, then put the MP4 in front of the user and state what was measured but not seen or heard.
 
 ## Decisions
 
@@ -55,7 +55,7 @@ npm run render -- --audio out/music.wav --out final.mp4
 - `ffmpeg -shortest` cuts the video when the audio is shorter: the pipeline pads the audio. ffmpeg RGB to yuv420p shifts colors unless tagged BT.709: the pipeline sets it through `-x264-params` (the `-color_*` flags alone leave primaries "unknown").
 - A typed string is one character short on the exact frame its progress reaches 1.0 (float rounding). Look four frames later before calling it a bug.
 - Text finishing after about 3.8 s of a 4.5 s scene sits under the next transition. `n/TOTAL` and `version` chips are manual: read them on the still.
-- Fonts are system fonts (Consolas, Bahnschrift on Windows); another OS changes metrics, so re-check text fit there.
+- Fonts come from the OS. The stacks in `style.css` fall from Windows fonts (Consolas, Bahnschrift) to macOS and then Linux ones, and each changes width and line breaks: re-render the late-moment stills on the machine that renders the final cut. For identical output everywhere, put a licensed `.woff2` in `src/fonts/` and load it with `@font-face`; `document.fonts.ready` already waits for it.
 
 ## Stop
 
@@ -77,6 +77,7 @@ npm run render -- --audio out/music.wav --out final.mp4
 - [ ] Every claim traced to a primary source; sample data labeled; placeholders gone (`rg` gate).
 - [ ] Late-moment still of every scene opened; no overflow, overlap or empty boxes.
 - [ ] Mid-transition frames show replacement, not overlay.
+- [ ] Review pass run: no 3 s freeze or blank first frame unexplained, 360 px contact sheet opened, no P0 open in `out/review.md`.
 - [ ] `ffprobe`: 1080x1920, 30 fps, `bt709`, frame count matches duration; audio and video both start at 0.
 - [ ] Loudness -14 +/- 1 LUFS, decoded peak below -1 dBFS, spectrogram shows intro, drop, final impact.
 - [ ] MP4 delivered to the user with the knobs to retune the music.

@@ -8,6 +8,9 @@
 - Reading the Plan
 - Traps That Return Wrong Answers Silently
 - Index Design
+- Foreign-Key Indexes
+- Row-Level Security Performance
+- Job Queues With SKIP LOCKED
 - Transaction Isolation Levels
 - N+1 Query Detection
 - Connection Pool Sizing
@@ -19,6 +22,7 @@
 ```sql
 \d+ <table>                          -- columns, types, indexes that already exist
 SELECT reltuples::bigint FROM pg_class WHERE relname = '<table>';   -- real cardinality
+SHOW CREATE TABLE <table>;           -- MySQL: columns, indexes, engine
 ```
 
 State the expected result shape and the uniqueness guarantee before writing. "One row per customer" is a claim the query must enforce.
@@ -36,7 +40,7 @@ State the expected result shape and the uniqueness guarantee before writing. "On
 | Engine | Command |
 |---|---|
 | PostgreSQL | `EXPLAIN (ANALYZE, BUFFERS) <query>` |
-| MySQL 8.0+ | `EXPLAIN ANALYZE <query>` · `EXPLAIN FORMAT=JSON` for cost detail |
+| MySQL 8.0.18+ | `EXPLAIN ANALYZE <query>` (runs it, prints the iterator tree with actual time and rows) · `EXPLAIN FORMAT=TREE` (8.0.16+) or `FORMAT=JSON` to plan without running |
 | SQLite | `EXPLAIN QUERY PLAN <query>` |
 
 | In the plan | Means |
@@ -48,6 +52,14 @@ State the expected result shape and the uniqueness guarantee before writing. "On
 | `Sort` spilling to disk | raise `work_mem` for the session, or index the sort |
 
 The analyzing form **runs the statement**. Against `UPDATE`, `DELETE`, or `INSERT` it applies the change — wrap it in a transaction and roll back, or plan the equivalent `SELECT`.
+
+MySQL before 8.0.18 has no analyzing form: read `EXPLAIN` and check `type` (`ALL` is a full scan), `key` (the index chosen, `NULL` for none), `rows`, and `Extra` (`Using filesort`, `Using temporary`). MySQL's `EXPLAIN ANALYZE` executes too, and from 8.0.19 accepts multi-table `UPDATE` and `DELETE`, so the same rollback rule holds.
+
+```sql
+SELECT VERSION();                                     -- 8.0.18+ before reaching for EXPLAIN ANALYZE
+EXPLAIN ANALYZE SELECT o.id FROM orders o WHERE o.customer_id = 42 ORDER BY o.created_at DESC LIMIT 20;
+SELECT * FROM sys.schema_unused_indexes;              -- write cost with no reader since restart
+```
 
 ## Traps That Return Wrong Answers Silently
 
@@ -92,6 +104,78 @@ CREATE INDEX CONCURRENTLY idx_orders_summary ON orders (customer_id) INCLUDE (to
 ```
 
 See PostgreSQL's own reasoning on [partial indexes](https://www.postgresql.org/docs/current/indexes-partial.html) and [index-only scans](https://www.postgresql.org/docs/current/indexes-index-only-scans.html).
+
+## Foreign-Key Indexes
+PostgreSQL indexes the referenced key (it must be unique) but never the referencing column. Without that index, every join from the parent scans the child, and every `DELETE` or key `UPDATE` on the parent scans the child to enforce the constraint — under a lock, and once per parent row for a cascade. MySQL InnoDB creates the index automatically.
+
+Index each foreign key that a join, a cascade, or a parent delete touches; a log table whose parent rows are never deleted or joined can skip it. Find the gaps — constraints whose columns are not the leading columns of a non-partial index:
+
+```sql
+SELECT c.conrelid::regclass AS table_name, c.conname AS fk_name, pg_get_constraintdef(c.oid) AS definition
+  FROM pg_constraint c
+ WHERE c.contype = 'f'
+   AND NOT EXISTS (
+         SELECT 1 FROM pg_index i
+          WHERE i.indrelid = c.conrelid
+            AND i.indpred IS NULL
+            AND (string_to_array(i.indkey::text, ' ')::int2[])[1:cardinality(c.conkey)] @> c.conkey
+            AND (string_to_array(i.indkey::text, ' ')::int2[])[1:cardinality(c.conkey)] <@ c.conkey)
+ ORDER BY 1, 2;
+
+CREATE INDEX CONCURRENTLY orders_customer_id_idx ON orders (customer_id);
+```
+
+An index whose first column is something else (`(region, customer_id)`) does not serve the lookup; the query above flags it. It also flags a partial index conservatively — confirm with the plan of `DELETE` on one parent row, inside a rolled-back transaction.
+
+## Row-Level Security Performance
+A policy is a predicate added to every query on the table. Written as `user_id = auth.uid()`, the function may be called once per row; wrapped as a scalar subquery it becomes an InitPlan evaluated once per statement. The same holds for `current_setting(...)` and any stable lookup that does not reference the row.
+
+```sql
+ALTER TABLE docs ENABLE ROW LEVEL SECURITY;
+CREATE INDEX CONCURRENTLY docs_user_id_idx ON docs (user_id);    -- every column a policy filters on
+CREATE INDEX CONCURRENTLY docs_team_id_idx ON docs (team_id);
+
+CREATE POLICY docs_owner ON docs FOR SELECT TO authenticated
+  USING (user_id = (SELECT auth.uid()));                        -- once per statement, not per row
+
+-- Membership: return the caller's set once instead of joining per row
+CREATE FUNCTION private.my_team_ids() RETURNS SETOF bigint
+  LANGUAGE sql STABLE SECURITY DEFINER SET search_path = ''
+  AS $$ SELECT team_id FROM public.team_members WHERE user_id = (SELECT auth.uid()) $$;
+REVOKE EXECUTE ON FUNCTION private.my_team_ids() FROM PUBLIC, anon;
+GRANT USAGE ON SCHEMA private TO authenticated;
+GRANT EXECUTE ON FUNCTION private.my_team_ids() TO authenticated;
+
+CREATE POLICY docs_team ON docs FOR SELECT TO authenticated
+  USING (team_id IN (SELECT private.my_team_ids()));
+```
+
+- **The policy runs as the querying role.** Revoking `EXECUTE` from `authenticated` makes every query on `docs` fail with `permission denied for function`; revoke from `PUBLIC` (functions are executable by `PUBLIC` by default) and from roles that never query the table, and grant to the role the policy names.
+- `SECURITY DEFINER` bypasses RLS on the tables the function reads. Pin `search_path = ''`, schema-qualify every name, filter by the caller's identity inside the body, and keep the schema out of anything exposed as an RPC API.
+- `(SELECT f(team_id))` still runs per row — it references the row. Return the caller's set (`IN (SELECT ...)`) instead.
+- Scope each policy with `TO <role>` so other roles skip it, and remember permissive policies combine with `OR`: each needs its own index.
+- Verify as the real role: `SET ROLE authenticated; SET request.jwt.claims = '{"sub":"<uuid>"}'; EXPLAIN SELECT ...;` (set whatever claim your `auth.uid()` reads) and look for `InitPlan` and an index scan. A superuser or the table owner bypasses RLS unless `FORCE ROW LEVEL SECURITY` is set, so planning as them proves nothing.
+
+## Job Queues With SKIP LOCKED
+Workers that `SELECT ... FOR UPDATE` the oldest pending job serialize on the same row. `SKIP LOCKED` lets each worker claim rows no one else holds; claim and mark in one statement so a crash between them cannot strand a job.
+
+```sql
+CREATE INDEX jobs_pending_idx ON jobs (run_at) WHERE status = 'pending';
+
+UPDATE jobs
+   SET status = 'running', locked_by = :worker, locked_at = now(), attempts = attempts + 1
+ WHERE id IN (SELECT id FROM jobs
+               WHERE status = 'pending' AND run_at <= now()
+               ORDER BY run_at
+               LIMIT 10
+               FOR UPDATE SKIP LOCKED)
+RETURNING id, payload;
+```
+
+- Commit the claim before doing the work; a transaction held open across the job blocks vacuum and pins the row lock.
+- Requeue rows stuck in `running` past a lease (`locked_at < now() - interval '5 minutes'`) and cap `attempts`, moving exhausted jobs to a dead-letter status.
+- `SKIP LOCKED` gives no ordering or exactly-once guarantee: make the job idempotent. MySQL 8.0+ supports the same clause on InnoDB.
+- A queue table churns: watch `n_dead_tup` and keep autovacuum aggressive on it.
 
 ## Transaction Isolation Levels
 Concurrent transactions can see each other's uncommitted or changing data, and which anomalies are possible is set by the isolation level (ANSI SQL; Martin Kleppmann, *Designing Data-Intensive Applications*, ch. 7). Read the level in code, never assume the default:
@@ -148,3 +232,5 @@ A pool sized to "however many the driver defaults to" fails two ways: too small 
 - [ ] NULL, empty set, and duplicate behavior verified — especially around `NOT IN` and aggregates.
 - [ ] Pagination has a deterministic `ORDER BY` ending in a unique column.
 - [ ] Every added index justified by a plan, not by intuition.
+
+Adapted in part from supabase/agent-skills (MIT, © 2026 Supabase).

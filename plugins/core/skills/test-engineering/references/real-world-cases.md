@@ -26,3 +26,12 @@ Use this first when deciding what to test and how much proof is enough.
 ## Performance Claim
 - Use fixed inputs, warmup, multiple samples, and before/after comparison.
 - Fail the test on meaningful regression thresholds, not noisy micro-differences.
+
+## Negative-Path Test Against a Real File
+- A gate-rejects-bad-input test once wrote through `Set-Content -NoNewline` to a tracked file. It collapsed every line break, left the file syntactically valid, and the damage surfaced only later.
+- Point negative-path tests at a disposable temp file. Afterwards compare every touched file byte-for-byte with its prior state; do not assume it is unchanged.
+
+## Green Gate, Broken Gate
+- A linter-preset migration emptied the active rule set while `lint` kept passing clean.
+- A backup "verify" step passed for months while dumping an empty database.
+- Both looked exactly like a real pass. After changing or first relying on a linter config, backup, or verification tool, feed it a known-bad input and confirm it fails.
