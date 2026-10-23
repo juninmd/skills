@@ -39,57 +39,41 @@ patience for nothing.
    explicit finish line: "Done means: `<observable conditions>`. Stop and ask
    only if `<specific condition>`." Use
    [requirements clarification](references/requirements-clarification.md) for
-   ambiguity — prefer structured multiple-choice questions with a marked
-   default over open-ended ones.
-2. For an open design question with no clear direction, generate a few
-   throwaway HTML mockups or option sketches before committing to one — mark
-   each explicitly as an experiment: "this is an experiment, build nothing
-   painful to throw away."
-3. Write the spec or PRD from confirmed answers using
+   ambiguity — ask the decision frontier in rounds, each question with a
+   recommended answer; look facts up yourself. An open design direction goes
+   to `starting-dev`'s [prototype stage](../starting-dev/references/phase-prototype.md).
+2. Write the spec or PRD from confirmed answers using
    [spec workflow](references/spec-workflow.md) and
    [spec templates](references/spec-templates.md). Acceptance criteria are
    observable behavior, not adjectives; record them where the work lives.
-4. Slice the feature into independently verifiable vertical slices with
+3. Slice the feature into independently verifiable vertical slices with
    [incremental delivery](references/incremental-delivery.md), then publish
    them as backlog issues with [to-issues process](references/to-issues-process.md).
-5. Handing a slice to an AFK agent: write an
+4. Handing a slice to an AFK agent: write an
    [agent brief](references/agent-brief.md) — behavioral contract, not file
    paths or line numbers — with its own finish line and out-of-scope list.
-   The same brief may be executed by the owning skill or a later runtime
-   session; do not route work through a retired custom agent role.
-6. Triaging incoming issues: classify with
+5. Triaging incoming issues: classify with
    [triage logic](references/triage-logic.md), hold response quality to
    [triage standards](references/triage-standards.md), and execute the
-   lifecycle with [triage workflow](references/triage-workflow.md). Check
+   lifecycle with [triage workflow](references/triage-workflow.md). First run
+   the redundancy check: search open and closed issues for a duplicate and the
+   code for an existing implementation; an already-implemented request closes
+   as done, pointing at where it lives, never as out of scope. Check
    [out-of-scope records](references/out-of-scope.md) before re-litigating a
    rejected request.
-7. For a run expected to survive many turns or a context compaction, keep the
+6. For a run expected to survive many turns or a context compaction, keep the
    task list in a temp file named with the session id, outside the repository
    (never a `TASKS.md` in the repo), and update it as work proceeds rather than
    only in conversation state.
-8. Hand accepted, sliced work to `starting-dev` to run the dev loop, or to the
+7. Hand accepted, sliced work to `starting-dev` to run the dev loop, or to the
    owning domain skill to implement directly.
 
-For multi-step plans, use this evidence and execution contract:
-
-- Detect the stack from manifests, lockfiles, CI, build files, and scripts;
-  inspect affected callers, tests, contracts, deployment path, and recent
-  relevant changes before choosing a design.
-- Record explicit `IN` and `OUT` scope, assumptions, unresolved decisions,
-  risks, trade-offs, and measurable acceptance criteria. Critique insecure,
-  over-engineered, or incompatible approaches and choose one path when the
-  evidence supports it.
-- Make milestones atomic and independently verifiable. For each milestone
-  record dependencies, subsystem or file ownership, action, and expected
-  validation. Include compatibility, data migration, security, observability,
-  rollout, and rollback only when applicable.
-- Derive checks from repository scripts and CI. Cover changed behavior,
-  critical paths, boundaries, invalid input, dependency failure, and
-  regression cases at the lowest test level that proves the contract; add
-  integration or E2E checks for real boundaries.
-- End with residual risks and request only missing material decisions or action authority; continue already authorized implementation without a new approval checkpoint. An implementation
-  brief may be handed to the owning skill or a later runtime session, but it
-  must not name a retired agent role or require automatic persistence.
+For multi-step plans, ground every choice in repository evidence (manifests,
+CI, callers, tests, recent changes), derive checks from real scripts at the
+lowest test level that proves the contract, and include migration, security,
+rollout, or rollback only when they apply. End by requesting only missing
+decisions or authority; authorized implementation continues without a new
+approval checkpoint.
 
 Use this compact plan shape when a full spec template is unnecessary:
 
@@ -107,6 +91,8 @@ Use this compact plan shape when a full spec template is unnecessary:
 |---|---|---|
 ### Milestones
 1. <action> — owner: <skill/subsystem>; depends on: <...>; verify: `<command>`
+   - Consumes: <names and signatures this slice uses from earlier slices>
+   - Produces: <names, parameters, and return types later slices rely on>
 ### Test strategy
 - <unit/integration/E2E or smoke check and failure path>
 ### Risks, rollout, and rollback
@@ -115,6 +101,15 @@ Use this compact plan shape when a full spec template is unnecessary:
 ### Residual risks and handoff
 <remaining uncertainty, owning skill, and any missing decision or authority>
 ```
+
+Self-review the plan before handing it on, fixing gaps inline:
+
+| Check | Fails when |
+|---|---|
+| Coverage | an acceptance criterion has no milestone that implements and verifies it |
+| Name and type consistency | a later slice consumes a name or signature no earlier slice produces (`clearLayers()` in one step, `clearAllLayers()` in another) |
+| Decides something | a step reads "handle edge cases", "add validation", or "TBD" |
+| Proportion | the plan is longer than the code it describes, or effort is spent on a minor slice while the riskiest one gets one line |
 
 ## Reference routing
 [Reference map](references/TOPIC_MAP.md) selects the clarification, spec,
@@ -127,11 +122,12 @@ executed by this skill.
 |---|---|
 | Request names outcome but not edges/failure modes | [requirements clarification](references/requirements-clarification.md) |
 | Requester wants a PRD or implementation plan document | [spec workflow](references/spec-workflow.md) + [spec templates](references/spec-templates.md) |
-| Direction unresolved between two or more plausible designs | throwaway mockups/prototypes, each marked an experiment |
+| Direction unresolved between two or more plausible designs | `starting-dev` [prototype stage](../starting-dev/references/phase-prototype.md) |
 | Feature needs to become tracked work | [incremental delivery](references/incremental-delivery.md) -> [to-issues process](references/to-issues-process.md) |
 | Work is handed to an unattended agent | [agent brief](references/agent-brief.md) |
 | An accepted slice needs a durable implementation handoff | [agent brief](references/agent-brief.md) |
 | A new issue arrives and needs classification | [triage logic](references/triage-logic.md) + [triage workflow](references/triage-workflow.md) |
+| Requested behavior already exists in the code | close as done with a pointer to it; no `.out-of-scope/` record |
 | A feature request looks like a past rejection | [out-of-scope records](references/out-of-scope.md) |
 
 ## Gotchas
@@ -150,8 +146,8 @@ executed by this skill.
   inferred; request that decision while continuing independent work.
 - No requester is available and the question has no safe default; write the
   assumption, mark it a blocker, and keep moving on what does not depend on it.
-- Two rounds of clarification produced almost no net-new constraints —
-  saturated, write the criteria and stop asking.
+- The decision frontier is empty and the requester confirmed the criteria —
+  write them and stop asking.
 
 ## Rules
 - Never ask what the code, the ticket, or existing behavior can already tell you.
@@ -163,8 +159,10 @@ executed by this skill.
 
 ## Checklist
 - [ ] Goal, non-goals, acceptance criteria, and the finish-line condition recorded.
-- [ ] Material ambiguity resolved by asking (with defaults) or by reading, not guessed.
-- [ ] Any open design question tried as a throwaway experiment before committing.
+- [ ] Facts found by reading; decisions asked in frontier rounds with recommended answers, not guessed.
+- [ ] Plan slices carry Consumes/Produces, and the self-review table passed.
 - [ ] Feature sliced vertically; each slice independently verifiable.
 - [ ] Agent briefs are behavioral, durable, and carry acceptance criteria and out-of-scope.
-- [ ] Triage decisions checked against `.out-of-scope/` before repeating a rejection.
+- [ ] Triage ran the redundancy check; already-implemented closed as done; rejections checked against `.out-of-scope/`.
+
+Adapted in part from mattpocock/skills (MIT, © 2026 Matt Pocock) and obra/superpowers (MIT, © 2025 Jesse Vincent).
