@@ -22,6 +22,7 @@ export const PLUGIN_CONTEXTS = {
       "code-review",
       "test-engineering",
       "documentation",
+      "readme-standard",
     ],
   },
   web: {
@@ -117,7 +118,7 @@ export function generatePlugins(root = REPO_ROOT) {
     {
       name: "juninmd",
       source: "./.agents",
-      description: "Complete bundle: all 35 production-grade engineering skills.",
+      description: "Complete bundle: all 36 production-grade engineering skills.",
       version,
     },
   ];

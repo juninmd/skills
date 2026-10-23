@@ -1005,7 +1005,12 @@
     "ZRANGE",
     "ZRANK",
     "zricethezav",
-    "العربية"
+    "العربية",
+    "asciinema",
+    "oxipng",
+    "padronizar",
+    "pcre",
+    "screencap"
   ],
   "ignorePaths": [
     "node_modules/**"

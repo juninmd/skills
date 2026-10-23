@@ -57,6 +57,7 @@
 "haacked.com" = "article on the Turkish I casing problem"
 "hn.algolia.com" = "fetched: Hacker News search API used by the AI radar"
 "huggingface.co" = "fetched: AI radar listings and pinned Qwen TTS model snapshots for local dubbing"
+"img.shields.io" = "fetched: badge images rendered in README headers"
 "input-otp.rodz.dev" = "input-otp component, library homepage cited by the vendored pick-ui-library reference"
 "launchdarkly.com" = "feature-flag technical-debt guide"
 "link.springer.com" = "papers cited as sources"

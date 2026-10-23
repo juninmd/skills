@@ -10,7 +10,7 @@ description: |
 skill); repository onboarding, AGENTS.md/README authoring, or the research
 -> prototype -> plan -> implement dev loop (`starting-dev`); resolving module
 boundaries and contracts (`software-architecture`); polishing prose in an
-existing README or doc (`documentation`).
+existing README (`readme-standard`) or doc (`documentation`).
 
 ## Loading Constraints
 
