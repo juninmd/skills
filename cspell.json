@@ -1014,7 +1014,25 @@
     "pcre",
     "screencap",
     "heygen",
-    "hyperframes"
+    "hyperframes",
+    "Brussee",
+    "Inno",
+    "SETOF",
+    "Supabase",
+    "supabase",
+    "VARCHAR",
+    "conkey",
+    "conname",
+    "conrelid",
+    "constraintdef",
+    "contype",
+    "filesort",
+    "freezedetect",
+    "indkey",
+    "indpred",
+    "indrelid",
+    "innodb",
+    "signalstats"
   ],
   "ignorePaths": [
     "node_modules/**"

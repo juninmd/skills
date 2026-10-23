@@ -11,10 +11,15 @@ description: |
 ## Preflight
 ```bash
 git status --short
-node .agents/tools/run-evals.mjs .agents | head -5          # routing health before touching a description
-node .agents/tools/tokens-report.mjs .agents | tail -4     # tier-1 total and the heaviest skills
-ls .agents/skills | wc -l                                  # catalog size against the 35-skill ceiling
+if [ -f .agents/tools/run-evals.mjs ]; then                 # this repository's validators, when it ships them
+  node .agents/tools/run-evals.mjs .agents | head -5        # routing health before touching a description
+  node .agents/tools/tokens-report.mjs .agents | tail -4    # tier-1 total and the heaviest skills
+else                                                        # elsewhere: inventory the installed skills by hand
+  rg -n --glob '**/SKILL.md' -A2 '^description:' . | head -n 40
+fi
 ```
+
+Find where skills live (`.agents/skills`, `.claude/skills`, a plugin folder) and whether the repository sets a catalog ceiling or token budget; follow its contract, not this one's numbers.
 
 Name the decision an agent gets wrong today without this skill, and the prompt that shows it. No failing baseline, no skill.
 
@@ -25,7 +30,7 @@ Name the decision an agent gets wrong today without this skill, and the prompt t
 4. Write the description last, from the vocabulary of those prompts: triggers, not topics, plus the sibling that wins the near misses.
 5. Write the body as goals and constraints, not rote command lists. Put the value where the model cannot derive it: gotchas, decision tables, real commands with the flags that matter.
 6. Move depth into `references/` behind a map that says when to open each file; ship helper scripts instead of asking the model to rebuild boilerplate.
-7. Validate, then trial it on a real task. Grow the gotchas section from each observed failure.
+7. Validate, then run a behavioral trial (with and without the skill) and, for a description change, a held-out trigger eval ([skill-evals.md](references/skill-evals.md)). Grow the gotchas section from each observed failure.
 
 ## Choose the Mechanism
 
@@ -46,7 +51,7 @@ NO RULE WITHOUT A BASELINE THAT FAILED WITHOUT IT
 
 | TDD | Authoring |
 |---|---|
-| Write the test | A prompt a real user would type, saved to `.agents/evals/<name>.json` |
+| Write the test | A prompt a real user would type, saved to the repository's eval file (`.agents/evals/<name>.json` here) |
 | Watch it fail | Run it with the skill absent; record the rationalization |
 | Minimal code | Write only the rule that closes that rationalization |
 | Watch it pass | Re-run the same prompt with the skill loaded |
@@ -64,6 +69,8 @@ Explain why a step matters instead of stacking imperatives: a model that underst
 More field lessons, the nine skill categories, and the Claude 5 context rules: [skill-patterns.md](references/skill-patterns.md). A skill that routes but is not followed: [skill-compliance.md](references/skill-compliance.md). All references: [TOPIC_MAP.md](references/TOPIC_MAP.md).
 
 ## Validate
+When the repository ships `.agents/tools/` (this one does), its validators are the gate:
+
 ```bash
 node .agents/tools/validate-agents.mjs .agents       # frontmatter, house sections, links, orphans
 node .agents/tools/tokens-report.mjs .agents --check # 100-token description, 3000-token body
@@ -71,9 +78,20 @@ node .agents/tools/run-evals.mjs .agents --check --min-rank1 95
 pnpm run catalog:generate && pnpm run catalog:check  # README and docs catalog, 35-skill ceiling
 ```
 
+Without them, check the spec by hand: frontmatter is valid YAML with only spec keys, `name` equals the folder (lowercase, hyphens, 64 characters at most), the description is under 1024 characters, every relative link resolves, and the body stays small enough to load on every selection.
+
+```bash
+f=path/to/skill/SKILL.md
+sed -n '1,/^---$/{p}' "$f" | head -n 12                              # frontmatter keys
+awk 'NR>1 && /^---$/{exit} /^name:/{print $2}' "$f"; basename "$(dirname "$f")"   # must match
+wc -c < "$f" | awk '{print int($1/4), "tokens, approx"}'
+```
+
+Lexical routing evals are regression signals only; behavior in a client is proven by the trial and trigger eval in [skill-evals.md](references/skill-evals.md).
+
 ## Stop
 - The closest existing skill could carry this as a section. Extend it instead.
-- The catalog is at the 35-skill ceiling. Merge or retire a skill before adding one; do not raise the ceiling to fit.
+- The catalog is at its ceiling (35 skills here). Merge or retire a skill before adding one; do not raise the ceiling to fit.
 - The body is all prose with no command, table, or gotcha. It is a blog post the model already knows.
 - A new rule has no failing prompt behind it.
 
@@ -90,5 +108,5 @@ pnpm run catalog:generate && pnpm run catalog:check  # README and docs catalog, 
 - [ ] Description built from real prompts; at least three positive and two negative evals, each negative naming its owner.
 - [ ] Body carries gotchas, a decision table, and real commands.
 - [ ] References mapped by when to open them; none orphaned.
-- [ ] All validators clean; catalog regenerated; skill count at or under 35.
-- [ ] Trialed on a real task.
+- [ ] The repository's validators clean (or the manual spec check passed); catalog regenerated and within its ceiling where one exists.
+- [ ] Behavioral trial beat the baseline on at least two runs per task; description changes passed a held-out trigger eval.
