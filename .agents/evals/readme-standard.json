@@ -1,0 +1,33 @@
+{
+  "skill_name": "readme-standard",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Create the README with a centered header banner image that represents the repository",
+        "top_k": 3
+      },
+      {
+        "prompt": "Add screenshots of the app UI and a demo GIF to the README",
+        "top_k": 3
+      },
+      {
+        "prompt": "Audit and standardize our README structure, badges, and hero image",
+        "top_k": 3
+      },
+      {
+        "prompt": "Padronizar o README do projeto com banner e screenshots",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Write an operational runbook and an ADR for the payments service",
+        "owner": "documentation"
+      },
+      {
+        "prompt": "Write AGENTS.md project instructions and onboard me to this codebase",
+        "owner": "starting-dev"
+      }
+    ]
+  }
+}

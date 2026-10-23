@@ -1,0 +1,108 @@
+---
+name: readme-standard
+description: |
+  Create or audit a project README.md to one standard: centered header with a hero image representing the repository, badges, navigation, mandatory UI screenshots or demo GIF, fixed section order, verified commands. Trigger on 'create the README', 'padronizar o README', 'README banner', 'add screenshots to the README'.
+---
+
+# README Standard
+
+**Not this skill:** runbooks, ADRs, guides in `docs/`, diagrams, or PDF output (`documentation`); agent instruction files such as AGENTS.md (`starting-dev`); changelogs (`git-workflow`).
+
+The README is the repository's front page. A reader decides in ten seconds whether the project is for them and in five minutes whether it runs. Every rule below serves one of those two deadlines.
+
+## Preflight
+
+```bash
+git status --short
+ls README* LICENSE* CONTRIBUTING* .github/ docs/ 2>/dev/null
+rg --files -g 'package.json' -g 'pyproject.toml' -g 'Cargo.toml' -g 'go.mod' -g '*.csproj' -g 'pubspec.yaml' -g '!node_modules' | head
+rg -l --hidden -g '!node_modules' -e 'react|vue|svelte|angular|next|vite|flutter|SwiftUI|electron|tauri' package.json pubspec.yaml Package.swift 2>/dev/null
+ls .github/assets docs/assets assets 2>/dev/null
+```
+
+Record: stack, real run and test commands from scripts, license, whether the project renders a UI, and which images already exist. A UI project is anything a person looks at: web app, mobile app, desktop app, TUI, CLI with formatted output, game, or rendered document.
+
+## Workflow
+
+1. **Establish facts.** Read the manifest scripts, entry points, CI workflow, and license. Every command in the README comes from a script that exists and was run, or carries its prerequisite.
+2. **Choose the variant** from the table below. An existing README is audited first: report missing or weak sections against [the template](references/readme-template.md) and preserve hand-written content.
+3. **Build the header.** Create or reuse the hero image per [hero-image.md](references/hero-image.md): a 1280×640 SVG or PNG at `.github/assets/readme-header.svg` that shows what the project does, not a stock logo. Center it with the title, one-sentence tagline, at most six badges, and anchor navigation inside one `<div align="center">`.
+4. **Capture the UI.** If the project has a UI, screenshots are mandatory. Capture the real running app per [screenshots.md](references/screenshots.md): one hero shot below the header, then one shot per primary feature, with light and dark variants through `<picture>` when the app supports both. A demo GIF or video replaces nothing; it complements the stills.
+5. **Fill the sections** in the template's fixed order. Delete a section that has nothing true to say rather than leaving a placeholder.
+6. **Verify.** Run every Quick Start command on a clean checkout when the prerequisites allow, run the checks below, and audit prose for AI writing tells with the `documentation` skill's writing-tells reference.
+7. **Report** what changed, which commands were executed, which images were captured, and what remains unverified.
+
+## Variant by Project
+
+| Project | Header image shows | Screenshots | Must add |
+|---|---|---|---|
+| Web, mobile, or desktop app | the main screen inside a device or browser frame | mandatory: hero + one per primary feature, light and dark | live demo link if one exists |
+| CLI or TUI | a terminal window running the real command | mandatory: terminal capture or recorded GIF of the main command | install one-liner, `--help` summary |
+| Library or SDK | the shortest real usage snippet next to its output | only if output is visual (charts, UI components) | usage example that compiles, API reference link |
+| Service or API | a request and response or the architecture in one figure | not required; a dashboard screenshot if one ships | endpoints table or OpenAPI link, configuration table |
+| Monorepo | the packages and how they connect | per app package, in that package's README | packages table with path, purpose, and status |
+| Skill, plugin, or agent tooling | the request-to-result flow | client screenshot or terminal capture of one invocation | install per client, compatibility list |
+
+## Header Contract
+
+```html
+<div align="center">
+
+<img src=".github/assets/readme-header.svg" alt="ProjectName: what it does, shown as what the image depicts" width="100%" />
+
+# ProjectName
+
+**One sentence: what it does and for whom.**
+
+[![CI](https://github.com/OWNER/REPO/actions/workflows/ci.yml/badge.svg)](https://github.com/OWNER/REPO/actions/workflows/ci.yml)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+
+[Features](#features) · [Quick Start](#quick-start) · [Usage](#usage) · [Contributing](#contributing)
+
+<img src=".github/assets/screenshots/home-light.png" alt="Main screen showing the task list with three items" width="90%" />
+
+</div>
+```
+
+Replace `OWNER/REPO` and the workflow file with real values; a badge pointing to a missing workflow is worse than no badge.
+
+## Stop
+
+- The project has a UI and it cannot be started here to capture it. Do not substitute mockups, generated images, or another project's screenshots. Report the blocker and leave a tracked `TODO(screenshot)` naming the screen.
+- A command cannot be traced to a script, Makefile target, or documented tool. Ask or mark it unverified.
+- The README would claim a feature, platform, or benchmark the code does not support.
+- The hero image would need a brand asset, logo, or likeness the project does not own.
+
+## Rules
+
+- One README, one job: what it is, why it matters, how to run it in under five minutes. Material longer than a screen moves to `docs/` behind one link.
+- The header is always centered and always has an image that represents this repository. A generic banner with only the project name does not count.
+- Images live in the repository (`.github/assets/`), use relative paths, have descriptive `alt` text that states what the image shows, and stay under 1 MB each; GIFs under 5 MB.
+- Screenshots come from the real running app with realistic, non-personal data. Never a real email, token, customer name, or internal URL.
+- Use `<picture>` with `prefers-color-scheme` sources when the header or app has light and dark variants, so the image matches the reader's GitHub theme.
+- Badges: at most six, each linked to its source, only for facts a reader uses (build status, version, license, coverage, downloads).
+- Fixed section order from the template. Headings are plain nouns; emoji in the navigation line only, if at all.
+- Code blocks are copy-paste runnable and tagged with a language. Environment variables go in a table of name, purpose, required or default, and example.
+- Preserve existing attribution, license notices, and hand-made corrections when restructuring.
+- Do not invent a demo URL, a version number, or a metric. Omit the line instead.
+
+## Checks
+
+```bash
+test -f .github/assets/readme-header.svg -o -f .github/assets/readme-header.png && echo header-ok
+head -15 README.md | rg -q '<div align="center">' && echo centered-ok
+rg -o '!\[[^\]]*\]\(([^)]+)\)|<img[^>]+src="([^"]+)"' README.md
+rg -n '<img(?![^>]*alt="[^"]+")' --pcre2 README.md && echo 'missing alt text'
+find .github/assets -type f -size +1M 2>/dev/null
+npx --yes markdown-link-check --quiet README.md
+```
+
+## Checklist
+
+- [ ] Header is inside `<div align="center">` with a hero image specific to this repository, title, tagline, badges, and navigation.
+- [ ] Project with a UI: hero screenshot plus one per primary feature, captured from the running app, light and dark when supported.
+- [ ] Sections follow the template order; empty sections deleted, not stubbed.
+- [ ] Every command traced to a script and executed, or its prerequisite and limitation stated.
+- [ ] Every image has descriptive alt text, a relative path, and fits the size limits.
+- [ ] Link check passes; badges point to workflows and files that exist.
+- [ ] No secrets, personal data, invented metrics, or claims the code does not support.
