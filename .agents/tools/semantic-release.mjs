@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import { execSync } from "node:child_process";
+import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 
 export function parseSemver(version) {
@@ -25,7 +25,7 @@ export function analyzeCommits(commits) {
     if (!trimmed || trimmed.includes("[skip ci]")) continue;
 
     // Breaking change indicator in type (feat!: or fix!:) or BREAKING CHANGE footer
-    if (/^[a-z]+(\([a-z0-9._-]+\))?!:/.test(trimmed) || /BREAKING CHANGE:/i.test(trimmed)) {
+    if (/^[a-z]+(\([a-z0-9._-]+\))?!:/.test(trimmed) || /^BREAKING[ -]CHANGE:/m.test(trimmed)) {
       return "major";
     }
     // Minor bump for new features
@@ -94,22 +94,32 @@ export function updateManifests(root, newVersion) {
   return updated;
 }
 
-export function getLatestTag() {
+export function getLatestTag(cwd = process.cwd()) {
   try {
-    return execSync("git describe --tags --abbrev=0", { encoding: "utf8" }).trim();
-  } catch {
-    return null;
+    return execFileSync("git", ["describe", "--tags", "--abbrev=0", "--match", "v[0-9]*"], {
+      cwd,
+      encoding: "utf8",
+      stdio: ["pipe", "pipe", "pipe"],
+    }).trim();
+  } catch (err) {
+    if (err && typeof err === "object" && err.stderr) {
+      const stderr = err.stderr.toString();
+      if (stderr.includes("No names found") || stderr.includes("No tags give") || stderr.includes("No exact match")) {
+        return null;
+      }
+    }
+    throw err;
   }
 }
 
-export function getCommitsSinceTag(tag) {
-  try {
-    const range = tag ? `${tag}..HEAD` : "HEAD";
-    const output = execSync(`git log ${range} --format=%s`, { encoding: "utf8" });
-    return output.split("\n").filter(Boolean);
-  } catch {
-    return [];
-  }
+export function getCommitsSinceTag(tag, cwd = process.cwd()) {
+  const range = tag ? `${tag}..HEAD` : "HEAD";
+  const output = execFileSync("git", ["log", range, "--format=%B\x1e"], {
+    cwd,
+    encoding: "utf8",
+    stdio: ["pipe", "pipe", "pipe"],
+  });
+  return output.split("\x1e").map((c) => c.trim()).filter(Boolean);
 }
 
 export function getCurrentVersion(root) {
@@ -120,8 +130,8 @@ export function getCurrentVersion(root) {
 
 export function planRelease(root = process.cwd()) {
   const currentVersion = getCurrentVersion(root);
-  const tag = getLatestTag();
-  const commits = getCommitsSinceTag(tag);
+  const tag = getLatestTag(root);
+  const commits = getCommitsSinceTag(tag, root);
   const bumpType = analyzeCommits(commits);
   const newVersion = bumpType ? bumpVersion(currentVersion, bumpType) : currentVersion;
 
