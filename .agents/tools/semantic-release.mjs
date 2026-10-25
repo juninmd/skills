@@ -76,8 +76,10 @@ export function updateManifests(root, newVersion) {
   const marketPath = path.join(root, ".claude-plugin", "marketplace.json");
   if (fs.existsSync(marketPath)) {
     const market = JSON.parse(fs.readFileSync(marketPath, "utf8"));
-    if (Array.isArray(market.plugins) && market.plugins[0]) {
-      market.plugins[0].version = newVersion;
+    if (Array.isArray(market.plugins)) {
+      for (const p of market.plugins) {
+        if (p) p.version = newVersion;
+      }
     }
     fs.writeFileSync(marketPath, JSON.stringify(market, null, 2) + "\n");
     updated.push(marketPath);
@@ -89,6 +91,19 @@ export function updateManifests(root, newVersion) {
     agentPlugin.version = newVersion;
     fs.writeFileSync(agentPluginPath, JSON.stringify(agentPlugin, null, 2) + "\n");
     updated.push(agentPluginPath);
+  }
+
+  const pluginsDir = path.join(root, "plugins");
+  if (fs.existsSync(pluginsDir)) {
+    for (const category of fs.readdirSync(pluginsDir)) {
+      const categoryPluginPath = path.join(pluginsDir, category, ".claude-plugin", "plugin.json");
+      if (fs.existsSync(categoryPluginPath)) {
+        const catPlugin = JSON.parse(fs.readFileSync(categoryPluginPath, "utf8"));
+        catPlugin.version = newVersion;
+        fs.writeFileSync(categoryPluginPath, JSON.stringify(catPlugin, null, 2) + "\n");
+        updated.push(categoryPluginPath);
+      }
+    }
   }
 
   return updated;

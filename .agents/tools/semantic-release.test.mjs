@@ -42,34 +42,47 @@ test("analyzeCommits classifies conventional commit prefixes and BREAKING CHANGE
   assert.equal(analyzeCommits(["feat: x\n\nBREAKING-CHANGE: y"]), "major");
 });
 
-test("updateManifests updates all 4 plugin files in sync", () => {
+test("updateManifests updates all plugin files including sub-plugin manifests and marketplace entries in sync", () => {
   const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "plugin-test-"));
   try {
     fs.mkdirSync(path.join(tempDir, ".claude-plugin"), { recursive: true });
     fs.mkdirSync(path.join(tempDir, ".agents", ".claude-plugin"), { recursive: true });
+    fs.mkdirSync(path.join(tempDir, "plugins", "core", ".claude-plugin"), { recursive: true });
 
     fs.writeFileSync(path.join(tempDir, "package.json"), JSON.stringify({ version: "1.0.0" }));
     fs.writeFileSync(path.join(tempDir, "plugin.json"), JSON.stringify({ version: "1.0.0" }));
     fs.writeFileSync(
       path.join(tempDir, ".claude-plugin", "marketplace.json"),
-      JSON.stringify({ plugins: [{ version: "1.0.0" }] })
+      JSON.stringify({
+        plugins: [
+          { name: "juninmd", version: "1.0.0" },
+          { name: "juninmd-core", version: "1.0.0" },
+        ],
+      })
     );
     fs.writeFileSync(
       path.join(tempDir, ".agents", ".claude-plugin", "plugin.json"),
       JSON.stringify({ version: "1.0.0" })
     );
+    fs.writeFileSync(
+      path.join(tempDir, "plugins", "core", ".claude-plugin", "plugin.json"),
+      JSON.stringify({ version: "1.0.0" })
+    );
 
     const updated = updateManifests(tempDir, "1.2.0");
-    assert.equal(updated.length, 4);
+    assert.equal(updated.length, 5);
 
     assert.equal(JSON.parse(fs.readFileSync(path.join(tempDir, "package.json"))).version, "1.2.0");
     assert.equal(JSON.parse(fs.readFileSync(path.join(tempDir, "plugin.json"))).version, "1.2.0");
+    const m = JSON.parse(fs.readFileSync(path.join(tempDir, ".claude-plugin", "marketplace.json")));
+    assert.equal(m.plugins[0].version, "1.2.0");
+    assert.equal(m.plugins[1].version, "1.2.0");
     assert.equal(
-      JSON.parse(fs.readFileSync(path.join(tempDir, ".claude-plugin", "marketplace.json"))).plugins[0].version,
+      JSON.parse(fs.readFileSync(path.join(tempDir, ".agents", ".claude-plugin", "plugin.json"))).version,
       "1.2.0"
     );
     assert.equal(
-      JSON.parse(fs.readFileSync(path.join(tempDir, ".agents", ".claude-plugin", "plugin.json"))).version,
+      JSON.parse(fs.readFileSync(path.join(tempDir, "plugins", "core", ".claude-plugin", "plugin.json"))).version,
       "1.2.0"
     );
   } finally {
