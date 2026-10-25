@@ -58,16 +58,18 @@ jobs:
 
       - name: PR Skill completeness check and diff
         if: github.event_name == 'pull_request'
-        run: pnpm run pr:check
+        run: |
+          git fetch --no-tags --depth=1 origin ${{ github.base_ref }}
+          pnpm run pr:check
         env:
           GITHUB_BASE_REF: ${{ github.base_ref }}
 
       - name: Comment PR with Skill changes
-        if: github.event_name == 'pull_request' && (success() || failure())
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && (success() || failure())
+        continue-on-error: true
         run: |
           if [ -f pr-comment.md ]; then
             gh pr comment ${{ github.event.pull_request.number }} -F pr-comment.md
           fi
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
