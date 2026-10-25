@@ -40,7 +40,7 @@ The catalog contains 36 domain skills. They are intentionally broader than singl
 | `test-engineering` | test-first TDD before implementing a feature or bugfix, unit and integration tests, Vitest, pytest, Playwright E2E, flaky test elimination, LLM gateway conformance, and coverage |
 | `threejs` | GLTF/GLB model viewers, cameras, lighting, raycasting, shaders, animation, WebGL/WebGPU rendering, asset loading, scene performance, and GPU resource cleanup |
 | `tooling-dev` | CLI arguments, exit codes, non-interactive execution, config discovery, signals, structured output, packaging, and integration tests |
-| `web-research` | multi-source search, HTML table and listing scraping, latest stable library versions, changelog tracking, and citations |
+| `web-research` | multi-source search, HTML tables, library versions, video soundtrack/media identification, changelogs, and citations |
 <!-- skill-catalog:end -->
 
 ## How Discovery Works

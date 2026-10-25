@@ -16,6 +16,7 @@
 [approved]
 "12factor.net" = "The Twelve-Factor App, CLI and config conventions"
 "169.254.169.254" = "AWS/GCP/Azure instance-metadata link-local address, cited as a canonical SSRF target in security-ops, never fetched"
+"api.fxtwitter.com" = "fetched: public metadata proxy for keyless social video stream extraction in web-research"
 "api.github.com" = "fetched: GitHub REST API in a client example"
 "arxiv.org" = "research papers cited as sources"
 "astral.sh" = "uv and ruff installer and documentation"

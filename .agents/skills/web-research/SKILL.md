@@ -1,7 +1,7 @@
 ---
 name: web-research
 description: |
-  Conduct live web research, resilient scraping, and documentation or version verification. Use for multi-source search, HTML table and listing scraping, latest stable library versions, changelog tracking, and citations. Trigger on 'what is the latest version', 'look this up', 'find sources for this', 'scrape this page', 'what changed in v5'.
+  Conduct live web research, scraping, and verification. Use for multi-source search, HTML tables, library versions, video soundtrack/media identification, changelogs, and citations. Trigger on 'what is the latest version', 'look this up', 'identify the song in this video', 'de onde e essa musica'.
 ---
 
 
@@ -84,6 +84,7 @@ Set the budget **before** starting — a source count or a time box — and stop
 
 ## Reference Routing
 - Operators, reformulation moves, date verification, source-independence checks, stopping and conflict rules: [search-technique.md](references/search-technique.md)
+- Social video stream extraction, audio extraction, faster-whisper transcription, lyrics search, and anime soundtrack identification: [media-audio-identification.md](references/media-audio-identification.md)
 
 See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-domain guides.
 
