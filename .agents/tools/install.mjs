@@ -138,12 +138,27 @@ export function install(clients, { dryRun = false, config = true, log = console.
   return { skills: skills.length, failures, viaPlugin };
 }
 
+const KNOWN_OPTIONS = ["--dry-run", "--no-config"];
+
 function main() {
   const args = process.argv.slice(2);
   const dryRun = args.includes("--dry-run");
   const config = !args.includes("--no-config");
   const named = args.filter((arg) => !arg.startsWith("--"));
   const clients = !named.length || named.includes("all") ? Object.keys(CLIENTS) : named;
+  // Reject typos before any write: `--dryrun` must never fall through to a real install.
+  const unknownOption = args.find((arg) => arg.startsWith("--") && !KNOWN_OPTIONS.includes(arg));
+  if (unknownOption) {
+    console.error(`Unknown option '${unknownOption}'; use ${KNOWN_OPTIONS.join(" or ")}.`);
+    process.exitCode = 1;
+    return;
+  }
+  const unknownClient = clients.find((client) => !CLIENTS[client]);
+  if (unknownClient) {
+    console.error(`Unknown client '${unknownClient}'; use ${[...Object.keys(CLIENTS), "all"].join(", ")}.`);
+    process.exitCode = 1;
+    return;
+  }
   try {
     const { skills, failures, viaPlugin } = install(clients, { dryRun, config });
     const linked = clients.filter((client) => !viaPlugin.includes(client));
