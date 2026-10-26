@@ -1,6 +1,6 @@
 {
   "name": "juninmd-skills",
-  "version": "1.7.2",
+  "version": "1.7.3",
   "description": "Engineering skills for AI coding assistants",
   "packageManager": "pnpm@10.34.5",
   "scripts": {

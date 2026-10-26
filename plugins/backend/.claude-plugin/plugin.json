@@ -2,7 +2,7 @@
   "name": "juninmd-backend",
   "displayName": "JuninMD Backend & Data",
   "description": "Backend services, APIs, databases, architecture, package management, tooling, and modding.",
-  "version": "1.7.2",
+  "version": "1.7.3",
   "author": {
     "name": "Antonio Junior",
     "url": "https://github.com/juninmd"

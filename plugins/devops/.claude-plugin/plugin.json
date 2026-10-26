@@ -2,7 +2,7 @@
   "name": "juninmd-devops",
   "displayName": "JuninMD Cloud & DevOps",
   "description": "Cloud infrastructure, CI/CD, containers, observability, performance engineering, automated releases, and security auditing.",
-  "version": "1.7.2",
+  "version": "1.7.3",
   "author": {
     "name": "Antonio Junior",
     "url": "https://github.com/juninmd"
