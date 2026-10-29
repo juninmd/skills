@@ -4,7 +4,7 @@ layout: home
 hero:
   name: "Engineering Skills"
   text: "Focused procedures. Small context. Reproducible proof."
-  tagline: 35 domain skills and shared operating instructions for production engineering work.
+  tagline: 36 domain skills and shared operating instructions for production engineering work.
   actions:
     - theme: brand
       text: Get Started

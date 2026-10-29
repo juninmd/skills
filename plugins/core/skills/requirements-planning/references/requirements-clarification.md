@@ -1,16 +1,16 @@
-
 # Requirements Clarification
 
 ## Contents
 
 - Preflight
 - Workflow
-- Ask in One Batch, With Defaults
+- Facts Are Yours, Decisions Are Theirs
+- Ask the Frontier, One Round at a Time
 - Rank Before Asking
 - The Edges
 - Criteria That Survive
 - When the Success Check Itself Is Untestable
-- Saturation Is the Stop Condition
+- The Frontier Is the Stop Condition
 - Stop
 - Rules
 - Checklist
@@ -26,23 +26,40 @@ Every question you could have answered by reading costs the user's patience for 
 ## Workflow
 1. Restate the request, naming the user, the trigger, and the outcome that counts as success. If you cannot restate it, that is the first question.
 2. List what you are assuming. Anything you cannot point to in the request **is** an assumption, not a fact.
-3. Rank assumptions by what breaks if you guess wrong, and ask only about the top ones.
-4. Ask at most seven questions, **in one batch**, each answerable by picking an option, with your default marked.
-5. Pin the edges — including the pre-existing data everyone forgets.
-6. Write acceptance criteria as observable behavior, and record them where the work lives.
-7. Confirm the recorded criteria and treat that text as the contract.
+3. Sort each assumption: a **fact** (the repository, tools, or docs can settle it) goes to a search or subagent; a **decision** goes on the decision tree.
+4. Rank decisions by what breaks if you guess wrong; cheap, reversible ones are picked and noted, not asked.
+5. Ask the current **frontier** — the decisions whose prerequisites are settled — as one round, each question carrying a recommended answer. Wait, then recompute the frontier and ask the next round.
+6. Pin the edges — including the pre-existing data everyone forgets.
+7. When the frontier is empty, write acceptance criteria as observable behavior where the work lives, and have the requester confirm that text as the contract.
 
-## Ask in One Batch, With Defaults
-Single-question ping-pong turns a five-minute clarification into three days of calendar time.
+## Facts Are Yours, Decisions Are Theirs
+Finding facts is the asker's job. "Which ORM do we use?", "Is there already a retry helper?", "What does the endpoint return today?" are searches, not questions — run `rg`, read the config, or dispatch a read-only subagent. Do not block the round on it: only the questions downstream of an unfinished lookup wait; ask the rest of the frontier now.
+
+What the requester owns is the choice: scope, behavior on the edges, who may do it, what counts as done. Put each of those to them and wait.
+
+## Ask the Frontier, One Round at a Time
+Map the open decisions as a tree — each choice unlocks the choices hanging off it — and resolve it top-down:
+
+| Order | Level | Example forks |
+|---|---|---|
+| 1 | Scope and bounds | in or out; synchronous response or background job |
+| 2 | Data and contracts | new schema or extend; payload shape; status codes |
+| 3 | Permissions | role access, tenant boundaries, secret handling |
+| 4 | Edges and errors | duplicates, empty state, timeout, partial failure |
+| 5 | Non-functional | latency target, caching, pagination limits |
+
+A round holds every frontier question, **at most seven**; past seven, ask the seven with the largest blast radius and carry the rest. A question whose answer depends on another question still open belongs to a later round — asking about caching before sync-versus-async is decided wastes both answers. Use the client's structured question tool when it has one; otherwise number the questions and word each so a bare "yes" accepts the recommendation:
 
 ```
-1. Empty cart at checkout:      (a) 422 [default]  (b) 200 empty body  (c) 400
-2. Duplicate submit within 5s:  (a) idempotent, return the first [default]  (b) 409  (c) create both
-3. Price changed mid-session:   (a) re-quote and confirm [default]  (b) honor the old  (c) fail
-4. Existing rows violating it:  (a) grandfather [default]  (b) migrate  (c) reject on next write
+Q1 — Empty cart at checkout: reject with 422 `cart_empty`?
+     → Recommended: yes. Clients already branch on 4xx; alternatives are 200 with an empty body, or 400.
+Q2 — Duplicate submit within 5s: return the first result idempotently?
+     → Recommended: yes. Survives network retries; alternatives are 409, or creating both.
+Q3 — Rows that violate the new rule today: grandfather them?
+     → Recommended: yes. No migration window needed; alternatives are migrate, or reject on next write.
 ```
 
-A marked default means silence still moves the work forward. A question with no default is a blocker you created.
+A recommendation means silence or a nod still moves the work forward. A question with no recommendation is a blocker you created.
 
 ## Rank Before Asking
 
@@ -51,6 +68,7 @@ A marked default means silence still moves the work forward. A question with no 
 | Changes the data model | rework the schema and every consumer | yes, first |
 | Changes who is allowed to do it | security defect | yes |
 | Changes the failure behavior | wrong contract for every client | yes |
+| Pattern already established in the repository | nothing | no — mirror it |
 | Changes a label or copy | one-line fix later | no — pick and note it |
 | Answerable by reading the code | nothing | **no — go read it** |
 
@@ -91,18 +109,22 @@ Some requests state success in a form no run of the system could confirm or deny
 
 Follow Gojko Adzic's *Specification by Example*: turn the ambiguous statement into a concrete example — one specific input and the specific output that would count as met — before writing a line of code. If the requester cannot supply one example, that gap is the actual blocker, not a detail to fill in silently; say so plainly rather than inventing a proxy nobody agreed to.
 
-## Saturation Is the Stop Condition
-Count the **net-new** constraints each round of questions produces — an answer that only restates something already pinned does not count. Two rounds under two net-new each means the requirement is saturated: stop asking and write the criteria. Without that counter, clarification ends when patience runs out instead of when the requirement is known.
+## The Frontier Is the Stop Condition
+The interview ends when the frontier is empty — every branch visited, nothing silently assumed — **and** the requester confirms the written criteria match what they meant. Do not act on the tree before that confirmation.
+
+Guard against endless rounds by counting **net-new** constraints per round; an answer that only restates something already pinned does not count. Two rounds under two net-new each means the remaining branches are cheap: decide them, list them as assumptions, and ask for the confirmation instead of another round.
 
 ## Stop
-- The last two rounds produced almost no net-new constraints. Saturated — write the acceptance criteria and start.
-- A question can be answered by the code, the ticket, or existing behavior. Go read it; do not ask.
-- No requester is available. Pick each default, record the decisions and their reversal cost, and proceed — do not stall.
+- The frontier is empty and the requester confirmed the criteria. Write them and start.
+- The last two rounds produced almost no net-new constraints. Decide the rest as recorded assumptions and ask for confirmation.
+- A question can be answered by the code, the ticket, or existing behavior. Go read it or send a subagent; do not ask.
+- No requester is available. Pick each recommendation, record the decisions and their reversal cost, and proceed — do not stall.
 - Two stakeholders conflict. Surface it and make them decide; never average the two.
 
 ## Rules
-- Never ask what the code, the ticket, or existing behavior can tell you. Look first; asking a question you could have answered spends the user's patience on nothing.
-- No requester available? Pick each default, record them as explicit decisions **with the reversal cost of each**, and proceed. Do not stall.
+- Never ask the user a fact a search or subagent can find. Look first; asking what you could have answered spends the user's patience on nothing.
+- One round per frontier, at most seven questions, each with a recommended answer that "yes" accepts. This is the only cap; `starting-dev` interviews by the same rule.
+- No requester available? Pick each recommendation, record them as explicit decisions **with the reversal cost of each**, and proceed. Do not stall.
 - Separate what the requester wants from how they proposed to get it. The ticket's solution is a hypothesis, and often a workaround for the real problem.
 - Chase the "why" one level past the request. A stated feature frequently names a workaround for something simpler to fix.
 - When two stakeholders conflict, surface it and make them decide. Do not average the two — the average satisfies neither and nobody owns it.
@@ -111,7 +133,9 @@ Count the **net-new** constraints each round of questions produces — an answer
 
 ## Checklist
 - [ ] Request restated with user, trigger, and success outcome.
-- [ ] Assumptions written down and ranked by blast radius; the cheap ones decided, not asked.
-- [ ] Seven questions or fewer, in one batch, each with a marked default.
+- [ ] Assumptions sorted into facts (looked up, not asked) and decisions (ranked by blast radius; cheap ones decided, not asked).
+- [ ] Each round asked only the current frontier, seven or fewer, each with a recommended answer.
 - [ ] Every edge covered, pre-existing state decided explicitly.
-- [ ] Acceptance criteria observable, recorded durably, and confirmed as the contract.
+- [ ] Frontier empty; acceptance criteria observable, recorded durably, and confirmed by the requester as the contract.
+
+Adapted in part from mattpocock/skills (MIT, © 2026 Matt Pocock).

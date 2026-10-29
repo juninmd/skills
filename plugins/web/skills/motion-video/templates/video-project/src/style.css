@@ -4,8 +4,8 @@
   --phos: #5dffa0;
   --dim: #2f7a52;
   --hot: #ff8a5b;
-  --mono: "Consolas", "Cascadia Mono", "Courier New", monospace;
-  --sans: "Bahnschrift", "Segoe UI Variable Display", "Segoe UI", sans-serif;
+  --mono: "Consolas", "Cascadia Mono", "Menlo", "SF Mono", "DejaVu Sans Mono", "Liberation Mono", "Courier New", monospace;
+  --sans: "Bahnschrift", "Segoe UI Variable Display", "Segoe UI", "Helvetica Neue", "DejaVu Sans", "Liberation Sans", Arial, sans-serif;
   --m: 64px;
 }
 

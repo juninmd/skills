@@ -11,7 +11,7 @@
 [![Agent Skills Spec](https://img.shields.io/badge/spec-Agent_Skills-black.svg)](https://agentskills.io)
 [![MCP Standard](https://img.shields.io/badge/MCP-standard-10b981.svg)](https://modelcontextprotocol.io)
 
-**35 skills · enterprise operating instructions**
+**36 skills · enterprise operating instructions**
 
 *Production engineering workflows for AI coding assistants: discover intent, execute surgical changes, and prove with reproducible evidence.*
 
@@ -67,7 +67,23 @@ Workflows end in a check you run: a test, a smoke command, or an explicit stop c
 </tr>
 </table>
 
+## What it is
+
+A catalog of 36 engineering skills plus shared operating instructions for AI coding assistants (Claude Code, Codex, Antigravity, opencode). It is for engineers who want an assistant to follow a domain workflow and stop with evidence instead of improvising. Each skill is a short `SKILL.md` with deeper procedures in `references/`, and the repository ships the validators that keep that contract honest.
+
+### Features
+
+- **36 domain skills** under `.agents/skills/`, routed by a one-line description.
+- **Symlink installer** (`.agents/tools/install.mjs`) that links one checkout into four clients.
+- **Claude Code plugins**: one full bundle and five domain bundles, listed in `.claude-plugin/marketplace.json`.
+- **Validators** in `.agents/tools/`: frontmatter, catalog, token budgets, routing evals, approved domains, and links.
+- **Documentation site** built with VitePress from `docs/`.
+
+![Documentation site home page rendered from docs/, showing the hero, three feature cards, quick setup, and example routing](docs/screenshot.png)
+
 ## Get started
+
+Requirements: Node.js 18 or newer for the installer. The checks and the docs site also need pnpm `>=10.34.5 <11`; CI runs Node 24.
 
 Pick **one** install method per client.
 
@@ -114,8 +130,8 @@ Install either the full bundle or only the domains you need from the [`.claude-p
 
 | Plugin | Context & Scope | Included Skills |
 |---|---|---|
-| `juninmd@skills` | **Complete Bundle** | All 35 skills |
-| `juninmd-core@skills` | **Core Lifecycle & Quality** | `starting-dev`, `finishing-dev`, `git-workflow`, `git-branch-cleanup`, `requirements-planning`, `code-review`, `test-engineering`, `documentation` |
+| `juninmd@skills` | **Complete Bundle** | All 36 skills |
+| `juninmd-core@skills` | **Core Lifecycle & Quality** | `starting-dev`, `finishing-dev`, `git-workflow`, `git-branch-cleanup`, `requirements-planning`, `code-review`, `test-engineering`, `documentation`, `readme-standard` |
 | `juninmd-web@skills` | **Frontend & Mobile** | `frontend-engineering`, `mobile-engineering`, `ios-engineering`, `stack-selection`, `motion-video`, `threejs`, `3d-models` |
 | `juninmd-backend@skills` | **Backend, Data & Architecture** | `backend-systems`, `data-engineering`, `software-architecture`, `package-management`, `tooling-dev`, `bot-engineering`, `goldsrc-modding` |
 | `juninmd-devops@skills` | **Cloud, DevOps & Security** | `cloud-devops`, `observability`, `performance-engineering`, `security-ops`, `release-autoupdate` |
@@ -147,6 +163,27 @@ npx skills add juninmd/skills --skill backend-systems   # copy one domain
 ```
 
 The CLI copies files; it does not track the repo or install the repository operating instructions.
+
+### Usage examples
+
+The installer reads no environment variables. Its only flags are `--dry-run` and `--no-config`. Full captured output lives in [`docs/terminal.txt`](docs/terminal.txt).
+
+```bash
+# 1. Preview the links for one client; nothing is written
+node .agents/tools/install.mjs --dry-run claude
+# ... one "link" line per skill, then the instruction and config links
+# Planned 36 skills into claude.
+
+# 2. Validate every skill's frontmatter and required sections
+pnpm run skills:validate
+# 36 skills valid.
+
+# 3. Confirm the README and docs catalog match the skill descriptions
+pnpm run catalog:check
+# README skill catalog is current.
+```
+
+The installer has no `--help` flag: unknown `--` flags are ignored, and with no client named it targets all four. Always start with `--dry-run`.
 
 ## Pick a starting point
 
@@ -266,7 +303,7 @@ domain that owns what comes next. You keep writing prose.
 | `cloud-devops` | GitHub Actions, Dockerfiles, Terraform, Helm, canary and feature flag rollouts, manual GHCR rollout, deployment sync drift, and safe bash/PowerShell |
 | `code-review` | adversarial review, sibling bug variants, legacy code recovery, characterization tests, simplifying working code, and deleting proven dead code |
 | `data-engineering` | PostgreSQL, MySQL, Redis, schema migrations, zero-downtime DDL, query plans, indexes, backups and point-in-time restore, pandas profiling, and aggregation |
-| `documentation` | README, docs verification, Mermaid diagrams as code, ASCII and terminal figures, code snippet images, PDF/DOCX generation, and OpenAPI reference |
+| `documentation` | docs verification, runbooks, ADRs, guides, Mermaid diagrams as code, ASCII and terminal figures, code snippet images, PDF/DOCX generation, and OpenAPI reference |
 | `finishing-dev` | PR delivery, descriptions, acceptance evidence, homologação, 'homologue' (prove it on the real target), and return to the default branch with or without pipeline monitoring |
 | `frontend-engineering` | React, Next.js, Vite, Tailwind, WCAG accessibility, i18n and RTL, visual hierarchy, color palettes, anti-slop styling, animation, easing, motion, UI states, and masonry |
 | `git-branch-cleanup` | bulk branch cleanup, repository housekeeping, removing stale branches after PR merges, and cleaning gone tracking branches |
@@ -281,6 +318,7 @@ domain that owns what comes next. You keep writing prose.
 | `performance-engineering` | endpoint profiling, k6 load tests, bottlenecks, N+1 queries, memory leaks, LCP/INP, autonomous metric loops, and rightsizing costs |
 | `radar-ia` | the daily AI radar and best-posts digests; not for one-paper research or debugging |
 | `rea` | rea-agents setup and MCP readiness, native binary decompilation and xrefs, JavaScript/Electron ASAR and IPC analysis, .NET assemblies, and browser observations with evidence |
+| `readme-standard` | Create or audit a project README |
 | `release-autoupdate` | multi-platform release jobs, minisign artifact signing, conventional commit version bumps, updater manifests, and in-app update checks |
 | `requirements-planning` | acceptance criteria, PRDs and specs, implementation briefs with finish lines, vertical-slice backlog issues, and triage of incoming issues |
 | `security-ops` | CVE scans, dependency registry publication age and provenance reviews, vulnerability audits, pen tests, Gitleaks, least privilege, threat modeling, LGPD/GDPR, and plugin/MCP vetting |
@@ -288,10 +326,10 @@ domain that owns what comes next. You keep writing prose.
 | `software-architecture` | module boundaries, ubiquitous language and CONTEXT.md glossaries, repository layout, Electron multi-process security, ADRs, and circular dependencies |
 | `stack-selection` | TypeScript, Bun versus Node, pnpm, uv, NestJS, Biome, Scalar versus Swagger, an LLM SDK, Tauri versus Electron, picking a package manager, framework, ORM, linter, or UI library (toasts), and adopting or replacing a dependency |
 | `starting-dev` | AGENTS.md or CLAUDE.md project instructions and README, onboarding by charting an unfamiliar codebase and its dependencies, the dev loop (research, throwaway prototypes, plan, implement), worktrees awaiting PRs, task stages, session handoffs |
-| `test-engineering` | unit and integration tests, Vitest, pytest, Playwright E2E, flaky test elimination, LLM gateway conformance, and coverage |
+| `test-engineering` | test-first TDD before implementing a feature or bugfix, unit and integration tests, Vitest, pytest, Playwright E2E, flaky test elimination, LLM gateway conformance, and coverage |
 | `threejs` | GLTF/GLB model viewers, cameras, lighting, raycasting, shaders, animation, WebGL/WebGPU rendering, asset loading, scene performance, and GPU resource cleanup |
 | `tooling-dev` | CLI arguments, exit codes, non-interactive execution, config discovery, signals, structured output, packaging, and integration tests |
-| `web-research` | multi-source search, HTML table and listing scraping, latest stable library versions, changelog tracking, and citations |
+| `web-research` | multi-source search, HTML tables, library versions, video soundtrack/media identification, changelogs, and citations |
 <!-- skill-catalog:end -->
 
 ### Architectural domain guide
@@ -407,6 +445,15 @@ Dependency and install-policy changes also require `pnpm run dependencies:check`
 
 > [!WARNING]
 > Passing checks are necessary, but they do not prove assistant behavior. Routing uses a deterministic lexical scorer and does not run the target assistants. Exercise representative tasks in each client before claiming compatibility.
+
+### CI workflows
+
+| Workflow | Trigger | What it gates |
+|---|---|---|
+| [`validate.yml`](.github/workflows/validate.yml) | pull requests and pushes to `main`/`master` | cspell and link checks on Markdown, `pnpm run dependencies:check`, `pnpm run validate`, the official `agentskills` validator per skill, `pnpm run docs:build`, and `pnpm run pr:check` on PRs |
+| [`security.yml`](.github/workflows/security.yml) | pushes to `main`/`master` | Gitleaks scan through the shared `juninmd/base-actions` reusable workflow |
+| [`dependency-audit.yml`](.github/workflows/dependency-audit.yml) | daily at 08:17 UTC and manual | `pnpm run dependencies:check` (publication age plus `pnpm audit`) |
+| [`release.yml`](.github/workflows/release.yml) | pushes to `master` and manual | dependency check and `pnpm run validate`, then `node .agents/tools/semantic-release.mjs` |
 
 Inspect detailed reports with `pnpm run evals` and `pnpm run tokens:report`. Budget limits live in the validation tools rather than in a duplicated table here.
 

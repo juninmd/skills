@@ -66,6 +66,22 @@ test("an unknown client fails with a message and no changes", () =>
     assert.deepEqual(fs.readdirSync(home), []);
   }));
 
+test("a misspelled option is rejected instead of running a real install", () =>
+  withHome((home) => {
+    const { status, out } = run(home, ["claude", "--dryrun"]);
+    assert.equal(status, 1);
+    assert.match(out, /Unknown option '--dryrun'/);
+    assert.deepEqual(fs.readdirSync(home), []);
+  }));
+
+test("an unknown client after a valid one writes nothing", () =>
+  withHome((home) => {
+    const { status, out } = run(home, ["claude", "vim"]);
+    assert.equal(status, 1);
+    assert.match(out, /Unknown client 'vim'/);
+    assert.deepEqual(fs.readdirSync(home), []);
+  }));
+
 test("a real run links every skill and config file to the canonical source", { skip: SKIP_LINKS }, () =>
   withHome((home) => {
     const { status, out } = run(home, CLIENTS);

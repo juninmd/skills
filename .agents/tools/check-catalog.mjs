@@ -5,8 +5,8 @@ import { catalogFiles, loadCatalog, replaceCatalog } from "./catalog.mjs";
 import { listSkills } from "./skill-metadata.mjs";
 
 // Ratchet on catalog breadth, moved 25 -> 35 so skills that straddle two
-// domains can be split. Past it, merge or retire a skill; never raise it to fit.
-export const MAX_SKILLS = 35;
+// domains can be split, then 35 -> 36 for readme-standard at the owner's request. Past it, merge or retire a skill; never raise it to fit.
+export const MAX_SKILLS = 36;
 
 export function checkCatalog(root = process.cwd(), maxSkills = MAX_SKILLS) {
   const readmePath = path.join(root, "README.md");

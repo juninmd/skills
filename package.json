@@ -1,6 +1,6 @@
 {
   "name": "juninmd-skills",
-  "version": "1.4.0",
+  "version": "1.7.3",
   "description": "Engineering skills for AI coding assistants",
   "packageManager": "pnpm@10.34.5",
   "scripts": {
@@ -29,10 +29,9 @@
     "install:clients": "node .agents/tools/install.mjs"
   },
   "devDependencies": {
-    "cspell": "^10.3.6",
-    "vitepress": "^1.6.3",
-    "vite": "^6.4.4"
-
+    "cspell": "^10.4.0",
+    "vitepress": "^1.6.4",
+    "vite": "^6.4.4",
     "yaml": "^2.9.1"
   },
   "engines": {

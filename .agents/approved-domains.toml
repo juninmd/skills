@@ -16,6 +16,7 @@
 [approved]
 "12factor.net" = "The Twelve-Factor App, CLI and config conventions"
 "169.254.169.254" = "AWS/GCP/Azure instance-metadata link-local address, cited as a canonical SSRF target in security-ops, never fetched"
+"api.fxtwitter.com" = "fetched: public metadata proxy for keyless social video stream extraction in web-research"
 "api.github.com" = "fetched: GitHub REST API in a client example"
 "arxiv.org" = "research papers cited as sources"
 "astral.sh" = "uv and ruff installer and documentation"
@@ -57,6 +58,7 @@
 "haacked.com" = "article on the Turkish I casing problem"
 "hn.algolia.com" = "fetched: Hacker News search API used by the AI radar"
 "huggingface.co" = "fetched: AI radar listings and pinned Qwen TTS model snapshots for local dubbing"
+"img.shields.io" = "fetched: badge images rendered in README headers"
 "input-otp.rodz.dev" = "input-otp component, library homepage cited by the vendored pick-ui-library reference"
 "launchdarkly.com" = "feature-flag technical-debt guide"
 "link.springer.com" = "papers cited as sources"

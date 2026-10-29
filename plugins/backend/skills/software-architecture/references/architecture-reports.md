@@ -84,3 +84,5 @@ For showing shallow multi-tier layers collapsed into a single deep boundary, use
 - Maintain clean whitespace and an editorial presentation.
 - Use accent colors purposefully: emerald for verified consolidations, red for boundary leaks, amber for architectural trade-offs.
 - Keep diagrams bounded to `~320px` height so before/after panels align without requiring vertical scrolling.
+
+Adapted from mattpocock/skills (MIT, © 2026 Matt Pocock).

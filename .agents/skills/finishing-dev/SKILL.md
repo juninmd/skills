@@ -31,6 +31,9 @@ Before writing ready, passing, fixed, or opening a PR:
 | Build works | Build exit 0 | Types passing, logs looking fine |
 | Bug fixed | The original symptom reproduced, then passing | Code changed, assumed fixed |
 | CI green | Every check on the pushed SHA | An open PR with checks pending |
+| Agent or subagent done | The VCS diff, read yourself, shows the claimed change | Its success report |
+| Requirements met | Line-by-line checklist against the spec, each item with evidence | Tests passing |
+| Regression fixed | Revert the fix, see the test fail, restore, see it pass | A new test that passed once |
 
 **Not this skill:** work still in progress (its domain skill), or Git surgery on branches and history (`git-workflow`).
 
@@ -102,6 +105,8 @@ Match requested draft/ready status. A draft can exist while CI runs; do not repo
 | Small diff, skip review | Small diffs hide contract regressions |
 | CI is green | Pipeline ran; scoped tests are separate proof |
 | Pushed means delivered | Publishing is not merge, deploy, or runtime proof |
+| Worktree removal refused, `--force` finishes it | Those files exist only there; show `git -C PATH status --porcelain --untracked-files=all` and ask |
+| Push rejected, force-push fixes it | The remote moved; fetch and inspect; force only on explicit user request |
 
 More in [Reference Map](references/TOPIC_MAP.md).
 
@@ -113,3 +118,5 @@ More in [Reference Map](references/TOPIC_MAP.md).
 - [ ] Remote head matches reviewed work; all checks inspected, or the user's explicit opt-out and unverified CI recorded.
 - [ ] PR URL or exact blocker reported; no automatic merge.
 - [ ] Active checkout path and default branch verified at handoff, with or without monitoring; exact blocker reported if return was unsafe.
+
+Adapted in part from obra/superpowers (MIT, © 2025 Jesse Vincent).
