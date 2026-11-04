@@ -11,7 +11,7 @@
 [![Agent Skills Spec](https://img.shields.io/badge/spec-Agent_Skills-black.svg)](https://agentskills.io)
 [![MCP Standard](https://img.shields.io/badge/MCP-standard-10b981.svg)](https://modelcontextprotocol.io)
 
-**36 skills · enterprise operating instructions**
+**37 skills · enterprise operating instructions**
 
 *Production engineering workflows for AI coding assistants: discover intent, execute surgical changes, and prove with reproducible evidence.*
 
@@ -130,7 +130,7 @@ Install either the full bundle or only the domains you need from the [`.claude-p
 
 | Plugin | Context & Scope | Included Skills |
 |---|---|---|
-| `juninmd@skills` | **Complete Bundle** | All 36 skills |
+| `juninmd@skills` | **Complete Bundle** | All 37 skills |
 | `juninmd-core@skills` | **Core Lifecycle & Quality** | `starting-dev`, `finishing-dev`, `git-workflow`, `git-branch-cleanup`, `requirements-planning`, `code-review`, `test-engineering`, `documentation`, `readme-standard` |
 | `juninmd-web@skills` | **Frontend & Mobile** | `frontend-engineering`, `mobile-engineering`, `ios-engineering`, `stack-selection`, `motion-video`, `threejs`, `3d-models` |
 | `juninmd-backend@skills` | **Backend, Data & Architecture** | `backend-systems`, `data-engineering`, `software-architecture`, `package-management`, `tooling-dev`, `bot-engineering`, `goldsrc-modding` |
@@ -330,6 +330,7 @@ domain that owns what comes next. You keep writing prose.
 | `threejs` | GLTF/GLB model viewers, cameras, lighting, raycasting, shaders, animation, WebGL/WebGPU rendering, asset loading, scene performance, and GPU resource cleanup |
 | `tooling-dev` | CLI arguments, exit codes, non-interactive execution, config discovery, signals, structured output, packaging, and integration tests |
 | `web-research` | multi-source search, HTML tables, library versions, video soundtrack/media identification, changelogs, and citations |
+| `x-post-reading` | a post URL or id, a profile's latest posts, engagement counts, quoted posts, long-form notes, and reply context |
 <!-- skill-catalog:end -->
 
 ### Architectural domain guide
