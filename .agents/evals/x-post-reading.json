@@ -1,0 +1,33 @@
+{
+  "skill_name": "x-post-reading",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Le os ultimos tweets publicos desse perfil https://x.com/AkitaOnRails sem login",
+        "top_k": 3
+      },
+      {
+        "prompt": "Read this post and tell me what it says plus how many likes it has: https://x.com/elonmusk/status/2110445577184133456",
+        "top_k": 3
+      },
+      {
+        "prompt": "Quero os posts do perfil do Elon Musk que falam de Starlink, uns 30 se der, com data e engajamento",
+        "top_k": 3
+      },
+      {
+        "prompt": "Scrape x.com profile timeline without an API key and dump the posts with their quoted posts",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Find and cite primary sources answering whether this library supports streaming responses",
+        "owner": "web-research"
+      },
+      {
+        "prompt": "Gera o radar diario do ecossistema de IA com GitHub trending, Reddit e Hacker News em um digest pt-BR",
+        "owner": "radar-ia"
+      }
+    ]
+  }
+}

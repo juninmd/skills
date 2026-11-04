@@ -1,6 +1,6 @@
 # Skills
 
-The catalog contains 36 domain skills. They are intentionally broader than single-tool skills so the model has fewer overlapping routes, while reference files preserve depth. Retired skill names are mapped to their owner in `.agents/retired-skills.json`. The catalog is capped at 36 skills (`pnpm run catalog:check` enforces it); a skill that straddles two domains is split along the domain line rather than stretched.
+The catalog contains 37 domain skills. They are intentionally broader than single-tool skills so the model has fewer overlapping routes, while reference files preserve depth. Retired skill names are mapped to their owner in `.agents/retired-skills.json`. The catalog is capped at 36 skills (`pnpm run catalog:check` enforces it); a skill that straddles two domains is split along the domain line rather than stretched.
 
 <!-- skill-catalog:start -->
 | Skill | Use it for |
@@ -41,6 +41,7 @@ The catalog contains 36 domain skills. They are intentionally broader than singl
 | `threejs` | GLTF/GLB model viewers, cameras, lighting, raycasting, shaders, animation, WebGL/WebGPU rendering, asset loading, scene performance, and GPU resource cleanup |
 | `tooling-dev` | CLI arguments, exit codes, non-interactive execution, config discovery, signals, structured output, packaging, and integration tests |
 | `web-research` | multi-source search, HTML tables, library versions, video soundtrack/media identification, changelogs, and citations |
+| `x-post-reading` | a post URL or id, a profile's latest posts, engagement counts, quoted posts, long-form notes, and reply context |
 <!-- skill-catalog:end -->
 
 ## How Discovery Works

@@ -80,6 +80,7 @@ export const PLUGIN_CONTEXTS = {
       "web-research",
       "rea",
       "radar-ia",
+      "x-post-reading",
       "agy-image-babysitter",
       "local-dubbing",
     ],
