@@ -73,6 +73,7 @@ Head sampling alone cannot keep every error. Server 4xx spans leave span status 
 ## Reference Routing
 - SLO burn-rate math, toil, and the on-call handoff checklist: [alerting-and-oncall.md](references/alerting-and-oncall.md)
 - Trace propagation across queues, log sampling at volume, clock skew, and retry storms: [resilience-and-tracing.md](references/resilience-and-tracing.md)
+- A bounded loop that tails live logs, fixes root causes, redeploys, and re-watches until a clean window: [log-watch-fix.md](references/log-watch-fix.md)
 
 See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-domain guides.
 

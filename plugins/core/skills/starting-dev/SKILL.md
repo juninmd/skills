@@ -1,7 +1,7 @@
 ---
 name: starting-dev
 description: |
-  Start development. Use for AGENTS.md or CLAUDE.md project instructions and README, onboarding by charting an unfamiliar codebase and its dependencies, the dev loop (research, throwaway prototypes, plan, implement), worktrees awaiting PRs, task stages, session handoffs. Trigger on 'onboard me', 'where do I start'. Not PRDs (requirements-planning) or PR delivery (finishing-dev).
+  Start development. Use for AGENTS.md or CLAUDE.md project instructions and README, onboarding by charting an unfamiliar codebase and its dependencies, the dev loop (research, throwaway prototypes, plan, implement), worktrees awaiting PRs, task stages, session handoffs. Trigger on 'onboard me', 'write the AGENTS.md'. Not PRDs (requirements-planning) or PR delivery (finishing-dev).
 ---
 
 # Starting Development
