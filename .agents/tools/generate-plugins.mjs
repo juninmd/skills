@@ -16,6 +16,7 @@ export const PLUGIN_CONTEXTS = {
     skills: [
       "starting-dev",
       "finishing-dev",
+      "homologate",
       "git-workflow",
       "git-branch-cleanup",
       "requirements-planning",

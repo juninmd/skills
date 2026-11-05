@@ -6,6 +6,9 @@ Read only the files needed for the current task.
 |---|---|
 | `alerting-and-oncall.md` | Symptom vs cause-based alerting, SLO burn-rate math, golden signals, toil, on-call handoff checklist |
 | `resilience-and-tracing.md` | Trace propagation across queues/jobs, log sampling at volume, clock skew in log correlation, retry storms and stability patterns, catching cardinality explosions in CI |
+| `log-watch-fix.md` | Unattended loop on a live system: tail logs, group errors by signature, fix root causes, redeploy, re-watch until a clean window or a budget; includes the ledger and the signature helper |
+| `log-sources.md` | Bounded log-read and process-health commands for Kubernetes, Docker, systemd, plain files, Windows, and CI runs, used by the watch-and-fix loop |
+| `signature-ledger.md` | JSON ledger format and statuses that track each error signature through the watch-and-fix loop |
 | `debugging-phases.md` | Full 6-phase debugging method — build a fast pass/fail feedback loop, reproduce, generate falsifiable hypotheses, fix root cause — when there's no repro yet and the bug isn't obvious |
 | `diagnostics-real-world-cases.md` | Fast triage checklist for a known failure shape (UI/runtime bug, flaky test, timeout/perf regression, network/TLS) when you need the isolation steps, not the full methodology |
 | `diagnostics.md` | General fault-triage workflow plus the layer-triage command table (DNS, route, port, TLS, HTTP, timing) and flaky-failure reproduction, when you don't yet know which layer is at fault |

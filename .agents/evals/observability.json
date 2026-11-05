@@ -27,6 +27,14 @@
         "top_k": 3
       },
       {
+        "prompt": "Acompanhe os logs do server e corrija todos os erros até ficar limpo",
+        "top_k": 3
+      },
+      {
+        "prompt": "Watch the workload logs, group the errors, fix the root causes and redeploy until it runs clean",
+        "top_k": 3
+      },
+      {
         "prompt": "Set up an A/B test for the new onboarding flow and a tracking plan for its events",
         "top_k": 3
       }
