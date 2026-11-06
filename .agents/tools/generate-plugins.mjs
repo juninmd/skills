@@ -51,6 +51,7 @@ export const PLUGIN_CONTEXTS = {
       "software-architecture",
       "package-management",
       "tooling-dev",
+      "portkill",
       "bot-engineering",
       "goldsrc-modding",
     ],

@@ -11,7 +11,7 @@
 [![Agent Skills Spec](https://img.shields.io/badge/spec-Agent_Skills-black.svg)](https://agentskills.io)
 [![MCP Standard](https://img.shields.io/badge/MCP-standard-10b981.svg)](https://modelcontextprotocol.io)
 
-**37 skills · enterprise operating instructions**
+**38 skills · enterprise operating instructions**
 
 *Production engineering workflows for AI coding assistants: discover intent, execute surgical changes, and prove with reproducible evidence.*
 
@@ -130,7 +130,7 @@ Install either the full bundle or only the domains you need from the [`.claude-p
 
 | Plugin | Context & Scope | Included Skills |
 |---|---|---|
-| `juninmd@skills` | **Complete Bundle** | All 37 skills |
+| `juninmd@skills` | **Complete Bundle** | All 38 skills |
 | `juninmd-core@skills` | **Core Lifecycle & Quality** | `starting-dev`, `finishing-dev`, `git-workflow`, `git-branch-cleanup`, `requirements-planning`, `code-review`, `test-engineering`, `documentation`, `readme-standard` |
 | `juninmd-web@skills` | **Frontend & Mobile** | `frontend-engineering`, `mobile-engineering`, `ios-engineering`, `stack-selection`, `motion-video`, `threejs`, `3d-models` |
 | `juninmd-backend@skills` | **Backend, Data & Architecture** | `backend-systems`, `data-engineering`, `software-architecture`, `package-management`, `tooling-dev`, `bot-engineering`, `goldsrc-modding` |
@@ -316,6 +316,7 @@ domain that owns what comes next. You keep writing prose.
 | `observability` | root-cause debugging, logging, tracing, alerting, SLOs and error budgets, postmortems, network failures, on-call, product event tracking, A/B experiments, and watch-logs-and-fix loops |
 | `package-management` | pnpm workspaces, catalogs, overrides, patches, peer deps; uv, pyproject.toml, PEP 723, Ruff, prek/pre-commit, Dependabot PRs, dependency cooldown configuration, lockfile hygiene, and CI caching |
 | `performance-engineering` | endpoint profiling, k6 load tests, bottlenecks, N+1 queries, memory leaks, LCP/INP, autonomous metric loops, and rightsizing costs |
+| `portkill` | EADDRINUSE errors, dev-server port conflicts, and killing the listener on a given port on Windows, macOS, or Linux |
 | `radar-ia` | the daily AI radar and best-posts digests; not for one-paper research or debugging |
 | `rea` | rea-agents setup and MCP readiness, native binary decompilation and xrefs, JavaScript/Electron ASAR and IPC analysis, .NET assemblies, and browser observations with evidence |
 | `readme-standard` | Create or audit a project README |
