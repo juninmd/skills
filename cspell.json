@@ -1051,7 +1051,9 @@
     "innodb",
     "signalstats",
     "indnkeyatts",
-    "BYPASSRLS"
+    "BYPASSRLS",
+    "Homologating",
+    "valide"
   ],
   "ignorePaths": [
     "node_modules/**"

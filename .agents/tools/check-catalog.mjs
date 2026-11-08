@@ -8,9 +8,10 @@ import { listSkills } from "./skill-metadata.mjs";
 // domains can be split, then 35 -> 36 for readme-standard, then 36 -> 37 for
 // x-post-reading, all at the owner's request. 37 -> 38 for portkill (cross-
 // platform port freeing as its own decision domain, owner request, the
-// original portkill repository was folded into this skill). Past it, merge or
-// retire a skill.
-export const MAX_SKILLS = 38;
+// original portkill repository was folded into this skill). 38 -> 39 for
+// homologate (finishing-dev and observability already reference it, so the
+// catalog was under-counted). Past it, merge or retire a skill.
+export const MAX_SKILLS = 39;
 
 export function checkCatalog(root = process.cwd(), maxSkills = MAX_SKILLS) {
   const readmePath = path.join(root, "README.md");
