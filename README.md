@@ -322,11 +322,11 @@ domain that owns what comes next. You keep writing prose.
 | `readme-standard` | Create or audit a project README |
 | `release-autoupdate` | multi-platform release jobs, minisign artifact signing, conventional commit version bumps, updater manifests, and in-app update checks |
 | `requirements-planning` | acceptance criteria, PRDs and specs, implementation briefs with finish lines, vertical-slice backlog issues, and triage of incoming issues |
-| `security-ops` | CVE scans, dependency registry publication age and provenance reviews, vulnerability audits, pen tests, Gitleaks, least privilege, threat modeling, LGPD/GDPR, and plugin/MCP vetting |
+| `security-ops` | CVE scans, registry publication age and provenance, vulnerability audits, pen tests, Gitleaks, least privilege, threat modeling, LGPD/GDPR, and plugin/MCP vetting (prompt injection, unpinned npx) |
 | `skill-authoring` | a new SKILL.md, gotchas sections, progressive-disclosure references, skill scripts and persistent data, splitting a skill that straddles domains, and deciding whether a recurring task deserves a skill |
 | `software-architecture` | module boundaries, ubiquitous language and CONTEXT.md glossaries, repository layout, Electron multi-process security, ADRs, and circular dependencies |
-| `stack-selection` | TypeScript, Bun versus Node, pnpm, uv, NestJS, Biome, Scalar versus Swagger, an LLM SDK, Tauri versus Electron, picking a package manager, framework, ORM, linter, or UI library (toasts), and adopting or replacing a dependency |
-| `starting-dev` | AGENTS.md or CLAUDE.md project instructions and README, onboarding by charting an unfamiliar codebase and its dependencies, the dev loop (research, throwaway prototypes, plan, implement), worktrees awaiting PRs, task stages, session handoffs |
+| `stack-selection` | TypeScript, Bun versus Node, pnpm, uv, NestJS, Biome, Scalar versus Swagger, an LLM SDK, Tauri versus Electron, picking a package manager or test runner, framework, ORM, linter, or UI library (toasts), and adopting or replacing a dependency |
+| `starting-dev` | AGENTS.md or CLAUDE.md project instructions and README, onboarding by charting a codebase and its dependency map, the dev loop (research, throwaway prototypes, plan, implement), worktrees awaiting PRs, task stages, session handoff notes |
 | `test-engineering` | test-first TDD before implementing a feature or bugfix, unit and integration tests, Vitest, pytest, Playwright E2E, flaky test elimination, LLM gateway conformance, and coverage |
 | `threejs` | GLTF/GLB model viewers, cameras, lighting, raycasting, shaders, animation, WebGL/WebGPU rendering, asset loading, scene performance, and GPU resource cleanup |
 | `tooling-dev` | CLI arguments, exit codes, non-interactive execution, config discovery, signals, structured output, packaging, and integration tests |

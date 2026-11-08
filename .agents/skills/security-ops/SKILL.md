@@ -1,7 +1,7 @@
 ---
 name: security-ops
 description: |
-  Audit dependencies, code, secrets, privacy, and access. Use for CVE scans, dependency registry publication age and provenance reviews, vulnerability audits, pen tests, Gitleaks, least privilege, threat modeling, LGPD/GDPR, and plugin/MCP vetting. Trigger on 'is this secure', 'run a security audit', 'we leaked a key', 'are we LGPD compliant', 'can I trust this plugin'.
+  Audit dependencies, code, secrets, privacy, and access. Use for CVE scans, registry publication age and provenance, vulnerability audits, pen tests, Gitleaks, least privilege, threat modeling, LGPD/GDPR, and plugin/MCP vetting (prompt injection, unpinned npx). Trigger on 'is this secure', 'run a security audit', 'we leaked a key', 'are we LGPD compliant', 'can I trust this plugin'.
 ---
 
 # Security Operations
