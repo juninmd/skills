@@ -39,6 +39,7 @@ export default defineConfig({
         items: [
           { text: 'Overview', link: '/skills/' },
           { text: 'Timeline', link: '/skills/timeline' },
+          { text: 'Benchmark', link: '/benchmark' },
         ],
       },
     ],

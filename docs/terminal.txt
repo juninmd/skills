@@ -1,0 +1,54 @@
+# Real output captured on 2026-10-23 (Windows, Node v24.21.0, pnpm 10.34.5).
+# Home and checkout paths were replaced with ~ and <repo>; nothing else was edited.
+
+$ node .agents/tools/install.mjs --dry-run claude
+# claude
+link    ~\.claude\skills\3d-models -> <repo>\.agents\skills\3d-models
+link    ~\.claude\skills\agent-engineering -> <repo>\.agents\skills\agent-engineering
+link    ~\.claude\skills\agent-orchestration -> <repo>\.agents\skills\agent-orchestration
+link    ~\.claude\skills\agy-image-babysitter -> <repo>\.agents\skills\agy-image-babysitter
+link    ~\.claude\skills\backend-systems -> <repo>\.agents\skills\backend-systems
+link    ~\.claude\skills\bot-engineering -> <repo>\.agents\skills\bot-engineering
+link    ~\.claude\skills\cloud-devops -> <repo>\.agents\skills\cloud-devops
+link    ~\.claude\skills\code-review -> <repo>\.agents\skills\code-review
+link    ~\.claude\skills\data-engineering -> <repo>\.agents\skills\data-engineering
+link    ~\.claude\skills\documentation -> <repo>\.agents\skills\documentation
+link    ~\.claude\skills\finishing-dev -> <repo>\.agents\skills\finishing-dev
+link    ~\.claude\skills\frontend-engineering -> <repo>\.agents\skills\frontend-engineering
+link    ~\.claude\skills\git-branch-cleanup -> <repo>\.agents\skills\git-branch-cleanup
+link    ~\.claude\skills\git-workflow -> <repo>\.agents\skills\git-workflow
+link    ~\.claude\skills\goldsrc-modding -> <repo>\.agents\skills\goldsrc-modding
+link    ~\.claude\skills\ios-engineering -> <repo>\.agents\skills\ios-engineering
+link    ~\.claude\skills\local-dubbing -> <repo>\.agents\skills\local-dubbing
+link    ~\.claude\skills\mobile-engineering -> <repo>\.agents\skills\mobile-engineering
+link    ~\.claude\skills\motion-video -> <repo>\.agents\skills\motion-video
+link    ~\.claude\skills\observability -> <repo>\.agents\skills\observability
+link    ~\.claude\skills\package-management -> <repo>\.agents\skills\package-management
+link    ~\.claude\skills\performance-engineering -> <repo>\.agents\skills\performance-engineering
+link    ~\.claude\skills\radar-ia -> <repo>\.agents\skills\radar-ia
+link    ~\.claude\skills\rea -> <repo>\.agents\skills\rea
+link    ~\.claude\skills\readme-standard -> <repo>\.agents\skills\readme-standard
+link    ~\.claude\skills\release-autoupdate -> <repo>\.agents\skills\release-autoupdate
+link    ~\.claude\skills\requirements-planning -> <repo>\.agents\skills\requirements-planning
+link    ~\.claude\skills\security-ops -> <repo>\.agents\skills\security-ops
+link    ~\.claude\skills\skill-authoring -> <repo>\.agents\skills\skill-authoring
+link    ~\.claude\skills\software-architecture -> <repo>\.agents\skills\software-architecture
+link    ~\.claude\skills\stack-selection -> <repo>\.agents\skills\stack-selection
+link    ~\.claude\skills\starting-dev -> <repo>\.agents\skills\starting-dev
+link    ~\.claude\skills\test-engineering -> <repo>\.agents\skills\test-engineering
+link    ~\.claude\skills\threejs -> <repo>\.agents\skills\threejs
+link    ~\.claude\skills\tooling-dev -> <repo>\.agents\skills\tooling-dev
+link    ~\.claude\skills\web-research -> <repo>\.agents\skills\web-research
+link    ~\.claude\CLAUDE.md -> <repo>\.agents\AGENTS.md
+link    ~\.claude\settings.json -> <repo>\.agents\clients\claude\settings.json
+Planned 36 skills into claude.
+
+$ pnpm run plugin:validate
+Plugin manifests valid.
+
+$ pnpm run skills:validate
+36 skills valid.
+
+$ pnpm run catalog:check
+README skill catalog is current.
+exit=0

@@ -44,19 +44,7 @@ Name the visual goal, the audience, and a reference quality bar. Without a refer
 Motion over 400ms feels broken. Ease-out entering, ease-in exiting — the reverse reads as sluggish.
 
 ## Anti-Slop Tells
-If it looks like every other AI mockup, no system was decided.
-
-| Tell | Instead |
-|---|---|
-| Purple/indigo hero gradient | one committed hue, earned by the brand |
-| Default glassmorphism everywhere | one surface treatment, used with intent |
-| Uniform large radius + heavy shadow on every card | radius and elevation vary **by role** |
-| Centered hero with a pill badge above the headline | asymmetry, and a real hierarchy |
-| Pastel-circle icon row | typography carrying the structure |
-| One ubiquitous default sans | a typeface pairing chosen deliberately |
-| Everything centered | a grid with a real alignment spine |
-
-For systematic brief inference, dial calibration (variance, motion, density), and aesthetic archetypes (minimalist, brutalist, soft tactile), see [anti-slop-taste](anti-slop-taste.md).
+If it looks like every other AI mockup, no system was decided. The list of default clusters to exclude (with concrete hex values and the replacement for each), the design-plan review, brief inference, dial calibration, and aesthetic archetypes live in one place: [anti-slop-taste](anti-slop-taste.md). Check the system above against those clusters before writing markup.
 
 ## Hierarchy
 Rank the elements on the screen before styling any of them. Exactly one primary action per view; everything else is secondary or tertiary, and it should be obvious at a squint. If two things compete for attention, neither has it. Wathan and Schoger's "Refactoring UI" makes this concrete: push weight through size, weight, and color together rather than one axis alone, and let whitespace and a limited palette do the separating instead of borders.
@@ -66,7 +54,7 @@ For naming and choosing among recurring UI patterns (a wizard vs. a one-page for
 ## Stop
 - The system has not been decided as numbers. Stop — every later choice would be arbitrary.
 - Contrast falls below 4.5:1 body or 3:1 UI. Not a style preference; fix it before proceeding.
-- The result carries an anti-slop tell. That means no system was chosen; go back and choose one.
+- The result lands in a default cluster from [anti-slop-taste](anti-slop-taste.md) the brief did not ask for. That means no system was chosen; go back and choose one.
 
 ## Rules
 - Contrast minimums are non-negotiable: 4.5:1 body text, 3:1 large text, UI boundaries, and focus rings. Delegate the audit and reduced-motion detail to [accessibility](accessibility.md).

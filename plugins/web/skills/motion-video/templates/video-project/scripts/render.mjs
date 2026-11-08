@@ -9,7 +9,7 @@ import { chromium } from 'playwright-core';
 const ROOT = resolve(fileURLToPath(import.meta.url), '..', '..');
 const SRC = join(ROOT, 'src');
 const OUT = join(ROOT, 'out');
-const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css' };
+const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.woff2': 'font/woff2' };
 
 const args = process.argv.slice(2);
 const opt = name => { const i = args.indexOf(name); return i < 0 ? null : (args[i + 1] ?? ''); };

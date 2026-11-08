@@ -91,7 +91,7 @@ The maintainer may:
 
 ## When to write to `.out-of-scope/`
 
-Only when an **enhancement** (not a bug) is rejected as `wontfix`. The flow:
+Only when an **enhancement** (not a bug) is rejected as `wontfix`. A request closed because the behavior **already exists** is not a rejection: point at where it lives and write nothing here, or the next dedup check reports a false rejection. The flow:
 
 1. Maintainer decides a feature request is out of scope
 2. Check if a matching `.out-of-scope/` file already exists
@@ -107,3 +107,5 @@ If the maintainer changes their mind about a previously rejected concept:
 - Delete the `.out-of-scope/` file
 - The skill does not need to reopen old issues — they're historical records
 - The new issue that triggered the reconsideration proceeds through normal triage
+
+Adapted in part from mattpocock/skills (MIT, © 2026 Matt Pocock).

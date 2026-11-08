@@ -1,0 +1,29 @@
+{
+  "skill_name": "portkill",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "My dev server fails with EADDRINUSE, kill whatever is squatting on port 3000",
+        "top_k": 3
+      },
+      {
+        "prompt": "Port 8080 is already in use, find which process is listening on it and free it",
+        "top_k": 3
+      },
+      {
+        "prompt": "The test suite cannot bind to port 5432, show me who is using that port and terminate it",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Our API returns 503 during the incident, pull the logs and set an alert",
+        "owner": "observability"
+      },
+      {
+        "prompt": "Write a GitHub Actions workflow that publishes the container to GHCR",
+        "owner": "cloud-devops"
+      }
+    ]
+  }
+}

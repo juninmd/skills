@@ -95,7 +95,8 @@ Stop if any fails or was skipped; do not mark done. A gate that does not apply i
 - **Smoke:** build, `--help`, or `curl -fsS http://localhost:PORT/health`. Show real output, not a claim.
 - Own diff reviewed: no debug prints, no TODO without issue, no commented-out code, no unrelated churn.
 - Multi-file diff -> independent review pass (fresh subagent or second model).
-- Persist errors and learnings to memory when available.
+- **Enforce before you instruct:** fix a recurring mistake at the highest layer that can check it (types and boundaries, then lint/test/CI, then prose). Prose only for what no check can verify, one line each, deleted once a check covers it.
+- Persist errors and learnings to memory when available; a learning a lint rule or test can enforce becomes that first.
 - Final report in this shape, nothing else: a verdict line, then the table. Labels follow the user's language; pt-BR is canonical. A diff, when shown, comes before the report; the report ends the reply.
 
 Verdict: 🟢 **Pronto**, 🟡 **Parcial** (requested scope left out), 🔴 **Bloqueado** (a gate this change turned red), plus the change in a few words. Risk alone never downgrades; a gate already red on a clean baseline (shown) goes to Risco.

@@ -55,7 +55,7 @@ Opinionated safety that should apply only while a skill is active, such as block
 - Verification rubrics belong in references loaded by the verifying step, not in the always-loaded body.
 
 ## Lightweight Skill Evals
-Lexical routing evals (`run-evals.mjs`) prove the description wins its prompts, not that the body changes behavior. For behavior, run the same task with and without the skill in separate worktrees and have an independent agent grade both against a written rubric; iterate on the body until the with-skill run wins for the reason the rule states.
+Lexical routing evals (`run-evals.mjs`) prove the description wins its prompts, not that the body changes behavior or that a model selects the skill. The with/without behavioral trial and the held-out trigger eval live in [skill-evals.md](skill-evals.md).
 
 ## Stop
 - The new material is generic best practice. Cut it.

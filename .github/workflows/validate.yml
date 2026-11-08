@@ -13,12 +13,12 @@ jobs:
       pull-requests: write
       contents: read
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           fetch-depth: 0
 
       - name: Spell check Markdown
-        uses: streetsidesoftware/cspell-action@6f3c77c1406bc930f944ba97e9801a22e42caf58 # v9.1.0
+        uses: streetsidesoftware/cspell-action@ce1816e4ce36532956ac6e983737392774b6e169 # v9.2.0
         with:
           files: |
             README.md
@@ -37,11 +37,11 @@ jobs:
             ".agents/AGENTS.md"
             ".agents/skills/**/*.md"
 
-      - uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271
+      - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413
         with:
           version: 10.34.5
 
-      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
         with:
           node-version: 24
           cache: pnpm
@@ -50,7 +50,7 @@ jobs:
       - run: pnpm run dependencies:check
       - run: pnpm run validate
 
-      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+      - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
 
       - name: Official Agent Skills spec validator
         run: for skill in .agents/skills/*/; do uvx --from skills-ref==0.1.1 agentskills validate "$skill"; done
@@ -58,16 +58,18 @@ jobs:
 
       - name: PR Skill completeness check and diff
         if: github.event_name == 'pull_request'
-        run: pnpm run pr:check
+        run: |
+          git fetch --no-tags --depth=1 origin ${{ github.base_ref }}
+          pnpm run pr:check
         env:
           GITHUB_BASE_REF: ${{ github.base_ref }}
 
       - name: Comment PR with Skill changes
-        if: github.event_name == 'pull_request' && (success() || failure())
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && (success() || failure())
+        continue-on-error: true
         run: |
           if [ -f pr-comment.md ]; then
             gh pr comment ${{ github.event.pull_request.number }} -F pr-comment.md
           fi
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-

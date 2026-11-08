@@ -6,9 +6,13 @@
 - Preflight
 - Workflow
 - Tool Shape
+- Annotations
+- Structured Output
+- Actionable Errors
 - Transport
 - Bounded Results
 - Test Against a Real Client
+- Read-Only LLM Eval
 - Reference Routing
 - Stop
 - Rules
@@ -28,8 +32,9 @@ Count the tools before adding one. Every description is re-sent every turn — t
 3. Define each input with JSON Schema — required fields, enums for closed sets, and a description saying when to use it and when not.
 4. Choose the transport and harden it.
 5. Return compact, structured results with stable field names; paginate or truncate anything unbounded.
-6. Make failures actionable: a typed error the agent can recover from, never a stack trace.
-7. Test against a real protocol client over the real transport.
+6. Declare annotations, and an `outputSchema` for tools that return data.
+7. Make failures actionable: a tool execution error the agent can recover from, never a stack trace.
+8. Test against a real protocol client over the real transport, then run a read-only LLM eval.
 
 ## Tool Shape
 
@@ -56,6 +61,49 @@ The description **is** the routing signal:
   }
 }
 ```
+
+## Annotations
+`annotations` on a tool definition tell the client how risky a call is, so it can auto-approve reads and confirm writes. All are optional booleans (plus a display `title`), and all are **hints**: a client must not trust them from an untrusted server, and the server still enforces its own permissions.
+
+| Hint | Default | Set it to |
+|---|---|---|
+| `readOnlyHint` | `false` | `true` when the tool changes nothing — search, get, list |
+| `destructiveHint` | `true` | `false` when a write only adds (create, append); meaningful only when `readOnlyHint` is false |
+| `idempotentHint` | `false` | `true` when repeating the same call has no further effect (set, upsert by key, delete by id); lets a client retry safely |
+| `openWorldHint` | `true` | `false` when the tool touches only a closed domain (its own store); web search, email, or a third-party API stay `true` |
+
+The defaults assume the worst, so an unannotated tool reads as a destructive, open-world write. Annotate every tool; a read tool left at defaults trains users to click through confirmations.
+
+## Structured Output
+Declare `outputSchema` (JSON Schema) for a tool that returns data. The result then carries `structuredContent` that conforms to it, and — for clients that predate structured output — the same JSON serialized in a `text` content block. Clients may validate against the schema, so a drifting field name fails loudly instead of confusing the model.
+
+```json
+{
+  "name": "get_order",
+  "description": "Fetch one order by id. Use when the id is known; to filter orders use search_orders.",
+  "inputSchema": { "type": "object", "properties": { "id": { "type": "string" } }, "required": ["id"] },
+  "outputSchema": {
+    "type": "object",
+    "properties": { "id": { "type": "string" }, "status": { "type": "string" }, "total": { "type": "number" } },
+    "required": ["id", "status", "total"]
+  },
+  "annotations": { "title": "Get order", "readOnlyHint": true, "openWorldHint": false }
+}
+```
+
+Return `"structuredContent": {"id": "o_42", "status": "shipped", "total": 19.9}` together with `"content": [{"type": "text", "text": "{\"id\":\"o_42\",\"status\":\"shipped\",\"total\":19.9}"}]`. Older spec revisions require `structuredContent` to be an object; return an object unless every client you serve is current.
+
+## Actionable Errors
+The spec separates two channels. A failure *inside* the tool — bad argument value, upstream API failure, business rule — goes back as a normal result with `isError: true` and text the model can act on; only an unknown tool, a malformed request, or a server fault is a JSON-RPC protocol error, which the model may never see.
+
+| Weak | Actionable |
+|---|---|
+| `Error: 400` | `start_date 2026-13-01 is not a valid date; use YYYY-MM-DD.` |
+| `Not found` | `No order o_42 for this account. search_orders(customer=...) lists the ids you can read.` |
+| stack trace | `Rate limited by the billing API; retry after 30 s or narrow the date range.` |
+| `Invalid input` | `limit must be 1-100; you sent 500. Use nextCursor to page.` |
+
+Each message says what was wrong, the valid shape or range, and the next call to make. Never include credentials, internal hostnames, or a stack trace.
 
 ## Transport
 
@@ -85,11 +133,28 @@ Saying how many were omitted is what stops the agent concluding there are only 2
 | Case | Expected |
 |---|---|
 | Happy path | correct result shape, stable field names |
-| Invalid input | schema rejection with a usable message |
+| Invalid input | `isError: true` result naming the field and the valid shape |
 | Auth failure | typed error, no stack trace, no credential echoed |
 | Cancellation mid-call | the work actually stops |
 | Very large result | capped, cursor returned, omission stated |
 | Unknown tool name | clean protocol error |
+
+## Read-Only LLM Eval
+Protocol tests prove the server works; they do not prove a model can use it. Write about ten questions a real user would ask, each answerable only through the tools, and run a model with nothing but the server attached.
+
+- **Read-only and independent:** answering never writes, and no question depends on another's answer.
+- **Verifiable:** one stable answer (an id, a count, a name, a date) found by hand beforehand and compared by exact match; avoid anything that changes as data grows ("how many open orders").
+- **Realistic and multi-step:** several calls each — search, then fetch, then filter or page — phrased in user vocabulary, not tool names or field keywords.
+- **Coverage:** at least one question that needs pagination, one that needs a cross-reference between two tools, and one whose obvious first call returns an error the model must recover from.
+
+```json
+[
+  { "question": "Which customer placed the largest refunded order in March 2025? Give the customer id.", "answer": "c_1088" },
+  { "question": "How many line items did order o_4410 ship in its second shipment?", "answer": "3" }
+]
+```
+
+Record per question: correct or not, tool calls used, and the step where a wrong run diverged. A failure points at a description, schema, error message, or missing tool — fix that, not the question, and re-run the set.
 
 ## Reference Routing
 - HTTP auth and origin hardening, long-running tool semantics, and the protocol-client assertion list: [transport-auth-and-testing.md](transport-auth-and-testing.md)
@@ -111,6 +176,11 @@ Saying how many were omitted is what stops the agent concluding there are only 2
 - [ ] Tools are task-shaped, roughly a dozen, with descriptions that say when **not** to use them.
 - [ ] Every input schema-validated; enums for closed sets; nothing interpolated into a shell.
 - [ ] Results bounded, with a cursor and an explicit omission count.
-- [ ] Errors typed and recoverable; no stack traces or credentials in output.
+- [ ] Every tool annotated; read tools carry `readOnlyHint: true`; destructive writes left `destructiveHint` true.
+- [ ] Data-returning tools declare `outputSchema` and return `structuredContent` plus its serialized text.
+- [ ] Tool failures return `isError: true` with the valid shape and next call; no stack traces or credentials in output.
+- [ ] About ten read-only questions with verified answers pass against a model using only the server.
 - [ ] Transport hardened — auth, `Origin`, loopback — and exercised by a real protocol client.
 - [ ] Long calls declare a timeout, emit progress, and actually stop on cancel.
+
+Adapted in part from anthropics/skills mcp-builder (Apache-2.0, Anthropic); field names checked against the MCP specification (2026-07-28).

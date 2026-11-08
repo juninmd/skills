@@ -17,6 +17,14 @@
       {
         "prompt": "Fix pre-PR review findings, rerun checks, and create a draft PR for the completed change",
         "top_k": 3
+      },
+      {
+        "prompt": "Homologue essa mudança no cluster e me mostre a evidência de que funciona de verdade",
+        "top_k": 3
+      },
+      {
+        "prompt": "Prove it works for real on the deployed service, force the cron and confirm the message actually arrived",
+        "top_k": 3
       }
     ],
     "negative": [

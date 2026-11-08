@@ -7,10 +7,10 @@ Open only the procedure matching the current subtask. These are files, not stand
 | [agent-brief.md](agent-brief.md) | Prepare a bounded, behavioral implementation brief for an owning skill or later runtime session |
 | [incremental-delivery.md](incremental-delivery.md) | Split a feature into independently verifiable vertical slices |
 | [out-of-scope.md](out-of-scope.md) | Check and record rejected feature requests before triaging a similar new one |
-| [requirements-clarification.md](requirements-clarification.md) | Batch material unanswered product and acceptance questions before dependent work |
+| [requirements-clarification.md](requirements-clarification.md) | Resolve open product and acceptance decisions in frontier rounds, each question with a recommended answer, after looking facts up yourself; also the interview rule `starting-dev` follows |
 | [spec-templates.md](spec-templates.md) | Choose the concrete PRD or implementation plan skeleton |
 | [spec-workflow.md](spec-workflow.md) | Develop requirements into an actionable specification and verified slice plan |
 | [to-issues-process.md](to-issues-process.md) | Convert accepted scope into independently verifiable backlog issues |
 | [triage-logic.md](triage-logic.md) | Apply issue classification and ownership transitions during authorized triage |
 | [triage-standards.md](triage-standards.md) | Check issue evidence and response quality before triage mutations |
-| [triage-workflow.md](triage-workflow.md) | Execute requested issue triage with explicit action authority |
+| [triage-workflow.md](triage-workflow.md) | Execute requested issue triage with explicit action authority: redundancy check against existing issues and code, then the outcome (duplicate, already implemented, wontfix, ready) |

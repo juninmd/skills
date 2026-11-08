@@ -38,7 +38,7 @@ Server and client HTML differ, React discards the server markup, and the console
 | Invalid nesting (`<div>` in `<p>`, `<p>` in `<p>`) | fix the markup — the browser silently rewrites the tree |
 | Extension-injected markup | reproduce in a clean profile before chasing it |
 
-Never silence it with `suppressHydrationWarning` on a parent. That hides the real divergence and every future one under the same subtree.
+`suppressHydrationWarning` is allowed only on the leaf element whose content is a known, unavoidable mismatch, such as a client-local timestamp, as the React docs describe; it works one level deep. Never put it on a parent to hide a bug — that hides the real divergence and every future one under the same subtree.
 
 ## State That Should Not Be State
 
@@ -58,13 +58,13 @@ Open a file only when its trigger matches.
 - `app/` directory: [nextjs-app-router.md](references/nextjs-app-router.md) — server/client boundaries, streaming, caching, actions.
 - `components.json` (shadcn/ui): discovery, installation, and extending primitives in [shadcn-integration.md](references/shadcn-integration.md).
 - `vite.config.*`: [vite-core.md](references/vite-core.md), [vite-patterns.md](references/vite-patterns.md); Tailwind v4 there: [vite-tailwind-v4.md](references/vite-tailwind-v4.md).
-- Reviewing UI: [frontend-review.md](references/frontend-review.md); slow UI: [frontend-optimization.md](references/frontend-optimization.md).
+- Reviewing UI: [frontend-review.md](references/frontend-review.md); slow UI, heavy bundles, or any Server Action: [frontend-optimization.md](references/frontend-optimization.md).
 - Behavior that should work but does not: [real-world-cases.md](references/real-world-cases.md).
 
 See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-domain guides.
 
 ## Stop
-- A hydration warning appears in the console. Fix the divergence; never silence it with `suppressHydrationWarning`.
+- A hydration warning appears in the console. Fix the divergence; `suppressHydrationWarning` belongs only on the leaf of a known, unavoidable mismatch, never on a parent.
 - A secret or server-only value would cross into a client component. Stop before it ships to every browser.
 - Only the dev build was verified. Verify against the production build — StrictMode and minification change behavior.
 
@@ -80,6 +80,6 @@ See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-
 - [ ] Framework, router, and component system read before writing.
 - [ ] `'use client'` sits on the smallest component that needs it; no secret crosses the boundary.
 - [ ] Main, loading, empty, error, and slow-network states all work.
-- [ ] No hydration warning in the console, and none suppressed.
+- [ ] No hydration warning in the console; any `suppressHydrationWarning` sits on a leaf with a known, unavoidable mismatch.
 - [ ] No effect used for derived state; list keys stable.
 - [ ] Keyboard, focus, and responsive checks pass; tests and the production build are clean.

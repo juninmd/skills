@@ -17,6 +17,10 @@
       {
         "prompt": "Perform multi-source web search and synthesize findings with cited URLs",
         "top_k": 3
+      },
+      {
+        "prompt": "Identify the background song and anime origin from a social media video clip",
+        "top_k": 3
       }
     ],
     "negative": [

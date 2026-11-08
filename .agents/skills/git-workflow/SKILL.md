@@ -54,6 +54,23 @@ git log --merge -p -- path/to/file
 
 Use merge-specific refs only while a merge exists; inspect rebase status and the current patch during rebase. Do not blindly union imports or choose one side of a lockfile without checking the final manifests.
 
+## Commit Messages
+
+```text
+fix(auth): reject expired refresh tokens
+
+Tokens past their TTL were accepted until the cache evicted them,
+so a revoked session stayed usable for up to an hour.
+
+BREAKING CHANGE: clients must handle 401 on refresh and re-login.
+Refs #412
+```
+
+- Subject: `<type>(<scope>)!: <imperative summary>` with the repository's types (`feat`, `fix`, `perf`, `refactor`, `docs`, `test`, `build`, `ci`, `chore`, `revert`); `!` marks a breaking change. Aim for 50 characters, never past 72, no trailing period; match the log's capitalization (`git log --oneline -20`).
+- Body only when the subject cannot carry it: the *why* (cause, constraint, rejected alternative), a `BREAKING CHANGE:` footer with the migration, or a revert's `This reverts commit <sha>.` plus the reason. Wrap at 72.
+- Never restate the diff ("update file X", "add function Y"), narrate ("this commit"), or add attribution trailers the repository or user did not ask for.
+- One concern per commit; if the subject needs "and", split the staging.
+
 See [Reference Map](references/TOPIC_MAP.md) for release and GitHub troubleshooting.
 
 ## Stop
@@ -88,3 +105,5 @@ See [Reference Map](references/TOPIC_MAP.md) for release and GitHub troubleshoot
 - [ ] Publication status assessed against refreshed refs with limitations stated.
 - [ ] Unrelated work preserved; diff and checks reviewed after mutation.
 - [ ] Requested remote operation verified by SHA, or remaining blocker reported.
+
+Commit-message rules adapted in part from JuliusBrussee/caveman (MIT, © 2026 Julius Brussee).

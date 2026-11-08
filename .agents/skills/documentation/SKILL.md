@@ -1,14 +1,14 @@
 ---
 name: documentation
 description: |
-  Author and verify documentation, diagrams, and programmatic office documents. Use for README, docs verification, Mermaid diagrams as code, ASCII and terminal figures, code snippet images, PDF/DOCX generation, and OpenAPI reference. Trigger on 'write the README', 'document this', 'draw a diagram', 'generate a PDF', 'are these docs still true'.
+  Author and verify documentation, diagrams, and programmatic office documents. Use for docs verification, runbooks, ADRs, guides, Mermaid diagrams as code, ASCII and terminal figures, code snippet images, PDF/DOCX generation, and OpenAPI reference. Trigger on 'document this', 'write a runbook', 'draw a diagram', 'generate a PDF', 'are these docs still true'.
 ---
 
 
 
 # Documentation
 
-**Not this skill:** a PR description (`finishing-dev`), or instructions for agents (`agent-engineering`).
+**Not this skill:** a project README's structure, header, and screenshots (`readme-standard`), a PR description (`finishing-dev`), or instructions for agents (`agent-engineering`).
 
 ## Preflight
 ```bash

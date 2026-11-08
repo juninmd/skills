@@ -13,9 +13,10 @@ description: |
 ```bash
 npx dependency-cruiser --validate .dependency-cruiser.js src 2>/dev/null
 git log --format= --name-only --since='6 months ago' | sort | uniq -c | sort -rn | head
+ls CONTEXT.md GLOSSARY.md docs/adr 2>/dev/null
 ```
 
-Map what exists with `starting-dev` first. Never redesign a system you have only read about.
+Read the existing glossary and ADRs before proposing anything; a design that contradicts an ADR names the conflict instead of overriding it.
 
 ## Workflow
 1. Map what exists — entry points, dependencies, ownership, runtime boundaries, change pain — with `starting-dev`. Never redesign a system you have only read about.
@@ -65,6 +66,7 @@ Choose the broker by requirement, never by habit: log-structured (Kafka) for hig
 
 ## Reference Routing
 - Practical architecture cases: [real-world-cases.md](references/real-world-cases.md)
+- Shallow modules, deepening, and competing interfaces: [architecture-refactor.md](references/architecture-refactor.md)
 - Design principles: [design-principles.md](references/design-principles.md)
 - Distributed systems: [distributed-architecture.md](references/distributed-architecture.md), [distributed-toolkit.md](references/distributed-toolkit.md)
 - Intake templates for design requests and health reports: [intake-templates.md](references/intake-templates.md)

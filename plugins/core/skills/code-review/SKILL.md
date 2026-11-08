@@ -23,11 +23,12 @@ Substitute the actual symbol. Resolve the base rather than assuming a branch nam
 
 ## Workflow
 1. Read the diff, callers, public exports, tests, and configuration needed to understand behavior. Use `starting-dev` for unfamiliar repository mapping. Separate introduced regressions from pre-existing defects; a line changed nearby is not causality.
-2. Trace concrete failure conditions through inputs, state transitions, outputs, and side effects. Check authorization assumptions, null/empty/boundary inputs, concurrency, cancellation, idempotency, errors, lifecycle, compatibility, and resource bounds where relevant. Consult [expert review](references/expert-review.md).
-3. Verify each suspected defect with a focused reproduction, test, or explicit code path. Distinguish observed failures from inferred risk. Prefer actionable defects over stylistic preferences; search related call sites with [variant analysis](references/variant-analysis.md) after identifying a real defect pattern.
-4. Report findings first, ordered by severity. Each names `file:line`, trigger, actual consequence, evidence, and a concise correction. State when no actionable defects were found, then list scope and verification limits, and stop there: a clean verdict does not get a tail of pre-existing edge cases. Do not invent findings to fill a quota. A pre-merge pass before human review lists only problems that would block the merge, each with `file:line`, why it is wrong, and how to show it fails.
-5. If fixes or simplification are requested, route domain implementation to the appropriate sibling such as `backend-systems` or `frontend-engineering`. For cleanup owned here, use [legacy refactoring](references/legacy-refactoring.md) to characterize uncertain behavior before changing it. Preserve behavior, public contracts, and unrelated modifications.
-6. Re-run meaningful scoped checks after authorized edits. Re-read the final diff; route independent pre-PR delivery to `finishing-dev`, specialized security audit to `security-ops`, and boundary redesign to `software-architecture`.
+2. Spec pass: find the originating issue, PR description, or plan, and check the diff against it for missing or partial requirements, wrong implementations, and unrequested behavior (scope creep). Each finding quotes the spec or issue line; no spec, say so. Procedure in [expert review](references/expert-review.md#spec-pass).
+3. Trace concrete failure conditions through inputs, state transitions, outputs, and side effects. Check authorization assumptions, null/empty/boundary inputs, concurrency, cancellation, idempotency, errors, lifecycle, compatibility, and resource bounds where relevant. Consult [expert review](references/expert-review.md).
+4. Verify each suspected defect with a focused reproduction, test, or explicit code path. Distinguish observed failures from inferred risk. Prefer actionable defects over stylistic preferences; search related call sites with [variant analysis](references/variant-analysis.md) after identifying a real defect pattern.
+5. Report findings first, ordered by severity. Each names `file:line`, trigger, actual consequence, evidence, and a concise correction. State when no actionable defects were found, then list scope and verification limits, and stop there: a clean verdict does not get a tail of pre-existing edge cases. Do not invent findings to fill a quota. A pre-merge pass before human review lists only problems that would block the merge, each with `file:line`, why it is wrong, and how to show it fails.
+6. If fixes or simplification are requested, route domain implementation to the appropriate sibling such as `backend-systems` or `frontend-engineering`. For cleanup owned here, use [legacy refactoring](references/legacy-refactoring.md) to characterize uncertain behavior before changing it. Preserve behavior, public contracts, and unrelated modifications.
+7. Re-run meaningful scoped checks after authorized edits. Re-read the final diff; route independent pre-PR delivery to `finishing-dev`, specialized security audit to `security-ops`, and boundary redesign to `software-architecture`.
 
 When dependencies change, inspect consumers and compare the locked old and new
 versions using the official changelog and migration guidance. Check patch and
@@ -47,6 +48,8 @@ For a structured review, use this compact report shape and omit empty sections:
 - **[path:line]** Trigger -> consequence; evidence; correction
 ## Minor and Nit
 - **[path:line]** Finding and impact
+## Spec
+- **[missing|partial|wrong|unrequested]** "quoted spec line" -> `path:line` or absent
 ## Summary
 **Total Issues**: <measured>  **Verdict**: <status>
 ```
@@ -61,6 +64,7 @@ For a structured review, use this compact report shape and omit empty sections:
 | Diff introduces a vulnerability (injection, auth bypass, exposed secret) | Block the merge with the finding and hand the security assessment to `security-ops` by name; do not run the exploitability or blast-radius analysis here |
 | No direct callers | Check string dispatch, exports, external consumers, flags, plugins, and scheduled jobs before deletion |
 | Behavior uncertain before cleanup | Add characterization with `test-engineering`; avoid semantic edits until understood |
+| Feedback received on your own change | Verify each claim in code before acting; push back with evidence ([receiving review](references/receiving-review.md)) |
 | Naming or abstraction preference only | Omit unless maintainability review or simplification was requested |
 
 ## Subagent diffs
@@ -111,6 +115,7 @@ A subagent that edited one file cannot hold sibling files, prior incidents, or p
 ## Checklist
 - [ ] Scope, base, relevant callers, and contracts inspected.
 - [ ] Findings include location, trigger, consequence, and evidence.
+- [ ] Spec pass run, each finding quoting its spec line, or "no spec available" stated.
 - [ ] Security concerns routed; speculative style comments omitted.
 - [ ] Requested cleanup preserves behavior and proves deletions safe.
 - [ ] Final changes checked; untested paths and residual uncertainty reported.

@@ -10,6 +10,7 @@ Open before delivering. Each gate is a command with an expected result; a red ga
 5. Audio
 6. Claims and leftovers
 7. Failure path
+8. Review pass: craft measures, phone contact sheet, ranked notes
 
 ## 1. Determinism
 ```bash
@@ -62,3 +63,42 @@ Placeholders must be gone; `SAMPLE DATA` stays only next to invented numbers. Re
 node scripts/render.mjs --audio does-not-exist.mp3 --out neg.mp4; echo "exit=$?"; ls out | rg neg || echo clean
 ```
 Expect a non-zero exit, ffmpeg's real error ("No such file or directory") and no leftover `neg.mp4` or `.part`.
+
+## 8. Review pass
+Gates 1-7 catch what is broken; this pass catches what is weak. You wrote the timeline, so you know what each scene means; the viewer sees it once, at full speed, on a phone. Run it on every new video and after any edit that moves timing or layout, before delivering.
+
+**Measure first.** Each is a question, not a verdict: fix it, or keep it on purpose and say why in the notes.
+```bash
+ffmpeg -hide_banner -nostats -i "$V" -vf "freezedetect=n=-60dB:d=3" -map 0:v:0 -f null - 2>&1 | rg "freeze_(start|duration)"   # empty: no 3 s stretch where nothing moves
+ffmpeg -v error -i "$V" -vf "select=eq(n\,0),signalstats,metadata=print:file=-" -frames:v 1 -f null - | rg "YMIN|YMAX"     # frame 0 is the thumbnail: YMAX-YMIN under ~16 means it is blank
+rg -no "font-size:\s*\d+px" src | awk -F'[: ]+' '{v=$NF; sub("px","",v); if (v+0 < 28) print}'                       # text under 28 px (2.6% of 1080) is unreadable on a phone unless it is chrome
+```
+Reading time: count the words a viewer must read in each scene and divide by the seconds they stay fully visible (entrance done, before the next transition). Above about 3 words per second, cut words or extend the scene by a beat.
+
+**Then look, at phone width.** One sheet: frame 0, then each scene 1 s after it starts and at its late moment, scaled to 360 px wide — the size most viewers see.
+```bash
+EXPR=$(node -e "const m=require('./out/meta.json');const t=[0,...[0,...m.cuts].flatMap(c=>[c+1,c+3.3])];console.log(t.map(s=>'eq(n,'+Math.round(s*m.fps)+')').join('+'))")
+R=$(node -e "const m=require('./out/meta.json');console.log(Math.ceil((1+2*(m.cuts.length+1))/4))")
+ffmpeg -v error -y -i "$V" -vf "select='$EXPR',scale=360:-1,tile=4x${R}:padding=8:color=white" -frames:v 1 -vsync 0 out/contact-360.png
+```
+Open it and, for each scene, ask in turn:
+
+| Question | Catches |
+|---|---|
+| Can a stranger say what this frame shows in one sentence? | a visual that needs its narration to make sense |
+| Is every line meant to be read legible at 360 px? | thin weights, low-contrast `--dim` text, long mono strings |
+| Is there one focal point? | headline and visual competing; the eye has nowhere to land |
+| Does it sit inside the frame? | text at the edge or in the zones platform UI covers (top bar, caption and buttons at the bottom right) |
+| With the words covered, do the frames still tell the story in order? | scenes that repeat one idea, or a payoff that never lands |
+| Does it look designed, not default? | the same pattern three times, every element easing on one curve, centered everything |
+
+Trust the numbers where they disagree with your eye: a clipped chip or a 1 s line looks fine on a contact sheet.
+
+**Write ranked notes**, one line each — `t=<s> | scene / element | problem -> exact change | what stays` — into `out/review.md`:
+- **P0** breaks the read or the claim: unreadable, wrong, cut off, blank thumbnail. Fix all before delivery.
+- **P1** weakens the video: a dead stretch, a soft final scene, a cut that jumps. Fix the ones worth their time.
+- **P2** polish. List them; the user decides.
+
+Fix text first, then timing, then detail; re-render only the stills you changed and re-run the measures. Never score the video out of 10 — a score names nothing to fix. When a sub-agent is available, give it only `STYLE.md` and `out/contact-360.png` and ask for P0 and P1 lines in the same format; a reviewer who knows the code reads intent instead of pixels. Close with the delivery note: what was measured, what was only looked at, what nobody checked (the audio was measured, not heard), and the weakest scene.
+
+Review pass adapted in part from heygen-com/hyperframes (Apache-2.0, © 2026 HeyGen, Inc.).

@@ -8,7 +8,7 @@ bash -c "$VERIFY" | tail -1                         # must print exactly one num
 bash -c "$VERIFY" | tail -1                         # same tree, same number — otherwise the metric is noise
 ```
 
-Fix all of it before iteration 0 or there is no loop: **Goal**, **Scope** (globs the loop may touch), **Metric** and its direction, **Verify** (a command printing one number), and a **Guard** that must keep passing whatever the metric does. Anything missing gets asked in one batch — `starting-dev`, not a guess.
+Fix all of it before iteration 0 or there is no loop: **Goal**, **Scope** (globs the loop may touch), **Metric** and its direction, **Verify** (a command printing one number), and a **Guard** that must keep passing whatever the metric does. Anything missing gets asked through the requirements interview — `requirements-planning`, not a guess.
 
 ## Workflow
 1. Screen Verify and Guard before the first run — they execute unattended, every iteration. Refuse `rm -rf`, `curl | sh`, credentials, and anything writing outside the repository.
