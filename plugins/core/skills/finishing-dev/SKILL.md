@@ -1,11 +1,7 @@
 ---
 name: finishing-dev
 description: |
-<<<<<<< HEAD
   Finish a change and prepare or open its pull request after independent code and security reviews, fixes, tests, and CI. Use for PR delivery, descriptions, acceptance evidence, homologação, 'homologue' (prove it on the real target), and return to the default branch with or without pipeline monitoring. Trigger on 'get it ready for a PR', 'open the PR', 'finish this feature'.
-=======
-  Finish a change and prepare or open its pull request after independent code and security reviews, fixes, tests, and CI. Use for PR delivery, descriptions, acceptance evidence, and return to the default branch with or without pipeline monitoring. Trigger on 'get it ready for a PR', 'open the PR', 'finish this feature'.
->>>>>>> 1c56209 (feat(skills): add homologate skill and observability log guidance)
 ---
 
 # Finishing Development
@@ -39,7 +35,7 @@ Before writing ready, passing, fixed, or opening a PR:
 | Requirements met | Line-by-line checklist against the spec, each item with evidence | Tests passing |
 | Regression fixed | Revert the fix, see the test fail, restore, see it pass | A new test that passed once |
 
-**Not this skill:** work still in progress (its domain skill), Git surgery on branches and history (`git-workflow`), or proving the change on its real running target (`homologate`).
+**Not this skill:** work still in progress (its domain skill), or Git surgery on branches and history (`git-workflow`).
 
 ## Preflight
 Read the request's existing commit, push, and PR authorization. Inspect repository instructions, remotes, base branch, worktree changes, test scripts, and CI. Resolve the actual PR base; never assume `main` or compare only the last commit.

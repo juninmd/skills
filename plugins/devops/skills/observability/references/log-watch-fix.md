@@ -1,10 +1,6 @@
 # Log watch and fix
 
-<<<<<<< HEAD
 A closed loop for a live system: observe the logs, turn each new error into one tracked signature, fix its root cause, redeploy, and observe again. It ends on evidence (a clean window) or a budget, never on a hunch. Proving one change on its target is the `homologate` reference of `finishing-dev`; surviving auth and quota expiry in a headless run is `agent-orchestration`.
-=======
-A closed loop for a live system: observe the logs, turn each new error into one tracked signature, fix its root cause, redeploy, and observe again. It ends on evidence (a clean window) or a budget, never on a hunch. Proving one change on its target is `homologate`; surviving auth and quota expiry in a headless run is `agent-orchestration`.
->>>>>>> 1c56209 (feat(skills): add homologate skill and observability log guidance)
 
 ## Contents
 - Preflight
