@@ -1,7 +1,7 @@
 ---
 name: stack-selection
 description: |
-  Choose default technologies before code exists. Use for TypeScript, Bun versus Node, pnpm, uv, NestJS, Biome, Scalar versus Swagger, an LLM SDK, Tauri versus Electron, picking a package manager, framework, ORM, linter, or UI library (toasts), and adopting or replacing a dependency. Trigger on 'which should we use', 'X or Y for this project', 'should we adopt this library'.
+  Choose default technologies before code exists. Use for TypeScript, Bun versus Node, pnpm, uv, NestJS, Biome, Scalar versus Swagger, an LLM SDK, Tauri versus Electron, picking a package manager or test runner, framework, ORM, linter, or UI library (toasts), and adopting or replacing a dependency. Trigger on 'which should we use', 'X or Y for this project'.
 ---
 
 # Stack Selection
