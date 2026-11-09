@@ -11,7 +11,7 @@
 [![Agent Skills Spec](https://img.shields.io/badge/spec-Agent_Skills-black.svg)](https://agentskills.io)
 [![MCP Standard](https://img.shields.io/badge/MCP-standard-10b981.svg)](https://modelcontextprotocol.io)
 
-**37 skills · enterprise operating instructions**
+**39 skills · enterprise operating instructions**
 
 *Production engineering workflows for AI coding assistants: discover intent, execute surgical changes, and prove with reproducible evidence.*
 
@@ -130,7 +130,7 @@ Install either the full bundle or only the domains you need from the [`.claude-p
 
 | Plugin | Context & Scope | Included Skills |
 |---|---|---|
-| `juninmd@skills` | **Complete Bundle** | All 37 skills |
+| `juninmd@skills` | **Complete Bundle** | All 38 skills |
 | `juninmd-core@skills` | **Core Lifecycle & Quality** | `starting-dev`, `finishing-dev`, `git-workflow`, `git-branch-cleanup`, `requirements-planning`, `code-review`, `test-engineering`, `documentation`, `readme-standard` |
 | `juninmd-web@skills` | **Frontend & Mobile** | `frontend-engineering`, `mobile-engineering`, `ios-engineering`, `stack-selection`, `motion-video`, `threejs`, `3d-models` |
 | `juninmd-backend@skills` | **Backend, Data & Architecture** | `backend-systems`, `data-engineering`, `software-architecture`, `package-management`, `tooling-dev`, `bot-engineering`, `goldsrc-modding` |
@@ -309,6 +309,7 @@ domain that owns what comes next. You keep writing prose.
 | `git-branch-cleanup` | bulk branch cleanup, repository housekeeping, removing stale branches after PR merges, and cleaning gone tracking branches |
 | `git-workflow` | branches, worktrees, rebase conflicts, reflog recovery, stash, bisect, conventional commits, semantic version bumps, changelogs, and release tags |
 | `goldsrc-modding` | Valve 220 .map geometry, ZHLT/VHLT compiles, BSP30 lumps, CS 1.6 entities, and Pawn (.sma/.amxx) natives, forwards, precache, and crash forensics |
+| `homologate` | live-environment acceptance, forcing the real flow end to end, confirming the deployed version, and a Proven, Failed, or Unproven verdict |
 | `ios-engineering` | Swift optionals, concurrency and memory, SwiftUI views, UIKit and Auto Layout, Metal shaders, WidgetKit, iOS permissions and system integration, and App Store readiness |
 | `local-dubbing` | reference audio, dialogue translation, distinct character voices, pronunciation, and original-versus-synthetic comparison |
 | `mobile-engineering` | React Native, Expo, Flutter, and native Android UI, lifecycle, navigation, permissions, offline behavior, accessibility, localization, device integration, tests, and builds |
@@ -316,16 +317,17 @@ domain that owns what comes next. You keep writing prose.
 | `observability` | root-cause debugging, logging, tracing, alerting, SLOs and error budgets, postmortems, network failures, on-call, product event tracking, A/B experiments, and watch-logs-and-fix loops |
 | `package-management` | pnpm workspaces, catalogs, overrides, patches, peer deps; uv, pyproject.toml, PEP 723, Ruff, prek/pre-commit, Dependabot PRs, dependency cooldown configuration, lockfile hygiene, and CI caching |
 | `performance-engineering` | endpoint profiling, k6 load tests, bottlenecks, N+1 queries, memory leaks, LCP/INP, autonomous metric loops, and rightsizing costs |
+| `portkill` | EADDRINUSE errors, dev-server port conflicts, and killing the listener on a given port on Windows, macOS, or Linux |
 | `radar-ia` | the daily AI radar and best-posts digests; not for one-paper research or debugging |
 | `rea` | rea-agents setup and MCP readiness, native binary decompilation and xrefs, JavaScript/Electron ASAR and IPC analysis, .NET assemblies, and browser observations with evidence |
 | `readme-standard` | Create or audit a project README |
 | `release-autoupdate` | multi-platform release jobs, minisign artifact signing, conventional commit version bumps, updater manifests, and in-app update checks |
 | `requirements-planning` | acceptance criteria, PRDs and specs, implementation briefs with finish lines, vertical-slice backlog issues, and triage of incoming issues |
-| `security-ops` | CVE scans, dependency registry publication age and provenance reviews, vulnerability audits, pen tests, Gitleaks, least privilege, threat modeling, LGPD/GDPR, and plugin/MCP vetting |
+| `security-ops` | CVE scans, registry publication age and provenance, vulnerability audits, pen tests, Gitleaks, least privilege, threat modeling, LGPD/GDPR, and plugin/MCP vetting (prompt injection, unpinned npx) |
 | `skill-authoring` | a new SKILL.md, gotchas sections, progressive-disclosure references, skill scripts and persistent data, splitting a skill that straddles domains, and deciding whether a recurring task deserves a skill |
 | `software-architecture` | module boundaries, ubiquitous language and CONTEXT.md glossaries, repository layout, Electron multi-process security, ADRs, and circular dependencies |
-| `stack-selection` | TypeScript, Bun versus Node, pnpm, uv, NestJS, Biome, Scalar versus Swagger, an LLM SDK, Tauri versus Electron, picking a package manager, framework, ORM, linter, or UI library (toasts), and adopting or replacing a dependency |
-| `starting-dev` | AGENTS.md or CLAUDE.md project instructions and README, onboarding by charting an unfamiliar codebase and its dependencies, the dev loop (research, throwaway prototypes, plan, implement), worktrees awaiting PRs, task stages, session handoffs |
+| `stack-selection` | TypeScript, Bun versus Node, pnpm, uv, NestJS, Biome, Scalar versus Swagger, an LLM SDK, Tauri versus Electron, picking a package manager or test runner, framework, ORM, linter, or UI library (toasts), and adopting or replacing a dependency |
+| `starting-dev` | AGENTS.md or CLAUDE.md project instructions and README, onboarding by charting a codebase and its dependency map, the dev loop (research, throwaway prototypes, plan, implement), worktrees awaiting PRs, task stages, session handoff notes |
 | `test-engineering` | test-first TDD before implementing a feature or bugfix, unit and integration tests, Vitest, pytest, Playwright E2E, flaky test elimination, LLM gateway conformance, and coverage |
 | `threejs` | GLTF/GLB model viewers, cameras, lighting, raycasting, shaders, animation, WebGL/WebGPU rendering, asset loading, scene performance, and GPU resource cleanup |
 | `tooling-dev` | CLI arguments, exit codes, non-interactive execution, config discovery, signals, structured output, packaging, and integration tests |

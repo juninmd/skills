@@ -1,0 +1,14 @@
+{
+  "skill_name": "homologate",
+  "trigger": {
+    "positive": [
+      { "prompt": "Homologue essa mudança no cluster e me mostre a evidência de que funciona de verdade", "top_k": 3 },
+      { "prompt": "Prove it works for real on the deployed service, force the cron and confirm the Telegram message actually arrived", "top_k": 3 },
+      { "prompt": "Valide no ambiente real que a nova versão está rodando e que o fluxo ponta a ponta funciona", "top_k": 3 }
+    ],
+    "negative": [
+      { "prompt": "Write a failing unit test first and raise coverage for this parser", "owner": "test-engineering" },
+      { "prompt": "Open the pull request with screenshots and check that CI is green", "owner": "finishing-dev" }
+    ]
+  }
+}
