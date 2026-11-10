@@ -86,6 +86,7 @@ Check `pg_stat_activity` for long transactions first. MySQL has the same queue o
 - Redis modeling, clients, cluster slots, ACLs, and RQE search: [redis-operations.md](references/redis-operations.md)
 - Vector collections, memory tiers, hybrid search, and fusion: [vector-databases.md](references/vector-databases.md)
 - Foreign-key indexes, RLS policy performance and grants, `SKIP LOCKED` job queues, and MySQL plan reading (`EXPLAIN ANALYZE`, 8.0.18+): [sql-authoring.md](references/sql-authoring.md)
+- Read-only schema listing (tables, columns, types) for PostgreSQL, MySQL, SQL Server, Oracle, and Firebird, for generators or docs: [schema-introspection.md](references/schema-introspection.md)
 - MySQL online DDL (`ALGORITHM=INSTANT`/`INPLACE`, metadata locks) and gh-ost or pt-online-schema-change: [online-ddl-and-api-migration.md](references/online-ddl-and-api-migration.md)
 
 See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-domain guides.
