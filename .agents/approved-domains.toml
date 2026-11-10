@@ -38,6 +38,7 @@
 "cva.style" = "class-variance-authority, library homepage cited by the vendored pick-ui-library reference"
 "cwe.mitre.org" = "CWE weakness definitions"
 "debezium.io" = "Debezium change-data-capture documentation"
+"devdesignlibrary.com" = "Dev Design Library, aggregator of UI and design libraries, cited by the frontend-engineering ui-components reference"
 "developer.hashicorp.com" = "Terraform documentation"
 "diataxis.fr" = "Diataxis documentation framework, cited for the four documentation modes"
 "dl.acm.org" = "ACM papers cited as sources"

@@ -57,3 +57,6 @@ Container queries do not replace media queries — a component still needs a pag
 - **Module not found** — check the `@/*` path alias in `tsconfig.json` and the `aliases` block in `components.json`.
 - **Styles not applying** — confirm `globals.css` is imported at the root and that the Tailwind content/source globs cover the component directory.
 - **Type errors after add** — install the Radix peer dependencies and confirm the `@types/react` major matches the installed React.
+
+## 6. Discovering Libraries
+When the repository has no library for a need (date picker, data table, chart, animation, command menu), browse the [Dev Design Library](https://devdesignlibrary.com/) aggregator for candidates before hand-rolling. It is a directory, not an endorsement: shortlist two or three, then check maintenance, bundle size, accessibility, and license per `stack-selection` before adding one. Do not add a second component stack for it.
