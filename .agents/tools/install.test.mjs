@@ -25,6 +25,8 @@ const CONFIG_LINKS = {
   ".codex/AGENTS.md": ".agents/AGENTS.md",
   ".codex/config.toml": ".agents/clients/codex/config.toml",
   ".gemini/GEMINI.md": ".agents/AGENTS.md",
+  ".config/opencode/AGENTS.md": ".agents/AGENTS.md",
+  ".config/opencode/agents/code-review.md": ".agents/clients/opencode/agents/code-review.md",
 };
 const SKIP_LINKS = process.platform === "win32" && "file symlinks need Developer Mode on Windows";
 // Lines that mean the installer touched the filesystem; "ok" lines do not.
