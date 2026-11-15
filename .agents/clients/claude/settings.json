@@ -59,8 +59,7 @@
     "chrome-devtools-mcp@claude-plugins-official": true,
     "telegram@claude-plugins-official": true,
     "plugin-dev@claude-plugins-official": true,
-    "hookify@claude-plugins-official": true,
-    "mattpocock-skills@claude-plugins-official": true
+    "hookify@claude-plugins-official": true
   },
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,

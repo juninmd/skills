@@ -71,5 +71,3 @@ When deepening a cluster of components, categorize its dependencies to determine
 - **Internal vs. External Seams:** Internal seams remain private to the module implementation. Never export an internal seam solely to satisfy a test runner.
 - **Replace, Don't Layer:** When shallow components are collapsed into a deep module, delete obsolete unit tests that checked individual pass-through layers. Author fresh tests targeting the unified public interface.
 - **Tests Survive Refactors:** Assert observable outcomes through the interface. A test that must change when only the implementation changes is testing past the seam.
-
-Adapted from mattpocock/skills (MIT, © 2026 Matt Pocock).

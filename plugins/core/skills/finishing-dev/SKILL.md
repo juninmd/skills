@@ -118,5 +118,3 @@ More in [Reference Map](references/TOPIC_MAP.md).
 - [ ] Remote head matches reviewed work; all checks inspected, or the user's explicit opt-out and unverified CI recorded.
 - [ ] PR URL or exact blocker reported; no automatic merge.
 - [ ] Active checkout path and default branch verified at handoff, with or without monitoring; exact blocker reported if return was unsafe.
-
-Adapted in part from obra/superpowers (MIT, © 2025 Jesse Vincent).

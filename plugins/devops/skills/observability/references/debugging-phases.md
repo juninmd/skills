@@ -133,5 +133,3 @@ Then ask what would have prevented the bug. Architectural changes go to `softwar
 | "The full log is easier to paste" | Raw logs carry secrets and PII; redact and quote the signal |
 | "One more fix attempt" after two failures | Return to Phase 1; after three, question the design |
 | "It stopped happening" | Unexplained disappearance is not a fix |
-
-Adapted in part from mattpocock/skills (MIT, © 2026 Matt Pocock) and obra/superpowers (MIT, © 2025 Jesse Vincent).

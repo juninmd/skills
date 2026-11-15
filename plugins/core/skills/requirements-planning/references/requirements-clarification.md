@@ -137,5 +137,3 @@ Guard against endless rounds by counting **net-new** constraints per round; an a
 - [ ] Each round asked only the current frontier, seven or fewer, each with a recommended answer.
 - [ ] Every edge covered, pre-existing state decided explicitly.
 - [ ] Frontier empty; acceptance criteria observable, recorded durably, and confirmed by the requester as the contract.
-
-Adapted in part from mattpocock/skills (MIT, © 2026 Matt Pocock).

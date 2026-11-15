@@ -29,5 +29,3 @@ Question: <what observation decides it> | branch: LOGIC|UI
 Variant A / B: <one command to run> -> <observed state or screen>
 Recommendation: <variant> because <evidence>; discarded: <variant, reason>; code kept at: <branch or path>
 ```
-
-Adapted in part from mattpocock/skills (MIT, © 2026 Matt Pocock).

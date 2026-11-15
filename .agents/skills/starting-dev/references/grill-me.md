@@ -9,5 +9,3 @@ What differs inside the dev loop:
 2. Keep inspecting the repository while a round is out; only work downstream of an unanswered decision waits.
 3. Write the confirmed decisions and their reasons into the workspace `plan.md` (or `research.md` before planning), then continue with the [plan procedure](phase-plan.md).
 4. Headless or unattended: ask nothing; record each recommended answer as an assumption with its reversal cost and proceed with non-dependent steps.
-
-Adapted in part from mattpocock/skills (MIT, © 2026 Matt Pocock).

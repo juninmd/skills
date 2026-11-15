@@ -63,7 +63,6 @@
     "addopts",
     "adduser",
     "Addy",
-    "addyosmani",
     "adelay",
     "adiciona",
     "Adzic's",
@@ -493,7 +492,6 @@
     "matcap",
     "mathjax",
     "Matryoshka",
-    "mattpocock",
     "maxage",
     "maxclients",
     "maximalism",
@@ -644,7 +642,6 @@
     "PKCE",
     "planenum",
     "pnpmfile",
-    "Pocock",
     "pointerdown",
     "pointermove",
     "pointfile",
@@ -1056,7 +1053,6 @@
     "valide"
   ],
   "ignorePaths": [
-    "node_modules/**",
-    "docs/gap-review-2026-11.md"
+    "node_modules/**"
   ]
 }

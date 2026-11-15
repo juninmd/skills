@@ -182,5 +182,3 @@ Record per question: correct or not, tool calls used, and the step where a wrong
 - [ ] About ten read-only questions with verified answers pass against a model using only the server.
 - [ ] Transport hardened — auth, `Origin`, loopback — and exercised by a real protocol client.
 - [ ] Long calls declare a timeout, emit progress, and actually stop on cancel.
-
-Adapted in part from anthropics/skills mcp-builder (Apache-2.0, Anthropic); field names checked against the MCP specification (2026-07-28).
