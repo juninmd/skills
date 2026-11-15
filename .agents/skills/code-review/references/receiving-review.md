@@ -56,5 +56,3 @@ Agreement is shown by the fix, not by the reply. Drop "great catch", "you're abs
 - [ ] Each reply carries a fix location, evidence-backed push-back, or a specific question.
 - [ ] Fixes applied one at a time, each followed by its scoped test; full suite green at the end.
 - [ ] No gratitude or agreement filler; no reply posted without authorization.
-
-Adapted in part from obra/superpowers (MIT, © 2025 Jesse Vincent) and mattpocock/skills (MIT, © 2026 Matt Pocock).

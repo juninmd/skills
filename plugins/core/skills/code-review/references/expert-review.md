@@ -141,5 +141,3 @@ Enter it **only** for a plan or design with an unresolved decision, or on reques
 - [ ] Severity assigned by consequence, not by confidence.
 - [ ] Output capped and ordered; observations kept separate from findings.
 - [ ] Remaining risk and test gaps stated explicitly, even when nothing was found.
-
-Spec Pass adapted in part from mattpocock/skills (MIT, © 2026 Matt Pocock) and obra/superpowers (MIT, © 2025 Jesse Vincent).

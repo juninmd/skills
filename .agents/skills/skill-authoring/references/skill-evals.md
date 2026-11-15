@@ -70,5 +70,3 @@ Set the pass bar before running — for example, positives selected in at least 
 - [ ] About twenty queries with near-miss negatives that name their owner; 60/40 split made before tuning.
 - [ ] Every query run at least three times in a fresh session; rates reported for train and test separately.
 - [ ] Lexical evals updated from train cases only; results labeled as model behavior in the client tested, not a guarantee elsewhere.
-
-Adapted in part from anthropics/skills/skills/skill-creator (Apache-2.0, Anthropic).

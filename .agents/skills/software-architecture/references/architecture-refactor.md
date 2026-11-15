@@ -63,5 +63,3 @@ For every candidate module, imagine deleting it and inlining its work into the c
 2. Author comprehensive tests targeting the new public interface (see [deep-modules.md](deep-modules.md)).
 3. Migrate callers to the unified interface.
 4. Delete the deprecated shallow modules and their mock-heavy unit tests.
-
-Adapted from mattpocock/skills (MIT, © 2026 Matt Pocock).

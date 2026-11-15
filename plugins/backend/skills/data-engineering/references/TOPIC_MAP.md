@@ -14,3 +14,4 @@ Read only the files needed for the current task.
 | `sql-authoring.md` | Writing or reviewing a query, index, or policy: plan reading (PostgreSQL, MySQL 8.0.18+), index tradeoffs (partial/covering), missing foreign-key indexes, RLS policy performance and grants, `SKIP LOCKED` job queues, isolation anomalies, N+1 detection, pool sizing: [sql-authoring](sql-authoring.md) |
 | `vector-databases.md` | Qdrant collection design, memory tiers and quantization, latency tuning, hybrid search prefetches, fusion (RRF/DBSF), grouping recall |
 | `backup-and-recovery.md` | Setting RPO/RTO, 3-2-1 and immutable backups, PostgreSQL/MySQL point-in-time recovery, scheduled restore drills, and the disaster recovery runbook |
+| `schema-introspection.md` | Read-only listing of tables, columns, and types per engine (PostgreSQL, MySQL, SQL Server, Oracle, Firebird), with per-engine catalog queries: [schema-introspection](schema-introspection.md) |

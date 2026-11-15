@@ -80,5 +80,3 @@ Apply it when compaction is imminent and the note must be written under pressure
 - [ ] Dead ends recorded with the evidence that closed them.
 - [ ] Exactly one runnable next command with its success condition, plus suggested skills with reasons.
 - [ ] No secrets in the file; note superseded, not appended.
-
-Adapted in part from mattpocock/skills (MIT, © 2026 Matt Pocock).

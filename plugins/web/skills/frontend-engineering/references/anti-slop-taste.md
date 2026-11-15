@@ -122,5 +122,3 @@ When improving existing user interfaces:
 - [ ] No default cluster present unless the brief asked for it.
 - [ ] Contrast meets WCAG standards (4.5:1 text, 3:1 controls).
 - [ ] Semantic structure, keyboard focus, and responsive breakpoints verified.
-
-Adapted in part from anthropics/skills/frontend-design (Apache-2.0, © Anthropic).
