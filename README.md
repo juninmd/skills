@@ -108,7 +108,7 @@ node .agents/tools/install.mjs all         # or: claude | codex | agy | opencode
 | Claude Code | `~/.claude/skills/<name>` | `~/.claude/CLAUDE.md` | `~/.claude/settings.json` |
 | Codex | `~/.codex/skills/<name>` | `~/.codex/AGENTS.md` | `~/.codex/config.toml` |
 | Antigravity (agy) | `~/.gemini/config/skills/<name>` | `~/.gemini/GEMINI.md` | — |
-| opencode | `~/.config/opencode/skills/<name>` | — | — |
+| opencode | `~/.config/opencode/skills/<name>` | `~/.config/opencode/AGENTS.md` | `~/.config/opencode/agents/<name>.md` |
 
 > [!NOTE]
 > Instruction files link to [`.agents/AGENTS.md`](.agents/AGENTS.md); configs link to [`.agents/clients/`](.agents/clients/), tuned for low token use. Existing real files are renamed to `*.bak-<timestamp>` first. Pass `--no-config` to link skills and instructions only.

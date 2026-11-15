@@ -37,7 +37,10 @@ const CLIENTS = {
   },
   opencode: {
     skills: path.join(HOME, ".config", "opencode", "skills"),
-    files: [],
+    // opencode reads global instructions from ~/.config/opencode/AGENTS.md and agents from ~/.config/opencode/agents/.
+    files: [[path.join(HOME, ".config", "opencode", "AGENTS.md"), INSTRUCTIONS]],
+    agents: path.join(HOME, ".config", "opencode", "agents"),
+    agentsSource: path.join(AGENTS_ROOT, "clients", "opencode", "agents"),
   },
 };
 
@@ -125,6 +128,15 @@ export function install(clients, { dryRun = false, config = true, log = console.
       log(`skip    skill links: plugin ${id} is installed (claude plugin uninstall ${id} to switch back)`);
     } else {
       for (const name of skills) link(path.join(spec.skills, name), path.join(SKILLS_ROOT, name), "dir", dryRun, log);
+    }
+    if (spec.agents && fs.existsSync(spec.agentsSource)) {
+      for (const file of fs.readdirSync(spec.agentsSource).filter((name) => name.endsWith(".md")).sort()) {
+        try {
+          link(path.join(spec.agents, file), path.join(spec.agentsSource, file), "file", dryRun, log);
+        } catch (error) {
+          failures.push(`${path.join(spec.agents, file)}: ${error.message}`);
+        }
+      }
     }
     for (const [target, source] of spec.files) {
       if (!config && !source.endsWith("AGENTS.md")) continue;
