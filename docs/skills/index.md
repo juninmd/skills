@@ -32,7 +32,7 @@ The catalog contains 37 domain skills. They are intentionally broader than singl
 | `radar-ia` | the daily AI radar and best-posts digests; not for one-paper research or debugging |
 | `rea` | rea-agents setup and MCP readiness, native binary decompilation and xrefs, JavaScript/Electron ASAR and IPC analysis, .NET assemblies, and browser observations with evidence |
 | `readme-standard` | Create or audit a project README |
-| `release-autoupdate` | multi-platform release jobs, minisign artifact signing, conventional commit version bumps, updater manifests, and in-app update checks |
+| `release-autoupdate` | Automate releases and in-app updates for desktop and CLI tools, including Tauri 2 apps: automatic tag and release from Conventional Commits, signed installers, verified latest |
 | `requirements-planning` | acceptance criteria, PRDs and specs, implementation briefs with finish lines, vertical-slice backlog issues, and triage of incoming issues |
 | `security-ops` | CVE scans, registry publication age and provenance, vulnerability audits, pen tests, Gitleaks, least privilege, threat modeling, LGPD/GDPR, and plugin/MCP vetting (prompt injection, unpinned npx) |
 | `skill-authoring` | a new SKILL.md, gotchas sections, progressive-disclosure references, skill scripts and persistent data, splitting a skill that straddles domains, and deciding whether a recurring task deserves a skill |
