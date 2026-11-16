@@ -17,6 +17,14 @@
       {
         "prompt": "Configure minisign cryptographic signing and updater manifest generation for desktop releases",
         "top_k": 3
+      },
+      {
+        "prompt": "Padronizar release automatico por commit semantico e auto update nos meus apps tauri",
+        "top_k": 3
+      },
+      {
+        "prompt": "Tauri auto update is not finding the new version, fix the release workflow and latest.json",
+        "top_k": 3
       }
     ],
     "negative": [
