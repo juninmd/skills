@@ -50,7 +50,7 @@ jobs:
       - run: pnpm run dependencies:check
       - run: pnpm run validate
 
-      - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
 
       - name: Official Agent Skills spec validator
         run: for skill in .agents/skills/*/; do uvx --from skills-ref==0.1.1 agentskills validate "$skill"; done
