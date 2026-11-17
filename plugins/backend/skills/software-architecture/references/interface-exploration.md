@@ -73,5 +73,3 @@ Compare the competing designs against architectural properties:
 Select the design that maximizes depth and locality for the primary usage path. If individual elements from different proposals complement each other cleanly, synthesize them into a unified interface rather than compromising with unprincipled middle-ground abstractions.
 
 Be opinionated: the user wants a pick, not a menu. State the recommended design (or hybrid), why it wins, and name each rejected framing with the one reason it lost, so the next review does not resurrect it.
-
-Adapted from mattpocock/skills (MIT, © 2026 Matt Pocock).

@@ -164,5 +164,3 @@ executed by this skill.
 - [ ] Feature sliced vertically; each slice independently verifiable.
 - [ ] Agent briefs are behavioral, durable, and carry acceptance criteria and out-of-scope.
 - [ ] Triage ran the redundancy check; already-implemented closed as done; rejections checked against `.out-of-scope/`.
-
-Adapted in part from mattpocock/skills (MIT, © 2026 Matt Pocock) and obra/superpowers (MIT, © 2025 Jesse Vincent).

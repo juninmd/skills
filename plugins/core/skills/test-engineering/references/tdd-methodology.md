@@ -171,5 +171,3 @@ it('displays error message when submission fails', async () => {
   expect(screen.getByText(/invalid credentials/i)).toBeInTheDocument();
 });
 ```
-
-Adapted in part from obra/superpowers (MIT, © 2025 Jesse Vincent) and mattpocock/skills (MIT, © 2026 Matt Pocock).

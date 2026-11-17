@@ -73,7 +73,7 @@ Scope is deliberately small: **the one job**. No X, no Y.
 
 🔒 **Private.** The measured or verifiable claim behind it, in one or two lines.
 
-🪶 **Light.** A number: installer size, memory, startup time. <a href="docs/benchmark.md">Measured numbers</a>.
+🪶 **Light.** A number: installer size, memory, startup time.
 
 </td>
 </tr>

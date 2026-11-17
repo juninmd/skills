@@ -23,5 +23,3 @@ Detailed procedures for managing the issue lifecycle.
 - **Duplicate:** Link the original issue and close as a duplicate.
 - **Already implemented:** Close as completed with a pointer to where the behavior lives; never write it to `.out-of-scope/`, which records rejections, not built features.
 - **wontfix:** Close with polite explanation (and log if a rejected enhancement).
-
-Adapted in part from mattpocock/skills (MIT, © 2026 Matt Pocock).

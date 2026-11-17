@@ -90,5 +90,3 @@ Definition, example, boundary, forbidden synonyms. An entry without the boundary
 - [ ] Tests, error messages, and logs use the agreed terms verbatim.
 - [ ] `CONTEXT.md` updated in the same pull request as the concept it describes.
 - [ ] Each ADR offered passes all three tests: hard to reverse, surprising without context, a real trade-off.
-
-Adapted from mattpocock/skills (MIT, © 2026 Matt Pocock).

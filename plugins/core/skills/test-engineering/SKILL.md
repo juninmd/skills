@@ -108,5 +108,3 @@ No fix in this change? Never skip or delete the test. Keep it running and report
 - [ ] Unhappy paths covered: invalid input, dependency failure, timeout, unchanged state on error.
 - [ ] Ordering or parallelism checks run when relevant.
 - [ ] No global state, timer, or mock left standing after the run.
-
-Excuses rows adapted in part from obra/superpowers (MIT, © 2025 Jesse Vincent).

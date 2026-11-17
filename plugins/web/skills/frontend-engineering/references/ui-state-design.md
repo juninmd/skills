@@ -122,5 +122,3 @@ Words in a state are part of its design. Name things by what the user manages, n
 - [ ] CTA verbs match their result messages; errors name the cause and the fix; field errors render inline.
 - [ ] Touch targets measure at least 44×44 CSS px.
 - [ ] Every state walked with real data, including the slow and failing paths.
-
-Adapted in part from anthropics/skills/frontend-design (Apache-2.0, © Anthropic) and Next Level Builder ui-ux-pro-max-skill (MIT, © 2024 Next Level Builder).
