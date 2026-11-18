@@ -25,6 +25,10 @@ const CONFIG_LINKS = {
   ".codex/AGENTS.md": ".agents/AGENTS.md",
   ".codex/config.toml": ".agents/clients/codex/config.toml",
   ".gemini/GEMINI.md": ".agents/AGENTS.md",
+  ".claude/commands/review.md": ".agents/clients/claude/commands/review.md",
+  ".claude/commands/ship.md": ".agents/clients/claude/commands/ship.md",
+  ".claude/agents/code-reviewer.md": ".agents/clients/claude/agents/code-reviewer.md",
+  ".claude/agents/security-auditor.md": ".agents/clients/claude/agents/security-auditor.md",
   ".config/opencode/AGENTS.md": ".agents/AGENTS.md",
   ".config/opencode/agents/code-review.md": ".agents/clients/opencode/agents/code-review.md",
 };

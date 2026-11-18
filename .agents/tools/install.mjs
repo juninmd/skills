@@ -23,6 +23,11 @@ const CLIENTS = {
       [path.join(HOME, ".claude", "CLAUDE.md"), INSTRUCTIONS],
       [path.join(HOME, ".claude", "settings.json"), path.join(AGENTS_ROOT, "clients", "claude", "settings.json")],
     ],
+    // Slash commands and subagents: each .md in the source dir is linked into the target dir.
+    dirs: [
+      [path.join(HOME, ".claude", "commands"), path.join(AGENTS_ROOT, "clients", "claude", "commands")],
+      [path.join(HOME, ".claude", "agents"), path.join(AGENTS_ROOT, "clients", "claude", "agents")],
+    ],
   },
   codex: {
     skills: path.join(HOME, ".codex", "skills"),
@@ -39,8 +44,7 @@ const CLIENTS = {
     skills: path.join(HOME, ".config", "opencode", "skills"),
     // opencode reads global instructions from ~/.config/opencode/AGENTS.md and agents from ~/.config/opencode/agents/.
     files: [[path.join(HOME, ".config", "opencode", "AGENTS.md"), INSTRUCTIONS]],
-    agents: path.join(HOME, ".config", "opencode", "agents"),
-    agentsSource: path.join(AGENTS_ROOT, "clients", "opencode", "agents"),
+    dirs: [[path.join(HOME, ".config", "opencode", "agents"), path.join(AGENTS_ROOT, "clients", "opencode", "agents")]],
   },
 };
 
@@ -129,12 +133,13 @@ export function install(clients, { dryRun = false, config = true, log = console.
     } else {
       for (const name of skills) link(path.join(spec.skills, name), path.join(SKILLS_ROOT, name), "dir", dryRun, log);
     }
-    if (spec.agents && fs.existsSync(spec.agentsSource)) {
-      for (const file of fs.readdirSync(spec.agentsSource).filter((name) => name.endsWith(".md")).sort()) {
+    for (const [targetDir, sourceDir] of spec.dirs ?? []) {
+      if (!fs.existsSync(sourceDir)) continue;
+      for (const file of fs.readdirSync(sourceDir).filter((name) => name.endsWith(".md")).sort()) {
         try {
-          link(path.join(spec.agents, file), path.join(spec.agentsSource, file), "file", dryRun, log);
+          link(path.join(targetDir, file), path.join(sourceDir, file), "file", dryRun, log);
         } catch (error) {
-          failures.push(`${path.join(spec.agents, file)}: ${error.message}`);
+          failures.push(`${path.join(targetDir, file)}: ${error.message}`);
         }
       }
     }

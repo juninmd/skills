@@ -12,7 +12,7 @@ node .agents/tools/install.mjs all         # or: claude | codex | agy | opencode
 
 | Client | Skills | Instructions | Config |
 |---|---|---|---|
-| Claude Code | `~/.claude/skills/<name>` | `~/.claude/CLAUDE.md` | `~/.claude/settings.json` |
+| Claude Code | `~/.claude/skills/<name>` | `~/.claude/CLAUDE.md` | `~/.claude/settings.json`, plus `~/.claude/commands/` and `~/.claude/agents/` |
 | Codex | `~/.codex/skills/<name>` | `~/.codex/AGENTS.md` | `~/.codex/config.toml` |
 | Antigravity (agy) | `~/.gemini/config/skills/<name>` | `~/.gemini/GEMINI.md` | — |
 | opencode | `~/.config/opencode/skills/<name>` | `~/.config/opencode/AGENTS.md` | `~/.config/opencode/agents/<name>.md` |
