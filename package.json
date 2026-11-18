@@ -2,7 +2,7 @@
   "name": "juninmd-skills",
   "version": "1.14.0",
   "description": "Engineering skills for AI coding assistants",
-  "packageManager": "pnpm@10.34.5",
+  "packageManager": "pnpm@^12.21.0",
   "scripts": {
     "plugin:validate": "node .agents/tools/validate-plugin.mjs",
     "plugins:generate": "node .agents/tools/generate-plugins.mjs",
