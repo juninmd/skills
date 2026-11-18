@@ -7,6 +7,7 @@ Read only the files needed for the current task.
 | `accessibility.md` | WCAG conformance workflow: keyboard-only pass, focus management on route change, screen reader verification, contrast/motion checks, before shipping or auditing any UI |
 | `animation-performance.md` | Frame budgeting, compositor-only transform and opacity properties, `will-change` layer management, and eliminating layout thrashing |
 | `anti-slop-taste.md` | Before styling a new page or when a UI looks generic: brief inference, a design plan checked against the brief, the default clusters to exclude (with hex values), Three Dials calibration, archetypes, and redesign audits |
+| `app-ux-patterns.md` | Designing app UX when the brief is open: token layering, theme/skin switching without flash, one-tap flows, purposeful motion, command palette, status color, axe-in-CI quality gates, distilled from shipped apps |
 | `design-systems.md` | Building or extending a shared component library: token layering (primitive/semantic/component), promoting repeated shapes, intent-based variant naming, breaking-change/migration discipline |
 | `fluid-gestures.md` | Physics-based direct manipulation, 1:1 touch tracking, release velocity preservation, rubber-band resistance formulas, and dismissible sheets |
 | `frontend-design.md` | Setting the visual system before writing markup: type scale, spacing rhythm, color/radius/elevation/motion as concrete numbers, translated into CSS custom properties |
