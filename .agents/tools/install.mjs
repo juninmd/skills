@@ -1,7 +1,7 @@
-// Install this repo into Claude Code, Codex, Antigravity (agy), and opencode via symlinks, so
+// Install this repo into Claude Code, Codex, Antigravity (agy), opencode, Cursor, and Copilot CLI via symlinks, so
 // every client reads the canonical source and picks up edits without a reinstall.
 // Claude skill links are skipped (and removed) while the juninmd Claude Code plugin is installed.
-//   node .agents/tools/install.mjs [claude|codex|agy|opencode|all]... [--dry-run] [--no-config]
+//   node .agents/tools/install.mjs [claude|codex|agy|opencode|cursor|copilot|all]... [--dry-run] [--no-config]
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
@@ -42,6 +42,9 @@ const CLIENTS = {
     agents: path.join(HOME, ".config", "opencode", "agents"),
     agentsSource: path.join(AGENTS_ROOT, "clients", "opencode", "agents"),
   },
+  // Skills only: neither client has a documented global instruction file to link.
+  cursor: { skills: path.join(HOME, ".cursor", "skills"), files: [] },
+  copilot: { skills: path.join(HOME, ".copilot", "skills"), files: [] },
 };
 
 export function listSkills(root = SKILLS_ROOT) {

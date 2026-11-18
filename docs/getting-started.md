@@ -7,7 +7,7 @@ The supported install links one checkout into every client, so edits in the repo
 ```bash
 git clone https://github.com/juninmd/skills && cd skills
 node .agents/tools/install.mjs --dry-run   # show the plan
-node .agents/tools/install.mjs all         # or: claude | codex | agy | opencode
+node .agents/tools/install.mjs all         # or: claude | codex | agy | opencode | cursor | copilot
 ```
 
 | Client | Skills | Instructions | Config |
@@ -16,6 +16,8 @@ node .agents/tools/install.mjs all         # or: claude | codex | agy | opencode
 | Codex | `~/.codex/skills/<name>` | `~/.codex/AGENTS.md` | `~/.codex/config.toml` |
 | Antigravity (agy) | `~/.gemini/config/skills/<name>` | `~/.gemini/GEMINI.md` | — |
 | opencode | `~/.config/opencode/skills/<name>` | `~/.config/opencode/AGENTS.md` | `~/.config/opencode/agents/<name>.md` |
+| Cursor | `~/.cursor/skills/<name>` | — | — |
+| Copilot CLI | `~/.copilot/skills/<name>` | — | — |
 
 Existing real files are renamed to `*.bak-<timestamp>` before linking. Links that point at retired skills are pruned. `--no-config` links skills and instructions only. On Windows, skill directories become junctions (no privilege needed); file links need Developer Mode or an elevated shell. Without it, `CLAUDE.md` and `GEMINI.md` get a one-line `@path` import stub that tracks the repo the same way, and the config files are left untouched until you rerun elevated.
 

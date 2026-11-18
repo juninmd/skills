@@ -10,13 +10,15 @@ import { listSkills } from "./install.mjs";
 const TOOLS = path.dirname(fileURLToPath(import.meta.url));
 const REPO = path.resolve(TOOLS, "../..");
 const INSTALLER = path.join(TOOLS, "install.mjs");
-const CLIENTS = ["claude", "codex", "agy", "opencode"];
+const CLIENTS = ["claude", "codex", "agy", "opencode", "cursor", "copilot"];
 // Where each client keeps its skill links, relative to HOME.
 const SKILL_DIRS = {
   claude: ".claude/skills",
   codex: ".codex/skills",
   agy: ".gemini/config/skills",
   opencode: ".config/opencode/skills",
+  cursor: ".cursor/skills",
+  copilot: ".copilot/skills",
 };
 // Config links and the canonical file each one must resolve to.
 const CONFIG_LINKS = {
