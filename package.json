@@ -1,6 +1,6 @@
 {
   "name": "juninmd-skills",
-  "version": "1.14.0",
+  "version": "1.14.1",
   "description": "Engineering skills for AI coding assistants",
   "packageManager": "pnpm@10.34.5",
   "scripts": {
@@ -41,6 +41,9 @@
   "pnpm": {
     "auditConfig": {
       "ignore": [
+        "GHSA-fc5q-39xc-vjpf"
+      ],
+      "ignoreCves": [
         "GHSA-fc5q-39xc-vjpf"
       ]
     }
