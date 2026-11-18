@@ -15,7 +15,7 @@ The one debugging method in this skill. Open it for any bug, failing test, or un
 
 ## Phase 0 — Capture and redact
 
-Poking at a system changes the symptom. Record it first, then remove anything sensitive before it reaches chat, a ticket, or a commit message.
+Poking changes the symptom. Record it first, then strip anything sensitive before it reaches chat, a ticket, or a commit message.
 
 ```bash
 cmd 2>&1 | tail -40 > /tmp/symptom.log            # raw evidence stays on disk, out of context
@@ -25,16 +25,16 @@ sed -E -e 's/((authorization|cookie|set-cookie): ).*/\1<REDACTED>/I' \
        -e 's/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/<EMAIL>/g' /tmp/symptom.log | rg -n 'error|warn|fail' | head -20
 ```
 
-- Record the exact symptom, the environment, when it first appeared, the expected behavior, and the last known good state. If you cannot restate the symptom precisely, you cannot test for it.
+- Record the exact symptom, environment, first occurrence, expected behavior, and last known good state. A symptom you cannot state precisely cannot be tested.
 - Redact before you quote: credentials, session cookies, auth headers, signed URLs, and personal data (names, emails, phone numbers, user-linked IPs and ids) become `<REDACTED>`. A pattern pass is only a first filter; read what you quote.
-- Quote only the lines that carry signal. Have loops read credentials from environment variables so no secret appears in a command you display.
+- Quote only lines that carry signal. Have loops read credentials from environment variables so no secret appears in a displayed command.
 - If the redacted evidence cannot support a diagnosis, say so and ask for access or a sanitized artifact. Never paste a whole log into context.
 
 ## Phase 1 — Build a loop that can go red
 
-Everything after this consumes the loop's signal. A fast pass/fail check that fails on *this* bug makes bisection and hypothesis testing mechanical; without one, reading code only breeds theories. Spend your effort here first.
+Everything after this consumes the loop's signal. A fast pass/fail check that fails on *this* bug makes bisection and hypothesis testing mechanical; without one, reading code only breeds theories.
 
-Choose the cheapest loop that reaches the failing path:
+Pick the cheapest loop that reaches the failing path:
 
 | Situation | Loop |
 |---|---|
@@ -49,11 +49,11 @@ Choose the cheapest loop that reaches the failing path:
 | Two versions or configs disagree | Differential run comparing their outputs |
 | Only a human can trigger it | Scripted prompt that walks them through each step and captures the result |
 
-Then tighten it. Trim setup and unrelated initialization until it runs in seconds. Assert the specific symptom, not merely "did not crash". Pin time, seed randomness, isolate the filesystem, and stub the network until the verdict repeats.
+Then tighten it. Trim setup until it runs in seconds. Assert the specific symptom, not merely "did not crash". Pin time, seed randomness, isolate the filesystem, and stub the network until the verdict repeats.
 
 **Non-deterministic bugs.** Raise the reproduction rate before you form any hypothesis; a cause guessed at 1% repro can be neither confirmed nor refuted. Loop the trigger many times. Run it alone, in suite order, then shuffled or reversed to expose ordering coupling. Add parallelism and load, and narrow timing windows. Pin what remains to one source: time and timezone, concurrency and async ordering, or shared state (rows, temp files, module singletons, ports). Record the rate before and after the fix using the same command.
 
-**No loop possible.** Say so, list what you tried, and ask for one of: access to an environment that reproduces it, a redacted artifact (HAR, log dump, core dump, timestamped recording), or permission to add temporary instrumentation in production. Do not proceed to hypotheses.
+**No loop possible.** Say so, list what you tried, and ask for one of: access to an environment that reproduces it, a redacted artifact (HAR, log dump, core dump, timestamped recording), or permission to add temporary instrumentation in production. Do not move on to hypotheses.
 
 **Exit criterion.** Phase 1 is done only when you can name one command, already run, with its redacted invocation and output shown, that is:
 - [ ] **Red-capable**: it drives the real failing path and asserts the user's exact symptom, so it fails now and passes once fixed.
@@ -61,11 +61,11 @@ Then tighten it. Trim setup and unrelated initialization until it runs in second
 - [ ] **Fast**: seconds, not minutes.
 - [ ] **Unattended**: the agent can run it; a human only via a scripted prompt.
 
-Building a theory from code before this command exists is exactly the failure this method prevents.
+Theorizing from code before this command exists is the failure this method prevents.
 
 ## Phase 2 — Reproduce and minimize
 
-Run the loop and watch it fail. Check that it fails with the failure the user reported, not a neighboring one; the wrong bug gets the wrong fix. Save the exact error text, wrong value, or timing to compare against later.
+Run the loop and watch it fail with the failure the user reported, not a neighboring one; the wrong bug gets the wrong fix. Keep the exact error text, wrong value, or timing.
 
 **Minimize.** Drop one input, caller, config key, data row, or step at a time, rerunning the loop after each cut, and keep only what the failure needs. You are done when every remaining element is load-bearing: removing any one turns the loop green. The minimal case narrows the hypothesis space and becomes the regression test.
 
@@ -76,7 +76,7 @@ One rule: **list several candidates, test one at a time.**
 1. Diff against the last known good state: code, config, data, dependency, infrastructure. The deploy timeline and `git log --since` usually point to the window.
 2. Write 3 to 5 candidate causes, ranked by likelihood and by how cheaply each can be falsified. A single candidate anchors you on the first plausible idea.
 3. Make each one falsifiable: "If X is the cause, changing Y makes the bug vanish and changing Z makes it worse." A candidate that predicts nothing is a guess; sharpen it or drop it.
-4. If the user is present, show the ranked list, since domain knowledge often re-ranks it instantly; do not wait for a reply.
+4. If the user is present, show the ranked list (their domain knowledge may re-rank it); do not wait for a reply.
 5. Run exactly one experiment per candidate, best-ranked first, and note what each result ruled out.
 
 After three refuted candidates, stop generating more: your model of the system is wrong. Rebuild it from observed behavior, or escalate with the list of what has been eliminated.
@@ -88,19 +88,19 @@ Each probe must answer a prediction from Phase 3. Change one variable at a time.
 - Divide the failing path at observable boundaries (API → service → store, CI → build → sign) so each split halves the suspect surface. Log what enters and leaves each boundary once, then dig into the boundary where the value first goes wrong.
 - Prefer a debugger or REPL; one breakpoint beats ten log lines. Otherwise add targeted logs at the boundaries that separate candidates. Never log everything and grep.
 - Give every temporary log a unique prefix such as `[DEBUG-a4f2]` so cleanup is a single search. Temporary logs follow the Phase 0 redaction rules.
-- For slow-but-correct behavior, take a baseline measurement first (timer, profiler, query plan), then bisect. Optimization itself belongs to `performance-engineering`.
+- For slow-but-correct behavior, measure a baseline first (timer, profiler, query plan), then bisect. Optimizing belongs to `performance-engineering`.
 
 ## Phase 5 — Fix and regression test
 
 Fix the cause, not the symptom. Make one change, with no refactor bundled in.
 
-A regression test needs a seam that reproduces the real bug pattern as it occurs at the call site. If the only seam available is too shallow, such as one caller when the bug needs two, or a unit test that cannot recreate the triggering chain, say so: the architecture is blocking a durable lock-down, and that is a finding.
+A regression test needs a seam that reproduces the real bug pattern as it occurs at the call site. If the only seam is too shallow (one caller when the bug needs two, a unit test that cannot recreate the triggering chain), say so: the architecture blocks a durable lock-down, and that is a finding.
 
 With a proper seam:
 1. Turn the minimized case into a failing test.
 2. Watch it fail. If you forced the failure by mutating code or a fixture, diff against a clean copy to prove the mutation took effect.
 3. Apply the fix and watch the test pass.
-4. Rerun the Phase 1 command on the original full scenario, plus one adjacent failure path.
+4. Rerun the Phase 1 command on the original scenario, plus one adjacent failure path.
 
 A fix you cannot explain is a coincidence. If the symptom vanished and you do not know why, it will come back. Do not call correlation a cause until the loop changes predictably when you change the suspected cause.
 
@@ -119,7 +119,7 @@ Then ask what would have prevented the bug. Architectural changes go to `softwar
 - Experiments no longer reduce uncertainty, or three candidates are refuted. Rebuild the model or escalate with what has been eliminated.
 - Three fixes have failed, or each fix exposes a new symptom elsewhere. The design is the problem; discuss it before a fourth attempt.
 - Production users are affected. Mitigate through [incident-response.md](incident-response.md) first.
-- Diagnosis requires a secret or personal data that cannot be redacted. Ask instead of quoting it.
+- Diagnosis needs a secret or personal data that cannot be redacted. Ask instead of quoting it.
 
 ## Red flags
 

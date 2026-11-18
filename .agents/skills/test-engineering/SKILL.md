@@ -23,7 +23,7 @@ Pick the test level from the contract being checked, not from habit.
 3. Choose the lowest level that still exercises the real contract. Never mock the subject under test.
 4. Cover boundaries, invalid input, dependency failure, timeout, retry, concurrency, and the unchanged-state guarantee (after an error, nothing was written).
 5. Iterate with focused runs. Before claiming done, run the project's full test command, not just the new file, and name every failure, including ones this change did not cause.
-6. Use coverage to locate blind spots, mutation testing to grade assertion strength, and profiling to support any performance claim.
+6. Use coverage for blind spots, mutation testing for assertion strength, profiling for performance claims.
 
 ## Choosing the Level
 
@@ -49,7 +49,7 @@ pytest --lf                                          # last failed only
 ```
 
 ## Flake Attribution
-Do not retry a flaky test. Trace it to one source and remove that source. A flake with failure rate p is caught in n runs with probability 1-(1-p)^n.
+Never retry a flaky test; trace it to one source and remove it. A flake with failure rate p is caught in n runs with probability 1-(1-p)^n.
 
 | Source | Tell | Fix |
 |---|---|---|
@@ -60,7 +60,7 @@ Do not retry a flaky test. Trace it to one source and remove that source. A flak
 | Async | Fails on a faster or slower machine | Await the observable condition; never sleep |
 | Port or resource | Fails only in parallel | Per-worker port, or mark serial |
 
-If this change cannot fix it, still never skip or delete the test. Leave it running and reporting, with an open ticket and a named owner attached, following the project's flake policy. The quarantine window and exit count are project policy, outside this skill. At the deadline the owner rewrites the test or records an explicit decision to delete it; expiry alone never deletes.
+If this change cannot fix it, never skip or delete the test. Leave it running and reporting, with an open ticket and named owner, per the project's flake policy. Quarantine window and exit count are project policy. At the deadline the owner rewrites the test or records an explicit decision to delete it; expiry alone never deletes.
 
 ## Reference Routing
 - Consult [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-domain guides.
@@ -76,11 +76,11 @@ If this change cannot fix it, still never skip or delete the test. Leave it runn
 
 ## Rules
 - Refactoring and simplification go to `code-review`, UI issues to `frontend-engineering`, service bugs to `backend-systems`.
-- Assert externally meaningful behavior and exact failure semantics: the error type and message, not merely that something threw.
+- Assert externally meaningful behavior and exact failure semantics: error type and message, not merely that something threw.
 - After every test, restore mocks, timers, environment, and global state. A leaked timer fails a later, innocent test.
 - Order dependence is a defect, not a setting. Run the suite shuffled in CI.
 - Concurrent tests that share a fixture, database, or temp path will interleave. Give each worker its own, or mark those tests serial.
-- Do not chase a coverage number: 100% with weak assertions is worse than 70% with sharp ones, because it looks finished.
+- Do not chase a coverage number: 100% with weak assertions is worse than 70% with sharp ones; it looks finished.
 - Frontend end-to-end uses Playwright for web and desktop alike; Electron support is official but experimental, and Tauri needs a documented driver exception. UI review rules (screenshot evidence, determinism) belong to `code-review`.
 - "Connection refused" during a test run is not a network fault: a required service was not started, or a call was left unmocked.
 - Prefer a real containerized dependency when fidelity matters.
@@ -92,7 +92,7 @@ If this change cannot fix it, still never skip or delete the test. Leave it runn
 | Excuse | Why it fails |
 |---|---|
 | "This behavior is too obvious to test" | The test exists to fail when the rule changes, not to prove what you already know |
-| "I will add the test after the code lands" | A test written afterward passes on its first run, so it never showed it can fail, and it records what the code does rather than what it should do |
+| "I will add the test after the code lands" | A test written afterward passes first time, so it never showed it can fail, and it records what the code does, not what it should do |
 | "I already tried it by hand" | A manual check leaves no record, covers only the cases you remember, and cannot rerun on the next change |
 | "I'll keep my draft as a reference while I write the test" | The test ends up fitted to the draft. Set the draft aside and let the failing test drive the code |
 | "It is too hard to test" | Hard to test means hard to use. Narrow the interface or inject the boundary; do not skip the test |
