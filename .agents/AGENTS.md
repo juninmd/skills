@@ -49,6 +49,7 @@ Before staging, run `git diff --cached --name-only` and read the list.
 
 Bias caution over speed on non-trivial work; judgment on trivial tasks (one file, no behavior change, reversible).
 
+- **Skills first:** before acting, scan the available skill descriptions; if one plausibly applies (even a 1% chance), load it and follow its workflow. Load only the references it routes. The user prompt still wins.
 - **Think first:** state assumptions; prefer the simpler approach; when confused, follow the Actions table.
 - **Simplicity:** minimum code that solves the problem. No speculative features, single-use abstractions, or unrequested configurability.
 - **Surgical:** touch only required lines; match style; no adjacent refactors; every changed line maps to the request.
