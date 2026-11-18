@@ -105,7 +105,7 @@ node .agents/tools/install.mjs all         # or: claude | codex | agy | opencode
 
 | Client | Skills | Instructions | Config |
 |---|---|---|---|
-| Claude Code | `~/.claude/skills/<name>` | `~/.claude/CLAUDE.md` | `~/.claude/settings.json` |
+| Claude Code | `~/.claude/skills/<name>` | `~/.claude/CLAUDE.md` | `~/.claude/settings.json`, plus `~/.claude/commands/` and `~/.claude/agents/` |
 | Codex | `~/.codex/skills/<name>` | `~/.codex/AGENTS.md` | `~/.codex/config.toml` |
 | Antigravity (agy) | `~/.gemini/config/skills/<name>` | `~/.gemini/GEMINI.md` | — |
 | opencode | `~/.config/opencode/skills/<name>` | `~/.config/opencode/AGENTS.md` | `~/.config/opencode/agents/<name>.md` |
@@ -123,6 +123,10 @@ node .agents/tools/install.mjs all         # or: claude | codex | agy | opencode
 - On Windows, skill directories become junctions, which need no privilege. File links need Developer Mode or an elevated shell. Without either, `CLAUDE.md` and `GEMINI.md` get a one-line `@path` import stub that tracks the repo the same way, and the config files are left untouched until you rerun elevated.
 
 </details>
+
+### Claude Code slash commands and subagents
+
+The Claude Code install also links six commands, `/spec`, `/plan`, `/build`, `/test`, `/review` and `/ship`, and two read-only subagents, `code-reviewer` and `security-auditor`, from [`.agents/clients/claude/`](.agents/clients/claude/). `/review` runs two passes (spec, then quality) and prefers the subagents so each pass starts with fresh context. The commands do not name skills; routing still picks them by description.
 
 ### Claude Code plugins
 
