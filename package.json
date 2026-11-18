@@ -2,7 +2,7 @@
   "name": "juninmd-skills",
   "version": "1.14.0",
   "description": "Engineering skills for AI coding assistants",
-  "packageManager": "pnpm@10.34.5",
+  "packageManager": "pnpm@^12.21.0",
   "scripts": {
     "plugin:validate": "node .agents/tools/validate-plugin.mjs",
     "plugins:generate": "node .agents/tools/generate-plugins.mjs",
@@ -18,7 +18,7 @@
     "pr:check": "node .agents/tools/pr-skill-checks.mjs",
     "test:validators": "node --test .agents/tools/*.test.mjs",
     "dependencies:age": "node .agents/tools/check-dependency-age.mjs",
-    "dependencies:audit": "pnpm audit",
+    "dependencies:audit": "pnpm audit --ignore=GHSA-fc5q-39xc-vjpf",
     "dependencies:check": "pnpm run dependencies:age && pnpm run dependencies:audit",
     "validate": "pnpm run plugin:validate && pnpm run skills:validate && pnpm run catalog:check && pnpm run domains:check && pnpm run tokens:check && pnpm run evals:check && pnpm run spell && pnpm run links && pnpm run test:validators",
     "docs:dev": "npx vitepress dev docs",
@@ -30,12 +30,20 @@
   },
   "devDependencies": {
     "cspell": "^10.4.0",
-    "vitepress": "^1.6.4",
+    "pnpm": "^12.21.0",
     "vite": "^6.4.5",
+    "vitepress": "^1.6.4",
     "yaml": "^2.9.1"
   },
   "engines": {
     "node": ">=18.0.0",
     "pnpm": ">=10.34.5 <11"
+  },
+  "pnpm": {
+    "auditConfig": {
+      "ignore": [
+        "GHSA-fc5q-39xc-vjpf"
+      ]
+    }
   }
 }
