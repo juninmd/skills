@@ -55,6 +55,8 @@ An effect for derived state produces one extra render and a window where the two
 Open a file only when its trigger matches.
 - Any component work: [ui-components.md](references/ui-components.md).
 - Anti-slop UI direction, dials, and redesign audits: [anti-slop-taste.md](references/anti-slop-taste.md).
+- Choosing native CSS/HTML over a library, adopting a newer platform feature (container queries, `@layer`, popover, anchor positioning, View Transitions), Baseline gating, WCAG/DTCG/Core Web Vitals targets: [modern-web-platform.md](references/modern-web-platform.md).
+- Open UX brief for an app, or a polish pass (theming, one-tap flows, motion roles, command palette, status color): [app-ux-patterns.md](references/app-ux-patterns.md).
 - `app/` directory: [nextjs-app-router.md](references/nextjs-app-router.md) — server/client boundaries, streaming, caching, actions.
 - `components.json` (shadcn/ui): discovery, installation, and extending primitives in [shadcn-integration.md](references/shadcn-integration.md).
 - `vite.config.*`: [vite-core.md](references/vite-core.md), [vite-patterns.md](references/vite-patterns.md); Tailwind v4 there: [vite-tailwind-v4.md](references/vite-tailwind-v4.md).

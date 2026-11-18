@@ -7,6 +7,7 @@ Read only the files needed for the current task.
 | `accessibility.md` | WCAG conformance workflow: keyboard-only pass, focus management on route change, screen reader verification, contrast/motion checks, before shipping or auditing any UI |
 | `animation-performance.md` | Frame budgeting, compositor-only transform and opacity properties, `will-change` layer management, and eliminating layout thrashing |
 | `anti-slop-taste.md` | Before styling a new page or when a UI looks generic: brief inference, a design plan checked against the brief, the default clusters to exclude (with hex values), Three Dials calibration, archetypes, and redesign audits |
+| `app-ux-patterns.md` | Designing app UX when the brief is open: token layering, theme/skin switching without flash, one-tap flows, purposeful motion, command palette, status color, axe-in-CI quality gates, distilled from shipped apps |
 | `design-systems.md` | Building or extending a shared component library: token layering (primitive/semantic/component), promoting repeated shapes, intent-based variant naming, breaking-change/migration discipline |
 | `fluid-gestures.md` | Physics-based direct manipulation, 1:1 touch tracking, release velocity preservation, rubber-band resistance formulas, and dismissible sheets |
 | `frontend-design.md` | Setting the visual system before writing markup: type scale, spacing rhythm, color/radius/elevation/motion as concrete numbers, translated into CSS custom properties |
@@ -14,6 +15,7 @@ Read only the files needed for the current task.
 | `frontend-review.md` | Auditing UI code before merge: the a11y/layout/responsiveness checklist, severity levels (Blocker/Major/Minor/Nit), and the file:line review output format |
 | `masonry-layouts.md` | Choosing between CSS multi-column, a JS masonry library, or native `grid-template-rows: masonry` — decided by whether visual order must match DOM order |
 | `mobile-web-polish.md` | Eliminating mobile web browser defects: `100dvh` viewport units, sticky hover elimination, safe area insets, 16px input zoom prevention, and tap highlight suppression |
+| `modern-web-platform.md` | Which standard to target (WCAG 2.2, Core Web Vitals, DTCG tokens), Baseline adoption policy, and native CSS/HTML alternatives to libraries: `@layer`, container queries, `:has()`, popover, `<dialog>`, anchor positioning, View Transitions, INP tactics |
 | `motion-audit.md` | Auditing codebase animations: spotting missing polish or abrupt pops, diagnosing sluggish over-animation, scoring motion quality, and prioritized remediation matrices |
 | `motion-code-review.md` | Adversarial review standards for motion: property checks (no layout reflows), blanket transition bans (`transition: all`), duration caps, and reduced-motion enforcement |
 | `motion-design-principles.md` | Purposeful animation foundations: motion decision framework, perceptual duration budgets (100ms–350ms), spring physics vs easing curves, and state interruptibility |

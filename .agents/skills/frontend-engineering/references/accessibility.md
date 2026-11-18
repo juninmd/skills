@@ -127,6 +127,8 @@ Motion that carries meaning (a spinner, a progress bar, a drag preview) stays; m
 ## WCAG 2.2 AA Additions
 Added in 2.2. A-level criteria count because AA conformance requires every A criterion. Normative text: [WCAG 2.2](https://www.w3.org/TR/WCAG22/). Summaries: [What's new in WCAG 2.2](https://www.w3.org/WAI/standards-guidelines/wcag/new-in-22/).
 
+- 2.4.11 Focus Not Obscured (Minimum) (AA): a focused element is never fully hidden by sticky headers, cookie bars, or chat widgets. Fix with `scroll-padding-block` on the scrolling container and `scroll-margin` on targets, then re-run the tab pass at 400% zoom.
+- 4.1.1 Parsing is obsolete in 2.2: do not report duplicate-id or malformed-markup issues as WCAG failures unless they break a name, role, or relationship (4.1.2).
 - 2.5.7 Dragging Movements (AA): every drag action (reorder, slider, pan, drag-to-dismiss) needs a single-pointer alternative, such as buttons or click-to-pick then click-to-place. Exempt only when dragging is essential, or when the user agent determines the function and the author has not modified it.
 - 2.5.8 Target Size (Minimum) (AA): pointer targets are at least 24x24 CSS px, or spaced so a 24 px circle around each hits no other target. Exempt: inline links, an equivalent control elsewhere, user-agent controls, essential presentation.
 - 3.3.8 Accessible Authentication (Minimum) (AA): no login or recovery step may require a cognitive function test (recall, transcription, puzzle) unless another method without one, a mechanism such as paste or a password manager, object recognition, or user-supplied personal non-text content is offered. Do not block paste in password fields.
