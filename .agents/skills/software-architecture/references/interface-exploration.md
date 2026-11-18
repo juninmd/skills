@@ -1,6 +1,6 @@
 # Interface Exploration and Multi-Design Comparison
 
-Open when evaluating competing public interfaces for a candidate module, exploring radically different API shapes, and comparing design leverage.
+Open when weighing competing public interfaces for a candidate module, trying very different API shapes, and comparing their leverage.
 
 ## Contents
 
@@ -13,63 +13,63 @@ Open when evaluating competing public interfaces for a candidate module, explori
 
 ## Design Exploration Rationale
 
-Initial interface ideas tend to reflect the internal implementation structure rather than the perspective of external callers. Exploring distinct, competing designs reveals trade-offs in cognitive load, flexibility, and testability before concrete code is locked in.
+A first interface idea usually mirrors the internal structure instead of the caller's view. Comparing distinct designs exposes trade-offs in cognitive load, flexibility, and testability before code hardens.
 
 ## Framing the Problem Space
 
-Before generating proposals, establish the concrete operational constraints:
+Pin down the concrete constraints before proposing anything:
 
-1. **Invariants and Guarantees:** What must remain true across every state mutation?
-2. **Caller Usage Scenarios:** What are the 2-3 most common workflows? What edge-case paths exist?
-3. **Dependency Classification:** Which dependencies cross external network seams versus in-process calculations?
+1. **Invariants and guarantees:** what must hold after every state change?
+2. **Caller scenarios:** the 2-3 most common workflows, plus the edge-case paths.
+3. **Dependency classes:** which dependencies cross a network seam, and which are in-process computation?
 
 ## Generating Competing Candidates
 
-Author at least three distinct interface paradigms for the same functional capability:
+Write at least three genuinely different interface styles for the same capability:
 
-| Candidate Strategy | Design Optimization | Typical Shape |
+| Strategy | Optimizes for | Typical shape |
 |---|---|---|
-| **Minimalist** | Lowest cognitive load; 1-2 primary entry points | A single execution method taking a typed intent payload; implementation manages all sequencing |
-| **Composable / Fluent** | Maximum caller expressiveness and configuration | Builder pattern or pipeline stages with combinable operator methods |
-| **Task-Oriented** | Common case is a single one-liner; advanced case exposes fine-grained overrides | Sane defaults for 90% of invocations with optional configuration bags |
+| **Minimalist** | Lowest cognitive load; 1-2 entry points | One execute method taking a typed intent payload; the module handles all sequencing |
+| **Composable / Fluent** | Caller expressiveness and configuration | Builder or pipeline stages with combinable operators |
+| **Task-Oriented** | Common case as a one-liner, with fine-grained overrides for advanced use | Sensible defaults covering about 90% of calls, plus optional config bags |
 
-Each candidate interface must define:
+Each candidate must spell out:
 - Type signatures and argument shapes
-- Handling of asynchronous sequencing and cancellations
-- Error taxonomy and recovery contracts
-- Concrete usage example illustrating a standard caller interaction
+- How async sequencing and cancellation work
+- The error taxonomy and recovery contract
+- A concrete example of a typical caller interaction
 
 ## Design It Twice with Parallel Subagents
 
-The first interface you think of is rarely the best one. When subagents are available, generate the candidates in parallel instead of sequentially, so no design anchors the next:
+The first interface you think of is rarely the best. When subagents are available, produce the candidates in parallel so no design anchors the next:
 
-1. **Share the framing first.** Show the user the constraints, dependency categories (see [deep-modules.md](deep-modules.md)), and a throwaway code sketch that makes the constraints concrete. Continue while they read.
-2. **Spawn 3+ subagents at once,** each with the same technical brief (paths, coupling, what sits behind the seam, glossary terms) but a different binding constraint:
+1. **Share the framing first.** Show the user the constraints, the dependency categories (see [deep-modules.md](deep-modules.md)), and a throwaway code sketch that makes them concrete. Keep working while they read.
+2. **Launch 3+ subagents at once.** Give each the same technical brief (paths, coupling, what sits behind the seam, glossary terms) and a different binding constraint:
 
 | Subagent | Constraint |
 |---|---|
-| 1 | Smallest interface: at most 1-3 entry points, maximum leverage each |
-| 2 | Maximum flexibility: many use cases, extension points |
+| 1 | Smallest interface: 1-3 entry points at most, each with maximum leverage |
+| 2 | Maximum flexibility: many use cases and extension points |
 | 3 | Common caller first: the default case is a one-liner |
 | 4 (optional) | Ports and adapters for every cross-seam dependency |
 
-3. **Require the same five outputs** from each: interface (types plus invariants, ordering, error modes), a caller usage example, what is hidden behind the seam, dependency and adapter strategy, and where leverage is high or thin.
-4. **Present each design in turn,** then compare in prose on depth, locality, and seam placement.
+3. **Demand the same five outputs** from each: the interface (types plus invariants, ordering, error modes), a caller example, what stays hidden behind the seam, the dependency and adapter strategy, and where leverage is strong or thin.
+4. **Present the designs one by one,** then compare them in prose on depth, locality, and seam placement.
 
-Without subagents, write the candidates one at a time and do not revise an earlier one after reading a later one.
+With no subagents, write the candidates sequentially and never revise an earlier one after seeing a later one.
 
 ## Evaluation Criteria
 
-Compare the competing designs against architectural properties:
+Score each design on these properties:
 
-- **Interface Depth:** How much caller orchestration is eliminated by the module?
-- **Error Locality:** Do invalid combinations fail at compile time or at runtime?
-- **Cognitive Overhead:** How many concepts must a developer understand to write a basic invocation?
-- **Testing Ergonomics:** Does the interface accept in-memory test adapters without polluting the public API?
-- **Refactor Survival:** Would tests written against this interface survive a rewrite of the implementation? If not, the tests would be reaching past the seam.
+- **Depth:** how much caller orchestration does the module absorb?
+- **Error locality:** do invalid combinations fail at compile time or at runtime?
+- **Cognitive overhead:** how many concepts must a developer learn for a basic call?
+- **Testing ergonomics:** can it take in-memory test adapters without polluting the public API?
+- **Refactor survival:** would tests written against it survive an implementation rewrite? If not, they reach past the seam.
 
 ## Selection and Synthesis
 
-Select the design that maximizes depth and locality for the primary usage path. If individual elements from different proposals complement each other cleanly, synthesize them into a unified interface rather than compromising with unprincipled middle-ground abstractions.
+Pick the design with the most depth and locality on the primary usage path. If pieces of different proposals fit together cleanly, merge them into one interface rather than settling on an unprincipled middle.
 
-Be opinionated: the user wants a pick, not a menu. State the recommended design (or hybrid), why it wins, and name each rejected framing with the one reason it lost, so the next review does not resurrect it.
+Be opinionated: the user wants a pick, not a menu. State the recommended design (or hybrid) and why it wins, and name each rejected framing with the single reason it lost so the next review does not resurrect it.

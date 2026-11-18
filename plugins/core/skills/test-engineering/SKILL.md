@@ -15,26 +15,26 @@ cat package.json 2>/dev/null | jq -r '.scripts | to_entries[] | select(.key|test
 rg -n 'randomly|shuffle|seed' package.json pytest.ini pyproject.toml 2>/dev/null
 ```
 
-The level follows from the contract under test, never from habit.
+Pick the test level from the contract being checked, not from habit.
 
 ## Workflow
-1. Name the behavior, the invariant, the observable outcome, and the failure modes — before choosing a test level.
-2. Write the failing test first — for a new feature as much as for a bug fix. Run it and confirm it **fails on the assertion, for the intended reason**. An import, syntax, or fixture error is not a red run: fix it and rerun until the assertion itself fails.
-3. Pick the lowest level that exercises the real contract. Never mock the subject under test.
-4. Cover boundaries, invalid input, dependency failure, timeout, retry, concurrency, and the unchanged-state guarantee (on error, nothing was written).
-5. Run focused checks while iterating. Before claiming done, run the project's full test command, not only the new file, and report every failure by name — including ones this change did not cause.
-6. Use coverage to find blind spots, mutation to grade assertion strength, profiling to back a performance claim.
+1. Before choosing a level, write down the behavior, the invariant, the observable outcome, and the ways it can fail.
+2. Write the failing test first, for a new feature just as for a bug fix. Run it and confirm it **fails on its assertion, for the reason you intended**. An import, syntax, or fixture error is not a red run; fix it and rerun until the assertion itself fails.
+3. Choose the lowest level that still exercises the real contract. Never mock the subject under test.
+4. Cover boundaries, invalid input, dependency failure, timeout, retry, concurrency, and the unchanged-state guarantee (after an error, nothing was written).
+5. Iterate with focused runs. Before claiming done, run the project's full test command, not just the new file, and name every failure, including ones this change did not cause.
+6. Use coverage to locate blind spots, mutation testing to grade assertion strength, and profiling to support any performance claim.
 
 ## Choosing the Level
 
-| Level | Use when | Cost of getting it wrong |
+| Level | Use when | Typical mistake |
 |---|---|---|
-| Unit | Pure logic, branching, boundaries | Mocking the subject; asserting implementation, not behavior |
-| Integration | Real DB, real HTTP boundary, real serialization | Shared fixture across workers — interleaves and flakes |
-| Contract | A consumer depends on your shape | Passing tests, broken client |
-| Property | An invariant holds across a domain | Weak generator that never reaches the edge |
-| Mutation | Assertions look thin | Chasing a score instead of the surviving mutants |
-| Benchmark | A performance claim is being made | No warmup, one sample, no before/after |
+| Unit | Pure logic, branching, boundaries | Mocking the subject; asserting implementation instead of behavior |
+| Integration | Real DB, real HTTP boundary, real serialization | One fixture shared across workers, so runs interleave and flake |
+| Contract | A consumer depends on your response shape | Green tests, broken client |
+| Property | An invariant must hold over a whole domain | A weak generator that never reaches the edges |
+| Mutation | Assertions look thin | Chasing the score instead of the surviving mutants |
+| Benchmark | You are making a performance claim | No warmup, a single sample, no before/after |
 
 ## Useful Invocations
 
@@ -49,62 +49,62 @@ pytest --lf                                          # last failed only
 ```
 
 ## Flake Attribution
-Never retry a flaky test; attribute it to exactly one source and remove that source. Detecting a p-flake in n runs is 1-(1-p)^n.
+Do not retry a flaky test. Trace it to one source and remove that source. A flake with failure rate p is caught in n runs with probability 1-(1-p)^n.
 
 | Source | Tell | Fix |
 |---|---|---|
-| Shared state | Passes alone, fails in suite | Own fixture, own schema/tenant, own temp path |
-| Order dependence | Passes in file order only | Shuffle in CI; it is asserting on residue |
-| Time | Fails near midnight, month end, or in another TZ | Freeze the clock; pin TZ |
-| Randomness | Fails ~1 run in N | Fixed seed, printed on failure |
-| Async | Fails on a faster or slower machine | Await the observable condition, never sleep |
+| Shared state | Passes alone, fails in the suite | Own fixture, own schema or tenant, own temp path |
+| Order dependence | Passes only in file order | Shuffle in CI; the test is asserting on leftovers |
+| Time | Fails near midnight, month end, or under another TZ | Freeze the clock; pin TZ |
+| Randomness | Fails about 1 run in N | Fixed seed, printed on failure |
+| Async | Fails on a faster or slower machine | Await the observable condition; never sleep |
 | Port or resource | Fails only in parallel | Per-worker port, or mark serial |
 
-No fix in this change? Never skip or delete the test. Keep it running and reporting, and record an open ticket and a named owner on it, as the project's flake policy defines. The quarantine window and exit count are project policy, not part of this skill. At the deadline, the owner either rewrites the test or records an explicit decision to delete it; expiry alone never deletes.
+If this change cannot fix it, still never skip or delete the test. Leave it running and reporting, with an open ticket and a named owner attached, following the project's flake policy. The quarantine window and exit count are project policy, outside this skill. At the deadline the owner rewrites the test or records an explicit decision to delete it; expiry alone never deletes.
 
 ## Reference Routing
 - Consult [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-domain guides.
-- Choosing a test double, or spotting a mystery-guest/fragile-test smell in review: [test-doubles.md](references/test-doubles.md).
-- Running the red-green cycle, or checking that an expected value is independent of the code: [tdd-methodology.md](references/tdd-methodology.md).
-- Building out the "Contract" level against another service: [contract-testing.md](references/contract-testing.md).
+- Picking a test double, or spotting a mystery-guest or fragile-test smell in review: [test-doubles.md](references/test-doubles.md).
+- Running the red-green cycle, or confirming an expected value is independent of the code: [tdd-methodology.md](references/tdd-methodology.md).
+- Building the "Contract" level against another service: [contract-testing.md](references/contract-testing.md).
 
 ## Stop
-- A new test passes on its first run. You are testing existing behavior, or nothing; fix the test until it fails for the intended reason.
-- A test is about to be retried instead of attributed. A retry hides whatever made it fail.
-- The subject under test is being mocked. Stop; the test now asserts the mock.
-- A negative-path test (proving a gate rejects bad input) is about to run against a real tracked file. Use a disposable temp file, and verify anything touched byte-for-byte ([real-world-cases.md](references/real-world-cases.md)).
+- A new test passes on its first run. It covers existing behavior, or nothing; rework it until it fails for the intended reason.
+- You are about to retry a test instead of attributing it. A retry hides the cause of the failure.
+- You are mocking the subject under test. Stop; the test now asserts the mock.
+- A negative-path test (proving a gate rejects bad input) is about to run on a real tracked file. Use a disposable temp file and check anything touched byte for byte ([real-world-cases.md](references/real-world-cases.md)).
 
 ## Rules
-- Hand off refactoring and simplifications to `code-review`, UI issues to `frontend-engineering`, and service bugs to `backend-systems`.
-- Assert externally meaningful behavior and exact failure semantics — the error type and message, not just that it threw.
-- Restore mocks, timers, environment, and global state after every test. A leaked timer fails a later, innocent test.
-- Order dependence is a defect, not a configuration preference. Run the suite shuffled in CI.
-- Concurrent tests sharing one fixture, database, or temp path will interleave. Give each worker its own, or mark those tests serial.
-- Do not chase a coverage percentage: 100% with weak assertions is worse than 70% with sharp ones, because it looks finished.
-- Frontend end-to-end is Playwright, web and desktop alike; Electron support is official but experimental, and Tauri needs a documented driver exception. UI review rules (screenshot evidence, determinism) belong to `code-review`.
-- connection refused in a test run is not a network fault: a required service was not started or a call was left unmocked.
+- Refactoring and simplification go to `code-review`, UI issues to `frontend-engineering`, service bugs to `backend-systems`.
+- Assert externally meaningful behavior and exact failure semantics: the error type and message, not merely that something threw.
+- After every test, restore mocks, timers, environment, and global state. A leaked timer fails a later, innocent test.
+- Order dependence is a defect, not a setting. Run the suite shuffled in CI.
+- Concurrent tests that share a fixture, database, or temp path will interleave. Give each worker its own, or mark those tests serial.
+- Do not chase a coverage number: 100% with weak assertions is worse than 70% with sharp ones, because it looks finished.
+- Frontend end-to-end uses Playwright for web and desktop alike; Electron support is official but experimental, and Tauri needs a documented driver exception. UI review rules (screenshot evidence, determinism) belong to `code-review`.
+- "Connection refused" during a test run is not a network fault: a required service was not started, or a call was left unmocked.
 - Prefer a real containerized dependency when fidelity matters.
-- Benchmarks need warmup, stable inputs, multiple samples, and a before/after comparison.
-- A green gate can be a broken gate. After touching or trusting a linter config, backup, or verification tool, feed it a known-bad case and confirm it still fails ([real-world-cases.md](references/real-world-cases.md)).
+- Benchmarks need warmup, stable inputs, several samples, and a before/after comparison.
+- A passing gate can be a broken gate. After editing or relying on a linter config, backup, or verification tool, feed it a known-bad case and confirm it still fails ([real-world-cases.md](references/real-world-cases.md)).
 
 ## Excuses
 
-| Excuse | Why it is false |
+| Excuse | Why it fails |
 |---|---|
 | "This behavior is too obvious to test" | The test exists to fail when the rule changes, not to prove what you already know |
-| "I will add the test after the code lands" | A test written afterwards passes on its first run, so it never proved it can fail; it also checks what the code does, not what it should do |
-| "I already tried it by hand" | A manual check leaves no record, covers only the cases remembered, and cannot rerun on the next change |
-| "I'll keep my draft as a reference while I write the test" | The test then gets fitted to the draft. Set the draft aside and let the failing test drive the code |
+| "I will add the test after the code lands" | A test written afterward passes on its first run, so it never showed it can fail, and it records what the code does rather than what it should do |
+| "I already tried it by hand" | A manual check leaves no record, covers only the cases you remember, and cannot rerun on the next change |
+| "I'll keep my draft as a reference while I write the test" | The test ends up fitted to the draft. Set the draft aside and let the failing test drive the code |
 | "It is too hard to test" | Hard to test means hard to use. Narrow the interface or inject the boundary; do not skip the test |
-| "That failure was already there" | Report it by name anyway. A red test left unmentioned makes the report false by omission |
-| "It only fails in CI, so it is a CI problem" | Order, seed, and concurrency are the product's problem — reproduce with --sequence.shuffle |
-| "Coverage is at 90%, that is enough" | Coverage grades what ran, not what was asserted; mutation grades the assertions |
-| "It passed five times, so it is not flaky" | Five runs catch a 5% flake about a quarter of the time; the count is the claim |
+| "That failure was already there" | Name it anyway. A red test left unmentioned makes the report false by omission |
+| "It only fails in CI, so it is a CI problem" | Order, seed, and concurrency are the product's problem; reproduce with --sequence.shuffle |
+| "Coverage is at 90%, that is enough" | Coverage measures what ran, not what was asserted; mutation measures the assertions |
+| "It passed five times, so it is not flaky" | Five runs catch a 5% flake only about a quarter of the time; the run count is the claim |
 
 ## Checklist
 - [ ] The test failed first, on its assertion (not an error), for the intended reason.
-- [ ] Full suite run before claiming done; every failure reported by name.
+- [ ] Full suite run before claiming done; every failure named.
 - [ ] Level chosen for the contract under test; the subject is not mocked.
 - [ ] Unhappy paths covered: invalid input, dependency failure, timeout, unchanged state on error.
-- [ ] Ordering or parallelism checks run when relevant.
-- [ ] No global state, timer, or mock left standing after the run.
+- [ ] Ordering or parallelism checks run where relevant.
+- [ ] No global state, timer, or mock left behind after the run.

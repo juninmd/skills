@@ -1,12 +1,14 @@
 ---
 name: release-autoupdate
 description: |
-  Automate releases and in-app updates for desktop and CLI tools. Use for multi-platform release jobs, minisign artifact signing, conventional commit version bumps, updater manifests, and in-app update checks. Trigger on 'set up auto-update', 'create release pipeline', 'automate desktop releases', 'in-app updater configuration'.
+  Automate releases and in-app updates for desktop and CLI tools, including Tauri 2 apps: automatic tag and release from Conventional Commits, signed installers, verified latest.json. Trigger on 'set up auto-update', 'release pipeline', 'tauri updater', 'semantic commit release'.
 ---
 
 # Release and Auto-Update Pipelines
 
 **Not this skill:** general branch merges and Git rebase recovery (`git-workflow`), generic cloud/Kubernetes deployments (`cloud-devops`), or pull request review and merge preparation (`finishing-dev`).
+
+Tauri 2 apps follow one house standard (reference app: `canto-widget`): copy [scripts/release.mjs](scripts/release.mjs), add the two workflows and the updater wiring from the references, and never commit version bumps. Open [TOPIC_MAP.md](references/TOPIC_MAP.md) to pick the file for the subtask.
 
 ## Preflight
 
@@ -26,7 +28,8 @@ Audit release triggers, signing key availability, and current distribution endpo
 2. **Autonomous Release Planning**: Inspect linear git commit history since the latest SemVer tag. Compute version bump via conventional commit prefixes (`feat` -> minor, `fix` -> patch, breaking change indicator `!` or footer -> major). Skip non-functional commits (`chore`, `docs`, `ci`) unless bundled with functional changes.
 3. **Multi-Platform Matrix Build**: Build artifacts across required operating systems (Windows, macOS, Linux). Compile in release mode with locked dependencies. Keep verification checks running in parallel to prevent installer queues from blocking validation gates.
 4. **Cryptographic Signing and Manifest Generation**: Sign installer bundles with minisign or OS-native certificates. Generate the `latest.json` updater manifest linking release download URLs, platform targets, and corresponding base64 signature digests. Upload draft artifacts, verify manifest consistency against published assets, and undraft atomically.
-5. **In-App Updater and Safety Barrier**: Implement updater clients that verify signatures before disk execution. Ensure updates terminate pending worker processes gracefully before invoking system installers, and provide transparent download progress.
+5. **Tauri Standard**: baseline `v0.1.0` published once by hand; `scripts/release.mjs plan` picks the next commit that asks for a bump; CI writes the version to `tauri.release-version.conf.json`; draft, build, `manifest`, `verify`, undraft. Dry-run `node scripts/release.mjs plan` before merging.
+6. **In-App Updater and Safety Barrier**: Implement updater clients that verify signatures before disk execution. Ensure updates terminate pending worker processes gracefully before invoking system installers, and provide transparent download progress.
 
 ## Operation Decisions
 
@@ -36,6 +39,7 @@ Audit release triggers, signing key availability, and current distribution endpo
 | Conventional commit planning | Dedicated planner script (`scripts/release.mjs`) inspecting `git rev-list --first-parent` | Correct SemVer bump calculated; tags point to exact commit SHAs |
 | Installer signing | Minisign key pair (`TAURI_SIGNING_PRIVATE_KEY` stored in repository secrets; public key in config) | Updater verifies signature and rejects tampered installer binaries |
 | In-app update flow | Background check with user opt-in or passive install on exit | Download chunk progress reports cleanly without UI thread freeze |
+| Commit on main | `feat` minor; `fix`/`perf` patch; `type!:` or `BREAKING CHANGE:` major; `chore`/`docs`/`ci` fold into the next release | `plan` output names the expected tag and no extra ones |
 | Staged / draft release | Create release in draft mode, upload installers and `.sig` assets, verify manifest, publish draft | No broken intermediary download state exposed to existing clients |
 
 ## Manifest Structure
@@ -58,6 +62,7 @@ Verify signatures against the embedded minisign public key before invoking OS in
 
 ## Stop
 
+- No published SemVer baseline release exists and publishing `v0.1.0` is not approved.
 - Private signing keys (`TAURI_SIGNING_PRIVATE_KEY` or certificates) are exposed in repository files, command line arguments, or workflow logs.
 - The updater manifest references missing release assets or invalid SHA/signature digests.
 - The release script attempts to overwrite a published, non-draft SemVer tag with a different commit SHA.

@@ -1,6 +1,6 @@
 # Deep Modules and Seam Architecture
 
-Open when designing module boundaries, evaluating interface depth, placing testable seams, or consolidating shallow pass-through components into cohesive units.
+Open when drawing module boundaries, judging interface depth, placing testable seams, or merging shallow pass-through pieces into cohesive units.
 
 ## Contents
 
@@ -12,62 +12,62 @@ Open when designing module boundaries, evaluating interface depth, placing testa
 
 ## Architectural Glossary
 
-Use these core architectural terms consistently:
+Use these terms the same way every time:
 
-- **Module:** Any unit with an interface and an implementation (function, class, package, or slice). Avoid ambiguous synonyms like "unit", "component", or "service".
-- **Interface:** Everything a caller must know to use the module correctly: signatures, invariants, ordering constraints, error modes, configuration requirements, and latency characteristics.
-- **Implementation:** The encapsulated logic inside a module.
-- **Depth:** Leverage delivered at the interface. A module is **deep** when a substantial volume of capability and complexity sits behind a minimal, clean interface. It is **shallow** when its interface approaches the complexity of its underlying logic.
-- **Seam:** A place where behavior can be altered or substituted without editing the code in that place (Feathers). The external seam is where the module's interface lives; a module may also keep optional internal seams private to its implementation and its own tests. A seam is a substitution point, not merely a boundary; where to place it is a design decision separate from what goes behind it.
-- **Adapter:** A concrete implementation that satisfies an interface across a seam (e.g. an in-memory test fake or a Postgres repository).
-- **Leverage:** The capability gained per unit of interface learned. One deep implementation pays dividends across multiple callers and tests.
-- **Locality:** The concentration of domain rules, invariant enforcement, and bug fixes in one cohesive location.
+- **Module:** any unit with an interface and an implementation (function, class, package, slice). Avoid vague stand-ins such as "unit", "component", or "service".
+- **Interface:** everything a caller must know to use the module correctly: signatures, invariants, ordering rules, error modes, required configuration, latency traits.
+- **Implementation:** the logic hidden inside the module.
+- **Depth:** leverage delivered at the interface. A **deep** module hides a lot of capability behind a small, clean interface. A **shallow** one has an interface nearly as complex as what it wraps.
+- **Seam:** a spot where behavior can be changed or swapped without editing the code at that spot. The external seam holds the module's interface; a module may also keep internal seams private to itself and its own tests. A seam is a substitution point, not just a boundary, and where you place it is a separate decision from what sits behind it.
+- **Adapter:** a concrete implementation of an interface across a seam (an in-memory fake, a Postgres repository).
+- **Leverage:** capability gained per unit of interface learned. One deep implementation pays off across many callers and tests.
+- **Locality:** domain rules, invariant enforcement, and bug fixes living in one place.
 
 ## Deep Modules vs. Shallow Modules
 
 ```
 ┌─────────────────────────────────┐
-│     Small, Simple Interface     │  ← Minimal methods, concise parameters
+│     Small, Simple Interface     │  ← few methods, short parameter lists
 ├─────────────────────────────────┤
 │                                 │
-│       Deep Implementation       │  ← Complex state, validation, caching, I/O hidden
+│       Deep Implementation       │  ← state, validation, caching, I/O hidden
 │                                 │
 └─────────────────────────────────┘
 
                 VS.
 
 ┌─────────────────────────────────┐
-│        Large Interface          │  ← Sprawling methods, internal types exposed
+│        Large Interface          │  ← many methods, internal types exposed
 ├─────────────────────────────────┤
-│       Thin Implementation       │  ← Pass-through wrappers, shallow delegation
+│       Thin Implementation       │  ← pass-through wrappers, delegation
 └─────────────────────────────────┘
 ```
 
-When evaluating an interface, verify:
-1. Can the number of entry points be reduced?
-2. Are callers forced to orchestrate multi-step ordering that the module could execute internally?
-3. Does the module leak internal data representations across the seam?
+Check any interface against three questions:
+1. Can it have fewer entry points?
+2. Do callers have to run a multi-step sequence the module could run itself?
+3. Do internal data shapes leak across the seam?
 
 ## Architectural Invariants
 
-1. **Depth is a Property of the Interface:** Judge depth by how much behavior a caller or test reaches per concept it must learn, not by implementation line counts. A deep module can be internally partitioned into small, swappable helpers; they stay private and never widen the interface.
-2. **The Interface is the Test Surface:** Callers and automated tests cross the identical seam. If a test must pierce private internals to establish confidence, the module interface is poorly factored.
-3. **The Deletion Test:** Mentally delete the candidate module. If domain complexity disappears, it was merely an empty wrapper. If complexity scatters across callers, the module was earning its place.
+1. **Depth belongs to the interface.** Measure it as behavior reached per concept learned, not by line count. A deep module may split internally into small swappable helpers; they stay private and never widen the interface.
+2. **The interface is the test surface.** Callers and tests cross the same seam. If a test must reach into private internals to gain confidence, the interface is badly factored.
+3. **The deletion test.** Picture the module gone. If the complexity vanishes, it was an empty wrapper. If the complexity spreads across callers, the module was earning its place.
 
 ## Dependency Categories across Seams
 
-When deepening a cluster of components, categorize its dependencies to determine how testing crosses the seam:
+When deepening a cluster, sort its dependencies first. The category decides how tests cross the seam:
 
-| Category | Characteristic | Seam and Testing Strategy |
+| Category | Trait | Seam and test strategy |
 |---|---|---|
-| **In-Process** | Pure computation, memory state, no I/O | Merge modules directly; exercise via the new interface with zero adapters |
-| **Local-Substitutable** | Replaceable with fast local test doubles (in-memory SQLite/PGLite, temp filesystem) | Internal seam; test suite runs against the local substitute |
-| **Owned Remote Services** | Internal APIs, microservices, databases across network boundaries | Ports & Adapters: Deep module owns domain logic; transport injected via adapter |
-| **External Third-Party** | Third-party systems (payment gateways, messaging vendors) | Port at the seam; production uses client SDK adapter, tests use bounded fake adapter |
+| **In-Process** | Pure computation or in-memory state, no I/O | Merge the modules; test through the new interface with no adapters |
+| **Local-Substitutable** | Swappable for a fast local double (in-memory SQLite/PGLite, temp filesystem) | Internal seam; run the suite against the local substitute |
+| **Owned Remote Services** | Your own APIs, microservices, or databases across the network | Ports & Adapters: the deep module owns domain logic, transport comes in via an adapter |
+| **External Third-Party** | Outside vendors (payment gateways, messaging providers) | Port at the seam; production uses the vendor SDK adapter, tests use a bounded fake |
 
 ## Seam Discipline and Adapter Grounding
 
-- **Two-Adapter Rule:** A single adapter represents a hypothetical seam that adds indirection without leverage. A seam is justified when at least two concrete adapters exist (e.g., production client and in-memory test double).
-- **Internal vs. External Seams:** Internal seams remain private to the module implementation. Never export an internal seam solely to satisfy a test runner.
-- **Replace, Don't Layer:** When shallow components are collapsed into a deep module, delete obsolete unit tests that checked individual pass-through layers. Author fresh tests targeting the unified public interface.
-- **Tests Survive Refactors:** Assert observable outcomes through the interface. A test that must change when only the implementation changes is testing past the seam.
+- **Two-adapter rule:** one adapter means a hypothetical seam: indirection without leverage. Justify a seam with at least two real adapters (say, the production client and an in-memory double).
+- **Internal vs. external:** internal seams stay private. Never export one just to please a test runner.
+- **Replace, don't layer:** when shallow pieces collapse into a deep module, delete the tests that covered each pass-through layer and write new ones against the unified public interface.
+- **Tests outlive refactors:** assert observable outcomes through the interface. A test that breaks when only the implementation changes is probing past the seam.

@@ -1,6 +1,6 @@
 # Debugging Phases
 
-The single debugging method for this skill: open it for any bug, failing test, or unexplained behavior whose cause is not already proven. Layer-by-layer network triage lives in [diagnostics.md](diagnostics.md); known failure shapes in [diagnostics-real-world-cases.md](diagnostics-real-world-cases.md). Production with users affected goes through [incident-response.md](incident-response.md) first; resume here against the evidence it preserved.
+The one debugging method in this skill. Open it for any bug, failing test, or unexplained behavior whose cause is not yet proven. Network triage by layer is in [diagnostics.md](diagnostics.md); recurring failure shapes are in [diagnostics-real-world-cases.md](diagnostics-real-world-cases.md). If users in production are affected, start with [incident-response.md](incident-response.md) and return here with the evidence it saved.
 
 ## Contents
 - [Phase 0 — Capture and redact](#phase-0--capture-and-redact)
@@ -15,121 +15,121 @@ The single debugging method for this skill: open it for any bug, failing test, o
 
 ## Phase 0 — Capture and redact
 
-The symptom changes once you start poking. Record it first, then strip anything sensitive before it reaches chat, a ticket, or a commit message.
+Poking at a system changes the symptom. Record it first, then remove anything sensitive before it reaches chat, a ticket, or a commit message.
 
 ```bash
-cmd 2>&1 | tail -40 > /tmp/symptom.log            # raw evidence stays on disk, not in context
+cmd 2>&1 | tail -40 > /tmp/symptom.log            # raw evidence stays on disk, out of context
 git log --oneline -10 && git log --since='2 days ago' --oneline | wc -l
 sed -E -e 's/((authorization|cookie|set-cookie): ).*/\1<REDACTED>/I' \
        -e 's/((api[_-]?key|token|secret|password)=)[^&" ]+/\1<REDACTED>/Ig' \
        -e 's/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/<EMAIL>/g' /tmp/symptom.log | rg -n 'error|warn|fail' | head -20
 ```
 
-- Write down the exact symptom, environment, first occurrence, expected behavior, and the last known good state. A symptom you cannot restate precisely is one you cannot test.
-- Redact before quoting: credentials, session cookies, auth headers, signed URLs, and personal data (names, emails, phone numbers, user-linked IPs and ids) become `<REDACTED>`. A pattern pass is a first filter, not proof; read what you quote.
-- Quote only the lines that carry the signal. Build loops that read credentials from environment variables so the secret never appears in a command you show.
-- If the redacted evidence is not enough to diagnose, say so and ask for access or a sanitized artifact. Never paste a full log into context.
+- Record the exact symptom, the environment, when it first appeared, the expected behavior, and the last known good state. If you cannot restate the symptom precisely, you cannot test for it.
+- Redact before you quote: credentials, session cookies, auth headers, signed URLs, and personal data (names, emails, phone numbers, user-linked IPs and ids) become `<REDACTED>`. A pattern pass is only a first filter; read what you quote.
+- Quote only the lines that carry signal. Have loops read credentials from environment variables so no secret appears in a command you display.
+- If the redacted evidence cannot support a diagnosis, say so and ask for access or a sanitized artifact. Never paste a whole log into context.
 
 ## Phase 1 — Build a loop that can go red
 
-Everything later consumes this signal. With a fast pass/fail check that fails on *this* bug, bisection and hypothesis tests become mechanical; without one, reading code only produces theories. Invest here first.
+Everything after this consumes the loop's signal. A fast pass/fail check that fails on *this* bug makes bisection and hypothesis testing mechanical; without one, reading code only breeds theories. Spend your effort here first.
 
-Pick the cheapest loop that reaches the failing path:
+Choose the cheapest loop that reaches the failing path:
 
 | Situation | Loop |
 |---|---|
 | A test seam reaches the bug | Failing unit, integration, or e2e test |
-| Running service | Scripted `curl` or HTTP client call asserting the bad response |
-| CLI or batch job | Fixture input with stdout diffed against a known-good snapshot |
+| Running service | Scripted `curl` or HTTP client call that asserts the bad response |
+| CLI or batch job | Fixture input, stdout diffed against a known-good snapshot |
 | Browser-only symptom | Playwright script asserting on DOM, console, or network |
 | Captured production input | Replay the saved request, payload, or event log through the code path |
 | Large system, small suspect | Throwaway harness: one function call, dependencies stubbed |
-| Wrong output sometimes | Property or fuzz loop over many generated inputs |
+| Output wrong only sometimes | Property or fuzz loop over many generated inputs |
 | Worked at A, fails at B | `git bisect run ./check.sh` between the two states |
-| Two versions or configs disagree | Differential run, diffing their outputs |
-| Only a human can trigger it | Scripted prompt that tells them each step and captures the result |
+| Two versions or configs disagree | Differential run comparing their outputs |
+| Only a human can trigger it | Scripted prompt that walks them through each step and captures the result |
 
-Then tighten it: cut setup and unrelated initialization until it runs in seconds; assert on the specific symptom rather than "did not crash"; pin time, seed randomness, isolate the filesystem, and stub the network until the verdict repeats.
+Then tighten it. Trim setup and unrelated initialization until it runs in seconds. Assert the specific symptom, not merely "did not crash". Pin time, seed randomness, isolate the filesystem, and stub the network until the verdict repeats.
 
-**Non-deterministic bugs.** Raise the reproduction rate before forming any hypothesis; a cause guessed at 1% repro cannot be confirmed or refuted. Loop the trigger many times, run it alone, in suite order, then shuffled or reversed to expose ordering coupling, parallelise, add load, and narrow timing windows. Attribute what remains to one source: time and timezone, concurrency and async ordering, or shared state (rows, temp files, module singletons, ports). Record the rate before and after the fix from the same command.
+**Non-deterministic bugs.** Raise the reproduction rate before you form any hypothesis; a cause guessed at 1% repro can be neither confirmed nor refuted. Loop the trigger many times. Run it alone, in suite order, then shuffled or reversed to expose ordering coupling. Add parallelism and load, and narrow timing windows. Pin what remains to one source: time and timezone, concurrency and async ordering, or shared state (rows, temp files, module singletons, ports). Record the rate before and after the fix using the same command.
 
-**No loop possible.** Say so, list what was tried, and ask for one of: access to the environment that reproduces it, a redacted artifact (HAR, log dump, core dump, timestamped recording), or permission for temporary production instrumentation. Do not move to hypotheses.
+**No loop possible.** Say so, list what you tried, and ask for one of: access to an environment that reproduces it, a redacted artifact (HAR, log dump, core dump, timestamped recording), or permission to add temporary instrumentation in production. Do not proceed to hypotheses.
 
-**Exit criterion.** Phase 1 is complete only when you can name one command that you have already run, with its redacted invocation and output shown, and that is:
-- [ ] **Red-capable**: it drives the real failing path and asserts the user's exact symptom, so it fails now and will pass once fixed.
-- [ ] **Repeatable**: the same verdict every run, or a pinned, high reproduction rate for flaky bugs.
+**Exit criterion.** Phase 1 is done only when you can name one command, already run, with its redacted invocation and output shown, that is:
+- [ ] **Red-capable**: it drives the real failing path and asserts the user's exact symptom, so it fails now and passes once fixed.
+- [ ] **Repeatable**: same verdict every run, or a pinned, high reproduction rate for flaky bugs.
 - [ ] **Fast**: seconds, not minutes.
-- [ ] **Unattended**: runnable by the agent; a human only through a scripted prompt.
+- [ ] **Unattended**: the agent can run it; a human only via a scripted prompt.
 
-Reading code to build a theory before this command exists is the failure this method prevents.
+Building a theory from code before this command exists is exactly the failure this method prevents.
 
 ## Phase 2 — Reproduce and minimize
 
-Run the loop and watch it fail. Confirm it fails with the failure the user reported, not a neighboring one; a wrong bug yields a wrong fix. Keep the exact error text, wrong value, or timing for later comparison.
+Run the loop and watch it fail. Check that it fails with the failure the user reported, not a neighboring one; the wrong bug gets the wrong fix. Save the exact error text, wrong value, or timing to compare against later.
 
-**Minimize.** Remove one input, caller, config key, data row, or step at a time, re-running the loop after each cut, and keep only what the failure needs. Done when every remaining element is load-bearing: removing any one turns the loop green. The minimal case shrinks the hypothesis space and becomes the regression test.
+**Minimize.** Drop one input, caller, config key, data row, or step at a time, rerunning the loop after each cut, and keep only what the failure needs. You are done when every remaining element is load-bearing: removing any one turns the loop green. The minimal case narrows the hypothesis space and becomes the regression test.
 
 ## Phase 3 — Hypothesise
 
 One rule: **list several candidates, test one at a time.**
 
-1. Diff against the last known good state — code, config, data, dependency, infrastructure. The deploy timeline and `git log --since` usually name the window.
-2. Write 3–5 candidate causes, ranked by likelihood and cost to falsify. A single candidate anchors on the first plausible idea.
-3. Make each falsifiable: "If X is the cause, changing Y makes the bug disappear and changing Z makes it worse." A candidate with no prediction is a guess; sharpen or drop it.
-4. Show the ranked list to the user when present, since domain knowledge often re-ranks it instantly; do not block on a reply.
-5. Test exactly one candidate per experiment, top of the list first, and write down what each result eliminated.
+1. Diff against the last known good state: code, config, data, dependency, infrastructure. The deploy timeline and `git log --since` usually point to the window.
+2. Write 3 to 5 candidate causes, ranked by likelihood and by how cheaply each can be falsified. A single candidate anchors you on the first plausible idea.
+3. Make each one falsifiable: "If X is the cause, changing Y makes the bug vanish and changing Z makes it worse." A candidate that predicts nothing is a guess; sharpen it or drop it.
+4. If the user is present, show the ranked list, since domain knowledge often re-ranks it instantly; do not wait for a reply.
+5. Run exactly one experiment per candidate, best-ranked first, and note what each result ruled out.
 
-After three refuted candidates, stop generating more: the system model is wrong. Rebuild it from observed behavior, or escalate with the list of what has been eliminated.
+After three refuted candidates, stop generating more: your model of the system is wrong. Rebuild it from observed behavior, or escalate with the list of what has been eliminated.
 
 ## Phase 4 — Instrument
 
-Every probe answers a prediction from Phase 3. Change one variable at a time.
+Each probe must answer a prediction from Phase 3. Change one variable at a time.
 
-- Split the failing path at observable boundaries (API → service → store, CI → build → sign); each split should halve the suspect surface. Log what enters and leaves each boundary once, then investigate the boundary where the value first goes wrong.
+- Divide the failing path at observable boundaries (API → service → store, CI → build → sign) so each split halves the suspect surface. Log what enters and leaves each boundary once, then dig into the boundary where the value first goes wrong.
 - Prefer a debugger or REPL; one breakpoint beats ten log lines. Otherwise add targeted logs at the boundaries that separate candidates. Never log everything and grep.
-- Tag every temporary log with a unique prefix such as `[DEBUG-a4f2]` so cleanup is one search. Temporary logs obey Phase 0 redaction.
-- Slow but correct: take a baseline measurement first (timer, profiler, query plan), then bisect. Optimization itself belongs to `performance-engineering`.
+- Give every temporary log a unique prefix such as `[DEBUG-a4f2]` so cleanup is a single search. Temporary logs follow the Phase 0 redaction rules.
+- For slow-but-correct behavior, take a baseline measurement first (timer, profiler, query plan), then bisect. Optimization itself belongs to `performance-engineering`.
 
 ## Phase 5 — Fix and regression test
 
-Fix the cause, not the symptom. One change; no bundled refactor.
+Fix the cause, not the symptom. Make one change, with no refactor bundled in.
 
-A regression test needs a seam that exercises the real bug pattern as it occurs at the call site. If the only available seam is too shallow — one caller when the bug needs two, a unit test that cannot recreate the triggering chain — say so: the architecture is blocking a durable lock-down, and that is a finding.
+A regression test needs a seam that reproduces the real bug pattern as it occurs at the call site. If the only seam available is too shallow, such as one caller when the bug needs two, or a unit test that cannot recreate the triggering chain, say so: the architecture is blocking a durable lock-down, and that is a finding.
 
-With a correct seam:
+With a proper seam:
 1. Turn the minimized case into a failing test.
-2. Watch it fail. If you forced the failure by mutating code or a fixture, diff against a clean copy to prove the mutation landed.
+2. Watch it fail. If you forced the failure by mutating code or a fixture, diff against a clean copy to prove the mutation took effect.
 3. Apply the fix and watch the test pass.
-4. Re-run the Phase 1 command against the original full scenario, plus one adjacent failure path.
+4. Rerun the Phase 1 command on the original full scenario, plus one adjacent failure path.
 
-A fix you cannot explain is a coincidence. If the symptom vanished and you do not know why, it will return. Do not call correlation a cause until the loop changes predictably when you change the suspected cause.
+A fix you cannot explain is a coincidence. If the symptom vanished and you do not know why, it will come back. Do not call correlation a cause until the loop changes predictably when you change the suspected cause.
 
 ## Phase 6 — Cleanup
 
-- [ ] Phase 1 command now passes; the original scenario no longer reproduces.
-- [ ] Regression test passes, or the missing seam is documented.
-- [ ] `rg -n 'DEBUG-a4f2'` returns nothing; throwaway harnesses deleted.
-- [ ] Captured logs and artifacts shared anywhere are redacted.
-- [ ] The confirmed cause is stated in the commit or PR message.
+- [ ] The Phase 1 command now passes; the original scenario no longer reproduces.
+- [ ] The regression test passes, or the missing seam is documented.
+- [ ] `rg -n 'DEBUG-a4f2'` finds nothing; throwaway harnesses are deleted.
+- [ ] Any captured logs and artifacts shared elsewhere are redacted.
+- [ ] The confirmed cause appears in the commit or PR message.
 
 Then ask what would have prevented the bug. Architectural changes go to `software-architecture` after the fix lands.
 
 ## Stop
 
-- Experiments stop reducing uncertainty, or three candidates are refuted. Rebuild the model or escalate with what has been eliminated.
-- Three fixes have failed, or each fix surfaces a new symptom elsewhere. The design is the problem; discuss it before a fourth attempt.
+- Experiments no longer reduce uncertainty, or three candidates are refuted. Rebuild the model or escalate with what has been eliminated.
+- Three fixes have failed, or each fix exposes a new symptom elsewhere. The design is the problem; discuss it before a fourth attempt.
 - Production users are affected. Mitigate through [incident-response.md](incident-response.md) first.
-- Diagnosis needs a secret or personal data that cannot be redacted. Ask instead of quoting it.
+- Diagnosis requires a secret or personal data that cannot be redacted. Ask instead of quoting it.
 
 ## Red flags
 
 | Thought | Reality |
 |---|---|
-| "It's obviously X, let me just fix it" | Without a red loop there is no way to tell a fix from a coincidence |
-| "Quick patch now, investigate later" | The first patch sets the pattern and hides the cause |
+| "It's obviously X, let me just fix it" | With no red loop, a fix is indistinguishable from a coincidence |
+| "Quick patch now, investigate later" | The first patch sets the pattern and buries the cause |
 | "It only fails sometimes, so I'll guess" | Raise the repro rate first; a flaky signal confirms nothing |
 | "I'll change these three things together" | One variable per experiment, or the result means nothing |
 | "I'll add the test after it works" | A test that never failed proves nothing about this bug |
 | "The full log is easier to paste" | Raw logs carry secrets and PII; redact and quote the signal |
-| "One more fix attempt" after two failures | Return to Phase 1; after three, question the design |
-| "It stopped happening" | Unexplained disappearance is not a fix |
+| "One more fix attempt" after two failures | Go back to Phase 1; after three, question the design |
+| "It stopped happening" | A symptom that vanishes unexplained is not a fix |
