@@ -1,7 +1,7 @@
 ---
 name: web-research
 description: |
-  Conduct live web research, scraping, and verification. Use for multi-source search, HTML tables, library versions, video soundtrack/media identification, changelogs, and citations. Trigger on 'what is the latest version', 'look this up', 'identify the song in this video', 'de onde e essa musica'.
+  Conduct live web research, scraping, and verification. Use for multi-source search, HTML tables, library versions and breaking changes before upgrade, video soundtrack/media identification, changelogs, and citations. Trigger on 'what is the latest version', 'look this up', 'identify the song in this video', 'de onde e essa musica'.
 ---
 
 
