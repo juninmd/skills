@@ -1051,7 +1051,11 @@
     "indnkeyatts",
     "BYPASSRLS",
     "Homologating",
-    "valide"
+    "valide",
+    "DTCG",
+    "webstatus",
+    "prerender",
+    "speculationrules"
   ],
   "ignorePaths": [
     "node_modules/**"

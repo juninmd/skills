@@ -15,6 +15,7 @@ Read only the files needed for the current task.
 | `frontend-review.md` | Auditing UI code before merge: the a11y/layout/responsiveness checklist, severity levels (Blocker/Major/Minor/Nit), and the file:line review output format |
 | `masonry-layouts.md` | Choosing between CSS multi-column, a JS masonry library, or native `grid-template-rows: masonry` — decided by whether visual order must match DOM order |
 | `mobile-web-polish.md` | Eliminating mobile web browser defects: `100dvh` viewport units, sticky hover elimination, safe area insets, 16px input zoom prevention, and tap highlight suppression |
+| `modern-web-platform.md` | Which standard to target (WCAG 2.2, Core Web Vitals, DTCG tokens), Baseline adoption policy, and native CSS/HTML alternatives to libraries: `@layer`, container queries, `:has()`, popover, `<dialog>`, anchor positioning, View Transitions, INP tactics |
 | `motion-audit.md` | Auditing codebase animations: spotting missing polish or abrupt pops, diagnosing sluggish over-animation, scoring motion quality, and prioritized remediation matrices |
 | `motion-code-review.md` | Adversarial review standards for motion: property checks (no layout reflows), blanket transition bans (`transition: all`), duration caps, and reduced-motion enforcement |
 | `motion-design-principles.md` | Purposeful animation foundations: motion decision framework, perceptual duration budgets (100ms–350ms), spring physics vs easing curves, and state interruptibility |
