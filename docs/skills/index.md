@@ -20,7 +20,7 @@ The catalog contains 37 domain skills. They are intentionally broader than singl
 | `git-branch-cleanup` | bulk branch cleanup, repository housekeeping, removing stale branches after PR merges, and cleaning gone tracking branches |
 | `git-workflow` | branches, worktrees, rebase conflicts, reflog recovery, stash, bisect, conventional commits, semantic version bumps, changelogs, and release tags |
 | `goldsrc-modding` | Valve 220 .map geometry, ZHLT/VHLT compiles, BSP30 lumps, CS 1.6 entities, and Pawn (.sma/.amxx) natives, forwards, precache, and crash forensics |
-| `homologate` | live-environment acceptance, forcing the real flow end to end, confirming the deployed version, and a Proven, Failed, or Unproven verdict |
+| `homologate` | live-environment cluster acceptance with evidence, forcing the real flow end to end, confirming the deployed version, and a Proven, Failed, or Unproven verdict |
 | `ios-engineering` | Swift optionals, concurrency and memory, SwiftUI views, UIKit and Auto Layout, Metal shaders, WidgetKit, iOS permissions and system integration, and App Store readiness |
 | `local-dubbing` | reference audio, dialogue translation, distinct character voices, pronunciation, and original-versus-synthetic comparison |
 | `mobile-engineering` | React Native, Expo, Flutter, and native Android UI, lifecycle, navigation, permissions, offline behavior, accessibility, localization, device integration, tests, and builds |
@@ -34,11 +34,11 @@ The catalog contains 37 domain skills. They are intentionally broader than singl
 | `readme-standard` | Create or audit a project README |
 | `release-autoupdate` | Automate releases and in-app updates for desktop and CLI tools, including Tauri 2 apps: automatic tag and release from Conventional Commits, signed installers, verified latest |
 | `requirements-planning` | acceptance criteria, PRDs and specs, implementation briefs with finish lines, vertical-slice backlog issues, and triage of incoming issues |
-| `security-ops` | CVE scans, registry publication age and provenance, vulnerability audits, pen tests, Gitleaks, least privilege, threat modeling, LGPD/GDPR, and plugin/MCP vetting (prompt injection, unpinned npx) |
+| `security-ops` | CVE scans, registry provenance, vulnerability audits, pen tests, least privilege, LGPD/GDPR, and auditing third-party MCP servers, extensions and plugins (prompt injection, data exfiltration, unpinned npx) |
 | `skill-authoring` | a new SKILL.md, gotchas sections, progressive-disclosure references, skill scripts and persistent data, splitting a skill that straddles domains, and deciding whether a recurring task deserves a skill |
 | `software-architecture` | module boundaries, ubiquitous language and CONTEXT.md glossaries, repository layout, Electron multi-process security, ADRs, and circular dependencies |
 | `stack-selection` | TypeScript, Bun versus Node, pnpm, uv, NestJS, Biome, Scalar versus Swagger, an LLM SDK, default for a desktop app (Tauri or Electron), picking a package manager or test runner, framework, ORM, linter, or UI library (toasts), and adopting or replacing a dependency |
-| `starting-dev` | AGENTS.md or CLAUDE.md project instructions and README, onboarding by charting a codebase and its dependency map, the dev loop (research, throwaway prototypes, plan, implement), worktrees awaiting PRs, task stages, session handoff notes |
+| `starting-dev` | authoring AGENTS.md or CLAUDE.md project instructions, onboarding by charting a codebase and dependency map, the dev loop (research, throwaway prototype variants, plan), handoff notes with state and next actions |
 | `test-engineering` | test-first TDD before implementing a feature or bugfix, unit and integration tests, Vitest, pytest, Playwright E2E, flaky test elimination, LLM gateway conformance, and coverage |
 | `threejs` | GLTF/GLB model viewers, cameras, lighting, raycasting, shaders, animation, WebGL/WebGPU rendering, asset loading, scene performance, and GPU resource cleanup |
 | `tooling-dev` | CLI arguments, exit codes, non-interactive execution, config discovery, signals, structured output, packaging, and integration tests |
