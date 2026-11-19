@@ -102,3 +102,86 @@ function copyDirectory(src, dest) {
     }
   }
 }
+
+export function generatePlugins(root = REPO_ROOT) {
+  const rootManifest = JSON.parse(fs.readFileSync(path.join(root, "plugin.json"), "utf8"));
+  const version = rootManifest.version;
+  const license = rootManifest.license;
+  const author = rootManifest.author;
+
+  const pluginsDir = path.join(root, "plugins");
+  const resolvedRoot = path.resolve(root);
+  const resolvedPlugins = path.resolve(pluginsDir);
+  if (!resolvedPlugins.startsWith(`${resolvedRoot}${path.sep}`)) {
+    throw new Error(`Refusing to remove generated plugins outside the provided root: ${resolvedPlugins}`);
+  }
+  fs.rmSync(resolvedPlugins, { recursive: true, force: true });
+  fs.mkdirSync(pluginsDir, { recursive: true });
+
+  const marketplacePlugins = [
+    {
+      name: "juninmd",
+      source: "./.agents",
+      description: "Complete bundle: all 36 production-grade engineering skills.",
+      version,
+    },
+  ];
+
+  let totalMappedSkills = 0;
+
+  for (const [key, ctx] of Object.entries(PLUGIN_CONTEXTS)) {
+    const contextDir = path.join(pluginsDir, key);
+    const claudeDir = path.join(contextDir, ".claude-plugin");
+    const skillsDest = path.join(contextDir, "skills");
+
+    fs.mkdirSync(claudeDir, { recursive: true });
+    fs.mkdirSync(skillsDest, { recursive: true });
+
+    // 1. Copy designated skills
+    for (const skill of ctx.skills) {
+      const srcSkill = path.join(root, ".agents", "skills", skill);
+      if (!fs.existsSync(srcSkill)) {
+        throw new Error(`Context '${key}' references non-existent skill: ${skill}`);
+      }
+      copyDirectory(srcSkill, path.join(skillsDest, skill));
+      totalMappedSkills += 1;
+    }
+
+    // 2. Write plugin.json for the context
+    const pluginJson = {
+      name: ctx.name,
+      displayName: ctx.displayName,
+      description: ctx.description,
+      version,
+      author,
+      homepage: rootManifest.homepage,
+      repository: rootManifest.repository,
+      license,
+      keywords: ctx.keywords,
+    };
+    fs.writeFileSync(
+      path.join(claudeDir, "plugin.json"),
+      JSON.stringify(pluginJson, null, 2) + "\n"
+    );
+
+    // 3. Register in marketplace
+    marketplacePlugins.push({
+      name: ctx.name,
+      source: `./plugins/${key}`,
+      description: ctx.description,
+      version,
+    });
+  }
+
+  // Write updated marketplace.json
+  const marketplacePath = path.join(root, ".claude-plugin", "marketplace.json");
+  const marketplace = JSON.parse(fs.readFileSync(marketplacePath, "utf8"));
+  marketplace.plugins = marketplacePlugins;
+  fs.writeFileSync(marketplacePath, JSON.stringify(marketplace, null, 2) + "\n");
+
+  console.log(`Generated 5 contextual plugins (${totalMappedSkills} skills partitioned) alongside master 'juninmd' bundle.`);
+}
+
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  generatePlugins();
+}
