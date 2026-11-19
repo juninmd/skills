@@ -26,6 +26,8 @@ Every pull request body carries proof of the change. Which proof depends on what
 | Database or config schema | Resulting schema excerpt plus a sample record |
 | Pure refactor with no observable change | State that explicitly, with the gates that prove behaviour is unchanged |
 
+Skill, docs, config, CI, and tooling changes have no screenshot: the evidence is a fenced block with the real output of `pnpm run validate` (or the scoped gate), a CI run link, or a rendered excerpt. `pnpm run pr:evidence` (CI: `pr-evidence.yml`) fails a body with no `## Evidence` section, only placeholders, prose only, or local/raw URLs; it checks form, not truth.
+
 A change can require both: an endpoint that also renders a screen gets the payload and the screenshot.
 
 Choose evidence from the actual diff and acceptance criteria. Static presentation needs screenshots; behavior across time needs a recording when still images cannot prove it; output wording alone needs text. Do not demand all formats for every PR. In `## Evidence`, state which formats apply and explain any relevant format marked not applicable. A required capture that is unavailable is a blocker, not an exemption.

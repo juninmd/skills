@@ -16,6 +16,7 @@
     "evals:check": "node .agents/tools/run-evals.mjs .agents --check --min-rank1 95",
     "evals:plugin": "claude plugin eval .agents --no-publish --max-cost-usd 5 --threshold 0.8",
     "pr:check": "node .agents/tools/pr-skill-checks.mjs",
+    "pr:evidence": "node .agents/tools/check-pr-evidence.mjs",
     "test:validators": "node --test .agents/tools/*.test.mjs",
     "dependencies:age": "node .agents/tools/check-dependency-age.mjs",
     "dependencies:audit": "pnpm audit --ignore=GHSA-fc5q-39xc-vjpf",
