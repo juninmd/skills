@@ -8,7 +8,7 @@ import sys
 import urllib.parse
 
 
-def run_cmd(cmd, check=True):
+def run_cmd(cmd: list[str], check=True):
     # Argument lists, never shell=True: branch names are untrusted and may contain $(...) or backticks.
     res = subprocess.run(cmd, capture_output=True, text=True)
     if check and res.returncode != 0:
