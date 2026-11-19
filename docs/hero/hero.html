@@ -1,0 +1,97 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>hero</title>
+<style>
+  :root { --bg:#0b1020; --fg:#e6edf7; --mut:#7c89a6; --acc:#2dd4bf; --vio:#8b5cf6; --line:#1c2742; }
+  * { box-sizing:border-box; margin:0; }
+  body { width:960px; height:420px; overflow:hidden; background:var(--bg); color:var(--fg);
+         font:500 15px/1.3 ui-monospace,"SF Mono",Menlo,Consolas,"DejaVu Sans Mono",monospace; position:relative; }
+  .glow { position:absolute; inset:-40%; background:radial-gradient(closest-side,#8b5cf633,transparent 70%); }
+  .abs { position:absolute; }
+  #prompt { left:48px; top:36px; right:48px; height:46px; border:1px solid var(--line); border-radius:10px;
+            padding:13px 16px; background:#0f1730; white-space:nowrap; overflow:hidden; }
+  #prompt b { color:var(--acc); font-weight:700; }
+  #chips { left:48px; top:104px; width:864px; display:flex; flex-wrap:wrap; gap:6px 6px; }
+  .chip { font-size:11.5px; padding:4px 8px; border-radius:999px; border:1px solid var(--line); color:var(--mut); background:#0f1730; }
+  #steps { left:48px; top:104px; width:420px; }
+  .step { height:42px; display:flex; align-items:center; gap:14px; font-size:17px; margin-bottom:8px; }
+  .dot { width:22px; height:22px; border-radius:50%; border:2px solid var(--line); display:grid; place-items:center; font-size:13px; color:#04201c; }
+  #stats { left:48px; top:120px; width:864px; display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .stat { border:1px solid var(--line); border-radius:12px; padding:18px 16px; background:#0f1730; }
+  .stat .n { font-size:42px; font-weight:800; color:var(--acc); letter-spacing:-1px; }
+  .stat .l { color:var(--mut); font-size:13px; margin-top:6px; }
+  #end { left:0; right:0; top:110px; text-align:center; }
+  #end h1 { font:800 46px/1.1 ui-sans-serif,system-ui,"Segoe UI",Helvetica,Arial,sans-serif; letter-spacing:-1.5px; }
+  #end h1 span { color:var(--acc); }
+  #end p { color:var(--mut); margin-top:14px; font-size:17px; }
+  #end code { display:inline-block; margin-top:26px; padding:12px 18px; border:1px solid var(--line); border-radius:10px; background:#0f1730; color:var(--acc); }
+  #cap { left:48px; bottom:22px; color:var(--mut); font-size:13px; letter-spacing:.14em; text-transform:uppercase; }
+  #bar { left:0; bottom:0; height:3px; background:linear-gradient(90deg,var(--vio),var(--acc)); }
+</style>
+<div class="glow"></div>
+<div id="prompt" class="abs"><b>›</b> <span id="ptxt"></span><span id="caret">▍</span></div>
+<div id="chips" class="abs"></div>
+<div id="steps" class="abs"></div>
+<div id="stats" class="abs"></div>
+<div id="end" class="abs"></div>
+<div id="cap" class="abs"></div>
+<div id="bar" class="abs"></div>
+<script>
+const NAMES = "__NAMES__".trim().split(/\s+/);
+const MATCH = "test-engineering";
+const PROMPT = "fix the flaky checkout test and prove it";
+const STEPS = ["Preflight: read the real state","Reproduce: a failing test first","Patch: smallest correct diff","Verify: run it, show the output"];
+const STATS = [[39,"skills routed by description",""],[204,"of 204 routing prompts correct","/204"],[100,"tokens per skill description","≤"],[140,"validator tests in CI",""]];
+const DUR = 9.0;
+const clamp = (x)=>Math.max(0,Math.min(1,x));
+const seg = (t,a,b)=>clamp((t-a)/(b-a));
+const ease = (x)=>1-Math.pow(1-x,3);
+const $ = (id)=>document.getElementById(id);
+$("chips").innerHTML = NAMES.map(n=>`<span class="chip" data-n="${n}">${n}</span>`).join("");
+$("steps").innerHTML = STEPS.map(s=>`<div class="step"><div class="dot"></div><span>${s}</span></div>`).join("");
+$("stats").innerHTML = STATS.map(s=>`<div class="stat"><div class="n"></div><div class="l">${s[1]}</div></div>`).join("");
+$("end").innerHTML = `<h1>Engineering Skills <span>· Evidence First</span></h1><p>Discover intent. Change surgically. Prove it.</p><code>node .agents/tools/install.mjs all</code>`;
+const chips=[...document.querySelectorAll(".chip")], steps=[...document.querySelectorAll(".step")], stats=[...document.querySelectorAll(".stat")];
+window.render = (t) => {
+  // prompt typing 0.2-1.8s
+  const n = Math.floor(PROMPT.length*seg(t,0.2,1.8));
+  $("ptxt").textContent = PROMPT.slice(0,n);
+  $("caret").style.opacity = (Math.floor(t*3)%2===0 || t<1.9)?1:0;
+  const pOut = 1-ease(seg(t,8.4,8.9));
+  $("prompt").style.opacity = pOut; $("prompt").style.transform = `translateY(${(1-pOut)*-16}px)`;
+  // chips 1.9-4.0: appear staggered, then dim all but match
+  const routeIn = seg(t,1.9,2.9), routeOut = seg(t,3.6,4.3);
+  $("chips").style.opacity = t<1.9?0:(1-ease(seg(t,4.3,4.8)));
+  chips.forEach((c,i)=>{
+    const a = ease(clamp(routeIn*1.6 - i/NAMES.length*0.6));
+    const isM = c.dataset.n===MATCH;
+    const scan = seg(t,2.9,3.6); // beam moves through the list
+    const lit = (i/NAMES.length) < scan;
+    c.style.opacity = isM ? a : a*(1-0.75*ease(routeOut)) ;
+    c.style.borderColor = isM && scan>=1 ? "var(--acc)" : (lit && !isM ? "#2a3a66" : "var(--line)");
+    c.style.color = isM && scan>=1 ? "#04201c" : "var(--mut)";
+    c.style.background = isM && scan>=1 ? "var(--acc)" : "#0f1730";
+    c.style.transform = isM ? `scale(${1+0.18*ease(seg(t,3.5,3.9))})` : "none";
+  });
+  // steps 4.6-6.4
+  $("steps").style.opacity = t<4.6?0:(1-ease(seg(t,6.5,6.9)));
+  steps.forEach((s,i)=>{
+    const a = ease(seg(t,4.6+i*0.4,5.0+i*0.4)), d = seg(t,5.1+i*0.42,5.3+i*0.42)>=1;
+    s.style.opacity=a; s.style.transform=`translateX(${(1-a)*-24}px)`;
+    const dot=s.firstChild; dot.style.background=d?"var(--acc)":"transparent"; dot.style.borderColor=d?"var(--acc)":"var(--line)"; dot.textContent=d?"✓":"";
+  });
+  // stats 6.6-8.4
+  $("stats").style.opacity = t<6.6?0:(1-ease(seg(t,8.4,8.9)));
+  stats.forEach((s,i)=>{
+    const a = ease(seg(t,6.6+i*0.15,7.1+i*0.15)); const v = Math.round(STATS[i][0]*ease(seg(t,6.7+i*0.15,7.7+i*0.15)));
+    s.style.opacity=a; s.style.transform=`translateY(${(1-a)*18}px)`;
+    s.querySelector(".n").textContent = (STATS[i][2]==="≤"?"≤":"")+v+(STATS[i][2]==="/204"?"":"");
+  });
+  // end card 8.3-9.0 fades in; loop covers by holding last frames
+  const e = ease(seg(t,8.5,9.0)); $("end").style.opacity=e; $("end").style.transform=`translateY(${(1-e)*14}px)`;
+  const cap = t<4.6?"1 · route":t<6.6?"2 · execute":t<8.5?"3 · prove":"";
+  $("cap").textContent = cap;
+  $("bar").style.width = (t/DUR*960)+"px";
+};
+render(0);
+</script>
