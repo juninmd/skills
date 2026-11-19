@@ -71,12 +71,12 @@ Workflows end in a check you run: a test, a smoke command, or an explicit stop c
 
 ## What it is
 
-A catalog of 36 engineering skills plus shared operating instructions for AI coding assistants (Claude Code, Codex, Antigravity, opencode). It is for engineers who want an assistant to follow a domain workflow and stop with evidence instead of improvising. Each skill is a short `SKILL.md` with deeper procedures in `references/`, and the repository ships the validators that keep that contract honest.
+A catalog of 36 engineering skills plus shared operating instructions for AI coding assistants (Claude Code, Codex, Antigravity, opencode, Cursor, Copilot CLI). It is for engineers who want an assistant to follow a domain workflow and stop with evidence instead of improvising. Each skill is a short `SKILL.md` with deeper procedures in `references/`, and the repository ships the validators that keep that contract honest.
 
 ### Features
 
 - **36 domain skills** under `.agents/skills/`, routed by a one-line description.
-- **Symlink installer** (`.agents/tools/install.mjs`) that links one checkout into four clients.
+- **Symlink installer** (`.agents/tools/install.mjs`) that links one checkout into six clients.
 - **Claude Code plugins**: one full bundle and five domain bundles, listed in `.claude-plugin/marketplace.json`.
 - **Validators** in `.agents/tools/`: frontmatter, catalog, token budgets, routing evals, approved domains, and links.
 - **Documentation site** built with VitePress from `docs/`.
@@ -91,7 +91,7 @@ Pick **one** install method per client.
 
 | Method | Clients | Stays in sync with the repo | Includes operating instructions |
 |---|---|---|---|
-| [Symlink install](#symlink-install) | Claude Code, Codex, Antigravity, opencode | yes, live | instructions and configs |
+| [Symlink install](#symlink-install) | Claude Code, Codex, Antigravity, opencode, Cursor, Copilot CLI | yes, live | instructions and configs (Cursor and Copilot CLI: skills only) |
 | [Claude Code plugin](#claude-code-plugin) | Claude Code | after `marketplace update` and reinstall | — |
 | [Skills CLI](#skills-cli) | any client the CLI supports | no, files are copied | no |
 
@@ -102,7 +102,7 @@ One canonical checkout, linked into every client. Edits in the repo are live eve
 ```bash
 git clone https://github.com/juninmd/skills && cd skills
 node .agents/tools/install.mjs --dry-run   # show the plan
-node .agents/tools/install.mjs all         # or: claude | codex | agy | opencode
+node .agents/tools/install.mjs all         # or: claude | codex | agy | opencode | cursor | copilot
 ```
 
 | Client | Skills | Instructions | Config |
@@ -111,6 +111,8 @@ node .agents/tools/install.mjs all         # or: claude | codex | agy | opencode
 | Codex | `~/.codex/skills/<name>` | `~/.codex/AGENTS.md` | `~/.codex/config.toml` |
 | Antigravity (agy) | `~/.gemini/config/skills/<name>` | `~/.gemini/GEMINI.md` | — |
 | opencode | `~/.config/opencode/skills/<name>` | `~/.config/opencode/AGENTS.md` | `~/.config/opencode/agents/<name>.md` |
+| Cursor | `~/.cursor/skills/<name>` | — | — |
+| Copilot CLI | `~/.copilot/skills/<name>` | — | — |
 
 > [!NOTE]
 > Instruction files link to [`.agents/AGENTS.md`](.agents/AGENTS.md); configs link to [`.agents/clients/`](.agents/clients/), tuned for low token use. Existing real files are renamed to `*.bak-<timestamp>` first. Pass `--no-config` to link skills and instructions only.
