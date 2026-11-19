@@ -9,7 +9,7 @@
 [![Agent Skills Spec](https://img.shields.io/badge/spec-Agent_Skills-black.svg)](https://agentskills.io)
 [![MCP Standard](https://img.shields.io/badge/MCP-standard-10b981.svg)](https://modelcontextprotocol.io)
 
-**39 skills · enterprise operating instructions**
+**40 skills · enterprise operating instructions**
 
 *Production engineering workflows for AI coding assistants: discover intent, execute surgical changes, and prove with reproducible evidence.*
 
@@ -21,7 +21,7 @@
 git clone https://github.com/juninmd/skills && cd skills && node .agents/tools/install.mjs --dry-run all   # preview, then drop --dry-run
 ```
 
-<img src="./docs/public/images/hero.gif" alt="Animated demo: a request is routed to the right skill, runs preflight, reproduce, patch and verify steps, then shows 39 skills, 204 of 204 routing prompts correct, 100 tokens per skill and 140 validator tests" width="100%" />
+<img src="./docs/public/images/hero.gif" alt="Animated demo: a request is routed to the right skill, runs preflight, reproduce, patch and verify steps, then shows 40 skills, 204 of 204 routing prompts correct, 100 tokens per skill and 140 validator tests" width="100%" />
 
 </div>
 
@@ -328,6 +328,7 @@ domain that owns what comes next. You keep writing prose.
 | `motion-video` | reels, shorts, product-news and kinetic-typography videos, 'a video like this reel', adding music to a render |
 | `observability` | root-cause debugging, logging, tracing, alerting, SLOs and error budgets, postmortems, network failures, on-call, product event tracking, A/B experiments, and watch-logs-and-fix loops |
 | `package-management` | pnpm workspaces, catalogs, overrides, patches, peer deps; uv, pyproject.toml, PEP 723, Ruff, prek/pre-commit, Dependabot PRs, dependency cooldown configuration, lockfile hygiene, and CI caching |
+| `peer-benchmark` | gap reviews and prior-art sweeps |
 | `performance-engineering` | endpoint profiling, k6 load tests, bottlenecks, N+1 queries, memory leaks, LCP/INP, autonomous metric loops, and rightsizing costs |
 | `portkill` | EADDRINUSE errors, dev-server port conflicts, and killing the listener on a given port on Windows, macOS, or Linux |
 | `radar-ia` | the daily AI radar and best-posts digests; not for one-paper research or debugging |
