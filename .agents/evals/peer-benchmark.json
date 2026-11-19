@@ -1,0 +1,37 @@
+{
+  "skill_name": "peer-benchmark",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Compare this repository against the best peer projects and propose improvements backed by benchmarks",
+        "top_k": 3
+      },
+      {
+        "prompt": "Pesquise outros repositórios, blogs, reddit e papers e compare com o nosso repo, com propostas de melhoria",
+        "top_k": 3
+      },
+      {
+        "prompt": "What are other open source projects doing better than us? Build a feature matrix and benchmark us against peers",
+        "top_k": 3
+      },
+      {
+        "prompt": "Prior-art sweep before a redesign: gap review of this repo versus comparable GitHub projects with measured numbers",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Me atualize sobre IA: o que rolou essa semana no github trending e no reddit",
+        "owner": "radar-ia"
+      },
+      {
+        "prompt": "Verify the latest version of this library and check breaking changes before the upgrade",
+        "owner": "web-research"
+      },
+      {
+        "prompt": "Write a SKILL.md and routing evals for a new skill",
+        "owner": "skill-authoring"
+      }
+    ]
+  }
+}

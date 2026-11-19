@@ -82,6 +82,7 @@ export const PLUGIN_CONTEXTS = {
       "web-research",
       "rea",
       "radar-ia",
+      "peer-benchmark",
       "x-post-reading",
       "agy-image-babysitter",
       "local-dubbing",
