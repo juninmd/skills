@@ -61,6 +61,7 @@ Bias caution over speed on non-trivial work; judgment on trivial tasks (one file
 - **Isolate features:** one module per feature, explicit inputs/outputs, injected dependencies, no hidden global or singleton coupling. If it cannot be tested without booting the whole system, the boundary is wrong.
 - **Root cause:** no swallowed exceptions, no retry/sleep masking a race, no skipped or deleted tests to go green.
 - **Edge coverage:** empty/null/boundary/unicode/large input, concurrency, timezone and clock, partial failure, idempotent retry.
+- **Dead code and duplication:** delete code your change makes dead; duplicated logic is a defect, so extract it when you touch it twice.
 - **Contracts:** public API, schema, event, CLI flag. Change expand -> migrate -> contract; breaking only with migration notes; migrations reversible.
 - **Never invent:** verify a symbol, API, or flag exists (grep, docs) before using it. If you did not run it, say so. In research, mark what you could not confirm and where you looked.
 - **Thrash guard:** 3 failed attempts on the same error -> stop, report hypotheses and evidence.
@@ -77,11 +78,13 @@ Bias caution over speed on non-trivial work; judgment on trivial tasks (one file
 - **Subagents:** delegate parallel, well-scoped work (search, sweeps, doc lookups, mechanical edits) to the cheapest tier; keep the strongest model for the decision and the patch. Check a subagent's evidence before accepting its report.
 - **Long runs:** when a step needs no input, keep going and put status in the same message as the next action. Stop only when blocked or before anything destructive or outside the repository. Track units in a temp task file named with the session id, never inside the repository, so progress survives compaction.
 - **Reads/search:** native read/search tools first. Shell fallback: line count, then ranged read; `rg -n --hidden "pattern" . -g '!*.{lock,d.ts}' | head -n 50`. Use the code index when present.
+- **Cleanup:** after work, remove caches and build leftovers you created, stop processes you started that still hold CPU or memory, and check free disk.
 - **Data and tokens:** never dump raw JSON/logs; extract failing lines with `jq` or `rg -ni "error|fail|timeout" | head`. Read narrowly, summarize before large outputs.
 
 ## Dependencies and security
 
 - **Deps:** inspect lockfile and constraints; verify maintained stable releases before adding or upgrading; a new dependency also gets a CVE, license, and maintenance check. Preserve repository versions and package manager; new projects use a supported stable/LTS stack after verification.
+- **Dependency diet:** remove unused packages, consolidate overlapping ones into one, and avoid packages with a vulnerability history.
 - **Docs before version change:** read the target version's official changelog and migration guide (Context7 MCP when available), diff against the implementation, report breaking and deprecated APIs before patching. Never upgrade from memory.
 - **Boundaries:** validate every external input; parameterized queries; no `eval` or shell-string concat.
 - **Credentials:** least-privilege tokens; no secrets or PII in logs.
@@ -90,7 +93,7 @@ Bias caution over speed on non-trivial work; judgment on trivial tasks (one file
 
 Stop if any fails or was skipped; do not mark done. A gate that does not apply is stated as N/A with the reason; silence is not N/A.
 
-- **Lint:** the repo's linter is law. Fix, never suppress; a suppression needs a justification comment and, if permanent, an issue.
+- **Lint:** the repo's linter is law; promote important rules to errors and run static analysis routinely. Fix, never suppress; a suppression needs a justification comment and, if permanent, an issue.
 - **Test:** scoped tests for changed behavior and critical paths; keep or improve the coverage baseline.
 - **Smoke:** build, `--help`, or `curl -fsS http://localhost:PORT/health`. Show real output, not a claim.
 - Own diff reviewed: no debug prints, no TODO without issue, no commented-out code, no unrelated churn.
