@@ -12,33 +12,33 @@ description: |
 NO COMPLETION CLAIM WITHOUT FRESH EVIDENCE FROM THIS SESSION
 ```
 
-A gate that ran before the last edit proves nothing about the current candidate.
+A gate that ran before your last edit says nothing about the current candidate.
 
 ## The Gate
 
-Before writing ready, passing, fixed, or opening a PR:
+Before writing "ready", "passing", or "fixed", or opening a PR:
 
-1. **IDENTIFY** the command that proves the claim.
-2. **RUN** it complete and fresh, over the whole affected scope.
-3. **READ** the full output: exit code, failure count, unexpected skips.
-4. **VERIFY** the output confirms the claim; if it does not, report the real status with that output.
-5. **THEN** claim it, quoting the line that proves it.
+1. **IDENTIFY** which command proves the claim.
+2. **RUN** it in full, fresh, across the entire affected scope.
+3. **READ** all the output: exit code, failure count, skips you did not expect.
+4. **VERIFY** that the output supports the claim. If not, report the true status and show that output.
+5. **THEN** make the claim and quote the line that backs it.
 
-| Claim | Requires | Not sufficient |
+| Claim | Needs | Does not count |
 |---|---|---|
-| Tests pass | Test output: 0 failures, no unexpected skips | An earlier run, "should pass" |
-| Lint clean | Linter exit 0 over the full scope | The changed file alone |
-| Build works | Build exit 0 | Types passing, logs looking fine |
-| Bug fixed | The original symptom reproduced, then passing | Code changed, assumed fixed |
-| CI green | Every check on the pushed SHA | An open PR with checks pending |
-| Agent or subagent done | The VCS diff, read yourself, shows the claimed change | Its success report |
-| Requirements met | Line-by-line checklist against the spec, each item with evidence | Tests passing |
-| Regression fixed | Revert the fix, see the test fail, restore, see it pass | A new test that passed once |
+| Tests pass | Output with 0 failures and no unexpected skips | A previous run, "should pass" |
+| Lint clean | Linter exit 0 across the full scope | Only the edited file |
+| Build works | Build exit 0 | Passing types, clean-looking logs |
+| Bug fixed | The original symptom reproduced, then gone | Code edited, fix assumed |
+| CI green | Every check on the pushed SHA | An open PR with checks still pending |
+| Agent or subagent done | The VCS diff, read by you, showing the claimed change | Its own success report |
+| Requirements met | A line-by-line checklist against the spec, evidence per item | Passing tests |
+| Regression fixed | Revert the fix, watch the test fail, restore, watch it pass | A new test that passed once |
 
-**Not this skill:** work still in progress (its domain skill), or Git surgery on branches and history (`git-workflow`).
+**Not this skill:** unfinished work (use the domain skill) or Git surgery on branches and history (`git-workflow`).
 
 ## Preflight
-Read the request's existing commit, push, and PR authorization. Inspect repository instructions, remotes, base branch, worktree changes, test scripts, and CI. Resolve the actual PR base; never assume `main` or compare only the last commit.
+Check what the request already authorizes for commit, push, and PR. Inspect repo instructions, remotes, base branch, worktree changes, test scripts, and CI. Resolve the real PR base; never assume `main` or diff only the last commit.
 
 ```bash
 git status --short
@@ -49,20 +49,20 @@ git diff --cached --stat
 gh auth status
 gh pr view --json number,url,baseRefName,headRefName,state
 ```
-Use GitHub probes only for a GitHub remote and available `gh`; absence of an existing PR is expected before creation. Preserve unrelated work. Fetch only the relevant remote refs before comparison when available, and report stale offline evidence.
+Run the GitHub probes only for a GitHub remote with `gh` available; no PR yet is normal. Leave unrelated work alone. Fetch the relevant remote refs before comparing when possible, and flag evidence that may be stale.
 
 ## Workflow
-1. Resolve the deliverable, acceptance criteria, base ref, and complete candidate scope. Inspect committed changes from the merge base plus staged, unstaged, and relevant untracked files. For an existing PR, verify its head and base match the branch being reviewed. Use `git-workflow` for branch or history problems.
-2. Run configured lint, types, focused tests, and build/smoke appropriate to the change. Commands come from the repository and CI, not a universal script list. Record pass/fail and remaining environment limits. Use `test-engineering` for missing behavior coverage. A change that ships to a running target also needs [homologation](references/homologate.md): the real flow proven at the receiving end, not just green gates.
-3. **Run two independent review subagents before creating the PR.** Give one `code-review` for correctness, regressions, contracts, tests, and dependency upgrade compatibility; give the other `security-ops` for trust boundaries, secrets, permissions, locked dependency advisories/provenance/publication age, and deployment risk. Dependency or install-policy changes require the [dependency review deliverables](references/review-protocol.md); route supported configuration to `package-management`. Supply the same immutable candidate, paths, acceptance criteria, and surrounding code. Bound assignments; keep both read-only and blind to each other's findings until complete.
-4. Adjudicate findings against actual code and reproducible conditions. Fix confirmed blocking and substantive defects in scope; document false positives with evidence and unrelated concerns without quietly expanding scope. Route implementation to the domain owner. Re-run affected gates and independent review of the final candidate after fixes; any change invalidates review evidence for affected paths.
-5. **Delegate two more subagents.** One captures [PR evidence](references/pr-evidence.md): screenshots for visual UI/UX changes across web, desktop, mobile, TUI, and CLI; uploads captures to reviewer-accessible GitHub user-attachments URLs (never local disk paths or raw branch URLs); GIFs/videos when interaction or motion needs demonstration; searchable text for CLI output; real payloads for contract changes. Select only applicable evidence. The other drafts the branch name, PR title, and body against the [branch/title/description standard](references/pr-title-and-branch-standard.md) from the final diff — problem, behavior, decisions, verification, limits — each claim traceable to a diff line. Merge both into one body; a missing or fabricated required capture is a named blocker. No raw logs, secrets, or history. Complete even without publication authorization.
-6. Within existing explicit authorization, stage only reviewed files, inspect the staged diff, commit, push, and create/update the PR. The request to create a PR authorizes that PR operation; check whether commit/push are also authorized by the request and applicable instructions. Ask once only for missing authority after presenting the ready result. Use `git-workflow` for safe Git mutations and verify the pushed SHA equals the reviewed candidate.
-7. Verify the remote head. Inspect all PR checks unless the user explicitly declines pipeline inspection/monitoring; record that choice and CI as unverified. If monitoring is requested, follow the exact PR and head until all checks finish or a concrete blocker occurs. Pending, failed, cancelled, or missing required checks block readiness. Diagnose and fix authorized failures, rerun affected review/gates, and update the same PR. Report URL, exact head, checks or inspection limits, and unresolved comments. **Never auto-merge.**
-8. On every PR delivery handoff, execute [return to default branch](references/return-to-default.md), including when pipeline monitoring is declined, pending, or blocked. Returning does not require green CI and does not establish readiness. Verify the active checkout path and default branch, or report the exact dirty-worktree, ownership, or ref blocker. Preserve the delivery branch; offer worktree removal only with explicit confirmation.
+1. Settle the deliverable, acceptance criteria, base ref, and full candidate scope. That means commits since the merge base plus staged, unstaged, and relevant untracked files. For an existing PR, confirm its head and base match the branch under review. Branch or history trouble goes to `git-workflow`.
+2. Run the lint, types, focused tests, and build or smoke steps the change needs. Take commands from the repo and its CI. Missing behavior coverage goes to `test-engineering`. A change that ships to a running target also needs [homologation](references/homologate.md): the real flow proven at the receiving end, beyond green gates.
+3. **Before creating the PR, launch two independent review subagents.** One runs `code-review` on correctness, regressions, contracts, tests, and dependency-upgrade compatibility. The other runs `security-ops` on trust boundaries, secrets, permissions, advisories and provenance of locked dependencies, publication age, and deployment risk. Dependency or install-policy changes need the [dependency review deliverables](references/review-protocol.md); supported configuration goes to `package-management`. Give both the same immutable candidate, paths, acceptance criteria, and surrounding code. Keep both read-only and hide each one's findings from the other until both finish.
+4. Judge each finding against real code. Fix confirmed blocking and substantive defects in scope; record false positives with evidence and unrelated concerns without widening scope. After fixes, re-run the affected gates and have the final candidate reviewed independently again; any edit voids review evidence for the paths it touches.
+5. **Delegate two more subagents.** The first captures [PR evidence](references/pr-evidence.md): screenshots for visual UI/UX changes on web, desktop, mobile, TUI, and CLI; uploads to reviewer-accessible GitHub user-attachments URLs (never local disk paths or raw branch URLs); GIFs or video where interaction or motion must be shown; searchable text for CLI output; real payloads for contract changes. Use only applicable evidence. The second drafts the branch name, PR title, and body from the final diff per the [branch/title/description standard](references/pr-title-and-branch-standard.md): problem, behavior, decisions, verification, limits, with every claim traceable to a diff line. Merge both into one body. A missing or invented required capture is a named blocker. Exclude raw logs, secrets, and history. Finish this step even without publication authority.
+6. Within authorization you already hold, stage only reviewed files, inspect the staged diff, commit, push, and create or update the PR. A request to create a PR covers the PR operation; check whether commit and push are covered too. Ask once, after showing the ready result, only for authority still missing. Use `git-workflow` for safe Git mutations; confirm the pushed SHA equals the reviewed candidate.
+7. Verify the remote head. Inspect all PR checks unless the user explicitly declines; then note that and mark CI unverified. When monitoring is requested, follow that exact PR and head until every check ends or a concrete blocker appears. Pending, failed, cancelled, or missing required checks block readiness. Fix authorized failures, re-run affected review and gates, and update the same PR. Report URL, exact head, checks or inspection limits, and open comments. **Never auto-merge.**
+8. At every PR delivery handoff, carry out [return to default branch](references/return-to-default.md), even when monitoring was declined, is pending, or is blocked. Returning needs no green CI and proves no readiness. Confirm the active checkout path and default branch, or report the exact dirty-worktree, ownership, or ref blocker. Keep the delivery branch; offer worktree removal only after explicit confirmation.
 
 ## PR preparation
-Write real newlines through a file-writing tool, then use that file. Substitute resolved values; execute external writes only with authorization.
+Write the body to a file so newlines are real, then pass that file. Run external writes only with authorization.
 
 ```bash
 git merge-base origin/BASE HEAD
@@ -73,48 +73,48 @@ gh pr create --draft --base BASE --head BRANCH --title 'Concrete problem and fix
 gh pr checks PR_NUMBER --json name,state,link
 gh pr view PR_NUMBER --json headRefOid,mergeStateStatus,reviewDecision,url
 ```
-Match requested draft/ready status. A draft can exist while CI runs; do not report it ready until every pipeline/check is successful and blockers are resolved. Do not use `--required` alone because it can hide failing optional checks.
+Match the requested draft or ready status. A draft may stay open while CI runs; call it ready only after every check succeeds and blockers clear. Avoid `--required` on its own, since it can mask failing optional checks.
 
-| Evidence / condition | Action |
+| Situation | Action |
 |---|---|
-| No native subagent capability | Prepare diff, gates, and PR body; report independent-review blocker; do not claim self-review satisfies it |
-| Review finds a concrete defect | Fix, retest, and have independent reviewers inspect the changed final candidate |
-| Review is clean | Report reviewed scope and uncertainty; absence of findings is not proof of absence |
-| Authorization missing | Present concrete ready artifacts and request only the missing action |
-| CI pending or failed | PR may remain draft; readiness stays blocked |
-| Pipeline inspection/monitoring declined | Record CI as unverified; finish the handoff and return to the default branch |
-| All checks green | Report ready for human review; merge remains a separate user decision |
+| No native subagent capability | Prepare the diff, gates, and PR body; report the independent-review blocker; do not count self-review as a substitute |
+| Review finds a concrete defect | Fix, retest, and send the changed final candidate back to independent reviewers |
+| Review comes back clean | Report what was reviewed and the uncertainty; no findings is not proof of no defects |
+| Authorization missing | Show the ready artifacts and request only the missing action |
+| CI pending or failed | The PR may stay draft; readiness stays blocked |
+| Pipeline inspection or monitoring declined | Mark CI unverified; finish the handoff and return to the default branch |
+| All checks green | Report ready for human review; merging is a separate user decision |
 
 ## Stop
-- Independent review cannot be completed, the candidate changed without re-review, or substantive findings remain unresolved.
-- Tests, lint, smoke, or CI fail; diagnose and fix within scope, otherwise report the blocker.
+- Independent review cannot finish, the candidate changed after review, or substantive findings remain open.
+- Tests, lint, smoke, or CI fail. Diagnose and fix within scope; otherwise report the blocker.
 - Base, scope, ownership, credentials, or publication authority cannot be established.
 
 ## Rules
-- CI red is not automatically "code broken." A check failing in seconds with empty steps, or every check on the account failing the same way, is often a structural break (billing, quota, runner outage) — confirm via `gh run view`/logs before diagnosing the diff. Either way it still blocks readiness; the difference is where the fix goes.
-- Review the whole proposed change, not only the latest commit.
-- Never silently stage unrelated files or bypass hooks/checks.
-- Prefer separate reviewers; a different model is useful when available but not required or invented.
-- Publishing a branch is not runtime, CI, merge, or deployment proof.
-- `requirements-planning` owns acceptance changes and `starting-dev` the dev loop; do not silently drop criteria to finish.
+- Red CI does not always mean broken code. A check failing in seconds with empty steps, or every check on the account failing alike, usually signals a structural fault (billing, quota, runner outage); confirm with `gh run view` or logs before blaming the diff. It still blocks readiness.
+- Review the whole change, not just the newest commit.
+- Never stage unrelated files or bypass hooks and checks.
+- Use separate reviewers; a different model helps but is never invented.
+- A published branch is not proof of runtime behavior, CI, merge, or deployment.
+- `requirements-planning` owns acceptance changes, `starting-dev` the dev loop; never drop a criterion to finish.
 
 ## Excuses
 
-| Excuse | Why it is false |
+| Excuse | Why it fails |
 |---|---|
-| Small diff, skip review | Small diffs hide contract regressions |
-| CI is green | Pipeline ran; scoped tests are separate proof |
+| Small diff, skip review | Small diffs still hide contract regressions |
+| CI is green | The pipeline ran; scoped tests are separate proof |
 | Pushed means delivered | Publishing is not merge, deploy, or runtime proof |
 | Worktree removal refused, `--force` finishes it | Those files exist only there; show `git -C PATH status --porcelain --untracked-files=all` and ask |
-| Push rejected, force-push fixes it | The remote moved; fetch and inspect; force only on explicit user request |
+| Push rejected, force-push fixes it | The remote moved; fetch and inspect; force only when the user explicitly asks |
 
 More in [Reference Map](references/TOPIC_MAP.md).
 
 ## Checklist
 - [ ] Full candidate and base identified; unrelated changes preserved.
-- [ ] Independent code and security reviews completed before PR creation.
+- [ ] Independent code and security reviews done before PR creation.
 - [ ] Confirmed defects fixed; final candidate reviewed and checked.
-- [ ] Evidence and description subagents ran; applicable screenshots, GIFs/videos, CLI text, and contract payloads are attached with context; inapplicable formats have reasons; publication uses existing authorization.
+- [ ] Evidence and description subagents ran; applicable screenshots, GIFs/videos, CLI text, and contract payloads attached with context; inapplicable formats justified; publication uses existing authorization.
 - [ ] Remote head matches reviewed work; all checks inspected, or the user's explicit opt-out and unverified CI recorded.
 - [ ] PR URL or exact blocker reported; no automatic merge.
-- [ ] Active checkout path and default branch verified at handoff, with or without monitoring; exact blocker reported if return was unsafe.
+- [ ] Active checkout path and default branch verified at handoff, with or without monitoring; exact blocker reported if returning was unsafe.

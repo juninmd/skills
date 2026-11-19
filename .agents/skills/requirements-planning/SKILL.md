@@ -6,76 +6,70 @@ description: |
 
 # Requirements Planning
 
-**Not this skill:** a request already specific enough to act on (its domain
-skill); repository onboarding, AGENTS.md/README authoring, or the research
--> prototype -> plan -> implement dev loop (`starting-dev`); resolving module
-boundaries and contracts (`software-architecture`); polishing prose in an
-existing README (`readme-standard`) or doc (`documentation`).
+**Not this skill:** a request that is already specific enough to act on (use its
+domain skill); repo onboarding, AGENTS.md/README authoring, or the research ->
+prototype -> plan -> implement loop (`starting-dev`); module boundaries and
+contracts (`software-architecture`); editing the prose of an existing README
+(`readme-standard`) or doc (`documentation`).
 
 ## Loading Constraints
 
 Clarification needs a live requester. In CI, a scheduled run, `/loop`, or any
-headless session, do not interview: write the assumption you would have
-tested, mark it as a blocker, and carry on with everything that does not
-depend on the answer.
+headless session, do not interview. Write down the assumption you would have
+tested, flag it as a blocker, and keep going on everything that does not depend
+on the answer.
 
 ## Preflight
-Establish what already exists before writing anything new. Run from the
-repository root:
+Find out what already exists before writing anything. From the repository root:
 
 ```bash
-ls docs/ specs/ 2>/dev/null           # existing PRDs/specs
+ls docs/ specs/ 2>/dev/null                       # existing PRDs/specs
 gh issue list --limit 20 2>/dev/null              # open issues, in-flight triage
 ls .out-of-scope/ 2>/dev/null                     # prior rejections
 rg -n '<the behavior in question>' src/ | head    # does the code already answer it?
 ```
 
-Every question you could have answered by reading costs the requester's
-patience for nothing.
+Each question the repository could have answered burns the requester's patience.
 
 ## Workflow
-1. Restate the request, naming the requester, the trigger, and the outcome
-   that counts as success. Give the whole task in one message with an
-   explicit finish line: "Done means: `<observable conditions>`. Stop and ask
-   only if `<specific condition>`." Use
-   [requirements clarification](references/requirements-clarification.md) for
-   ambiguity — ask the decision frontier in rounds, each question with a
-   recommended answer; look facts up yourself. An open design direction goes
-   to `starting-dev`'s [prototype stage](../starting-dev/references/phase-prototype.md).
-2. Write the spec or PRD from confirmed answers using
+1. Restate the request: who asks, what triggers it, and which outcome counts as
+   success. Give the whole task in one message with a finish line: "Done means:
+   `<observable conditions>`. Stop and ask only if `<specific condition>`." For
+   ambiguity, follow [requirements clarification](references/requirements-clarification.md):
+   ask the decision frontier in rounds, every question carrying a recommended
+   answer, and look facts up yourself. If the design direction is still open,
+   send it to `starting-dev`'s [prototype stage](../starting-dev/references/phase-prototype.md).
+2. Once answers are confirmed, write the spec or PRD with
    [spec workflow](references/spec-workflow.md) and
-   [spec templates](references/spec-templates.md). Acceptance criteria are
-   observable behavior, not adjectives; record them where the work lives.
-3. Slice the feature into independently verifiable vertical slices with
-   [incremental delivery](references/incremental-delivery.md), then publish
-   them as backlog issues with [to-issues process](references/to-issues-process.md).
-4. Handing a slice to an AFK agent: write an
-   [agent brief](references/agent-brief.md) — behavioral contract, not file
-   paths or line numbers — with its own finish line and out-of-scope list.
-5. Triaging incoming issues: classify with
-   [triage logic](references/triage-logic.md), hold response quality to
-   [triage standards](references/triage-standards.md), and execute the
-   lifecycle with [triage workflow](references/triage-workflow.md). First run
-   the redundancy check: search open and closed issues for a duplicate and the
-   code for an existing implementation; an already-implemented request closes
-   as done, pointing at where it lives, never as out of scope. Check
-   [out-of-scope records](references/out-of-scope.md) before re-litigating a
-   rejected request.
-6. For a run expected to survive many turns or a context compaction, keep the
-   task list in a temp file named with the session id, outside the repository
-   (never a `TASKS.md` in the repo), and update it as work proceeds rather than
-   only in conversation state.
-7. Hand accepted, sliced work to `starting-dev` to run the dev loop, or to the
-   owning domain skill to implement directly.
+   [spec templates](references/spec-templates.md). Acceptance criteria describe
+   observable behavior, never adjectives, and live where the work lives.
+3. Cut the feature into vertical slices that can each be verified alone
+   ([incremental delivery](references/incremental-delivery.md)), then publish
+   them as backlog issues ([to-issues process](references/to-issues-process.md)).
+4. To hand a slice to an AFK agent, write an [agent brief](references/agent-brief.md):
+   a behavioral contract (no file paths or line numbers) with its own finish
+   line and out-of-scope list.
+5. For incoming issues, classify with [triage logic](references/triage-logic.md),
+   meet the bar in [triage standards](references/triage-standards.md), and run
+   the lifecycle in [triage workflow](references/triage-workflow.md). Begin with
+   the redundancy check: search open and closed issues for a duplicate, and the
+   code for an existing implementation. A request that is already built closes as
+   done with a pointer to it, never as out of scope. Read
+   [out-of-scope records](references/out-of-scope.md) before reopening a rejected
+   request.
+6. For a run that must outlast many turns or a context compaction, keep the task
+   list in a temp file named with the session id, outside the repository (no
+   `TASKS.md` in the repo), and update it as you go.
+7. Pass accepted, sliced work to `starting-dev` for the dev loop, or to the
+   owning domain skill to build directly.
 
-For multi-step plans, ground every choice in repository evidence (manifests,
-CI, callers, tests, recent changes), derive checks from real scripts at the
-lowest test level that proves the contract, and include migration, security,
-rollout, or rollback only when they apply. End by requesting only missing
-decisions or authority; authorized implementation continues without a new
-approval checkpoint.
+For multi-step plans, anchor each choice in repository evidence (manifests, CI,
+callers, tests, recent changes), take checks from real scripts at the lowest
+test level that proves the contract, and add migration, security, rollout, or
+rollback only where relevant. Ask only for missing decisions or authority;
+authorized work continues without another approval checkpoint.
 
-Use this compact plan shape when a full spec template is unnecessary:
+When a full spec template is overkill, use this compact plan:
 
 ```markdown
 ## Plan: <title>
@@ -91,76 +85,73 @@ Use this compact plan shape when a full spec template is unnecessary:
 |---|---|---|
 ### Milestones
 1. <action> — owner: <skill/subsystem>; depends on: <...>; verify: `<command>`
-   - Consumes: <names and signatures this slice uses from earlier slices>
+   - Consumes: <names and signatures this slice takes from earlier slices>
    - Produces: <names, parameters, and return types later slices rely on>
 ### Test strategy
-- <unit/integration/E2E or smoke check and failure path>
+- <unit/integration/E2E or smoke check, and the failure path>
 ### Risks, rollout, and rollback
 | Risk | Mitigation | Rollback |
 |---|---|---|
 ### Residual risks and handoff
-<remaining uncertainty, owning skill, and any missing decision or authority>
+<remaining uncertainty, owning skill, any missing decision or authority>
 ```
 
-Self-review the plan before handing it on, fixing gaps inline:
+Review the plan yourself before passing it on, and fix gaps in place:
 
 | Check | Fails when |
 |---|---|
-| Coverage | an acceptance criterion has no milestone that implements and verifies it |
-| Name and type consistency | a later slice consumes a name or signature no earlier slice produces (`clearLayers()` in one step, `clearAllLayers()` in another) |
-| Decides something | a step reads "handle edge cases", "add validation", or "TBD" |
-| Proportion | the plan is longer than the code it describes, or effort is spent on a minor slice while the riskiest one gets one line |
+| Coverage | an acceptance criterion has no milestone that builds and verifies it |
+| Name and type consistency | a later slice uses a name or signature no earlier slice produces (`clearLayers()` in one step, `clearAllLayers()` in another) |
+| Decides something | a step says "handle edge cases", "add validation", or "TBD" |
+| Proportion | the plan is longer than the code it describes, or the riskiest slice gets one line while a minor one gets pages |
 
 ## Reference routing
-[Reference map](references/TOPIC_MAP.md) selects the clarification, spec,
-slicing, brief, and triage procedures. References are local procedures
-executed by this skill.
+The [reference map](references/TOPIC_MAP.md) lists the clarification, spec,
+slicing, brief, and triage procedures. This skill runs them itself.
 
 ## Decision table
 
 | Situation | Do |
 |---|---|
-| Request names outcome but not edges/failure modes | [requirements clarification](references/requirements-clarification.md) |
+| Outcome is named but edges and failure modes are not | [requirements clarification](references/requirements-clarification.md) |
 | Requester wants a PRD or implementation plan document | [spec workflow](references/spec-workflow.md) + [spec templates](references/spec-templates.md) |
-| Direction unresolved between two or more plausible designs | `starting-dev` [prototype stage](../starting-dev/references/phase-prototype.md) |
-| Feature needs to become tracked work | [incremental delivery](references/incremental-delivery.md) -> [to-issues process](references/to-issues-process.md) |
-| Work is handed to an unattended agent | [agent brief](references/agent-brief.md) |
+| Two or more plausible designs, none chosen | `starting-dev` [prototype stage](../starting-dev/references/phase-prototype.md) |
+| Feature must become tracked work | [incremental delivery](references/incremental-delivery.md) -> [to-issues process](references/to-issues-process.md) |
+| Work goes to an unattended agent | [agent brief](references/agent-brief.md) |
 | An accepted slice needs a durable implementation handoff | [agent brief](references/agent-brief.md) |
-| A new issue arrives and needs classification | [triage logic](references/triage-logic.md) + [triage workflow](references/triage-workflow.md) |
-| Requested behavior already exists in the code | close as done with a pointer to it; no `.out-of-scope/` record |
-| A feature request looks like a past rejection | [out-of-scope records](references/out-of-scope.md) |
+| New issue needs classification | [triage logic](references/triage-logic.md) + [triage workflow](references/triage-workflow.md) |
+| Requested behavior already exists in the code | close as done with a pointer; no `.out-of-scope/` record |
+| Request resembles a past rejection | [out-of-scope records](references/out-of-scope.md) |
 
 ## Gotchas
-- A vague success check ("make it feel faster", "users should love it") is
-  not a detail to assume — renegotiate it into an observable metric or proxy
-  before writing acceptance criteria; see the untestable-check table in
-  [requirements clarification](references/requirements-clarification.md).
-- Skipping the pre-existing-state edge ("rows created before this rule
-  existed") ships as an incident, not a code review comment.
-- An implementation brief that names a file path or line number goes stale;
-  describe interfaces and behavior instead.
-- Two stakeholders conflicting is a decision to surface, never one to average.
+- A fuzzy success check ("make it feel faster", "users should love it") is not a
+  detail to assume. Turn it into an observable metric or proxy before writing
+  criteria; the untestable-check table in
+  [requirements clarification](references/requirements-clarification.md) shows how.
+- Leaving out the pre-existing-state edge ("rows created before this rule
+  existed") ships as an incident, not a review comment.
+- A brief that cites a file path or line number goes stale. Describe interfaces
+  and behavior.
+- When two stakeholders conflict, surface the decision; never average them.
 
 ## Stop
-- A material product, authority, or compatibility decision cannot be
-  inferred; request that decision while continuing independent work.
-- No requester is available and the question has no safe default; write the
-  assumption, mark it a blocker, and keep moving on what does not depend on it.
-- The decision frontier is empty and the requester confirmed the criteria —
-  write them and stop asking.
+- A material product, authority, or compatibility decision cannot be inferred:
+  ask for it and continue the independent work.
+- No requester is reachable and the question has no safe default: record the
+  assumption, flag it as a blocker, and move on with what does not depend on it.
+- The decision frontier is empty and the requester confirmed the criteria:
+  write them down and stop asking.
 
 ## Rules
-- Never ask what the code, the ticket, or existing behavior can already tell you.
-- A plan or issue without an observable acceptance criterion is incomplete.
-- State what is out of scope explicitly; do not let an agent or implementer
-  infer scope from silence.
-- Unrequested publishing, merging, deployment, or external messages are
-  outside requirements planning.
+- Never ask what the code, the ticket, or current behavior already answers.
+- A plan or issue with no observable acceptance criterion is unfinished.
+- Name what is out of scope; nobody should infer scope from silence.
+- Publishing, merging, deploying, or messaging people unasked is out of scope here.
 
 ## Checklist
-- [ ] Goal, non-goals, acceptance criteria, and the finish-line condition recorded.
+- [ ] Goal, non-goals, acceptance criteria, and finish-line condition recorded.
 - [ ] Facts found by reading; decisions asked in frontier rounds with recommended answers, not guessed.
 - [ ] Plan slices carry Consumes/Produces, and the self-review table passed.
-- [ ] Feature sliced vertically; each slice independently verifiable.
+- [ ] Feature sliced vertically; each slice verifiable on its own.
 - [ ] Agent briefs are behavioral, durable, and carry acceptance criteria and out-of-scope.
-- [ ] Triage ran the redundancy check; already-implemented closed as done; rejections checked against `.out-of-scope/`.
+- [ ] Triage ran the redundancy check; already-built requests closed as done; rejections checked against `.out-of-scope/`.

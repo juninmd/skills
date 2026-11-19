@@ -1,6 +1,6 @@
 # Architecture Review Reports
 
-Open when generating standalone, visual HTML reports for codebase architectural reviews, deepening candidates, and structural comparisons.
+Open when producing a standalone visual HTML report for an architecture review, deepening candidates, or a structural comparison.
 
 ## Contents
 
@@ -12,7 +12,7 @@ Open when generating standalone, visual HTML reports for codebase architectural 
 
 ## Report Scaffold and Dependencies
 
-Generate reviews as a single, self-contained HTML document stored in the operating system temporary directory (`%TEMP%` or `$TMPDIR`). The file relies solely on CDN resources without local server requirements:
+Write the report as one self-contained HTML file in the OS temp directory (`%TEMP%` or `$TMPDIR`). It uses CDN resources only, so no server is needed:
 
 ```html
 <!doctype html>
@@ -40,21 +40,21 @@ Generate reviews as a single, self-contained HTML document stored in the operati
 
 ## Report Header and Metadata
 
-Include repository name, audit timestamp, and a concise visual legend:
-- **Solid Box:** Module boundary
-- **Dashed Line:** Explicit architectural seam
-- **Red Highlight:** Coupling leak across seams
-- **Dark Solid Box:** Deep module consolidation
+Show the repository name, audit timestamp, and a legend:
+- **Solid box:** module boundary
+- **Dashed line:** deliberate seam
+- **Red highlight:** coupling that leaks across a seam
+- **Dark solid box:** consolidated deep module
 
 ## Candidate Card Structure
 
-Format each deepening candidate as an `<article>` card with side-by-side comparison:
+Render each deepening candidate as an `<article>` card with a before/after comparison:
 
-1. **Title:** Clear transformation statement (e.g., "Consolidate Order Intake Pipeline").
-2. **Badges:** Recommendation confidence (`Strong`, `Exploratory`, `Speculative`) and dependency classification (`In-Process`, `Ports & Adapters`, `External Mock`).
-3. **Involved Files:** Monospaced list of active paths.
-4. **Before / After Diagrams:** Two-column visual representation of the transformation.
-5. **Architectural Win:** Specific bulleted improvements in interface depth, test locality, and wrapper deletion.
+1. **Title:** the transformation in one phrase (for example "Consolidate Order Intake Pipeline").
+2. **Badges:** confidence (`Strong`, `Exploratory`, `Speculative`) and dependency class (`In-Process`, `Ports & Adapters`, `External Mock`).
+3. **Files:** monospaced paths touched.
+4. **Before / After:** two columns of diagrams showing the change.
+5. **Win:** bullets on interface depth, test locality, and wrappers removed.
 
 ## Diagram Authoring with Mermaid and SVG
 
@@ -75,12 +75,12 @@ Format each deepening candidate as an `<article>` card with side-by-side compari
 
 ### Layer Collapse and Visual Blocks (HTML/Tailwind)
 
-For showing shallow multi-tier layers collapsed into a single deep boundary, use styled Tailwind cards side by side:
-- **Before:** Multiple stacked thin cards, each with trivial 1-line pass-through methods.
-- **After:** A single consolidated dark card exposing one public method and encapsulating internal helpers.
+To show several shallow tiers merging into one deep boundary, put styled Tailwind cards side by side:
+- **Before:** a stack of thin cards, each holding a trivial one-line pass-through.
+- **After:** one dark card with a single public method and its helpers kept inside.
 
 ## Styling and Visual Hierarchy
 
-- Maintain clean whitespace and an editorial presentation.
-- Use accent colors purposefully: emerald for verified consolidations, red for boundary leaks, amber for architectural trade-offs.
-- Keep diagrams bounded to `~320px` height so before/after panels align without requiring vertical scrolling.
+- Favor whitespace; keep it editorial.
+- Give colors a job: emerald for verified consolidations, red for boundary leaks, amber for trade-offs.
+- Cap diagrams at about `320px` tall so before and after panels line up with no vertical scrolling.

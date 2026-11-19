@@ -8,10 +8,10 @@
 - When to write to .out-of-scope/
 - Updating or removing out-of-scope files
 
-The `.out-of-scope/` directory in a repo stores persistent records of rejected feature requests. It serves two purposes:
+`.out-of-scope/` is a repo directory holding one record per rejected feature request. It exists for two reasons:
 
-1. **Institutional memory** — why a feature was rejected, so the reasoning isn't lost when the issue is closed
-2. **Deduplication** — when a new issue comes in that matches a prior rejection, the skill can surface the previous decision instead of re-litigating it
+1. **Memory** — the rationale outlives the closed issue.
+2. **Dedup** — a new issue that matches an earlier rejection gets the old decision shown to the maintainer rather than a fresh debate.
 
 ## Directory structure
 
@@ -22,11 +22,11 @@ The `.out-of-scope/` directory in a repo stores persistent records of rejected f
 └── graphql-api.md
 ```
 
-One file per **concept**, not per issue. Multiple issues requesting the same thing are grouped under one file.
+One file per **concept**, not per issue. Every issue asking for the same thing is listed in that concept's file.
 
 ## File format
 
-The file should be written in a relaxed, readable style — more like a short design document than a database entry. Use paragraphs, code samples, and examples to make the reasoning clear and useful to someone encountering it for the first time.
+Write it like a short design note, not a database row: prose, a code sample or example where it helps, readable by someone who has never seen the issues.
 
 ```markdown
 # Dark Mode
@@ -35,21 +35,21 @@ This project does not support dark mode or user-facing theming.
 
 ## Why this is out of scope
 
-The rendering pipeline assumes a single color palette defined in
-`ThemeConfig`. Supporting multiple themes would require:
+The renderer assumes one color palette, fixed in `ThemeConfig`. Multiple
+themes would need:
 
-- A theme context provider wrapping the entire component tree
-- Per-component theme-aware style resolution
-- A persistence layer for user theme preferences
+- a theme context provider around the whole component tree
+- theme-aware style resolution in every component
+- storage for each user's theme choice
 
-This is a significant architectural change that doesn't align with the
-project's focus on content authoring. Theming is a concern for downstream
-consumers who embed or redistribute the output.
+That is a large architectural change, and the project is about content
+authoring. Theming belongs to downstream consumers who embed or redistribute
+the output.
 
 ```ts
-// The current ThemeConfig interface is not designed for runtime switching:
+// ThemeConfig was not built for switching at runtime:
 interface ThemeConfig {
-  colors: ColorPalette; // single palette, resolved at build time
+  colors: ColorPalette; // one palette, resolved at build time
   fonts: FontStack;
 }
 ```
@@ -63,47 +63,46 @@ interface ThemeConfig {
 
 ### Naming the file
 
-Use a short, descriptive kebab-case name for the concept: `dark-mode.md`, `plugin-system.md`, `graphql-api.md`. The name should be recognizable enough that someone browsing the directory understands what was rejected without opening the file.
+Kebab-case name for the concept (`dark-mode.md`, `plugin-system.md`, `graphql-api.md`). Someone scanning the directory should know what was rejected without opening anything.
 
 ### Writing the reason
 
-The reason should be substantive — not "we don't want this" but why. Good reasons reference:
+Give a real reason, never just "we don't want this". Solid reasons cite:
 
-- Project scope or philosophy ("This project focuses on X; theming is a downstream concern")
-- Technical constraints ("Supporting this would require Y, which conflicts with our Z architecture")
-- Strategic decisions ("We chose to use A instead of B because...")
+- scope or philosophy ("the project focuses on X; theming is a downstream concern")
+- technical constraints ("this needs Y, which clashes with our Z architecture")
+- strategic choices ("we picked A over B because...")
 
-The reason should be durable. Avoid referencing temporary circumstances ("we're too busy right now") — those aren't real rejections, they're deferrals.
+Keep it durable. "We're busy right now" is a deferral, not a rejection; do not record it here.
 
 ## When to check `.out-of-scope/`
 
-During triage (Step 1: Gather context), read all files in `.out-of-scope/`. When evaluating a new issue:
+At triage step 1 (gather context), read every file in `.out-of-scope/`. For each new issue:
 
-- Check if the request matches an existing out-of-scope concept
-- Matching is by concept similarity, not keyword — "night theme" matches `dark-mode.md`
-- If there's a match, surface it to the maintainer: "This is similar to `.out-of-scope/dark-mode.md` — we rejected this before because [reason]. Do you still feel the same way?"
+- Compare by concept, not keywords: "night theme" matches `dark-mode.md`.
+- On a match, tell the maintainer: "This resembles `.out-of-scope/dark-mode.md`, rejected earlier because [reason]. Still the right call?"
 
-The maintainer may:
+The maintainer can:
 
-- **Confirm** — the new issue gets added to the existing file's "Prior requests" list, then closed
-- **Reconsider** — the out-of-scope file gets deleted or updated, and the issue proceeds through normal triage
-- **Disagree** — the issues are related but distinct, proceed with normal triage
+- **Confirm** — add the issue to the file's "Prior requests" list and close it.
+- **Reconsider** — delete or update the file; the issue goes through normal triage.
+- **Distinguish** — related but different; normal triage applies.
 
 ## When to write to `.out-of-scope/`
 
-Only when an **enhancement** (not a bug) is rejected as `wontfix`. A request closed because the behavior **already exists** is not a rejection: point at where it lives and write nothing here, or the next dedup check reports a false rejection. The flow:
+Only when an **enhancement** (not a bug) is closed as `wontfix`. A request closed because the behavior **already exists** is not a rejection: point to where it lives and write nothing here, otherwise the next dedup check reports a rejection that never happened. Steps:
 
-1. Maintainer decides a feature request is out of scope
-2. Check if a matching `.out-of-scope/` file already exists
-3. If yes: append the new issue to the "Prior requests" list
-4. If no: create a new file with the concept name, decision, reason, and first prior request
-5. Post a comment on the issue explaining the decision and mentioning the `.out-of-scope/` file
-6. Close the issue with the `wontfix` label
+1. The maintainer rules the request out of scope.
+2. Look for an existing `.out-of-scope/` file for the concept.
+3. Found: append the issue to its "Prior requests".
+4. Not found: create a file with the concept name, the decision, the reason, and the first prior request.
+5. Comment on the issue with the decision and a mention of the file.
+6. Close the issue with the `wontfix` label.
 
 ## Updating or removing out-of-scope files
 
-If the maintainer changes their mind about a previously rejected concept:
+When the maintainer reverses an old rejection:
 
-- Delete the `.out-of-scope/` file
-- The skill does not need to reopen old issues — they're historical records
-- The new issue that triggered the reconsideration proceeds through normal triage
+- Delete the `.out-of-scope/` file.
+- Leave old issues closed; they are history.
+- The issue that prompted the reversal goes through normal triage.
