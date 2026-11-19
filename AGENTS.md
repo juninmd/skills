@@ -101,7 +101,7 @@ pnpm run docs:build
 
 Regenerate the catalog when descriptions change. Run validator unit tests (`pnpm run test:validators`) when modifying `.agents/tools/`; `pnpm run validate` includes them. Dependency or install-policy changes also run `pnpm run dependencies:check`.
 
-CI gates (`.github/workflows/`): `validate.yml` runs cspell and lychee on Markdown, `dependencies:check`, `validate`, the official `agentskills` validator, `docs:build`, and `pr:check` on PRs; `security.yml` runs Gitleaks; `dependency-audit.yml` runs daily; `release.yml` runs on `master` pushes.
+CI gates (`.github/workflows/`): `validate.yml` runs cspell and lychee on Markdown, `dependencies:check`, `validate`, the official `agentskills` validator, `docs:build`, and `pr:check` on PRs; `pr-evidence.yml` fails a PR whose body lacks a real `## Evidence` section; `security.yml` runs Gitleaks; `dependency-audit.yml` runs daily; `release.yml` runs on `master` pushes.
 
 On Windows, keep `core.autocrlf` false in this checkout: CRLF files make `catalog:check` report a stale catalog that LF files do not have.
 
@@ -110,6 +110,10 @@ On Windows, keep `core.autocrlf` false in this checkout: CRLF files make `catalo
 - Distinguish structure checks, content review, and actual client smoke tests.
 - A failed check blocks a completion claim. Diagnose and fix within scope; otherwise report the exact blocker.
 - Do not claim plugin compatibility until discovery and a representative invocation have been tested in that client.
+
+## Pull requests
+
+Every PR body follows `.github/pull_request_template.md` and carries real evidence in `## Evidence`: screenshots/GIFs for visual changes, fenced real command output for skills, docs, CLI, CI and config changes, payloads for contracts. Format rules live in `.agents/skills/finishing-dev/references/pr-evidence.md`. No local paths or raw branch URLs. Check a draft body with `PR_BODY="$(cat body.md)" pnpm run pr:evidence`.
 
 ## Reporting
 

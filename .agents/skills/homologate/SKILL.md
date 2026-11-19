@@ -1,7 +1,7 @@
 ---
 name: homologate
 description: |
-  Prove a change works on its real running target with evidence from the receiving end. Use for live-environment acceptance, forcing the real flow end to end, confirming the deployed version, and a Proven, Failed, or Unproven verdict. Trigger on 'homologue', 'valide no cluster', 'prove it works for real'.
+  Prove a change works on its real running target with evidence from the receiving end. Use for live-environment cluster acceptance with evidence, forcing the real flow end to end, confirming the deployed version, and a Proven, Failed, or Unproven verdict. Trigger on 'homologue', 'valide no cluster', 'prove it works for real'.
 license: MIT
 metadata:
   version: "1.0.0"

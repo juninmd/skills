@@ -1,6 +1,6 @@
 {
   "name": "juninmd-skills",
-  "version": "1.16.0",
+  "version": "1.16.1",
   "description": "Engineering skills for AI coding assistants",
   "packageManager": "pnpm@10.34.5",
   "scripts": {
@@ -16,6 +16,7 @@
     "evals:check": "node .agents/tools/run-evals.mjs .agents --check --min-rank1 95",
     "evals:plugin": "claude plugin eval .agents --no-publish --max-cost-usd 5 --threshold 0.8",
     "pr:check": "node .agents/tools/pr-skill-checks.mjs",
+    "pr:evidence": "node .agents/tools/check-pr-evidence.mjs",
     "test:validators": "node --test .agents/tools/*.test.mjs",
     "dependencies:age": "node .agents/tools/check-dependency-age.mjs",
     "dependencies:audit": "pnpm audit --ignore=GHSA-fc5q-39xc-vjpf",
@@ -29,7 +30,7 @@
     "install:clients": "node .agents/tools/install.mjs"
   },
   "devDependencies": {
-    "cspell": "^10.4.0",
+    "cspell": "^10.4.1",
     "vite": "^6.4.5",
     "vitepress": "^1.6.4",
     "yaml": "^2.9.1"
