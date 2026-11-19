@@ -9,7 +9,7 @@ const FENCE = /```[\s\S]*?\S[\s\S]*?```/;
 
 export function extractEvidence(body) {
   const clean = String(body ?? "").replace(/<!--[\s\S]*?-->/g, "");
-  const match = clean.match(/^##[ \t]+Evidence[ \t]*$|^##[ \t]+Como foi verificado[ \t]*$/im);
+  const match = clean.match(/^##[ \t]+Evidence[ \t]*$/im);
   if (!match) return null;
   const rest = clean.slice(match.index + match[0].length);
   const next = rest.search(/^##[ \t]+\S/m);
