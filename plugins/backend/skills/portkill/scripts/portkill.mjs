@@ -34,7 +34,15 @@ function listWindows() {
 }
 
 function listPosix() {
-  const out = run("lsof", ["-nP", "-iTCP:" + port, "-sTCP:LISTEN", "-Fp"]).trim();
+  let out;
+  try {
+    out = run("lsof", ["-nP", "-iTCP:" + port, "-sTCP:LISTEN", "-Fp"]).trim();
+  } catch (err) {
+    // lsof exits 1 with no output when nothing listens: that is "free", not a failure.
+    if (err.status === 1 && !String(err.stdout ?? "").trim()) return [];
+    console.error(`lsof failed: ${err.code ?? err.message}`);
+    process.exit(1);
+  }
   return [...new Set(out.split("\n").filter((l) => l.startsWith("p")).map((l) => Number(l.slice(1))))];
 }
 
@@ -80,7 +88,13 @@ for (const pid of pids) {
   }
 }
 
-const left = list().filter((pid) => pid !== selfPid);
+// SIGTERM is asynchronous: give the process a moment to release the socket.
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+let left = list().filter((pid) => pid !== selfPid);
+for (let i = 0; i < 10 && left.length > 0 && !failed; i++) {
+  await sleep(300);
+  left = list().filter((pid) => pid !== selfPid);
+}
 if (left.length > 0 || failed) {
   console.error(`port ${port}: still taken by ${left.join(", ") || "unknown"}`);
   process.exit(1);
