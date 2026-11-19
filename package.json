@@ -29,7 +29,7 @@
     "install:clients": "node .agents/tools/install.mjs"
   },
   "devDependencies": {
-    "cspell": "^10.4.0",
+    "cspell": "^10.4.1",
     "vite": "^6.4.5",
     "vitepress": "^1.6.4",
     "yaml": "^2.9.1"
