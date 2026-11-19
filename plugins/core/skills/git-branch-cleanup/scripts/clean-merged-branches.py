@@ -9,26 +9,27 @@ import urllib.parse
 
 
 def run_cmd(cmd, check=True):
-    res = subprocess.run(cmd, capture_output=True, text=True, shell=True)
+    # Argument lists, never shell=True: branch names are untrusted and may contain $(...) or backticks.
+    res = subprocess.run(cmd, capture_output=True, text=True)
     if check and res.returncode != 0:
-        raise RuntimeError(f"Command failed ({res.returncode}): {cmd}\n{res.stderr.strip()}")
+        raise RuntimeError(f"Command failed ({res.returncode}): {' '.join(cmd)}\n{res.stderr.strip()}")
     return res.stdout.strip()
 
 
 def get_repo_nwo():
     try:
-        return run_cmd("gh repo view --json nameWithOwner --jq .nameWithOwner")
+        return run_cmd(["gh", "repo", "view", "--json", "nameWithOwner", "--jq", ".nameWithOwner"])
     except Exception:
         return None
 
 
 def get_default_branch():
     try:
-        ref = run_cmd("git symbolic-ref refs/remotes/origin/HEAD")
+        ref = run_cmd(["git", "symbolic-ref", "refs/remotes/origin/HEAD"])
         return ref.split("/")[-1]
     except Exception:
         for candidate in ("main", "master"):
-            res = subprocess.run(f"git rev-parse --verify {candidate}", capture_output=True, shell=True)
+            res = subprocess.run(["git", "rev-parse", "--verify", candidate], capture_output=True)
             if res.returncode == 0:
                 return candidate
         return "main"
@@ -37,7 +38,7 @@ def get_default_branch():
 def get_active_worktree_branches():
     branches = set()
     try:
-        lines = run_cmd("git worktree list --porcelain").splitlines()
+        lines = run_cmd(["git", "worktree", "list", "--porcelain"]).splitlines()
         for line in lines:
             if line.startswith("branch "):
                 ref = line.split(" ", 1)[1].strip()
@@ -48,31 +49,32 @@ def get_active_worktree_branches():
 
 
 def get_merged_pr_heads(base_branch, limit=500):
-    cmd = f"gh pr list --state merged --base {base_branch} --limit {limit} --json headRefName,number"
+    cmd = ["gh", "pr", "list", "--state", "merged", "--base", base_branch, "--limit", str(limit),
+           "--json", "headRefName,number"]
     output = run_cmd(cmd)
     prs = json.loads(output)
     return {p["headRefName"]: p["number"] for p in prs if "headRefName" in p}
 
 
 def get_remote_branches(repo_nwo):
-    cmd = f"gh api repos/{repo_nwo}/branches --paginate --jq .[].name"
+    cmd = ["gh", "api", f"repos/{repo_nwo}/branches", "--paginate", "--jq", ".[].name"]
     return [b.strip() for b in run_cmd(cmd).splitlines() if b.strip()]
 
 
 def get_local_branches():
-    lines = run_cmd("git branch --list").splitlines()
+    lines = run_cmd(["git", "branch", "--list"]).splitlines()
     return [b.strip().lstrip("*+ ") for b in lines if b.strip()]
 
 
 def delete_remote_branch(repo_nwo, branch_name):
     ref_encoded = "/".join(urllib.parse.quote(part, safe="") for part in branch_name.split("/"))
-    cmd = f"gh api --method DELETE repos/{repo_nwo}/git/refs/heads/{ref_encoded}"
-    res = subprocess.run(cmd, capture_output=True, text=True, shell=True)
+    cmd = ["gh", "api", "--method", "DELETE", f"repos/{repo_nwo}/git/refs/heads/{ref_encoded}"]
+    res = subprocess.run(cmd, capture_output=True, text=True)
     return res.returncode == 0
 
 
 def delete_local_branch(branch_name):
-    res = subprocess.run(f'git branch -D "{branch_name}"', capture_output=True, text=True, shell=True)
+    res = subprocess.run(["git", "branch", "-D", "--", branch_name], capture_output=True, text=True)
     return res.returncode == 0
 
 
@@ -97,7 +99,7 @@ def main():
         parser.error("Unable to determine GitHub repository nameWithOwner; check gh auth status")
 
     base = args.base or get_default_branch()
-    current_branch = run_cmd("git branch --show-current", check=False)
+    current_branch = run_cmd(["git", "branch", "--show-current"], check=False)
     worktree_branches = get_active_worktree_branches()
 
     protected = {"main", "master", base, current_branch} | worktree_branches
@@ -155,8 +157,8 @@ def main():
                 print(f"Failed to delete local branch: {b}")
         print(f"Deleted {success}/{len(local_candidates)} local branches.")
 
-    run_cmd("git fetch --prune", check=False)
-    run_cmd("git worktree prune", check=False)
+    run_cmd(["git", "fetch", "--prune"], check=False)
+    run_cmd(["git", "worktree", "prune"], check=False)
     print("\nPruned tracking references and worktrees.")
     return 0
 
