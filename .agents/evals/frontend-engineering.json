@@ -35,6 +35,10 @@
         "top_k": 3
       },
       {
+        "prompt": "Polish this web app UI: unify components in one design system, fix misaligned layouts and broken CSS, and show before and after screenshots",
+        "top_k": 3
+      },
+      {
         "prompt": "Replace JavaScript parent-state toggling with container queries and :has() in our component CSS",
         "top_k": 3
       }

@@ -30,6 +30,7 @@ Read only the files needed for the current task.
 | `toast-notifications.md` | High-craft toast notification systems: stacking geometry, dynamic height expansion, swipe-to-dismiss physics, promise lifecycle states, and accessible announcements |
 | `ui-components.md` | Building a reusable component: stack selection, the requirements-implementation-validation-documentation flow, atomic composition, and styling conventions |
 | `ui-state-design.md` | Enumerating every UI state (loading, empty, partial, error, success) before writing markup, picking the treatment for each, and writing its microcopy (CTA/result verbs, error text, touch targets) |
+| `ui-polish-pass.md` | Polishing an existing project end to end: before/after screenshots, component inventory, one token system, consolidating duplicates, a defect table for misalignment and broken CSS, and UX/a11y state coverage |
 | `vite-core.md` | Vite 8/Rolldown CLI commands and what changed migrating from Vite 7 (Rollup→Rolldown, esbuild→Oxc, `rollupOptions`→`rolldownOptions`) |
 | `vite-patterns.md` | Per-framework Vite setup (React/Vue/Svelte plugins), `VITE_`-prefixed env vars, dev server proxy/alias config, and raw/url asset imports |
 | `vite-tailwind-v4.md` | Wiring Tailwind CSS v4's CSS-first `@theme` config and OKLCH color functions into a Vite project |
