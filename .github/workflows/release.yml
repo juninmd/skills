@@ -53,5 +53,5 @@ jobs:
           git add package.json plugin.json .claude-plugin/marketplace.json .agents/.claude-plugin/plugin.json plugins
           git commit -m "chore(release): ${TAG} [skip ci]"
           git tag -a "${TAG}" -m "Release ${TAG}"
-          git push origin master "${TAG}"
+          git push --atomic origin master "${TAG}"
           gh release create "${TAG}" --title "${TAG}" --generate-notes
