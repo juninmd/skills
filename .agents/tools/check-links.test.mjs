@@ -58,3 +58,20 @@ test("build output directories are not walked", () => {
   assert.equal(files.length, 1);
   assert.deepEqual(findBrokenLinks(files), []);
 });
+
+test("links inside fenced or inline code are examples, not links (lychee skips them too)", () => {
+  const root = createTree({
+    "docs/index.md": "```md\nSee [example](not-here.md)\n```\n\n~~~\n[x](gone.md)\n~~~\n\nUse `[y](nope.md)` syntax.",
+  });
+  assert.deepEqual(findBrokenLinks(collectMarkdown(["docs"], root)), []);
+});
+
+test("a link with a title is still checked", () => {
+  const root = createTree({ "docs/index.md": 'See [gone](missing.md "Title").' });
+  assert.deepEqual(findBrokenLinks(collectMarkdown(["docs"], root)).map((b) => b.target), ["missing.md"]);
+});
+
+test("a malformed percent escape is reported instead of crashing the run", () => {
+  const root = createTree({ "docs/index.md": "See [rate](100%.md)." });
+  assert.deepEqual(findBrokenLinks(collectMarkdown(["docs"], root)).map((b) => b.target), ["100%.md"]);
+});

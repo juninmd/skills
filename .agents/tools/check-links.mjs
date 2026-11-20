@@ -27,16 +27,36 @@ export function collectMarkdown(roots, cwd = process.cwd()) {
   return walkFiles(roots, { cwd, skip: SKIP_DIRECTORIES, filter: (file) => file.endsWith(".md") });
 }
 
+// lychee does not check links in code: a Markdown example inside a fence must not fail the run.
+function stripCode(text) {
+  return text
+    .replace(/^ {0,3}(`{3,}|~{3,})[^\n]*\n[\s\S]*?(?:^ {0,3}\1[ \t]*$|(?![\s\S]))/gm, "")
+    .replace(/(`+)[^`\n][\s\S]*?\1/g, "");
+}
+
+function decodePath(target) {
+  try {
+    return decodeURIComponent(target);
+  } catch {
+    return null; // malformed %-escape: report it as broken instead of aborting every file
+  }
+}
+
 export function findBrokenLinks(files) {
   const broken = [];
   for (const file of files) {
-    const text = fs.readFileSync(file, "utf8");
-    for (const match of text.matchAll(/\[[^\]]*\]\(([^)\s]+)\)/g)) {
+    const text = stripCode(fs.readFileSync(file, "utf8"));
+    for (const match of text.matchAll(/\[[^\]]*\]\(([^)\s]+)(?:\s+"[^"]*")?\)/g)) {
       const target = match[1];
       if (/^(?:[a-z][a-z0-9+.-]*:|#)/i.test(target)) continue;
       const withoutAnchor = target.split("#")[0];
       if (!withoutAnchor) continue;
-      const resolved = path.resolve(path.dirname(file), decodeURIComponent(withoutAnchor));
+      const decoded = decodePath(withoutAnchor);
+      if (decoded === null) {
+        broken.push({ file, target });
+        continue;
+      }
+      const resolved = path.resolve(path.dirname(file), decoded);
       // `--fallback-extensions md` in CI: a link may omit the .md suffix.
       if (fs.existsSync(resolved) || fs.existsSync(`${resolved}.md`)) continue;
       broken.push({ file, target });
