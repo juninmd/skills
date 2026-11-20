@@ -1,7 +1,7 @@
 ---
 name: frontend-engineering
 description: |
-  Build, design, and review web UIs, component design systems, and responsive layouts. Use for React, Next.js, Vite, Tailwind, WCAG accessibility, i18n and RTL, visual hierarchy, color palettes, anti-slop styling, animation, easing, motion, UI states, and masonry. Trigger on 'build this page', 'fix the hydration error', 'make it accessible', 'this UI looks generic'.
+  Build, design, and review web UIs, component design systems, and responsive layouts. Use for React, Next.js, Vite, Tailwind, WCAG, i18n and RTL, visual hierarchy, color palettes, anti-slop styling, animation, easing, motion, UI states, and masonry. Trigger on 'build this page', 'fix the hydration error', 'make it accessible', 'this UI looks generic', 'polish the UI'.
 ---
 
 
@@ -60,6 +60,7 @@ Open a file only when its trigger matches.
 - `app/` directory: [nextjs-app-router.md](references/nextjs-app-router.md) — server/client boundaries, streaming, caching, actions.
 - `components.json` (shadcn/ui): discovery, installation, and extending primitives in [shadcn-integration.md](references/shadcn-integration.md).
 - `vite.config.*`: [vite-core.md](references/vite-core.md), [vite-patterns.md](references/vite-patterns.md); Tailwind v4 there: [vite-tailwind-v4.md](references/vite-tailwind-v4.md).
+- Polish, standardize, or perfect an existing UI (one design system, alignment and CSS fixes, UX, before/after screenshots): [ui-polish-pass.md](references/ui-polish-pass.md).
 - Reviewing UI: [frontend-review.md](references/frontend-review.md); slow UI, heavy bundles, or any Server Action: [frontend-optimization.md](references/frontend-optimization.md).
 - Behavior that should work but does not: [real-world-cases.md](references/real-world-cases.md).
 
