@@ -8,7 +8,8 @@ Open after the target is written down and the layer is CPU or binary size. Profi
 - Rust native
 - WebAssembly
 - Rank before porting
-- Worked case
+- Frame time (games, UI)
+- Worked cases
 
 ## Pick the runtime
 
@@ -53,5 +54,16 @@ From the `fast-anything` workflow (github.com/EL4CTEO/fast-anything, MIT), reduc
 - Prove equivalence on recorded real inputs plus shrunk variants before enabling; keep a one-flag undo.
 - First look for repeated work (same file decoded per frame, same JSON parsed per call): memoizing beats rewriting in another language.
 
-## Worked case
+## Frame time (games, UI)
+- Record per-frame durations, not an average FPS. Report p50, p99 and the worst frame; p99 flags stutter, but a game smooth 99.9% of the time can still hitch on the rest, so read the raw plot too (NVIDIA, "Analysing stutter"; Android Frame Rate guide: P90 baseline, P99 stutter).
+- Histogram-based percentiles: count empty buckets as zero frames; dropping them hides the worst stutter.
+- Under vsync (`Fifo`), a blocking swapchain acquire shows up as a long frame without any CPU work. Split CPU time from acquire/present wait before blaming code, and compare present modes on the same scene.
+- Software GPUs (swiftshader, lavapipe) only judge CPU and idle share, never fps.
+
+## Hot loop with an equivalence checksum
+When the fix rewrites a decoder or transform, bench the whole corpus in one process (min, median, max of 7 rounds) and print a checksum of the output. Same checksum plus lower median is the proof; a faster run with a different checksum is a bug. Instruction counts from callgrind confirm it without wall noise. Self-cost leaf in a per-byte loop: specialize on the constant (pixel size via const generics) so the compiler drops bounds checks. Also ask who reads the work: a checksum nobody verifies (zlib Adler-32 in an image decoder that checks output length) is pure cost, and a library flag usually skips it.
+
+## Worked cases
 Rust game engine, native character compile (`load_bench`, 24 characters): baseline 3.9-4.2 s over 4 runs. Callgrind on one character put `decode_png` at 60% inclusive, called from a per-frame sprite read that re-decoded the same PNG and re-parsed `meta.json` for every frame. A content-checked decode cache cut instructions 4.27G to 2.73G and wall time to 3.1-3.3 s, with the crate tests green. Remaining lead: the first decode of each unique PNG. Wasm size on the same repo: 22.9 MB, 64% `.rodata` from embedded assets (a product decision, reported not changed).
+
+Same repo, PNG decode: callgrind on a select-screen preview put `decode_png` at 77% inclusive, with the generic per-byte filter loop as top self cost (52%). Per-pixel-size Paeth/Average/Sub plus skipping Adler-32 took 2,610 PNGs (136 MB) from a 3,420 ms median to 2,220 ms (-35%, 3 runs each, spread under 4%, identical checksum). A cold first run took 8.9 s against 2.8 s warm for the same bench: discard it.
