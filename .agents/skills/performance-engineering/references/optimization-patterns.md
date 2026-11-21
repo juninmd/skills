@@ -12,7 +12,6 @@ Apply only after the profile names the bottleneck.
 - Collapse per-item queries with joins, `IN` lists, or a DataLoader-style batcher.
 - Batch external API calls; respect provider limits with bounded concurrency (`p-limit`, `asyncio.Semaphore`).
 - Write paths: buffer + flush by size/time, but state the durability window.
-
 - Per-item existence checks in an ingest loop (`SELECT id WHERE guid = $1` per item) are N+1 too: one `WHERE guid = ANY($1) OR url = ANY($2)` per batch, then filter in memory.
 - Per-row write loops: one `UPDATE t SET v = d.v FROM unnest($1::uuid[], $2::bool[]) AS d(id, v) WHERE t.id = d.id` instead of N round trips.
 
