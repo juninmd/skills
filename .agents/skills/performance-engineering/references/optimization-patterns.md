@@ -13,6 +13,9 @@ Apply only after the profile names the bottleneck.
 - Batch external API calls; respect provider limits with bounded concurrency (`p-limit`, `asyncio.Semaphore`).
 - Write paths: buffer + flush by size/time, but state the durability window.
 
+- Per-item existence checks in an ingest loop (`SELECT id WHERE guid = $1` per item) are N+1 too: one `WHERE guid = ANY($1) OR url = ANY($2)` per batch, then filter in memory.
+- Per-row write loops: one `UPDATE t SET v = d.v FROM unnest($1::uuid[], $2::bool[]) AS d(id, v) WHERE t.id = d.id` instead of N round trips.
+
 ## Serial awaits (I/O fan-out)
 - Signature: trace waterfall of back-to-back calls with no data dependency; CPU idle, latency = sum of round-trips. Cheapest win after N+1.
 - Fix: `Promise.all` / `asyncio.gather` for independent calls, bounded `mapLimit(items, n, fn)` for lists; write results by index so order stays deterministic.
@@ -20,6 +23,11 @@ Apply only after the profile names the bottleneck.
 - Keep calls that mutate shared state or depend on a prior write (accept suggestion, then read head SHA) in order.
 - Guard: assert peak in-flight calls (`peak >= k`) with a fake client, not a wall-clock threshold; timing asserts are flaky, concurrency peaks are exact.
 - The remote API's rate limiter still applies: parallelism cuts latency, not request count.
+
+## Headless browsers
+- Try a plain HTTP fetch plus an HTML parser first; server-rendered pages need no browser, and a browser costs hundreds of MiB and seconds per page.
+- `waitUntil: "networkidle"` waits for ads and analytics to go quiet and often times out; use `domcontentloaded` plus `waitForSelector` on the element you read.
+- Block images, fonts, and media through request interception or `page.route`; reuse one browser and close each context in `finally`.
 
 ## Concurrency
 - Node: move CPU work to `worker_threads`; keep the loop for I/O.
