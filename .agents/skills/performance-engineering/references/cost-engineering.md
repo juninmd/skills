@@ -85,7 +85,7 @@ Rightsizing is not a one-way lever toward smaller. Over-provisioning is a silent
 | Cache the stable prefix | only pays off above the provider's minimum size **and** when calls repeat inside the TTL |
 | Bound retries and fan-out | a retry storm multiplies spend silently |
 | Cap tokens per request | the only thing that stops a runaway loop |
-| Size images to the model's budget | vision input is billed by area: Claude counts `ceil(w/28) x ceil(h/28)` patches and downscales past its cap (long edge 1568 px on standard models), so pixels above the cap cost upload and encode time for no detail; skip unchanged frames before encoding |
+| Size images to the model's budget | vision input is billed by area: Claude counts `ceil(w/28) x ceil(h/28)` patches and shrinks anything past its cap (long edge 1568 px on standard models), so pixels above the cap cost upload and encode time for no detail; skip unchanged frames before encoding |
 
 An expired cached prefix pays the write cost for no hit — caching a rarely repeated prompt costs more than not caching it.
 

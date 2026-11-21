@@ -1062,7 +1062,10 @@
     "DTCG",
     "webstatus",
     "prerender",
-    "speculationrules"
+    "speculationrules",
+    "Mytkowicz",
+    "ASPLOS",
+    "gungraun"
   ],
   "ignorePaths": [
     "node_modules/**"
