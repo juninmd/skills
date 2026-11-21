@@ -51,6 +51,7 @@ cargo clippy --release -q -- -W clippy::perf -W clippy::redundant_clone
 - Read `t-gmax` (live bytes at the peak) first: it is RSS, and a per-item `clone()` of a big buffer shows as one site with N blocks of equal size. Fix with `Arc` plus copy-on-write (`Arc::make_mut`) so only the writers copy.
 - Clippy perf lints are a lead list, not a result: on a 500 kLOC engine they flagged 3 `redundant_clone` and 1 `contains`, the rest was style. Confirm each on a profile before changing code.
 - Use the same one-item input for callgrind and dhat so numbers compare.
+- After adding a cache, grep for every other caller of the cached function: a sibling call site (a portrait loader beside the sprite loader) kept re-decoding until callgrind's inclusive cost for it was checked again (527M to 262M instructions).
 
 ## WebAssembly
 - Size: `wasm-bindgen --target web --out-dir out target/wasm32-unknown-unknown/<profile>/app.wasm`, then `twiggy top`. A `data segment ".rodata"` row dominating means embedded assets (`include_bytes!`), not code; `twiggy dominators` and a grep of `include_bytes!` name them. Compare gzip/brotli size, which is what ships.
