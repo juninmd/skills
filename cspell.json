@@ -3,6 +3,13 @@
   "language": "en",
   "words": [
     "rustls",
+    "Cprofile",
+    "Paeth",
+    "dhat",
+    "gmax",
+    "monomorphization",
+    "rustup",
+    "unfilter",
     "callgrind",
     "Callgrind",
     "memcpy",
