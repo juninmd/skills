@@ -94,3 +94,21 @@ disagree about *shape*, not volume:
 
 The result of a mismatched shape is not "no data" — it is confident, wrong
 data that clears review and fails in production.
+
+## Tools and Papers Worth Knowing
+| Need | Tool | Note |
+|---|---|---|
+| Time a CLI or build step with stats | `hyperfine --warmup 3 --runs 10 --export-json out.json 'cmd'` | Warmup, outlier warning, mean ± σ; compare two commands in one call |
+| Rust micro-benchmark with a regression test | `criterion` or `divan` (`benches/`) | Statistical comparison against a saved baseline |
+| Rust benchmark that is stable on noisy CI | `iai-callgrind` | Counts instructions, so shared runners do not add variance |
+| Rust binary size or compile cost | `cargo bloat --release --crates` · `cargo llvm-lines` | Ranks crates and generic instantiations before touching `[profile.release]` |
+| JS bundle size | `vite build` output, `rollup-plugin-visualizer` | Check what the entry chunk statically pulls before lazy-loading |
+| Desktop app idle cost | count timers and wake-ups per minute while the window is hidden | Poll loops that ignore window visibility are the usual finding; verify each one is gated before changing anything |
+
+Papers behind the Noise Floor rules:
+- Mytkowicz et al., *Producing Wrong Data Without Doing Anything Obviously Wrong!* (ASPLOS 2009): environment size and link order alone shift results by several percent, so randomize setup across runs.
+- Kalibera and Jones, *Rigorous Benchmarking in Reasonable Time* (ISMM 2013): separate process, iteration and run variance; do not average away the level that dominates.
+- Curtsinger and Berger, *Coz: Finding Code that Counts with Causal Profiling* (SOSP 2015): the hottest function is not always the one whose speedup moves throughput; virtual speedups tell you which.
+- Dean and Barroso, *The Tail at Scale* (CACM 2013): in a fan-out, rare slow calls dominate user latency; measure p99, not the mean.
+
+A clean audit is a valid result: if every entry in the profile is already gated, cached or lazy, report that and open no PR.

@@ -82,7 +82,7 @@ A result inside run-to-run variance is not a result. Averages hide exactly the t
 - Profiling by layer (Node, Python, browser, SQL): [profiling-playbook.md](references/profiling-playbook.md)
 - CPU and size profiling for Node, Bun, Rust, and WebAssembly, with the `cpuprofile-top.mjs` ranker: [runtime-profiling.md](references/runtime-profiling.md)
 - Caching, batching, and load-test design: [optimization-patterns.md](references/optimization-patterns.md)
-- USE/RED depth, percentile math, and measuring before optimizing: [measurement-methodology.md](references/measurement-methodology.md)
+- USE/RED depth, percentile math, benchmark tools and papers, and measuring before optimizing: [measurement-methodology.md](references/measurement-methodology.md)
 
 See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-domain guides.
 
