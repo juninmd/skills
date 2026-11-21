@@ -3,6 +3,13 @@
   "language": "en",
   "words": [
     "rustls",
+    "Cprofile",
+    "Paeth",
+    "dhat",
+    "gmax",
+    "monomorphization",
+    "rustup",
+    "unfilter",
     "callgrind",
     "Callgrind",
     "memcpy",
@@ -1077,7 +1084,14 @@
     "Vectorscan",
     "NSDI",
     "syscalls",
-    "execve"
+    "execve",
+    "Robusta",
+    "libuv",
+    "millicores",
+    "domcontentloaded",
+    "Pyroscope",
+    "Parca",
+    "usec"
   ],
   "ignorePaths": [
     "node_modules/**"

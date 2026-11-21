@@ -43,7 +43,9 @@ Two lenses choose what to look at before any tool runs: **USE** — Utilization,
 | One request slow, CPU idle | I/O wait | distributed trace waterfall |
 | Slow only with real data volume | Database | `EXPLAIN (ANALYZE, BUFFERS)` · `pg_stat_statements` |
 | Throughput plateaus below CPU limit | Saturation | connection pool size, queue depth, thread pool |
-| Short-lived CLI or hook slow, its own CPU low | Process | `strace -f -c` (count `wait4`/`execve`: each child spawn costs ms) · `hyperfine -N` |
+| Container slow while its CPU graph looks low | CPU quota | `cat /sys/fs/cgroup/cpu.stat` (`nr_throttled`, `throttled_usec`) · `container_cpu_cfs_throttled_periods_total` — [cost-engineering](references/cost-engineering.md) |
+| Batch job, cron, or CLI too slow | Wall clock | `hyperfine --warmup 2 --runs 10 '<cmd>'` · per-stage timers · [optimization-patterns](references/optimization-patterns.md) |
+| Hook or CLI slow while its own CPU is low | Process | `strace -f -c` (count `wait4`/`execve`: each child spawn costs ms) · `hyperfine -N` |
 | Multithreaded, flat profile, no clear hot spot | Causal | `coz` virtual speedups — [measurement-methodology](references/measurement-methodology.md) |
 
 ```bash
@@ -85,7 +87,7 @@ A result inside run-to-run variance is not a result. Averages hide exactly the t
 ## Reference Routing
 - Practical performance cases: [real-world-cases.md](references/real-world-cases.md)
 - Profiling by layer (Node, Python, browser, SQL): [profiling-playbook.md](references/profiling-playbook.md)
-- CPU and size profiling for Node, Bun, Rust, and WebAssembly, with the `cpuprofile-top.mjs` ranker: [runtime-profiling.md](references/runtime-profiling.md)
+- CPU and size profiling for Node, Bun, Rust, and WebAssembly, with `cpuprofile-top.mjs` and `dhat-top.mjs` rankers: [runtime-profiling.md](references/runtime-profiling.md)
 - Caching, batching, and load-test design: [optimization-patterns.md](references/optimization-patterns.md)
 - USE/RED depth, percentile math, and measuring before optimizing: [measurement-methodology.md](references/measurement-methodology.md)
 
