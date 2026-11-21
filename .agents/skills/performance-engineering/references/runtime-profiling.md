@@ -28,7 +28,7 @@ Both write a V8-format `.cpuprofile`; one script ranks self time for either:
 node --cpu-prof --cpu-prof-dir=prof app.js && node scripts/cpuprofile-top.mjs prof/*.cpuprofile 15
 bun --cpu-prof --cpu-prof-dir=prof app.ts && bun scripts/cpuprofile-top.mjs prof/*.cpuprofile 15
 ```
-Bun labels some frames `anonymous` with no URL; read the nearest named caller. A run under ~100 ms is startup noise: loop the workload or stop. Event-loop lag, heap diffs and pools stay in [profiling-playbook](profiling-playbook.md).
+Bun 1.4+ also writes the profile as grep-friendly Markdown (hot functions, call tree, callers per function): `bun --cpu-prof-md --cpu-prof-dir=prof app.ts`, and `--heap-prof-md` for heap. Read its `Called by:` list for `all`/`run` (bun:sqlite) to see which query owns the time before opening any SQL. Bun labels some frames `anonymous` with no URL; read the nearest named caller. A run under ~100 ms is startup noise: loop the workload or stop. Event-loop lag, heap diffs and pools stay in [profiling-playbook](profiling-playbook.md).
 
 ## Rust native
 1. Build optimized with symbols: `CARGO_PROFILE_RELEASE_DEBUG=line-tables-only cargo build --release`. A profile of a debug build ranks the wrong functions.
