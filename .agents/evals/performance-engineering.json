@@ -19,6 +19,18 @@
         "top_k": 3
       },
       {
+        "prompt": "Profile this Rust binary with a flamegraph and find the hot function",
+        "top_k": 3
+      },
+      {
+        "prompt": "Profile the Bun server CPU and rank the slowest functions",
+        "top_k": 3
+      },
+      {
+        "prompt": "Profile and shrink the WebAssembly bundle size",
+        "top_k": 3
+      },
+      {
         "prompt": "Run a k6 load test against the API before launch",
         "top_k": 3
       }

@@ -3,6 +3,13 @@
   "language": "en",
   "words": [
     "rustls",
+    "callgrind",
+    "Callgrind",
+    "memcpy",
+    "rodata",
+    "samply",
+    "CTEO",
+    "twiggy",
     "ASAR",
     "audioop",
     "Chromaprint",
