@@ -1069,7 +1069,14 @@
     "DTCG",
     "webstatus",
     "prerender",
-    "speculationrules"
+    "speculationrules",
+    "Robusta",
+    "libuv",
+    "millicores",
+    "domcontentloaded",
+    "Pyroscope",
+    "Parca",
+    "usec"
   ],
   "ignorePaths": [
     "node_modules/**"
