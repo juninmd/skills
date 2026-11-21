@@ -16,6 +16,8 @@ description: |
 # autocannon fits an HTTP endpoint; swap for the load generator that fits the
 # target (k6, wrk, a DB benchmark, a profiler) when it isn't one.
 autocannon -c 50 -d 30 http://localhost:3000/endpoint | tee /tmp/before.txt
+# Short-lived process (CLI, hook, build step): independent runs with warmup.
+hyperfine -N --warmup 3 --runs 40 --input req.json './bin hook' --export-json /tmp/before.json
 nproc && free -m && cat /sys/fs/cgroup/cpu.max 2>/dev/null   # is the box throttled?
 ```
 
@@ -41,6 +43,8 @@ Two lenses choose what to look at before any tool runs: **USE** — Utilization,
 | One request slow, CPU idle | I/O wait | distributed trace waterfall |
 | Slow only with real data volume | Database | `EXPLAIN (ANALYZE, BUFFERS)` · `pg_stat_statements` |
 | Throughput plateaus below CPU limit | Saturation | connection pool size, queue depth, thread pool |
+| Short-lived CLI or hook slow, its own CPU low | Process | `strace -f -c` (count `wait4`/`execve`: each child spawn costs ms) · `hyperfine -N` |
+| Multithreaded, flat profile, no clear hot spot | Causal | `coz` virtual speedups — [measurement-methodology](references/measurement-methodology.md) |
 
 ```bash
 # Node: CPU profile of a running server
@@ -75,6 +79,7 @@ A result inside run-to-run variance is not a result. Averages hide exactly the t
 | Repeat the baseline, not just the fix | Machine drift is indistinguishable from your change |
 | Watch CPU quota and thermals | A throttled container fakes a regression perfectly |
 | Sample in independent processes | In-process iterations autocorrelate through JIT, GC, and thermal state; a significance test over them assumes independence it does not have |
+| Expect layout bias | Env size and link order alone shift timings (Mytkowicz et al., ASPLOS 2009); vary them or gate on instruction counts (`gungraun`, formerly iai-callgrind) |
 | Decide with a test, not an eyeball | Mann-Whitney U over 7+ samples per side, and an effect larger than `max(noise band, 2 x stdev)` — at n=7 only differences around 1 sigma are detectable |
 
 ## Reference Routing

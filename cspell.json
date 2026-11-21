@@ -1062,7 +1062,22 @@
     "DTCG",
     "webstatus",
     "prerender",
-    "speculationrules"
+    "speculationrules",
+    "Mytkowicz",
+    "Hauswirth",
+    "ASPLOS",
+    "gungraun",
+    "Curtsinger",
+    "SOSP",
+    "prefilter",
+    "prefilters",
+    "prefiltering",
+    "Corasick",
+    "Hyperscan",
+    "Vectorscan",
+    "NSDI",
+    "syscalls",
+    "execve"
   ],
   "ignorePaths": [
     "node_modules/**"
