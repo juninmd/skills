@@ -3,6 +3,14 @@
 What to measure, and why an average lies, before any profiler runs. Linked
 from `SKILL.md`.
 
+## Contents
+- USE Method: Per-Resource
+- RED Method: Per Request-Driven Service
+- Percentiles vs Averages
+- Measure Before Optimizing
+- Measurement Bias
+- Load Testing That Reflects Production Traffic Shape
+
 ## USE Method: Per-Resource
 
 Brendan Gregg's *Systems Performance* names the checklist for any finite
@@ -77,6 +85,28 @@ work. Two failure modes follow from misreading the quote:
   nobody was waiting on.
 - Refusing to optimize a profiled, proven hot path because "optimization is
   bad" — this is citing the quote backwards.
+
+## Measurement Bias
+
+A benchmark can be repeatable and still wrong. Two results from the
+literature set the guards:
+
+- Mytkowicz, Diwan, Hauswirth, Sweeney, *Producing Wrong Data Without Doing
+  Anything Obviously Wrong!* (ASPLOS 2009): the size of the environment
+  variables and the link order alone shifted measured speedups enough to
+  flip conclusions. Hold the environment fixed between before and after,
+  and treat a single-setup gain of a few percent as unproven.
+- Kalibera and Jones, *Rigorous Benchmarking in Reasonable Time* (ISMM
+  2013): variance lives at several levels (build, process, iteration).
+  Repeat at the level with the most variance, usually the process, rather
+  than adding iterations inside one process. `hyperfine` does exactly that.
+
+| Bias source | Guard |
+|---|---|
+| Environment size, cwd, link/layout order | Same shell, same env, same binary path for both sides |
+| One process, many iterations | Independent processes; report the spread across them |
+| Before measured once, after measured now | Interleave or repeat the baseline in the same session |
+| Fixture built inside the measured window | Build inputs first; profile only the workload |
 
 ## Load Testing That Reflects Production Traffic Shape
 

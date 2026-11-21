@@ -28,7 +28,7 @@ The catalog contains 37 domain skills. They are intentionally broader than singl
 | `observability` | root-cause debugging, logging, tracing, alerting, SLOs and error budgets, postmortems, network failures, on-call, product event tracking, A/B experiments, and watch-logs-and-fix loops |
 | `package-management` | pnpm workspaces, catalogs, overrides, patches, peer deps; uv, pyproject.toml, PEP 723, Ruff, prek/pre-commit, Dependabot PRs, dependency cooldown configuration, lockfile hygiene, and CI caching |
 | `peer-benchmark` | gap reviews and prior-art sweeps |
-| `performance-engineering` | Node, Bun, Rust, and WebAssembly CPU profiling and bundle size, k6 load tests, N+1 queries, memory leaks, LCP/INP, metric loops, and rightsizing |
+| `performance-engineering` | Node, Bun, Rust, and WebAssembly CPU profiling and bundle size, k6 load tests, N+1 queries, memory leaks, LCP/INP, metric loops, benchmark noise, rightsizing |
 | `portkill` | EADDRINUSE errors, dev-server port conflicts, and killing the listener on a given port on Windows, macOS, or Linux |
 | `radar-ia` | the daily AI radar and best-posts digests; not for one-paper research or debugging |
 | `rea` | rea-agents setup and MCP readiness, native binary decompilation and xrefs, JavaScript/Electron ASAR and IPC analysis, .NET assemblies, and browser observations with evidence |
