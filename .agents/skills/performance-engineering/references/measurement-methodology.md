@@ -78,6 +78,9 @@ work. Two failure modes follow from misreading the quote:
 - Refusing to optimize a profiled, proven hot path because "optimization is
   bad" — this is citing the quote backwards.
 
+Setup alone can fake a result: Mytkowicz et al. (ASPLOS 2009) flipped speedups by changing only environment
+size and link order. Compare on one box and build, interleaved; whole commands: `hyperfine --warmup 3 -N 'old' 'new'`.
+
 ## Load Testing That Reflects Production Traffic Shape
 
 A load test that "passes" and a production incident the next day usually

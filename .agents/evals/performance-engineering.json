@@ -33,6 +33,10 @@
       {
         "prompt": "Run a k6 load test against the API before launch",
         "top_k": 3
+      },
+      {
+        "prompt": "Cut the idle CPU cost of a polling loop that re-encodes unchanged images every tick",
+        "top_k": 3
       }
     ],
     "negative": [

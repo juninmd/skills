@@ -38,6 +38,8 @@ callgrind_annotate --inclusive=no cg.out | head -30     # self cost
 callgrind_annotate --inclusive=yes cg.out | grep -E "my_crate" | head   # who calls the hot leaf
 ```
 Self cost names the leaf (a decoder, `memcpy`); inclusive cost names the caller that invoked it too often. Fix the caller.
+
+Bench harness: `divan` or `criterion` for wall time; `gungraun` (formerly `iai-callgrind`) for instruction counts that gate CI without timing noise. No harness in the repo: an `#[ignore]` test that times median and p90 over 9+ runs with `--release` is enough to compare before and after.
 4. Compare instruction counts (`Collected`) and wall time across runs; instruction count is the noise-free signal, wall time is the user-visible one.
 
 ## WebAssembly
