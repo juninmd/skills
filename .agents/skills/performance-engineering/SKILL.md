@@ -36,6 +36,7 @@ Two lenses choose what to look at before any tool runs: **USE** — Utilization,
 |---|---|---|
 | CPU pegged, one endpoint slow | CPU | `node --cpu-prof` · `bun --cpu-prof` · `samply`/callgrind (Rust) · `py-spy record -p <pid>` · `pprof` |
 | Wasm bundle too big or slow | Binary | `twiggy top` · CDP profile — [runtime-profiling](references/runtime-profiling.md) |
+| Tray/desktop app uses CPU or battery while hidden | Wakeups | wakeups/s with window hidden — [desktop-idle](references/desktop-idle.md) |
 | Memory grows and never returns | Heap | `node --heapsnapshot-signal=SIGUSR2` · `tracemalloc` · `objgraph` |
 | Latency fine alone, awful under load | Concurrency | event-loop lag probe · pool saturation metrics |
 | One request slow, CPU idle | I/O wait | distributed trace waterfall |
@@ -103,7 +104,7 @@ See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-
 - Reject micro-optimizations that complicate code without moving the user-visible metric.
 - Load tests never run against production without explicit approval.
 - Test against production-sized data. A bottleneck that only appears at scale is invisible locally, and that is exactly the one that pages you.
-- Browser latency, bundle size, and Core Web Vitals belong to [web-performance](references/web-performance.md); spend to [cost-engineering](references/cost-engineering.md); a crash or wrong answer to `observability`.
+- Browser latency, bundle size, and Core Web Vitals belong to [web-performance](references/web-performance.md); spend to [cost-engineering](references/cost-engineering.md); a crash or wrong answer to `observability`; idle cost of a hidden tray or webview app to [desktop-idle](references/desktop-idle.md).
 - Turning a proven target into an unattended keep-or-revert loop is [metric-loop](references/metric-loop.md); gating a branch on the benchmark delta is `test-engineering`.
 
 ## Checklist
