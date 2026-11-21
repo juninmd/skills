@@ -3,6 +3,14 @@
 What to measure, and why an average lies, before any profiler runs. Linked
 from `SKILL.md`.
 
+## Contents
+- USE Method: Per-Resource
+- RED Method: Per Request-Driven Service
+- Percentiles vs Averages
+- Measure Before Optimizing
+- Load Testing That Reflects Production Traffic Shape
+- Tools and Papers Worth Knowing
+
 ## USE Method: Per-Resource
 
 Brendan Gregg's *Systems Performance* names the checklist for any finite
