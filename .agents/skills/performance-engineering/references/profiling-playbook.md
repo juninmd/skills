@@ -3,7 +3,7 @@
 Pick the layer the symptom points to; collect evidence read-only first.
 
 ## Node.js
-- CPU: `node --cpu-prof app.js` then open the `.cpuprofile` in DevTools; or `npx 0x -- node app.js` for a flamegraph.
+- CPU (Bun, Rust, Wasm: [runtime-profiling](runtime-profiling.md)): `node --cpu-prof app.js` then open the `.cpuprofile` in DevTools; or `npx 0x -- node app.js` for a flamegraph.
 - Event-loop lag: `perf_hooks.monitorEventLoopDelay()`; sustained p99 > 100ms means synchronous work on the loop.
 - Heap: `node --heapsnapshot-signal=SIGUSR2`, take two snapshots apart, diff **retained size** (an object plus everything it alone keeps alive) by constructor — not **shallow size** (the object itself), which hides a small wrapper holding a huge closure or array. A constructor with growing retained size and flat shallow size is the leak; a big shallow size alone is just a big object, not a leak.
 - Async traps: `console.time` around awaits lies under concurrency; use `async_hooks`-based APM or manual spans.

@@ -1,7 +1,7 @@
 ---
 name: performance-engineering
 description: |
-  Measure and reduce latency, memory, Core Web Vitals, and cloud or token spend. Use for endpoint profiling, k6 load tests, bottlenecks, N+1 queries, memory leaks, LCP/INP, autonomous metric loops, and rightsizing costs. Trigger on 'this is slow', 'load test this', 'memory keeps growing', 'improve LCP', 'the cloud bill is too high', 'cut token cost'.
+  Measure and reduce latency, memory, Core Web Vitals, and cloud or token spend. Use for Node, Bun, Rust, and WebAssembly CPU profiling and bundle size, k6 load tests, N+1 queries, memory leaks, LCP/INP, metric loops, and rightsizing. Trigger on 'this is slow', 'load test this', 'profile this Rust or Bun app', 'wasm is too big', 'improve LCP', 'cut cloud cost'.
 ---
 
 
@@ -34,7 +34,8 @@ Two lenses choose what to look at before any tool runs: **USE** — Utilization,
 
 | Symptom | Layer | Tool |
 |---|---|---|
-| CPU pegged, one endpoint slow | CPU | `node --cpu-prof` · `py-spy record -p <pid>` · `pprof` |
+| CPU pegged, one endpoint slow | CPU | `node --cpu-prof` · `bun --cpu-prof` · `samply`/callgrind (Rust) · `py-spy record -p <pid>` · `pprof` |
+| Wasm bundle too big or slow | Binary | `twiggy top` · CDP profile — [runtime-profiling](references/runtime-profiling.md) |
 | Memory grows and never returns | Heap | `node --heapsnapshot-signal=SIGUSR2` · `tracemalloc` · `objgraph` |
 | Latency fine alone, awful under load | Concurrency | event-loop lag probe · pool saturation metrics |
 | One request slow, CPU idle | I/O wait | distributed trace waterfall |
@@ -79,6 +80,7 @@ A result inside run-to-run variance is not a result. Averages hide exactly the t
 ## Reference Routing
 - Practical performance cases: [real-world-cases.md](references/real-world-cases.md)
 - Profiling by layer (Node, Python, browser, SQL): [profiling-playbook.md](references/profiling-playbook.md)
+- CPU and size profiling for Node, Bun, Rust, and WebAssembly, with the `cpuprofile-top.mjs` ranker: [runtime-profiling.md](references/runtime-profiling.md)
 - Caching, batching, and load-test design: [optimization-patterns.md](references/optimization-patterns.md)
 - USE/RED depth, percentile math, and measuring before optimizing: [measurement-methodology.md](references/measurement-methodology.md)
 
