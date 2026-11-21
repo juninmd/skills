@@ -13,6 +13,14 @@ Apply only after the profile names the bottleneck.
 - Batch external API calls; respect provider limits with bounded concurrency (`p-limit`, `asyncio.Semaphore`).
 - Write paths: buffer + flush by size/time, but state the durability window.
 
+- Per-item existence checks in an ingest loop (`SELECT id WHERE guid = $1` per item) are N+1 too: one `WHERE guid = ANY($1) OR url = ANY($2)` per batch, then filter in memory.
+- Per-row write loops: one `UPDATE t SET v = d.v FROM unnest($1::uuid[], $2::bool[]) AS d(id, v) WHERE t.id = d.id` instead of N round trips.
+
+## Headless browsers
+- Try a plain HTTP fetch plus an HTML parser first; server-rendered pages need no browser, and a browser costs hundreds of MiB and seconds per page.
+- `waitUntil: "networkidle"` waits for ads and analytics to go quiet and often times out; use `domcontentloaded` plus `waitForSelector` on the element you read.
+- Block images, fonts, and media through request interception or `page.route`; reuse one browser and close each context in `finally`.
+
 ## Concurrency
 - Node: move CPU work to `worker_threads`; keep the loop for I/O.
 - Python: CPU → processes, I/O → asyncio/threads; never mix sync drivers into async paths.

@@ -7,6 +7,13 @@
     "Curtsinger",
     "Mytkowicz",
     "SOSP",
+    "Cprofile",
+    "Paeth",
+    "dhat",
+    "gmax",
+    "monomorphization",
+    "rustup",
+    "unfilter",
     "callgrind",
     "Callgrind",
     "memcpy",
@@ -1066,7 +1073,14 @@
     "DTCG",
     "webstatus",
     "prerender",
-    "speculationrules"
+    "speculationrules",
+    "Robusta",
+    "libuv",
+    "millicores",
+    "domcontentloaded",
+    "Pyroscope",
+    "Parca",
+    "usec"
   ],
   "ignorePaths": [
     "node_modules/**"
