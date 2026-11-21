@@ -3,6 +3,13 @@
   "language": "en",
   "words": [
     "rustls",
+    "Cprofile",
+    "Paeth",
+    "dhat",
+    "gmax",
+    "monomorphization",
+    "rustup",
+    "unfilter",
     "callgrind",
     "Callgrind",
     "memcpy",
@@ -1065,7 +1072,14 @@
     "speculationrules",
     "Mytkowicz",
     "ASPLOS",
-    "gungraun"
+    "gungraun",
+    "Robusta",
+    "libuv",
+    "millicores",
+    "domcontentloaded",
+    "Pyroscope",
+    "Parca",
+    "usec"
   ],
   "ignorePaths": [
     "node_modules/**"

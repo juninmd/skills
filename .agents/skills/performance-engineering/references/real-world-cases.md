@@ -27,6 +27,12 @@ Real failure shapes and the evidence that resolved them.
 - Fix: benchmark harness with warmup, fixed seed data, median-of-N.
 - Lesson: one cold run is noise, not a regression.
 
+## Case: 5000-item library froze on every keystroke
+- Symptom: typing in a client-side filter took 2.2s per key (p50, 7 runs); opening the page took 2.9s.
+- Evidence: CDP CPU profile was ~80% `(program)` (native style/layout/paint), ~20% JS; every card also ran an entrance animation.
+- Fix: `content-visibility: auto` with `contain-intrinsic-size: auto …` on cards, and no animation past the first screen. CSS only: 0.44s per key, 0.5s to open; find-in-page and focus unchanged.
+- Lesson: when native rendering owns the profile, cut rendered work before touching JS; guard the rule with a test.
+
 ## Case: frontend bundle doubled silently
 - Symptom: LCP degraded 1.2s on mobile after a "small" PR.
 - Evidence: bundle analyzer showed a full icon library imported for one icon.

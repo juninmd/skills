@@ -8,6 +8,7 @@
 - Attribution Instruments
 - Sweep Before Optimizing
 - Rightsizing: A Two-Sided Tradeoff
+- Kubernetes CPU Limits and Throttling
 - Where Cloud Money Actually Goes
 - LLM Cost
 - A Budget Alert Is Not a Guardrail
@@ -66,6 +67,19 @@ Rightsizing is not a one-way lever toward smaller. Over-provisioning is a silent
 | Container OOMKilled under normal load, not under an actual leak | memory limit set below real working-set size | raise the limit to the measured working set, not to "make the alert stop"; check for a genuine leak first ([profiling-playbook](profiling-playbook.md)) |
 | Autoscaler thrashes (scale up, scale down, repeat) | target utilization set too close to the scaling trigger | widen the band, or scale on a leading saturation signal instead of a lagging one |
 
+Rightsizing from data, not guesses: `krr` (Robusta) reads Prometheus history and recommends requests and limits per container; the VPA recommender does the same in-cluster. Since Kubernetes 1.35, in-place pod resize is stable, so a resize no longer has to restart the pod.
+
+## Kubernetes CPU Limits and Throttling
+A CPU limit is a CFS quota per 100ms period. A multi-threaded runtime (Node GC and libuv threads, the JVM, Go) burns the quota early in the period and then stalls for the rest of it, so p99 latency suffers while average CPU looks low. Measurements across workloads show CPU limits cost latency far more than they protect neighbors ([CPU-Limits kill Performance, arXiv 2510.10747](https://arxiv.org/abs/2510.10747)).
+
+| Symptom | Likely cause | Fix |
+|---|---|---|
+| `nr_throttled` rising, p99 spiky, CPU graph at 30-50% | limit below the burst a request needs | remove the CPU limit and keep an honest request, or raise the limit to the measured burst |
+| Many containers capped at tens of millicores | a `ResourceQuota` on `limits.cpu` forces every pod to declare a limit | quota `requests.cpu` instead; requests already decide scheduling and fair share under contention |
+| Startup or cron job takes minutes at a tiny limit | the boot burst (JIT, imports, migrations) is throttled | let jobs burst; a job that finishes faster also holds its memory for less time |
+
+Keep memory limits: memory is not compressible, and a limit is what stops a leak from taking the node.
+
 ## Where Cloud Money Actually Goes
 
 | Suspect | Check before rewriting code |
@@ -81,6 +95,8 @@ Rightsizing is not a one-way lever toward smaller. Over-provisioning is a silent
 | Lever | Effect |
 |---|---|
 | Shorten the **output** format | output costs several times input per token — this is the biggest lever |
+| Bound **reasoning** tokens | reasoning models bill hidden thinking as output and can spend the whole `max_tokens` before the answer; set `reasoning_effort` or a thinking budget per call, and size `max_tokens` above it. Efficient-reasoning methods are surveyed in [Stop Overthinking, arXiv 2503.16419](https://arxiv.org/abs/2503.16419) |
+| Batch the offline path | provider batch APIs trade hours of latency for a large discount; embeddings and classification in a cron job rarely need an answer in seconds. Batch embedding inputs per request, too |
 | Route by difficulty | small model on the easy path with escalation beats one large model everywhere |
 | Cache the stable prefix | only pays off above the provider's minimum size **and** when calls repeat inside the TTL |
 | Bound retries and fan-out | a retry storm multiplies spend silently |

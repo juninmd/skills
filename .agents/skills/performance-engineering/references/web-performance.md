@@ -29,7 +29,7 @@ Start from field data at p75, never a local run. Then name the **one** failing v
 | Failing | Look at | Usual cause |
 |---|---|---|
 | LCP | TTFB, then resource discovery | slow server; hero image found late in a stylesheet or via JS; lazy-loaded LCP element |
-| INP | long tasks, main-thread work | hydration, oversized bundles, a synchronous handler, third-party scripts |
+| INP | long tasks, main-thread work | hydration, oversized bundles, a synchronous handler, third-party scripts; a list re-rendering thousands of nodes per keystroke |
 | CLS | elements without reserved space | images with no dimensions, injected banners/ads, late webfont swap, content inserted above the viewport |
 
 ```bash
@@ -51,10 +51,16 @@ curl -sS -o /dev/null -w 'dns %{time_namelookup} connect %{time_connect} tls %{t
 <!-- CLS: reserve the box before the bytes arrive -->
 <img src="/thumb.jpg" width="400" height="300" style="aspect-ratio:4/3;height:auto">
 
+<!-- INP on long lists: skip style, layout and paint of offscreen items; `auto` remembers the real size -->
+<!-- .grid > .card { content-visibility: auto; contain-intrinsic-size: auto 168px auto 320px } -->
+
 <!-- Fonts: no invisible text, no late swap -->
 <link rel="preload" as="font" type="font/woff2" href="/inter.woff2" crossorigin>
 <!-- @font-face { font-display: swap } -->
 ```
+
+## Reading a Browser CPU Profile
+In a CDP `Profiler` capture, `(program)` is native work outside JS: style recalculation, layout, paint. When it dominates, script changes cannot move the metric; cut DOM work instead (`content-visibility`, fewer nodes, no animation on offscreen items). Measure an interaction in headless Chromium as the time from dispatching the event to `requestAnimationFrame` plus `setTimeout(0)`: next frame painted, a lab proxy for INP.
 
 ## Reference Routing
 - Threshold detail, field-data sources and their lag, per-metric root causes, priority hints: [vitals-and-field-data.md](vitals-and-field-data.md)
