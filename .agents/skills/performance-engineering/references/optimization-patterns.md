@@ -13,6 +13,14 @@ Apply only after the profile names the bottleneck.
 - Batch external API calls; respect provider limits with bounded concurrency (`p-limit`, `asyncio.Semaphore`).
 - Write paths: buffer + flush by size/time, but state the durability window.
 
+## Serial awaits (I/O fan-out)
+- Signature: trace waterfall of back-to-back calls with no data dependency; CPU idle, latency = sum of round-trips. Cheapest win after N+1.
+- Fix: `Promise.all` / `asyncio.gather` for independent calls, bounded `mapLimit(items, n, fn)` for lists; write results by index so order stays deterministic.
+- Start each call inside an `async` lambda: `Promise.all([a.x(), b.y()])` leaks an unhandled rejection from `a.x()` when `b.y()` throws synchronously (missing method, bad arg).
+- Keep calls that mutate shared state or depend on a prior write (accept suggestion, then read head SHA) in order.
+- Guard: assert peak in-flight calls (`peak >= k`) with a fake client, not a wall-clock threshold; timing asserts are flaky, concurrency peaks are exact.
+- The remote API's rate limiter still applies: parallelism cuts latency, not request count.
+
 ## Concurrency
 - Node: move CPU work to `worker_threads`; keep the loop for I/O.
 - Python: CPU → processes, I/O → asyncio/threads; never mix sync drivers into async paths.
