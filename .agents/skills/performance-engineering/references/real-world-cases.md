@@ -27,6 +27,12 @@ Real failure shapes and the evidence that resolved them.
 - Fix: benchmark harness with warmup, fixed seed data, median-of-N.
 - Lesson: one cold run is noise, not a regression.
 
+## Case: desktop search froze the window on every keystroke
+- Symptom: a Tauri disk cleaner's instant search stuttered on a whole-drive scan; the backend answered "from memory".
+- Evidence: sync `#[tauri::command]`s run on the main thread; a release bench on a 1M-node tree put each walk at 86-288 ms, every debounced keystroke.
+- Fix: `#[tauri::command(async)]`, and skip subtrees whose total size cannot reach the size floor or beat the current top-k cut. Walks fell to 4-84 ms; a visit-count test (4 nodes, not 104) guards the prune.
+- Lesson: "in memory" is not "free" when it runs on the UI thread; the aggregate you already store is the bound that prunes the walk.
+
 ## Case: frontend bundle doubled silently
 - Symptom: LCP degraded 1.2s on mobile after a "small" PR.
 - Evidence: bundle analyzer showed a full icon library imported for one icon.

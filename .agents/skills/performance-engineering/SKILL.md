@@ -41,6 +41,8 @@ Two lenses choose what to look at before any tool runs: **USE** — Utilization,
 | One request slow, CPU idle | I/O wait | distributed trace waterfall |
 | Slow only with real data volume | Database | `EXPLAIN (ANALYZE, BUFFERS)` · `pg_stat_statements` |
 | Throughput plateaus below CPU limit | Saturation | connection pool size, queue depth, thread pool |
+| Desktop window freezes, backend fast | UI thread | a sync IPC handler on the main thread: Tauri `#[tauri::command]` without `async`, Electron `ipcRenderer.sendSync` — [optimization-patterns](references/optimization-patterns.md) |
+| Hot function sped up, end-to-end unchanged | Causality | `coz run --- ./bin` (native code; threads and pipelines) — [runtime-profiling](references/runtime-profiling.md) |
 
 ```bash
 # Node: CPU profile of a running server
@@ -75,6 +77,7 @@ A result inside run-to-run variance is not a result. Averages hide exactly the t
 | Repeat the baseline, not just the fix | Machine drift is indistinguishable from your change |
 | Watch CPU quota and thermals | A throttled container fakes a regression perfectly |
 | Sample in independent processes | In-process iterations autocorrelate through JIT, GC, and thermal state; a significance test over them assumes independence it does not have |
+| Randomize the setup | Environment size and link order alone flip conclusions across CPUs and compilers (Mytkowicz et al., *Producing Wrong Data Without Doing Anything Obviously Wrong!*, ASPLOS 2009); vary them or compare instruction counts |
 | Decide with a test, not an eyeball | Mann-Whitney U over 7+ samples per side, and an effect larger than `max(noise band, 2 x stdev)` — at n=7 only differences around 1 sigma are detectable |
 
 ## Reference Routing

@@ -3,6 +3,10 @@
   "language": "en",
   "words": [
     "rustls",
+    "ASPLOS",
+    "Curtsinger",
+    "Mytkowicz",
+    "SOSP",
     "callgrind",
     "Callgrind",
     "memcpy",
