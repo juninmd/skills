@@ -33,6 +33,12 @@ Real failure shapes and the evidence that resolved them.
 - Fix: `content-visibility: auto` with `contain-intrinsic-size: auto …` on cards, and no animation past the first screen. CSS only: 0.44s per key, 0.5s to open; find-in-page and focus unchanged.
 - Lesson: when native rendering owns the profile, cut rendered work before touching JS; guard the rule with a test.
 
+## Case: dashboard catalog rebuild blocked the event loop
+- Symptom: a Bun server rebuilt its JSON catalog synchronously on every cache miss; 2000 rows took 40ms p50, 57ms p95, stalling every request in flight.
+- Evidence: `bun --cpu-prof` put 53% self-time in `bun:sqlite` `get`: one geocache lookup per row against an in-process SQLite, invisible in any query log. Next frame: a city resolver re-normalizing the same 30 constant names on every call.
+- Fix: one `SELECT` into a `Map` per build, and the constant list normalized once at module load. 23ms p50, 29ms p95; all 7 independent runs after beat all 7 before (Mann-Whitney U = 0).
+- Lesson: an N+1 against an embedded DB looks like CPU, not I/O; loop-invariant work hides in helpers called per row.
+
 ## Case: frontend bundle doubled silently
 - Symptom: LCP degraded 1.2s on mobile after a "small" PR.
 - Evidence: bundle analyzer showed a full icon library imported for one icon.
