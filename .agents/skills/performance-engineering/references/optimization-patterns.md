@@ -18,7 +18,7 @@ Apply only after the profile names the bottleneck.
 
 ## Sorts and comparators
 - A comparator runs O(n log n) times: per-call work in it (case folding, `Path::file_name`, locale collation, regex, parsing a date out of a name) multiplies by ~16x the item count at 50k items.
-- Decorate-sort-undecorate: compute the key once per item, sort on it, drop it. Rust `sort_by_cached_key` when the key is `Ord`; a comparator-only crate (natural order) takes a pre-folded string plus its cheaper comparator.
+- Precompute the key: compute the key once per item, sort on it, drop it. Rust `sort_by_cached_key` when the key is `Ord`; a comparator-only crate (natural order) takes a pre-folded string plus its cheaper comparator.
 - Prove order equivalence with a test that sorts tricky names (accents, `İ`, `Σ`, whitespace, leading zeros) both ways; `str::to_lowercase` differs from per-char `char::to_lowercase` on final sigma.
 
 ## Headless browsers
