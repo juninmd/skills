@@ -2,6 +2,10 @@
   "version": "0.2",
   "language": "en",
   "words": [
+    "wakeups",
+    "pidstat",
+    "idlew",
+    "visibilitychange",
     "rustls",
     "callgrind",
     "Callgrind",
