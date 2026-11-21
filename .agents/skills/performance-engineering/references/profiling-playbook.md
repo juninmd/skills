@@ -39,6 +39,12 @@ A raw count assertion is more valuable than a latency threshold here: it fails d
 - Postgres: `EXPLAIN (ANALYZE, BUFFERS)` on realistic data; seq scan on large table + low rows returned = index candidate; verify selectivity first.
 - Find the offenders: `pg_stat_statements` ordered by `total_exec_time`.
 - Locks: `pg_locks` joined to `pg_stat_activity` before blaming the planner.
+- Round trips, not plans: a loop of fast single-row queries (existence checks, per-row `UPDATE`) never tops `EXPLAIN` but tops `pg_stat_statements` by `calls`. Sort by `calls` too, not only by `total_exec_time`.
+- Postgres 18: `EXPLAIN ANALYZE` includes buffer counts by default, and asynchronous I/O (`io_method = worker`, or `io_uring` on Linux) speeds sequential scans, bitmap heap scans, and vacuum. Record `SHOW io_method;` with the baseline; an upgrade changes it.
+
+## Production and Continuous Profiling
+- A regression that only shows under real traffic needs an always-on, low-overhead sampler, not a one-shot `--cpu-prof`: Grafana Pyroscope or Parca (eBPF, no code change), diffed release over release.
+- OpenTelemetry Profiles entered public alpha in 2026 ([announcement](https://opentelemetry.io/blog/2026/profiles-alpha)): profiles ride the same pipeline as traces and can link to them by trace ID. Alpha means the wire format may still change; pin collector versions.
 
 ## Browser
 - Waterfall in DevTools Performance panel; look for long tasks (>50ms), layout thrash, and render-blocking chains.
