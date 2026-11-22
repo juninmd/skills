@@ -86,18 +86,18 @@ A result inside run-to-run variance is not a result. Averages hide exactly the t
 | Report median **and** p95/p99 | A better median with a worse tail is a worse system |
 | Repeat the baseline, not just the fix | Machine drift is indistinguishable from your change |
 | Watch CPU quota and thermals | A throttled container fakes a regression perfectly |
-| Sample in independent processes | In-process iterations autocorrelate through JIT, GC, and thermal state; a significance test over them assumes independence it does not have. `hyperfine --warmup 3 --runs 10` does this for any command |
-| Expect layout bias | Env size and link order alone shift timings (Mytkowicz et al., ASPLOS 2009); vary them or gate on instruction counts (`gungraun`, formerly iai-callgrind) |
-| Keep fixture setup out of the profile | Generating test input in the profiled process can outrank the code under test and point the fix at the wrong frame |
-| Decide with a test, not an eyeball | Mann-Whitney U over 7+ samples per side, and an effect larger than `max(noise band, 2 x stdev)` — at n=7 only differences around 1 sigma are detectable |
+| Sample in independent processes | In-process iterations autocorrelate through JIT, GC and thermals; use separate processes (`hyperfine --warmup 3 --runs 10`) instead of a significance test over them |
+| Expect layout bias | Env size and link order shift timings (Mytkowicz, ASPLOS 2009); vary them or gate on instruction counts (`gungraun`) |
+| Keep fixture setup out of the profile | Test-fixture generation can outrank the code under test and point the fix at the wrong frame |
+| Decide with a test, not an eyeball | Mann-Whitney U over 7+ samples per side; demand an effect above `max(noise band, 2 x stdev)` |
 
 ## Reference Routing
 - Practical performance cases: [real-world-cases.md](references/real-world-cases.md)
 - Profiling by layer (Node, Python, browser, SQL): [profiling-playbook.md](references/profiling-playbook.md)
-- CPU and size profiling for Node, Bun, Rust, and WebAssembly, `cpuprofile-top.mjs` and `dhat-top.mjs` rankers, and benchmark harnesses (hyperfine, mitata, causal profiling, CI benchmarks): [runtime-profiling.md](references/runtime-profiling.md)
+- CPU/size profiling for Node, Bun, Rust, Wasm, `cpuprofile-top.mjs`/`dhat-top.mjs` rankers, and benchmark harnesses: [runtime-profiling.md](references/runtime-profiling.md)
 - Disk-bound scanners, hashing, file managers, desktop/native apps (user/sys split, passes per byte, no-GPU CI): [io-bound-and-desktop.md](references/io-bound-and-desktop.md)
 - Caching, batching, and load-test design: [optimization-patterns.md](references/optimization-patterns.md)
-- USE/RED depth, percentile math, benchmark tools and papers, measurement bias, and measuring before optimizing: [measurement-methodology.md](references/measurement-methodology.md)
+- USE/RED depth, percentile math, benchmark tools and papers, measurement bias: [measurement-methodology.md](references/measurement-methodology.md)
 
 See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-domain guides.
 
@@ -108,7 +108,7 @@ See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-
 
 ## Rules
 - Hand off production alerting to `observability`, frontend tuning to `frontend-engineering`, and backend bottlenecks to `backend-systems`.
-- No optimization without a profile. The bottleneck is measured, never guessed — intuition about hot paths is wrong often enough to be worthless. Knuth's "premature optimization is the root of all evil" (*Structured Programming with go to Statements*, 1974) is an argument for measuring before tuning, not for skipping tuning; it names the unmeasured 97% as the trap, not the measured 3% as the excuse.
+- No optimization without a profile. The bottleneck is measured, never guessed. Knuth's "premature optimization is the root of all evil" (*Structured Programming with go to Statements*, 1974) is an argument for measuring before tuning, not for skipping tuning.
 - Rightsizing is a tradeoff, not a one-way lever: over-provisioning is a silent, recurring cost; under-provisioning is a latency risk that pages someone. State which one is being traded before resizing anything — see [cost-engineering](references/cost-engineering.md).
 - Stop when the target is met, or when the next profile entry is smaller than the noise floor.
 - When the profile points at structure — chatty I/O across a boundary, needless synchronization, a fan-out that should be one call — stop tuning and delegate to `software-architecture`.
