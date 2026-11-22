@@ -61,6 +61,8 @@ autocannon -c 50 -d 30 -p 10 http://localhost:3000/endpoint
 ## The N+1 Signature
 One query in the log, then N nearly identical ones with a different id. It never shows up locally because N is 3 with seed data and 4,000 in production. Count queries per request in a test and assert the count — that assertion catches the regression a latency benchmark misses, in CI, before it ever reaches a profiler.
 
+An embedded database (SQLite in-process, `bun:sqlite`, `better-sqlite3`) has no query log and no network hop to hide behind: the same N+1 shows up only as driver self-time (`get`, `all`, `step`) topping a CPU profile. Read one keyed batch into a `Map` per build, not one lookup per row.
+
 ## Connection Pool Exhaustion
 
 | Symptom | Likely cause | Fix |
