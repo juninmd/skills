@@ -31,6 +31,14 @@ Apply only after the profile names the bottleneck.
 - Python: CPU → processes, I/O → asyncio/threads; never mix sync drivers into async paths.
 - Bound every queue and pool; unbounded concurrency is a self-inflicted DDoS.
 
+## Skip work the answer cannot use
+- Top-k or threshold queries over an aggregated tree (folder sizes, org totals, cost roll-ups): a parent's total bounds every child, so skip a subtree whose total is below the size floor or below the current k-th result. Results stay identical; keep equal-to-the-cut subtrees for tie-breaks.
+- Guard it with a visit count, not a timer: assert how many nodes the walk touched, like an N+1 query count.
+
+## UI thread
+- Desktop IPC: a sync handler runs on the main thread and freezes the window for its whole duration. Tauri: `async fn` or `#[tauri::command(async)]` for anything that walks data or touches disk; Electron: `ipcMain.handle` with async work, never `sendSync`.
+- A debounce only spaces the freezes out; it does not remove them.
+
 ## Process spawns
 - A short-lived binary that shells out (`git`, `node`, a formatter) pays ~1-3 ms per child before any work. Count them with `strace -f -c`; merge calls (`git rev-parse --show-toplevel HEAD --symbolic-full-name HEAD` answers three questions in one spawn) or read the file directly.
 - Keep the output byte-identical when the value is persisted (a fingerprint, a cache key), and pin it with a test against the old form.

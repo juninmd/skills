@@ -41,6 +41,8 @@ callgrind_annotate --inclusive=yes cg.out | grep -E "my_crate" | head   # who ca
 ```
 Self cost names the leaf (a decoder, `memcpy`); inclusive cost names the caller that invoked it too often. Fix the caller.
 4. Compare instruction counts (`Collected`) and wall time across runs; instruction count is the noise-free signal, wall time is the user-visible one.
+5. A/B two binaries or commands with `hyperfine --warmup 3 --runs 10 -N './old' './new' --export-json ab.json`: separate processes, warmup, mean and spread in one report.
+6. Threads or a pipeline where speeding up the hottest function moves nothing: causal profiling with Coz (Curtsinger and Berger, SOSP 2015, BSD-2). Mark a progress point (`coz::progress!()` from the `coz` crate), run `coz run --- ./target/release/<bin>`, and read which line's virtual speedup moves throughput. Native code only; Linux `perf_event_open` as above.
 
 ## Rust heap and static checks
 ```bash

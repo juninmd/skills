@@ -27,6 +27,12 @@ Real failure shapes and the evidence that resolved them.
 - Fix: benchmark harness with warmup, fixed seed data, median-of-N.
 - Lesson: one cold run is noise, not a regression.
 
+## Case: desktop search froze the window on every keystroke
+- Symptom: a Tauri disk cleaner's instant search stuttered on a whole-drive scan; the backend answered "from memory".
+- Evidence: sync `#[tauri::command]`s run on the main thread; a release bench on a 1M-node tree put each walk at 86-288 ms, every debounced keystroke.
+- Fix: `#[tauri::command(async)]`, and skip subtrees whose total size cannot reach the size floor or beat the current top-k cut. Walks fell to 4-84 ms; a visit-count test (4 nodes, not 104) guards the prune.
+- Lesson: "in memory" is not "free" when it runs on the UI thread; the aggregate you already store is the bound that prunes the walk.
+
 ## Case: agent hook latency from spawns and regex fan-out
 - Symptom: a Rust PreToolUse hook added ~11 ms to every Grep call; its PostToolUse redactor took ~160 ms on a 1.1 MB output.
 - Evidence: `strace -f -c` showed 3 `wait4` (three `git` spawns, ~2.5 ms each); callgrind put 71% of instructions in a 64-rule secret scan calling `captures_iter` per line.
