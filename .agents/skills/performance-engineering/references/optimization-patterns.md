@@ -58,6 +58,14 @@ Apply only after the profile names the bottleneck.
 - Paginate by cursor, project only needed columns/fields, compress responses > 1KB.
 - Prefer streaming for large payloads; cap request body size at the edge.
 
+## Always-on loops (pollers, watchers, desktop companions)
+Cost is per idle tick x ticks per day, paid even when nothing happens. Measure the tick where the input did NOT change; that is the common case.
+- Order the gates cheapest first: a perceptual hash (dHash on a 9x8 downscale) of the raw input before any encode, upload, or model call. Encoding first and hashing the encoded copy pays the full cost to learn "same as before".
+- Debounce on the cheap signal too: re-capture until two hashes agree, then encode once.
+- Pause render and animation loops when hidden; throttle when unfocused or on battery. Re-check state from inside the loop, since focus and visibility events are not delivered reliably on every platform.
+- Guard it: an ignored bench that prints the unchanged-tick cost, run before and after.
+- Measured case (Tauri screen watcher, 3 s tick, 2048x1152 frame, release build, median of 9): resize + adaptive JPEG, then decode the JPEG twice for hash and text-density gate, cost 74.6 ms per unchanged tick; hashing and gating the raw frame and encoding only the settled changed capture cost 2.7 ms (3840x2160: 97.0 to 12.6 ms).
+
 ## Regression guards
 - CI benchmark with warmup + median-of-N, failing on >X% drift against a stored baseline.
 - Budgets as assertions: bundle KB per route, query count per endpoint, p95 in staging load test.

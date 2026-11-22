@@ -44,6 +44,8 @@ callgrind_annotate --inclusive=no cg.out | head -30     # self cost
 callgrind_annotate --inclusive=yes cg.out | grep -E "my_crate" | head   # who calls the hot leaf
 ```
 Self cost names the leaf (a decoder, `memcpy`); inclusive cost names the caller that invoked it too often. Fix the caller.
+
+Bench harness: `divan` or `criterion` for wall time; `gungraun` (formerly `iai-callgrind`) for instruction counts that gate CI without timing noise. No harness in the repo: an `#[ignore]` test that times median and p90 over 9+ runs with `--release` is enough to compare before and after.
 4. Compare instruction counts (`Collected`) and wall time across runs; instruction count is the noise-free signal, wall time is the user-visible one.
 5. A/B two binaries or commands with `hyperfine --warmup 3 --runs 10 -N './old' './new' --export-json ab.json`: separate processes, warmup, mean and spread in one report.
 6. Threads or a pipeline where speeding up the hottest function moves nothing: causal profiling with Coz (Curtsinger and Berger, SOSP 2015, BSD-2). Mark a progress point (`coz::progress!()` from the `coz` crate), run `coz run --- ./target/release/<bin>`, and read which line's virtual speedup moves throughput. Native code only; Linux `perf_event_open` as above.

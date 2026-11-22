@@ -101,6 +101,7 @@ Keep memory limits: memory is not compressible, and a limit is what stops a leak
 | Cache the stable prefix | only pays off above the provider's minimum size **and** when calls repeat inside the TTL |
 | Bound retries and fan-out | a retry storm multiplies spend silently |
 | Cap tokens per request | the only thing that stops a runaway loop |
+| Size images to the model's budget | vision input is billed by area: Claude counts `ceil(w/28) x ceil(h/28)` patches and shrinks anything past its cap (long edge 1568 px on standard models), so pixels above the cap cost upload and encode time for no detail; skip unchanged frames before encoding |
 
 Compare models and prompts by **cost per successful task**, not price per token: a cheaper model that needs retries or fails more can cost more per resolved task (Arize/Fireworks, 2,400 agent runs; vendor study, treat as indicative). When comparing latency, control for output length or normalize per output token (IETF Internet-Draft on LLM benchmarking terminology).
 

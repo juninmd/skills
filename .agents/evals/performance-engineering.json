@@ -37,6 +37,10 @@
       {
         "prompt": "Benchmark before and after my change in independent runs and prove the speedup is not noise",
         "top_k": 3
+      },
+      {
+        "prompt": "Cut the idle CPU cost of a polling loop that re-encodes unchanged images every tick",
+        "top_k": 3
       }
     ],
     "negative": [
