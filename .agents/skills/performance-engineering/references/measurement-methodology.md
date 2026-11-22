@@ -89,7 +89,8 @@ work. Two failure modes follow from misreading the quote:
 
 ## Measurement Bias and Causal Profiling
 
-Two findings change how a result should be trusted:
+A benchmark can be repeatable and still wrong. Three findings change how a
+result should be trusted:
 
 - **Layout bias.** Changing only the environment-variable block size or the
   link order moved benchmark timings enough to flip conclusions (Mytkowicz,
@@ -105,6 +106,18 @@ Two findings change how a result should be trusted:
   and Berger, *Coz: Finding Code that Counts with Causal Profiling*, SOSP
   2015). Reach for it when a sampling profile is flat or the obvious fix moved
   nothing.
+- **Variance levels.** Kalibera and Jones, *Rigorous Benchmarking in Reasonable
+  Time* (ISMM 2013): variance lives at several levels (build, process,
+  iteration). Repeat at the level with the most variance, usually the process,
+  rather than adding iterations inside one process. `hyperfine` does exactly
+  that.
+
+| Bias source | Guard |
+|---|---|
+| Environment size, cwd, link/layout order | Same shell, same env, same binary path for both sides |
+| One process, many iterations | Independent processes; report the spread across them |
+| Before measured once, after measured now | Interleave or repeat the baseline in the same session |
+| Fixture built inside the measured window | Build inputs first; profile only the workload |
 
 ```bash
 # Interleave A/B so drift hits both sides equally
@@ -148,4 +161,3 @@ Papers behind the Noise Floor rules:
 - Dean and Barroso, *The Tail at Scale* (CACM 2013): in a fan-out, rare slow calls dominate user latency; measure p99, not the mean.
 
 A clean audit is a valid result: if every entry in the profile is already gated, cached or lazy, report that and open no PR.
->>>>>>> pr143

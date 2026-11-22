@@ -1,7 +1,7 @@
 ---
 name: performance-engineering
 description: |
-  Measure and reduce latency, memory, Core Web Vitals, and cloud or token spend. Use for Node, Bun, Rust, and WebAssembly CPU profiling and bundle size, k6 load tests, N+1 queries, memory leaks, LCP/INP, metric loops, and rightsizing. Trigger on 'this is slow', 'load test this', 'profile this Rust or Bun app', 'wasm is too big', 'improve LCP', 'cut cloud cost'.
+  Measure and reduce latency, memory, Core Web Vitals, and cloud or token spend. Use for Node, Bun, Rust, and WebAssembly CPU profiling and bundle size, k6 load tests, N+1 queries, memory leaks, LCP/INP, metric loops, benchmark noise, rightsizing. Trigger on 'this is slow', 'load test this', 'profile this Rust or Bun app', 'wasm is too big', 'improve LCP', 'cut cloud cost'.
 ---
 
 
@@ -86,17 +86,18 @@ A result inside run-to-run variance is not a result. Averages hide exactly the t
 | Report median **and** p95/p99 | A better median with a worse tail is a worse system |
 | Repeat the baseline, not just the fix | Machine drift is indistinguishable from your change |
 | Watch CPU quota and thermals | A throttled container fakes a regression perfectly |
-| Sample in independent processes | In-process iterations autocorrelate through JIT, GC, and thermal state; a significance test over them assumes independence it does not have |
+| Sample in independent processes | In-process iterations autocorrelate through JIT, GC, and thermal state; a significance test over them assumes independence it does not have. `hyperfine --warmup 3 --runs 10` does this for any command |
 | Expect layout bias | Env size and link order alone shift timings (Mytkowicz et al., ASPLOS 2009); vary them or gate on instruction counts (`gungraun`, formerly iai-callgrind) |
+| Keep fixture setup out of the profile | Generating test input in the profiled process can outrank the code under test and point the fix at the wrong frame |
 | Decide with a test, not an eyeball | Mann-Whitney U over 7+ samples per side, and an effect larger than `max(noise band, 2 x stdev)` — at n=7 only differences around 1 sigma are detectable |
 
 ## Reference Routing
 - Practical performance cases: [real-world-cases.md](references/real-world-cases.md)
 - Profiling by layer (Node, Python, browser, SQL): [profiling-playbook.md](references/profiling-playbook.md)
-- CPU and size profiling for Node, Bun, Rust, and WebAssembly, with `cpuprofile-top.mjs` and `dhat-top.mjs` rankers: [runtime-profiling.md](references/runtime-profiling.md)
+- CPU and size profiling for Node, Bun, Rust, and WebAssembly, `cpuprofile-top.mjs` and `dhat-top.mjs` rankers, and benchmark harnesses (hyperfine, mitata, causal profiling, CI benchmarks): [runtime-profiling.md](references/runtime-profiling.md)
 - Disk-bound scanners, hashing, file managers, desktop/native apps (user/sys split, passes per byte, no-GPU CI): [io-bound-and-desktop.md](references/io-bound-and-desktop.md)
 - Caching, batching, and load-test design: [optimization-patterns.md](references/optimization-patterns.md)
-- USE/RED depth, percentile math, benchmark tools and papers, and measuring before optimizing: [measurement-methodology.md](references/measurement-methodology.md)
+- USE/RED depth, percentile math, benchmark tools and papers, measurement bias, and measuring before optimizing: [measurement-methodology.md](references/measurement-methodology.md)
 
 See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-domain guides.
 
