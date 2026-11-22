@@ -12,3 +12,5 @@ pr-comment.md
 
 .agents/evals/results/
 package-lock.json
+__pycache__/
+*.pyc
