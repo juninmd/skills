@@ -7,6 +7,7 @@ Apply only after the profile names the bottleneck.
 - Layer order: in-process LRU (bounded) → Redis → CDN. Cache the most expensive stable computation, not everything.
 - Stampede control: single-flight/lock or stale-while-revalidate for hot keys.
 - Negative caching for repeated misses; short TTL.
+- Cache the derived artifact, not the source: memoizing the full decode of a 1254x1254 RGBA image kept 6 MB per entry; keeping only the 256 px thumbnail cut retained RSS from 145 to 38 MB for 21 entries (read `VmRSS` in `/proc/self/status` before and after the first pass).
 
 ## Batching and N+1
 - Collapse per-item queries with joins, `IN` lists, or a DataLoader-style batcher.
@@ -45,6 +46,7 @@ Apply only after the profile names the bottleneck.
 ## UI thread
 - Desktop IPC: a sync handler runs on the main thread and freezes the window for its whole duration. Tauri: `async fn` or `#[tauri::command(async)]` for anything that walks data or touches disk; Electron: `ipcMain.handle` with async work, never `sendSync`.
 - A debounce only spaces the freezes out; it does not remove them.
+- First-use work (decode, layout, shader compile) that the first screen needs belongs on a small bounded worker pool started at boot, not in the first frame: main-thread cost of the first select screen went 400 to 7 ms. Measure with an idle gap between warm-up and first use, and note that without an in-flight marker a race can decode twice.
 
 ## Process spawns
 - A short-lived binary that shells out (`git`, `node`, a formatter) pays ~1-3 ms per child before any work. Count them with `strace -f -c`; merge calls (`git rev-parse --show-toplevel HEAD --symbolic-full-name HEAD` answers three questions in one spawn) or read the file directly.
