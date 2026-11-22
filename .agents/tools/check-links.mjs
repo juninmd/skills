@@ -31,7 +31,8 @@ export function collectMarkdown(roots, cwd = process.cwd()) {
 function stripCode(text) {
   return text
     .replace(/^ {0,3}(`{3,}|~{3,})[^\n]*\n[\s\S]*?(?:^ {0,3}\1[ \t]*$|(?![\s\S]))/gm, "")
-    .replace(/(`+)[^`\n][\s\S]*?\1/g, "");
+    // A code span never crosses a blank line; otherwise a stray backtick swallows links up to the next one.
+    .replace(/(`+)(?=[^`\n])(?:(?!\n[ \t]*\n)[^`]|(?!\1)`)*?\1/g, "");
 }
 
 function decodePath(target) {

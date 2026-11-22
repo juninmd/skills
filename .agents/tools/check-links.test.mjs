@@ -75,3 +75,15 @@ test("a malformed percent escape is reported instead of crashing the run", () =>
   const root = createTree({ "docs/index.md": "See [rate](100%.md)." });
   assert.deepEqual(findBrokenLinks(collectMarkdown(["docs"], root)).map((b) => b.target), ["100%.md"]);
 });
+
+test("an unpaired backtick does not hide a broken link in the next paragraph", () => {
+  const root = createTree({
+    "docs/index.md": "Use the ` flag, then read [guide](missing-guide.md).\n\nLater we set `x` here.",
+  });
+  assert.deepEqual(findBrokenLinks(collectMarkdown(["docs"], root)).map((b) => b.target), ["missing-guide.md"]);
+});
+
+test("a code span that wraps onto the next line is still skipped", () => {
+  const root = createTree({ "docs/index.md": "Use `[y](nope.md)\nand more` syntax." });
+  assert.deepEqual(findBrokenLinks(collectMarkdown(["docs"], root)), []);
+});
