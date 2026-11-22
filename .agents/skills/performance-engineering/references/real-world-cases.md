@@ -27,6 +27,12 @@ Real failure shapes and the evidence that resolved them.
 - Fix: benchmark harness with warmup, fixed seed data, median-of-N.
 - Lesson: one cold run is noise, not a regression.
 
+## Case: agent hook latency from spawns and regex fan-out
+- Symptom: a Rust PreToolUse hook added ~11 ms to every Grep call; its PostToolUse redactor took ~160 ms on a 1.1 MB output.
+- Evidence: `strace -f -c` showed 3 `wait4` (three `git` spawns, ~2.5 ms each); callgrind put 71% of instructions in a 64-rule secret scan calling `captures_iter` per line.
+- Fix: one `git rev-parse` for all three values; a `RegexSet` prefilter per line. Medians 10.9 → 6.7 ms and ~165 → ~107 ms, output sha256 unchanged.
+- Lesson: for short-lived processes, count syscalls before reading a CPU profile.
+
 ## Case: 5000-item library froze on every keystroke
 - Symptom: typing in a client-side filter took 2.2s per key (p50, 7 runs); opening the page took 2.9s.
 - Evidence: CDP CPU profile was ~80% `(program)` (native style/layout/paint), ~20% JS; every card also ran an entrance animation.

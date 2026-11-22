@@ -31,6 +31,14 @@ Apply only after the profile names the bottleneck.
 - Python: CPU → processes, I/O → asyncio/threads; never mix sync drivers into async paths.
 - Bound every queue and pool; unbounded concurrency is a self-inflicted DDoS.
 
+## Process spawns
+- A short-lived binary that shells out (`git`, `node`, a formatter) pays ~1-3 ms per child before any work. Count them with `strace -f -c`; merge calls (`git rev-parse --show-toplevel HEAD --symbolic-full-name HEAD` answers three questions in one spawn) or read the file directly.
+- Keep the output byte-identical when the value is persisted (a fingerprint, a cache key), and pin it with a test against the old form.
+
+## Multi-pattern scans
+- N regexes run per line is N passes and, with capture APIs, N allocations even on a miss. Prefilter with one combined automaton: `RegexSet` (Rust), Aho-Corasick for literals, Hyperscan/Vectorscan for large rule sets (Wang et al., NSDI 2019). Run capture extraction only for the patterns the set reported.
+- Same patterns on the same haystack keep semantics exact; prefiltering the whole file instead of each line breaks `^`/`$` anchors.
+
 ## Payload and transport
 - Paginate by cursor, project only needed columns/fields, compress responses > 1KB.
 - Prefer streaming for large payloads; cap request body size at the edge.
