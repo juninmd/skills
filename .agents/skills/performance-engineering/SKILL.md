@@ -1,129 +1,140 @@
 ---
 name: performance-engineering
 description: |
-  Measure and reduce latency, memory, Core Web Vitals, and cloud or token spend. Use for Node, Bun, Rust, and WebAssembly CPU profiling and bundle size, k6 load tests, N+1 queries, memory leaks, LCP/INP, metric loops, benchmark noise, rightsizing. Trigger on 'this is slow', 'load test this', 'profile this Rust or Bun app', 'wasm is too big', 'improve LCP', 'cut cloud cost'.
+  Hub making code faster, leaner, cheaper; routes each language and symptom to profilers, benchmarks, fixes. Use for Rust, Node, Bun, TS, WebAssembly profiling, size, deep source sweeps, k6 load tests, N+1, memory leaks, idle CPU, LCP/INP, benchmark noise, cloud or token spend. Trigger on 'this is slow', 'speed up this project', 'profile this Rust app', 'load test this'.
 ---
 
-
-
 # Performance Engineering
+
+The central hub: pick a mode, route by language and symptom, run the tools, keep only what the numbers prove.
 
 **Not this skill:** a correctness bug that is merely slow to hit (its domain skill), or an active incident with no measurement yet (`observability`).
 
 ## Preflight
 ```bash
-# Baseline before any change — you cannot prove an improvement without it.
-# autocannon fits an HTTP endpoint; swap for the load generator that fits the
-# target (k6, wrk, a DB benchmark, a profiler) when it isn't one.
-autocannon -c 50 -d 30 http://localhost:3000/endpoint | tee /tmp/before.txt
-# Short-lived process (CLI, hook, build step): independent runs with warmup.
-hyperfine -N --warmup 3 --runs 40 --input req.json './bin hook' --export-json /tmp/before.json
-nproc && free -m && cat /sys/fs/cgroup/cpu.max 2>/dev/null   # is the box throttled?
+nproc && free -m && cat /sys/fs/cgroup/cpu.max 2>/dev/null            # is the box throttled?
+cat /proc/sys/kernel/perf_event_paranoid                                # >= 2: samply/perf blocked, use callgrind
+ls Cargo.toml package.json pyproject.toml go.mod bun.lock 2>/dev/null   # which Route by Language rows apply
+hyperfine -N --warmup 3 --runs 10 --export-json before.json './bin args'   # CLI, build, batch
+autocannon -c 50 -d 30 http://localhost:3000/endpoint | tee before.txt       # HTTP endpoint
+valgrind --tool=callgrind ./target/release/bench one-item                    # instruction count, no perf needed
 ```
+Write the target before any change: metric, percentile (p50/p95/p99, RPS, RSS, bytes), today's number. "Make it faster" is not a target.
 
-Write the target down first: the metric, the percentile, and today's number. "Make it faster" is not a target.
+## Pick a Mode
+| Mode | When | Do |
+|---|---|---|
+| **Fix** | one named symptom ("endpoint p95 is 2 s") | Workflow on that target |
+| **Deep sweep** | "speed up this project", "find every win" | Deep Sweep below, then Workflow per candidate |
+| **Guard** | a win to keep | regression guard in CI, or an unattended [metric-loop](references/metric-loop.md) |
 
 ## Workflow
-1. Write the target down before touching code: the user-visible metric, the percentile that matters (p50/p95/p99, RPS, RSS), and today's baseline. "Make it faster" is not a target.
-2. Reproduce the slowness under a repeatable load — fixed input, cache state stated, environment recorded.
-3. Profile before hypothesizing. Pick the layer the symptom points at; guessing here is how a week disappears into the wrong subsystem.
-4. Attack the top of the profile only. One change per measurement cycle.
-5. Re-measure against the baseline under the same load. Keep the change only if the metric moves beyond run-to-run variance **and** correctness holds.
-6. Add a regression guard: a CI benchmark, a budget assertion, or an alert threshold.
+1. **Target:** the Preflight number, plus the number that means done.
+2. **Reproduce:** fixed input, cache state stated, environment recorded.
+3. **Profile before hypothesizing:** the routing tables pick the tool.
+4. **One change** at the top of the profile per cycle.
+5. **Re-measure** with the same command. Keep it only if the delta beats run-to-run variance **and** output is identical (test or checksum).
+6. **Guard:** CI benchmark, budget assertion, query-count test, or alert.
 
-## Pick the Profiler by Symptom
-Two lenses choose what to look at before any tool runs: **USE** — Utilization, Saturation, Errors — per resource (CPU, memory, disk, network), from Brendan Gregg's *Systems Performance*; and **RED** — Rate, Errors, Duration — per request-driven service. The table below already routes along both: rows above the fold are USE questions about a resource, rows below are RED questions about a request path.
+## Route by Language
+| Stack | Profile first | Benchmark | Usual wins | Go to |
+|---|---|---|---|---|
+| Rust | `samply`; callgrind when `perf_event_paranoid` ≥ 2; heaptrack/dhat | hyperfine, Criterion/Divan, callgrind `Collected` | repeated decode/parse, clones → `Arc`, discarded work, allocator, `lto` | [runtime-profiling](references/runtime-profiling.md) |
+| Node.js | `--cpu-prof` + `cpuprofile-top.mjs`, `--heap-prof`, 0x | autocannon, k6, mitata | memoize per request, stream instead of buffer, workers (Piscina) | [profiling-playbook](references/profiling-playbook.md) |
+| Bun | `--cpu-prof-md`, `--heap-prof-md` | hyperfine, mitata/tinybench | `bun:sqlite` N+1, typed-array copies, startup | [runtime-profiling](references/runtime-profiling.md) |
+| TypeScript/build | wall time per step | hyperfine | TypeScript 7 (native), oxlint, esbuild/Rolldown, `erasableSyntaxOnly` | [tool-catalog](references/tool-catalog.md) |
+| Python | `py-spy record`, `tracemalloc` | hyperfine, pytest-benchmark | vectorize, processes for CPU, async I/O | [profiling-playbook](references/profiling-playbook.md) |
+| Go, JVM | `pprof`, async-profiler | `go test -bench`, JMH | allocation, lock contention | [profiling-playbook](references/profiling-playbook.md) |
+| Wasm | `twiggy top`, CDP profile | native bench of the same code | embedded assets, `wasm-opt`, batch across the JS boundary | [runtime-profiling](references/runtime-profiling.md) |
+| Browser | Lighthouse, field data, Performance panel | LCP/INP/CLS at p75 | images, JS weight, long tasks | [web-performance](references/web-performance.md), [vitals](references/vitals-and-field-data.md) |
+| SQL | `EXPLAIN (ANALYZE, BUFFERS)`, `pg_stat_statements` | query count per request | N+1, indexes, pool sizing | [optimization-patterns](references/optimization-patterns.md) |
+| Desktop, disk-bound | wakeups/s hidden, user/sys split | hyperfine | idle loops, sync IPC, passes per byte | [desktop-idle](references/desktop-idle.md), [io-bound](references/io-bound-and-desktop.md) |
+| Cloud, LLM tokens | cost per request, throttling | bill attribution | rightsizing, caching prompts | [cost-engineering](references/cost-engineering.md) |
 
-| Symptom | Layer | Tool |
-|---|---|---|
-| CPU pegged, one endpoint slow | CPU | `node --cpu-prof` · `bun --cpu-prof` · `samply`/callgrind (Rust) · `py-spy record -p <pid>` · `pprof` |
-| Wasm bundle too big or slow | Binary | `twiggy top` · CDP profile — [runtime-profiling](references/runtime-profiling.md) |
-| Tray/desktop app uses CPU or battery while hidden | Wakeups | wakeups/s with window hidden — [desktop-idle](references/desktop-idle.md) |
-| Memory grows and never returns | Heap | `node --heapsnapshot-signal=SIGUSR2` · `tracemalloc` · `objgraph` |
-| RSS rises with payload size under concurrency | Buffering | grep handlers for `readFileSync`, `arrayBuffer()`, `.text()` on files; stream with `createReadStream` / `Readable.toWeb` and set `Content-Length` |
-| Latency fine alone, awful under load | Concurrency | event-loop lag probe · pool saturation metrics |
-| One request slow, CPU idle | I/O wait | distributed trace waterfall |
-| Slow only with real data volume | Database | `EXPLAIN (ANALYZE, BUFFERS)` · `pg_stat_statements` |
-| Throughput plateaus below CPU limit | Saturation | connection pool size, queue depth, thread pool |
-| Desktop window freezes, backend fast | UI thread | a sync IPC handler on the main thread: Tauri `#[tauri::command]` without `async`, Electron `ipcRenderer.sendSync` — [optimization-patterns](references/optimization-patterns.md) |
-| Hot function sped up, end-to-end unchanged | Causality | `coz run --- ./bin` (native code; threads and pipelines) — [runtime-profiling](references/runtime-profiling.md) |
-| Container slow while its CPU graph looks low | CPU quota | `cat /sys/fs/cgroup/cpu.stat` (`nr_throttled`, `throttled_usec`) · `container_cpu_cfs_throttled_periods_total` — [cost-engineering](references/cost-engineering.md) |
-| Batch job, cron, or CLI too slow | Wall clock | `hyperfine --warmup 2 --runs 10 '<cmd>'` · per-stage timers · [optimization-patterns](references/optimization-patterns.md) |
-| Hook or CLI slow while its own CPU is low | Process | `strace -f -c` (count `wait4`/`execve`: each child spawn costs ms) · `hyperfine -N` |
-| Multithreaded, flat profile, no clear hot spot | Causal | `coz` virtual speedups — [measurement-methodology](references/measurement-methodology.md) |
+Tool-by-tool choices with measured results (samply vs callgrind, mimalloc, cargo-pgo, Clinic, tsgo, SWC vs esbuild): [tool-catalog](references/tool-catalog.md).
 
-```bash
-# Node: CPU profile of a running server
-node --cpu-prof --cpu-prof-dir=./prof server.js
-# Python: sample a live process without stopping it
-py-spy record -o profile.svg --pid $(pgrep -f 'python app.py')
-# Load, with a fixed shape so runs are comparable
-autocannon -c 50 -d 30 -p 10 http://localhost:3000/endpoint
+## Route by Symptom
+| Symptom | Look at |
+|---|---|
+| CPU pegged, one path slow | CPU profile of that path (stack row above) |
+| Memory grows and never returns | heap snapshot diff, heaptrack "leaked", unbounded caches |
+| RSS grows with payload size | `readFileSync`/`arrayBuffer()` on files; stream and set `Content-Length` |
+| Fine alone, awful under load | event-loop lag, pool queue wait, thread pool |
+| One request slow, CPU idle | trace waterfall: serial awaits, N+1 |
+| Throughput plateaus below CPU | pool, queue depth, CPU quota (`cpu.stat` `nr_throttled`) |
+| Hook or CLI slow, own CPU low | `strace -f -c` for spawns, `hyperfine -N` |
+| Hot function faster, end-to-end same | causal profiling (`coz`), [measurement-methodology](references/measurement-methodology.md) |
+| Window freezes, backend fast | sync IPC on the UI thread, [optimization-patterns](references/optimization-patterns.md) |
+
+## Deep Sweep
+For "take this project to its maximum". The coordinator runs on the strongest model and owns decisions. Read-only subagents on the cheapest, fastest model read the source.
+
+1. **Coordinator:** write the target, inventory the stack (`Cargo.toml`, `package.json`, lockfiles, `examples/`, `benches/`), and pick rows from Route by Language. Install the tools and save their paths to memory.
+2. **Fan out:** one subagent per area (crate, package, or layer such as load path, hot loop, render, web). All run in parallel, with no edits and no builds.
+3. **Meanwhile:** the coordinator runs baselines and profilers, so the candidates arrive next to real numbers.
+4. **Verify:** re-read every cited line. Confirm what the consumer keeps (work whose output is dropped is the cheapest win), then rank by profile share × confidence ÷ effort.
+5. **Fix:** Workflow per candidate, one commit each, with an equivalence test. Revert what does not beat noise and record it as ruled out.
+6. **Report:** fixed (before/after), measured and ruled out, and remaining opportunities ranked. Say plainly when more opportunities remain than were fixed.
+
+Subagent prompt:
+```text
+Read-only performance audit of <path> (<area>). No edits, no builds.
+Return up to 12 candidates ranked by likely cost. For each: file:line, the
+caller chain from the hot entry point (<entry>), why it is hot (per item, per
+frame, per request), the fix, and what you could not confirm. Also list what
+you checked and found fine.
 ```
 
-## The N+1 Signature
-One query in the log, then N nearly identical ones with a different id. It never shows up locally because N is 3 with seed data and 4,000 in production. Count queries per request in a test and assert the count — that assertion catches the regression a latency benchmark misses, in CI, before it ever reaches a profiler.
-
-An embedded database (SQLite in-process, `bun:sqlite`, `better-sqlite3`) has no query log and no network hop to hide behind: the same N+1 shows up only as driver self-time (`get`, `all`, `step`) topping a CPU profile. Read one keyed batch into a `Map` per build, not one lookup per row.
-
-## Connection Pool Exhaustion
-
-| Symptom | Likely cause | Fix |
-|---|---|---|
-| Latency climbs under load; app CPU and DB CPU both idle | pool smaller than concurrent demand; requests queue for a connection | raise the pool to match concurrency, or shed load; watch queue-wait time, not just DB-side metrics |
-| Intermittent "timeout acquiring connection from pool" | leaked connections — a missing close/release on an error path | audit for checkout without a `finally`/`using`/context-manager release; alert on pool checkouts that never return |
-| Fine alone, collapses when replicas scale out | shared DB `max_connections` hit across all replicas combined | size each replica's pool against the DB ceiling divided by replica count, or front the DB with a pooler (PgBouncer) |
-| p99 fine, throughput plateaus below CPU/DB capacity | the pool itself is the saturation resource, not the code | this is a USE-method saturation finding — resize the pool before profiling application code further |
-
-A pool is a bounded resource like a CPU core; it saturates the same way, and the fix is sizing or shedding, never a code-level micro-optimization.
-
-## Noise Floor
-A result inside run-to-run variance is not a result. Averages hide exactly the tail a user feels: a service reporting p50 = 50ms and p99 = 4s has a "great" mean while one request in a hundred waits 80x longer — percentiles, not the mean, are what an SLO should be built on (Kleppmann, *Designing Data-Intensive Applications*, ch. 1).
-
-| Guard | Why |
-|---|---|
-| Discard the first runs | JIT warmup, cold caches, lazy imports |
-| Report median **and** p95/p99 | A better median with a worse tail is a worse system |
-| Repeat the baseline, not just the fix | Machine drift is indistinguishable from your change |
-| Watch CPU quota and thermals | A throttled container fakes a regression perfectly |
-| Sample in independent processes | In-process iterations autocorrelate through JIT, GC and thermals; use separate processes (`hyperfine --warmup 3 --runs 10`) instead of a significance test over them |
-| Expect layout bias | Env size and link order shift timings (Mytkowicz, ASPLOS 2009); vary them or gate on instruction counts (`gungraun`) |
-| Keep fixture setup out of the profile | Test-fixture generation can outrank the code under test and point the fix at the wrong frame |
-| Decide with a test, not an eyeball | Mann-Whitney U over 7+ samples per side; demand an effect above `max(noise band, 2 x stdev)` |
-
-## Reference Routing
-- Practical performance cases: [real-world-cases.md](references/real-world-cases.md)
-- Profiling by layer (Node, Python, browser, SQL): [profiling-playbook.md](references/profiling-playbook.md)
-- Tool per case and front (Rust, Node, Bun, TS/build), subagent sweeps: [tool-catalog.md](references/tool-catalog.md)
-- CPU/size profiling for Node, Bun, Rust, Wasm, `cpuprofile-top.mjs`/`dhat-top.mjs` rankers, and benchmark harnesses: [runtime-profiling.md](references/runtime-profiling.md)
-- Disk-bound scanners, hashing, file managers, desktop/native apps (user/sys split, passes per byte, no-GPU CI): [io-bound-and-desktop.md](references/io-bound-and-desktop.md)
-- Caching, batching, and load-test design: [optimization-patterns.md](references/optimization-patterns.md)
-- USE/RED depth, percentile math, benchmark tools and papers, measurement bias: [measurement-methodology.md](references/measurement-methodology.md)
-
-See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-domain guides.
+## Examples
+- **Rust engine, discarded work.** Callgrind on one character showed palette variants re-running hurt/hit box fitting. `sprite_of` dropped those boxes, so variants now render image-only: 1.994G → 1.752G instructions (-12.1%), pixels pinned by a test. Wall time moved -3.8%, inside σ, which is why instruction count is the gate.
+- **Bun server, repeated work.** `bun --cpu-prof` ranked a natural sort and a central-directory decode on every request. Caching both by path + mtime + size cut a chapter from 581 to 330 ms, with distributions that did not overlap.
+- **TS tooling.** `--checkJs` on 47 files took 2.90 s with tsc 5.9 and 0.52 s with TypeScript 7 (5.6x, half the memory). Check the installed version before adding `tsgo`.
+- **N+1.** One query, then N with a different id. Assert queries per request in a test; details in [optimization-patterns](references/optimization-patterns.md).
 
 ## Stop
-- There is no profile. Stop guessing — intuition about hot paths is wrong often enough to be worthless.
-- The delta sits inside run-to-run variance. That is not a result; keep measuring or revert.
-- The profile points at structure, not code. Stop tuning and route it to `software-architecture`.
+- No profile yet: stop guessing and take one.
+- The target is met, or the next profile entry is below the noise floor.
+- The delta sits inside run-to-run variance: keep measuring or revert.
+- The profile points at structure, not code: route to `software-architecture`.
 
 ## Rules
-- Hand off production alerting to `observability`, frontend tuning to `frontend-engineering`, and backend bottlenecks to `backend-systems`.
-- No optimization without a profile. The bottleneck is measured, never guessed. Knuth's "premature optimization is the root of all evil" (*Structured Programming with go to Statements*, 1974) is an argument for measuring before tuning, not for skipping tuning.
-- Rightsizing is a tradeoff, not a one-way lever: over-provisioning is a silent, recurring cost; under-provisioning is a latency risk that pages someone. State which one is being traded before resizing anything — see [cost-engineering](references/cost-engineering.md).
-- Stop when the target is met, or when the next profile entry is smaller than the noise floor.
-- When the profile points at structure — chatty I/O across a boundary, needless synchronization, a fan-out that should be one call — stop tuning and delegate to `software-architecture`.
-- Caching is the wrong fix for avoidable work: a cache over an N+1 still fires on every miss and now serves stale rows. Fix the access pattern first, then delegate cache design to `backend-systems`.
-- Reject micro-optimizations that complicate code without moving the user-visible metric.
-- Load tests never run against production without explicit approval.
-- Test against production-sized data. A bottleneck that only appears at scale is invisible locally, and that is exactly the one that pages you.
-- Browser latency, bundle size, and Core Web Vitals belong to [web-performance](references/web-performance.md); spend to [cost-engineering](references/cost-engineering.md); a crash or wrong answer to `observability`; idle cost of a hidden tray or webview app to [desktop-idle](references/desktop-idle.md).
-- Turning a proven target into an unattended keep-or-revert loop is [metric-loop](references/metric-loop.md); gating a branch on the benchmark delta is `test-engineering`.
+- No profile, no change. Knuth's "premature optimization" quote argues for measuring first, not for skipping tuning.
+- A delta inside run-to-run variance is not a result: report median **and** p95/p99, sample in separate processes, and gate noisy wall time on instruction counts. Guards: [measurement-methodology](references/measurement-methodology.md).
+- Reject micro-optimizations that complicate code without moving the user metric.
+- Structure (chatty I/O across a boundary, needless sync, a fan-out that should be one call) goes to `software-architecture`, production alerting to `observability`, frontend code to `frontend-engineering`, cache design to `backend-systems`, and benchmark gates in CI to `test-engineering`.
+- A cache is the wrong fix for avoidable work: fix the access pattern first.
+- Rightsizing trades cost against latency risk. Name the trade before resizing ([cost-engineering](references/cost-engineering.md)).
+- Load tests never hit production without explicit approval. Test with production-sized data.
+- A new dependency (allocator, native addon) needs a CVE, license, and maintenance check before it ships.
+
+## Reference Routing
+- Tool per case for Rust, Node, Bun and TS/build, plus measured results and install paths: [tool-catalog.md](references/tool-catalog.md)
+- Rust, Node, Bun and Wasm CPU, heap and size profiling, rankers (`cpuprofile-top.mjs`, `dhat-top.mjs`) and harnesses: [runtime-profiling.md](references/runtime-profiling.md)
+- Node, Python, SQL and browser by layer: [profiling-playbook.md](references/profiling-playbook.md)
+- Caching, batching, N+1, pools, concurrency and load-test design: [optimization-patterns.md](references/optimization-patterns.md)
+- USE/RED, percentiles, noise floor and bias: [measurement-methodology.md](references/measurement-methodology.md)
+- Worked cases: [real-world-cases.md](references/real-world-cases.md). Everything else: [Reference Map](references/TOPIC_MAP.md)
 
 ## Checklist
-- [ ] Metric, percentile, target, load, and environment recorded before the first change.
-- [ ] A profile — not a hypothesis — chose what to fix.
-- [ ] One change per measurement cycle; baseline re-measured alongside it.
-- [ ] Improvement exceeds run-to-run variance, with tails reported, not just the median.
-- [ ] Correctness unchanged and a regression guard is in place.
-- [ ] No request path buffers a whole file or response body into memory unless the size is bounded.
+Copy into the task file and tick as you go; an open box blocks "done".
+
+**Setup**
+- [ ] Target written: metric, percentile, today's number, and the number that means done.
+- [ ] Environment recorded: cores, memory, CPU quota, build profile (`opt-level`, `lto`), cache state.
+- [ ] Tools installed, versions noted, install paths saved to memory.
+
+**Measure**
+- [ ] Baseline run 3+ times in separate processes; spread recorded.
+- [ ] Profile taken with the tool from Route by Language; top entries noted with their share.
+- [ ] Deep sweep only: one subagent per area returned; every cited `file:line` re-read by the coordinator.
+
+**Change**
+- [ ] One change per cycle, aimed at the top of the profile or a verified candidate.
+- [ ] Output identical: existing tests pass, plus an equivalence test or checksum for the changed path.
+- [ ] Delta beats variance (median and p95/p99, or instruction count); otherwise reverted and logged as ruled out.
+- [ ] No unbounded cache, buffer, queue, or loop introduced; new dependencies vetted.
+
+**Ship**
+- [ ] Regression guard added: benchmark, budget assertion, query count, or alert.
+- [ ] Repo gates green: lint, tests, size or boundary checks.
+- [ ] Report: before/after per fix, ruled-out list, remaining opportunities ranked, and an explicit line when more remain.
