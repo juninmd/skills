@@ -2,7 +2,7 @@
 <!-- 1-3 bullets: what changed and why. -->
 
 ## Evidence
-<!-- Required. CI fails without real proof. Replace this comment; do not leave it empty. -->
+<!-- Required. CI fails without real proof. Fill in ALL applicable formats below. -->
 Surface/state: <!-- web, desktop, mobile, TUI, CLI, skill/docs, CI, API -->
 Applicable formats / N/A reasons:
 

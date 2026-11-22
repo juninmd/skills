@@ -16,6 +16,8 @@ description: |
 # autocannon fits an HTTP endpoint; swap for the load generator that fits the
 # target (k6, wrk, a DB benchmark, a profiler) when it isn't one.
 autocannon -c 50 -d 30 http://localhost:3000/endpoint | tee /tmp/before.txt
+# Short-lived process (CLI, hook, build step): independent runs with warmup.
+hyperfine -N --warmup 3 --runs 40 --input req.json './bin hook' --export-json /tmp/before.json
 nproc && free -m && cat /sys/fs/cgroup/cpu.max 2>/dev/null   # is the box throttled?
 ```
 
@@ -36,6 +38,7 @@ Two lenses choose what to look at before any tool runs: **USE** — Utilization,
 |---|---|---|
 | CPU pegged, one endpoint slow | CPU | `node --cpu-prof` · `bun --cpu-prof` · `samply`/callgrind (Rust) · `py-spy record -p <pid>` · `pprof` |
 | Wasm bundle too big or slow | Binary | `twiggy top` · CDP profile — [runtime-profiling](references/runtime-profiling.md) |
+| Tray/desktop app uses CPU or battery while hidden | Wakeups | wakeups/s with window hidden — [desktop-idle](references/desktop-idle.md) |
 | Memory grows and never returns | Heap | `node --heapsnapshot-signal=SIGUSR2` · `tracemalloc` · `objgraph` |
 | Latency fine alone, awful under load | Concurrency | event-loop lag probe · pool saturation metrics |
 | One request slow, CPU idle | I/O wait | distributed trace waterfall |
@@ -45,6 +48,8 @@ Two lenses choose what to look at before any tool runs: **USE** — Utilization,
 | Hot function sped up, end-to-end unchanged | Causality | `coz run --- ./bin` (native code; threads and pipelines) — [runtime-profiling](references/runtime-profiling.md) |
 | Container slow while its CPU graph looks low | CPU quota | `cat /sys/fs/cgroup/cpu.stat` (`nr_throttled`, `throttled_usec`) · `container_cpu_cfs_throttled_periods_total` — [cost-engineering](references/cost-engineering.md) |
 | Batch job, cron, or CLI too slow | Wall clock | `hyperfine --warmup 2 --runs 10 '<cmd>'` · per-stage timers · [optimization-patterns](references/optimization-patterns.md) |
+| Hook or CLI slow while its own CPU is low | Process | `strace -f -c` (count `wait4`/`execve`: each child spawn costs ms) · `hyperfine -N` |
+| Multithreaded, flat profile, no clear hot spot | Causal | `coz` virtual speedups — [measurement-methodology](references/measurement-methodology.md) |
 
 ```bash
 # Node: CPU profile of a running server
@@ -79,7 +84,7 @@ A result inside run-to-run variance is not a result. Averages hide exactly the t
 | Repeat the baseline, not just the fix | Machine drift is indistinguishable from your change |
 | Watch CPU quota and thermals | A throttled container fakes a regression perfectly |
 | Sample in independent processes | In-process iterations autocorrelate through JIT, GC, and thermal state; a significance test over them assumes independence it does not have |
-| Randomize the setup | Environment size and link order alone flip conclusions across CPUs and compilers (Mytkowicz et al., *Producing Wrong Data Without Doing Anything Obviously Wrong!*, ASPLOS 2009); vary them or compare instruction counts |
+| Expect layout bias | Env size and link order alone shift timings (Mytkowicz et al., ASPLOS 2009); vary them or gate on instruction counts (`gungraun`, formerly iai-callgrind) |
 | Decide with a test, not an eyeball | Mann-Whitney U over 7+ samples per side, and an effect larger than `max(noise band, 2 x stdev)` — at n=7 only differences around 1 sigma are detectable |
 
 ## Reference Routing
@@ -106,7 +111,7 @@ See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-
 - Reject micro-optimizations that complicate code without moving the user-visible metric.
 - Load tests never run against production without explicit approval.
 - Test against production-sized data. A bottleneck that only appears at scale is invisible locally, and that is exactly the one that pages you.
-- Browser latency, bundle size, and Core Web Vitals belong to [web-performance](references/web-performance.md); spend to [cost-engineering](references/cost-engineering.md); a crash or wrong answer to `observability`.
+- Browser latency, bundle size, and Core Web Vitals belong to [web-performance](references/web-performance.md); spend to [cost-engineering](references/cost-engineering.md); a crash or wrong answer to `observability`; idle cost of a hidden tray or webview app to [desktop-idle](references/desktop-idle.md).
 - Turning a proven target into an unattended keep-or-revert loop is [metric-loop](references/metric-loop.md); gating a branch on the benchmark delta is `test-engineering`.
 
 ## Checklist

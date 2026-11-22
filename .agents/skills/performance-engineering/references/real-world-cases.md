@@ -33,6 +33,12 @@ Real failure shapes and the evidence that resolved them.
 - Fix: `#[tauri::command(async)]`, and skip subtrees whose total size cannot reach the size floor or beat the current top-k cut. Walks fell to 4-84 ms; a visit-count test (4 nodes, not 104) guards the prune.
 - Lesson: "in memory" is not "free" when it runs on the UI thread; the aggregate you already store is the bound that prunes the walk.
 
+## Case: agent hook latency from spawns and regex fan-out
+- Symptom: a Rust PreToolUse hook added ~11 ms to every Grep call; its PostToolUse redactor took ~160 ms on a 1.1 MB output.
+- Evidence: `strace -f -c` showed 3 `wait4` (three `git` spawns, ~2.5 ms each); callgrind put 71% of instructions in a 64-rule secret scan calling `captures_iter` per line.
+- Fix: one `git rev-parse` for all three values; a `RegexSet` prefilter per line. Medians 10.9 → 6.7 ms and ~165 → ~107 ms, output sha256 unchanged.
+- Lesson: for short-lived processes, count syscalls before reading a CPU profile.
+
 ## Case: 5000-item library froze on every keystroke
 - Symptom: typing in a client-side filter took 2.2s per key (p50, 7 runs); opening the page took 2.9s.
 - Evidence: CDP CPU profile was ~80% `(program)` (native style/layout/paint), ~20% JS; every card also ran an entrance animation.
@@ -44,6 +50,12 @@ Real failure shapes and the evidence that resolved them.
 - Evidence: bundle analyzer showed a full icon library imported for one icon.
 - Fix: per-icon import; CI budget assertion failing over 250KB gz per route.
 - Lesson: size budgets in CI catch what review misses.
+
+## Case: opening a 50k-file folder (Rust desktop viewer)
+- Symptom: opening a large folder took ~200 ms before the first picture.
+- Evidence: an ignored release-mode bench over 50 000 files, plus a standalone micro-benchmark with shuffled real-world names; the natural sort alone was ~250 ms because `natord::compare_ignore_case` lowercased every char on every comparison.
+- Fix: case-fold each name once with the same per-char rule, sort with `natord::compare`; sort ~5x faster, `open()` 194-231 ms → 106-115 ms.
+- Lesson: synthetic sequential names (`img00001`) hide comparator cost; bench with shuffled, realistic names.
 
 ## Cases: claude.ai made 3x faster
 Source: [how we made claude.ai 3x faster](https://claude.dev/blog/how-we-made-claude-ai-faster/). The lever was building new measurements; once a number existed, an agent could drive it down.

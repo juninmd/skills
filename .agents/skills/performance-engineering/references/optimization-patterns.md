@@ -16,6 +16,11 @@ Apply only after the profile names the bottleneck.
 - Per-item existence checks in an ingest loop (`SELECT id WHERE guid = $1` per item) are N+1 too: one `WHERE guid = ANY($1) OR url = ANY($2)` per batch, then filter in memory.
 - Per-row write loops: one `UPDATE t SET v = d.v FROM unnest($1::uuid[], $2::bool[]) AS d(id, v) WHERE t.id = d.id` instead of N round trips.
 
+## Sorts and comparators
+- A comparator runs O(n log n) times: per-call work in it (case folding, `Path::file_name`, locale collation, regex, parsing a date out of a name) multiplies by ~16x the item count at 50k items.
+- Precompute the key: compute the key once per item, sort on it, drop it. Rust `sort_by_cached_key` when the key is `Ord`; a comparator-only crate (natural order) takes a pre-folded string plus its cheaper comparator.
+- Prove order equivalence with a test that sorts tricky names (accents, `İ`, `Σ`, whitespace, leading zeros) both ways; `str::to_lowercase` differs from per-char `char::to_lowercase` on final sigma.
+
 ## Headless browsers
 - Try a plain HTTP fetch plus an HTML parser first; server-rendered pages need no browser, and a browser costs hundreds of MiB and seconds per page.
 - `waitUntil: "networkidle"` waits for ads and analytics to go quiet and often times out; use `domcontentloaded` plus `waitForSelector` on the element you read.
@@ -33,6 +38,14 @@ Apply only after the profile names the bottleneck.
 ## UI thread
 - Desktop IPC: a sync handler runs on the main thread and freezes the window for its whole duration. Tauri: `async fn` or `#[tauri::command(async)]` for anything that walks data or touches disk; Electron: `ipcMain.handle` with async work, never `sendSync`.
 - A debounce only spaces the freezes out; it does not remove them.
+
+## Process spawns
+- A short-lived binary that shells out (`git`, `node`, a formatter) pays ~1-3 ms per child before any work. Count them with `strace -f -c`; merge calls (`git rev-parse --show-toplevel HEAD --symbolic-full-name HEAD` answers three questions in one spawn) or read the file directly.
+- Keep the output byte-identical when the value is persisted (a fingerprint, a cache key), and pin it with a test against the old form.
+
+## Multi-pattern scans
+- N regexes run per line is N passes and, with capture APIs, N allocations even on a miss. Prefilter with one combined automaton: `RegexSet` (Rust), Aho-Corasick for literals, Hyperscan/Vectorscan for large rule sets (Wang et al., NSDI 2019). Run capture extraction only for the patterns the set reported.
+- Same patterns on the same haystack keep semantics exact; prefiltering the whole file instead of each line breaks `^`/`$` anchors.
 
 ## Payload and transport
 - Paginate by cursor, project only needed columns/fields, compress responses > 1KB.

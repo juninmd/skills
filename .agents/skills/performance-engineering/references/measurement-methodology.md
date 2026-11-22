@@ -3,6 +3,14 @@
 What to measure, and why an average lies, before any profiler runs. Linked
 from `SKILL.md`.
 
+## Contents
+- USE Method: Per-Resource
+- RED Method: Per Request-Driven Service
+- Percentiles vs Averages
+- Measure Before Optimizing
+- Measurement Bias and Causal Profiling
+- Load Testing That Reflects Production Traffic Shape
+
 ## USE Method: Per-Resource
 
 Brendan Gregg's *Systems Performance* names the checklist for any finite
@@ -77,6 +85,30 @@ work. Two failure modes follow from misreading the quote:
   nobody was waiting on.
 - Refusing to optimize a profiled, proven hot path because "optimization is
   bad" — this is citing the quote backwards.
+
+## Measurement Bias and Causal Profiling
+
+Two findings change how a result should be trusted:
+
+- **Layout bias.** Changing only the environment-variable block size or the
+  link order moved benchmark timings enough to flip conclusions (Mytkowicz,
+  Diwan, Hauswirth, Sweeney, *Producing Wrong Data Without Doing Anything
+  Obviously Wrong!*, ASPLOS 2009). Run before and after from the same
+  directory with the same env, interleave the two binaries, and treat a
+  single-digit percent win on one layout as unproven. For CI gates, count
+  instructions under Valgrind (`gungraun`, formerly iai-callgrind, for Rust)
+  instead of timing wall clock.
+- **Causal profiling.** In concurrent code the hottest function is often not
+  the one whose speedup shortens the run. `coz` inserts pauses elsewhere to
+  simulate speeding one line up and reports the end-to-end effect (Curtsinger
+  and Berger, *Coz: Finding Code that Counts with Causal Profiling*, SOSP
+  2015). Reach for it when a sampling profile is flat or the obvious fix moved
+  nothing.
+
+```bash
+# Interleave A/B so drift hits both sides equally
+hyperfine -N --warmup 3 --runs 40 './old hook' './new hook' --input req.json
+```
 
 ## Load Testing That Reflects Production Traffic Shape
 
