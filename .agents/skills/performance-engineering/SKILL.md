@@ -96,7 +96,7 @@ A result inside run-to-run variance is not a result. Averages hide exactly the t
 - CPU and size profiling for Node, Bun, Rust, and WebAssembly, with `cpuprofile-top.mjs` and `dhat-top.mjs` rankers: [runtime-profiling.md](references/runtime-profiling.md)
 - Disk-bound scanners, hashing, file managers, desktop/native apps (user/sys split, passes per byte, no-GPU CI): [io-bound-and-desktop.md](references/io-bound-and-desktop.md)
 - Caching, batching, and load-test design: [optimization-patterns.md](references/optimization-patterns.md)
-- USE/RED depth, percentile math, and measuring before optimizing: [measurement-methodology.md](references/measurement-methodology.md)
+- USE/RED depth, percentile math, benchmark tools and papers, and measuring before optimizing: [measurement-methodology.md](references/measurement-methodology.md)
 
 See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-domain guides.
 
