@@ -1,6 +1,6 @@
 # Runtime Profiling: Node, Bun, Rust, WebAssembly
 
-Open after the target is written down and the layer is CPU or binary size. Profile first, one change per cycle, re-measure with the same command.
+Open after the target is written down and the layer is CPU or binary size. Profile first, one change per cycle, re-measure with the same command. Choosing between tools: [tool-catalog](tool-catalog.md).
 
 ## Contents
 - Pick the runtime

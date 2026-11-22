@@ -94,6 +94,7 @@ A result inside run-to-run variance is not a result. Averages hide exactly the t
 ## Reference Routing
 - Practical performance cases: [real-world-cases.md](references/real-world-cases.md)
 - Profiling by layer (Node, Python, browser, SQL): [profiling-playbook.md](references/profiling-playbook.md)
+- Tool per case and front (Rust, Node, Bun, TS/build), subagent sweeps: [tool-catalog.md](references/tool-catalog.md)
 - CPU/size profiling for Node, Bun, Rust, Wasm, `cpuprofile-top.mjs`/`dhat-top.mjs` rankers, and benchmark harnesses: [runtime-profiling.md](references/runtime-profiling.md)
 - Disk-bound scanners, hashing, file managers, desktop/native apps (user/sys split, passes per byte, no-GPU CI): [io-bound-and-desktop.md](references/io-bound-and-desktop.md)
 - Caching, batching, and load-test design: [optimization-patterns.md](references/optimization-patterns.md)
