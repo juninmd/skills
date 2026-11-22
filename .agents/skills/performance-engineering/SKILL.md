@@ -40,6 +40,7 @@ Two lenses choose what to look at before any tool runs: **USE** — Utilization,
 | Wasm bundle too big or slow | Binary | `twiggy top` · CDP profile — [runtime-profiling](references/runtime-profiling.md) |
 | Tray/desktop app uses CPU or battery while hidden | Wakeups | wakeups/s with window hidden — [desktop-idle](references/desktop-idle.md) |
 | Memory grows and never returns | Heap | `node --heapsnapshot-signal=SIGUSR2` · `tracemalloc` · `objgraph` |
+| RSS rises with payload size under concurrency | Buffering | grep handlers for `readFileSync`, `arrayBuffer()`, `.text()` on files; stream with `createReadStream` / `Readable.toWeb` and set `Content-Length` |
 | Latency fine alone, awful under load | Concurrency | event-loop lag probe · pool saturation metrics |
 | One request slow, CPU idle | I/O wait | distributed trace waterfall |
 | Slow only with real data volume | Database | `EXPLAIN (ANALYZE, BUFFERS)` · `pg_stat_statements` |
@@ -122,3 +123,4 @@ See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-
 - [ ] One change per measurement cycle; baseline re-measured alongside it.
 - [ ] Improvement exceeds run-to-run variance, with tails reported, not just the median.
 - [ ] Correctness unchanged and a regression guard is in place.
+- [ ] No request path buffers a whole file or response body into memory unless the size is bounded.
