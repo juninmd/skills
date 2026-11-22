@@ -41,6 +41,14 @@
       {
         "prompt": "Cut the idle CPU cost of a polling loop that re-encodes unchanged images every tick",
         "top_k": 3
+      },
+      {
+        "prompt": "Speed up this whole project: sweep the source code with subagents and pick which profilers to run",
+        "top_k": 3
+      },
+      {
+        "prompt": "Which profiler and benchmark tool should I use for this slow Node service",
+        "top_k": 3
       }
     ],
     "negative": [

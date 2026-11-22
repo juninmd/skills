@@ -7,6 +7,7 @@ from `SKILL.md`.
 - USE Method: Per-Resource
 - RED Method: Per Request-Driven Service
 - Percentiles vs Averages
+- Noise Floor Guards
 - Measure Before Optimizing
 - Measurement Bias and Causal Profiling
 - Load Testing That Reflects Production Traffic Shape
@@ -72,6 +73,20 @@ An SLO written against the mean would never fire for this system. An SLO
 written against p99 fires immediately, correctly. Always carry p99 (and
 p999 for high-QPS services) next to any reported average; a "faster on
 average" change that widens the tail is a regression, not an improvement.
+
+## Noise Floor Guards
+A result inside run-to-run variance is not a result. A service with p50 = 50 ms and p99 = 4 s has a "great" mean while one request in a hundred waits 80x longer (Kleppmann, *Designing Data-Intensive Applications*, ch. 1).
+
+| Guard | Why |
+|---|---|
+| Discard the first runs | JIT warmup, cold caches, lazy imports |
+| Report median **and** p95/p99 | A better median with a worse tail is a worse system |
+| Repeat the baseline, not just the fix | Machine drift is indistinguishable from your change |
+| Watch CPU quota and thermals | A throttled container fakes a regression perfectly |
+| Sample in independent processes | In-process iterations autocorrelate through JIT, GC and thermals (`hyperfine --warmup 3 --runs 10`) |
+| Expect layout bias | Env size and link order shift timings (Mytkowicz, ASPLOS 2009); vary them or gate on instruction counts (`gungraun`, callgrind) |
+| Keep fixture setup out of the profile | Fixture generation can outrank the code under test |
+| Decide with a test, not an eyeball | Mann-Whitney U over 7+ samples per side; demand an effect above `max(noise band, 2 x stdev)` |
 
 ## Measure Before Optimizing
 

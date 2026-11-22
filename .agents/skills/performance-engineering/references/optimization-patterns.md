@@ -14,6 +14,19 @@ Apply only after the profile names the bottleneck.
 - Write paths: buffer + flush by size/time, but state the durability window.
 - Per-item existence checks in an ingest loop (`SELECT id WHERE guid = $1` per item) are N+1 too: one `WHERE guid = ANY($1) OR url = ANY($2)` per batch, then filter in memory.
 - Per-row write loops: one `UPDATE t SET v = d.v FROM unnest($1::uuid[], $2::bool[]) AS d(id, v) WHERE t.id = d.id` instead of N round trips.
+- Signature: one query in the log, then N nearly identical ones with a different id. It hides locally (N is 3 with seed data, 4,000 in production): count queries per request in a test and assert the count.
+- Embedded databases (SQLite in-process, `bun:sqlite`, `better-sqlite3`) have no query log: the same N+1 shows only as driver self-time (`get`, `all`, `step`) topping a CPU profile. Read one keyed batch into a `Map` per build.
+- A cache over an N+1 still fires on every miss and now serves stale rows: fix the access pattern first.
+
+## Connection pools
+A pool is a bounded resource like a CPU core; it saturates the same way, and the fix is sizing or shedding, never a micro-optimization.
+
+| Symptom | Likely cause | Fix |
+|---|---|---|
+| Latency climbs under load; app CPU and DB CPU both idle | pool smaller than concurrent demand | raise the pool to match concurrency, or shed load; watch queue-wait time |
+| Intermittent "timeout acquiring connection from pool" | leaked connections: missing release on an error path | release in `finally`/`using`/context manager; alert on checkouts that never return |
+| Fine alone, collapses when replicas scale out | DB `max_connections` hit across all replicas | size each pool against the DB ceiling divided by replicas, or front the DB with PgBouncer |
+| p99 fine, throughput plateaus below CPU/DB capacity | the pool is the saturated resource (USE) | resize the pool before profiling application code |
 
 ## Sorts and comparators
 - A comparator runs O(n log n) times: per-call work in it (case folding, `Path::file_name`, locale collation, regex, parsing a date out of a name) multiplies by ~16x the item count at 50k items.
