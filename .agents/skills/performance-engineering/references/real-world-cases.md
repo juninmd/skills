@@ -39,6 +39,12 @@ Real failure shapes and the evidence that resolved them.
 - Fix: per-icon import; CI budget assertion failing over 250KB gz per route.
 - Lesson: size budgets in CI catch what review misses.
 
+## Case: opening a 50k-file folder (Rust desktop viewer)
+- Symptom: opening a large folder took ~200 ms before the first picture.
+- Evidence: an ignored release-mode bench over 50 000 files, plus a standalone micro-benchmark with shuffled real-world names; the natural sort alone was ~250 ms because `natord::compare_ignore_case` lowercased every char on every comparison.
+- Fix: case-fold each name once with the same per-char rule, sort with `natord::compare`; sort ~5x faster, `open()` 194-231 ms → 106-115 ms.
+- Lesson: synthetic sequential names (`img00001`) hide comparator cost; bench with shuffled, realistic names.
+
 ## Cases: claude.ai made 3x faster
 Source: [how we made claude.ai 3x faster](https://claude.dev/blog/how-we-made-claude-ai-faster/). The lever was building new measurements; once a number existed, an agent could drive it down.
 
