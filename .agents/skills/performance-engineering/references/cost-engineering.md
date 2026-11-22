@@ -102,6 +102,8 @@ Keep memory limits: memory is not compressible, and a limit is what stops a leak
 | Bound retries and fan-out | a retry storm multiplies spend silently |
 | Cap tokens per request | the only thing that stops a runaway loop |
 
+Compare models and prompts by **cost per successful task**, not price per token: a cheaper model that needs retries or fails more can cost more per resolved task (Arize/Fireworks, 2,400 agent runs; vendor study, treat as indicative). When comparing latency, control for output length or normalize per output token (IETF Internet-Draft on LLM benchmarking terminology).
+
 An expired cached prefix pays the write cost for no hit — caching a rarely repeated prompt costs more than not caching it.
 
 ## A Budget Alert Is Not a Guardrail

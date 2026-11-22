@@ -12,7 +12,6 @@ Apply only after the profile names the bottleneck.
 - Collapse per-item queries with joins, `IN` lists, or a DataLoader-style batcher.
 - Batch external API calls; respect provider limits with bounded concurrency (`p-limit`, `asyncio.Semaphore`).
 - Write paths: buffer + flush by size/time, but state the durability window.
-
 - Per-item existence checks in an ingest loop (`SELECT id WHERE guid = $1` per item) are N+1 too: one `WHERE guid = ANY($1) OR url = ANY($2)` per batch, then filter in memory.
 - Per-row write loops: one `UPDATE t SET v = d.v FROM unnest($1::uuid[], $2::bool[]) AS d(id, v) WHERE t.id = d.id` instead of N round trips.
 
@@ -20,6 +19,14 @@ Apply only after the profile names the bottleneck.
 - A comparator runs O(n log n) times: per-call work in it (case folding, `Path::file_name`, locale collation, regex, parsing a date out of a name) multiplies by ~16x the item count at 50k items.
 - Precompute the key: compute the key once per item, sort on it, drop it. Rust `sort_by_cached_key` when the key is `Ord`; a comparator-only crate (natural order) takes a pre-folded string plus its cheaper comparator.
 - Prove order equivalence with a test that sorts tricky names (accents, `İ`, `Σ`, whitespace, leading zeros) both ways; `str::to_lowercase` differs from per-char `char::to_lowercase` on final sigma.
+
+## Serial awaits (I/O fan-out)
+- Signature: trace waterfall of back-to-back calls with no data dependency; CPU idle, latency = sum of round-trips. Cheapest win after N+1.
+- Fix: `Promise.all` / `asyncio.gather` for independent calls, bounded `mapLimit(items, n, fn)` for lists; write results by index so order stays deterministic.
+- Start each call inside an `async` lambda: `Promise.all([a.x(), b.y()])` leaks an unhandled rejection from `a.x()` when `b.y()` throws synchronously (missing method, bad arg).
+- Keep calls that mutate shared state or depend on a prior write (accept suggestion, then read head SHA) in order.
+- Guard: assert peak in-flight calls (`peak >= k`) with a fake client, not a wall-clock threshold; timing asserts are flaky, concurrency peaks are exact.
+- The remote API's rate limiter still applies: parallelism cuts latency, not request count.
 
 ## Headless browsers
 - Try a plain HTTP fetch plus an HTML parser first; server-rendered pages need no browser, and a browser costs hundreds of MiB and seconds per page.
