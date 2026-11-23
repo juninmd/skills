@@ -33,3 +33,5 @@ Read only the files needed for the current task.
 | `vitest-core.md` | Open for a single-page cheat sheet spanning test/describe, expect assertions, and CLI flags — a quick refresher instead of opening core-test-api.md, core-describe.md, core-expect.md, and core-cli.md separately |
 | `vitest-features.md` | Open for a single-page cheat sheet spanning vi mocking, lifecycle hooks, snapshots, type testing, environments, and concurrency — a quick refresher instead of opening each features-*.md file separately |
 | `webapp-testing.md` | Open when writing or debugging Playwright/E2E browser tests: reusing an authenticated session across tests, per-worker parallel isolation, and avoiding a second E2E harness |
+| `playwright-recipes.md` | Copy-pasteable ephemeral Playwright capture: temp dirs, starting and polling the dev server, hydration waits, teardown, for POSIX and PowerShell |
+| `screenshot-capture.md` | Capturing UI screenshots end to end: detecting the frontend, starting and stopping a server safely, avoiding project deps, reporting output paths |

@@ -50,7 +50,7 @@
   "regression-gate": "test-engineering",
   "release-management": "git-workflow",
   "requirements-clarification": "requirements-planning",
-  "screenshot-capture": "frontend-engineering",
+  "screenshot-capture": "test-engineering",
   "session-handoff": "starting-dev",
   "session-learnings": "starting-dev",
   "shell-operations": "cloud-devops",

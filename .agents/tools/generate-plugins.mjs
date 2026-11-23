@@ -49,6 +49,7 @@ export const PLUGIN_CONTEXTS = {
     keywords: ["backend", "api", "database", "sql", "architecture", "packages", "cli"],
     skills: [
       "backend-systems",
+      "compiled-backends",
       "data-engineering",
       "software-architecture",
       "package-management",

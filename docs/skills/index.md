@@ -13,6 +13,7 @@ The catalog contains 37 domain skills. They are intentionally broader than singl
 | `bot-engineering` | dedupe/seen-state, rate-limit backoff, keyless endpoints, CronJob scheduling, Telegram/Discord/WhatsApp delivery, and optional LLM steps |
 | `cloud-devops` | GitHub Actions, Dockerfiles, Terraform, Helm, canary and feature flag rollouts, manual GHCR rollout, deployment sync drift, and safe bash/PowerShell |
 | `code-review` | adversarial review, sibling bug variants, legacy code recovery, characterization tests, simplifying working code, and deleting proven dead code |
+| `compiled-backends` | ownership and borrowing, Result errors, clippy, goroutine leaks and data races, gofmt and go vet, ASP.NET, EF Core, CancellationToken, xUnit |
 | `data-engineering` | PostgreSQL, MySQL, Redis, schema migrations, zero-downtime DDL, query plans, indexes, backups and point-in-time restore, pandas profiling, and aggregation |
 | `documentation` | docs verification, runbooks, ADRs, guides, Mermaid diagrams as code, ASCII and terminal figures, code snippet images, PDF/DOCX generation, and OpenAPI reference |
 | `finishing-dev` | PR delivery, descriptions, acceptance evidence, homologação, 'homologue' (prove it on the real target), and return to the default branch with or without pipeline monitoring |

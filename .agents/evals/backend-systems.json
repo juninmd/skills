@@ -19,10 +19,6 @@
         "top_k": 3
       },
       {
-        "prompt": "Implement compiled backend services and concurrent routines in Go, Rust, or .NET",
-        "top_k": 3
-      },
-      {
         "prompt": "Implement a Bun TypeScript backend endpoint with request validation and graceful shutdown",
         "top_k": 1
       }
@@ -39,6 +35,10 @@
       {
         "prompt": "Set up pnpm workspace catalogs and migrate this repo's lockfile from npm",
         "owner": "package-management"
+      },
+      {
+        "prompt": "Fix the goroutine leak and data race in this Go service",
+        "owner": "compiled-backends"
       }
     ]
   }

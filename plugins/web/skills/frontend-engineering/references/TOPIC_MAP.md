@@ -15,9 +15,7 @@ Read only the files needed for the current task.
 | `mobile-web-polish.md` | Eliminating mobile web browser defects: `100dvh` viewport units, sticky hover elimination, safe area insets, 16px input zoom prevention, and tap highlight suppression |
 | `modern-web-platform.md` | Which standard to target (WCAG 2.2, Core Web Vitals, DTCG tokens), Baseline adoption policy, and native CSS/HTML alternatives to libraries: `@layer`, container queries, `:has()`, popover, `<dialog>`, anchor positioning, View Transitions, INP tactics |
 | `nextjs-app-router.md` | Working in a repo with an `app/` directory: Server vs Client Component boundaries, data fetching/caching/revalidation, streaming, and route-segment conventions |
-| `playwright-recipes.md` | Exact copy-pasteable commands for ephemeral Playwright capture — temp dirs, starting/polling the dev server, hydration waits, teardown — for both POSIX and PowerShell |
 | `real-world-cases.md` | Starting point for a practical UI build, bug fix, or review: checklists for existing-app changes, React state bugs, Next.js data boundaries, forms, and performance/hydration issues |
-| `screenshot-capture.md` | The end-to-end workflow for capturing UI screenshots: detecting the frontend, starting/stopping a server safely, avoiding project deps, and reporting output paths |
 | `shadcn-integration.md` | shadcn/ui component catalog, architecture and class merging with `cn()`, variant styling with `cva`, CLI installation, blocks, and Radix accessibility guarantees |
 | `state-recipes.md` | Modeling UI state as a discriminated union instead of independent booleans, plus optimistic-update-with-rollback patterns |
 | `toast-notifications.md` | High-craft toast notification systems: stacking geometry, dynamic height expansion, swipe-to-dismiss physics, promise lifecycle states, and accessible announcements |

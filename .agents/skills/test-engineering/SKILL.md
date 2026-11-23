@@ -66,6 +66,7 @@ If this change cannot fix it, never skip or delete the test. Leave it running an
 - Consult [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-domain guides.
 - Picking a test double, or spotting a mystery-guest or fragile-test smell in review: [test-doubles.md](references/test-doubles.md).
 - Running the red-green cycle, or confirming an expected value is independent of the code: [tdd-methodology.md](references/tdd-methodology.md).
+- Ephemeral Playwright runs or UI screenshots for evidence: [playwright-recipes.md](references/playwright-recipes.md), [screenshot-capture.md](references/screenshot-capture.md).
 - Building the "Contract" level against another service: [contract-testing.md](references/contract-testing.md).
 
 ## Stop
@@ -75,7 +76,7 @@ If this change cannot fix it, never skip or delete the test. Leave it running an
 - A negative-path test (proving a gate rejects bad input) is about to run on a real tracked file. Use a disposable temp file and check anything touched byte for byte ([real-world-cases.md](references/real-world-cases.md)).
 
 ## Rules
-- Refactoring and simplification go to `code-review`, UI issues to `frontend-engineering`, service bugs to `backend-systems`.
+- Refactoring and simplification go to `code-review`, UI issues to `frontend-engineering`, service bugs to `backend-systems` or `compiled-backends`.
 - Assert externally meaningful behavior and exact failure semantics: error type and message, not merely that something threw.
 - After every test, restore mocks, timers, environment, and global state. A leaked timer fails a later, innocent test.
 - Order dependence is a defect, not a setting. Run the suite shuffled in CI.
