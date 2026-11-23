@@ -3,6 +3,16 @@
 What to measure, and why an average lies, before any profiler runs. Linked
 from `SKILL.md`.
 
+## Contents
+- USE Method: Per-Resource
+- RED Method: Per Request-Driven Service
+- Percentiles vs Averages
+- Noise Floor Guards
+- Measure Before Optimizing
+- Measurement Bias and Causal Profiling
+- Load Testing That Reflects Production Traffic Shape
+- Tools and Papers
+
 ## USE Method: Per-Resource
 
 Brendan Gregg's *Systems Performance* names the checklist for any finite
@@ -64,6 +74,20 @@ written against p99 fires immediately, correctly. Always carry p99 (and
 p999 for high-QPS services) next to any reported average; a "faster on
 average" change that widens the tail is a regression, not an improvement.
 
+## Noise Floor Guards
+A result inside run-to-run variance is not a result. A service with p50 = 50 ms and p99 = 4 s has a "great" mean while one request in a hundred waits 80x longer (Kleppmann, *Designing Data-Intensive Applications*, ch. 1).
+
+| Guard | Why |
+|---|---|
+| Discard the first runs | JIT warmup, cold caches, lazy imports |
+| Report median **and** p95/p99 | A better median with a worse tail is a worse system |
+| Repeat the baseline, not just the fix | Machine drift is indistinguishable from your change |
+| Watch CPU quota and thermals | A throttled container fakes a regression perfectly |
+| Sample in independent processes | In-process iterations autocorrelate through JIT, GC and thermals (`hyperfine --warmup 3 --runs 10`) |
+| Expect layout bias | Env size and link order shift timings (Mytkowicz, ASPLOS 2009); vary them or gate on instruction counts (`gungraun`, callgrind) |
+| Keep fixture setup out of the profile | Fixture generation can outrank the code under test |
+| Decide with a test, not an eyeball | Mann-Whitney U over 7+ samples per side; demand an effect above `max(noise band, 2 x stdev)` |
+
 ## Measure Before Optimizing
 
 Donald Knuth: "premature optimization is the root of all evil" (*Structured
@@ -77,6 +101,43 @@ work. Two failure modes follow from misreading the quote:
   nobody was waiting on.
 - Refusing to optimize a profiled, proven hot path because "optimization is
   bad" — this is citing the quote backwards.
+
+## Measurement Bias and Causal Profiling
+
+A benchmark can be repeatable and still wrong. Three findings change how a
+result should be trusted:
+
+- **Layout bias.** Changing only the environment-variable block size or the
+  link order moved benchmark timings enough to flip conclusions (Mytkowicz,
+  Diwan, Hauswirth, Sweeney, *Producing Wrong Data Without Doing Anything
+  Obviously Wrong!*, ASPLOS 2009). Run before and after from the same
+  directory with the same env, interleave the two binaries, and treat a
+  single-digit percent win on one layout as unproven. For CI gates, count
+  instructions under Valgrind (`gungraun`, formerly iai-callgrind, for Rust)
+  instead of timing wall clock.
+- **Causal profiling.** In concurrent code the hottest function is often not
+  the one whose speedup shortens the run. `coz` inserts pauses elsewhere to
+  simulate speeding one line up and reports the end-to-end effect (Curtsinger
+  and Berger, *Coz: Finding Code that Counts with Causal Profiling*, SOSP
+  2015). Reach for it when a sampling profile is flat or the obvious fix moved
+  nothing.
+- **Variance levels.** Kalibera and Jones, *Rigorous Benchmarking in Reasonable
+  Time* (ISMM 2013): variance lives at several levels (build, process,
+  iteration). Repeat at the level with the most variance, usually the process,
+  rather than adding iterations inside one process. `hyperfine` does exactly
+  that.
+
+| Bias source | Guard |
+|---|---|
+| Environment size, cwd, link/layout order | Same shell, same env, same binary path for both sides |
+| One process, many iterations | Independent processes; report the spread across them |
+| Before measured once, after measured now | Interleave or repeat the baseline in the same session |
+| Fixture built inside the measured window | Build inputs first; profile only the workload |
+
+```bash
+# Interleave A/B so drift hits both sides equally
+hyperfine -N --warmup 3 --runs 40 './old hook' './new hook' --input req.json
+```
 
 ## Load Testing That Reflects Production Traffic Shape
 
@@ -94,3 +155,24 @@ disagree about *shape*, not volume:
 
 The result of a mismatched shape is not "no data" — it is confident, wrong
 data that clears review and fails in production.
+
+## Tools and Papers
+- **Change-point detection in CI**: a fixed threshold on one run misses slow drift and flags noise. E-Divisive-style change-point detection over the benchmark history finds the commit where the series shifts. [The Use of Change Point Detection to Identify Software Performance Regressions in a Continuous Integration System](https://arxiv.org/pdf/2003.00584) (MongoDB, 2020); Hunter, [Using Change Point Detection to Hunt for Performance Regressions](https://arxiv.org/abs/2301.03034) (2023); open-source implementation and its scaling work: [8 Years of Optimizing the open-source successor to Hunter](https://arxiv.org/abs/2505.06758). Use when a benchmark runs on every merge and a single before/after is too noisy.
+- **Index suggestions from real queries**: [dexter](https://github.com/ankane/dexter) proposes Postgres indexes from the query log using hypothetical indexes. Treat the output as a candidate list; confirm with `EXPLAIN (ANALYZE, BUFFERS)` before shipping.
+
+| Need | Tool | Note |
+|---|---|---|
+| Time a CLI or build step with stats | `hyperfine --warmup 3 --runs 10 --export-json out.json 'cmd'` | Warmup, outlier warning, mean ± σ; compare two commands in one call |
+| Rust micro-benchmark with a regression test | `criterion` or `divan` (`benches/`) | Statistical comparison against a saved baseline |
+| Rust benchmark that is stable on noisy CI | `iai-callgrind` | Counts instructions, so shared runners do not add variance |
+| Rust binary size or compile cost | `cargo bloat --release --crates` · `cargo llvm-lines` | Ranks crates and generic instantiations before touching `[profile.release]` |
+| JS bundle size | `vite build` output, `rollup-plugin-visualizer` | Check what the entry chunk statically pulls before lazy-loading |
+| Desktop app idle cost | count timers and wake-ups per minute while the window is hidden | Poll loops that ignore window visibility are the usual finding; verify each one is gated before changing anything |
+
+Papers behind the Noise Floor rules:
+- Mytkowicz et al., *Producing Wrong Data Without Doing Anything Obviously Wrong!* (ASPLOS 2009): environment size and link order alone shift results by several percent, so randomize setup across runs.
+- Kalibera and Jones, *Rigorous Benchmarking in Reasonable Time* (ISMM 2013): separate process, iteration and run variance; do not average away the level that dominates.
+- Curtsinger and Berger, *Coz: Finding Code that Counts with Causal Profiling* (SOSP 2015): the hottest function is not always the one whose speedup moves throughput; virtual speedups tell you which.
+- Dean and Barroso, *The Tail at Scale* (CACM 2013): in a fan-out, rare slow calls dominate user latency; measure p99, not the mean.
+
+A clean audit is a valid result: if every entry in the profile is already gated, cached or lazy, report that and open no PR.

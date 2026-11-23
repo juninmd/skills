@@ -9,7 +9,7 @@
 [![Agent Skills Spec](https://img.shields.io/badge/spec-Agent_Skills-black.svg)](https://agentskills.io)
 [![MCP Standard](https://img.shields.io/badge/MCP-standard-10b981.svg)](https://modelcontextprotocol.io)
 
-**40 skills · enterprise operating instructions**
+**41 skills · enterprise operating instructions**
 
 *Production engineering workflows for AI coding assistants: discover intent, execute surgical changes, and prove with reproducible evidence.*
 
@@ -21,7 +21,7 @@
 git clone https://github.com/juninmd/skills && cd skills && node .agents/tools/install.mjs --dry-run all   # preview, then drop --dry-run
 ```
 
-<img src="./docs/public/images/hero.gif" alt="Animated demo: a request is routed to the right skill, runs preflight, reproduce, patch and verify steps, then shows 40 skills, 204 of 204 routing prompts correct, 100 tokens per skill and 140 validator tests" width="100%" />
+<img src="./docs/public/images/hero.gif" alt="Animated demo: a request is routed to the right skill, runs preflight, reproduce, patch and verify steps, then shows 41 skills, 204 of 204 routing prompts correct, 100 tokens per skill and 140 validator tests" width="100%" />
 
 </div>
 
@@ -331,7 +331,7 @@ domain that owns what comes next. You keep writing prose.
 | `observability` | root-cause debugging, logging, tracing, alerting, SLOs and error budgets, postmortems, network failures, on-call, product event tracking, A/B experiments, and watch-logs-and-fix loops |
 | `package-management` | pnpm workspaces, catalogs, overrides, patches, peer deps; uv, pyproject.toml, PEP 723, Ruff, prek/pre-commit, Dependabot PRs, dependency cooldown configuration, lockfile hygiene, and CI caching |
 | `peer-benchmark` | gap reviews and prior-art sweeps |
-| `performance-engineering` | Rust, Node, Bun, TS, WebAssembly profiling, size, deep source sweeps, k6 load tests, N+1, memory leaks, idle CPU, LCP/INP, benchmark noise, cloud or token spend |
+| `performance-engineering` | Rust, Node, Bun, TS, WebAssembly profiling, size, deep source sweeps, k6 load tests, N+1, memory leaks, idle CPU, benchmark noise. Not web vitals or spend (vitals-and-cost) |
 | `portkill` | EADDRINUSE errors, dev-server port conflicts, and killing the listener on a given port on Windows, macOS, or Linux |
 | `radar-ia` | the daily AI radar and best-posts digests; not for one-paper research or debugging |
 | `rea` | rea-agents setup and MCP readiness, native binary decompilation and xrefs, JavaScript/Electron ASAR and IPC analysis, .NET assemblies, and browser observations with evidence |
@@ -346,6 +346,7 @@ domain that owns what comes next. You keep writing prose.
 | `test-engineering` | test-first TDD before implementing a feature or bugfix, unit and integration tests, Vitest, pytest, Playwright E2E, flaky test elimination, LLM gateway conformance, and coverage |
 | `threejs` | GLTF/GLB model viewers, cameras, lighting, raycasting, shaders, animation, WebGL/WebGPU rendering, asset loading, scene performance, and GPU resource cleanup |
 | `tooling-dev` | CLI arguments, exit codes, non-interactive execution, config discovery, signals, structured output, packaging, and integration tests |
+| `vitals-and-cost` | Core Web Vitals (LCP, INP, CLS) at p75, Lighthouse, RUM and field data, TTFB, spend attribution per tenant or job, idle-resource sweeps, rightsizing, prompt caching |
 | `web-research` | multi-source search, HTML tables, library versions and breaking changes before upgrade, video soundtrack/media identification, changelogs, and citations |
 | `x-post-reading` | a post URL or id, a profile's latest posts, engagement counts, quoted posts, long-form notes, and reply context |
 <!-- skill-catalog:end -->

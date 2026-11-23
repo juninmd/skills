@@ -28,7 +28,7 @@ The catalog contains 37 domain skills. They are intentionally broader than singl
 | `observability` | root-cause debugging, logging, tracing, alerting, SLOs and error budgets, postmortems, network failures, on-call, product event tracking, A/B experiments, and watch-logs-and-fix loops |
 | `package-management` | pnpm workspaces, catalogs, overrides, patches, peer deps; uv, pyproject.toml, PEP 723, Ruff, prek/pre-commit, Dependabot PRs, dependency cooldown configuration, lockfile hygiene, and CI caching |
 | `peer-benchmark` | gap reviews and prior-art sweeps |
-| `performance-engineering` | Rust, Node, Bun, TS, WebAssembly profiling, size, deep source sweeps, k6 load tests, N+1, memory leaks, idle CPU, LCP/INP, benchmark noise, cloud or token spend |
+| `performance-engineering` | Rust, Node, Bun, TS, WebAssembly profiling, size, deep source sweeps, k6 load tests, N+1, memory leaks, idle CPU, benchmark noise. Not web vitals or spend (vitals-and-cost) |
 | `portkill` | EADDRINUSE errors, dev-server port conflicts, and killing the listener on a given port on Windows, macOS, or Linux |
 | `radar-ia` | the daily AI radar and best-posts digests; not for one-paper research or debugging |
 | `rea` | rea-agents setup and MCP readiness, native binary decompilation and xrefs, JavaScript/Electron ASAR and IPC analysis, .NET assemblies, and browser observations with evidence |
@@ -43,6 +43,7 @@ The catalog contains 37 domain skills. They are intentionally broader than singl
 | `test-engineering` | test-first TDD before implementing a feature or bugfix, unit and integration tests, Vitest, pytest, Playwright E2E, flaky test elimination, LLM gateway conformance, and coverage |
 | `threejs` | GLTF/GLB model viewers, cameras, lighting, raycasting, shaders, animation, WebGL/WebGPU rendering, asset loading, scene performance, and GPU resource cleanup |
 | `tooling-dev` | CLI arguments, exit codes, non-interactive execution, config discovery, signals, structured output, packaging, and integration tests |
+| `vitals-and-cost` | Core Web Vitals (LCP, INP, CLS) at p75, Lighthouse, RUM and field data, TTFB, spend attribution per tenant or job, idle-resource sweeps, rightsizing, prompt caching |
 | `web-research` | multi-source search, HTML tables, library versions and breaking changes before upgrade, video soundtrack/media identification, changelogs, and citations |
 | `x-post-reading` | a post URL or id, a profile's latest posts, engagement counts, quoted posts, long-form notes, and reply context |
 <!-- skill-catalog:end -->

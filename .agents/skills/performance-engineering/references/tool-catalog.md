@@ -29,7 +29,7 @@ Open after the symptom is named. Route first: the routing table tells you which 
 | Node CPU-bound in a request | `piscina` worker pool | `napi-rs` native addon when the profile names a pure loop | this file |
 | Bun CPU/heap | `bun --cpu-prof-md` / `--heap-prof-md` | `mitata` for one function | [runtime-profiling](runtime-profiling.md) |
 | TS type-check or build slow | TypeScript 7 (native) / `tsgo` | `oxlint`, `esbuild` or `rolldown` | this file |
-| Web vitals, bundle | Lighthouse, field data | [web-performance](web-performance.md) | [vitals-and-field-data](vitals-and-field-data.md) |
+| Web vitals, bundle | Lighthouse, field data | `vitals-and-cost` | hand off |
 | Queries, N+1 | `EXPLAIN ANALYZE` | `data-engineering` skill | [optimization-patterns](optimization-patterns.md) |
 
 ## Rust

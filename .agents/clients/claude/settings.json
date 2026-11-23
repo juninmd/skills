@@ -38,6 +38,7 @@
     "test-engineering": "collapsed",
     "threejs": "collapsed",
     "tooling-dev": "collapsed",
+    "vitals-and-cost": "collapsed",
     "web-research": "collapsed"
   },
   "enableWorkflows": true,

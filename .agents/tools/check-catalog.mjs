@@ -12,8 +12,10 @@ import { listSkills } from "./skill-metadata.mjs";
 // homologate (finishing-dev and observability already reference it, so the
 // catalog was under-counted). 39 -> 40 for peer-benchmark (compare the
 // current repo to peers with benchmarks; radar-ia is a digest and web-research
-// a single-fact lookup, owner request). Past it, merge or retire a skill.
-export const MAX_SKILLS = 40;
+// a single-fact lookup, owner request). 40 -> 50 so performance-engineering
+// can split into itself and vitals-and-cost (web vitals and spend), owner
+// request. Past it, merge or retire a skill.
+export const MAX_SKILLS = 50;
 
 export function checkCatalog(root = process.cwd(), maxSkills = MAX_SKILLS) {
   const readmePath = path.join(root, "README.md");
