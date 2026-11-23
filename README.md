@@ -9,7 +9,7 @@
 [![Agent Skills Spec](https://img.shields.io/badge/spec-Agent_Skills-black.svg)](https://agentskills.io)
 [![MCP Standard](https://img.shields.io/badge/MCP-standard-10b981.svg)](https://modelcontextprotocol.io)
 
-**41 skills · enterprise operating instructions**
+**42 skills · enterprise operating instructions**
 
 *Production engineering workflows for AI coding assistants: discover intent, execute surgical changes, and prove with reproducible evidence.*
 
@@ -21,7 +21,7 @@
 git clone https://github.com/juninmd/skills && cd skills && node .agents/tools/install.mjs --dry-run all   # preview, then drop --dry-run
 ```
 
-<img src="./docs/public/images/hero.gif" alt="Animated demo: a request is routed to the right skill, runs preflight, reproduce, patch and verify steps, then shows 41 skills, 204 of 204 routing prompts correct, 100 tokens per skill and 140 validator tests" width="100%" />
+<img src="./docs/public/images/hero.gif" alt="Animated demo: a request is routed to the right skill, runs preflight, reproduce, patch and verify steps, then shows 42 skills, 204 of 204 routing prompts correct, 100 tokens per skill and 140 validator tests" width="100%" />
 
 </div>
 
@@ -319,7 +319,7 @@ domain that owns what comes next. You keep writing prose.
 | `data-engineering` | PostgreSQL, MySQL, Redis, schema migrations, zero-downtime DDL, query plans, indexes, backups and point-in-time restore, pandas profiling, and aggregation |
 | `documentation` | docs verification, runbooks, ADRs, guides, Mermaid diagrams as code, ASCII and terminal figures, code snippet images, PDF/DOCX generation, and OpenAPI reference |
 | `finishing-dev` | PR delivery, descriptions, acceptance evidence, homologação, 'homologue' (prove it on the real target), and return to the default branch with or without pipeline monitoring |
-| `frontend-engineering` | React, Next.js, Vite, Tailwind, WCAG, i18n and RTL, visual hierarchy, color palettes, anti-slop styling, animation, easing, motion, UI states, and masonry |
+| `frontend-engineering` | React, Next.js, Vite, Tailwind, WCAG, i18n and RTL, visual hierarchy, color palettes, anti-slop styling, UI states, and masonry |
 | `git-branch-cleanup` | bulk branch cleanup, repository housekeeping, removing stale branches after PR merges, and cleaning gone tracking branches |
 | `git-workflow` | branches, worktrees, rebase conflicts, reflog recovery, stash, bisect, conventional commits, semantic version bumps, changelogs, and release tags |
 | `goldsrc-modding` | Valve 220 .map geometry, ZHLT/VHLT compiles, BSP30 lumps, CS 1.6 entities, and Pawn (.sma/.amxx) natives, forwards, precache, and crash forensics |
@@ -327,6 +327,7 @@ domain that owns what comes next. You keep writing prose.
 | `ios-engineering` | Swift optionals, concurrency and memory, SwiftUI views, UIKit and Auto Layout, Metal shaders, WidgetKit, iOS permissions and system integration, and App Store readiness |
 | `local-dubbing` | reference audio, dialogue translation, distinct character voices, pronunciation, and original-versus-synthetic comparison |
 | `mobile-engineering` | React Native, Expo, Flutter, and native Android UI, lifecycle, navigation, permissions, offline behavior, accessibility, localization, device integration, tests, and builds |
+| `motion-design` | easing and duration budgets, springs, enter/exit and layout animation, gestures and sheets, reduced motion, jank and compositor-only properties, motion audits |
 | `motion-video` | reels, shorts, product-news and kinetic-typography videos, 'a video like this reel', adding music to a render |
 | `observability` | root-cause debugging, logging, tracing, alerting, SLOs and error budgets, postmortems, network failures, on-call, product event tracking, A/B experiments, and watch-logs-and-fix loops |
 | `package-management` | pnpm workspaces, catalogs, overrides, patches, peer deps; uv, pyproject.toml, PEP 723, Ruff, prek/pre-commit, Dependabot PRs, dependency cooldown configuration, lockfile hygiene, and CI caching |

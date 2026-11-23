@@ -33,6 +33,7 @@ export const PLUGIN_CONTEXTS = {
     keywords: ["frontend", "react", "nextjs", "mobile", "ios", "swift", "animation", "threejs"],
     skills: [
       "frontend-engineering",
+      "motion-design",
       "mobile-engineering",
       "ios-engineering",
       "stack-selection",

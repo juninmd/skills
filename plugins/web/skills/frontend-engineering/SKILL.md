@@ -1,14 +1,14 @@
 ---
 name: frontend-engineering
 description: |
-  Build, design, and review web UIs, component design systems, and responsive layouts. Use for React, Next.js, Vite, Tailwind, WCAG accessibility, i18n and RTL, visual hierarchy, color palettes, anti-slop styling, animation, easing, motion, UI states, and masonry. Trigger on 'build this page', 'fix the hydration error', 'make it accessible', 'this UI looks generic'.
+  Build, design, and review web UIs, component design systems, and responsive layouts. Use for React, Next.js, Vite, Tailwind, WCAG, i18n and RTL, visual hierarchy, color palettes, anti-slop styling, UI states, and masonry. Trigger on 'build this page', 'fix the hydration error', 'make it accessible', 'this UI looks generic', 'polish the UI'. Not motion (motion-design).
 ---
 
 
 
 # Frontend Engineering
 
-**Not this skill:** choosing the framework or component library (`stack-selection`), rendering 3D on a canvas (`threejs`), or Core Web Vitals measurement (`performance-engineering`).
+**Not this skill:** choosing the framework or component library (`stack-selection`), rendering 3D on a canvas (`threejs`), animation and motion (`motion-design`), or Core Web Vitals measurement (`vitals-and-cost`).
 
 ## Preflight
 
@@ -60,6 +60,7 @@ Open a file only when its trigger matches.
 - `app/` directory: [nextjs-app-router.md](references/nextjs-app-router.md) — server/client boundaries, streaming, caching, actions.
 - `components.json` (shadcn/ui): discovery, installation, and extending primitives in [shadcn-integration.md](references/shadcn-integration.md).
 - `vite.config.*`: [vite-core.md](references/vite-core.md), [vite-patterns.md](references/vite-patterns.md); Tailwind v4 there: [vite-tailwind-v4.md](references/vite-tailwind-v4.md).
+- Polish, standardize, or perfect an existing UI (one design system, alignment and CSS fixes, UX, before/after screenshots): [ui-polish-pass.md](references/ui-polish-pass.md).
 - Reviewing UI: [frontend-review.md](references/frontend-review.md); slow UI, heavy bundles, or any Server Action: [frontend-optimization.md](references/frontend-optimization.md).
 - Behavior that should work but does not: [real-world-cases.md](references/real-world-cases.md).
 
@@ -71,7 +72,7 @@ See [Reference Map](references/TOPIC_MAP.md) for specialized references and sub-
 - Only the dev build was verified. Verify against the production build — StrictMode and minification change behavior.
 
 ## Rules
-- Hand off API contracts to `backend-systems`, end-to-end tests to `test-engineering`, mobile apps to `mobile-engineering`, and performance budgets to `performance-engineering`.
+- Hand off API contracts to `backend-systems`, end-to-end tests to `test-engineering`, mobile apps to `mobile-engineering`, motion to `motion-design`, and performance budgets to `performance-engineering`.
 - Preserve the repository's design system. Never add a second component stack casually — two stacks is a permanent tax on every future component.
 - A secret read in a client component ships to the browser. Environment variables without the public prefix are server-only for a reason; check before moving code across the boundary.
 - `key` on a list must be stable and identity-bearing. Array index as key corrupts state whenever the list reorders.

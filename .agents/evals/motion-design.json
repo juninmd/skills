@@ -1,0 +1,37 @@
+{
+  "skill_name": "motion-design",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Add an ease-out enter animation to this dropdown and review the motion in our web app",
+        "top_k": 3
+      },
+      {
+        "prompt": "This modal animation feels janky, only animate transform and opacity and respect reduced motion",
+        "top_k": 3
+      },
+      {
+        "prompt": "Make this bottom sheet draggable with rubber-band resistance and release velocity",
+        "top_k": 3
+      },
+      {
+        "prompt": "Audit the animations in our app and score the motion quality with a remediation list",
+        "top_k": 3
+      },
+      {
+        "prompt": "Choose a spring versus an easing curve and a duration budget for these UI transitions",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Fix the React hydration mismatch in our Next.js app",
+        "owner": "frontend-engineering"
+      },
+      {
+        "prompt": "Render a kinetic typography reel frame by frame with Chrome and ffmpeg",
+        "owner": "motion-video"
+      }
+    ]
+  }
+}

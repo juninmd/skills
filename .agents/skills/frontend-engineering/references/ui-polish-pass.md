@@ -18,7 +18,7 @@ Find the existing token source (`@theme`, `tokens.css`, `theme.ts`, `components.
 3. **Tokens first.** Fill gaps in the token layers from [design-systems](design-systems.md) and [frontend-design](frontend-design.md): color, type scale, spacing, radius, elevation, motion. Replace hardcoded values with semantic tokens.
 4. **Consolidate components.** Merge near-duplicates into one component with intent-named variants; migrate callers; delete the dead copies. One concern per commit.
 5. **Fix defects** using the table below.
-6. **Raise UX.** Every interactive element gets default, hover, focus-visible, active, disabled, and loading states; every data view gets loading, empty, and error ([ui-state-design](ui-state-design.md)); run [accessibility](accessibility.md); keep motion within [motion-design-principles](motion-design-principles.md).
+6. **Raise UX.** Every interactive element gets default, hover, focus-visible, active, disabled, and loading states; every data view gets loading, empty, and error ([ui-state-design](ui-state-design.md)); run [accessibility](accessibility.md); keep motion within the `motion-design` skill.
 7. **Prove.** Re-capture the same routes with the same determinism, diff against the baseline, run lint, tests, and the production build, and attach the pairs.
 
 ## Defect Table

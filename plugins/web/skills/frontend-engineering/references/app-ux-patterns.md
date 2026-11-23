@@ -45,7 +45,7 @@ Name each motion by the job it does, then cap it:
 | Live | slow pulse on the live dot only |
 - Page transitions use opacity only: a `transform` on an ancestor breaks `position: fixed` children such as a mobile action bar.
 - Hover lift (-4px plus border glow, ~200ms) on cards for pointer devices only.
-- Everything disappears under `prefers-reduced-motion`. Details in [motion-design-principles](motion-design-principles.md).
+- Everything disappears under `prefers-reduced-motion`. Details in `motion-design`.
 
 ## Touch and mobile
 - Targets at least 44px, form fields at 16px (no iOS zoom), fixed bottom action bar on phones, safe-area insets as tokens (`--sat`, `--sab`).
