@@ -56,7 +56,7 @@ Prefer these before adding a headless library; keep the library when it provides
 ## Motion and navigation
 - **View Transitions**: same-document `document.startViewTransition()` is the baseline-newly path; cross-document (`@view-transition { navigation: auto; }`) suits multi-page sites, **verify** support. Name the shared element with `view-transition-name`, and wrap the call so browsers without it still update the DOM: `if (!document.startViewTransition) update(); else document.startViewTransition(update)`. Always include a `prefers-reduced-motion` branch.
 - **Scroll-driven animations** (`animation-timeline: scroll()` or `view()`): limited availability, so wrap in `@supports (animation-timeline: scroll())` and keep the content readable without the effect.
-- **Animating to `height: auto`**: `interpolate-size` / `calc-size()` is Chromium-only; use the grid-rows technique in [web-animation-recipes](web-animation-recipes.md).
+- **Animating to `height: auto`**: `interpolate-size` / `calc-size()` is Chromium-only; use the grid-rows technique in `motion-design` (web-animation-recipes).
 - **Prefetch/prerender**: Speculation Rules (`<script type="speculationrules">`) are Chromium-only enhancement; never put non-idempotent URLs in the list.
 
 ## Performance budgets

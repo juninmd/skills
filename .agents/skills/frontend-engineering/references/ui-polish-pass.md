@@ -13,12 +13,12 @@ rg -n -g '!node_modules' -e '\b(w|h|p|m|gap)-\[[0-9]+px\]' -e 'z-\[[0-9]+\]' src
 Find the existing token source (`@theme`, `tokens.css`, `theme.ts`, `components.json`) and the component library. Extend it; never start a second one.
 
 ## Workflow
-1. **Baseline.** Capture before-screenshots of key routes at 375, 768, and 1280 px, light and dark, following [screenshot-capture](screenshot-capture.md) and [playwright-recipes](playwright-recipes.md). Record console errors and the lint/test status.
+1. **Baseline.** Capture before-screenshots of key routes at 375, 768, and 1280 px, light and dark, following [screenshot-capture](../../test-engineering/references/screenshot-capture.md) and [playwright-recipes](../../test-engineering/references/playwright-recipes.md). Record console errors and the lint/test status.
 2. **Inventory.** List repeated shapes (buttons, inputs, cards, badges, modals, tables) and how many near-duplicates exist. Build a table: shape, variants found, target variant.
 3. **Tokens first.** Fill gaps in the token layers from [design-systems](design-systems.md) and [frontend-design](frontend-design.md): color, type scale, spacing, radius, elevation, motion. Replace hardcoded values with semantic tokens.
 4. **Consolidate components.** Merge near-duplicates into one component with intent-named variants; migrate callers; delete the dead copies. One concern per commit.
 5. **Fix defects** using the table below.
-6. **Raise UX.** Every interactive element gets default, hover, focus-visible, active, disabled, and loading states; every data view gets loading, empty, and error ([ui-state-design](ui-state-design.md)); run [accessibility](accessibility.md); keep motion within [motion-design-principles](motion-design-principles.md).
+6. **Raise UX.** Every interactive element gets default, hover, focus-visible, active, disabled, and loading states; every data view gets loading, empty, and error ([ui-state-design](ui-state-design.md)); run [accessibility](accessibility.md); keep motion within the `motion-design` skill.
 7. **Prove.** Re-capture the same routes with the same determinism, diff against the baseline, run lint, tests, and the production build, and attach the pairs.
 
 ## Defect Table

@@ -27,10 +27,6 @@
         "top_k": 3
       },
       {
-        "prompt": "Add an ease-out enter animation to this dropdown and review the motion in our web app",
-        "top_k": 3
-      },
-      {
         "prompt": "Make this web UI use modern CSS: container queries, popover, and responsive layout instead of a component library",
         "top_k": 3
       },
@@ -51,6 +47,10 @@
       {
         "prompt": "Implement the NestJS controller and database repository",
         "owner": "backend-systems"
+      },
+      {
+        "prompt": "Add an ease-out enter animation to this dropdown and fix the janky transition",
+        "owner": "motion-design"
       }
     ]
   }

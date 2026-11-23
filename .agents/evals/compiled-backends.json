@@ -1,0 +1,37 @@
+{
+  "skill_name": "compiled-backends",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Implement compiled backend services and concurrent routines in Go, Rust, or .NET",
+        "top_k": 3
+      },
+      {
+        "prompt": "Fix this Rust borrow checker error and run clippy and cargo test on the service",
+        "top_k": 3
+      },
+      {
+        "prompt": "Find the goroutine leak and data race in our Go service and run go test -race",
+        "top_k": 3
+      },
+      {
+        "prompt": "Review the ASP.NET service for missing CancellationToken and EF Core N+1 queries",
+        "top_k": 3
+      },
+      {
+        "prompt": "Structure a new .NET service with dependency injection and xUnit tests",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Add a NestJS endpoint with DTO validation and Redis caching",
+        "owner": "backend-systems"
+      },
+      {
+        "prompt": "Create a FastAPI endpoint with Pydantic v2 validation",
+        "owner": "backend-systems"
+      }
+    ]
+  }
+}

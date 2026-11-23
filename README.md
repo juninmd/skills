@@ -9,7 +9,7 @@
 [![Agent Skills Spec](https://img.shields.io/badge/spec-Agent_Skills-black.svg)](https://agentskills.io)
 [![MCP Standard](https://img.shields.io/badge/MCP-standard-10b981.svg)](https://modelcontextprotocol.io)
 
-**41 skills · enterprise operating instructions**
+**43 skills · enterprise operating instructions**
 
 *Production engineering workflows for AI coding assistants: discover intent, execute surgical changes, and prove with reproducible evidence.*
 
@@ -21,7 +21,7 @@
 git clone https://github.com/juninmd/skills && cd skills && node .agents/tools/install.mjs --dry-run all   # preview, then drop --dry-run
 ```
 
-<img src="./docs/public/images/hero.gif" alt="Animated demo: a request is routed to the right skill, runs preflight, reproduce, patch and verify steps, then shows 41 skills, 204 of 204 routing prompts correct, 100 tokens per skill and 140 validator tests" width="100%" />
+<img src="./docs/public/images/hero.gif" alt="Animated demo: a request is routed to the right skill, runs preflight, reproduce, patch and verify steps, then shows 43 skills, 204 of 204 routing prompts correct, 100 tokens per skill and 140 validator tests" width="100%" />
 
 </div>
 
@@ -138,12 +138,12 @@ Install either the full bundle or only the domains you need from the [`.claude-p
 
 | Plugin | Context & Scope | Included Skills |
 |---|---|---|
-| `juninmd@skills` | **Complete Bundle** | All 38 skills |
-| `juninmd-core@skills` | **Core Lifecycle & Quality** | `starting-dev`, `finishing-dev`, `git-workflow`, `git-branch-cleanup`, `requirements-planning`, `code-review`, `test-engineering`, `documentation`, `readme-standard` |
-| `juninmd-web@skills` | **Frontend & Mobile** | `frontend-engineering`, `mobile-engineering`, `ios-engineering`, `stack-selection`, `motion-video`, `threejs`, `3d-models` |
-| `juninmd-backend@skills` | **Backend, Data & Architecture** | `backend-systems`, `data-engineering`, `software-architecture`, `package-management`, `tooling-dev`, `bot-engineering`, `goldsrc-modding` |
-| `juninmd-devops@skills` | **Cloud, DevOps & Security** | `cloud-devops`, `observability`, `performance-engineering`, `security-ops`, `release-autoupdate` |
-| `juninmd-ai@skills` | **AI Agents & Ecosystem** | `agent-engineering`, `agent-orchestration`, `skill-authoring`, `web-research`, `rea`, `radar-ia`, `agy-image-babysitter`, `local-dubbing` |
+| `juninmd@skills` | **Complete Bundle** | All 43 skills |
+| `juninmd-core@skills` | **Core Lifecycle & Quality** | `starting-dev`, `finishing-dev`, `homologate`, `git-workflow`, `git-branch-cleanup`, `requirements-planning`, `code-review`, `test-engineering`, `documentation`, `readme-standard` |
+| `juninmd-web@skills` | **Frontend & Mobile** | `frontend-engineering`, `motion-design`, `mobile-engineering`, `ios-engineering`, `stack-selection`, `motion-video`, `threejs`, `3d-models` |
+| `juninmd-backend@skills` | **Backend, Data & Architecture** | `backend-systems`, `compiled-backends`, `data-engineering`, `software-architecture`, `package-management`, `tooling-dev`, `portkill`, `bot-engineering`, `goldsrc-modding` |
+| `juninmd-devops@skills` | **Cloud, DevOps & Security** | `cloud-devops`, `observability`, `performance-engineering`, `vitals-and-cost`, `security-ops`, `release-autoupdate` |
+| `juninmd-ai@skills` | **AI Agents & Ecosystem** | `agent-engineering`, `agent-orchestration`, `skill-authoring`, `web-research`, `rea`, `radar-ia`, `peer-benchmark`, `x-post-reading`, `agy-image-babysitter`, `local-dubbing` |
 
 ```bash
 claude plugin marketplace add juninmd/skills            # or a local checkout path
@@ -316,10 +316,11 @@ domain that owns what comes next. You keep writing prose.
 | `bot-engineering` | dedupe/seen-state, rate-limit backoff, keyless endpoints, CronJob scheduling, Telegram/Discord/WhatsApp delivery, and optional LLM steps |
 | `cloud-devops` | GitHub Actions, Dockerfiles, Terraform, Helm, canary and feature flag rollouts, manual GHCR rollout, deployment sync drift, and safe bash/PowerShell |
 | `code-review` | adversarial review, sibling bug variants, legacy code recovery, characterization tests, simplifying working code, and deleting proven dead code |
+| `compiled-backends` | ownership and borrowing, Result errors, clippy, goroutine leaks and data races, gofmt and go vet, ASP.NET, EF Core, CancellationToken, xUnit |
 | `data-engineering` | PostgreSQL, MySQL, Redis, schema migrations, zero-downtime DDL, query plans, indexes, backups and point-in-time restore, pandas profiling, and aggregation |
 | `documentation` | docs verification, runbooks, ADRs, guides, Mermaid diagrams as code, ASCII and terminal figures, code snippet images, PDF/DOCX generation, and OpenAPI reference |
 | `finishing-dev` | PR delivery, descriptions, acceptance evidence, homologação, 'homologue' (prove it on the real target), and return to the default branch with or without pipeline monitoring |
-| `frontend-engineering` | React, Next.js, Vite, Tailwind, WCAG, i18n and RTL, visual hierarchy, color palettes, anti-slop styling, animation, easing, motion, UI states, and masonry |
+| `frontend-engineering` | React, Next.js, Vite, Tailwind, WCAG, i18n and RTL, visual hierarchy, color palettes, anti-slop styling, UI states, and masonry |
 | `git-branch-cleanup` | bulk branch cleanup, repository housekeeping, removing stale branches after PR merges, and cleaning gone tracking branches |
 | `git-workflow` | branches, worktrees, rebase conflicts, reflog recovery, stash, bisect, conventional commits, semantic version bumps, changelogs, and release tags |
 | `goldsrc-modding` | Valve 220 .map geometry, ZHLT/VHLT compiles, BSP30 lumps, CS 1.6 entities, and Pawn (.sma/.amxx) natives, forwards, precache, and crash forensics |
@@ -327,6 +328,7 @@ domain that owns what comes next. You keep writing prose.
 | `ios-engineering` | Swift optionals, concurrency and memory, SwiftUI views, UIKit and Auto Layout, Metal shaders, WidgetKit, iOS permissions and system integration, and App Store readiness |
 | `local-dubbing` | reference audio, dialogue translation, distinct character voices, pronunciation, and original-versus-synthetic comparison |
 | `mobile-engineering` | React Native, Expo, Flutter, and native Android UI, lifecycle, navigation, permissions, offline behavior, accessibility, localization, device integration, tests, and builds |
+| `motion-design` | easing and duration budgets, springs, enter/exit and layout animation, gestures and sheets, reduced motion, jank and compositor-only properties, motion audits |
 | `motion-video` | reels, shorts, product-news and kinetic-typography videos, 'a video like this reel', adding music to a render |
 | `observability` | root-cause debugging, logging, tracing, alerting, SLOs and error budgets, postmortems, network failures, on-call, product event tracking, A/B experiments, and watch-logs-and-fix loops |
 | `package-management` | pnpm workspaces, catalogs, overrides, patches, peer deps; uv, pyproject.toml, PEP 723, Ruff, prek/pre-commit, Dependabot PRs, dependency cooldown configuration, lockfile hygiene, and CI caching |
@@ -364,7 +366,9 @@ Skills in this repository are organized into six engineering pillars, each desig
 
 #### 2. Fullstack & Systems Engineering
 - [`backend-systems`](.agents/skills/backend-systems/SKILL.md): Designs robust APIs, NestJS modules, FastAPI routes, OpenAPI contracts, and cache invalidation strategies without N+1 queries.
+- [`compiled-backends`](.agents/skills/compiled-backends/SKILL.md): Maintains Go, Rust, and .NET services: gofmt, clippy and analyzer gates, race detection, cancellation, and resource lifetimes.
 - [`frontend-engineering`](.agents/skills/frontend-engineering/SKILL.md): Crafts modern web user interfaces in React, Next.js, and Tailwind with complete state handling (loading, empty, error) and strict WCAG accessibility.
+- [`motion-design`](.agents/skills/motion-design/SKILL.md): Designs, audits, and tunes web UI motion: duration budgets, springs, gestures, compositor-only animation, and reduced-motion paths.
 - [`data-engineering`](.agents/skills/data-engineering/SKILL.md): Manages PostgreSQL and MySQL schemas, zero-downtime DDL, reversible migrations, query optimization, and point-in-time recovery.
 - [`mobile-engineering`](.agents/skills/mobile-engineering/SKILL.md): Builds cross-platform applications in React Native, Expo, and Flutter with deep lifecycle and offline support.
 - [`ios-engineering`](.agents/skills/ios-engineering/SKILL.md): Implements native Swift, SwiftUI, UIKit, Metal, and WidgetKit apps matching Apple's Human Interface Guidelines.
@@ -374,6 +378,7 @@ Skills in this repository are organized into six engineering pillars, each desig
 #### 3. Quality Assurance, Performance & Observability
 - [`test-engineering`](.agents/skills/test-engineering/SKILL.md): Mandates reproducing bugs before touching code, quarantines flaky tests, and asserts business invariants across Vitest, pytest, and Playwright.
 - [`performance-engineering`](.agents/skills/performance-engineering/SKILL.md): Diagnoses latency bottlenecks, memory leaks, and Core Web Vitals using open-loop load testing and rigorous before/after budgets.
+- [`vitals-and-cost`](.agents/skills/vitals-and-cost/SKILL.md): Fixes field-measured Core Web Vitals and attributes and cuts cloud or token spend per unit.
 - [`observability`](.agents/skills/observability/SKILL.md): Instruments applications with OpenTelemetry semantic conventions, tail-sampled traces, metrics, alerts, and SLO error budgets.
 - [`documentation`](.agents/skills/documentation/SKILL.md): Produces clear Diátaxis-structured technical documentation, verified diagrams, and OpenAPI contracts.
 
@@ -381,7 +386,10 @@ Skills in this repository are organized into six engineering pillars, each desig
 - [`code-review`](.agents/skills/code-review/SKILL.md): Acts as an adversary on every diff, hunting boundary errors, regressions, and dead code using structured severity rankings (Blocker, Major, Minor, Nit).
 - [`security-ops`](.agents/skills/security-ops/SKILL.md): Audits trust boundaries, validates inputs, eliminates secret leaks, and enforces OWASP Top 10 security standards.
 - [`finishing-dev`](.agents/skills/finishing-dev/SKILL.md): Validates full test suites, gathers screenshots and payload evidence, and opens comprehensive pull requests.
+- [`readme-standard`](.agents/skills/readme-standard/SKILL.md): Creates or audits a README to one standard: hero image, badges, screenshots, fixed section order.
+- [`homologate`](.agents/skills/homologate/SKILL.md): Proves a change on its real running target with evidence from the receiving end.
 - [`git-workflow`](.agents/skills/git-workflow/SKILL.md): Operates advanced Git workflows: branch isolation, worktrees, bisect, reflog recovery, and signed conventional commits.
+- [`git-branch-cleanup`](.agents/skills/git-branch-cleanup/SKILL.md): Safely prunes merged and squash-merged branches locally and on GitHub.
 - [`cloud-devops`](.agents/skills/cloud-devops/SKILL.md): Configures hardened GitHub Actions, Dockerfiles, Kubernetes manifests, and Terraform IaC with explicit rollback plans.
 - [`release-autoupdate`](.agents/skills/release-autoupdate/SKILL.md): Automates multi-platform desktop/CLI releases with minisign artifact signing and in-app updater manifests.
 
@@ -391,12 +399,17 @@ Skills in this repository are organized into six engineering pillars, each desig
 - [`skill-authoring`](.agents/skills/skill-authoring/SKILL.md): Authors, splits, and tunes agent skills with progressive-disclosure references and offline lexical evaluation benchmarks.
 - [`agy-image-babysitter`](.agents/skills/agy-image-babysitter/SKILL.md): Maintains headless CLI agent execution across authentication token expirations and API rate limits.
 - [`radar-ia`](.agents/skills/radar-ia/SKILL.md): Sweeps trending AI engineering releases, research papers, and tool changelogs into curated digests.
+- [`x-post-reading`](.agents/skills/x-post-reading/SKILL.md): Reads public X posts, profiles, and threads without an account or API key.
+- [`peer-benchmark`](.agents/skills/peer-benchmark/SKILL.md): Runs gap reviews and prior-art sweeps against peer skill repositories.
 
 #### 6. Specialized Systems & Creative Automation
 - [`3d-models`](.agents/skills/3d-models/SKILL.md): Prepares, cleans, and converts VRM avatars, Blender assets, and blendshapes.
 - [`threejs`](.agents/skills/threejs/SKILL.md): Builds interactive WebGL/WebGPU 3D model viewers and GPU-optimized scenes.
 - [`motion-video`](.agents/skills/motion-video/SKILL.md): Generates programmatic motion-graphics videos via frame-by-frame HTML/CSS rendering.
 - [`bot-engineering`](.agents/skills/bot-engineering/SKILL.md): Builds reliable scheduled scrapers, monitors, and Telegram/Discord notification bots with backoff and deduplication.
+- [`local-dubbing`](.agents/skills/local-dubbing/SKILL.md): Generates local AI dubbing and actor voice clones with Qwen3-TTS.
+- [`rea`](.agents/skills/rea/SKILL.md): Reverse engineers binaries, Electron apps, and .NET assemblies with the REA toolchain.
+- [`portkill`](.agents/skills/portkill/SKILL.md): Finds and frees TCP ports held by processes on Windows, macOS, and Linux.
 - [`goldsrc-modding`](.agents/skills/goldsrc-modding/SKILL.md): Compiles Valve 220 maps, BSP lumps, and AMX Mod X Pawn plugins.
 
 ### Anatomy of a skill (The House Contract)

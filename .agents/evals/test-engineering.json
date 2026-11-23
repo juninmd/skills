@@ -17,6 +17,10 @@
       {
         "prompt": "Eliminate flaky test suite failures caused by execution order dependence and unpinned timers",
         "top_k": 3
+      },
+      {
+        "prompt": "Capture UI screenshots with an ephemeral Playwright run and a temporary dev server",
+        "top_k": 3
       }
     ],
     "negative": [
