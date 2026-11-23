@@ -1,7 +1,7 @@
 ---
 name: performance-engineering
 description: |
-  Hub making code faster, leaner, cheaper; routes each language and symptom to profilers, benchmarks, fixes. Use for Rust, Node, Bun, TS, WebAssembly profiling, size, deep source sweeps, k6 load tests, N+1, memory leaks, idle CPU, LCP/INP, benchmark noise, cloud or token spend. Trigger on 'this is slow', 'speed up this project', 'profile this Rust app', 'load test this'.
+  Hub making code faster; routes each language and symptom to profilers, benchmarks, fixes. Use for Rust, Node, Bun, TS, WebAssembly profiling, size, deep source sweeps, k6 load tests, N+1, memory leaks, idle CPU, benchmark noise. Not web vitals or spend (vitals-and-cost). Trigger on 'this is slow', 'speed up this project', 'profile this Rust app', 'load test this'.
 ---
 
 # Performance Engineering
@@ -46,10 +46,10 @@ Write the target before any change: metric, percentile (p50/p95/p99, RPS, RSS, b
 | Python | `py-spy record`, `tracemalloc` | hyperfine, pytest-benchmark | vectorize, processes for CPU, async I/O | [profiling-playbook](references/profiling-playbook.md) |
 | Go, JVM | `pprof`, async-profiler | `go test -bench`, JMH | allocation, lock contention | [profiling-playbook](references/profiling-playbook.md) |
 | Wasm | `twiggy top`, CDP profile | native bench of the same code | embedded assets, `wasm-opt`, batch across the JS boundary | [runtime-profiling](references/runtime-profiling.md) |
-| Browser | Lighthouse, field data, Performance panel | LCP/INP/CLS at p75 | images, JS weight, long tasks | [web-performance](references/web-performance.md), [vitals](references/vitals-and-field-data.md) |
+| Browser vitals | hand off | `vitals-and-cost` | LCP/INP/CLS at p75 | `vitals-and-cost` |
 | SQL | `EXPLAIN (ANALYZE, BUFFERS)`, `pg_stat_statements` | query count per request | N+1, indexes, pool sizing | [optimization-patterns](references/optimization-patterns.md) |
 | Desktop, disk-bound | wakeups/s hidden, user/sys split | hyperfine | idle loops, sync IPC, passes per byte | [desktop-idle](references/desktop-idle.md), [io-bound](references/io-bound-and-desktop.md) |
-| Cloud, LLM tokens | cost per request, throttling | bill attribution | rightsizing, caching prompts | [cost-engineering](references/cost-engineering.md) |
+| Cloud, LLM tokens | hand off | `vitals-and-cost` | cost per unit | `vitals-and-cost` |
 
 Tool-by-tool choices with measured results (samply vs callgrind, mimalloc, cargo-pgo, Clinic, tsgo, SWC vs esbuild): [tool-catalog](references/tool-catalog.md).
 
@@ -103,7 +103,7 @@ you checked and found fine.
 - Reject micro-optimizations that complicate code without moving the user metric.
 - Structure (chatty I/O across a boundary, needless sync, a fan-out that should be one call) goes to `software-architecture`, production alerting to `observability`, frontend code to `frontend-engineering`, cache design to `backend-systems`, and benchmark gates in CI to `test-engineering`.
 - A cache is the wrong fix for avoidable work: fix the access pattern first.
-- Rightsizing trades cost against latency risk. Name the trade before resizing ([cost-engineering](references/cost-engineering.md)).
+- Web vitals, cost and rightsizing go to `vitals-and-cost`.
 - Load tests never hit production without explicit approval. Test with production-sized data.
 - A new dependency (allocator, native addon) needs a CVE, license, and maintenance check before it ships.
 

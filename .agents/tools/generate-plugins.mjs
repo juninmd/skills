@@ -33,6 +33,7 @@ export const PLUGIN_CONTEXTS = {
     keywords: ["frontend", "react", "nextjs", "mobile", "ios", "swift", "animation", "threejs"],
     skills: [
       "frontend-engineering",
+      "motion-design",
       "mobile-engineering",
       "ios-engineering",
       "stack-selection",
@@ -48,6 +49,7 @@ export const PLUGIN_CONTEXTS = {
     keywords: ["backend", "api", "database", "sql", "architecture", "packages", "cli"],
     skills: [
       "backend-systems",
+      "compiled-backends",
       "data-engineering",
       "software-architecture",
       "package-management",
@@ -66,6 +68,7 @@ export const PLUGIN_CONTEXTS = {
       "cloud-devops",
       "observability",
       "performance-engineering",
+      "vitals-and-cost",
       "security-ops",
       "release-autoupdate",
     ],

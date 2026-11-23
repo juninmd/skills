@@ -13,10 +13,11 @@ The catalog contains 37 domain skills. They are intentionally broader than singl
 | `bot-engineering` | dedupe/seen-state, rate-limit backoff, keyless endpoints, CronJob scheduling, Telegram/Discord/WhatsApp delivery, and optional LLM steps |
 | `cloud-devops` | GitHub Actions, Dockerfiles, Terraform, Helm, canary and feature flag rollouts, manual GHCR rollout, deployment sync drift, and safe bash/PowerShell |
 | `code-review` | adversarial review, sibling bug variants, legacy code recovery, characterization tests, simplifying working code, and deleting proven dead code |
+| `compiled-backends` | ownership and borrowing, Result errors, clippy, goroutine leaks and data races, gofmt and go vet, ASP.NET, EF Core, CancellationToken, xUnit |
 | `data-engineering` | PostgreSQL, MySQL, Redis, schema migrations, zero-downtime DDL, query plans, indexes, backups and point-in-time restore, pandas profiling, and aggregation |
 | `documentation` | docs verification, runbooks, ADRs, guides, Mermaid diagrams as code, ASCII and terminal figures, code snippet images, PDF/DOCX generation, and OpenAPI reference |
 | `finishing-dev` | PR delivery, descriptions, acceptance evidence, homologação, 'homologue' (prove it on the real target), and return to the default branch with or without pipeline monitoring |
-| `frontend-engineering` | React, Next.js, Vite, Tailwind, WCAG, i18n and RTL, visual hierarchy, color palettes, anti-slop styling, animation, easing, motion, UI states, and masonry |
+| `frontend-engineering` | React, Next.js, Vite, Tailwind, WCAG, i18n and RTL, visual hierarchy, color palettes, anti-slop styling, UI states, and masonry |
 | `git-branch-cleanup` | bulk branch cleanup, repository housekeeping, removing stale branches after PR merges, and cleaning gone tracking branches |
 | `git-workflow` | branches, worktrees, rebase conflicts, reflog recovery, stash, bisect, conventional commits, semantic version bumps, changelogs, and release tags |
 | `goldsrc-modding` | Valve 220 .map geometry, ZHLT/VHLT compiles, BSP30 lumps, CS 1.6 entities, and Pawn (.sma/.amxx) natives, forwards, precache, and crash forensics |
@@ -24,11 +25,12 @@ The catalog contains 37 domain skills. They are intentionally broader than singl
 | `ios-engineering` | Swift optionals, concurrency and memory, SwiftUI views, UIKit and Auto Layout, Metal shaders, WidgetKit, iOS permissions and system integration, and App Store readiness |
 | `local-dubbing` | reference audio, dialogue translation, distinct character voices, pronunciation, and original-versus-synthetic comparison |
 | `mobile-engineering` | React Native, Expo, Flutter, and native Android UI, lifecycle, navigation, permissions, offline behavior, accessibility, localization, device integration, tests, and builds |
+| `motion-design` | easing and duration budgets, springs, enter/exit and layout animation, gestures and sheets, reduced motion, jank and compositor-only properties, motion audits |
 | `motion-video` | reels, shorts, product-news and kinetic-typography videos, 'a video like this reel', adding music to a render |
 | `observability` | root-cause debugging, logging, tracing, alerting, SLOs and error budgets, postmortems, network failures, on-call, product event tracking, A/B experiments, and watch-logs-and-fix loops |
 | `package-management` | pnpm workspaces, catalogs, overrides, patches, peer deps; uv, pyproject.toml, PEP 723, Ruff, prek/pre-commit, Dependabot PRs, dependency cooldown configuration, lockfile hygiene, and CI caching |
 | `peer-benchmark` | gap reviews and prior-art sweeps |
-| `performance-engineering` | Rust, Node, Bun, TS, WebAssembly profiling, size, deep source sweeps, k6 load tests, N+1, memory leaks, idle CPU, LCP/INP, benchmark noise, cloud or token spend |
+| `performance-engineering` | Rust, Node, Bun, TS, WebAssembly profiling, size, deep source sweeps, k6 load tests, N+1, memory leaks, idle CPU, benchmark noise. Not web vitals or spend (vitals-and-cost) |
 | `portkill` | EADDRINUSE errors, dev-server port conflicts, and killing the listener on a given port on Windows, macOS, or Linux |
 | `radar-ia` | the daily AI radar and best-posts digests; not for one-paper research or debugging |
 | `rea` | rea-agents setup and MCP readiness, native binary decompilation and xrefs, JavaScript/Electron ASAR and IPC analysis, .NET assemblies, and browser observations with evidence |
@@ -43,6 +45,7 @@ The catalog contains 37 domain skills. They are intentionally broader than singl
 | `test-engineering` | test-first TDD before implementing a feature or bugfix, unit and integration tests, Vitest, pytest, Playwright E2E, flaky test elimination, LLM gateway conformance, and coverage |
 | `threejs` | GLTF/GLB model viewers, cameras, lighting, raycasting, shaders, animation, WebGL/WebGPU rendering, asset loading, scene performance, and GPU resource cleanup |
 | `tooling-dev` | CLI arguments, exit codes, non-interactive execution, config discovery, signals, structured output, packaging, and integration tests |
+| `vitals-and-cost` | Core Web Vitals (LCP, INP, CLS) at p75, Lighthouse, RUM and field data, TTFB, spend attribution per tenant or job, idle-resource sweeps, rightsizing, prompt caching |
 | `web-research` | multi-source search, HTML tables, library versions and breaking changes before upgrade, video soundtrack/media identification, changelogs, and citations |
 | `x-post-reading` | a post URL or id, a profile's latest posts, engagement counts, quoted posts, long-form notes, and reply context |
 <!-- skill-catalog:end -->
