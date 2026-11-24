@@ -2,6 +2,13 @@
   "version": "0.2",
   "language": "en",
   "words": [
+    "sccache",
+    "cachelog",
+    "gocache",
+    "buildx",
+    "xfail",
+    "flakebound",
+    "joggernaut",
     "wakeups",
     "pidstat",
     "idlew",

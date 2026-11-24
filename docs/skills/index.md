@@ -11,6 +11,7 @@ The catalog contains 37 domain skills. They are intentionally broader than singl
 | `agy-image-babysitter` | Keep an agy (Antigravity CLI) conversation generating images unattended: relaunch the headless loop 90s after a 401 token expiry and sleep until quotaResetTimeStamp after a 429 |
 | `backend-systems` | NestJS modules, DI, DTO validation, FastAPI, REST/GraphQL OpenAPI contracts, endpoints and controllers, async concurrency, and cache invalidation |
 | `bot-engineering` | dedupe/seen-state, rate-limit backoff, keyless endpoints, CronJob scheduling, Telegram/Discord/WhatsApp delivery, and optional LLM steps |
+| `ci-speed` | slow CI waits, cold or missing caches, repeated setup, slow or flaky tests, wasted CI rounds from repeated pushes |
 | `cloud-devops` | GitHub Actions, Dockerfiles, Terraform, Helm, canary and feature flag rollouts, manual GHCR rollout, deployment sync drift, and safe bash/PowerShell |
 | `code-review` | adversarial review, sibling bug variants, legacy code recovery, characterization tests, simplifying working code, and deleting proven dead code |
 | `compiled-backends` | ownership and borrowing, Result errors, clippy, goroutine leaks and data races, gofmt and go vet, ASP.NET, EF Core, CancellationToken, xUnit |

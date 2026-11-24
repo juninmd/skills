@@ -68,6 +68,7 @@ export const PLUGIN_CONTEXTS = {
       "cloud-devops",
       "observability",
       "performance-engineering",
+      "ci-speed",
       "vitals-and-cost",
       "security-ops",
       "release-autoupdate",
