@@ -9,7 +9,7 @@
 [![Agent Skills Spec](https://img.shields.io/badge/spec-Agent_Skills-black.svg)](https://agentskills.io)
 [![MCP Standard](https://img.shields.io/badge/MCP-standard-10b981.svg)](https://modelcontextprotocol.io)
 
-**43 skills · enterprise operating instructions**
+**44 skills · enterprise operating instructions**
 
 *Production engineering workflows for AI coding assistants: discover intent, execute surgical changes, and prove with reproducible evidence.*
 
@@ -21,7 +21,7 @@
 git clone https://github.com/juninmd/skills && cd skills && node .agents/tools/install.mjs --dry-run all   # preview, then drop --dry-run
 ```
 
-<img src="./docs/public/images/hero.gif" alt="Animated demo: a request is routed to the right skill, runs preflight, reproduce, patch and verify steps, then shows 43 skills, 204 of 204 routing prompts correct, 100 tokens per skill and 140 validator tests" width="100%" />
+<img src="./docs/public/images/hero.gif" alt="Animated demo: a request is routed to the right skill, runs preflight, reproduce, patch and verify steps, then shows 44 skills, 204 of 204 routing prompts correct, 100 tokens per skill and 140 validator tests" width="100%" />
 
 </div>
 
@@ -138,11 +138,11 @@ Install either the full bundle or only the domains you need from the [`.claude-p
 
 | Plugin | Context & Scope | Included Skills |
 |---|---|---|
-| `juninmd@skills` | **Complete Bundle** | All 43 skills |
+| `juninmd@skills` | **Complete Bundle** | All 44 skills |
 | `juninmd-core@skills` | **Core Lifecycle & Quality** | `starting-dev`, `finishing-dev`, `homologate`, `git-workflow`, `git-branch-cleanup`, `requirements-planning`, `code-review`, `test-engineering`, `documentation`, `readme-standard` |
 | `juninmd-web@skills` | **Frontend & Mobile** | `frontend-engineering`, `motion-design`, `mobile-engineering`, `ios-engineering`, `stack-selection`, `motion-video`, `threejs`, `3d-models` |
 | `juninmd-backend@skills` | **Backend, Data & Architecture** | `backend-systems`, `compiled-backends`, `data-engineering`, `software-architecture`, `package-management`, `tooling-dev`, `portkill`, `bot-engineering`, `goldsrc-modding` |
-| `juninmd-devops@skills` | **Cloud, DevOps & Security** | `cloud-devops`, `observability`, `performance-engineering`, `vitals-and-cost`, `security-ops`, `release-autoupdate` |
+| `juninmd-devops@skills` | **Cloud, DevOps & Security** | `cloud-devops`, `observability`, `performance-engineering`, `ci-speed`, `vitals-and-cost`, `security-ops`, `release-autoupdate` |
 | `juninmd-ai@skills` | **AI Agents & Ecosystem** | `agent-engineering`, `agent-orchestration`, `skill-authoring`, `web-research`, `rea`, `radar-ia`, `peer-benchmark`, `x-post-reading`, `agy-image-babysitter`, `local-dubbing` |
 
 ```bash
@@ -314,6 +314,7 @@ domain that owns what comes next. You keep writing prose.
 | `agy-image-babysitter` | Keep an agy (Antigravity CLI) conversation generating images unattended: relaunch the headless loop 90s after a 401 token expiry and sleep until quotaResetTimeStamp after a 429 |
 | `backend-systems` | NestJS modules, DI, DTO validation, FastAPI, REST/GraphQL OpenAPI contracts, endpoints and controllers, async concurrency, and cache invalidation |
 | `bot-engineering` | dedupe/seen-state, rate-limit backoff, keyless endpoints, CronJob scheduling, Telegram/Discord/WhatsApp delivery, and optional LLM steps |
+| `ci-speed` | slow CI waits, cold or missing caches, repeated setup, slow or flaky tests, wasted CI rounds from repeated pushes |
 | `cloud-devops` | GitHub Actions, Dockerfiles, Terraform, Helm, canary and feature flag rollouts, manual GHCR rollout, deployment sync drift, and safe bash/PowerShell |
 | `code-review` | adversarial review, sibling bug variants, legacy code recovery, characterization tests, simplifying working code, and deleting proven dead code |
 | `compiled-backends` | ownership and borrowing, Result errors, clippy, goroutine leaks and data races, gofmt and go vet, ASP.NET, EF Core, CancellationToken, xUnit |
@@ -379,6 +380,7 @@ Skills in this repository are organized into six engineering pillars, each desig
 - [`test-engineering`](.agents/skills/test-engineering/SKILL.md): Mandates reproducing bugs before touching code, quarantines flaky tests, and asserts business invariants across Vitest, pytest, and Playwright.
 - [`performance-engineering`](.agents/skills/performance-engineering/SKILL.md): Diagnoses latency bottlenecks, memory leaks, and Core Web Vitals using open-loop load testing and rigorous before/after budgets.
 - [`vitals-and-cost`](.agents/skills/vitals-and-cost/SKILL.md): Fixes field-measured Core Web Vitals and attributes and cuts cloud or token spend per unit.
+- [`ci-speed`](.agents/skills/ci-speed/SKILL.md): Speeds up GitHub Actions CI from its own run history, with an exact before/after verdict and a by-name check that no test was lost (TypeScript script, Node 22.18+).
 - [`observability`](.agents/skills/observability/SKILL.md): Instruments applications with OpenTelemetry semantic conventions, tail-sampled traces, metrics, alerts, and SLO error budgets.
 - [`documentation`](.agents/skills/documentation/SKILL.md): Produces clear Diátaxis-structured technical documentation, verified diagrams, and OpenAPI contracts.
 

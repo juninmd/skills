@@ -1,0 +1,37 @@
+{
+  "skill_name": "ci-speed",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "The CI wait is too slow, find where the time goes from the measured run history",
+        "top_k": 3
+      },
+      {
+        "prompt": "Prove that this CI change made it faster, comparing measured runs before and after",
+        "top_k": 3
+      },
+      {
+        "prompt": "The dependency cache never hits and logs Cache not found on every pull request run",
+        "top_k": 3
+      },
+      {
+        "prompt": "A job fails then passes on rerun of the same commit, find the flaky tests from CI history",
+        "top_k": 3
+      },
+      {
+        "prompt": "Agents keep pushing repeated commits to find lint errors, cut the wasted CI rounds",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Write a GitHub Actions workflow that builds and deploys the container image",
+        "owner": "cloud-devops"
+      },
+      {
+        "prompt": "Profile the Bun server CPU and rank the slowest functions",
+        "owner": "performance-engineering"
+      }
+    ]
+  }
+}
