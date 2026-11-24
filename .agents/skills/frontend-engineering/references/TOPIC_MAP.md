@@ -11,6 +11,7 @@ Read only the files needed for the current task.
 | `frontend-design.md` | Setting the visual system before writing markup: type scale, spacing rhythm, color/radius/elevation/motion as concrete numbers, translated into CSS custom properties |
 | `frontend-optimization.md` | Writing a Server Action, or code that is slow or heavy: prioritized wrong/right rules for action auth, request waterfalls, barrel and dynamic imports, boundary serialization, derived state and memoization |
 | `frontend-review.md` | Auditing UI code before merge: the a11y/layout/responsiveness checklist, severity levels (Blocker/Major/Minor/Nit), and the file:line review output format |
+| `hero-and-type-discipline.md` | Composing a first screen or auditing type and chrome: opening screen by page format, hero directions, 2-family and 3-size type limits, one-CTA and no nested-card rules, desktop plus 390x844 rendered critique |
 | `masonry-layouts.md` | Choosing between CSS multi-column, a JS masonry library, or native `grid-template-rows: masonry` — decided by whether visual order must match DOM order |
 | `mobile-web-polish.md` | Eliminating mobile web browser defects: `100dvh` viewport units, sticky hover elimination, safe area insets, 16px input zoom prevention, and tap highlight suppression |
 | `modern-web-platform.md` | Which standard to target (WCAG 2.2, Core Web Vitals, DTCG tokens), Baseline adoption policy, and native CSS/HTML alternatives to libraries: `@layer`, container queries, `:has()`, popover, `<dialog>`, anchor positioning, View Transitions, INP tactics |

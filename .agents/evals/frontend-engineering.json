@@ -37,6 +37,10 @@
       {
         "prompt": "Replace JavaScript parent-state toggling with container queries and :has() in our component CSS",
         "top_k": 3
+      },
+      {
+        "prompt": "This web UI hero looks generic: limit font families and body sizes, avoid the split hero, and make the first screen distinctive",
+        "top_k": 3
       }
     ],
     "negative": [
