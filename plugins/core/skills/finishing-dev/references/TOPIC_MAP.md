@@ -10,6 +10,7 @@ Open only the procedure matching the current subtask. These are files, not stand
 | [homologate.md](homologate.md) | Prove a change on its real running target (service, cron, bot, device): same version deployed, real trigger, evidence read at the consumer, verdict Proven / Failed / Unproven |
 | [homologate-evidence-by-target.md](homologate-evidence-by-target.md) | Per-target recipe for homologation: version check, real trigger, and where the proof lives for HTTP services, scheduled jobs, chat bots, UIs, game servers, and data pipelines |
 | [phase-done.md](phase-done.md) | Verify remote CI and report PR readiness without merging or deploying; distinguish a flaky rerun from a genuinely red check |
+| [post-pr-watch.md](post-pr-watch.md) | Keep an open PR moving: fix failing checks, merge-base conflicts, and review comments in bounded cycles; 3-push cap, escalation, never-merge rules, and promoting repeated comments into rules |
 | [phase-finalize.md](phase-finalize.md) | Sustained loop only: record `evidence.md` (reviews, adjudication, fixes, checks, criteria) in the temp workspace before readiness |
 | [review-protocol.md](review-protocol.md) | Delegate two blind independent review lenses, re-review corrected candidates, and scope review when a PR depends on another unmerged PR |
 | [return-to-default.md](return-to-default.md) | Every PR handoff, with or without CI monitoring: safely activate and verify the actual default branch, preserve worktrees, and report blockers |
