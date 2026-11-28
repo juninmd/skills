@@ -78,6 +78,26 @@ Embed in the PR body as:
 
 When upload is unavailable (offline, unauthenticated, non-GitHub remote), state that visual captures are pending attachment via the web interface. Never substitute local file paths or raw branch URLs.
 
+### Capture integrity check
+
+A capture is evidence only after it has been opened and checked:
+
+1. Open the image and confirm it shows the changed surface of this project. A capture from a sibling app, a template, or an earlier migration looks like proof and is worse than a missing one.
+2. Hash every capture produced in the session and compare. Two different surfaces sharing a hash means one file was copied; regenerate the wrong one.
+
+```bash
+sha256sum "$DIR"/*.png
+```
+
+```powershell
+Get-ChildItem $dir -Filter *.png | Get-FileHash -Algorithm SHA256 |
+  ForEach-Object { "{0}  {1}" -f $_.Hash.Substring(0,12), $_.Path }
+```
+
+3. Fetch each final URL and require `200` with an image content type. A link that 404s after merge is not evidence.
+
+A missing or unverified capture blocks the PR. Do not defer captures to a follow-up PR.
+
 ~~~markdown
 ## Evidence
 
